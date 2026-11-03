@@ -1,0 +1,1898 @@
+{
+ "mailbox": "equitas-ixigo-weak",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Credit alert: Equitas Small Finance Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX4417 on 01-09-2025 by SALARY NEFT. Ref 2041987242.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-09-01",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.3,614.96 debited from A/c XX4417 on 03-09-2025 to VPA merchant@paytm (UPI Ref No. 444515342041). Equitas Small Finance Bank\n\nNever share your OTP, PIN, CVV or password with anyone. Equitas Small Finance Bank will never ask for these.",
+   "date": "2025-09-03",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Your account statement for September 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c XXXX XXXX XXXX 4417 for Sep 2025 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2025-09-03",
+   "attachments": [
+    {
+     "filename": "Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas Bank <statements@equitasbank.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 135.18 was spent on your AU Small Finance Bank Credit Card XXXX3076 at UBER INDIA on 06-09-2025.\nNot you? Block instantly on the AU 0101 app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-06",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m005",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.7,061.90 debited from A/c XX4417 on 07-09-2025 to VPA swiggy@ybl (UPI Ref No. 116174601117). Equitas Small Finance Bank\n\nNever share your OTP, PIN, CVV or password with anyone. Equitas Small Finance Bank will never ask for these.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-09-07",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Ixigo AU Credit Card Statement - Sep 2025",
+   "body": "Dear Customer,\nYour Ixigo AU Credit Card xx3076 Statement for the period 13/08/2025 to 12/09/2025 is attached.\nTotal Amount Due: Rs. 8,218.26\nMinimum Amount Due: Rs. 410.91\nPayment Due Date: 30/09/2025\nPay via NetBanking, UPI or auto-debit.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Sep2025.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: HARSH CHOPRA\nCredit Card Number: XXXX XXXX XXXX 3076\nCard Type: Ixigo AU\nStatement Date: 12/09/2025\nStatement Period: 13/08/2025 - 12/09/2025\nPayment Due Date: 30/09/2025\nTotal Amount Due: Rs. 8,218.26\nMinimum Amount Due: Rs. 410.91\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 47,191.00\n\nDate        Transaction Details                        Amount (Rs.)\n04/09/2025  THIRD WAVE COFFEE KOCHI   324.05 Dr\n04/09/2025  REDBUS BANGALORE   1,176.52 Dr\n08/09/2025  IRCTC MUMBAI   411.08 Dr\n23/08/2025  CAFE COFFEE DAY PUNE   1,675.36 Dr\n20/08/2025  GOOGLE PLAY CHENNAI   24,240.74 Dr\n25/08/2025  APOLLO PHARMACY KOCHI   6,903.76 Dr\n17/08/2025  DMART BANGALORE   20,091.02 Dr\n26/08/2025  PVR INOX PUNE   2,043.25 Dr\n31/08/2025  CROMA BANGALORE   853.51 Dr\n03/09/2025  PAYMENT RECEIVED - THANK YOU   4,930.96 Cr\n\nReward Points Summary: Opening 2602  Earned 273  Closing 8604\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m007",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.3,258.89 debited from A/c XX4417 on 16-09-2025 to VPA bigbasket@okhdfcbank (UPI Ref No. 257422690848). Equitas Small Finance Bank\n\nT&C apply. Visit www.equitasbank.com for more details.",
+   "date": "2025-09-16",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.8,218.26 on 24-09-2025 towards your AU Small Finance Bank Credit Card XXXX3076. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-24",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m009",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 8,286.94 was spent on your AU Small Finance Bank Credit Card XXXX3076 at REDBUS on 26-09-2025.\nNot you? Block instantly on the AU 0101 app.\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2025-09-26",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m010",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour Equitas Small Finance Bank Platinum Debit Card XX5906 was used for Rs.500.00 at LICIOUS on 28-Sep-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. Equitas Small Finance Bank will never ask for these.",
+   "date": "2025-09-28",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Credit alert: Equitas Small Finance Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX4417 on 01-10-2025 by SALARY NEFT. Ref 9354196651.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.\nNever share your OTP, PIN, CVV or password with anyone. Equitas Small Finance Bank will never ask for these.",
+   "date": "2025-10-01",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 5,563.37 was spent on your AU Small Finance Bank Credit Card **3076 at INDIGO AIRLINES on 01-10-2025.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2025-10-01",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m013",
+   "subject": "Your account statement for October 2025",
+   "body": "Dear Customer,\nYour e-statment for A/c XXXX XXXX XXXX 4417 for Oct 2025 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2025-10-03",
+   "attachments": [
+    {
+     "filename": "Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas Bank <statements@equitasbank.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.362.27 debited from A/c XX4417 on 10-10-2025 to VPA bigbasket@ybl (UPI Ref No. 391674778760). Equitas Small Finance Bank",
+   "date": "2025-10-10",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.638.95 debited from A/c XX4417 on 10-10-2025 to VPA irctcweb@icici (UPI Ref No. 608873650678). Equitas Small Finance Bank",
+   "date": "2025-10-10",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour Equitas Small Finance Bank Platinum Debit Card XX5906 was used for Rs.2,000.00 at THIRD WAVE COFFEE on 10-Oct-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-10",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.7,500.00 debited from A/c XX4417 on 11-10-2025 to Rajesh Chopra A/c no. XXXXXXXX4847 (State Bank of India), NEFT Ref 906587389736. Equitas Small Finance Bank\n\nNever share your OTP, PIN, CVV or password with anyone. Equitas Small Finance Bank will never ask for these.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-10-11",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.659.42 debited from A/c XX4417 on 12-10-2025 to VPA zomato@icici (UPI Ref No. 460731061410). Equitas Small Finance Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-12",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi&nbsp;Harsh,\nINR&nbsp;8,900.17&nbsp;was spent on your AU Small Finance Bank Credit Card XXXX3076 at BPCL FUEL on 12-10-2025.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2025-10-12",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m020",
+   "subject": "Ixigo AU Credit Card Statement - Oct 2025",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;Ixigo&nbsp;AU Credit Card no. XXXXXXXXXXXX3076 Statement for the period 12/09/2025 to 12/10/2025 is attached.\nTotal Amount Due: Rs. 8,295.11\nMinimum Amount Due: Rs. 414.76\nPayment Due Date: 30/10/2025\nPay via NetBanking, UPI or auto-debit.\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Oct2025.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: HARSH CHOPRA\nCard No: 4554 16XX XXXX 3076\nCard Type: Ixigo AU\nStatement Date: 12/10/2025\nStatement Period: 12/09/2025 - 12/10/2025\nPayment Due Date: 30/10/2025\nTotal Amount Due: Rs. 8,295.11\nMinimum Amount Due: Rs. 414.76\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 85,941.00\n\nDate        Transaction Details                        Amount (Rs.)\n19/09/2025  BLINKIT GURGAON   863.63 Dr\n25/09/2025  DMART GURGAON   1,637.61 Dr\n08/10/2025  APOLLO PHARMACY KOCHI   6,130.62 Dr\n26/09/2025  PVR INOX CHENNAI   2,375.03 Dr\n10/10/2025  STARBUCKS BANGALORE   8,702.71 Dr\n03/10/2025  PAYMENT RECEIVED - THANK YOU   4,977.07 Cr\n\nReward Points Summary: Opening 713  Earned 868  Closing 3221\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m021",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 802.40 was spent on your AU Small Finance Bank Credit Card xx3076 at LENSKART on 14-10-2025.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2025-10-14",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m022",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 5,773.96 was spent on your AU Small Finance Bank Credit Card XXXX3076 at SPOTIFY on 17-10-2025.\nNot you? Block instantly on the AU 0101 app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-17",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m023",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 40,210.77 was spent on your AU Small Finance Bank Credit Card XXXX3076 at DMART on 22-10-2025.\nNot you? Block instantly on the AU 0101 app.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m024",
+   "subject": "Magnus, Atlas and Flipkart Axis Bank cards: lifetime free offers",
+   "body": "Choose from ACE, Magnus, Atlas, Reserve, Airtel Axis Bank cards. Offer reference 7807\nT&C apply.",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "Axis Bank <offers@axisbank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour Equitas Small Finance Bank Platinum Debit Card XX5906 was used for Rs.500.00 at SHELL PETROL on 28-Oct-2025.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-10-28",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Credit alert: Equitas Small Finance Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX4417 on 01-11-2025 by SALARY NEFT. Ref 7514801198.\nThank you for banking with us.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-01",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Your account statement for November 2025",
+   "body": "Dear Customer,<br>\nYour e-statment for A/c XX4417 for Nov 2025 is attached. The PDF is protected; password is your Customer ID.<br>\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-03",
+   "attachments": [
+    {
+     "filename": "Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas Bank <statements@equitasbank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.5,216.43 debited from A/c XX4417 on 08-11-2025 to Divya Kulkarni A/c no. XXXXXXXX3599 (ICICI Bank), NEFT Ref 866388989281. Equitas Small Finance Bank\n\nNever share your OTP, PIN, CVV or password with anyone. Equitas Small Finance Bank will never ask for these.",
+   "date": "2025-11-08",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "Ixigo AU Credit Card Statement - Nov 2025",
+   "body": "Dear Customer,\nYour Ixigo AU Credit Card **3076 Statement for the period 13/10/2025 to 12/11/2025 is attached.\nTotal Amount Due: Rs. 1,29,797.83\nMinimum Amount Due: Rs. 6,489.89\nPayment Due Date: 30/11/2025\nPay via NetBanking, UPI or auto-debit.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: HARSH CHOPRA\nCard No: 4176 15XX XXXX 3076\nCard Type: Ixigo AU\nStatement Date: 12/11/2025\nStatement Period: 13/10/2025 - 12/11/2025\nPayment Due Date: 30/11/2025\nTotal Amount Due: Rs. 1,29,797.83\nMinimum Amount Due: Rs. 6,489.89\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 40,552.00\n\nDate        Transaction Details                        Amount (Rs.)\n08/11/2025  HOTSTAR KOCHI   12,396.80 Dr\n26/10/2025  LENSKART PUNE   20,550.62 Dr\n23/10/2025  BPCL FUEL KOCHI   9,734.89 Dr\n06/11/2025  BLINKIT MUMBAI   38,338.23 Dr\n21/10/2025  UBER INDIA BANGALORE   433.56 Dr\n07/11/2025  WESTSIDE KOCHI   1,044.27 Dr\n28/10/2025  IRCTC KOCHI   8,018.50 Dr\n23/10/2025  APOLLO PHARMACY PUNE   4,653.12 Dr\n17/10/2025  INDIGO AIRLINES BANGALORE   33,061.64 Dr\n03/11/2025  PAYMENT RECEIVED - THANK YOU   77,878.70 Cr\n\nReward Points Summary: Opening 4305  Earned 380  Closing 5220\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m030",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.222.05 debited from A/c XX4417 on 14-11-2025 to VPA zomato@okaxis (UPI Ref No. 824059500197). Equitas Small Finance Bank\n\nT&C apply. Visit www.equitasbank.com for more details.",
+   "date": "2025-11-14",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 27,245.50 was spent on your AU Small Finance Bank Credit Card XXXX3076 at BIGBASKET on 16-11-2025.\nNot you? Block instantly on the AU 0101 app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-16",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m032",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.3,240.48 debited from A/c XX4417 on 17-11-2025 to VPA bigbasket@paytm (UPI Ref No. 187365010118). Equitas Small Finance Bank\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-17",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.2,209.31 debited from A/c XX4417 on 18-11-2025 to VPA zomato@ybl (UPI Ref No. 661705336460). Equitas Small Finance Bank\n\nNever share your OTP, PIN, CVV or password with anyone. Equitas Small Finance Bank will never ask for these.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi&nbsp;Harsh,\nINR&nbsp;3,168.00&nbsp;was spent on your AU Small Finance Bank Credit Card XXXX XXXX XXXX 3076 at REDBUS on 18-11-2025.\nNot you? Block instantly on the AU 0101 app.\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m035",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.2,692.27 debited from A/c XX4417 on 20-11-2025 to VPA swiggy@okaxis (UPI Ref No. 400301667460). Equitas Small Finance Bank\n\nT&C apply. Visit www.equitasbank.com for more details.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-11-20",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.845.01 debited from A/c XX4417 on 23-11-2025 to VPA merchant@okaxis (UPI Ref No. 401653560320). Equitas Small Finance Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-11-23",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 32,598.16 was spent on your AU Small Finance Bank Credit Card XXXX3076 at GOOGLE PLAY on 24-11-2025.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2025-11-24",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m038",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;received your payment of Rs.1,29,797.83 on 24-11-2025 towards your AU Small Finance Bank Credit Card XXXX3076. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2025-11-24",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m039",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour Equitas Small Finance Bank Platinum Debit Card xx5906 was used for Rs.19,003.92 at JIO PREPAID on 25-Nov-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Payment reminder: AU Small Finance Bank Credit Card no. XXXXXXXXXXXX3076",
+   "body": "Dear Customer,\nThis is a reminder that Rs.1,29,797.83 (minimum Rs.6,489.89) is due on 30-Nov-2025 on your AU Small Finance Bank Credit Card no. XXXXXXXXXXXX3076. Pay on time to avoid late payment charges.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m041",
+   "subject": "Credit alert: Equitas Small Finance Bank",
+   "body": "Dear Customer,<br>\nINR 72,500.00 credited to your A/c XX4417 on 01-12-2025 by SALARY NEFT. Ref 8819334631.<br>\nThank you for banking with us.",
+   "date": "2025-12-01",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Your account statement for December 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c XX4417 for Dec 2025 is attached. The PDF is protected; password is your Customer ID.\n\nT&C apply. Visit www.equitasbank.com for more details.",
+   "date": "2025-12-03",
+   "attachments": [
+    {
+     "filename": "Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas Bank <statements@equitasbank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.771.85 debited from A/c XX4417 on 05-12-2025 to VPA q676903756@ybl (UPI Ref No. 788669326653). Equitas Small Finance Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.3,375.21 debited from A/c XX4417 on 05-12-2025 to Karthik Menon A/c no. XXXXXXXX1765 (State Bank of India), NEFT Ref 262201471158. Equitas Small Finance Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 13,861.57 was spent on your AU Small Finance Bank Credit Card XXXX3076 at LICIOUS on 07-12-2025.\nNot you? Block instantly on the AU 0101 app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-07",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m046",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.2,089.08 debited from A/c XX4417 on 08-12-2025 to VPA bigbasket@icici (UPI Ref No. 970758593323). Equitas Small Finance Bank\n\nT&C apply. Visit www.equitasbank.com for more details.",
+   "date": "2025-12-08",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour Equitas Small Finance Bank Platinum Debit Card XX5906 was used for Rs.2,393.96 at MAKEMYTRIP on 09-Dec-2025.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-09",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Ixigo AU Credit Card Statement - Dec 2025",
+   "body": "Dear Customer,\nYour Ixigo AU Credit Card **3076 Statement for the period 12/11/2025 to 12/12/2025 is attached.\nTotal Amount Due: Rs. 1,718.69\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/12/2025\nPay via NetBanking, UPI or auto-debit.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Dec2025.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: HARSH CHOPRA\nCard No: 4238 75XX XXXX 3076\nCard Type: Ixigo AU\nStatement Date: 12/12/2025\nStatement Period: 12/11/2025 - 12/12/2025\nPayment Due Date: 30/12/2025\nTotal Amount Due: Rs. 1,718.69\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 98,024.00\n\nDate        Transaction Details                        Amount (Rs.)\n01/12/2025  PVR INOX GURGAON   5,761.40 Dr\n05/12/2025  BLINKIT KOCHI   2,002.05 Dr\n20/11/2025  ZEPTO PUNE   37,123.07 Dr\n22/11/2025  HOTSTAR PUNE   524.09 Dr\n02/12/2025  BLINKIT CHENNAI   37,518.43 Dr\n13/11/2025  BLINKIT MUMBAI   416.07 Dr\n03/12/2025  PAYMENT RECEIVED - THANK YOU   1,031.21 Cr\n\nReward Points Summary: Opening 1136  Earned 875  Closing 5192\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m049",
+   "subject": "Equitas: account debit",
+   "body": "नमस्ते,\nDear Customer, Rs.5,000.00 debited from A/c XX4417 on 14-12-2025 to Rajesh Chopra A/c no. XXXXXXXX4847 (State Bank of India), NEFT Ref 870057555952. Equitas Small Finance Bank\n\nNever share your OTP, PIN, CVV or password with anyone. Equitas Small Finance Bank will never ask for these.",
+   "date": "2025-12-14",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.278.02 debited from A/c XX4417 on 19-12-2025 to VPA merchant@okhdfcbank (UPI Ref No. 491384604840). Equitas Small Finance Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-19",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 1,332.73 was spent on your AU Small Finance Bank Credit Card XXXX3076 at REDBUS on 21-12-2025.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2025-12-21",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m052",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.32,228.87 debited from A/c XX4417 on 22-12-2025 to VPA paytm.s1@okaxis (UPI Ref No. 790537839184). Equitas Small Finance Bank",
+   "date": "2025-12-22",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.813.31 debited from A/c XX4417 on 25-12-2025 to VPA paytm.s1@okaxis (UPI Ref No. 353938582469). Equitas Small Finance Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nT&C apply. Visit www.equitasbank.com for more details.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 6404 reward points on your Ixigo AU Credit Card XXXX3076. Redeem them on the rewards portal before they expire.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m055",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.1,718.20 debited from A/c XX4417 on 25-12-2025 to Vikram Banerjee A/c no. XXXXXXXX5942 (Axis Bank), NEFT Ref 627433695276. Equitas Small Finance Bank\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,718.69 on 26-12-2025 towards your AU Small Finance Bank Credit Card **3076. Thank you.",
+   "date": "2025-12-26",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m057",
+   "subject": "Credit alert: Equitas Small Finance Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX4417 on 01-01-2026 by SALARY NEFT. Ref 8071461780.\nThank you for banking with us.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-01-01",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Your account statement for January 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XX4417 for Jan 2026 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2026-01-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas Bank <statements@equitasbank.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour Equitas Small Finance Bank Platinum Debit Card XX5906 was used for Rs.2,000.00 at BOOKMYSHOW on 06-Jan-2026.",
+   "date": "2026-01-06",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 535.85 was spent on your AU Small Finance Bank Credit Card XXXX3076 at UBER INDIA on 12-01-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-01-12",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m061",
+   "subject": "Ixigo AU Credit Card Statement - Jan 2026",
+   "body": "Dear Customer,\nYour Ixigo AU Credit Card XXXX3076 Statement for the period 13/12/2025 to 12/01/2026 is attached.\nTotal Amount Due: Rs. 26,668.92\nMinimum Amount Due: Rs. 1,333.45\nPayment Due Date: 30/01/2026\nPay via NetBanking, UPI or auto-debit.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Jan2026.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: HARSH CHOPRA\nCard No: 4156 55XX XXXX 3076\nCard Type: Ixigo AU\nStatement Date: 12/01/2026\nStatement Period: 13/12/2025 - 12/01/2026\nPayment Due Date: 30/01/2026\nTotal Amount Due: Rs. 26,668.92\nMinimum Amount Due: Rs. 1,333.45\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 85,417.00\n\nDate        Transaction Details                        Amount (Rs.)\n06/01/2026  AIRBNB MUMBAI   1,777.61 Dr\n24/12/2025  THIRD WAVE COFFEE BANGALORE   8,034.36 Dr\n31/12/2025  CAFE COFFEE DAY HYDERABAD   2,125.79 Dr\n15/12/2025  WESTSIDE MUMBAI   2,561.25 Dr\n28/12/2025  TATA 1MG GURGAON   621.64 Dr\n08/01/2026  LENSKART KOCHI   4,427.96 Dr\n21/12/2025  WESTSIDE CHENNAI   362.58 Dr\n30/12/2025  THIRD WAVE COFFEE CHENNAI   377.46 Dr\n19/12/2025  ZEPTO BANGALORE   8,357.00 Dr\n03/01/2026  PAYMENT RECEIVED - THANK YOU   16,001.35 Cr\n\nReward Points Summary: Opening 8822  Earned 799  Closing 6859\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 9293982896309  IFSC AU S0000828"
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m062",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi&nbsp;Harsh,\nINR&nbsp;527.41&nbsp;was spent on your AU Small Finance Bank Credit Card XXXX XXXX XXXX 3076 at INDIGO AIRLINES on 18-01-2026.\nNot you? Block instantly on the AU 0101 app.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2026-01-18",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m063",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 2,902.64 was spent on your AU Small Finance Bank Credit Card **3076 at IRCTC on 20-01-2026.\nNot you? Block instantly on the AU 0101 app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-01-20",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m064",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 646.33 was spent on your AU Small Finance Bank Credit Card xx3076 at JIO PREPAID on 22-01-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-01-22",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m065",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.21,053.07 debited from A/c XX4417 on 24-01-2026 to VPA zomato@okhdfcbank (UPI Ref No. 211159089962). Equitas Small Finance Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-01-24",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.26,318.86 debited from A/c XX4417 on 27-01-2026 to VPA merchant@icici (UPI Ref No. 178400002635). Equitas Small Finance Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.26,668.92 on 28-01-2026 towards your AU Small Finance Bank Credit Card XXXX3076. Thank you.",
+   "date": "2026-01-28",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m068",
+   "subject": "Credit alert: Equitas Small Finance Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX4417 on 01-02-2026 by SALARY NEFT. Ref 2218583977.\nThank you for banking with us.",
+   "date": "2026-02-01",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Your account statement for February 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 4417 for Feb 2026 is attached. The PDF is protected; password is your Customer ID.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-03",
+   "attachments": [
+    {
+     "filename": "Statement_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas Bank <statements@equitasbank.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 5,152.50 was spent on your AU Small Finance Bank Credit Card ending 3076 at STARBUCKS on 05-02-2026.\nNot you? Block instantly on the AU 0101 app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-02-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m071",
+   "subject": "Ixigo AU Credit Card Statement - Feb 2026",
+   "body": "नमस्ते,\nDear Customer,\nYour Ixigo AU Credit Card XXXX3076 Statement for the period 13/01/2026 to 12/02/2026 is attached.\nTotal Amount Due: Rs. 2,718.86\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 02/03/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: HARSH CHOPRA\nCard No: 4955 49XX XXXX 3076\nCard Type: Ixigo AU\nStatement Date: 12/02/2026\nStatement Period: 13/01/2026 - 12/02/2026\nPayment Due Date: 02/03/2026\nTotal Amount Due: Rs. 2,718.86\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,38,419.00\n\nDate        Transaction Details                        Amount (Rs.)\n31/01/2026  DMART BANGALORE   18,054.07 Dr\n31/01/2026  BIGBASKET CHENNAI   387.05 Dr\n31/01/2026  MEDPLUS HYDERABAD   26,819.31 Dr\n30/01/2026  ZOMATO HYDERABAD   33,029.38 Dr\n02/02/2026  JIO PREPAID HYDERABAD   2,901.02 Dr\n03/02/2026  PAYMENT RECEIVED - THANK YOU   1,631.32 Cr\n\nReward Points Summary: Opening 7738  Earned 724  Closing 4332\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m072",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.16,377.93 debited from A/c XX4417 on 14-02-2026 to VPA irctcweb@okhdfcbank (UPI Ref No. 327519550555). Equitas Small Finance Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-14",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 8,018.53 was spent on your AU Small Finance Bank Credit Card XXXX3076 at BATA INDIA on 15-02-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-02-15",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m074",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.7,500.00 debited from A/c XX4417 on 15-02-2026 to Rajesh Chopra A/c no. XXXXXXXX4847 (State Bank of India), NEFT Ref 895189629141. Equitas Small Finance Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-02-15",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.254.33 debited from A/c XX4417 on 16-02-2026 to VPA q415452838@okhdfcbank (UPI Ref No. 830369286094). Equitas Small Finance Bank",
+   "date": "2026-02-16",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,<br>\nYour Equitas Small Finance Bank Platinum Debit Card xx5906 was used for Rs.500.00 at RELIANCE SMART on 17-Feb-2026.<br>\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-02-17",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.2,362.09 debited from A/c XX4417 on 19-02-2026 to VPA swiggy@ybl (UPI Ref No. 352004073655). Equitas Small Finance Bank\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-02-19",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi&nbsp;Harsh,\nINR&nbsp;34,495.18&nbsp;was spent on your AU Small Finance Bank Credit Card XXXX3076 at AIRBNB on 23-02-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-02-23",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m079",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 28,986.35 was spent on your AU Small Finance Bank Credit Card XXXX3076 at AMAZON PAY INDIA on 25-02-2026.\nNot you? Block instantly on the AU 0101 app.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2026-02-25",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m080",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 27,467.66 was spent on your AU Small Finance Bank Credit Card XXXX3076 at GOOGLE PLAY on 26-02-2026.\nNot you? Block instantly on the AU 0101 app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-26",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m081",
+   "subject": "Payment reminder: AU Small Finance Bank Credit Card **3076",
+   "body": "Dear Customer,\nThis is a reminder that Rs.2,718.86 (minimum Rs.200.00) is due on 02-Mar-2026 on your AU Small Finance Bank Credit Card **3076. Pay on time to avoid late payment charges.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m082",
+   "subject": "Credit alert: Equitas Small Finance Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX4417 on 01-03-2026 by SALARY NEFT. Ref 8311067559.\nThank you for banking with us.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-01",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Your account statement for March 2026",
+   "body": "Dear Customer,<br>\nYour e-statement for A/c XX4417 for Mar 2026 is attached. The PDF is protected; password is your Customer ID.<br>\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-03-03",
+   "attachments": [
+    {
+     "filename": "Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas Bank <statements@equitasbank.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,<br>\nINR 38,112.84 was spent on your AU Small Finance Bank Credit Card XXXX3076 at ZOMATO on 10-03-2026.<br>\nNot you? Block instantly on the AU 0101 app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-03-10",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m085",
+   "subject": "Ixigo AU Credit Card Statement - Mar 2026",
+   "body": "Dear Customer,<br>\nYour Ixigo AU Credit Card XXXX3076 Statement for the period 10/02/2026 to 12/03/2026 is attached.<br>\nTotal Amount Due: Rs. 18,048.78\nMinimum Amount Due: Rs. 902.44\nPayment Due Date: 30/03/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Mar2026.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: HARSH CHOPRA\nCredit Card Number: XXXX XXXX XXXX 3076\nCard Type: Ixigo AU\nStatement Date: 12/03/2026\nStatement Period: 10/02/2026 - 12/03/2026\nPayment Due Date: 30/03/2026\nTotal Amount Due: Rs. 18,048.78\nMinimum Amount Due: Rs. 902.44\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 86,207.00\n\nDate        Transaction Details                        Amount (Rs.)\n14/02/2026  HOTSTAR MUMBAI   849.55 Dr\n08/03/2026  BATA INDIA KOCHI   730.78 Dr\n27/02/2026  MEDPLUS HYDERABAD   1,760.59 Dr\n25/02/2026  CROMA MUMBAI   33,412.93 Dr\n16/02/2026  CROMA GURGAON   10,524.79 Dr\n22/02/2026  AMAZON PAY INDIA MUMBAI   5,721.87 Dr\n23/02/2026  APOLLO PHARMACY HYDERABAD   28,479.46 Dr\n23/02/2026  JIO PREPAID BANGALORE   27,564.02 Dr\n16/02/2026  SPOTIFY KOCHI   7,189.44 Dr\n03/03/2026  PAYMENT RECEIVED - THANK YOU   10,829.27 Cr\n\nReward Points Summary: Opening 4897  Earned 709  Closing 7410\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m086",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.8,789.40 debited from A/c XX4417 on 15-03-2026 to VPA q613405636@ybl (UPI Ref No. 392775587328). Equitas Small Finance Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-15",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.2,501.18 debited from A/c XX4417 on 16-03-2026 to VPA zomato@ybl (UPI Ref No. 394757341107). Equitas Small Finance Bank\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-03-16",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour Equitas Small Finance Bank Platinum Debit Card XX5906 was used for Rs.500.00 at JIO PREPAID on 16-Mar-2026.",
+   "date": "2026-03-16",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 1,202.94 was spent on your AU Small Finance Bank Credit Card no. XXXXXXXXXXXX3076 at URBAN COMPANY on 18-03-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-03-18",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m090",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,<br>\nYour Equitas Small Finance Bank Platinum Debit Card XX5906 was used for Rs.888.85 at IRCTC on 19-Mar-2026.<br>\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-19",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 35,412.00 was spent on your AU Small Finance Bank Credit Card ending 3076 at IRCTC on 20-03-2026.\nNot you? Block instantly on the AU 0101 app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-03-20",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m092",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 2,978.54 was spent on your AU Small Finance Bank Credit Card XX3076 at CAFE COFFEE DAY on 22-03-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-03-22",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m093",
+   "subject": "Equitas: account debit",
+   "body": "Dear&nbsp;Customer,&nbsp;Rs.2,913.59&nbsp;debited from A/c XX4417 on 25-03-2026 to VPA zomato@icici (UPI Ref No. 128347638319). Equitas Small Finance Bank\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-03-25",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.18,048.78 on 28-03-2026 towards your AU Small Finance Bank Credit Card XXXX3076. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-03-28",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m095",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.3,439.38 debited from A/c XX4417 on 01-04-2026 to VPA bigbasket@paytm (UPI Ref No. 573211768048). Equitas Small Finance Bank\n\nT&C apply. Visit www.equitasbank.com for more details.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-04-01",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Credit alert: Equitas Small Finance Bank",
+   "body": "Dear Customer,\nINR 65,000.00 credited to your A/c XX4417 on 01-04-2026 by SALARY NEFT. Ref 7739035186.\nThank you for banking with us.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-04-01",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Your account statement for April 2026",
+   "body": "Dear Customer,<br>\nYour e-statement for A/c xx4417 for Apr 2026 is attached. The PDF is protected; password is your Customer ID.<br>\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-03",
+   "attachments": [
+    {
+     "filename": "Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas Bank <statements@equitasbank.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 5,397.02 was spent on your AU Small Finance Bank Credit Card XXXX3076 at URBAN COMPANY on 05-04-2026.\nNot you? Block instantly on the AU 0101 app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m099",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.5,830.76 debited from A/c XX4417 on 07-04-2026 to VPA zomato@okaxis (UPI Ref No. 934575290482). Equitas Small Finance Bank\n\nNever share your OTP, PIN, CVV or password with anyone. Equitas Small Finance Bank will never ask for these.",
+   "date": "2026-04-07",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "OTP for online transaction",
+   "body": "845165&nbsp;is&nbsp;the&nbsp;One Time Password (OTP) for your online transction of INR 19,673.68 at MEDPLUS. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-10",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.10,000.00 debited from A/c XX4417 on 11-04-2026 to Rajesh Chopra A/c no. XXXXXXXX4847 (State Bank of India), IMPS Ref 146910316743. Equitas Small Finance Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-04-11",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Ixigo AU Credit Card Statement - Apr 2026",
+   "body": "Dear Customer,<br>\nYour Ixigo AU Credit Card XXXX3076 Statement for the period 13/03/2026 to 12/04/2026 is attached.<br>\nTotal Amount Due: Rs. 9,685.94\nMinimum Amount Due: Rs. 484.30\nPayment Due Date: 30/04/2026\nPay via NetBanking, UPI or auto-debit.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Apr2026.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: HARSH CHOPRA\nCard No: 4403 26XX XXXX 3076\nCard Type: Ixigo AU\nStatement Date: 12/04/2026\nStatement Period: 13/03/2026 - 12/04/2026\nPayment Due Date: 30/04/2026\nTotal Amount Due: Rs. 9,685.94\nMinimum Amount Due: Rs. 484.30\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 67,768.00\n\nDate        Transaction Details                        Amount (Rs.)\n29/03/2026  LENSKART HYDERABAD   2,757.81 Dr\n22/03/2026  IRCTC CHENNAI   3,027.74 Dr\n27/03/2026  REDBUS BANGALORE   1,196.11 Dr\n22/03/2026  LENSKART KOCHI   6,522.06 Dr\n19/03/2026  DMART CHENNAI   5,547.53 Dr\n28/03/2026  UBER INDIA HYDERABAD   277.01 Dr\n24/03/2026  BLINKIT BANGALORE   759.66 Dr\n27/03/2026  NETFLIX.COM MUMBAI   19,647.67 Dr\n03/04/2026  PAYMENT RECEIVED - THANK YOU   5,811.56 Cr\n\nReward Points Summary: Opening 7876  Earned 339  Closing 8996\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 9293982896309  IFSC AU S0000113"
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m103",
+   "subject": "payment successful",
+   "body": "Hi Harsh,\nYour payment of Rs.3,151.45 towards your YES BANK Credit Card bill was successful. Card paid: YES BANK no. XXXXXXXXXXXX4552. You earned 26 coins.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-04-15",
+   "attachments": [],
+   "from": "CRED <no-reply@cred.club>"
+  },
+  {
+   "id": "m104",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 10,529.84 was spent on your AU Small Finance Bank Credit Card **3076 at UBER INDIA on 17-04-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-04-17",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m105",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 2,205.47 was spent on your AU Small Finance Bank Credit Card XXXX3076 at CAFE COFFEE DAY on 20-04-2026.\nNot you? Block instantly on the AU 0101 app.\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2026-04-20",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m106",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 17,092.79 was spent on your AU Small Finance Bank Credit Card XXXX3076 at AMAZON PAY INDIA on 22-04-2026.\nNot you? Block instantly on the AU 0101 app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-04-22",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m107",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,<br>\nWe&nbsp;have&nbsp;received your payment of Rs.9,685.94 on 26-04-2026 towards your AU Small Finance Bank Credit Card XXXX3076. Thank you.",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m108",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Harsh, a gentle nudge: Rs.9,685.94 due on 30 April for card XXXX3076. Ignore if already paid. Kripya samay par bhugtan karein.<br>\n<br>\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m109",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.2,000.00 withdrawn using your Equitas Small Finance Bank Platinum Debit Card XX5906 at ATM GURGAON on 28-04-2026.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-28",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Credit alert: Equitas Small Finance Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX4417 on 01-05-2026 by SALARY NEFT. Ref 8856893630.\nThank you for banking with us.\n\nNever share your OTP, PIN, CVV or password with anyone. Equitas Small Finance Bank will never ask for these.\nNever share your OTP, PIN, CVV or password with anyone. Equitas Small Finance Bank will never ask for these.",
+   "date": "2026-05-01",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.31,702.92 debited from A/c XX4417 on 02-05-2026 to VPA bigbasket@okaxis (UPI Ref No. 274510561234). Equitas Small Finance Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-05-02",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Your account statement for May 2026",
+   "body": "Dear Customer,<br>\nYour e-statement for A/c XX4417 for May 2026 is attached. The PDF is protected; password is your Customer ID.<br>\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-05-03",
+   "attachments": [
+    {
+     "filename": "Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas Bank <statements@equitasbank.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 5,166.33 was spent on your AU Small Finance Bank Credit Card XXXX3076 at AIRBNB on 08-05-2026.\nNot you? Block instantly on the AU 0101 app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-05-08",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m114",
+   "subject": "Your order has been shipped",
+   "body": "Order 402-8560-1100 shipped. Pay on delivery Rs 1,299.\nT&C apply.",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m115",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.647.09 debited from A/c XX4417 on 10-05-2026 to VPA swiggy@icici (UPI Ref No. 318681800349). Equitas Small Finance Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-05-10",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "OTP for online transaction",
+   "body": "878437&nbsp;is&nbsp;the&nbsp;One Time Password (OTP) for your online transaction of INR 39,306.95 at WESTSIDE. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-10",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m117",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.21,897.10 debited from A/c XX4417 on 11-05-2026 to VPA q171676958@okhdfcbank (UPI Ref No. 817646007723). Equitas Small Finance Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-11",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "Ixigo AU Credit Card Statement - May 2026",
+   "body": "Dear Customer,\nYour Ixigo AU Credit Card XXXX3076 Statement for the period 12/04/2026 to 12/05/2026 is attached.\nTotal Amount Due: Rs. 12,583.57\nMinimum Amount Due: Rs. 629.18\nPayment Due Date: 30/05/2026\nPay via NetBanking, UPI or auto-debit.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: HARSH CHOPRA\nCard No: 4512 68XX XXXX 3076\nStatement Date: 12/05/2026\nStatement Period: 12/04/2026 - 12/05/2026\nPayment Due Date: 30/05/2026\nTotal Amount Due: Rs. 12,583.57\nMinimum Amount Due: Rs. 629.18\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,84,681.00\n\nDate        Transaction Details                        Amount (Rs.)\n09/05/2026  MAKEMYTRIP PUNE   440.39 Dr\n10/05/2026  OLA CABS MUMBAI   2,891.81 Dr\n08/05/2026  BPCL FUEL MUMBAI   1,345.70 Dr\n28/04/2026  MAKEMYTRIP CHENNAI   5,469.66 Dr\n26/04/2026  JIO PREPAID MUMBAI   6,092.07 Dr\n03/05/2026  PAYMENT RECEIVED - THANK YOU   7,550.14 Cr\n\nReward Points Summary: Opening 4816  Earned 470  Closing 5149\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m119",
+   "subject": "Debit card transaction alert",
+   "body": "नमस्ते,\nDear Customer,\nYour Equitas Small Finance Bank Platinum Debit Card ending 5906 was used for Rs.6,556.03 at GOOGLE PLAY on 16-May-2026.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-16",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.329.27 debited from A/c XX4417 on 18-05-2026 to VPA bigbasket@okaxis (UPI Ref No. 567836956773). Equitas Small Finance Bank\n\nNever share your OTP, PIN, CVV or password with anyone. Equitas Small Finance Bank will never ask for these.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-05-18",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 17,397.94 was spent on your AU Small Finance Bank Credit Card xx3076 at STARBUCKS on 19-05-2026.\nNot you? Block instantly on the AU 0101 app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-19",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m122",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 6,264.32 was spent on your AU Small Finance Bank Credit Card XXXX3076 at LICIOUS on 22-05-2026.\nNot you? Block instantly on the AU 0101 app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-05-22",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m123",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 2385 reward points on your Ixigo AU Credit Card XXXX3076. Redeem them on the rewards portal before they expire.\n\nThis is a system generated email. Please do not reply to this message.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m124",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 1,889.20 was spent on your AU Small Finance Bank Credit Card XXXX3076 at OLA CABS on 26-05-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m125",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Harsh, a gentle nudge: Rs.12,583.57 due on 30 May for card xx3076. Ignore if already paid. Kripya samay par bhugtan karein.<br>\n<br>\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m126",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.12,583.57 on 28-05-2026 towards your AU Small Finance Bank Credit Card XXXX3076. Thank you.",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m127",
+   "subject": "Credit alert: Equitas Small Finance Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX4417 on 01-06-2026 by SALARY NEFT. Ref 9140412787.\nThank you for banking with us.",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Your account statement for June 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 4417 for Jun 2026 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2026-06-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas Bank <statements@equitasbank.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.16,508.80 debited from A/c XX4417 on 04-06-2026 to VPA irctcweb@okhdfcbank (UPI Ref No. 223196470545). Equitas Small Finance Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-06-04",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "Equitas: account debit",
+   "body": "नमस्ते,\nDear Customer, Rs.6,549.12 debited from A/c XX4417 on 05-06-2026 to VPA q828754131@okaxis (UPI Ref No. 386429243977). Equitas Small Finance Bank",
+   "date": "2026-06-05",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 30,066.30 was spent on your AU Small Finance Bank Credit Card XXXX3076 at OLA CABS on 08-06-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-06-08",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m132",
+   "subject": "Ixigo AU Credit Card Statement - Jun 2026",
+   "body": "Dear Customer,\nYour Ixigo AU Credit Card XXXX3076 Statement for the period 13/05/2026 to 12/06/2026 is attached.\nTotal Amount Due: Rs. 41,029.64\nMinimum Amount Due: Rs. 2,051.48\nPayment Due Date: 30/06/2026\nPay via NetBanking, UPI or auto-debit.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: HARSH CHOPRA\nCard No: 4822 82XX XXXX 3076\nCard Type: Ixigo AU\nStatement Date: 12/06/2026\nStatement Period: 13/05/2026 - 12/06/2026\nPayment Due Date: 30/06/2026\nTotal Amount Due: Rs. 41,029.64\nMinimum Amount Due: Rs. 2,051.48\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 98,848.00\n\nDate        Transaction Details                        Amount (Rs.)\n14/05/2026  BATA INDIA CHENNAI   2,113.54 Dr\n05/06/2026  PVR INOX GURGAON   1,608.56 Dr\n10/06/2026  AMAZON PAY INDIA BANGALORE   1,749.67 Dr\n10/06/2026  BOOKMYSHOW CHENNAI   679.97 Dr\n22/05/2026  GOOGLE PLAY MUMBAI   5,534.73 Dr\n29/05/2026  WESTSIDE MUMBAI   505.26 Dr\n03/06/2026  PAYMENT RECEIVED - THANK YOU   24,617.78 Cr\n\nReward Points Summary: Opening 4346  Earned 316  Closing 8482\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m133",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.10,456.34 debited from A/c XX4417 on 14-06-2026 to VPA q855427601@paytm (UPI Ref No. 287251747979). Equitas Small Finance Bank\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-06-14",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 2,577.42 was spent on your AU Small Finance Bank Credit Card XXXX3076 at TATA 1MG on 15-06-2026.\nNot you? Block instantly on the AU 0101 app.\n\nThis is a system generated email. Please do not reply to this message.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-15",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m135",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.10,000.00 debited from A/c XX4417 on 16-06-2026 to Rajesh Chopra A/c no. XXXXXXXX4847 (State Bank of India), NEFT Ref 819204161295. Equitas Small Finance Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-16",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.7,185.70 debited from A/c XX4417 on 19-06-2026 to VPA zomato@icici (UPI Ref No. 195083075384). Equitas Small Finance Bank\n\nNever share your OTP, PIN, CVV or password with anyone. Equitas Small Finance Bank will never ask for these.",
+   "date": "2026-06-19",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 27,982.96 was spent on your AU Small Finance Bank Credit Card XXXX3076 at BATA INDIA on 27-06-2026.\nNot you? Block instantly on the AU 0101 app.\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m138",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.4,905.22 debited from A/c XX4417 on 28-06-2026 to VPA bigbasket@paytm (UPI Ref No. 789039556108). Equitas Small Finance Bank\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour Equitas Small Finance Bank Platinum Debit Card XX5906 was used for Rs.10,000.00 at GOOGLE PLAY on 28-Jun-2026.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 580.25 was spent on your AU Small Finance Bank Credit Card XXXX3076 at AIRBNB on 28-06-2026.\nNot you? Block instantly on the AU 0101 app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m141",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.41,029.64 on 29-06-2026 towards your AU Small Finance Bank Credit Card XXXX3076. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-29",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m142",
+   "subject": "Credit alert: Equitas Small Finance Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX4417 on 01-07-2026 by SALARY NEFT. Ref 7864837442.\nThank you for banking with us.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-01",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "Your account statement for July 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XX4417 for Jul 2026 is attached. The PDF is protected; password is your Customer ID.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas Bank <statements@equitasbank.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 827.16 was spent on your AU Small Finance Bank Credit Card XXXX3076 at AIRBNB on 05-07-2026.\nNot you? Block instantly on the AU 0101 app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m145",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 672.70 was spent on your AU Small Finance Bank Credit Card XXXX3076 at PVR INOX on 12-07-2026.\nNot you? Block instantly on the AU 0101 app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2026-07-12",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m146",
+   "subject": "Ixigo AU Credit Card Statement - Jul 2026",
+   "body": "Dear Customer,\nYour Ixigo AU Credit Card XXXX3076 Statement for the period 12/06/2026 to 12/07/2026 is attached.\nTotal Amount Due: Rs. 1,429.61\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/07/2026\nPay via NetBanking, UPI or auto-debit.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: HARSH CHOPRA\nCard No: 4434 38XX XXXX 3076\nStatement Date: 12/07/2026\nStatement Period: 12/06/2026 - 12/07/2026\nPayment Due Date: 30/07/2026\nTotal Amount Due: Rs. 1,429.61\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,02,920.00\n\nDate        Transaction Details                        Amount (Rs.)\n16/06/2026  ZOMATO KOCHI   882.11 Dr\n07/07/2026  STARBUCKS CHENNAI   599.29 Dr\n07/07/2026  OLA CABS KOCHI   402.76 Dr\n30/06/2026  THIRD WAVE COFFEE PUNE   6,241.38 Dr\n25/06/2026  APOLLO PHARMACY GURGAON   3,880.02 Dr\n29/06/2026  THIRD WAVE COFFEE GURGAON   7,965.10 Dr\n16/06/2026  BPCL FUEL MUMBAI   3,159.26 Dr\n19/06/2026  CAFE COFFEE DAY GURGAON   3,475.51 Dr\n03/07/2026  PAYMENT RECEIVED - THANK YOU   857.77 Cr\n\nReward Points Summary: Opening 2711  Earned 212  Closing 7675\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 9293982896309  IFSC AU S0000856"
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m147",
+   "subject": "Equitas: account debit",
+   "body": "नमस्ते,\nDear Customer, Rs.8,335.54 debited from A/c XX4417 on 13-07-2026 to VPA q388099028@paytm (UPI Ref No. 702745321625). Equitas Small Finance Bank\n\nNever share your OTP, PIN, CVV or password with anyone. Equitas Small Finance Bank will never ask for these.",
+   "date": "2026-07-13",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "We have received your request",
+   "body": "Dear Customer,\nYour service request is registered. Reference No. SR202664071691. We will resolve it within 3 working days.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-07-14",
+   "attachments": [],
+   "from": "Equitas Bank <customercare@equitasbank.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "Equitas: account debit",
+   "body": "नमस्ते,\nDear Customer, Rs.1,680.75 debited from A/c XX4417 on 15-07-2026 to VPA merchant@okaxis (UPI Ref No. 863687021416). Equitas Small Finance Bank<br>\n<br>\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-15",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.538.09 debited from A/c XX4417 on 16-07-2026 to VPA bigbasket@okhdfcbank (UPI Ref No. 907779354511). Equitas Small Finance Bank",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.20,762.79 debited from A/c XX4417 on 18-07-2026 to VPA bigbasket@icici (UPI Ref No. 505602879902). Equitas Small Finance Bank<br>\n<br>\nNever share your OTP, PIN, CVV or password with anyone. Equitas Small Finance Bank will never ask for these.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-18",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 286.69 was spent on your AU Small Finance Bank Credit Card XX3076 at APOLLO PHARMACY on 19-07-2026.\nNot you? Block instantly on the AU 0101 app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-19",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m153",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 94.18 was spent on your AU Small Finance Bank Credit Card XXXX3076 at ZEPTO on 20-07-2026.\nNot you? Block instantly on the AU 0101 app.\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2026-07-20",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m154",
+   "subject": "OTP for online transaction",
+   "body": "764106 is the One Time Password (OTP) for your online transaction of INR 28,834.24 at IRCTC. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-07-20",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m155",
+   "subject": "Your Swiggy order receipt",
+   "body": "Order #6354 delivered. Paid via UPI. Rate your meal!\nT&C apply.",
+   "date": "2026-07-21",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m156",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,429.61 on 23-07-2026 towards your AU Small Finance Bank Credit Card XXXX3076. Thank you.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m157",
+   "subject": "We have received your request",
+   "body": "Dear Customer,\nYour service request is registered. Reference No. SR202659093757. We will resolve it within 3 working days.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "Equitas Bank <customercare@equitasbank.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.97.33 withdrawn using your Equitas Small Finance Bank Platinum Debit Card XX5906 at ATM MUMBAI on 27-07-2026.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 2,545.58 was spent on your AU Small Finance Bank Credit Card XXXX3076 at REDBUS on 28-07-2026.\nNot you? Block instantly on the AU 0101 app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-07-28",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m160",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.8,417.40 debited from A/c XX4417 on 01-08-2026 to VPA zomato@okhdfcbank (UPI Ref No. 756147210150). Equitas Small Finance Bank",
+   "date": "2026-08-01",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "Credit alert: Equitas Small Finance Bank",
+   "body": "Dear&nbsp;Customer,<br>\nINR&nbsp;48,000.00&nbsp;credited to your A/c XX4417 on 01-08-2026 by SALARY NEFT. Ref 6353445669.<br>\nThank you for banking with us.",
+   "date": "2026-08-01",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "Your account statement for August 2026",
+   "body": "नमस्ते,\nDear Customer,\nYour e-statment for A/c XX4417 for Aug 2026 is attached. The PDF is protected; password is your Customer ID.\n\nThis is a system generated email. Please do not reply to this message.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-03",
+   "attachments": [
+    {
+     "filename": "Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas Bank <statements@equitasbank.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.1,222.93 debited from A/c XX4417 on 04-08-2026 to VPA bigbasket@paytm (UPI Ref No. 380132496166). Equitas Small Finance Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-04",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 769.59 was spent on your AU Small Finance Bank Credit Card XXXX3076 at NETFLIX.COM on 05-08-2026.\nNot you? Block instantly on the AU 0101 app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m165",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.39,804.17 debited from A/c XX4417 on 09-08-2026 to VPA bigbasket@icici (UPI Ref No. 102530057102). Equitas Small Finance Bank\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-08-09",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.5,000.00 debited from A/c XX4417 on 10-08-2026 to Rajesh Chopra A/c no. XXXXXXXX4847 (State Bank of India), IMPS Ref 838249016255. Equitas Small Finance Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-10",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "Ixigo AU Credit Card Statement - Aug 2026",
+   "body": "Dear Customer,\nYour Ixigo AU Credit Card XXXX3076 Statement for the period 13/07/2026 to 12/08/2026 is attached.\nTotal Amount Due: Rs. 456.89\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/08/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: HARSH CHOPRA\nCredit Card Number: XXXX XXXX XXXX 3076\nCard Type: Ixigo AU\nStatement Date: 12/08/2026\nStatement Period: 13/07/2026 - 12/08/2026\nPayment Due Date: 30/08/2026\nTotal Amount Due: Rs. 456.89\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 45,270.00\n\nDate        Transaction Details                        Amount (Rs.)\n27/07/2026  MAKEMYTRIP BANGALORE   7,805.06 Dr\n22/07/2026  RELIANCE SMART HYDERABAD   34,780.97 Dr\n30/07/2026  RELIANCE SMART GURGAON   678.15 Dr\n07/08/2026  WESTSIDE PUNE   1,487.40 Dr\n28/07/2026  AIRBNB PUNE   4,825.79 Dr\n21/07/2026  UBER INDIA KOCHI   6,050.67 Dr\n24/07/2026  STARBUCKS MUMBAI   30,311.46 Dr\n31/07/2026  HOTSTAR HYDERABAD   185.65 Dr\n26/07/2026  URBAN COMPANY PUNE   7,677.01 Dr\n03/08/2026  PAYMENT RECEIVED - THANK YOU   274.13 Cr\n\nReward Points Summary: Opening 3618  Earned 518  Closing 3822\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m168",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 1,388.17 was spent on your AU Small Finance Bank Credit Card XXXX3076 at JIO PREPAID on 14-08-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-08-14",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m169",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.3,624.84 withdrawn using your Equitas Small Finance Bank Platinum Debit Card XX5906 at ATM HYDERABAD on 18-08-2026.\n\nT&C apply. Visit www.equitasbank.com for more details.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-08-18",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.595.73 debited from A/c XX4417 on 22-08-2026 to VPA zomato@paytm (UPI Ref No. 630089785924). Equitas Small Finance Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "Your AU Credit Card transaction",
+   "body": "नमस्ते,\nHi Harsh,\nINR 1,434.56 was spent on your AU Small Finance Bank Credit Card **3076 at HOTSTAR on 22-08-2026.\nNot you? Block instantly on the AU 0101 app.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m172",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transaction of Rs.28,188.81 on card XXXX3076 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.\n\nT&C apply. Visit www.aubank.in for more details.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m173",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;received your payment of Rs.456.89 on 24-08-2026 towards your AU Small Finance Bank Credit Card XXXX XXXX XXXX 3076. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m174",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.622.86 debited from A/c XX4417 on 26-08-2026 to VPA swiggy@ybl (UPI Ref No. 420786465093). Equitas Small Finance Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-08-26",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "Payment reminder: AU Small Finance Bank Credit Card no. XXXXXXXXXXXX3076",
+   "body": "Dear Customer,<br>\nThis is a reminder that Rs.456.89 (minimum Rs.200.00) is due on 30-Aug-2026 on your AU Small Finance Bank Credit Card no. XXXXXXXXXXXX3076. Pay on time to avoid late payment charges.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m176",
+   "subject": "Credit alert: Equitas Small Finance Bank",
+   "body": "नमस्ते,\nDear Customer,<br>\nINR 72,500.00 credited to your A/c XX4417 on 01-09-2026 by SALARY NEFT. Ref 5645963694.<br>\nThank you for banking with us.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-09-01",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "Your account statement for September 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 4417 for Sep 2026 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2026-09-03",
+   "attachments": [
+    {
+     "filename": "Statement_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas Bank <statements@equitasbank.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi&nbsp;Harsh,\nINR&nbsp;366.18&nbsp;was spent on your AU Small Finance Bank Credit Card XXXX3076 at BLINKIT on 04-09-2026.\nNot you? Block instantly on the AU 0101 app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-04",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m179",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card XXXX3076 has been processed. Tenure 9 months. First EMI will appear on your next statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m180",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.459.12 debited from A/c XX4417 on 11-09-2026 to VPA swiggy@paytm (UPI Ref No. 715432869460). Equitas Small Finance Bank",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m181",
+   "subject": "Credit card bill payment successful",
+   "body": "Dear Customer,\nRs.2,463.60 paid from your A/c XX4417 to Axis Bank Credit Card ending 8578 (beneficiary: Harsh Pillai) on 11-09-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "Ixigo AU Credit Card Statement - Sep 2026",
+   "body": "Dear Customer,\nYour Ixigo AU Credit Card XXXX3076 Statement for the period 13/08/2026 to 12/09/2026 is attached.\nTotal Amount Due: Rs. 711.69\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/09/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: HARSH CHOPRA\nCard No: 4703 41XX XXXX 3076\nStatement Date: 12/09/2026\nStatement Period: 13/08/2026 - 12/09/2026\nPayment Due Date: 30/09/2026\nTotal Amount Due: Rs. 711.69\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 88,639.00\n\nDate        Transaction Details                        Amount (Rs.)\n03/09/2026  ZEPTO MUMBAI   2,166.46 Dr\n04/09/2026  BPCL FUEL GURGAON   2,861.36 Dr\n16/08/2026  INDIGO AIRLINES BANGALORE   638.28 Dr\n20/08/2026  DMART HYDERABAD   886.16 Dr\n24/08/2026  RELIANCE SMART HYDERABAD   12,987.07 Dr\n03/09/2026  STARBUCKS GURGAON   176.54 Dr\n03/09/2026  PAYMENT RECEIVED - THANK YOU   427.01 Cr\n\nReward Points Summary: Opening 1489  Earned 253  Closing 1986\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m183",
+   "subject": "ATM withdrawal alert",
+   "body": "नमस्ते,\nDear Customer,\nRs.2,542.69 withdrawn using your Equitas Small Finance Bank Platinum Debit Card XX5906 at ATM BANGALORE on 14-09-2026.",
+   "date": "2026-09-14",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "Equitas: account debit",
+   "body": "नमस्ते,\nDear Customer, Rs.5,123.55 debited from A/c XX4417 on 15-09-2026 to VPA irctcweb@paytm (UPI Ref No. 666228246968). Equitas Small Finance Bank\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-15",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m185",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your Ixigo AU Credit Card XXXX3076 has been increased to Rs.4,50,000.00 effective 17-09-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m186",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.2,649.97 debited from A/c XX4417 on 18-09-2026 to VPA bigbasket@paytm (UPI Ref No. 351138548869). Equitas Small Finance Bank",
+   "date": "2026-09-18",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m187",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 846.90 was spent on your AU Small Finance Bank Credit Card XXXX3076 at GOOGLE PLAY on 18-09-2026.\nNot you? Block instantly on the AU 0101 app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-18",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m188",
+   "subject": "Secure your family with term insurance",
+   "body": "Plans from Rs 500/month. Policy no. will be shared post issuance. Quote ref 8937\nT&C apply.",
+   "date": "2026-09-21",
+   "attachments": [],
+   "from": "Tata AIA Life <news@tataaia.com>"
+  },
+  {
+   "id": "m189",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.711.69 on 24-09-2026 towards your AU Small Finance Bank Credit Card XXXX3076. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2026-09-24",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m190",
+   "subject": "Debit card transaction alert",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;Equitas&nbsp;Small Finance Bank Platinum Debit Card XX5906 was used for Rs.17,043.04 at CROMA on 25-Sep-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "Credit alert: Equitas Small Finance Bank",
+   "body": "Dear Customer,\nINR 65,000.00 credited to your A/c XX4417 on 01-10-2026 by SALARY NEFT. Ref 3146675256.\nThank you for banking with us.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-10-01",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.439.72 debited from A/c XX4417 on 03-10-2026 to VPA paytm.s1@icici (UPI Ref No. 988538808541). Equitas Small Finance Bank",
+   "date": "2026-10-03",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m193",
+   "subject": "Your account statement for October 2026",
+   "body": "नमस्ते,\nDear Customer,\nYour e-statement for A/c XX4417 for Oct 2026 is attached. The PDF is protected; password is your Customer ID.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-03",
+   "attachments": [
+    {
+     "filename": "Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas Bank <statements@equitasbank.com>"
+  },
+  {
+   "id": "m194",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.2,000.00 withdrawn using your Equitas Small Finance Bank Platinum Debit Card XX5906 at ATM CHENNAI on 06-10-2026.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-10-06",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m195",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.7,500.00 debited from A/c XX4417 on 10-10-2026 to Rajesh Chopra A/c no. XXXXXXXX4847 (State Bank of India), NEFT Ref 750247986677. Equitas Small Finance Bank",
+   "date": "2026-10-10",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "Ixigo AU Credit Card Statement - Oct 2026",
+   "body": "नमस्ते,\nDear Customer,\nYour Ixigo AU Credit Card ending 3076 Statement for the period 12/09/2026 to 12/10/2026 is attached.\nTotal Amount Due: Rs. 2,23,622.78\nMinimum Amount Due: Rs. 11,181.14\nPayment Due Date: 30/10/2026\nPay via NetBanking, UPI or auto-debit.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: HARSH CHOPRA\nCard No: 4724 19XX XXXX 3076\nCard Type: Ixigo AU\nStatement Date: 12/10/2026\nStatement Period: 12/09/2026 - 12/10/2026\nPayment Due Date: 30/10/2026\nTotal Amount Due: Rs. 2,23,622.78\nMinimum Amount Due: Rs. 11,181.14\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,22,303.00\n\nDate        Transaction Details                        Amount (Rs.)\n04/10/2026  GOOGLE PLAY CHENNAI   23,855.25 Dr\n27/09/2026  URBAN COMPANY HYDERABAD   2,731.01 Dr\n15/09/2026  LICIOUS HYDERABAD   14,828.17 Dr\n22/09/2026  UBER INDIA HYDERABAD   7,049.89 Dr\n03/10/2026  PAYMENT RECEIVED - THANK YOU   1,34,173.67 Cr\n\nReward Points Summary: Opening 4079  Earned 553  Closing 1990\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 9293982896309  IFSC AU S0000389"
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m197",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.8,287.81 debited from A/c XX4417 on 14-10-2026 to VPA q789947905@okaxis (UPI Ref No. 804914630631). Equitas Small Finance Bank",
+   "date": "2026-10-14",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m198",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,<br>\nINR 168.38 was spent on your AU Small Finance Bank Credit Card XXXX3076 at CROMA on 19-10-2026.<br>\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m199",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 262.73 was spent on your AU Small Finance Bank Credit Card XXXX3076 at ZEPTO on 23-10-2026.\nNot you? Block instantly on the AU 0101 app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-10-23",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m200",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Harsh,\nINR 11,690.33 was spent on your AU Small Finance Bank Credit Card XXXX3076 at AMAZON PAY INDIA on 24-10-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-10-24",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m201",
+   "subject": "Equitas: account debit",
+   "body": "Dear&nbsp;Customer,&nbsp;Rs.648.82&nbsp;debited from A/c XX4417 on 25-10-2026 to VPA zomato@paytm (UPI Ref No. 192726768730). Equitas Small Finance Bank",
+   "date": "2026-10-25",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,<br>\nYou have 1748 reward points on your Ixigo AU Credit Card XXXX3076. Redeem them on the rewards portal before they expire.<br>\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-10-25",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m203",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.2,321.96 debited from A/c XX4417 on 26-10-2026 to VPA merchant@okhdfcbank (UPI Ref No. 528173523264). Equitas Small Finance Bank<br>\n<br>\nBank is not liable for any delay in delivery of email due to technical reasons.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-26",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.5,560.45 withdrawn using your Equitas Small Finance Bank Platinum Debit Card XX5906 at ATM CHENNAI on 26-10-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-26",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m205",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,23,622.78 on 27-10-2026 towards your AU Small Finance Bank Credit Card XXXX3076. Thank you.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m206",
+   "subject": "Equitas: account debit",
+   "body": "Dear Customer, Rs.3,293.01 debited from A/c XX4417 on 01-11-2026 to VPA swiggy@ybl (UPI Ref No. 788949906699). Equitas Small Finance Bank",
+   "date": "2026-11-01",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m207",
+   "subject": "Credit alert: Equitas Small Finance Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX4417 on 01-11-2026 by SALARY NEFT. Ref 2479077746.\nThank you for banking with us.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-11-01",
+   "attachments": [],
+   "from": "Equitas Bank <alerts@equitasbank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "equitasbank.com",
+    "last4": "4417",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "equitasbank.com",
+    "last4": "5906",
+    "kind": "DEBIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "aubank.in",
+    "last4": "3076",
+    "kind": "CREDIT_CARD",
+    "variant": "Ixigo",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "yesbank.in",
+    "last4": "4552",
+    "kind": "CREDIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "WEAK"
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "aubank.in",
+    "last4": "6309",
+    "why": "bank own beneficiary account in statement payment instructions"
+   },
+   {
+    "issuerDomain": "sbi.co.in",
+    "last4": "4847",
+    "why": "family member account receiving repeated transfers"
+   },
+   {
+    "issuerDomain": "equitasbank.com",
+    "last4": "3757",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "equitasbank.com",
+    "last4": "1691",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "8578",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   },
+   {
+    "issuerDomain": "sbi.co.in",
+    "last4": "1765",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "3599",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "5942",
+    "why": "UPI/IMPS payee account"
+   }
+  ]
+ }
+}

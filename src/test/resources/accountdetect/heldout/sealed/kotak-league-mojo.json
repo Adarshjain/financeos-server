@@ -1,0 +1,3056 @@
+{
+ "mailbox": "kotak-league-mojo",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX3141 on 01-02-2025 by SALARY NEFT. Ref 8175594709.\nThank you for banking with us.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-02-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Your account statement for February 2025",
+   "body": "Dear Customer,<br>\nYour e-statment for A/c xx3141 for Feb 2025 is attached. The PDF is protected; password is your Customer ID.<br>\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-02-03",
+   "attachments": [
+    {
+     "filename": "Statement_Feb2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "नमस्ते,\nDear Imran,\nRs.3,330.85 spent on your Kotak Credit Card xx7183 at THIRD WAVE COFFEE on 04-Feb-2025. Avl. credit limit: Rs. 3,98,955.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank",
+   "date": "2025-02-04",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.2,048.24 spent on your Kotak Credit Card XXXX XXXX XXXX 7183 at BPCL FUEL on 09-Feb-2025. Avl. credit limit: Rs. 2,43,596.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nThis is a system generated email. Please do not reply to this message.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-02-09",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.2,845.60 spent on your Kotak Credit Card XXXX XXXX XXXX 7183 at INDIGO AIRLINES on 11-Feb-2025. Avl. credit limit: Rs. 2,25,237.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2025-02-11",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statment of your Kotak Mahindra Bank League Platinum Credit Card xx5927 for Feb 2025 is ready. Total due Rs.78,247.52, pay by 02 Mar 2025.\nView it in the app or NetBanking under Cards.",
+   "date": "2025-02-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Feb2025.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCard No: 4692 35XX XXXX 5927\nCard Type: League Platinum\nStatement Date: 12/02/2025\nStatement Period: 13/01/2025 - 12/02/2025\nPayment Due Date: 02/03/2025\nTotal Amount Due: Rs. 78,247.52\nMinimum Amount Due: Rs. 3,912.38\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,16,714.00\n\nDate        Transaction Details                        Amount (Rs.)\n10/02/2025  JIO PREPAID KOCHI   3,418.92 Dr\n09/02/2025  GOOGLE PLAY CHENNAI   2,062.13 Dr\n21/01/2025  DMART GURGAON   38,430.11 Dr\n26/01/2025  STARBUCKS BANGALORE   20,550.94 Dr\n21/01/2025  IRCTC PUNE   24,872.39 Dr\n23/01/2025  BOOKMYSHOW MUMBAI   638.34 Dr\n17/01/2025  AIRBNB KOCHI   304.17 Dr\n22/01/2025  HOTSTAR KOCHI   336.37 Dr\n03/02/2025  PAYMENT RECEIVED - THANK YOU   46,948.51 Cr\n\nReward Points Summary: Opening 8829  Earned 486  Closing 6580\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5854222738829  IFSC KOTA0000914"
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Your Kotak Mahindra Bank Mojo Credit Card statement is ready",
+   "body": "Dear Imran Mehta,<br>\nThe statement of your Kotak Mahindra Bank Mojo Credit Card xx7183 for Feb 2025 is ready. Total due Rs.1,20,048.18, pay by 02 Mar 2025.<br>\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-02-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Feb2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 380.70 debited from your Kotak Bank A/c XX3141 on 17-Feb-2025 to VPA zomato@icici (UPI Ref No. 460690425034). Avl Bal after txn is shown in the Kotak app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2025-02-17",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,<br>\nRs.500.00 withdrawn using your Kotak Mahindra Bank Platinum Debit Card xx3140 at ATM MUMBAI on 17-02-2025.",
+   "date": "2025-02-17",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.353.20 spent on your Kotak Credit Card xx5927 at RELIANCE SMART on 21-Feb-2025. Avl. credit limit: Rs. 1,00,938.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nThis is a system generated email. Please do not reply to this message.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-02-21",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear&nbsp;Imran,\nRs.&nbsp;4,159.45&nbsp;debited from your Kotak Bank A/c XX3141 on 22-Feb-2025 to VPA paytm.s1@icici (UPI Ref No. 756168386766). Avl Bal after txn is shown in the Kotak app.",
+   "date": "2025-02-22",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "नमस्ते,\nDear Imran,\nRs. 5,533.92 debited from your Kotak Bank A/c XX3141 on 24-Feb-2025 to VPA merchant@ybl (UPI Ref No. 502236132816). Avl Bal after txn is shown in the Kotak app.",
+   "date": "2025-02-24",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,20,048.18 on 26-02-2025 towards your Kotak Mahindra Bank Credit Card xx7183. Thank you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-02-26",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Imran, a gentle nudge: Rs.1,20,048.18 due on 02 March for card ending 7183. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2025-02-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.78,247.52 on 28-02-2025 towards your Kotak Mahindra Bank Credit Card xx5927. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2025-02-28",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,<br>\nINR 48,000.00 credited to your A/c XX3141 on 01-03-2025 by SALARY NEFT. Ref 7414091463.<br>\nThank you for banking with us.",
+   "date": "2025-03-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.1,111.46 spent on your Kotak Credit Card XXXX XXXX XXXX 5927 at WESTSIDE on 01-Mar-2025. Avl. credit limit: Rs. 3,71,957.00.\nIf not you, SMS BLOCK to 5676788. Regrads, Kotak Mahindra Bank\n\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2025-03-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Ramesh Joshi (A/c no. XXXXXXXX8342, HDFC Bank) has been added to your account XX3141 on 02-03-2025. It will be active after a cooling period of 30 minutes.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2025-03-02",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Your account statement for March 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c xx3141 for Mar 2025 is attached. The PDF is protected; password is your Customer ID.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-03",
+   "attachments": [
+    {
+     "filename": "Statement_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear&nbsp;Imran,\nRs.3,373.98&nbsp;spent&nbsp;on your Kotak Credit Card xx7183 at MAKEMYTRIP on 03-Mar-2025. Avl. credit limit: Rs. 3,50,386.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-03-03",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.473.87 spent on your Kotak Credit Card xx5927 at RELIANCE SMART on 05-Mar-2025. Avl. credit limit: Rs. 93,994.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 3,753.20 debited from your Kotak Bank A/c XX3141 on 11-Mar-2025 to VPA irctcweb@paytm (UPI Ref No. 605652898823). Avl Bal after txn is shown in the Kotak app.",
+   "date": "2025-03-11",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statement of your Kotak Mahindra Bank League Platinum Credit Card xx5927 for Mar 2025 is ready. Total due Rs.33,089.58, pay by 30 Mar 2025.\nView it in the app or NetBanking under Cards.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-03-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Mar2025.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCredit Card Number: XXXX XXXX XXXX 5927\nCard Type: League Platinum\nStatement Date: 12/03/2025\nStatement Period: 10/02/2025 - 12/03/2025\nPayment Due Date: 30/03/2025\nTotal Amount Due: Rs. 33,089.58\nMinimum Amount Due: Rs. 1,654.48\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,21,440.00\n\nDate        Transaction Details                        Amount (Rs.)\n01/03/2025  BIGBASKET CHENNAI   700.62 Dr\n11/02/2025  AMAZON PAY INDIA MUMBAI   35,408.23 Dr\n14/02/2025  DMART PUNE   41,463.00 Dr\n22/02/2025  NETFLIX.COM MUMBAI   10,997.33 Dr\n08/03/2025  AIRBNB CHENNAI   159.46 Dr\n03/03/2025  PAYMENT RECEIVED - THANK YOU   19,853.75 Cr\n\nReward Points Summary: Opening 6586  Earned 626  Closing 4358\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Your Kotak Mahindra Bank Mojo Credit Card statement is ready",
+   "body": "Dear Imran Mehta,<br>\nThe statment of your Kotak Mahindra Bank Mojo Credit Card xx7183 for Mar 2025 is ready. Total due Rs.1,061.53, pay by 30 Mar 2025.<br>\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2025-03-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 8,645.55 debited from your Kotak Bank A/c XX3141 on 15-Mar-2025 to VPA swiggy@paytm (UPI Ref No. 371099379626). Avl Bal after txn is shown in the Kotak app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-03-15",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 7,500.00 debited from your Kotak Bank A/c XX3141 on 17-Mar-2025 to Rajesh Mehta A/c no. XXXXXXXX6973 (State Bank of India), IMPS Ref 372725829066. Avl Bal after txn is shown in the Kotak app.",
+   "date": "2025-03-17",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Debit card transaction alert",
+   "body": "नमस्ते,\nDear Customer,\nYour Kotak Mahindra Bank Platinum Debit Card xx3140 was used for Rs.500.00 at URBAN COMPANY on 21-Mar-2025.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-03-21",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 7,631.59 debited from your Kotak Bank A/c XX3141 on 23-Mar-2025 to VPA paytm.s1@okhdfcbank (UPI Ref No. 587677186304). Avl Bal after txn is shown in the Kotak app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-03-23",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.8,323.14 spent on your Kotak Credit Card no. XXXXXXXXXXXX5927 at IRCTC on 23-Mar-2025. Avl. credit limit: Rs. 3,51,000.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-03-23",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.1,061.53 on 24-03-2025 towards your Kotak Mahindra Bank Credit Card xx7183. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-03-24",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.33,089.58 on 29-03-2025 towards your Kotak Mahindra Bank Credit Card xx5927. Thank you.",
+   "date": "2025-03-29",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX3141 on 01-04-2025 by SALARY NEFT. Ref 1169328024.\nThank you for banking with us.",
+   "date": "2025-04-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 10,128.75 debited from your Kotak Bank A/c XX3141 on 02-Apr-2025 to VPA irctcweb@okaxis (UPI Ref No. 235247025715). Avl Bal after txn is shown in the Kotak app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-04-02",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Your account statement for April 2025",
+   "body": "Dear Customer,<br>\nYour e-statement for A/c xx3141 for Apr 2025 is attached. The PDF is protected; password is your Customer ID.<br>\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-04-03",
+   "attachments": [
+    {
+     "filename": "Statement_Apr2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Standing instruction executed",
+   "body": "Dear Imran,\nStanding Instruction executed: Rs. 22,500.00 debited from your Kotak Bank A/c XX3141 on 05-Apr-2025 to Ramesh Joshi A/c no. XXXXXXXX8342 (HDFC Bank), SI Ref 531891291312. Avl Bal after txn is shown in the Kotak app.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-04-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.6,433.65 spent on your Kotak Credit Card xx5927 at SPOTIFY on 06-Apr-2025. Avl. credit limit: Rs. 3,75,228.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-04-06",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statement of your Kotak Mahindra Bank League Platinum Credit Card xx5927 for Apr 2025 is ready. Total due Rs.17,903.75, pay by 30 Apr 2025.\nView it in the app or NetBanking under Cards.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Apr2025.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCredit Card Number: XXXX XXXX XXXX 5927\nCard Type: League Platinum\nStatement Date: 12/04/2025\nStatement Period: 13/03/2025 - 12/04/2025\nPayment Due Date: 30/04/2025\nTotal Amount Due: Rs. 17,903.75\nMinimum Amount Due: Rs. 895.19\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,75,787.00\n\nDate        Transaction Details                        Amount (Rs.)\n26/03/2025  GOOGLE PLAY HYDERABAD   1,387.36 Dr\n20/03/2025  JIO PREPAID BANGALORE   629.33 Dr\n14/03/2025  APOLLO PHARMACY GURGAON   292.95 Dr\n28/03/2025  BLINKIT BANGALORE   27,641.33 Dr\n27/03/2025  CROMA GURGAON   758.64 Dr\n03/04/2025  PAYMENT RECEIVED - THANK YOU   10,742.25 Cr\n\nReward Points Summary: Opening 6433  Earned 544  Closing 4123\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5854222738829  IFSC KOTA0000637"
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Your Kotak Mahindra Bank Mojo Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statement of your Kotak Mahindra Bank Mojo Credit Card xx7183 for Apr 2025 is ready. Total due Rs.37,765.91, pay by 30 Apr 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2025-04-12",
+   "attachments": [
+    {
+     "filename": "7183_12042025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "नमस्ते,\nDear Imran,\nRs. 942.82 debited from your Kotak Bank A/c XX3141 on 14-Apr-2025 to VPA bigbasket@ybl (UPI Ref No. 598436797333). Avl Bal after txn is shown in the Kotak app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-14",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.8,801.32 spent on your Kotak Credit Card xx5927 at DECATHLON on 15-Apr-2025. Avl. credit limit: Rs. 2,02,889.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank",
+   "date": "2025-04-15",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.1,497.97 spent on your Kotak Credit Card xx7183 at BPCL FUEL on 19-Apr-2025. Avl. credit limit: Rs. 2,45,612.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2025-04-19",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.37,765.91 on 22-04-2025 towards your Kotak Mahindra Bank Credit Card xx7183. Thank you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-04-22",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,<br>\nRs. 858.05 debited from your Kotak Bank A/c XX3141 on 24-Apr-2025 to VPA merchant@okhdfcbank (UPI Ref No. 686738690188). Avl Bal after txn is shown in the Kotak app.",
+   "date": "2025-04-24",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.10,000.00 withdrawn using your Kotak Mahindra Bank Platinum Debit Card ending 3140 at ATM KOCHI on 24-04-2025.",
+   "date": "2025-04-24",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.17,903.75 on 26-04-2025 towards your Kotak Mahindra Bank Credit Card no. XXXXXXXXXXXX5927. Thank you.",
+   "date": "2025-04-26",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Imran, a gentle nudge: Rs.17,903.75 due on 30 April for card XX5927. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2025-04-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Payment reminder: Kotak Mahindra Bank Credit Card xx7183",
+   "body": "नमस्ते,\nDear Customer,<br>\nThis is a reminder that Rs.37,765.91 (minimum Rs.1,888.30) is due on 30-Apr-2025 on your Kotak Mahindra Bank Credit Card xx7183. Pay on time to avoid late payment charges.<br>\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-04-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.8,148.05 spent on your Kotak Credit Card xx7183 at BLINKIT on 28-Apr-2025. Avl. credit limit: Rs. 2,05,174.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nT&C apply. Visit www.kotak.com for more details.\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2025-04-28",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,\nINR 65,000.00 credited to your A/c XX3141 on 01-05-2025 by SALARY NEFT. Ref 4235356808.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-05-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Your account statement for May 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c xx3141 for May 2025 is attached. The PDF is protected; password is your Customer ID.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-05-03",
+   "attachments": [
+    {
+     "filename": "Statement_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "OTP for online transaction",
+   "body": "269166 is the One Time Password (OTP) for your online transaction of INR 5,151.70 at ZEPTO. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nT&C apply. Visit www.kotak.com for more details.\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2025-05-03",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Standing instruction executed",
+   "body": "Dear Imran,\nStanding Instruction executed: Rs. 22,500.00 debited from your Kotak Bank A/c XX3141 on 05-May-2025 to Ramesh Joshi A/c no. XXXXXXXX8342 (HDFC Bank), SI Ref 783257035915. Avl Bal after txn is shown in the Kotak app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-05-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.683.23 spent on your Kotak Credit Card xx5927 at CROMA on 10-May-2025. Avl. credit limit: Rs. 1,73,201.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nThis is a system generated email. Please do not reply to this message.\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2025-05-10",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.2,274.80 spent on your Kotak Credit Card xx7183 at AIRBNB on 10-May-2025. Avl. credit limit: Rs. 2,08,328.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2025-05-10",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 1,011.87 debited from your Kotak Bank A/c XX3141 on 12-May-2025 to VPA paytm.s1@ybl (UPI Ref No. 697004496630). Avl Bal after txn is shown in the Kotak app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-05-12",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statement of your Kotak Mahindra Bank League Platinum Credit Card xx5927 for May 2025 is ready. Total due Rs.1,14,104.01, pay by 30 May 2025.\nView it in the app or NetBanking under Cards.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_May2025.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCredit Card Number: XXXX XXXX XXXX 5927\nCard Type: League Platinum\nStatement Date: 12/05/2025\nStatement Period: 12/04/2025 - 12/05/2025\nPayment Due Date: 30/05/2025\nTotal Amount Due: Rs. 1,14,104.01\nMinimum Amount Due: Rs. 5,705.20\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,69,294.00\n\nDate        Transaction Details                        Amount (Rs.)\n30/04/2025  APOLLO PHARMACY BANGALORE   624.39 Dr\n13/04/2025  ZOMATO MUMBAI   455.38 Dr\n20/04/2025  BLINKIT CHENNAI   8,273.56 Dr\n22/04/2025  IRCTC GURGAON   106.98 Dr\n14/04/2025  THIRD WAVE COFFEE PUNE   346.28 Dr\n06/05/2025  RELIANCE SMART GURGAON   4,469.37 Dr\n21/04/2025  CAFE COFFEE DAY GURGAON   4,588.62 Dr\n02/05/2025  RELIANCE SMART PUNE   476.57 Dr\n19/04/2025  BATA INDIA KOCHI   344.53 Dr\n03/05/2025  PAYMENT RECEIVED - THANK YOU   68,462.41 Cr\n\nReward Points Summary: Opening 3869  Earned 797  Closing 4834\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5854222738829  IFSC KOTA0000418"
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear&nbsp;Imran,\nRs.22,806.54&nbsp;spent&nbsp;on your Kotak Credit Card xx7183 at ZEPTO on 12-May-2025. Avl. credit limit: Rs. 82,921.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-05-12",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Your Kotak Mahindra Bank Mojo Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statement of your Kotak Mahindra Bank Mojo Credit Card xx7183 for May 2025 is ready. Total due Rs.3,309.18, pay by 30 May 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 7,500.00 debited from your Kotak Bank A/c XX3141 on 12-May-2025 to Rajesh Mehta A/c no. XXXXXXXX6973 (State Bank of India), IMPS Ref 196760080777. Avl Bal after txn is shown in the Kotak app.",
+   "date": "2025-05-12",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.2,648.75 withdrawn using your Kotak Mahindra Bank Platinum Debit Card xx3140 at ATM BANGALORE on 14-05-2025.",
+   "date": "2025-05-14",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,14,104.01 on 22-05-2025 towards your Kotak Mahindra Bank Credit Card XXXX XXXX XXXX 5927. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2025-05-22",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.4,661.42 spent on your Kotak Credit Card xx7183 at GOOGLE PLAY on 22-May-2025. Avl. credit limit: Rs. 3,15,322.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-05-22",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 6,687.81 debited from your Kotak Bank A/c XX3141 on 24-May-2025 to Priya Chopra A/c no. XXXXXXXX1538 (HDFC Bank), IMPS Ref 223205286691. Avl Bal after txn is shown in the Kotak app.",
+   "date": "2025-05-24",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 2266 reward points on your Kotak Mahindra Bank League Platinum Credit Card XXXX XXXX XXXX 5927. Redeem them on the rewards portal before they expire.",
+   "date": "2025-05-25",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 719 reward points on your Kotak Mahindra Bank Mojo Credit Card xx7183. Redeem them on the rewards portal before they expire.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-05-25",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Magnus, Atlas and Flipkart Axis Bank cards: lifetime free offers",
+   "body": "Choose from ACE, Magnus, Atlas, Reserve, Airtel Axis Bank cards. Offer reference 6282\nT&C apply.",
+   "date": "2025-05-25",
+   "attachments": [],
+   "from": "Axis Bank <offers@axisbank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 14,824.14 debited from your Kotak Bank A/c XX3141 on 27-May-2025 to VPA bigbasket@okaxis (UPI Ref No. 277281927639). Avl Bal after txn is shown in the Kotak app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-27",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Payment reminder: Kotak Mahindra Bank Credit Card xx5927",
+   "body": "Dear&nbsp;Customer,\nThis&nbsp;is&nbsp;a reminder that Rs.1,14,104.01 (minimum Rs.5,705.20) is due on 30-May-2025 on your Kotak Mahindra Bank Credit Card xx5927. Pay on time to avoid late payment charges.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2025-05-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX3141 on 01-06-2025 by SALARY NEFT. Ref 6838298373.\nThank you for banking with us.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Your account statement for June 2025",
+   "body": "Dear&nbsp;Customer,<br>\nYour&nbsp;e-statement&nbsp;for A/c xx3141 for Jun 2025 is attached. The PDF is protected; password is your Customer ID.<br>\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jun2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.2,667.62 spent on your Kotak Credit Card xx7183 at AIRBNB on 03-Jun-2025. Avl. credit limit: Rs. 2,39,367.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-06-03",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,<br>\nRs. 713.24 debited from your Kotak Bank A/c XX3141 on 05-Jun-2025 to VPA paytm.s1@ybl (UPI Ref No. 650548573281). Avl Bal after txn is shown in the Kotak app.<br>\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-06-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Standing instruction executed",
+   "body": "Dear Imran,\nStanding Instruction executed: Rs. 22,500.00 debited from your Kotak Bank A/c XX3141 on 05-Jun-2025 to Ramesh Joshi A/c no. XXXXXXXX8342 (HDFC Bank), SI Ref 811494764137. Avl Bal after txn is shown in the Kotak app.",
+   "date": "2025-06-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Pre-approved Personal Loan for you",
+   "body": "Get Rs.7,00,000 at 11% p.a. Instant approval. Offer ID BF9518\nT&C apply.",
+   "date": "2025-06-08",
+   "attachments": [],
+   "from": "Bajaj Finserv <offers@bajajfinserv.in>"
+  },
+  {
+   "id": "m075",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 204.51 debited from your Kotak Bank A/c XX3141 on 12-Jun-2025 to VPA swiggy@ybl (UPI Ref No. 857908408010). Avl Bal after txn is shown in the Kotak app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-12",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "Dear&nbsp;Imran&nbsp;Mehta,\nThe&nbsp;statement of your Kotak Mahindra Bank League Platinum Credit Card xx5927 for Jun 2025 is ready. Total due Rs.501.94, pay by 30 Jun 2025.\nView it in the app or NetBanking under Cards.",
+   "date": "2025-06-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Jun2025.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCard No: 4794 12XX XXXX 5927\nCard Type: League Platinum\nStatement Date: 12/06/2025\nStatement Period: 13/05/2025 - 12/06/2025\nPayment Due Date: 30/06/2025\nTotal Amount Due: Rs. 501.94\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,09,451.00\n\nDate        Transaction Details                        Amount (Rs.)\n27/05/2025  BOOKMYSHOW MUMBAI   1,326.76 Dr\n08/06/2025  CAFE COFFEE DAY HYDERABAD   1,351.15 Dr\n22/05/2025  BATA INDIA BANGALORE   461.98 Dr\n18/05/2025  MAKEMYTRIP CHENNAI   5,704.05 Dr\n15/05/2025  LENSKART CHENNAI   3,512.83 Dr\n28/05/2025  WESTSIDE MUMBAI   148.69 Dr\n02/06/2025  MAKEMYTRIP BANGALORE   317.01 Dr\n21/05/2025  TATA 1MG KOCHI   6,136.26 Dr\n03/06/2025  PAYMENT RECEIVED - THANK YOU   301.16 Cr\n\nReward Points Summary: Opening 2953  Earned 650  Closing 3252\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Your Kotak Mahindra Bank Mojo Credit Card statement is ready",
+   "body": "नमस्ते,\nDear Imran Mehta,\nThe statement of your Kotak Mahindra Bank Mojo Credit Card XX7183 for Jun 2025 is ready. Total due Rs.12,257.09, pay by 30 Jun 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-06-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Jun2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.2,912.82 spent on your Kotak Credit Card xx5927 at TATA 1MG on 16-Jun-2025. Avl. credit limit: Rs. 3,33,999.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank",
+   "date": "2025-06-16",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.12,257.09 on 25-06-2025 towards your Kotak Mahindra Bank Credit Card xx7183. Thank you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-06-25",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Imran, a gentle nudge: Rs.501.94 due on 30 June for card **5927. Ignore if already paid. Kripya samay par bhugtan karein.\n\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2025-06-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.245.86 withdrawn using your Kotak Mahindra Bank Platinum Debit Card xx3140 at ATM PUNE on 28-06-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2025-06-28",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,\nINR 65,000.00 credited to your A/c XX3141 on 01-07-2025 by SALARY NEFT. Ref 2723192129.\nThank you for banking with us.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-07-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Your account statement for July 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c xx3141 for Jul 2025 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2025-07-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 2,702.47 debited from your Kotak Bank A/c XX3141 on 05-Jul-2025 to VPA swiggy@paytm (UPI Ref No. 785297023603). Avl Bal after txn is shown in the Kotak app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-07-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Standing instruction executed",
+   "body": "Dear Imran,\nStanding Instruction executed: Rs. 22,500.00 debited from your Kotak Bank A/c XX3141 on 05-Jul-2025 to Ramesh Joshi A/c no. XXXXXXXX8342 (HDFC Bank), SI Ref 238492184025. Avl Bal after txn is shown in the Kotak app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-07-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "OTP for online transaction",
+   "body": "566184 is the One Time Password (OTP) for your online transaction of INR 37,473.88 at UBER INDIA. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2025-07-07",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,<br>\nRs. 2,761.19 debited from your Kotak Bank A/c XX3141 on 09-Jul-2025 to VPA paytm.s1@paytm (UPI Ref No. 583500076600). Avl Bal after txn is shown in the Kotak app.",
+   "date": "2025-07-09",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 14,199.87 debited from your Kotak Bank A/c XX3141 on 09-Jul-2025 to VPA zomato@paytm (UPI Ref No. 580054562004). Avl Bal after txn is shown in the Kotak app.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2025-07-09",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statement of your Kotak Mahindra Bank League Platinum Credit Card **5927 for Jul 2025 is ready. Total due Rs.5,231.72, pay by 30 Jul 2025.\nView it in the app or NetBanking under Cards.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2025-07-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Jul2025.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCard No: 4242 78XX XXXX 5927\nCard Type: League Platinum\nStatement Date: 12/07/2025\nStatement Period: 12/06/2025 - 12/07/2025\nPayment Due Date: 30/07/2025\nTotal Amount Due: Rs. 5,231.72\nMinimum Amount Due: Rs. 261.59\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,89,910.00\n\nDate        Transaction Details                        Amount (Rs.)\n12/06/2025  ZOMATO HYDERABAD   14,944.23 Dr\n04/07/2025  INDIGO AIRLINES PUNE   8,103.84 Dr\n24/06/2025  UBER INDIA GURGAON   366.36 Dr\n08/07/2025  UBER INDIA CHENNAI   3,161.66 Dr\n29/06/2025  APOLLO PHARMACY GURGAON   734.26 Dr\n06/07/2025  OLA CABS CHENNAI   474.52 Dr\n12/06/2025  OLA CABS MUMBAI   569.23 Dr\n16/06/2025  LICIOUS CHENNAI   4,773.11 Dr\n03/07/2025  PAYMENT RECEIVED - THANK YOU   3,139.03 Cr\n\nReward Points Summary: Opening 3919  Earned 322  Closing 7014\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5854222738829  IFSC KOTA0000297"
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Your Kotak Mahindra Bank Mojo Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statment of your Kotak Mahindra Bank Mojo Credit Card xx7183 for Jul 2025 is ready. Total due Rs.19,654.18, pay by 30 Jul 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-07-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 5,000.00 debited from your Kotak Bank A/c XX3141 on 14-Jul-2025 to Rajesh Mehta A/c no. XXXXXXXX6973 (State Bank of India), NEFT Ref 434874723011. Avl Bal after txn is shown in the Kotak app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-14",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 3,250.85 debited from your Kotak Bank A/c XX3141 on 18-Jul-2025 to VPA merchant@okhdfcbank (UPI Ref No. 322656201928). Avl Bal after txn is shown in the Kotak app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-07-18",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear&nbsp;Imran,\nRs.2,278.78&nbsp;spent&nbsp;on your Kotak Credit Card xx5927 at MAKEMYTRIP on 21-Jul-2025. Avl. credit limit: Rs. 3,98,039.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-07-21",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.5,231.72 on 22-07-2025 towards your Kotak Mahindra Bank Credit Card XX5927. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-07-22",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.808.25 spent on your Kotak Credit Card xx7183 at PVR INOX on 22-Jul-2025. Avl. credit limit: Rs. 1,72,119.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank",
+   "date": "2025-07-22",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour Kotak Mahindra Bank Platinum Debit Card no. XXXXXXXXXXXX3140 was used for Rs.510.77 at BOOKMYSHOW on 23-Jul-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-07-23",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.19,654.18 on 25-07-2025 towards your Kotak Mahindra Bank Credit Card **7183. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-07-25",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Payment reminder: Kotak Mahindra Bank Credit Card xx5927",
+   "body": "Dear Customer,\nThis is a reminder that Rs.5,231.72 (minimum Rs.261.59) is due on 30-Jul-2025 on your Kotak Mahindra Bank Credit Card xx5927. Pay on time to avoid late payment charges.",
+   "date": "2025-07-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Imran, a gentle nudge: Rs.19,654.18 due on 30 July for card xx7183. Ignore if already paid. Kripya samay par bhugtan karein.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX3141 on 01-08-2025 by SALARY NEFT. Ref 9663785604.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-08-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.4,739.83 spent on your Kotak Credit Card xx5927 at AIRBNB on 01-Aug-2025. Avl. credit limit: Rs. 96,159.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.3,390.95 spent on your Kotak Credit Card xx7183 at MEDPLUS on 02-Aug-2025. Avl. credit limit: Rs. 74,966.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-08-02",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Your account statement for August 2025",
+   "body": "Dear Customer,<br>\nYour e-statement for A/c **3141 for Aug 2025 is attached. The PDF is protected; password is your Customer ID.<br>\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-03",
+   "attachments": [
+    {
+     "filename": "Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Mobile number updated",
+   "body": "Your mobile number XXXXXX2325 has been updated in our records. If not requested by you, visit the nearest branch.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-08-03",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nStanding Instruction executed: Rs. 22,500.00 debited from your Kotak Bank A/c XX3141 on 05-Aug-2025 to Ramesh Joshi A/c no. XXXXXXXX8342 (HDFC Bank), SI Ref 986265465385. Avl Bal after txn is shown in the Kotak app.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2025-08-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear&nbsp;Imran,\nRs.&nbsp;3,447.55&nbsp;debited from your Kotak Bank A/c XX3141 on 06-Aug-2025 to VPA irctcweb@icici (UPI Ref No. 362195034556). Avl Bal after txn is shown in the Kotak app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-08-06",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour Kotak Mahindra Bank Platinum Debit Card xx3140 was used for Rs.3,000.00 at STARBUCKS on 06-Aug-2025.",
+   "date": "2025-08-06",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "नमस्ते,\nDear&nbsp;Imran&nbsp;Mehta,\nThe&nbsp;statement of your Kotak Mahindra Bank League Platinum Credit Card xx5927 for Aug 2025 is ready. Total due Rs.3,421.24, pay by 30 Aug 2025.\nView it in the app or NetBanking under Cards.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Aug2025.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCredit Card Number: XXXX XXXX XXXX 5927\nCard Type: League Platinum\nStatement Date: 12/08/2025\nStatement Period: 13/07/2025 - 12/08/2025\nPayment Due Date: 30/08/2025\nTotal Amount Due: Rs. 3,421.24\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,19,374.00\n\nDate        Transaction Details                        Amount (Rs.)\n22/07/2025  GOOGLE PLAY KOCHI   232.95 Dr\n30/07/2025  BIGBASKET GURGAON   174.12 Dr\n23/07/2025  AMAZON PAY INDIA GURGAON   104.17 Dr\n25/07/2025  AMAZON PAY INDIA GURGAON   3,029.58 Dr\n24/07/2025  INDIGO AIRLINES HYDERABAD   4,129.30 Dr\n18/07/2025  SPOTIFY KOCHI   277.37 Dr\n15/07/2025  DMART CHENNAI   26,382.07 Dr\n23/07/2025  UBER INDIA MUMBAI   29,217.22 Dr\n16/07/2025  IRCTC MUMBAI   735.03 Dr\n03/08/2025  PAYMENT RECEIVED - THANK YOU   2,052.74 Cr\n\nReward Points Summary: Opening 1957  Earned 131  Closing 1016\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Your Kotak Mahindra Bank Mojo Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statement of your Kotak Mahindra Bank Mojo Credit Card xx7183 for Aug 2025 is ready. Total due Rs.15,022.86, pay by 30 Aug 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "7183_12082025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.871.65 spent on your Kotak Credit Card xx5927 at ZEPTO on 15-Aug-2025. Avl. credit limit: Rs. 3,03,906.00.\nIf not you, SMS BLOCK to 5676788. Regrads, Kotak Mahindra Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-15",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 40,616.49 debited from your Kotak Bank A/c XX3141 on 15-Aug-2025 to Lakshmi Banerjee A/c no. XXXXXXXX7192 (Canara Bank), IMPS Ref 201981213424. Avl Bal after txn is shown in the Kotak app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-15",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,<br>\nRs. 535.38 debited from your Kotak Bank A/c XX3141 on 24-Aug-2025 to VPA bigbasket@paytm (UPI Ref No. 792232631630). Avl Bal after txn is shown in the Kotak app.<br>\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-08-24",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Payment reminder: Kotak Mahindra Bank Credit Card XX5927",
+   "body": "Dear&nbsp;Customer,\nThis&nbsp;is&nbsp;a reminder that Rs.3,421.24 (minimum Rs.200.00) is due on 30-Aug-2025 on your Kotak Mahindra Bank Credit Card XX5927. Pay on time to avoid late payment charges.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.15,022.86 on 29-08-2025 towards your Kotak Mahindra Bank Credit Card xx7183. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2025-08-29",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX3141 on 01-09-2025 by SALARY NEFT. Ref 7140256340.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-09-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "नमस्ते,\nDear Imran,\nRs.7,932.94 spent on your Kotak Credit Card xx7183 at BPCL FUEL on 01-Sep-2025. Avl. credit limit: Rs. 2,24,037.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-09-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Your account statement for September 2025",
+   "body": "Dear Customer,\nYour e-statment for A/c XXXX XXXX XXXX 3141 for Sep 2025 is attached. The PDF is protected; password is your Customer ID.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-09-03",
+   "attachments": [
+    {
+     "filename": "Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nStanding Instruction executed: Rs. 22,500.00 debited from your Kotak Bank A/c XX3141 on 05-Sep-2025 to Ramesh Joshi A/c no. XXXXXXXX8342 (HDFC Bank), SI Ref 102556501566. Avl Bal after txn is shown in the Kotak app.",
+   "date": "2025-09-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.3,048.54 withdrawn using your Kotak Mahindra Bank Platinum Debit Card XX3140 at ATM GURGAON on 08-09-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-08",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,<br>\nRs. 26,029.36 debited from your Kotak Bank A/c XX3141 on 11-Sep-2025 to VPA irctcweb@okhdfcbank (UPI Ref No. 823244803222). Avl Bal after txn is shown in the Kotak app.<br>\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2025-09-11",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 233.93 debited from your Kotak Bank A/c XX3141 on 11-Sep-2025 to VPA swiggy@ybl (UPI Ref No. 117578444801). Avl Bal after txn is shown in the Kotak app.",
+   "date": "2025-09-11",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statement of your Kotak Mahindra Bank League Platinum Credit Card xx5927 for Sep 2025 is ready. Total due Rs.8,566.74, pay by 30 Sep 2025.\nView it in the app or NetBanking under Cards.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Sep2025.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCard No: 4159 37XX XXXX 5927\nCard Type: League Platinum\nStatement Date: 12/09/2025\nStatement Period: 13/08/2025 - 12/09/2025\nPayment Due Date: 30/09/2025\nTotal Amount Due: Rs. 8,566.74\nMinimum Amount Due: Rs. 428.34\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 51,083.00\n\nDate        Transaction Details                        Amount (Rs.)\n08/09/2025  UBER INDIA CHENNAI   22,306.50 Dr\n30/08/2025  LENSKART MUMBAI   2,229.38 Dr\n04/09/2025  WESTSIDE HYDERABAD   8,526.86 Dr\n27/08/2025  APOLLO PHARMACY HYDERABAD   509.08 Dr\n16/08/2025  SPOTIFY HYDERABAD   34,820.23 Dr\n28/08/2025  PVR INOX GURGAON   3,286.68 Dr\n03/09/2025  PAYMENT RECEIVED - THANK YOU   5,140.04 Cr\n\nReward Points Summary: Opening 6378  Earned 887  Closing 5660\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "Your Kotak Mahindra Bank Mojo Credit Card statement is ready",
+   "body": "नमस्ते,\nDear Imran Mehta,\nThe statment of your Kotak Mahindra Bank Mojo Credit Card xx7183 for Sep 2025 is ready. Total due Rs.36,710.35, pay by 30 Sep 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "Mobile number updated",
+   "body": "Your mobile number XXXXXX3976 has been updated in our records. If not requested by you, visit the nearest branch.\n\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2025-09-13",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.24,537.77 spent on your Kotak Credit Card xx7183 at BPCL FUEL on 15-Sep-2025. Avl. credit limit: Rs. 3,45,837.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-09-15",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.393.49 spent on your Kotak Credit Card xx5927 at DECATHLON on 18-Sep-2025. Avl. credit limit: Rs. 56,896.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank",
+   "date": "2025-09-18",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 10,000.00 debited from your Kotak Bank A/c XX3141 on 21-Sep-2025 to Rajesh Mehta A/c no. XXXXXXXX6973 (State Bank of India), IMPS Ref 354797106213. Avl Bal after txn is shown in the Kotak app.",
+   "date": "2025-09-21",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Convert to EMI",
+   "body": "नमस्ते,\nDear Customer,\nYour transaction of Rs.8,134.15 on card xx7183 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-09-22",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.36,710.35 on 23-09-2025 towards your Kotak Mahindra Bank Credit Card xx7183. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-09-23",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.240.78 spent on your Kotak Credit Card xx7183 at SPOTIFY on 25-Sep-2025. Avl. credit limit: Rs. 1,88,904.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Imran, a gentle nudge: Rs.8,566.74 due on 30 September for card xx5927. Ignore if already paid. Kripya samay par bhugtan karein.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Imran, a gentle nudge: Rs.36,710.35 due on 30 September for card xx7183. Ignore if already paid. Kripya samay par bhugtan karein.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,<br>\nRs. 402.63 debited from your Kotak Bank A/c XX3141 on 28-Sep-2025 to VPA zomato@icici (UPI Ref No. 746367259670). Avl Bal after txn is shown in the Kotak app.<br>\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-09-28",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.8,566.74 on 28-09-2025 towards your Kotak Mahindra Bank Credit Card XX5927. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-09-28",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX3141 on 01-10-2025 by SALARY NEFT. Ref 9922830117.\nThank you for banking with us.",
+   "date": "2025-10-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "Your account statement for October 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c no. XXXXXXXXXXXX3141 for Oct 2025 is attached. The PDF is protected; password is your Customer ID.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-03",
+   "attachments": [
+    {
+     "filename": "Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card xx7183 has been processed. Tenure 12 months. First EMI will appear on your next statment.",
+   "date": "2025-10-05",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nStanding Instruction executed: Rs. 22,500.00 debited from your Kotak Bank A/c XX3141 on 05-Oct-2025 to Ramesh Joshi A/c no. XXXXXXXX8342 (HDFC Bank), SI Ref 808636441135. Avl Bal after txn is shown in the Kotak app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-10-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.520.13 spent on your Kotak Credit Card **5927 at JIO PREPAID on 10-Oct-2025. Avl. credit limit: Rs. 1,37,007.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-10-10",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "Dear Imran Mehta,<br>\nThe statement of your Kotak Mahindra Bank League Platinum Credit Card ending 5927 for Oct 2025 is ready. Total due Rs.21,443.81, pay by 30 Oct 2025.<br>\nView it in the app or NetBanking under Cards.\n\nT&C apply. Visit www.kotak.com for more details.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Oct2025.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCard No: 4699 42XX XXXX 5927\nCard Type: League Platinum\nStatement Date: 12/10/2025\nStatement Period: 12/09/2025 - 12/10/2025\nPayment Due Date: 30/10/2025\nTotal Amount Due: Rs. 21,443.81\nMinimum Amount Due: Rs. 1,072.19\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 82,380.00\n\nDate        Transaction Details                        Amount (Rs.)\n02/10/2025  BOOKMYSHOW MUMBAI   26,269.42 Dr\n24/09/2025  SPOTIFY MUMBAI   23,531.80 Dr\n26/09/2025  LICIOUS HYDERABAD   2,131.04 Dr\n04/10/2025  MAKEMYTRIP PUNE   95.55 Dr\n03/10/2025  PAYMENT RECEIVED - THANK YOU   12,866.29 Cr\n\nReward Points Summary: Opening 5702  Earned 345  Closing 8647\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5854222738829  IFSC KOTA0000678"
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "Your Kotak Mahindra Bank Mojo Credit Card statement is ready",
+   "body": "नमस्ते,\nDear Imran Mehta,<br>\nThe statement of your Kotak Mahindra Bank Mojo Credit Card xx7183 for Oct 2025 is ready. Total due Rs.705.26, pay by 30 Oct 2025.<br>\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,<br>\nRs. 810.69 debited from your Kotak Bank A/c XX3141 on 15-Oct-2025 to VPA q441816255@ybl (UPI Ref No. 503300299284). Avl Bal after txn is shown in the Kotak app.<br>\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2025-10-15",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 5,085.63 debited from your Kotak Bank A/c XX3141 on 15-Oct-2025 to VPA merchant@icici (UPI Ref No. 647666548798). Avl Bal after txn is shown in the Kotak app.\n\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2025-10-15",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Credit limit change on your card",
+   "body": "नमस्ते,\nDear Customer,\nBased on your profile, the credit limit on your Kotak Mahindra Bank Mojo Credit Card xx7183 has been increased to Rs.4,50,000.00 effective 17-10-2025.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-10-17",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m145",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear&nbsp;Imran,\nRs.4,717.95&nbsp;spent&nbsp;on your Kotak Credit Card xx7183 at BOOKMYSHOW on 18-Oct-2025. Avl. credit limit: Rs. 1,43,725.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank",
+   "date": "2025-10-18",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear&nbsp;Imran,\nRs.&nbsp;11,499.64&nbsp;debited from your Kotak Bank A/c XX3141 on 20-Oct-2025 to VPA swiggy@icici (UPI Ref No. 342949905191). Avl Bal after txn is shown in the Kotak app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-10-20",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 703.06 debited from your Kotak Bank A/c XX3141 on 20-Oct-2025 to VPA bigbasket@ybl (UPI Ref No. 441290855113). Avl Bal after txn is shown in the Kotak app.",
+   "date": "2025-10-20",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear&nbsp;Imran,\nRs.3,050.06&nbsp;spent&nbsp;on your Kotak Credit Card XXXX XXXX XXXX 7183 at MAKEMYTRIP on 20-Oct-2025. Avl. credit limit: Rs. 1,40,818.00.\nIf not you, SMS BLOCK to 5676788. Regrads, Kotak Mahindra Bank\n\nThis is a system generated email. Please do not reply to this message.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-20",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear&nbsp;Imran,\nRs.3,661.99&nbsp;spent&nbsp;on your Kotak Credit Card xx5927 at JIO PREPAID on 22-Oct-2025. Avl. credit limit: Rs. 2,33,613.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear&nbsp;Imran,\nRs.28,945.74&nbsp;spent&nbsp;on your Kotak Credit Card xx7183 at SHELL PETROL on 22-Oct-2025. Avl. credit limit: Rs. 1,67,710.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Debit card transaction alert",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;Kotak&nbsp;Mahindra Bank Platinum Debit Card xx3140 was used for Rs.5,000.00 at BPCL FUEL on 25-Oct-2025.",
+   "date": "2025-10-25",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.21,443.81 on 25-10-2025 towards your Kotak Mahindra Bank Credit Card xx5927. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-10-25",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "Your reward points summary",
+   "body": "नमस्ते,\nDear Customer,\nYou have 11440 reward points on your Kotak Mahindra Bank League Platinum Credit Card xx5927. Redeem them on the rewards portal before they expire.",
+   "date": "2025-10-25",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 8160 reward points on your Kotak Mahindra Bank Mojo Credit Card xx7183. Redeem them on the rewards portal before they expire.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2025-10-25",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.705.26 on 26-10-2025 towards your Kotak Mahindra Bank Credit Card no. XXXXXXXXXXXX7183. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2025-10-26",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 824.19 debited from your Kotak Bank A/c XX3141 on 27-Oct-2025 to VPA paytm.s1@paytm (UPI Ref No. 639784500583). Avl Bal after txn is shown in the Kotak app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX3141 on 01-11-2025 by SALARY NEFT. Ref 6180965019.\nThank you for banking with us.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-11-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "Your account statement for November 2025",
+   "body": "Dear Customer,<br>\nYour e-statement for A/c ending 3141 for Nov 2025 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2025-11-03",
+   "attachments": [
+    {
+     "filename": "Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "नमस्ते,\nDear Imran,\nStanding Instruction executed: Rs. 22,500.00 debited from your Kotak Bank A/c XX3141 on 05-Nov-2025 to Ramesh Joshi A/c no. XXXXXXXX8342 (HDFC Bank), SI Ref 755302446902. Avl Bal after txn is shown in the Kotak app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 346.81 debited from your Kotak Bank A/c XX3141 on 07-Nov-2025 to VPA merchant@okhdfcbank (UPI Ref No. 924214002674). Avl Bal after txn is shown in the Kotak app.",
+   "date": "2025-11-07",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "Pre-approved Personal Loan for you",
+   "body": "Get Rs.7,00,000 at 11% p.a. Instant approval. Offer ID BF5533\nT&C apply.",
+   "date": "2025-11-07",
+   "attachments": [],
+   "from": "Bajaj Finserv <offers@bajajfinserv.in>"
+  },
+  {
+   "id": "m162",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.7,089.31 spent on your Kotak Credit Card xx5927 at NETFLIX.COM on 09-Nov-2025. Avl. credit limit: Rs. 1,28,153.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2025-11-09",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statement of your Kotak Mahindra Bank League Platinum Credit Card xx5927 for Nov 2025 is ready. Total due Rs.75,911.11, pay by 30 Nov 2025.\nView it in the app or NetBanking under Cards.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCard No: 4544 77XX XXXX 5927\nCard Type: League Platinum\nStatement Date: 12/11/2025\nStatement Period: 13/10/2025 - 12/11/2025\nPayment Due Date: 30/11/2025\nTotal Amount Due: Rs. 75,911.11\nMinimum Amount Due: Rs. 3,795.56\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 20,197.00\n\nDate        Transaction Details                        Amount (Rs.)\n06/11/2025  THIRD WAVE COFFEE CHENNAI   434.00 Dr\n17/10/2025  DECATHLON MUMBAI   2,040.91 Dr\n13/10/2025  BIGBASKET CHENNAI   343.04 Dr\n14/10/2025  SPOTIFY CHENNAI   3,120.84 Dr\n15/10/2025  GOOGLE PLAY HYDERABAD   3,689.31 Dr\n21/10/2025  ZOMATO KOCHI   119.35 Dr\n21/10/2025  MEDPLUS CHENNAI   8,451.02 Dr\n25/10/2025  SPOTIFY PUNE   4,612.97 Dr\n04/11/2025  JIO PREPAID GURGAON   292.79 Dr\n03/11/2025  PAYMENT RECEIVED - THANK YOU   45,546.67 Cr\n\nReward Points Summary: Opening 5377  Earned 198  Closing 5911\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5854222738829  IFSC KOTA0000673"
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "Your Kotak Mahindra Bank Mojo Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statement of your Kotak Mahindra Bank Mojo Credit Card xx7183 for Nov 2025 is ready. Total due Rs.2,758.84, pay by 30 Nov 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "7183_12112025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 7,194.40 debited from your Kotak Bank A/c XX3141 on 13-Nov-2025 to VPA swiggy@okaxis (UPI Ref No. 289978367506). Avl Bal after txn is shown in the Kotak app.",
+   "date": "2025-11-13",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour Kotak Mahindra Bank Platinum Debit Card XX3140 was used for Rs.4,742.64 at DECATHLON on 13-Nov-2025.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-11-13",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.474.87 spent on your Kotak Credit Card xx5927 at BATA INDIA on 13-Nov-2025. Avl. credit limit: Rs. 1,98,190.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank",
+   "date": "2025-11-13",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 15,000.00 debited from your Kotak Bank A/c XX3141 on 14-Nov-2025 to Rajesh Mehta A/c no. XXXXXXXX6973 (State Bank of India), NEFT Ref 405171418463. Avl Bal after txn is shown in the Kotak app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-14",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.148.60 spent on your Kotak Credit Card xx5927 at STARBUCKS on 15-Nov-2025. Avl. credit limit: Rs. 2,10,639.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2025-11-15",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.597.28 spent on your Kotak Credit Card xx7183 at IRCTC on 16-Nov-2025. Avl. credit limit: Rs. 2,76,385.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nThis is a system generated email. Please do not reply to this message.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-16",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 3,423.80 debited from your Kotak Bank A/c XX3141 on 23-Nov-2025 to VPA irctcweb@okaxis (UPI Ref No. 712114975895). Avl Bal after txn is shown in the Kotak app.",
+   "date": "2025-11-23",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m172",
+   "subject": "Payment reminder: Kotak Mahindra Bank Credit Card xx5927",
+   "body": "Dear Customer,\nThis is a reminder that Rs.75,911.11 (minimum Rs.3,795.56) is due on 30-Nov-2025 on your Kotak Mahindra Bank Credit Card xx5927. Pay on time to avoid late payment charges.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.574.97 spent on your Kotak Credit Card xx5927 at REDBUS on 28-Nov-2025. Avl. credit limit: Rs. 2,78,392.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-11-28",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m174",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.426.03 spent on your Kotak Credit Card ending 7183 at MEDPLUS on 28-Nov-2025. Avl. credit limit: Rs. 2,76,949.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-11-28",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 37,627.06 debited from your Kotak Bank A/c XX3141 on 01-Dec-2025 to VPA bigbasket@okaxis (UPI Ref No. 724245863484). Avl Bal after txn is shown in the Kotak app.",
+   "date": "2025-12-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m176",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX3141 on 01-12-2025 by SALARY NEFT. Ref 8692559775.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-12-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "नमस्ते,\nDear Imran,\nRs. 250.28 debited from your Kotak Bank A/c XX3141 on 02-Dec-2025 to VPA merchant@icici (UPI Ref No. 633185980838). Avl Bal after txn is shown in the Kotak app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-02",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "Your account statement for December 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c xx3141 for Dec 2025 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2025-12-03",
+   "attachments": [
+    {
+     "filename": "Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m179",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.627.67 spent on your Kotak Credit Card xx5927 at AIRBNB on 05-Dec-2025. Avl. credit limit: Rs. 2,51,576.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "Standing instruction executed",
+   "body": "Dear Imran,\nStanding Instruction executed: Rs. 22,500.00 debited from your Kotak Bank A/c XX3141 on 05-Dec-2025 to Ramesh Joshi A/c no. XXXXXXXX8342 (HDFC Bank), SI Ref 114446655925. Avl Bal after txn is shown in the Kotak app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m181",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "नमस्ते,\nDear Imran,\nRs.1,514.85 spent on your Kotak Credit Card xx5927 at BPCL FUEL on 07-Dec-2025. Avl. credit limit: Rs. 2,33,716.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-07",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "नमस्ते,\nDear Imran,\nRs.235.33 spent on your Kotak Credit Card xx5927 at ZEPTO on 10-Dec-2025. Avl. credit limit: Rs. 2,92,480.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank",
+   "date": "2025-12-10",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m183",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.663.24 spent on your Kotak Credit Card xx5927 at STARBUCKS on 11-Dec-2025. Avl. credit limit: Rs. 37,485.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank",
+   "date": "2025-12-11",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statement of your Kotak Mahindra Bank League Platinum Credit Card xx5927 for Dec 2025 is ready. Total due Rs.2,445.77, pay by 30 Dec 2025.\nView it in the app or NetBanking under Cards.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Dec2025.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCard No: 4417 25XX XXXX 5927\nStatement Date: 12/12/2025\nStatement Period: 12/11/2025 - 12/12/2025\nPayment Due Date: 30/12/2025\nTotal Amount Due: Rs. 2,445.77\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 21,048.00\n\nDate        Transaction Details                        Amount (Rs.)\n24/11/2025  LICIOUS BANGALORE   7,614.44 Dr\n14/11/2025  BOOKMYSHOW BANGALORE   8,467.27 Dr\n14/11/2025  JIO PREPAID HYDERABAD   5,734.54 Dr\n09/12/2025  STARBUCKS MUMBAI   386.63 Dr\n23/11/2025  BIGBASKET KOCHI   601.39 Dr\n09/12/2025  SHELL PETROL GURGAON   690.34 Dr\n28/11/2025  OLA CABS MUMBAI   120.88 Dr\n03/12/2025  PAYMENT RECEIVED - THANK YOU   1,467.46 Cr\n\nReward Points Summary: Opening 5984  Earned 887  Closing 4989\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5854222738829  IFSC KOTA0000586"
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m185",
+   "subject": "Your Kotak Mahindra Bank Mojo Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statement of your Kotak Mahindra Bank Mojo Credit Card **7183 for Dec 2025 is ready. Total due Rs.3,574.62, pay by 30 Dec 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "Your Swiggy order receipt",
+   "body": "Order #8149 delivered. Paid via UPI. Rate your meal!\nT&C apply.",
+   "date": "2025-12-13",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m187",
+   "subject": "Mobile number updated",
+   "body": "Your mobile number XXXXXX4201 has been updated in our records. If not requested by you, visit the nearest branch.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-12-15",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m188",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour Kotak Mahindra Bank Platinum Debit Card xx3140 was used for Rs.369.37 at STARBUCKS on 18-Dec-2025.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-18",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m189",
+   "subject": "Your Kotak Mahindra Bank Credit Card has been closed",
+   "body": "Dear Imran Mehta,\nThis is to confirm that your Kotak Mahindra Bank Mojo Credit Card xx7183 has been closed on 20-12-2025 at your request. No dues are pending.\nThank you for banking with us.",
+   "date": "2025-12-20",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m190",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.6,558.64 spent on your Kotak Credit Card xx7183 at STARBUCKS on 23-Dec-2025. Avl. credit limit: Rs. 76,045.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-12-23",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "Payment reminder: Kotak Mahindra Bank Credit Card xx5927",
+   "body": "Dear Customer,\nThis is a reminder that Rs.2,445.77 (minimum Rs.200.00) is due on 30-Dec-2025 on your Kotak Mahindra Bank Credit Card xx5927. Pay on time to avoid late payment charges.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,445.77 on 27-12-2025 towards your Kotak Mahindra Bank Credit Card no. XXXXXXXXXXXX5927. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m193",
+   "subject": "Payment reminder: Kotak Mahindra Bank Credit Card no. XXXXXXXXXXXX7183",
+   "body": "Dear Customer,\nThis is a reminder that Rs.3,574.62 (minimum Rs.200.00) is due on 30-Dec-2025 on your Kotak Mahindra Bank Credit Card no. XXXXXXXXXXXX7183. Pay on time to avoid late payment charges.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m194",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.3,574.62 on 27-12-2025 towards your Kotak Mahindra Bank Credit Card xx7183. Thank you.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m195",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;1,05,000.00&nbsp;credited to your A/c XX3141 on 01-01-2026 by SALARY NEFT. Ref 3122361595.\nThank you for banking with us.",
+   "date": "2026-01-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 160.14 debited from your Kotak Bank A/c XX3141 on 03-Jan-2026 to VPA zomato@ybl (UPI Ref No. 460004540201). Avl Bal after txn is shown in the Kotak app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-03",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m197",
+   "subject": "Your account statement for January 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c xx3141 for Jan 2026 is attached. The PDF is protected; password is your Customer ID.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m198",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 22,390.39 debited from your Kotak Bank A/c XX3141 on 05-Jan-2026 to VPA swiggy@paytm (UPI Ref No. 474236167783). Avl Bal after txn is shown in the Kotak app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-01-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m199",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,<br>\nStanding Instruction executed: Rs. 22,500.00 debited from your Kotak Bank A/c XX3141 on 05-Jan-2026 to Ramesh Joshi A/c no. XXXXXXXX8342 (HDFC Bank), SI Ref 969647447540. Avl Bal after txn is shown in the Kotak app.",
+   "date": "2026-01-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m200",
+   "subject": "E-mandate cancelled",
+   "body": "Dear Customer,<br>\nThe e-mandate for NETFLIX.COM registered on your Kotak Mahindra Bank card xx5927 has been cancelled as requested. No further auto-debits will happen. Your card remains active.",
+   "date": "2026-01-09",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "OTP for online transaction",
+   "body": "नमस्ते,\n183873 is the One Time Password (OTP) for your online transaction of INR 22,410.79 at HOTSTAR. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-10",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 3,109.34 debited from your Kotak Bank A/c XX3141 on 12-Jan-2026 to VPA q183274852@icici (UPI Ref No. 697285900326). Avl Bal after txn is shown in the Kotak app.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-01-12",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m203",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour Kotak Mahindra Bank Platinum Debit Card xx3140 was used for Rs.10,000.00 at THIRD WAVE COFFEE on 12-Jan-2026.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-12",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statement of your Kotak Mahindra Bank League Platinum Credit Card xx5927 for Jan 2026 is ready. Total due Rs.72,531.97, pay by 30 Jan 2026.\nView it in the app or NetBanking under Cards.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Jan2026.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCard No: 4259 52XX XXXX 5927\nCard Type: League Platinum\nStatement Date: 12/01/2026\nStatement Period: 13/12/2025 - 12/01/2026\nPayment Due Date: 30/01/2026\nTotal Amount Due: Rs. 72,531.97\nMinimum Amount Due: Rs. 3,626.60\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,72,347.00\n\nDate        Transaction Details                        Amount (Rs.)\n18/12/2025  TATA 1MG HYDERABAD   3,120.79 Dr\n09/01/2026  BPCL FUEL HYDERABAD   29,111.01 Dr\n15/12/2025  APOLLO PHARMACY KOCHI   143.16 Dr\n06/01/2026  MEDPLUS BANGALORE   347.81 Dr\n14/12/2025  SPOTIFY MUMBAI   706.14 Dr\n03/01/2026  PAYMENT RECEIVED - THANK YOU   43,519.18 Cr\n\nReward Points Summary: Opening 716  Earned 178  Closing 6057\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5854222738829  IFSC KOTA0000441"
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m205",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 3,415.62 debited from your Kotak Bank A/c XX3141 on 16-Jan-2026 to VPA merchant@okhdfcbank (UPI Ref No. 355562362137). Avl Bal after txn is shown in the Kotak app.\n\nThis is a system generated email. Please do not reply to this message.\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2026-01-16",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m206",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 32,481.99 debited from your Kotak Bank A/c XX3141 on 19-Jan-2026 to VPA q880391510@ybl (UPI Ref No. 676180927240). Avl Bal after txn is shown in the Kotak app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-01-19",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m207",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,<br>\nRs.501.42 spent on your Kotak Credit Card xx5927 at SPOTIFY on 23-Jan-2026. Avl. credit limit: Rs. 3,28,962.00.<br>\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-01-23",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m208",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.72,531.97 on 23-01-2026 towards your Kotak Mahindra Bank Credit Card xx5927. Thank you.",
+   "date": "2026-01-23",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m209",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,<br>\nRs. 10,000.00 debited from your Kotak Bank A/c XX3141 on 24-Jan-2026 to Rajesh Mehta A/c no. XXXXXXXX6973 (State Bank of India), NEFT Ref 160955837866. Avl Bal after txn is shown in the Kotak app.<br>\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-24",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m210",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Imran, a gentle nudge: Rs.72,531.97 due on 30 January for card xx5927. Ignore if already paid. Kripya samay par bhugtan karein.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m211",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX3141 on 01-02-2026 by SALARY NEFT. Ref 3126788369.\nThank you for banking with us.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m212",
+   "subject": "Your account statement for February 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c xx3141 for Feb 2026 is attached. The PDF is protected; password is your Customer ID.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-02-03",
+   "attachments": [
+    {
+     "filename": "Statement_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m213",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nStanding Instruction executed: Rs. 22,500.00 debited from your Kotak Bank A/c XX3141 on 05-Feb-2026 to Ramesh Joshi A/c no. XXXXXXXX8342 (HDFC Bank), SI Ref 818126100781. Avl Bal after txn is shown in the Kotak app.\n\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2026-02-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m214",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 650.63 debited from your Kotak Bank A/c XX3141 on 09-Feb-2026 to VPA irctcweb@paytm (UPI Ref No. 405226568661). Avl Bal after txn is shown in the Kotak app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-02-09",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m215",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.593.12 spent on your Kotak Credit Card xx5927 at UBER INDIA on 09-Feb-2026. Avl. credit limit: Rs. 3,61,171.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-09",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m216",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statement of your Kotak Mahindra Bank League Platinum Credit Card no. XXXXXXXXXXXX5927 for Feb 2026 is ready. Total due Rs.79,348.18, pay by 02 Mar 2026.\nView it in the app or NetBanking under Cards.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCredit Card Number: XXXX XXXX XXXX 5927\nCard Type: League Platinum\nStatement Date: 12/02/2026\nStatement Period: 13/01/2026 - 12/02/2026\nPayment Due Date: 02/03/2026\nTotal Amount Due: Rs. 79,348.18\nMinimum Amount Due: Rs. 3,967.41\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,22,725.00\n\nDate        Transaction Details                        Amount (Rs.)\n18/01/2026  BIGBASKET BANGALORE   484.72 Dr\n28/01/2026  CAFE COFFEE DAY CHENNAI   6,875.30 Dr\n20/01/2026  AIRBNB KOCHI   2,114.27 Dr\n14/01/2026  SHELL PETROL KOCHI   1,054.24 Dr\n27/01/2026  BATA INDIA HYDERABAD   2,105.15 Dr\n27/01/2026  CROMA BANGALORE   26,699.89 Dr\n19/01/2026  BLINKIT HYDERABAD   20,598.00 Dr\n03/02/2026  PAYMENT RECEIVED - THANK YOU   47,608.91 Cr\n\nReward Points Summary: Opening 8855  Earned 891  Closing 8151\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m217",
+   "subject": "Your EMI request has been cancelled",
+   "body": "Your request to convert transaction of Rs.11,992.11 on card xx5927 to EMI has been cancelled. The transaction stays on your regular bill.\n\nT&C apply. Visit www.kotak.com for more details.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-02-14",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m218",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.500.00 withdrawn using your Kotak Mahindra Bank Platinum Debit Card **3140 at ATM HYDERABAD on 19-02-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-19",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m219",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "नमस्ते,\nDear Imran,\nRs. 8,500.02 debited from your Kotak Bank A/c XX3141 on 21-Feb-2026 to VPA q370135891@icici (UPI Ref No. 186260136656). Avl Bal after txn is shown in the Kotak app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-02-21",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m220",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,<br>\nRs. 17,780.33 debited from your Kotak Bank A/c XX3141 on 22-Feb-2026 to VPA zomato@okhdfcbank (UPI Ref No. 182375450735). Avl Bal after txn is shown in the Kotak app.<br>\n\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2026-02-22",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m221",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Imran, a gentle nudge: Rs.79,348.18 due on 02 March for card xx5927. Ignore if already paid. Kripya samay par bhugtan karein.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m222",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.79,348.18 on 28-02-2026 towards your Kotak Mahindra Bank Credit Card xx5927. Thank you.\n\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2026-02-28",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m223",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX3141 on 01-03-2026 by SALARY NEFT. Ref 6482990427.\nThank you for banking with us.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-03-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m224",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.150.35 spent on your Kotak Credit Card xx5927 at TATA 1MG on 01-Mar-2026. Avl. credit limit: Rs. 36,058.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank",
+   "date": "2026-03-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m225",
+   "subject": "Your account statement for March 2026",
+   "body": "Dear Customer,\nYour e-statment for A/c xx3141 for Mar 2026 is attached. The PDF is protected; password is your Customer ID.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2026-03-03",
+   "attachments": [
+    {
+     "filename": "Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m226",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "नमस्ते,\nDear Imran,\nStanding Instruction executed: Rs. 22,500.00 debited from your Kotak Bank A/c XX3141 on 05-Mar-2026 to Ramesh Joshi A/c no. XXXXXXXX8342 (HDFC Bank), SI Ref 609576825183. Avl Bal after txn is shown in the Kotak app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-03-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m227",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "नमस्ते,\nDear Imran,\nRs. 7,500.00 debited from your Kotak Bank A/c XX3141 on 11-Mar-2026 to Rajesh Mehta A/c no. XXXXXXXX6973 (State Bank of India), IMPS Ref 532489289256. Avl Bal after txn is shown in the Kotak app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-03-11",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m228",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statement of your Kotak Mahindra Bank League Platinum Credit Card xx5927 for Mar 2026 is ready. Total due Rs.19,515.76, pay by 30 Mar 2026.\nView it in the app or NetBanking under Cards.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Mar2026.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCredit Card Number: XXXX XXXX XXXX 5927\nCard Type: League Platinum\nStatement Date: 12/03/2026\nStatement Period: 10/02/2026 - 12/03/2026\nPayment Due Date: 30/03/2026\nTotal Amount Due: Rs. 19,515.76\nMinimum Amount Due: Rs. 975.79\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 58,579.00\n\nDate        Transaction Details                        Amount (Rs.)\n25/02/2026  MEDPLUS GURGAON   12,164.19 Dr\n11/02/2026  THIRD WAVE COFFEE CHENNAI   2,682.54 Dr\n03/03/2026  TATA 1MG CHENNAI   13,220.97 Dr\n03/03/2026  UBER INDIA KOCHI   7,470.66 Dr\n09/03/2026  SHELL PETROL BANGALORE   7,843.08 Dr\n23/02/2026  TATA 1MG MUMBAI   33,256.26 Dr\n27/02/2026  PVR INOX BANGALORE   7,540.94 Dr\n16/02/2026  GOOGLE PLAY KOCHI   746.29 Dr\n21/02/2026  BIGBASKET HYDERABAD   776.95 Dr\n03/03/2026  PAYMENT RECEIVED - THANK YOU   11,709.46 Cr\n\nReward Points Summary: Opening 6592  Earned 724  Closing 7167\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5854222738829  IFSC KOTA0000236"
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m229",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 2,811.98 debited from your Kotak Bank A/c XX3141 on 17-Mar-2026 to VPA zomato@paytm (UPI Ref No. 155051389883). Avl Bal after txn is shown in the Kotak app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-17",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m230",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,<br>\nYour Kotak Mahindra Bank Platinum Debit Card xx3140 was used for Rs.4,852.49 at URBAN COMPANY on 18-Mar-2026.<br>\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-03-18",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m231",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.19,515.76 on 22-03-2026 towards your Kotak Mahindra Bank Credit Card xx5927. Thank you.\n\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2026-03-22",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m232",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 733.44 debited from your Kotak Bank A/c XX3141 on 25-Mar-2026 to VPA irctcweb@ybl (UPI Ref No. 200303141339). Avl Bal after txn is shown in the Kotak app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-03-25",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m233",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 8632 reward points on your Kotak Mahindra Bank League Platinum Credit Card xx5927. Redeem them on the rewards portal before they expire.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-25",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m234",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi&nbsp;Imran,&nbsp;a&nbsp;gentle nudge: Rs.19,515.76 due on 30 March for card xx5927. Ignore if already paid. Kripya samay par bhugtan karein.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m235",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX3141 on 01-04-2026 by SALARY NEFT. Ref 1855557448.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-04-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m236",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 341.13 debited from your Kotak Bank A/c XX3141 on 02-Apr-2026 to VPA irctcweb@okaxis (UPI Ref No. 975009225068). Avl Bal after txn is shown in the Kotak app.",
+   "date": "2026-04-02",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m237",
+   "subject": "Your account statement for April 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c xx3141 for Apr 2026 is attached. The PDF is protected; password is your Customer ID.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-03",
+   "attachments": [
+    {
+     "filename": "Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m238",
+   "subject": "Standing instruction executed",
+   "body": "Dear Imran,\nStanding Instruction executed: Rs. 22,500.00 debited from your Kotak Bank A/c XX3141 on 05-Apr-2026 to Ramesh Joshi A/c no. XXXXXXXX8342 (HDFC Bank), SI Ref 619471871308. Avl Bal after txn is shown in the Kotak app.",
+   "date": "2026-04-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m239",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.7,177.25 spent on your Kotak Credit Card ending 5927 at AMAZON PAY INDIA on 10-Apr-2026. Avl. credit limit: Rs. 81,979.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2026-04-10",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m240",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "Dear Imran Mehta,<br>\nThe statement of your Kotak Mahindra Bank League Platinum Credit Card xx5927 for Apr 2026 is ready. Total due Rs.48,744.85, pay by 30 Apr 2026.<br>\nView it in the app or NetBanking under Cards.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Apr2026.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCard No: 4212 97XX XXXX 5927\nCard Type: League Platinum\nStatement Date: 12/04/2026\nStatement Period: 13/03/2026 - 12/04/2026\nPayment Due Date: 30/04/2026\nTotal Amount Due: Rs. 48,744.85\nMinimum Amount Due: Rs. 2,437.24\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 93,147.00\n\nDate        Transaction Details                        Amount (Rs.)\n27/03/2026  IRCTC BANGALORE   2,521.44 Dr\n19/03/2026  CROMA BANGALORE   16,881.59 Dr\n31/03/2026  BOOKMYSHOW HYDERABAD   848.75 Dr\n19/03/2026  INDIGO AIRLINES KOCHI   250.27 Dr\n09/04/2026  ZOMATO HYDERABAD   15,111.33 Dr\n07/04/2026  PVR INOX GURGAON   159.93 Dr\n09/04/2026  SHELL PETROL PUNE   228.85 Dr\n03/04/2026  PAYMENT RECEIVED - THANK YOU   29,246.91 Cr\n\nReward Points Summary: Opening 5306  Earned 723  Closing 7459\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5854222738829  IFSC KOTA0000603"
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m241",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,<br>\nRs.2,270.43 spent on your Kotak Credit Card xx5927 at BLINKIT on 14-Apr-2026. Avl. credit limit: Rs. 3,54,474.00.<br>\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-04-14",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m242",
+   "subject": "OTP for online transaction",
+   "body": "282667 is the One Time Password (OTP) for your online transaction of INR 17,365.72 at UBER INDIA. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2026-04-14",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m243",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour Kotak Mahindra Bank Platinum Debit Card xx3140 was used for Rs.500.00 at DECATHLON on 17-Apr-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-17",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m244",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 3,601.85 debited from your Kotak Bank A/c XX3141 on 18-Apr-2026 to VPA swiggy@icici (UPI Ref No. 487306177568). Avl Bal after txn is shown in the Kotak app.\n\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2026-04-18",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m245",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "नमस्ते,\nDear Imran,\nRs.2,082.70 spent on your Kotak Credit Card xx5927 at LENSKART on 18-Apr-2026. Avl. credit limit: Rs. 1,78,623.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-04-18",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m246",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.1,416.15 spent on your Kotak Credit Card xx5927 at UBER INDIA on 21-Apr-2026. Avl. credit limit: Rs. 2,38,874.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2026-04-21",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m247",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.48,744.85 on 26-04-2026 towards your Kotak Mahindra Bank Credit Card xx5927. Thank you.\n\nT&C apply. Visit www.kotak.com for more details.\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m248",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Imran, a gentle nudge: Rs.48,744.85 due on 30 April for card XX5927. Ignore if already paid. Kripya samay par bhugtan karein.\n\nThis is a system generated email. Please do not reply to this message.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m249",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX3141 on 01-05-2026 by SALARY NEFT. Ref 8869568869.\nThank you for banking with us.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m250",
+   "subject": "Your account statement for May 2026",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;e-statment&nbsp;for A/c xx3141 for May 2026 is attached. The PDF is protected; password is your Customer ID.\n\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2026-05-03",
+   "attachments": [
+    {
+     "filename": "Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m251",
+   "subject": "Standing instruction executed",
+   "body": "Dear Imran,\nStanding Instruction executed: Rs. 22,500.00 debited from your Kotak Bank A/c XX3141 on 05-May-2026 to Ramesh Joshi A/c no. XXXXXXXX8342 (HDFC Bank), SI Ref 430841871309. Avl Bal after txn is shown in the Kotak app.",
+   "date": "2026-05-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m252",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear&nbsp;Imran,\nRs.&nbsp;2,551.88&nbsp;debited from your Kotak Bank A/c XX3141 on 09-May-2026 to VPA irctcweb@okaxis (UPI Ref No. 623059039383). Avl Bal after txn is shown in the Kotak app.\n\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m253",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.30,199.91 spent on your Kotak Credit Card xx5927 at ZOMATO on 09-May-2026. Avl. credit limit: Rs. 1,60,399.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m254",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statement of your Kotak Mahindra Bank League Platinum Credit Card xx5927 for May 2026 is ready. Total due Rs.2,530.61, pay by 30 May 2026.\nView it in the app or NetBanking under Cards.\n\nThis is a system generated email. Please do not reply to this message.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCard No: 4868 41XX XXXX 5927\nCard Type: League Platinum\nStatement Date: 12/05/2026\nStatement Period: 12/04/2026 - 12/05/2026\nPayment Due Date: 30/05/2026\nTotal Amount Due: Rs. 2,530.61\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,21,406.00\n\nDate        Transaction Details                        Amount (Rs.)\n01/05/2026  UBER INDIA KOCHI   1,534.55 Dr\n22/04/2026  BATA INDIA GURGAON   430.29 Dr\n01/05/2026  STARBUCKS PUNE   2,446.34 Dr\n15/04/2026  BLINKIT GURGAON   634.80 Dr\n27/04/2026  STARBUCKS MUMBAI   25,983.55 Dr\n14/04/2026  TATA 1MG MUMBAI   18,367.31 Dr\n22/04/2026  APOLLO PHARMACY CHENNAI   21,862.02 Dr\n23/04/2026  LENSKART KOCHI   2,907.41 Dr\n23/04/2026  THIRD WAVE COFFEE GURGAON   20,561.54 Dr\n03/05/2026  PAYMENT RECEIVED - THANK YOU   1,518.37 Cr\n\nReward Points Summary: Opening 3993  Earned 396  Closing 8948\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m255",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.1,890.01 spent on your Kotak Credit Card ending 5927 at DMART on 13-May-2026. Avl. credit limit: Rs. 2,31,410.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-13",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m256",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 2,028.61 debited from your Kotak Bank A/c XX3141 on 19-May-2026 to Rohit Banerjee A/c no. XXXXXXXX2519 (HDFC Bank), IMPS Ref 877526815401. Avl Bal after txn is shown in the Kotak app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-19",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m257",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.140.15 spent on your Kotak Credit Card no. XXXXXXXXXXXX5927 at PVR INOX on 23-May-2026. Avl. credit limit: Rs. 1,55,079.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank",
+   "date": "2026-05-23",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m258",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 2,102.15 debited from your Kotak Bank A/c XX3141 on 25-May-2026 to VPA merchant@icici (UPI Ref No. 388759650307). Avl Bal after txn is shown in the Kotak app.",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m259",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour Kotak Mahindra Bank Platinum Debit Card **3140 was used for Rs.5,000.00 at REDBUS on 25-May-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m260",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 15,000.00 debited from your Kotak Bank A/c XX3141 on 25-May-2026 to Rajesh Mehta A/c no. XXXXXXXX6973 (State Bank of India), NEFT Ref 891439259487. Avl Bal after txn is shown in the Kotak app.\n\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m261",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Imran, a gentle nudge: Rs.2,530.61 due on 30 May for card xx5927. Ignore if already paid. Kripya samay par bhugtan karein.<br>\n<br>\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m262",
+   "subject": "Pre-approved Personal Loan for you",
+   "body": "Get Rs.7,00,000 at 11% p.a. Instant approval. Offer ID BF7174\nT&C apply.",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "Bajaj Finserv <offers@bajajfinserv.in>"
+  },
+  {
+   "id": "m263",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX3141 on 01-06-2026 by SALARY NEFT. Ref 6610894520.\nThank you for banking with us.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m264",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 1,249.02 debited from your Kotak Bank A/c XX3141 on 02-Jun-2026 to VPA paytm.s1@paytm (UPI Ref No. 804058761605). Avl Bal after txn is shown in the Kotak app.\n\nThis is a system generated email. Please do not reply to this message.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-06-02",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m265",
+   "subject": "Your account statement for June 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c xx3141 for Jun 2026 is attached. The PDF is protected; password is your Customer ID.\n\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2026-06-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m266",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.329.89 spent on your Kotak Credit Card xx5927 at GOOGLE PLAY on 04-Jun-2026. Avl. credit limit: Rs. 1,65,457.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-06-04",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m267",
+   "subject": "Standing instruction executed",
+   "body": "Dear Imran,\nStanding Instruction executed: Rs. 22,500.00 debited from your Kotak Bank A/c XX3141 on 05-Jun-2026 to Ramesh Joshi A/c no. XXXXXXXX8342 (HDFC Bank), SI Ref 840640826636. Avl Bal after txn is shown in the Kotak app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-06-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m268",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,<br>\nRs.500.00 withdrawn using your Kotak Mahindra Bank Platinum Debit Card xx3140 at ATM CHENNAI on 08-06-2026.<br>\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-08",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m269",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear&nbsp;Imran,\nRs.&nbsp;4,633.51&nbsp;debited from your Kotak Bank A/c XX3141 on 09-Jun-2026 to VPA swiggy@okhdfcbank (UPI Ref No. 296031333823). Avl Bal after txn is shown in the Kotak app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-06-09",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m270",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statment of your Kotak Mahindra Bank League Platinum Credit Card xx5927 for Jun 2026 is ready. Total due Rs.8,115.12, pay by 30 Jun 2026.\nView it in the app or NetBanking under Cards.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCard No: 4496 84XX XXXX 5927\nCard Type: League Platinum\nStatement Date: 12/06/2026\nStatement Period: 13/05/2026 - 12/06/2026\nPayment Due Date: 30/06/2026\nTotal Amount Due: Rs. 8,115.12\nMinimum Amount Due: Rs. 405.76\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,35,766.00\n\nDate        Transaction Details                        Amount (Rs.)\n26/05/2026  UBER INDIA MUMBAI   841.54 Dr\n26/05/2026  DECATHLON CHENNAI   2,884.42 Dr\n16/05/2026  IRCTC MUMBAI   1,199.96 Dr\n15/05/2026  URBAN COMPANY PUNE   404.39 Dr\n03/06/2026  PAYMENT RECEIVED - THANK YOU   4,869.07 Cr\n\nReward Points Summary: Opening 4506  Earned 653  Closing 8998\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m271",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.8,115.12 on 25-06-2026 towards your Kotak Mahindra Bank Credit Card xx5927. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m272",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 1,244.40 debited from your Kotak Bank A/c XX3141 on 27-Jun-2026 to VPA swiggy@ybl (UPI Ref No. 737483831572). Avl Bal after txn is shown in the Kotak app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m273",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX3141 on 01-07-2026 by SALARY NEFT. Ref 3354607159.\nThank you for banking with us.\n\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2026-07-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m274",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.22,883.16 spent on your Kotak Credit Card xx5927 at DECATHLON on 02-Jul-2026. Avl. credit limit: Rs. 3,34,796.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-07-02",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m275",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 725.18 debited from your Kotak Bank A/c XX3141 on 03-Jul-2026 to VPA zomato@icici (UPI Ref No. 905435487205). Avl Bal after txn is shown in the Kotak app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-07-03",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m276",
+   "subject": "Your account statement for July 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c xx3141 for Jul 2026 is attached. The PDF is protected; password is your Customer ID.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-07-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m277",
+   "subject": "Standing instruction executed",
+   "body": "Dear Imran,\nStanding Instruction executed: Rs. 22,500.00 debited from your Kotak Bank A/c XX3141 on 05-Jul-2026 to Ramesh Joshi A/c no. XXXXXXXX8342 (HDFC Bank), SI Ref 576065338680. Avl Bal after txn is shown in the Kotak app.",
+   "date": "2026-07-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m278",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 2,224.02 debited from your Kotak Bank A/c XX3141 on 07-Jul-2026 to VPA swiggy@ybl (UPI Ref No. 855385720510). Avl Bal after txn is shown in the Kotak app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-07-07",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m279",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statement of your Kotak Mahindra Bank League Platinum Credit Card xx5927 for Jul 2026 is ready. Total due Rs.3,356.99, pay by 30 Jul 2026.\nView it in the app or NetBanking under Cards.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCredit Card Number: XXXX XXXX XXXX 5927\nStatement Date: 12/07/2026\nStatement Period: 12/06/2026 - 12/07/2026\nPayment Due Date: 30/07/2026\nTotal Amount Due: Rs. 3,356.99\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,91,762.00\n\nDate        Transaction Details                        Amount (Rs.)\n07/07/2026  ZOMATO CHENNAI   40,603.72 Dr\n20/06/2026  UBER INDIA KOCHI   2,022.16 Dr\n29/06/2026  LICIOUS PUNE   19,744.99 Dr\n25/06/2026  MAKEMYTRIP GURGAON   16,524.41 Dr\n20/06/2026  BIGBASKET MUMBAI   27,862.65 Dr\n15/06/2026  PVR INOX CHENNAI   636.86 Dr\n09/07/2026  JIO PREPAID KOCHI   428.38 Dr\n03/07/2026  PAYMENT RECEIVED - THANK YOU   2,014.19 Cr\n\nReward Points Summary: Opening 6564  Earned 610  Closing 4053\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m280",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 10,000.00 debited from your Kotak Bank A/c XX3141 on 12-Jul-2026 to Rajesh Mehta A/c no. XXXXXXXX6973 (State Bank of India), NEFT Ref 500269895664. Avl Bal after txn is shown in the Kotak app.",
+   "date": "2026-07-12",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m281",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour Kotak Mahindra Bank Platinum Debit Card xx3140 was used for Rs.643.97 at CAFE COFFEE DAY on 13-Jul-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-07-13",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m282",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 39,794.47 debited from your Kotak Bank A/c XX3141 on 27-Jul-2026 to VPA zomato@paytm (UPI Ref No. 286711773881). Avl Bal after txn is shown in the Kotak app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m283",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Imran, a gentle nudge: Rs.3,356.99 due on 30 July for card xx5927. Ignore if already paid. Kripya samay par bhugtan karein.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m284",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 682.65 debited from your Kotak Bank A/c XX3141 on 28-Jul-2026 to VPA paytm.s1@ybl (UPI Ref No. 865369068007). Avl Bal after txn is shown in the Kotak app.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-07-28",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m285",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 25,871.09 debited from your Kotak Bank A/c XX3141 on 01-Aug-2026 to VPA swiggy@ybl (UPI Ref No. 221112563072). Avl Bal after txn is shown in the Kotak app.",
+   "date": "2026-08-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m286",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX3141 on 01-08-2026 by SALARY NEFT. Ref 9188466215.\nThank you for banking with us.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-08-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m287",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 3,026.18 debited from your Kotak Bank A/c XX3141 on 02-Aug-2026 to VPA bigbasket@okhdfcbank (UPI Ref No. 588511406538). Avl Bal after txn is shown in the Kotak app.",
+   "date": "2026-08-02",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m288",
+   "subject": "Your account statement for August 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XXXX XXXX XXXX 3141 for Aug 2026 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2026-08-03",
+   "attachments": [
+    {
+     "filename": "Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m289",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.3,466.73 spent on your Kotak Credit Card xx5927 at TATA 1MG on 04-Aug-2026. Avl. credit limit: Rs. 75,258.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank",
+   "date": "2026-08-04",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m290",
+   "subject": "Standing instruction executed",
+   "body": "Dear&nbsp;Imran,\nStanding&nbsp;Instruction&nbsp;executed: Rs. 22,500.00 debited from your Kotak Bank A/c XX3141 on 05-Aug-2026 to Ramesh Joshi A/c no. XXXXXXXX8342 (HDFC Bank), SI Ref 696200035026. Avl Bal after txn is shown in the Kotak app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2026-08-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m291",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 32,884.80 debited from your Kotak Bank A/c XX3141 on 09-Aug-2026 to VPA q928730132@ybl (UPI Ref No. 505673300142). Avl Bal after txn is shown in the Kotak app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2026-08-09",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m292",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 2,736.64 debited from your Kotak Bank A/c XX3141 on 11-Aug-2026 to VPA zomato@paytm (UPI Ref No. 629202104166). Avl Bal after txn is shown in the Kotak app.\n\nThis is a system generated email. Please do not reply to this message.\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2026-08-11",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m293",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statement of your Kotak Mahindra Bank League Platinum Credit Card xx5927 for Aug 2026 is ready. Total due Rs.3,809.53, pay by 30 Aug 2026.\nView it in the app or NetBanking under Cards.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nT&C apply. Visit www.kotak.com for more details.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCredit Card Number: XXXX XXXX XXXX 5927\nStatement Date: 12/08/2026\nStatement Period: 13/07/2026 - 12/08/2026\nPayment Due Date: 30/08/2026\nTotal Amount Due: Rs. 3,809.53\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 51,397.00\n\nDate        Transaction Details                        Amount (Rs.)\n19/07/2026  BPCL FUEL GURGAON   1,333.54 Dr\n19/07/2026  LENSKART KOCHI   1,287.56 Dr\n31/07/2026  INDIGO AIRLINES GURGAON   821.49 Dr\n13/07/2026  TATA 1MG HYDERABAD   1,961.48 Dr\n09/08/2026  LICIOUS KOCHI   725.02 Dr\n03/08/2026  PAYMENT RECEIVED - THANK YOU   2,285.72 Cr\n\nReward Points Summary: Opening 3464  Earned 383  Closing 8710\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m294",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour Kotak Mahindra Bank Platinum Debit Card xx3140 was used for Rs.500.00 at NETFLIX.COM on 20-Aug-2026.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-20",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m295",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transaction of Rs.8,793.23 on card XXXX XXXX XXXX 5927 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m296",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,<br>\nYou have 2872 reward points on your Kotak Mahindra Bank League Platinum Credit Card xx5927. Redeem them on the rewards portal before they expire.<br>\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-25",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m297",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Imran, a gentle nudge: Rs.3,809.53 due on 30 August for card **5927. Ignore if already paid. Kripya samay par bhugtan karein.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m298",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.3,809.53 on 27-08-2026 towards your Kotak Mahindra Bank Credit Card xx5927. Thank you.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m299",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX3141 on 01-09-2026 by SALARY NEFT. Ref 2935694391.\nThank you for banking with us.",
+   "date": "2026-09-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m300",
+   "subject": "Your account statement for September 2026",
+   "body": "Dear Customer,\nYour e-statment for A/c xx3141 for Sep 2026 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2026-09-03",
+   "attachments": [
+    {
+     "filename": "Statement_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m301",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,<br>\nRs.3,000.00 withdrawn using your Kotak Mahindra Bank Platinum Debit Card xx3140 at ATM PUNE on 04-09-2026.<br>\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2026-09-04",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m302",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card xx5927 has been processed. Tenure 9 months. First EMI will appear on your next statement.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m303",
+   "subject": "Standing instruction executed",
+   "body": "Dear Imran,\nStanding Instruction executed: Rs. 22,500.00 debited from your Kotak Bank A/c XX3141 on 05-Sep-2026 to Ramesh Joshi A/c no. XXXXXXXX8342 (HDFC Bank), SI Ref 955974688628. Avl Bal after txn is shown in the Kotak app.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m304",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.33,739.00 spent on your Kotak Credit Card xx5927 at HOTSTAR on 08-Sep-2026. Avl. credit limit: Rs. 3,59,058.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-08",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m305",
+   "subject": "Credit card bill payment successful",
+   "body": "Dear Customer,\nRs.12,834.75 paid from your A/c XX3141 to HDFC Bank Credit Card ending 8933 (beneficiary: Pooja Shetty) on 11-09-2026.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m306",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statement of your Kotak Mahindra Bank League Platinum Credit Card xx5927 for Sep 2026 is ready. Total due Rs.29,093.19, pay by 30 Sep 2026.\nView it in the app or NetBanking under Cards.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCredit Card Number: XXXX XXXX XXXX 5927\nStatement Date: 12/09/2026\nStatement Period: 13/08/2026 - 12/09/2026\nPayment Due Date: 30/09/2026\nTotal Amount Due: Rs. 29,093.19\nMinimum Amount Due: Rs. 1,454.66\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,48,570.00\n\nDate        Transaction Details                        Amount (Rs.)\n06/09/2026  URBAN COMPANY HYDERABAD   459.54 Dr\n20/08/2026  DECATHLON CHENNAI   6,882.21 Dr\n23/08/2026  BOOKMYSHOW BANGALORE   3,294.39 Dr\n14/08/2026  LENSKART KOCHI   1,606.18 Dr\n22/08/2026  MEDPLUS MUMBAI   652.43 Dr\n15/08/2026  ZEPTO KOCHI   146.15 Dr\n04/09/2026  BPCL FUEL BANGALORE   1,769.82 Dr\n05/09/2026  URBAN COMPANY KOCHI   6,775.64 Dr\n18/08/2026  STARBUCKS MUMBAI   2,564.14 Dr\n03/09/2026  PAYMENT RECEIVED - THANK YOU   17,455.91 Cr\n\nReward Points Summary: Opening 6978  Earned 551  Closing 1814\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m307",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your Kotak Mahindra Bank League Platinum Credit Card XXXX XXXX XXXX 5927 has been increased to Rs.4,50,000.00 effective 17-09-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m308",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 9,706.97 debited from your Kotak Bank A/c XX3141 on 18-Sep-2026 to VPA zomato@ybl (UPI Ref No. 502978184174). Avl Bal after txn is shown in the Kotak app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-18",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m309",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 5,000.00 debited from your Kotak Bank A/c XX3141 on 18-Sep-2026 to Rajesh Mehta A/c no. XXXXXXXX6973 (State Bank of India), NEFT Ref 312985069250. Avl Bal after txn is shown in the Kotak app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-18",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m310",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.7,932.36 spent on your Kotak Credit Card ending 5927 at RELIANCE SMART on 20-Sep-2026. Avl. credit limit: Rs. 1,12,379.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-09-20",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m311",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "नमस्ते,\nDear Imran,<br>\nRs. 1,366.90 debited from your Kotak Bank A/c XX3141 on 25-Sep-2026 to VPA zomato@icici (UPI Ref No. 560041307146). Avl Bal after txn is shown in the Kotak app.<br>\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m312",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear&nbsp;Imran,\nRs.&nbsp;586.20&nbsp;debited from your Kotak Bank A/c XX3141 on 26-Sep-2026 to VPA paytm.s1@ybl (UPI Ref No. 405032718539). Avl Bal after txn is shown in the Kotak app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m313",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.870.67 spent on your Kotak Credit Card xx5927 at CAFE COFFEE DAY on 26-Sep-2026. Avl. credit limit: Rs. 87,919.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m314",
+   "subject": "Payment reminder: Kotak Mahindra Bank Credit Card xx5927",
+   "body": "Dear Customer,\nThis is a reminder that Rs.29,093.19 (minimum Rs.1,454.66) is due on 30-Sep-2026 on your Kotak Mahindra Bank Credit Card xx5927. Pay on time to avoid late payment charges.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m315",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX3141 on 01-10-2026 by SALARY NEFT. Ref 2005853052.\nThank you for banking with us.",
+   "date": "2026-10-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m316",
+   "subject": "Your account statement for October 2026",
+   "body": "नमस्ते,\nDear Customer,\nYour e-statement for A/c xx3141 for Oct 2026 is attached. The PDF is protected; password is your Customer ID.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-03",
+   "attachments": [
+    {
+     "filename": "Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m317",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 878.41 debited from your Kotak Bank A/c XX3141 on 04-Oct-2026 to VPA zomato@okaxis (UPI Ref No. 227217863674). Avl Bal after txn is shown in the Kotak app.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2026-10-04",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m318",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 2,864.79 debited from your Kotak Bank A/c XX3141 on 04-Oct-2026 to VPA irctcweb@paytm (UPI Ref No. 112542899901). Avl Bal after txn is shown in the Kotak app.\n\nThis is a system generated email. Please do not reply to this message.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-10-04",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m319",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nStanding Instruction executed: Rs. 22,500.00 debited from your Kotak Bank A/c XX3141 on 05-Oct-2026 to Ramesh Joshi A/c no. XXXXXXXX8342 (HDFC Bank), SI Ref 296288493369. Avl Bal after txn is shown in the Kotak app.\n\nNever share your OTP, PIN, CVV or password with anyone. Kotak Mahindra Bank will never ask for these.",
+   "date": "2026-10-05",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m320",
+   "subject": "ATM withdrawal alert",
+   "body": "नमस्ते,\nDear Customer,<br>\nRs.2,000.00 withdrawn using your Kotak Mahindra Bank Platinum Debit Card xx3140 at ATM MUMBAI on 08-10-2026.<br>\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-10-08",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m321",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 537.42 debited from your Kotak Bank A/c XX3141 on 09-Oct-2026 to VPA q966156087@okhdfcbank (UPI Ref No. 376610355165). Avl Bal after txn is shown in the Kotak app.",
+   "date": "2026-10-09",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m322",
+   "subject": "Your Kotak Mahindra Bank League Platinum Credit Card statement is ready",
+   "body": "Dear Imran Mehta,\nThe statement of your Kotak Mahindra Bank League Platinum Credit Card xx5927 for Oct 2026 is ready. Total due Rs.13,283.04, pay by 30 Oct 2026.\nView it in the app or NetBanking under Cards.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "KOTAK_Statement_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "KOTAK MAHINDRA BANK - CREDIT CARD STATEMENT\nName: IMRAN MEHTA\nCredit Card Number: XXXX XXXX XXXX 5927\nCard Type: League Platinum\nStatement Date: 12/10/2026\nStatement Period: 12/09/2026 - 12/10/2026\nPayment Due Date: 30/10/2026\nTotal Amount Due: Rs. 13,283.04\nMinimum Amount Due: Rs. 664.15\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,67,957.00\n\nDate        Transaction Details                        Amount (Rs.)\n12/09/2026  IRCTC MUMBAI   4,272.45 Dr\n15/09/2026  CROMA MUMBAI   478.33 Dr\n05/10/2026  INDIGO AIRLINES PUNE   30,858.58 Dr\n22/09/2026  GOOGLE PLAY CHENNAI   2,959.96 Dr\n03/10/2026  PAYMENT RECEIVED - THANK YOU   7,969.82 Cr\n\nReward Points Summary: Opening 466  Earned 802  Closing 1476\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Kotak Credit Card <creditcardstatement@kotak.com>"
+  },
+  {
+   "id": "m323",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.7,220.01 spent on your Kotak Credit Card xx5927 at NETFLIX.COM on 16-Oct-2026. Avl. credit limit: Rs. 3,46,002.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m324",
+   "subject": "Transaction cancelled / refund initiated",
+   "body": "Dear Customer,\nYour transction at AMAZON PAY INDIA for Rs.25,620.22 has been cancelled by the merchant. A refund will be credited to your card xx5927 in 5-7 working days.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m325",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 7,566.34 debited from your Kotak Bank A/c XX3141 on 21-Oct-2026 to VPA swiggy@okaxis (UPI Ref No. 607245031313). Avl Bal after txn is shown in the Kotak app.",
+   "date": "2026-10-21",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m326",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.6,933.63 spent on your Kotak Credit Card no. XXXXXXXXXXXX5927 at ZEPTO on 22-Oct-2026. Avl. credit limit: Rs. 1,24,955.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m327",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.502.74 spent on your Kotak Credit Card xx5927 at SHELL PETROL on 26-Oct-2026. Avl. credit limit: Rs. 63,742.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank",
+   "date": "2026-10-26",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m328",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 1,947.04 debited from your Kotak Bank A/c XX3141 on 27-Oct-2026 to VPA q365410270@ybl (UPI Ref No. 820229763717). Avl Bal after txn is shown in the Kotak app.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m329",
+   "subject": "Payment reminder: Kotak Mahindra Bank Credit Card xx5927",
+   "body": "Dear Customer,\nThis is a reminder that Rs.13,283.04 (minimum Rs.664.15) is due on 30-Oct-2026 on your Kotak Mahindra Bank Credit Card xx5927. Pay on time to avoid late payment charges.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "Kotak Mahindra Bank <service@kotak.com>"
+  },
+  {
+   "id": "m330",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;received your payment of Rs.13,283.04 on 29-10-2026 towards your Kotak Mahindra Bank Credit Card ending 5927. Thank you.",
+   "date": "2026-10-29",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m331",
+   "subject": "Credit alert: Kotak Mahindra Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX3141 on 01-11-2026 by SALARY NEFT. Ref 8515988397.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-11-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m332",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.8,463.38 withdrawn using your Kotak Mahindra Bank Platinum Debit Card xx3140 at ATM BANGALORE on 01-11-2026.",
+   "date": "2026-11-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m333",
+   "subject": "Kotak Credit Card transaction alert",
+   "body": "Dear Imran,\nRs.346.48 spent on your Kotak Credit Card no. XXXXXXXXXXXX5927 at INDIGO AIRLINES on 01-Nov-2026. Avl. credit limit: Rs. 3,57,372.00.\nIf not you, SMS BLOCK to 5676788. Regards, Kotak Mahindra Bank",
+   "date": "2026-11-01",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  },
+  {
+   "id": "m334",
+   "subject": "Kotak Bank: transaction on your account",
+   "body": "Dear Imran,\nRs. 869.55 debited from your Kotak Bank A/c XX3141 on 02-Nov-2026 to VPA merchant@ybl (UPI Ref No. 947337943584). Avl Bal after txn is shown in the Kotak app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-11-02",
+   "attachments": [],
+   "from": "Kotak Bank <BankAlerts@kotak.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "3141",
+    "kind": "ACCOUNT",
+    "variant": "811",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "3140",
+    "kind": "DEBIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "5927",
+    "kind": "CREDIT_CARD",
+    "variant": "League Platinum",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "7183",
+    "kind": "CREDIT_CARD",
+    "variant": "Mojo",
+    "lifecycle": "CLOSED",
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "8829",
+    "why": "bank own beneficiary account in statement payment instructions"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "8342",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "sbi.co.in",
+    "last4": "6973",
+    "why": "family member account receiving repeated transfers"
+   },
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "2325",
+    "why": "masked mobile number"
+   },
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "4201",
+    "why": "masked mobile number"
+   },
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "3976",
+    "why": "masked mobile number"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "8933",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "2519",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "1538",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "7192",
+    "why": "UPI/IMPS payee account"
+   }
+  ]
+ }
+}

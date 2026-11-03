@@ -1,0 +1,2900 @@
+{
+ "mailbox": "hdfc-neu-rename-swiggy-nu",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Tanvi,\nYour order #959-4490992-6612943 is confirmed. Total Rs.159.48. Estimated delivery in 2 days.",
+   "date": "2024-02-04",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 6991 for Rs.12,054.33 at SWIGGY on 06-02-2024 at 01:11:37.\nAvailable limit: Rs.35,370.33. If you did not make this transaction, please call 1800 258 6161.",
+   "date": "2024-02-06",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m003",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "HDFC Bank NeuCard Credit Card ending 6991: purchase of Rs.6,825.41 at BIG BAZAAR on 08-02-2024 04:21:39. Available limit Rs.4,159.62.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-02-08",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m004",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.563.07 | CROMA | 08-02-2024 | IndianOil HDFC Bank Credit Card ending 0038",
+   "date": "2024-02-08",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m005",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Feb 2024",
+   "body": "Dear Tanvi,\nYour IndianOil HDFC Bank Credit Card ending 0038 statement for Feb 2024 is ready. Total amount due Rs.35,789.57, minimum amount due Rs.1,789.48, payable by 26 Feb, 2024.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-02-09",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m006",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.2,190.52 | ZOMATO | 09-02-2024 | HDFC Bank Credit Card ending 0038",
+   "date": "2024-02-09",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m007",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Feb 2024",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 Jan, 2024 to 09 Feb, 2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2024-02-10",
+   "attachments": [
+    {
+     "filename": "HDFC_CC_Feb2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m008",
+   "subject": "Your HDFC Bank NeuCard Credit Card Statement - Feb 2024",
+   "body": "Hi Tanvi,\nYour HDFC Bank NeuCard Credit Card ending 6991 e-statement for Feb 2024 is now available. Pay Rs.2,645.83 by 01 Mar, 2024 to avoid late fees.",
+   "date": "2024-02-13",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m009",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.13,140.95 is debited from your HDFC Bank NeuCard Credit Card ending 6991 towards OLA CABS on 19-02-2024. Not you? Call us immediately.",
+   "date": "2024-02-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m010",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.119.60 | EAZYDINER | 21-02-2024 | IndianOil HDFC Bank Credit Card ending 0038\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-02-21",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m011",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.20,100.21 | MAKEMYTRIP | 24-02-2024 | HDFC Bank NeuCard Credit Card ending 6991\n\nOpt for e-statements and go green.",
+   "date": "2024-02-24",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m012",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "HDFC Bank Credit Card ending 8090: purchase of Rs.521.16 at AIRTEL PREPAID on 24-02-2024 09:25:52. Available limit Rs.53,153.17.\n\nOpt for e-statements and go green.",
+   "date": "2024-02-24",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m013",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.119.48 on 01-03-2024 for your HDFC Bank MoneyBack+ Credit Card ending 8090. Available credit limit has been updated.",
+   "date": "2024-03-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m014",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.192.66 | SWIGGY | 07-03-2024 | HDFC Bank MoneyBack+ Credit Card ending 8090\n\nOpt for e-statements and go green.",
+   "date": "2024-03-07",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m015",
+   "subject": "HDFC Bank festive offers",
+   "body": "Dear Tanvi,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-03-07",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m016",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Mar 2024",
+   "body": "Dear Tanvi,\nYour IndianOil HDFC Bank Credit Card ending 0038 statement for Mar 2024 is ready. Total amount due Rs.2,946.84, minimum amount due Rs.200.00, payable by 26 Mar, 2024.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-03-09",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m017",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Mar 2024",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 Feb, 2024 to 09 Mar, 2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-03-10",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Mar2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m018",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.1,006.56 is debited from your HDFC Bank Credit Card ending 0038 towards ZOMATO on 10-03-2024. Not you? Call us immediately.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-03-10",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m019",
+   "subject": "Your HDFC Bank NeuCard Credit Card Statement - Mar 2024",
+   "body": "Dear Tanvi,\nPlease find attached your HDFC Bank NeuCard Credit Card ending 6991 statement for the period 13 Feb, 2024 to 12 Mar, 2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-03-13",
+   "attachments": [
+    {
+     "filename": "eStatement_202403.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m020",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "IndianOil HDFC Bank Credit Card ending 0038: purchase of Rs.350.70 at BATA INDIA on 14-03-2024 10:09:09. Available limit Rs.19,389.85.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-03-14",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m021",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nRs.1,202.65 spent on your Swiggy HDFC Bank Credit Card at EAZYDINER on 17-03-2024.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-03-17",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m022",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nRs.163.27 spent on your Swiggy HDFC Bank Credit Card at BOOKMYSHOW on 30-03-2024.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-03-30",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m023",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Payment confirmation: Rs.12,665.25 posted to HDFC Bank NeuCard Credit Card ending 6991 on 04-04-2024.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-04-04",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m024",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Apr 2024",
+   "body": "Hi Tanvi,\nYour IndianOil HDFC Bank Credit Card ending 0038 e-statement for Apr 2024 is now available. Pay Rs.9,620.49 by 26 Apr, 2024 to avoid late fees.",
+   "date": "2024-04-09",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m025",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Apr 2024",
+   "body": "Dear Tanvi,\nStatement generated for Swiggy HDFC Bank Credit Card: amount payable Rs.2,593.28, last date 27 Apr, 2024. Sign in to download.",
+   "date": "2024-04-10",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m026",
+   "subject": "Your HDFC Bank NeuCard Credit Card Statement - Apr 2024",
+   "body": "Hi Tanvi,\nYour HDFC Bank NeuCard Credit Card ending 6991 e-statement for Apr 2024 is now available. Pay Rs.2,973.67 by 30 Apr, 2024 to avoid late fees.",
+   "date": "2024-04-13",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m027",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.15,974.69 | SWIGGY | 22-04-2024 | HDFC Bank Credit Card ending 6991",
+   "date": "2024-04-22",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m028",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - May 2024",
+   "body": "Dear Tanvi,\nStatement generated for IndianOil HDFC Bank Credit Card ending 0038: amount payable Rs.1,251.01, last date 26 May, 2024. Sign in to download.",
+   "date": "2024-05-09",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m029",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - May 2024",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 Apr, 2024 to 09 May, 2024. Total amount due Rs.49,738.41, due 24 May, 2024.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-05-10",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_May2024.pdf",
+     "protected": false,
+     "pdfText": "HDFC Bank Credit Cards\nStatement for Swiggy HDFC Bank Credit Card\nTANVI JOSHI\nFLAT 202, ORCHID APARTMENTS\n15TH CROSS, BANJARA HILLS\nCHENNAI - 665566\nCredit Card No: 5679 62XX XXXX 7329\nStatement Date: 09 May, 2024\nBilling Period: 10 Apr, 2024 - 09 May, 2024\nPayment Due Date Total Dues Minimum Amount Due\n24 May, 2024 Rs.49,738.41 Rs.2,486.92\nCredit Limit Available Credit Limit Available Cash Limit\nRs.75,000.00 Rs.32,799.01 Rs.15,000.00\nDomestic Transactions\nDate Transaction Description Amount (in Rs.)\n10/04/24 CROMA GURUGRAM 1,644.07\n11/04/24 SPOTIFY KOLKATA 13,056.68\n12/04/24 APPLE SERVICES MUMBAI 381.04\n15/04/24 TATA POWER GURUGRAM 14,308.73\n25/04/24 CROMA BENGALURU 2,986.63\n25/04/24 DECATHLON HYDERABAD 1,846.70\n25/04/24 LENSKART AHMEDABAD 166.90\n25/04/24 PVR INOX CHENNAI 405.06\n27/04/24 GOOGLE PLAY GURUGRAM 10,455.67\n28/04/24 BIG BAZAAR KOCHI 487.30\n02/05/24 BOOKMYSHOW JAIPUR 3,766.34\n07/05/24 PVR INOX KOCHI 233.29\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m030",
+   "subject": "Your HDFC Bank NeuCard Credit Card Statement - May 2024",
+   "body": "Dear Tanvi,\nPlease find attached your HDFC Bank NeuCard Credit Card ending 6991 statement for the period 13 Apr, 2024 to 12 May, 2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-05-13",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_May2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m031",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.2,348.27 is debited from your IndianOil HDFC Bank Credit Card ending 0038 towards URBAN COMPANY on 14-05-2024. Not you? Call us immediately.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-05-14",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m032",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your IndianOil HDFC Bank Credit Card ending 0038 for Rs.1,809.01 at EAZYDINER on 19-05-2024 at 16:00:35.\nAvailable limit: Rs.14,814.69. If you did not make this transaction, please call 1800 258 6161.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-05-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m033",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.2,498.34 is debited from your HDFC Bank Credit Card ending 8090 towards PVR INOX on 21-05-2024. Not you? Call us immediately.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-05-21",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m034",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.14,356.61 is debited from your IndianOil HDFC Bank Credit Card ending 0038 towards APPLE SERVICES on 02-06-2024. Not you? Call us immediately.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-06-02",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m035",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.2,554.34 is debited from your HDFC Bank Credit Card ending 8090 towards IXIGO on 05-06-2024. Not you? Call us immediately.",
+   "date": "2024-06-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m036",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Payment of Rs.125.82 has been received towards your HDFC Bank Credit Card ending 0038 on 07-06-2024. Thank you for the payment.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-06-07",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m037",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Jun 2024",
+   "body": "Dear Tanvi,\nPlease find attached your IndianOil HDFC Bank Credit Card ending 0038 statement for the period 09 May, 2024 to 08 Jun, 2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-06-09",
+   "attachments": [
+    {
+     "filename": "0038_08062024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m038",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.814.28 spent at MYNTRA on 09-06-2024 using your Swiggy HDFC Bank Credit Card.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-06-09",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m039",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Jun 2024",
+   "body": "Dear Tanvi,\nStatement generated for Swiggy HDFC Bank Credit Card: amount payable Rs.2,251.50, last date 27 Jun, 2024. Sign in to download.",
+   "date": "2024-06-10",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m040",
+   "subject": "Your HDFC Bank NeuCard Credit Card Statement - Jun 2024",
+   "body": "Hi Tanvi,\nYour HDFC Bank NeuCard Credit Card ending 6991 e-statement for Jun 2024 is now available. Pay Rs.4,534.96 by 30 Jun, 2024 to avoid late fees.",
+   "date": "2024-06-13",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m041",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.2,506.17 is debited from your HDFC Bank NeuCard Credit Card ending 6991 towards SODEXO on 13-06-2024. Not you? Call us immediately.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-06-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m042",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.140.34 is debited from your HDFC Bank Credit Card ending 8090 towards SODEXO on 16-06-2024. Not you? Call us immediately.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-06-16",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m043",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "IndianOil HDFC Bank Credit Card ending 0038: purchase of Rs.1,488.77 at PVR INOX on 22-06-2024 13:26:38. Available limit Rs.2,250.63.",
+   "date": "2024-06-22",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m044",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.17,232.01 spent at ZEPTO on 25-06-2024 using your Swiggy HDFC Bank Credit Card.\n\n",
+   "date": "2024-06-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m045",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.276.16 | INDIAN OIL | 26-06-2024 | HDFC Bank Credit Card ending 6991\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-06-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m046",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.7,417.89 | SODEXO | 29-06-2024 | IndianOil HDFC Bank Credit Card ending 0038",
+   "date": "2024-06-29",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m047",
+   "subject": "HDFC Bank: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 7347 has been successfully linked/verified for your HDFC Bank relationship. If this was not you, contact us.",
+   "date": "2024-07-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m048",
+   "subject": "Refer and earn",
+   "body": "Dear Tanvi,\nConvert big spends to EMI at low interest.\n\n",
+   "date": "2024-07-03",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m049",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Jul 2024",
+   "body": "Dear Tanvi,\nPlease find attached your IndianOil HDFC Bank Credit Card ending 0038 statement for the period 09 Jun, 2024 to 08 Jul, 2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-07-09",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Jul2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m050",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Jul 2024",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 Jun, 2024 to 09 Jul, 2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-07-10",
+   "attachments": [
+    {
+     "filename": "HDFC_CC_Jul2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m051",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 6991 for Rs.502.60 at AIRTEL PREPAID on 12-07-2024 at 11:51:24.\nAvailable limit: Rs.5,028.98. If you did not make this transaction, please call 1800 258 6161.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-07-12",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m052",
+   "subject": "Your HDFC Bank NeuCard Credit Card Statement - Jul 2024",
+   "body": "Hi Tanvi,\nYour HDFC Bank NeuCard Credit Card ending 6991 e-statement for Jul 2024 is now available. Pay Rs.5,555.46 by 30 Jul, 2024 to avoid late fees.",
+   "date": "2024-07-13",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m053",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 6991 for Rs.9,308.31 at SWIGGY on 14-07-2024 at 18:17:20.\nAvailable limit: Rs.61,563.15. If you did not make this transaction, please call 1800 258 6161.",
+   "date": "2024-07-14",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m054",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.15,197.14 spent at BLINKIT on 15-07-2024 using your Swiggy HDFC Bank Credit Card.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-07-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m055",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.223.58 is debited from your HDFC Bank Credit Card ending 8090 towards BATA INDIA on 07-08-2024. Not you? Call us immediately.",
+   "date": "2024-08-07",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m056",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Aug 2024",
+   "body": "Dear Tanvi,\nYour IndianOil HDFC Bank Credit Card ending 0038 statement for Aug 2024 is ready. Total amount due Rs.12,990.08, minimum amount due Rs.649.50, payable by 26 Aug, 2024.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-08-09",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m057",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Aug 2024",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 Jul, 2024 to 09 Aug, 2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-08-10",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Aug2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m058",
+   "subject": "Your HDFC Bank NeuCard Credit Card Statement - Aug 2024",
+   "body": "Dear Tanvi,\nPlease find attached your HDFC Bank NeuCard Credit Card ending 6991 statement for the period 13 Jul, 2024 to 12 Aug, 2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-08-13",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Aug2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m059",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank MoneyBack+ Credit Card ending 8090 for Rs.87.23 at BATA INDIA on 21-08-2024 at 05:24:38.\nAvailable limit: Rs.5,819.30. If you did not make this transaction, please call 1800 258 6161.",
+   "date": "2024-08-21",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m060",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.3,066.05 is debited from your HDFC Bank MoneyBack+ Credit Card ending 8090 towards INDIAN OIL on 23-08-2024. Not you? Call us immediately.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-08-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m061",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 8090 for Rs.730.79 at NYKAA on 23-08-2024 at 09:44:29.\nAvailable limit: Rs.1,12,831.37. If you did not make this transaction, please call 1800 258 6161.",
+   "date": "2024-08-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m062",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "HDFC Bank Credit Card ending 0038: purchase of Rs.14,298.43 at JIO RECHARGE on 28-08-2024 13:48:29. Available limit Rs.1,61,107.30.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-08-28",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m063",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your IndianOil HDFC Bank Credit Card ending 0038 for Rs.94.56 at EASEMYTRIP on 31-08-2024 at 21:12:48.\nAvailable limit: Rs.46,799.05. If you did not make this transaction, please call 1800 258 6161.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-08-31",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m064",
+   "subject": "Earn more with your card",
+   "body": "Dear Tanvi,\nUse your card on UPI and earn extra rewards.\n\n",
+   "date": "2024-09-08",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m065",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Sep 2024",
+   "body": "Dear Tanvi,\nPlease find attached your IndianOil HDFC Bank Credit Card ending 0038 statement for the period 09 Aug, 2024 to 08 Sep, 2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-09-09",
+   "attachments": [
+    {
+     "filename": "HDFC_CC_Sep2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m066",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Sep 2024",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 Aug, 2024 to 09 Sep, 2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-09-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202409.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m067",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.1,606.45 | INDIAN OIL | 12-09-2024 | HDFC Bank MoneyBack+ Credit Card ending 8090",
+   "date": "2024-09-12",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m068",
+   "subject": "Your HDFC Bank NeuCard Credit Card Statement - Sep 2024",
+   "body": "Dear Tanvi,\nStatement generated for HDFC Bank NeuCard Credit Card ending 6991: amount payable Rs.3,988.51, last date 30 Sep, 2024. Sign in to download.",
+   "date": "2024-09-13",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m069",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.3,795.24 spent at INDIAN OIL on 14-09-2024 using your Swiggy HDFC Bank Credit Card.\n\n",
+   "date": "2024-09-14",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m070",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.1,135.14 | SWIGGY | 19-09-2024 | HDFC Bank Credit Card ending 8090",
+   "date": "2024-09-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m071",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "HDFC Bank MoneyBack+ Credit Card ending 8090: purchase of Rs.22,437.62 at CROMA on 21-09-2024 15:23:22. Available limit Rs.3,802.28.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-09-21",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m072",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nRs.6,537.94 spent on your Swiggy HDFC Bank Credit Card at APOLLO PHARMACY on 25-09-2024.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-09-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m073",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Tanvi,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-09-30",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m074",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.23,010.73 | FLIPKART | 01-10-2024 | HDFC Bank Credit Card ending 0038\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-10-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m075",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "IndianOil HDFC Bank Credit Card ending 0038: purchase of Rs.3,857.41 at CROMA on 03-10-2024 21:09:40. Available limit Rs.18,030.15.",
+   "date": "2024-10-03",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m076",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Oct 2024",
+   "body": "Dear Tanvi,\nYour IndianOil HDFC Bank Credit Card ending 0038 statement for Oct 2024 is ready. Total amount due Rs.26,529.53, minimum amount due Rs.1,326.48, payable by 26 Oct, 2024.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-10-09",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m077",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Oct 2024",
+   "body": "Dear Tanvi,\nStatement generated for Swiggy HDFC Bank Credit Card: amount payable Rs.58,006.22, last date 27 Oct, 2024. Sign in to download.",
+   "date": "2024-10-10",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m078",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.13,487.03 | OLA CABS | 10-10-2024 | HDFC Bank Credit Card ending 8090",
+   "date": "2024-10-10",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m079",
+   "subject": "Your HDFC Bank NeuCard Credit Card Statement - Oct 2024",
+   "body": "Hi Tanvi,\nYour HDFC Bank NeuCard Credit Card ending 6991 e-statement for Oct 2024 is now available. Pay Rs.2,770.29 by 30 Oct, 2024 to avoid late fees.",
+   "date": "2024-10-13",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m080",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.3,872.62 spent at STARBUCKS on 13-10-2024 using your Swiggy HDFC Bank Credit Card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-10-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m081",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank MoneyBack+ Credit Card ending 8090 for Rs.260.55 at INDIAN OIL on 18-10-2024 at 14:47:26.\nAvailable limit: Rs.4,511.38. If you did not make this transaction, please call 1800 258 6161.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-10-18",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m082",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank NeuCard Credit Card ending 6991 for Rs.435.14 at GOOGLE PLAY on 20-10-2024 at 05:31:18.\nAvailable limit: Rs.19,583.47. If you did not make this transaction, please call 1800 258 6161.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-10-20",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m083",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Payment of Rs.5,637.02 has been received towards your Swiggy HDFC Bank Credit Card on 20-10-2024. Thank you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-10-20",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m084",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.1,713.51 | SWIGGY | 21-10-2024 | HDFC Bank MoneyBack+ Credit Card ending 8090",
+   "date": "2024-10-21",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m085",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.678.95 on 23-10-2024 for your HDFC Bank Credit Card ending 0038. Available credit limit has been updated.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-10-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m086",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "HDFC Bank Credit Card ending 6991: purchase of Rs.1,722.41 at SWIGGY on 25-10-2024 20:49:30. Available limit Rs.50,779.45.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-10-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m087",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank NeuCard Credit Card ending 6991 for Rs.8,550.71 at SWIGGY on 29-10-2024 at 23:05:14.\nAvailable limit: Rs.1,40,737.42. If you did not make this transaction, please call 1800 258 6161.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-10-29",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m088",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.7,901.34 is debited from your HDFC Bank MoneyBack+ Credit Card ending 8090 towards INDIAN OIL on 30-10-2024. Not you? Call us immediately.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-10-30",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m089",
+   "subject": "OTP for your transaction",
+   "body": "912806 is the OTP for your transaction of Rs.263.05 at JIO RECHARGE. Valid for 10 minutes. Do not share.",
+   "date": "2024-10-30",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m090",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Tanvi,\nYour order #815-2718286-8150477 is confirmed. Total Rs.2,357.46. Estimated delivery in 2 days.",
+   "date": "2024-11-05",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "HDFC Bank festive offers",
+   "body": "Dear Tanvi,\nUse your card on UPI and earn extra rewards.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-11-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m092",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Nov 2024",
+   "body": "Dear Tanvi,\nStatement generated for IndianOil HDFC Bank Credit Card ending 0038: amount payable Rs.30,274.44, last date 26 Nov, 2024. Sign in to download.",
+   "date": "2024-11-09",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m093",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Nov 2024",
+   "body": "Dear Tanvi,\nYour Swiggy HDFC Bank Credit Card statement for Nov 2024 is ready. Total amount due Rs.6,441.76, minimum amount due Rs.322.09, payable by 27 Nov, 2024.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-11-10",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m094",
+   "subject": "Your HDFC Bank NeuCard Credit Card Statement - Nov 2024",
+   "body": "Dear Tanvi,\nPlease find attached your HDFC Bank NeuCard Credit Card ending 6991 statement for the period 13 Oct, 2024 to 12 Nov, 2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-11-13",
+   "attachments": [
+    {
+     "filename": "6991_12112024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m095",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "HDFC Bank Credit Card ending 8090: purchase of Rs.5,294.91 at SODEXO on 13-11-2024 17:12:44. Available limit Rs.2,138.37.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-11-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m096",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 8090 for Rs.109.43 at NETFLIX on 13-11-2024 at 20:34:08.\nAvailable limit: Rs.1,42,710.37. If you did not make this transaction, please call 1800 258 6161.",
+   "date": "2024-11-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m097",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.407.52 is debited from your IndianOil HDFC Bank Credit Card ending 0038 towards SPOTIFY on 14-11-2024. Not you? Call us immediately.",
+   "date": "2024-11-14",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m098",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.12,663.72 spent at TATA PLAY on 15-11-2024 using your Swiggy HDFC Bank Credit Card.\n\n",
+   "date": "2024-11-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m099",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.253.26 is debited from your HDFC Bank MoneyBack+ Credit Card ending 8090 towards AIRTEL PREPAID on 16-11-2024. Not you? Call us immediately.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-11-16",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m100",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 600940471197. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2024-11-17",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m101",
+   "subject": "Refer and earn",
+   "body": "Dear Tanvi,\nGet up to 10% cashback on partner brands.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-11-24",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m102",
+   "subject": "Refer and earn",
+   "body": "Dear Tanvi,\nGet up to 10% cashback on partner brands.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-11-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m103",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank NeuCard Credit Card ending 6991 for Rs.195.70 at INDIAN OIL on 30-11-2024 at 00:26:02.\nAvailable limit: Rs.19,267.07. If you did not make this transaction, please call 1800 258 6161.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-11-30",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m104",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.3,086.92 on 01-12-2024 for your HDFC Bank Credit Card ending 0038. Available credit limit has been updated.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-12-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m105",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Dec 2024",
+   "body": "Dear Tanvi,\nPlease find attached your IndianOil HDFC Bank Credit Card ending 0038 statement for the period 09 Nov, 2024 to 08 Dec, 2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-12-09",
+   "attachments": [
+    {
+     "filename": "HDFC_CC_Dec2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m106",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Dec 2024",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 Nov, 2024 to 09 Dec, 2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-12-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202412.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m107",
+   "subject": "Your HDFC Bank NeuCard Credit Card Statement - Dec 2024",
+   "body": "Dear Tanvi,\nYour HDFC Bank NeuCard Credit Card ending 6991 statement for Dec 2024 is ready. Total amount due Rs.41,949.23, minimum amount due Rs.2,097.46, payable by 30 Dec, 2024.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-12-13",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m108",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.2,814.17 | IKEA | 18-12-2024 | HDFC Bank Credit Card ending 8090\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-12-18",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m109",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Payment of Rs.2,100.27 has been received towards your HDFC Bank NeuCard Credit Card ending 6991 on 23-12-2024. Thank you for the payment.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-12-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m110",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.5,688.52 spent at CROMA on 25-12-2024 using your Swiggy HDFC Bank Credit Card.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-12-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m111",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nRs.1,230.90 spent on your Swiggy HDFC Bank Credit Card at NETFLIX on 26-12-2024.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-12-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m112",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.1,017.52 | NETFLIX | 27-12-2024 | HDFC Bank NeuCard Credit Card ending 6991\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-12-27",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m113",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.4,810.85 | INDIAN OIL | 27-12-2024 | HDFC Bank MoneyBack+ Credit Card ending 8090\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-12-27",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m114",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.3,637.68 | BIGBASKET | 28-12-2024 | IndianOil HDFC Bank Credit Card ending 0038\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-12-28",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m115",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.133.91 | SWIGGY | 05-01-2025 | HDFC Bank NeuCard Credit Card ending 6991\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-01-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m116",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Jan 2025",
+   "body": "Dear Tanvi,\nPlease find attached your IndianOil HDFC Bank Credit Card ending 0038 statement for the period 09 Dec, 2024 to 08 Jan, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-01-09",
+   "attachments": [
+    {
+     "filename": "HDFC_CC_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m117",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Jan 2025",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 Dec, 2024 to 09 Jan, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202501.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m118",
+   "subject": "Your HDFC Bank NeuCard Credit Card Statement - Jan 2025",
+   "body": "Dear Tanvi,\nPlease find attached your HDFC Bank NeuCard Credit Card ending 6991 statement for the period 13 Dec, 2024 to 12 Jan, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-01-13",
+   "attachments": [
+    {
+     "filename": "6991_12012025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m119",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Thank you! We have credited Rs.105.87 to your HDFC Bank NeuCard Credit Card ending 6991 on 17-01-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-17",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m120",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.10,267.15 spent at LENSKART on 17-01-2025 using your Swiggy HDFC Bank Credit Card.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-17",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m121",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "HDFC Bank Credit Card ending 0038: purchase of Rs.96.51 at SWIGGY on 27-01-2025 04:03:29. Available limit Rs.63,113.51.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-01-27",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m122",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.168.51 | SPOTIFY | 28-01-2025 | HDFC Bank Credit Card ending 6991",
+   "date": "2025-01-28",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m123",
+   "subject": "Update your KYC",
+   "body": "Dear Tanvi,\nAs per RBI guidelines please complete re-KYC for your HDFC Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-02-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m124",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "HDFC Bank Credit Card ending 6991: purchase of Rs.172.77 at UBER INDIA on 04-02-2025 08:19:17. Available limit Rs.14,677.63.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-02-04",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m125",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.445.64 is debited from your HDFC Bank Credit Card ending 6991 towards OLA CABS on 08-02-2025. Not you? Call us immediately.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-02-08",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m126",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Feb 2025",
+   "body": "Dear Tanvi,\nPlease find attached your IndianOil HDFC Bank Credit Card ending 0038 statement for the period 09 Jan, 2025 to 08 Feb, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-02-09",
+   "attachments": [
+    {
+     "filename": "HDFC_CC_Feb2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m127",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Feb 2025",
+   "body": "Hi Tanvi,\nYour Swiggy HDFC Bank Credit Card e-statement for Feb 2025 is now available. Pay Rs.55,717.67 by 27 Feb, 2025 to avoid late fees.",
+   "date": "2025-02-10",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m128",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.12,808.35 spent at NETFLIX on 11-02-2025 using your Swiggy HDFC Bank Credit Card.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-02-11",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m129",
+   "subject": "Refer and earn",
+   "body": "Dear Tanvi,\nGet up to 10% cashback on partner brands.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-02-12",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m130",
+   "subject": "Your HDFC Bank NeuCard Credit Card Statement - Feb 2025",
+   "body": "Hi Tanvi,\nYour HDFC Bank NeuCard Credit Card ending 6991 e-statement for Feb 2025 is now available. Pay Rs.38,012.92 by 02 Mar, 2025 to avoid late fees.",
+   "date": "2025-02-13",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m131",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.9,118.15 spent at MAKEMYTRIP on 24-02-2025 using your Swiggy HDFC Bank Credit Card.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-02-24",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m132",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.1,394.82 | BLINKIT | 28-02-2025 | HDFC Bank NeuCard Credit Card ending 6991\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-02-28",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m133",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "HDFC Bank Credit Card ending 6991: purchase of Rs.6,331.55 at SWIGGY on 02-03-2025 00:20:34. Available limit Rs.21,655.57.",
+   "date": "2025-03-02",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m134",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nRs.939.52 spent on your Swiggy HDFC Bank Credit Card at IRCTC on 04-03-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-04",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m135",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nRs.10,784.44 spent on your Swiggy HDFC Bank Credit Card at DECATHLON on 07-03-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-03-07",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m136",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Mar 2025",
+   "body": "Hi Tanvi,\nYour IndianOil HDFC Bank Credit Card ending 0038 e-statement for Mar 2025 is now available. Pay Rs.20,228.23 by 26 Mar, 2025 to avoid late fees.",
+   "date": "2025-03-09",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m137",
+   "subject": "Update: your HDFC Bank Credit Card has a new name",
+   "body": "Dear Tanvi Joshi,\nYour HDFC Bank NeuCard Credit Card ending 6991 is now the Tata Neu Plus HDFC Bank Credit Card. Your card number, limit and dues are unchanged; the card continues to work as before. New benefits are effective from 10-03-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-03-10",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m138",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Mar 2025",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 Feb, 2025 to 09 Mar, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-03-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202503.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m139",
+   "subject": "Your Tata Neu Plus HDFC Bank Credit Card Statement - Mar 2025",
+   "body": "Hi Tanvi,\nYour Tata Neu Plus HDFC Bank Credit Card ending 6991 e-statement for Mar 2025 is now available. Pay Rs.19,350.40 by 30 Mar, 2025 to avoid late fees.",
+   "date": "2025-03-13",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m140",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.14,164.54 | RELIANCE DIGITAL | 20-03-2025 | HDFC Bank MoneyBack+ Credit Card ending 8090\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-20",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m141",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.682.31 | UBER INDIA | 22-03-2025 | HDFC Bank Credit Card ending 6991\n\nOpt for e-statements and go green.",
+   "date": "2025-03-22",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m142",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.16,985.34 spent at UBER INDIA on 07-04-2025 using your Swiggy HDFC Bank Credit Card.\n\nOpt for e-statements and go green.",
+   "date": "2025-04-07",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m143",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Apr 2025",
+   "body": "Dear Tanvi,\nPlease find attached your IndianOil HDFC Bank Credit Card ending 0038 statement for the period 09 Mar, 2025 to 08 Apr, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-04-09",
+   "attachments": [
+    {
+     "filename": "0038_08042025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m144",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Apr 2025",
+   "body": "Dear Tanvi,\nStatement generated for Swiggy HDFC Bank Credit Card: amount payable Rs.46,388.10, last date 27 Apr, 2025. Sign in to download.",
+   "date": "2025-04-10",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m145",
+   "subject": "HDFC Bank festive offers",
+   "body": "Dear Tanvi,\nGet up to 10% cashback on partner brands.\n\n",
+   "date": "2025-04-11",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m146",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.82.54 is debited from your Tata Neu Plus HDFC Bank Credit Card ending 6991 towards SWIGGY on 12-04-2025. Not you? Call us immediately.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-04-12",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m147",
+   "subject": "Your Tata Neu Plus HDFC Bank Credit Card Statement - Apr 2025",
+   "body": "Dear Tanvi,\nPlease find attached your Tata Neu Plus HDFC Bank Credit Card ending 6991 statement for the period 13 Mar, 2025 to 12 Apr, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-04-13",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Apr2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m148",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "HDFC Bank Credit Card ending 0038: purchase of Rs.471.12 at TATA PLAY on 19-04-2025 04:45:50. Available limit Rs.63,423.86.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-04-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m149",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "HDFC Bank MoneyBack+ Credit Card ending 8090: purchase of Rs.7,488.15 at MCDONALDS on 19-04-2025 21:47:11. Available limit Rs.5,248.47.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-04-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m150",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.7,830.44 | BIG BAZAAR | 21-04-2025 | Tata Neu Plus HDFC Bank Credit Card ending 6991\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-21",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m151",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.4,300.72 | SPOTIFY | 02-05-2025 | IndianOil HDFC Bank Credit Card ending 0038\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-05-02",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m152",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.2,551.12 spent at BIG BAZAAR on 03-05-2025 using your Swiggy HDFC Bank Credit Card.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-03",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m153",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your Tata Neu Plus HDFC Bank Credit Card ending 6991 for Rs.519.34 at SWIGGY on 05-05-2025 at 02:08:38.\nAvailable limit: Rs.35,426.12. If you did not make this transaction, please call 1800 258 6161.",
+   "date": "2025-05-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m154",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank MoneyBack+ Credit Card ending 8090 for Rs.204.40 at BPCL FUEL on 05-05-2025 at 01:45:59.\nAvailable limit: Rs.5,406.56. If you did not make this transaction, please call 1800 258 6161.",
+   "date": "2025-05-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m155",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - May 2025",
+   "body": "Dear Tanvi,\nPlease find attached your IndianOil HDFC Bank Credit Card ending 0038 statement for the period 09 Apr, 2025 to 08 May, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-09",
+   "attachments": [
+    {
+     "filename": "eStatement_202505.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m156",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - May 2025",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 Apr, 2025 to 09 May, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-05-10",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m157",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.119.25 | SWIGGY | 11-05-2025 | HDFC Bank Credit Card ending 6991",
+   "date": "2025-05-11",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m158",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Thank you! We have credited Rs.192.70 to your HDFC Bank Credit Card ending 6991 on 11-05-2025.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-11",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m159",
+   "subject": "Your Tata Neu Plus HDFC Bank Credit Card Statement - May 2025",
+   "body": "Dear Tanvi,\nPlease find attached your Tata Neu Plus HDFC Bank Credit Card ending 6991 statement for the period 13 Apr, 2025 to 12 May, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-05-13",
+   "attachments": [
+    {
+     "filename": "6991_12052025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m160",
+   "subject": "HDFC Bank festive offers",
+   "body": "Dear Tanvi,\nGet up to 10% cashback on partner brands.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-16",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m161",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX9070 has been updated on 18-06-2025. If not requested by you, call customer care.",
+   "date": "2025-05-17",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m162",
+   "subject": "OTP for your transaction",
+   "body": "728020 is the OTP for your transaction of Rs.17,065.36 at IRCTC. Valid for 10 minutes. Do not share.",
+   "date": "2025-06-02",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m163",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Jun 2025",
+   "body": "Dear Tanvi,\nPlease find attached your IndianOil HDFC Bank Credit Card ending 0038 statement for the period 09 May, 2025 to 08 Jun, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-06-09",
+   "attachments": [
+    {
+     "filename": "eStatement_202506.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m164",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Jun 2025",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 May, 2025 to 09 Jun, 2025. Total amount due Rs.15,757.17, due 26 Jun, 2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-06-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202506.pdf",
+     "protected": false,
+     "pdfText": "HDFC Bank Credit Cards\nStatement for Swiggy HDFC Bank Credit Card\nTANVI JOSHI\nFLAT 228, LAKESHORE APARTMENTS\n19TH CROSS, ADYAR\nJAIPUR - 511970\nCredit Card No: 5679 62XX XXXX 7329\nStatement Date: 09 Jun, 2025\nBilling Period: 10 May, 2025 - 09 Jun, 2025\nPayment Due Date Total Dues Minimum Amount Due\n26 Jun, 2025 Rs.15,757.17 Rs.787.86\nCredit Limit Available Credit Limit Available Cash Limit\nRs.75,000.00 Rs.69,385.20 Rs.15,000.00\nDomestic Transactions\nDate Transaction Description Amount (in Rs.)\n19/05/25 SODEXO GURUGRAM 408.13\n27/05/25 AIRTEL PREPAID GURUGRAM 677.36\n27/05/25 EASEMYTRIP CHENNAI 8,845.91\n31/05/25 NETFLIX PUNE 255.23\n03/06/25 SPOTIFY CHENNAI 5,382.11\n04/06/25 GOOGLE PLAY HYDERABAD 188.43\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m165",
+   "subject": "Your Tata Neu Plus HDFC Bank Credit Card Statement - Jun 2025",
+   "body": "Dear Tanvi,\nPlease find attached your Tata Neu Plus HDFC Bank Credit Card ending 6991 statement for the period 13 May, 2025 to 12 Jun, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-13",
+   "attachments": [
+    {
+     "filename": "eStatement_202506.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m166",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Thank you! We have credited Rs.91.63 to your HDFC Bank MoneyBack+ Credit Card ending 8090 on 19-06-2025.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-06-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m167",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nRs.359.41 spent on your Swiggy HDFC Bank Credit Card at OLA CABS on 08-07-2025.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-08",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m168",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Jul 2025",
+   "body": "Dear Tanvi,\nPlease find attached your IndianOil HDFC Bank Credit Card ending 0038 statement for the period 09 Jun, 2025 to 08 Jul, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-09",
+   "attachments": [
+    {
+     "filename": "0038_08072025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m169",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Jul 2025",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 Jun, 2025 to 09 Jul, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-07-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202507.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m170",
+   "subject": "Your Tata Neu Plus HDFC Bank Credit Card Statement - Jul 2025",
+   "body": "Hi Tanvi,\nYour Tata Neu Plus HDFC Bank Credit Card ending 6991 e-statement for Jul 2025 is now available. Pay Rs.5,190.98 by 30 Jul, 2025 to avoid late fees.",
+   "date": "2025-07-13",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m171",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nRs.6,180.96 spent on your Swiggy HDFC Bank Credit Card at DOMINOS on 15-07-2025.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-07-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m172",
+   "subject": "Payment successful",
+   "body": "Hi Tanvi,\nYou paid Rs.27,453.05 to ICICI Bank Credit Card ending 8785 (of Vikram Joshi) on 29-Jul-2025. Ref 3388658478.",
+   "date": "2025-07-29",
+   "attachments": [],
+   "from": "CRED <noreply@cred.club>"
+  },
+  {
+   "id": "m173",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Aug 2025",
+   "body": "Dear Tanvi,\nYour IndianOil HDFC Bank Credit Card ending 0038 statement for Aug 2025 is ready. Total amount due Rs.9,475.68, minimum amount due Rs.473.78, payable by 26 Aug, 2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-08-09",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m174",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Aug 2025",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 Jul, 2025 to 09 Aug, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-08-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202508.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m175",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 0038 for Rs.24,733.98 at EASEMYTRIP on 12-08-2025 at 13:41:57.\nAvailable limit: Rs.6,050.46. If you did not make this transaction, please call 1800 258 6161.",
+   "date": "2025-08-12",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m176",
+   "subject": "Your Tata Neu Plus HDFC Bank Credit Card Statement - Aug 2025",
+   "body": "Dear Tanvi,\nStatement generated for Tata Neu Plus HDFC Bank Credit Card ending 6991: amount payable Rs.1,124.47, last date 30 Aug, 2025. Sign in to download.",
+   "date": "2025-08-13",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m177",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your IndianOil HDFC Bank Credit Card ending 0038 for Rs.3,808.45 at RELIANCE DIGITAL on 13-08-2025 at 17:14:39.\nAvailable limit: Rs.4,737.39. If you did not make this transaction, please call 1800 258 6161.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-08-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m178",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Tanvi,\nUse your card on UPI and earn extra rewards.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-08-16",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m179",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.97.21 is debited from your HDFC Bank Credit Card ending 0038 towards MYNTRA on 19-08-2025. Not you? Call us immediately.",
+   "date": "2025-08-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m180",
+   "subject": "Update your KYC",
+   "body": "Dear Tanvi,\nAs per RBI guidelines please complete re-KYC for your HDFC Bank relationship. Visit a branch or use the app.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-08-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m181",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Payment of Rs.4,731.84 has been received towards your HDFC Bank Credit Card ending 6991 on 27-08-2025. Thank you for the payment.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m182",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.8,668.46 | INDIGO AIRLINES | 28-08-2025 | HDFC Bank Credit Card ending 8090",
+   "date": "2025-08-28",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m183",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nRs.222.47 spent on your Swiggy HDFC Bank Credit Card at FLIPKART on 30-08-2025.\n\n",
+   "date": "2025-08-30",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m184",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.6,143.44 spent at ZEPTO on 31-08-2025 using your Swiggy HDFC Bank Credit Card.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-08-31",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m185",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Tanvi,\nConvert big spends to EMI at low interest.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-02",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m186",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Sep 2025",
+   "body": "Dear Tanvi,\nPlease find attached your IndianOil HDFC Bank Credit Card ending 0038 statement for the period 09 Aug, 2025 to 08 Sep, 2025. Total amount due Rs.27,258.77, due 23 Sep, 2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-09-09",
+   "attachments": [
+    {
+     "filename": "0038_08092025_stmt.pdf",
+     "protected": false,
+     "pdfText": "HDFC Bank Credit Cards\nStatement for IndianOil HDFC Bank Credit Card\nTANVI JOSHI\nFLAT 664, SUNRISE APARTMENTS\n11TH CROSS, INDIRANAGAR\nBENGALURU - 696442\nCredit Card No: 4838 63XX XXXX 0038\nStatement Date: 08 Sep, 2025\nBilling Period: 09 Aug, 2025 - 08 Sep, 2025\nPayment Due Date Total Dues Minimum Amount Due\n23 Sep, 2025 Rs.27,258.77 Rs.1,362.94\nCredit Limit Available Credit Limit Available Cash Limit\nRs.60,000.00 Rs.51,355.53 Rs.12,000.00\nDomestic Transactions\nDate Transaction Description Amount (in Rs.)\n09/08/25 HPCL PETROL PUNE 4,757.04\n10/08/25 BIG BAZAAR CHENNAI 8,548.99\n13/08/25 JIO RECHARGE AHMEDABAD 254.99\n15/08/25 DOMINOS CHENNAI 1,777.03\n17/08/25 TATA POWER JAIPUR 121.87\n19/08/25 HPCL PETROL HYDERABAD 120.33\n26/08/25 URBAN COMPANY GURUGRAM 637.21\n27/08/25 BESCOM KOCHI 119.91\n27/08/25 FLIPKART JAIPUR 3,711.97\n29/08/25 BOOKMYSHOW AHMEDABAD 1,324.70\n30/08/25 TATA POWER BENGALURU 5,884.73\n\nCOMBINED STATEMENT - second card on this statement\nCard Number: 5609 14XX XXXX 8090  (HDFC Bank MoneyBack+ Credit Card)\nCredit Limit: Rs.70,000.00\nAvailable Credit Limit: Rs.49,000.00\n11/08/25 INDIGO AIRLINES AHMEDABAD 3,142.65\n19/08/25 DECATHLON AHMEDABAD 2,770.78\n26/08/25 JIO RECHARGE KOLKATA 717.06\n28/08/25 SODEXO GURUGRAM 7,391.47\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m187",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Thank you! We have credited Rs.91.41 to your IndianOil HDFC Bank Credit Card ending 0038 on 09-09-2025.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-09",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m188",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Sep 2025",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 Aug, 2025 to 09 Sep, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-10",
+   "attachments": [
+    {
+     "filename": "HDFC_CC_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m189",
+   "subject": "Your Tata Neu Plus HDFC Bank Credit Card Statement - Sep 2025",
+   "body": "Dear Tanvi,\nPlease find attached your Tata Neu Plus HDFC Bank Credit Card ending 6991 statement for the period 13 Aug, 2025 to 12 Sep, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-13",
+   "attachments": [
+    {
+     "filename": "eStatement_202509.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m190",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.10,009.04 | INDIAN OIL | 14-09-2025 | Tata Neu Plus HDFC Bank Credit Card ending 6991\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-14",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m191",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.4,766.82 spent at CROMA on 17-09-2025 using your Swiggy HDFC Bank Credit Card.\n\n",
+   "date": "2025-09-17",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m192",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.204.70 is debited from your HDFC Bank MoneyBack+ Credit Card ending 8090 towards SODEXO on 27-09-2025. Not you? Call us immediately.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m193",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Oct 2025",
+   "body": "Dear Tanvi,\nPlease find attached your IndianOil HDFC Bank Credit Card ending 0038 statement for the period 09 Sep, 2025 to 08 Oct, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-10-09",
+   "attachments": [
+    {
+     "filename": "HDFC_CC_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m194",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Oct 2025",
+   "body": "Dear Tanvi,\nStatement generated for Swiggy HDFC Bank Credit Card: amount payable Rs.4,265.84, last date 27 Oct, 2025. Sign in to download.",
+   "date": "2025-10-10",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m195",
+   "subject": "Your Tata Neu Plus HDFC Bank Credit Card Statement - Oct 2025",
+   "body": "Dear Tanvi,\nPlease find attached your Tata Neu Plus HDFC Bank Credit Card ending 6991 statement for the period 13 Sep, 2025 to 12 Oct, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-10-13",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m196",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.2,940.81 is debited from your IndianOil HDFC Bank Credit Card ending 0038 towards FLIPKART on 29-10-2025. Not you? Call us immediately.",
+   "date": "2025-10-29",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m197",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.23,279.23 | URBAN COMPANY | 31-10-2025 | HDFC Bank MoneyBack+ Credit Card ending 8090\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-31",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m198",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.7,379.20 | DOMINOS | 05-11-2025 | HDFC Bank MoneyBack+ Credit Card ending 8090",
+   "date": "2025-11-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m199",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Nov 2025",
+   "body": "Dear Tanvi,\nPlease find attached your IndianOil HDFC Bank Credit Card ending 0038 statement for the period 09 Oct, 2025 to 08 Nov, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-09",
+   "attachments": [
+    {
+     "filename": "0038_08112025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m200",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Nov 2025",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 Oct, 2025 to 09 Nov, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202511.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m201",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.3,801.51 is debited from your HDFC Bank Credit Card ending 0038 towards BATA INDIA on 10-11-2025. Not you? Call us immediately.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-10",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m202",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Tanvi,\nYour order #607-3129853-6462335 is confirmed. Total Rs.4,213.89. Estimated delivery in 2 days.",
+   "date": "2025-11-12",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m203",
+   "subject": "Your Tata Neu Plus HDFC Bank Credit Card Statement - Nov 2025",
+   "body": "Dear Tanvi,\nPlease find attached your Tata Neu Plus HDFC Bank Credit Card ending 6991 statement for the period 13 Oct, 2025 to 12 Nov, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-13",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m204",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 0038 for Rs.515.74 at MEDPLUS on 13-11-2025 at 00:58:22.\nAvailable limit: Rs.18,469.61. If you did not make this transaction, please call 1800 258 6161.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m205",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 8090 for Rs.6,637.81 at SPOTIFY on 13-11-2025 at 19:24:31.\nAvailable limit: Rs.8,326.87. If you did not make this transaction, please call 1800 258 6161.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m206",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 0038 for Rs.162.11 at AMAZON PAY INDIA on 25-11-2025 at 15:04:36.\nAvailable limit: Rs.11,443.86. If you did not make this transaction, please call 1800 258 6161.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m207",
+   "subject": "Refer and earn",
+   "body": "Dear Tanvi,\nConvert big spends to EMI at low interest.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m208",
+   "subject": "Refer and earn",
+   "body": "Dear Tanvi,\nGet up to 10% cashback on partner brands.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m209",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.110.45 is debited from your HDFC Bank Credit Card ending 0038 towards NYKAA on 28-11-2025. Not you? Call us immediately.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-28",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m210",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Tanvi,\nPlease find attached the updated MITC for your HDFC Bank credit cards.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-03",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "HDFC BANK CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m211",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your IndianOil HDFC Bank Credit Card ending 0038 for Rs.1,060.37 at STARBUCKS on 05-12-2025 at 13:44:56.\nAvailable limit: Rs.60,069.60. If you did not make this transaction, please call 1800 258 6161.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m212",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Dec 2025",
+   "body": "Dear Tanvi,\nYour IndianOil HDFC Bank Credit Card ending 0038 statement for Dec 2025 is ready. Total amount due Rs.34,998.61, minimum amount due Rs.1,749.93, payable by 26 Dec, 2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-12-09",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m213",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Dec 2025",
+   "body": "Hi Tanvi,\nYour Swiggy HDFC Bank Credit Card e-statement for Dec 2025 is now available. Pay Rs.1,331.49 by 27 Dec, 2025 to avoid late fees.",
+   "date": "2025-12-10",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m214",
+   "subject": "Your Tata Neu Plus HDFC Bank Credit Card Statement - Dec 2025",
+   "body": "Hi Tanvi,\nYour Tata Neu Plus HDFC Bank Credit Card ending 6991 e-statement for Dec 2025 is now available. Pay Rs.10,387.35 by 30 Dec, 2025 to avoid late fees.",
+   "date": "2025-12-13",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m215",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "HDFC Bank Credit Card ending 8090: purchase of Rs.8,699.25 at APOLLO PHARMACY on 13-12-2025 11:39:12. Available limit Rs.39,139.05.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-12-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m216",
+   "subject": "OTP for your transaction",
+   "body": "676706 is the OTP for your transaction of Rs.1,431.59 at SWIGGY. Valid for 10 minutes. Do not share.",
+   "date": "2025-12-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m217",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.5,958.12 spent at DOMINOS on 17-12-2025 using your Swiggy HDFC Bank Credit Card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-17",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m218",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Payment of Rs.2,660.94 has been received towards your Swiggy HDFC Bank Credit Card on 20-12-2025. Thank you.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-12-20",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m219",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "HDFC Bank MoneyBack+ Credit Card ending 8090: purchase of Rs.18,834.43 at BATA INDIA on 25-12-2025 22:46:06. Available limit Rs.3,013.04.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m220",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your Tata Neu Plus HDFC Bank Credit Card ending 6991 for Rs.181.42 at SODEXO on 26-12-2025 at 05:41:42.\nAvailable limit: Rs.61,438.39. If you did not make this transaction, please call 1800 258 6161.",
+   "date": "2025-12-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m221",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.243.51 | BIGBASKET | 03-01-2026 | HDFC Bank Credit Card ending 0038",
+   "date": "2026-01-03",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m222",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.282.54 spent at ZOMATO on 04-01-2026 using your Swiggy HDFC Bank Credit Card.\n\n",
+   "date": "2026-01-04",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m223",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Payment of Rs.7,086.11 has been received towards your Tata Neu Plus HDFC Bank Credit Card ending 6991 on 05-01-2026. Thank you for the payment.",
+   "date": "2026-01-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m224",
+   "subject": "Earn more with your card",
+   "body": "Dear Tanvi,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\n",
+   "date": "2026-01-08",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m225",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Jan 2026",
+   "body": "Dear Tanvi,\nYour IndianOil HDFC Bank Credit Card ending 0038 statement for Jan 2026 is ready. Total amount due Rs.5,834.08, minimum amount due Rs.291.70, payable by 26 Jan, 2026.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-09",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m226",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Jan 2026",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 Dec, 2025 to 09 Jan, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-10",
+   "attachments": [
+    {
+     "filename": "HDFC_CC_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m227",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.592.79 | INDIGO AIRLINES | 10-01-2026 | HDFC Bank Credit Card ending 0038",
+   "date": "2026-01-10",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m228",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.1,818.80 is debited from your IndianOil HDFC Bank Credit Card ending 0038 towards INDIAN OIL on 11-01-2026. Not you? Call us immediately.",
+   "date": "2026-01-11",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m229",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 0038 for Rs.5,565.98 at FLIPKART on 12-01-2026 at 12:06:33.\nAvailable limit: Rs.3,454.99. If you did not make this transaction, please call 1800 258 6161.",
+   "date": "2026-01-12",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m230",
+   "subject": "Your Tata Neu Plus HDFC Bank Credit Card Statement - Jan 2026",
+   "body": "Hi Tanvi,\nYour Tata Neu Plus HDFC Bank Credit Card ending 6991 e-statement for Jan 2026 is now available. Pay Rs.18,330.93 by 30 Jan, 2026 to avoid late fees.",
+   "date": "2026-01-13",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m231",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.4,487.69 spent at JIO RECHARGE on 23-01-2026 using your Swiggy HDFC Bank Credit Card.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-01-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m232",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your IndianOil HDFC Bank Credit Card ending 0038 for Rs.11,000.13 at EASEMYTRIP on 28-01-2026 at 12:04:31.\nAvailable limit: Rs.4,559.02. If you did not make this transaction, please call 1800 258 6161.\n\nOpt for e-statements and go green.",
+   "date": "2026-01-28",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m233",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.870.28 spent at AMAZON PAY INDIA on 31-01-2026 using your Swiggy HDFC Bank Credit Card.\n\n",
+   "date": "2026-01-31",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m234",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Feb 2026",
+   "body": "Dear Tanvi,\nYour IndianOil HDFC Bank Credit Card ending 0038 statement for Feb 2026 is ready. Total amount due Rs.1,329.82, minimum amount due Rs.200.00, payable by 26 Feb, 2026.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-09",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m235",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.2,122.87 | MCDONALDS | 09-02-2026 | HDFC Bank Credit Card ending 6991\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-09",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m236",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Feb 2026",
+   "body": "Hi Tanvi,\nYour Swiggy HDFC Bank Credit Card e-statement for Feb 2026 is now available. Pay Rs.3,586.25 by 27 Feb, 2026 to avoid late fees.",
+   "date": "2026-02-10",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m237",
+   "subject": "Your Tata Neu Plus HDFC Bank Credit Card Statement - Feb 2026",
+   "body": "Dear Tanvi,\nPlease find attached your Tata Neu Plus HDFC Bank Credit Card ending 6991 statement for the period 13 Jan, 2026 to 12 Feb, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-02-13",
+   "attachments": [
+    {
+     "filename": "eStatement_202602.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m238",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nRs.1,877.39 spent on your Swiggy HDFC Bank Credit Card at AIRTEL PREPAID on 13-02-2026.\n\n",
+   "date": "2026-02-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m239",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nRs.981.03 spent on your Swiggy HDFC Bank Credit Card at INDIAN OIL on 14-02-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-14",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m240",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.90.41 is debited from your HDFC Bank Credit Card ending 6991 towards MAKEMYTRIP on 15-02-2026. Not you? Call us immediately.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m241",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.3,624.85 is debited from your HDFC Bank Credit Card ending 6991 towards EAZYDINER on 20-02-2026. Not you? Call us immediately.",
+   "date": "2026-02-20",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m242",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.164.61 | OLA CABS | 22-02-2026 | HDFC Bank MoneyBack+ Credit Card ending 8090\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-02-22",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m243",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Thank you! We have credited Rs.735.14 to your IndianOil HDFC Bank Credit Card ending 0038 on 25-02-2026.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-02-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m244",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nRs.289.86 spent on your Swiggy HDFC Bank Credit Card at AIRTEL PREPAID on 04-03-2026.\n\nOpt for e-statements and go green.",
+   "date": "2026-03-04",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m245",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Mar 2026",
+   "body": "Dear Tanvi,\nStatement generated for IndianOil HDFC Bank Credit Card ending 0038: amount payable Rs.455.07, last date 26 Mar, 2026. Sign in to download.",
+   "date": "2026-03-09",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m246",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Mar 2026",
+   "body": "Dear Tanvi,\nYour Swiggy HDFC Bank Credit Card statement for Mar 2026 is ready. Total amount due Rs.1,522.59, minimum amount due Rs.200.00, payable by 27 Mar, 2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-03-10",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m247",
+   "subject": "Your Tata Neu Plus HDFC Bank Credit Card Statement - Mar 2026",
+   "body": "Dear Tanvi,\nPlease find attached your Tata Neu Plus HDFC Bank Credit Card ending 6991 statement for the period 13 Feb, 2026 to 12 Mar, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-03-13",
+   "attachments": [
+    {
+     "filename": "HDFC_CC_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m248",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.1,014.99 is debited from your Tata Neu Plus HDFC Bank Credit Card ending 6991 towards SWIGGY on 21-03-2026. Not you? Call us immediately.\n\nOpt for e-statements and go green.",
+   "date": "2026-03-21",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m249",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 8090 for Rs.1,800.32 at IRCTC on 21-03-2026 at 07:10:39.\nAvailable limit: Rs.13,572.17. If you did not make this transaction, please call 1800 258 6161.",
+   "date": "2026-03-21",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m250",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Tanvi,\nYour order #132-7060009-3309303 is confirmed. Total Rs.1,510.45. Estimated delivery in 2 days.",
+   "date": "2026-03-29",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m251",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your IndianOil HDFC Bank Credit Card ending 0038 for Rs.22,398.95 at DMART on 30-03-2026 at 15:41:00.\nAvailable limit: Rs.22,153.98. If you did not make this transaction, please call 1800 258 6161.\n\nOpt for e-statements and go green.",
+   "date": "2026-03-30",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m252",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.464.75 spent at MCDONALDS on 03-04-2026 using your Swiggy HDFC Bank Credit Card.\n\n",
+   "date": "2026-04-03",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m253",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Apr 2026",
+   "body": "Dear Tanvi,\nPlease find attached your IndianOil HDFC Bank Credit Card ending 0038 statement for the period 09 Mar, 2026 to 08 Apr, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-04-09",
+   "attachments": [
+    {
+     "filename": "eStatement_202604.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m254",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.438.87 | JIO RECHARGE | 09-04-2026 | HDFC Bank Credit Card ending 8090",
+   "date": "2026-04-09",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m255",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Apr 2026",
+   "body": "Hi Tanvi,\nYour Swiggy HDFC Bank Credit Card e-statement for Apr 2026 is now available. Pay Rs.2,421.09 by 27 Apr, 2026 to avoid late fees.",
+   "date": "2026-04-10",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m256",
+   "subject": "Your Tata Neu Plus HDFC Bank Credit Card Statement - Apr 2026",
+   "body": "Hi Tanvi,\nYour Tata Neu Plus HDFC Bank Credit Card ending 6991 e-statement for Apr 2026 is now available. Pay Rs.1,911.60 by 30 Apr, 2026 to avoid late fees.",
+   "date": "2026-04-13",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m257",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.13,931.53 | IXIGO | 15-04-2026 | HDFC Bank Credit Card ending 6991\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m258",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 0038 for Rs.7,279.56 at JIO RECHARGE on 15-04-2026 at 20:29:08.\nAvailable limit: Rs.70,491.04. If you did not make this transaction, please call 1800 258 6161.",
+   "date": "2026-04-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m259",
+   "subject": "Earn more with your card",
+   "body": "Dear Tanvi,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\n",
+   "date": "2026-04-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m260",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your IndianOil HDFC Bank Credit Card ending 0038 for Rs.960.92 at UBER INDIA on 16-04-2026 at 11:44:43.\nAvailable limit: Rs.2,295.44. If you did not make this transaction, please call 1800 258 6161.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-16",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m261",
+   "subject": "HDFC Bank festive offers",
+   "body": "Dear Tanvi,\nUse your card on UPI and earn extra rewards.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-17",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m262",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nRs.6,266.90 spent on your Swiggy HDFC Bank Credit Card at ZEPTO on 23-04-2026.\n\n",
+   "date": "2026-04-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m263",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.513.38 is debited from your HDFC Bank Credit Card ending 8090 towards DMART on 29-04-2026. Not you? Call us immediately.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-04-29",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m264",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your IndianOil HDFC Bank Credit Card ending 0038 for Rs.4,879.85 at CROMA on 02-05-2026 at 14:27:33.\nAvailable limit: Rs.3,929.37. If you did not make this transaction, please call 1800 258 6161.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-02",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m265",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - May 2026",
+   "body": "Dear Tanvi,\nYour IndianOil HDFC Bank Credit Card ending 0038 statement for May 2026 is ready. Total amount due Rs.10,656.64, minimum amount due Rs.532.83, payable by 26 May, 2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m266",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - May 2026",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 Apr, 2026 to 09 May, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-10",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m267",
+   "subject": "Your Tata Neu Plus HDFC Bank Credit Card Statement - May 2026",
+   "body": "Dear Tanvi,\nPlease find attached your Tata Neu Plus HDFC Bank Credit Card ending 6991 statement for the period 13 Apr, 2026 to 12 May, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-05-13",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m268",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 0038 for Rs.21,518.98 at TATA POWER on 13-05-2026 at 22:17:32.\nAvailable limit: Rs.7,066.03. If you did not make this transaction, please call 1800 258 6161.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m269",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "HDFC Bank Credit Card ending 6991: purchase of Rs.7,564.41 at HPCL PETROL on 15-05-2026 03:38:23. Available limit Rs.5,260.14.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-05-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m270",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.1,062.98 | IXIGO | 16-05-2026 | HDFC Bank Credit Card ending 6991\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-05-16",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m271",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.1,942.38 spent at MCDONALDS on 26-05-2026 using your Swiggy HDFC Bank Credit Card.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m272",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.139.88 spent at OLA CABS on 26-05-2026 using your Swiggy HDFC Bank Credit Card.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m273",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.372.07 | URBAN COMPANY | 02-06-2026 | HDFC Bank MoneyBack+ Credit Card ending 8090\n\nOpt for e-statements and go green.",
+   "date": "2026-06-02",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m274",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.201.83 | TATA PLAY | 04-06-2026 | IndianOil HDFC Bank Credit Card ending 0038\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-04",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m275",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Jun 2026",
+   "body": "Dear Tanvi,\nStatement generated for IndianOil HDFC Bank Credit Card ending 0038: amount payable Rs.59,862.60, last date 26 Jun, 2026. Sign in to download.",
+   "date": "2026-06-09",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m276",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Jun 2026",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 May, 2026 to 09 Jun, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-10",
+   "attachments": [
+    {
+     "filename": "HDFC_CC_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m277",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Payment of Rs.6,561.08 has been received towards your Tata Neu Plus HDFC Bank Credit Card ending 6991 on 11-06-2026. Thank you for the payment.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-11",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m278",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.677.89 on 12-06-2026 for your HDFC Bank MoneyBack+ Credit Card ending 8090. Available credit limit has been updated.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-12",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m279",
+   "subject": "Your Tata Neu Plus HDFC Bank Credit Card Statement - Jun 2026",
+   "body": "Dear Tanvi,\nStatement generated for Tata Neu Plus HDFC Bank Credit Card ending 6991: amount payable Rs.1,558.82, last date 30 Jun, 2026. Sign in to download.",
+   "date": "2026-06-13",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m280",
+   "subject": "OTP for your transaction",
+   "body": "136070 is the OTP for your transaction of Rs.151.08 at IRCTC. Valid for 10 minutes. Do not share.",
+   "date": "2026-06-14",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m281",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 6991 for Rs.4,069.72 at BESCOM on 19-06-2026 at 15:05:33.\nAvailable limit: Rs.4,516.46. If you did not make this transaction, please call 1800 258 6161.",
+   "date": "2026-06-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m282",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.205.00 spent at BPCL FUEL on 21-06-2026 using your Swiggy HDFC Bank Credit Card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-21",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m283",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Payment confirmation: Rs.616.66 posted to HDFC Bank Credit Card ending 8090 on 25-06-2026.\n\nOpt for e-statements and go green.",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m284",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "HDFC Bank MoneyBack+ Credit Card ending 8090: purchase of Rs.2,321.47 at LENSKART on 30-06-2026 23:01:10. Available limit Rs.1,75,637.52.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-30",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m285",
+   "subject": "HDFC Bank festive offers",
+   "body": "Dear Tanvi,\nConvert big spends to EMI at low interest.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-02",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m286",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Tanvi,\nConvert big spends to EMI at low interest.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-07-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m287",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.398.15 | NETFLIX | 06-07-2026 | HDFC Bank Credit Card ending 8090",
+   "date": "2026-07-06",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m288",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Jul 2026",
+   "body": "Dear Tanvi,\nYour IndianOil HDFC Bank Credit Card ending 0038 statement for Jul 2026 is ready. Total amount due Rs.38,837.26, minimum amount due Rs.1,941.86, payable by 26 Jul, 2026.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-09",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m289",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Jul 2026",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 Jun, 2026 to 09 Jul, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-10",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m290",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.20,754.58 is debited from your HDFC Bank Credit Card ending 6991 towards BLINKIT on 11-07-2026. Not you? Call us immediately.",
+   "date": "2026-07-11",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m291",
+   "subject": "Your Tata Neu Plus HDFC Bank Credit Card Statement - Jul 2026",
+   "body": "Dear Tanvi,\nPlease find attached your Tata Neu Plus HDFC Bank Credit Card ending 6991 statement for the period 13 Jun, 2026 to 12 Jul, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-13",
+   "attachments": [
+    {
+     "filename": "6991_12072026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m292",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Thank you! We have credited Rs.1,239.91 to your HDFC Bank Credit Card ending 6991 on 13-07-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m293",
+   "subject": "Update your KYC",
+   "body": "Dear Tanvi,\nAs per RBI guidelines please complete re-KYC for your HDFC Bank relationship. Visit a branch or use the app.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-14",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m294",
+   "subject": "Update your KYC",
+   "body": "Dear Tanvi,\nAs per RBI guidelines please complete re-KYC for your HDFC Bank relationship. Visit a branch or use the app.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m295",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Aug 2026",
+   "body": "Hi Tanvi,\nYour IndianOil HDFC Bank Credit Card ending 0038 e-statement for Aug 2026 is now available. Pay Rs.607.90 by 26 Aug, 2026 to avoid late fees.",
+   "date": "2026-08-09",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m296",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Aug 2026",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 Jul, 2026 to 09 Aug, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202608.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m297",
+   "subject": "Your Tata Neu Plus HDFC Bank Credit Card Statement - Aug 2026",
+   "body": "Dear Tanvi,\nPlease find attached your Tata Neu Plus HDFC Bank Credit Card ending 6991 statement for the period 13 Jul, 2026 to 12 Aug, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-13",
+   "attachments": [
+    {
+     "filename": "6991_12082026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m298",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.9,585.72 spent at ZOMATO on 23-08-2026 using your Swiggy HDFC Bank Credit Card.\n\n",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m299",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Sep 2026",
+   "body": "Dear Tanvi,\nStatement generated for IndianOil HDFC Bank Credit Card ending 0038: amount payable Rs.13,305.72, last date 26 Sep, 2026. Sign in to download.",
+   "date": "2026-09-09",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m300",
+   "subject": "Update your KYC",
+   "body": "Dear Tanvi,\nAs per RBI guidelines please complete re-KYC for your HDFC Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2026-09-09",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m301",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Sep 2026",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 Aug, 2026 to 09 Sep, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-09-10",
+   "attachments": [
+    {
+     "filename": "HDFC_CC_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m302",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nRs.2,502.29 spent on your Swiggy HDFC Bank Credit Card at EASEMYTRIP on 10-09-2026.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-10",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m303",
+   "subject": "Your Tata Neu Plus HDFC Bank Credit Card Statement - Sep 2026",
+   "body": "Dear Tanvi,\nPlease find attached your Tata Neu Plus HDFC Bank Credit Card ending 6991 statement for the period 13 Aug, 2026 to 12 Sep, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-09-13",
+   "attachments": [
+    {
+     "filename": "6991_12092026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m304",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nRs.1,464.40 spent on your Swiggy HDFC Bank Credit Card at UBER INDIA on 22-09-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-22",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m305",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nRs.10,634.33 spent on your Swiggy HDFC Bank Credit Card at MYNTRA on 24-09-2026.\n\n",
+   "date": "2026-09-24",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m306",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Transaction alert: Rs.935.26 spent at IRCTC on 25-09-2026 using your Swiggy HDFC Bank Credit Card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m307",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Payment of Rs.2,769.80 has been received towards your Swiggy HDFC Bank Credit Card on 25-09-2026. Thank you.\n\n",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m308",
+   "subject": "Refer and earn",
+   "body": "Dear Tanvi,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m309",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.98.01 is debited from your HDFC Bank Credit Card ending 8090 towards INDIGO AIRLINES on 05-10-2026. Not you? Call us immediately.",
+   "date": "2026-10-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m310",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Card alert | Rs.164.17 | APOLLO PHARMACY | 06-10-2026 | HDFC Bank MoneyBack+ Credit Card ending 8090\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-06",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m311",
+   "subject": "Your IndianOil HDFC Bank Credit Card Statement - Oct 2026",
+   "body": "Dear Tanvi,\nPlease find attached your IndianOil HDFC Bank Credit Card ending 0038 statement for the period 09 Sep, 2026 to 08 Oct, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-09",
+   "attachments": [
+    {
+     "filename": "0038_08102026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m312",
+   "subject": "Your Swiggy HDFC Bank Credit Card Statement - Oct 2026",
+   "body": "Dear Tanvi,\nPlease find attached your Swiggy HDFC Bank Credit Card statement for the period 10 Sep, 2026 to 09 Oct, 2026. Total amount due Rs.24,340.77, due 26 Oct, 2026.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-10",
+   "attachments": [
+    {
+     "filename": "HDFC_CC_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "HDFC Bank Credit Cards\nStatement for Swiggy HDFC Bank Credit Card\nTANVI JOSHI\nFLAT 688, LAKESHORE APARTMENTS\n18TH CROSS, ADYAR\nAHMEDABAD - 575614\nCredit Card No: 5679 62XX XXXX 7329\nStatement Date: 09 Oct, 2026\nBilling Period: 10 Sep, 2026 - 09 Oct, 2026\nPayment Due Date Total Dues Minimum Amount Due\n26 Oct, 2026 Rs.24,340.77 Rs.1,217.04\nCredit Limit Available Credit Limit Available Cash Limit\nRs.75,000.00 Rs.60,218.51 Rs.15,000.00\nDomestic Transactions\nDate Transaction Description Amount (in Rs.)\n11/09/26 MEDPLUS HYDERABAD 204.58\n14/09/26 APPLE SERVICES AHMEDABAD 388.29\n15/09/26 NETFLIX KOCHI 11,095.65\n16/09/26 ZOMATO KOLKATA 320.24\n18/09/26 ZEPTO HYDERABAD 8,665.23\n28/09/26 IKEA AHMEDABAD 875.01\n01/10/26 BLINKIT CHENNAI 278.19\n04/10/26 PVR INOX HYDERABAD 1,209.04\n07/10/26 EAZYDINER GURUGRAM 1,304.54\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m313",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank MoneyBack+ Credit Card ending 8090 for Rs.497.85 at APOLLO PHARMACY on 10-10-2026 at 05:52:00.\nAvailable limit: Rs.2,994.99. If you did not make this transaction, please call 1800 258 6161.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-10",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m314",
+   "subject": "Your Tata Neu Plus HDFC Bank Credit Card Statement - Oct 2026",
+   "body": "Dear Tanvi,\nYour Tata Neu Plus HDFC Bank Credit Card ending 6991 statement for Oct 2026 is ready. Total amount due Rs.37,531.86, minimum amount due Rs.1,876.59, payable by 30 Oct, 2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-10-13",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m315",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nRs.3,211.65 spent on your Swiggy HDFC Bank Credit Card at APOLLO PHARMACY on 19-10-2026.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m316",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Customer,\nRs.467.81 spent on your Swiggy HDFC Bank Credit Card at NETFLIX on 20-10-2026.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-20",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m317",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 0038 for Rs.349.27 at TATA POWER on 21-10-2026 at 02:56:31.\nAvailable limit: Rs.2,133.16. If you did not make this transaction, please call 1800 258 6161.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-21",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m318",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Tata Neu Plus HDFC Bank Credit Card ending 6991: purchase of Rs.2,026.22 at EAZYDINER on 22-10-2026 23:17:37. Available limit Rs.92,443.17.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "6991",
+    "kind": "CREDIT_CARD",
+    "variant": "Tata Neu Plus",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "7329",
+    "kind": "CREDIT_CARD",
+    "variant": "Swiggy",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "<1L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "0038",
+    "kind": "CREDIT_CARD",
+    "variant": "IndianOil",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "<1L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "8090",
+    "kind": "CREDIT_CARD",
+    "variant": "MoneyBack+",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "<1L",
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "7347",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "9070",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "1197",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "8785",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

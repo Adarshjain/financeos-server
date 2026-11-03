@@ -1,0 +1,2370 @@
+{
+ "mailbox": "sbi-cashback-rename-addon",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Aug 2024",
+   "body": "Dear Arjun,\nPlease find attached your SBI Card SimplySAVE XXXX XXXX XXXX 4232 statement for the period 09-Jul-2024 to 08-Aug-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-08-09",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Aug2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Canara Bank Account Statement - Aug 2024",
+   "body": "Dear Arjun,\nPlease find attached your Canara Bank *0510 statement for the period 10-Jul-2024 to 09-Aug-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-08-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202408.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Refer and earn",
+   "body": "Dear Arjun,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-08-14",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.139.37 spent on SBI Card SimplySAVE XXXX XXXX XXXX 4232 at JIO RECHARGE on 17/08/24.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-08-17",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Canara Bank: debit alert",
+   "body": "Rs.883.46 withdrawn from XXXXXX0510 on 25-08-2024 via ECOM to FLIPKART. Closing balance Rs.33,608.03.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-08-25",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Your Cashback SBI Card Classic Monthly Statement - Aug 2024",
+   "body": "Dear Arjun,\nPlease find attached your Cashback SBI Card Classic XXXX XXXX XXXX 5503 statement for the period 26-Jul-2024 to 25-Aug-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-08-26",
+   "attachments": [
+    {
+     "filename": "5503_25082024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,275.95 spent on your SBI Card Credit Card XXXX XXXX XXXX 4232 at IKEA on 01/09/24. Your available limit is Rs.2,220.86.\nContact 1860 180 1290 if this transaction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-09-01",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.609.84 spent on your Cashback SBI Card Classic XXXX XXXX XXXX 5503 at BIG BAZAAR on 06/09/24. Your available limit is Rs.70,277.53.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-09-06",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Sep 2024",
+   "body": "Dear Arjun,\nStatement generated for SBI Card SimplySAVE XXXX XXXX XXXX 4232: amount payable Rs.1,814.53, last date 26-Sep-2024. Sign in to download.",
+   "date": "2024-09-09",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Canara Bank Account Statement - Sep 2024",
+   "body": "Dear Arjun,\nPlease find attached your Canara Bank XX0510 statement for the period 10-Aug-2024 to 09-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-09-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202409.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.19,443.02 spent on SBI Card Credit Card XXXX XXXX XXXX 4232 at JIO RECHARGE on 10/09/24.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-09-10",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "OTP for your transaction",
+   "body": "394935 is the OTP for your transaction of Rs.1,517.70 at FLIPKART. Valid for 10 minutes. Do not share.",
+   "date": "2024-09-10",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.12,983.30 spent on your SBI Card Credit Card XXXX XXXX XXXX 5503 at DMART on 24/09/24. Your available limit is Rs.1,01,461.14.\nContact 1860 180 1290 if this transaction was not done by you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-09-24",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.278.98 spent on SBI Card SimplySAVE XXXX XXXX XXXX 4232 at INDIAN OIL on 24/09/24.\n\nOpt for e-statements and go green.",
+   "date": "2024-09-24",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Your Cashback SBI Card Classic Monthly Statement - Sep 2024",
+   "body": "Dear Arjun,\nPlease find attached your Cashback SBI Card Classic XXXX XXXX XXXX 5503 statement for the period 26-Aug-2024 to 25-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2024-09-26",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Sep2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Cashback SBI Card Classic XXXX XXXX XXXX 5503: purchase of Rs.5,001.81 at BIG BAZAAR on 01/10/24 04:19:21. Available limit Rs.11,033.49.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-10-01",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.226.39 spent on your SBI Card SimplySAVE XXXX XXXX XXXX 4232 at STARBUCKS on 04/10/24. Your available limit is Rs.3,333.13.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-10-04",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Oct 2024",
+   "body": "Dear Arjun,\nPlease find attached your SBI Card SimplySAVE XXXX XXXX XXXX 4232 statement for the period 09-Sep-2024 to 08-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-10-09",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Oct2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Canara Bank Account Statement - Oct 2024",
+   "body": "Dear Arjun,\nPlease find attached your Canara Bank xx0510 statement for the period 10-Sep-2024 to 09-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-10-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202410.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Update your KYC",
+   "body": "Dear Arjun,\nAs per RBI guidelines please complete re-KYC for your SBI Card relationship. Visit a branch or use the app.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-10-10",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.725.30 spent on your SBI Card SimplySAVE XXXX XXXX XXXX 4232 at AIRTEL PREPAID on 11/10/24. Your available limit is Rs.16,254.17.\nContact 1860 180 1290 if this transaction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-10-11",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.3,289.60 has been debited from your Canara Bank A/c *0510 on 15-10-2024 (POS GOOGLE PLAY). Avl bal Rs.6,359.77.",
+   "date": "2024-10-15",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Canara Bank: credit alert",
+   "body": "Dear Customer,\nRs.3,729.99 credited to your Canara Bank A/c XX0510 on 25-10-2024 by SALARY NEFT. Ref 241042944110.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-10-25",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Your Cashback SBI Card Classic Monthly Statement - Oct 2024",
+   "body": "Hi Arjun,\nYour Cashback SBI Card Classic XXXX XXXX XXXX 5503 e-statement for Oct 2024 is now available. Pay Rs.35,374.10 by 12-Nov-2024 to avoid late fees.",
+   "date": "2024-10-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Cashback SBI Card Classic XXXX XXXX XXXX 5503: purchase of Rs.722.15 at NYKAA on 30/10/24 11:12:33. Available limit Rs.3,295.31.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-10-30",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Update your KYC",
+   "body": "Dear Arjun,\nAs per RBI guidelines please complete re-KYC for your SBI Card relationship. Visit a branch or use the app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-10-30",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Payment Received - SBI Card",
+   "body": "Payment of Rs.201.71 has been received towards your SBI Card SimplySAVE XXXX XXXX XXXX 4232 on 05/11/24. Thank you for the payment.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-11-05",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #687-3456304-9989281 is confirmed. Total Rs.965.19. Estimated delivery in 2 days.",
+   "date": "2024-11-05",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m029",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Nov 2024",
+   "body": "Dear Arjun,\nPlease find attached your SBI Card SimplySAVE XXXX XXXX XXXX 4232 statement for the period 09-Oct-2024 to 08-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-11-09",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Nov2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Card alert | Rs.18,755.52 | BPCL FUEL | 09/11/24 | Cashback SBI Card Classic XXXX XXXX XXXX 5503\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-09",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Canara Bank Account Statement - Nov 2024",
+   "body": "Dear Arjun,\nPlease find attached your Canara Bank XX0510 statement for the period 10-Oct-2024 to 09-Nov-2024. \n\n",
+   "date": "2024-11-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202411.pdf",
+     "protected": false,
+     "pdfText": "CANARA BANK\nSTATEMENT OF ACCOUNT\nAccount Name : ARJUN KHAN\nFLAT 189, ORCHID APARTMENTS\n10TH CROSS, SECTOR 21\nAHMEDABAD - 419627\nAccount Number : xx0510\nAccount Type : SAVINGS ACCOUNT\nIFSC : CANA0237750\nStatement Period : 10-10-2024 to 09-11-2024\nOpening Balance : Rs.18,078.37\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n11-10-2024 NEFT DR/TATA POWER 612813371 575.34 - 17,503.03\n11-10-2024 POS/BATA INDIA 106894822 131.02 - 17,372.01\n11-10-2024 IMPS/CR 823170376 - 16,896.90 34,268.91\n14-10-2024 POS/BATA INDIA 906489771 7,404.67 - 26,864.24\n16-10-2024 UPI/MCDONALDS 951618469 2,437.70 - 24,426.54\n17-10-2024 POS/PHONEPE 585700643 968.70 - 23,457.84\n18-10-2024 UPI/RELIANCE DIGITAL 621552779 1,772.10 - 21,685.74\n18-10-2024 POS/NETFLIX 450367550 587.44 - 21,098.30\n18-10-2024 ATM WDL/DOMINOS 114776903 17,288.45 - 3,809.85\n19-10-2024 ATM WDL/EASEMYTRIP 887474088 216.26 - 3,593.59\n19-10-2024 UPI/ZEPTO 504010877 4,001.47 - -407.88\nClosing Balance : -Rs.407.88\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.2,744.02 has been transferred from your A/c XXXXXX0510 to Mohan Landlord A/c XX6414 (Punjab National Bank) via IMPS on 12-11-2024. Ref no 348852362193.",
+   "date": "2024-11-12",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.1,297.98 debited from account XX0510 on 16-11-2024. Narration: IMPS/AMAZON PAY INDIA. Available balance Rs.35,213.65.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-11-16",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.89.10 spent on your Cashback SBI Card Classic XXXX XXXX XXXX 5503 at BESCOM on 19/11/24. Your available limit is Rs.28,028.24.\nContact 1860 180 1290 if this transaction was not done by you.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-11-19",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Payment Received - SBI Card",
+   "body": "Payment of Rs.1,694.69 has been received towards your SBI Card Credit Card XXXX XXXX XXXX 4232 on 25/11/24. Thank you for the payment.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-11-25",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Your Cashback SBI Card Classic Monthly Statement - Nov 2024",
+   "body": "Dear Arjun,\nStatement generated for Cashback SBI Card Classic XXXX XXXX XXXX 5503: amount payable Rs.605.78, last date 13-Dec-2024. Sign in to download.",
+   "date": "2024-11-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "SBI Card Credit Card XXXX XXXX XXXX 5503: purchase of Rs.14,742.62 at JIO RECHARGE on 28/11/24 18:59:59. Available limit Rs.1,10,404.01.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-11-28",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.9,850.58 spent on your Cashback SBI Card Classic XXXX XXXX XXXX 5503 at AMAZON PAY INDIA on 01/12/24. Your available limit is Rs.1,65,977.41.\nContact 1860 180 1290 if this transaction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-12-01",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Cashback SBI Card Classic XXXX XXXX XXXX 5503: purchase of Rs.158.08 at BIGBASKET on 04/12/24 18:23:05. Available limit Rs.1,15,753.77.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-12-04",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Dr. Rao Clinic (A/c XXXXXX7171, Bank of India) has been added to your account *0510. It will be active after 30 minutes.",
+   "date": "2024-12-05",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Dec 2024",
+   "body": "Dear Arjun,\nPlease find attached your SBI Card SimplySAVE XXXX XXXX XXXX 4232 statement for the period 09-Nov-2024 to 08-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-12-09",
+   "attachments": [
+    {
+     "filename": "4232_08122024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Canara Bank Account Statement - Dec 2024",
+   "body": "Dear Arjun,\nPlease find attached your Canara Bank *0510 statement for the period 10-Nov-2024 to 09-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2024-12-10",
+   "attachments": [
+    {
+     "filename": "Canara_Acct_Dec2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "SBI Card: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 0403 has been successfully linked/verified for your SBI Card relationship. If this was not you, contact us.",
+   "date": "2024-12-11",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX8155 has been updated on 17/09/25. If not requested by you, call customer care.",
+   "date": "2024-12-11",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "OTP for your transaction",
+   "body": "549000 is the OTP for your transaction of Rs.536.19 at DECATHLON. Valid for 10 minutes. Do not share.",
+   "date": "2024-12-14",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Card alert | Rs.2,836.21 | RELIANCE DIGITAL | 17/12/24 | SBI Card SimplySAVE XXXX XXXX XXXX 4232\n\nOpt for e-statements and go green.",
+   "date": "2024-12-17",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "SBI Card Credit Card XXXX XXXX XXXX 5503: purchase of Rs.1,118.53 at AMAZON PAY INDIA on 18/12/24 15:29:58. Available limit Rs.1,41,438.09.",
+   "date": "2024-12-18",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Your Cashback SBI Card Classic Monthly Statement - Dec 2024",
+   "body": "Dear Arjun,\nPlease find attached your Cashback SBI Card Classic XXXX XXXX XXXX 5503 statement for the period 26-Nov-2024 to 25-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-12-26",
+   "attachments": [
+    {
+     "filename": "eStatement_202412.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.352.72 spent on Cashback SBI Card Classic XXXX XXXX XXXX 5503 at ZOMATO on 26/12/24.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-12-26",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "SBI Card SimplySAVE XXXX XXXX XXXX 4232: purchase of Rs.1,527.77 at MCDONALDS on 02/01/25 18:52:35. Available limit Rs.9,828.83.",
+   "date": "2025-01-02",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from XXXXXX0510 to Dr. Rao Clinic A/c XX7171 on 05-01-2025. Rent for the month.",
+   "date": "2025-01-05",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Jan 2025",
+   "body": "Hi Arjun,\nYour SBI Card SimplySAVE XXXX XXXX XXXX 4232 e-statement for Jan 2025 is now available. Pay Rs.845.25 by 26-Jan-2025 to avoid late fees.",
+   "date": "2025-01-09",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Canara Bank: credit alert",
+   "body": "Your A/c XXXXXX0510 is credited with Rs.3,229.90 on 09-01-2025 - UPI. Bal Rs.1,05,422.30. -Canara Bank",
+   "date": "2025-01-09",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Canara Bank Account Statement - Jan 2025",
+   "body": "Dear Arjun,\nPlease find attached your Canara Bank XXXXXX0510 statement for the period 10-Dec-2024 to 09-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-01-10",
+   "attachments": [
+    {
+     "filename": "Canara_Acct_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.198.13 spent on your Cashback SBI Card Classic XXXX XXXX XXXX 5503 at BATA INDIA on 10/01/25. Your available limit is Rs.44,757.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nOpt for e-statements and go green.",
+   "date": "2025-01-10",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Card alert | Rs.1,366.64 | DECATHLON | 10/01/25 | SBI Card Credit Card XXXX XXXX XXXX 5503\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-01-10",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Card alert | Rs.15,333.06 | EAZYDINER | 11/01/25 | SBI Card Credit Card XXXX XXXX XXXX 4232\n\nOpt for e-statements and go green.",
+   "date": "2025-01-11",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Payment Received - SBI Card",
+   "body": "Payment of Rs.4,050.33 has been received towards your SBI Card SimplySAVE XXXX XXXX XXXX 4232 on 12/01/25. Thank you for the payment.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-01-12",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Card alert | Rs.1,116.11 | CROMA | 19/01/25 | SBI Card SimplySAVE XXXX XXXX XXXX 4232\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-19",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Payment Received - SBI Card",
+   "body": "Thank you! We have credited Rs.2,126.73 to your SBI Card Credit Card XXXX XXXX XXXX 4232 on 22/01/25.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-01-22",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Your Cashback SBI Card Classic Monthly Statement - Jan 2025",
+   "body": "Dear Arjun,\nStatement generated for Cashback SBI Card Classic XXXX XXXX XXXX 5503: amount payable Rs.5,166.63, last date 12-Feb-2025. Sign in to download.",
+   "date": "2025-01-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,500.00 transferred from XX0510 to Dr. Rao Clinic A/c XX7171 on 05-02-2025. Rent for the month.",
+   "date": "2025-02-05",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.333.90 spent on your SBI Card Credit Card XXXX XXXX XXXX 4232 at MEDPLUS on 06/02/25. Your available limit is Rs.1,74,505.79.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-02-06",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Feb 2025",
+   "body": "Dear Arjun,\nStatement generated for SBI Card SimplySAVE XXXX XXXX XXXX 4232: amount payable Rs.3,603.65, last date 26-Feb-2025. Sign in to download.",
+   "date": "2025-02-09",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.21,042.71 spent on your SBI Card Credit Card XXXX XXXX XXXX 5503 at URBAN COMPANY on 09/02/25. Your available limit is Rs.15,467.62.\nContact 1860 180 1290 if this transaction was not done by you.\n\nOpt for e-statements and go green.",
+   "date": "2025-02-09",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Canara Bank Account Statement - Feb 2025",
+   "body": "Dear Arjun,\nPlease find attached your Canara Bank XXXXXX0510 statement for the period 10-Jan-2025 to 09-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-02-10",
+   "attachments": [
+    {
+     "filename": "Canara_Acct_Feb2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Card alert | Rs.278.54 | SWIGGY | 10/02/25 | SBI Card SimplySAVE XXXX XXXX XXXX 4232\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-02-10",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Canara Bank: funds transferred",
+   "body": "Dear Customer,\nRs.977.23 has been transferred from your A/c XXXXXX0510 to Priya Tailors A/c XX4648 (Punjab National Bank) via IMPS on 14-02-2025. Ref no 947792986772.",
+   "date": "2025-02-14",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Card alert | Rs.4,579.84 | HPCL PETROL | 18/02/25 | SBI Card Credit Card XXXX XXXX XXXX 4232\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-02-18",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Canara Bank: debit alert",
+   "body": "Rs.663.18 withdrawn from *0510 on 20-02-2025 via IMPS to BIGBASKET. Closing balance Rs.19,601.81.",
+   "date": "2025-02-20",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Card alert | Rs.14,780.63 | APOLLO PHARMACY | 21/02/25 | Cashback SBI Card Classic XXXX XXXX XXXX 5503\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-02-21",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Your Cashback SBI Card Classic Monthly Statement - Feb 2025",
+   "body": "Dear Arjun,\nPlease find attached your Cashback SBI Card Classic XXXX XXXX XXXX 5503 statement for the period 26-Jan-2025 to 25-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-02-26",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Feb2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,500.00 transferred from *0510 to Dr. Rao Clinic A/c XX7171 on 05-03-2025. Rent for the month.",
+   "date": "2025-03-05",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 576789511964. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-03-07",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Arjun,\nGet up to 10% cashback on partner brands.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-03-07",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Mar 2025",
+   "body": "Dear Arjun,\nStatement generated for SBI Card SimplySAVE XXXX XXXX XXXX 4232: amount payable Rs.3,428.20, last date 26-Mar-2025. Sign in to download.",
+   "date": "2025-03-09",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Canara Bank Account Statement - Mar 2025",
+   "body": "Dear Arjun,\nYour Canara Bank xx0510 account statement for Mar 2025 is ready. Closing balance Rs.2,667.93.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-10",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Canara Bank: debit alert",
+   "body": "Your A/c *0510 is debited for Rs.1,640.79 on 14-03-2025 - UPI PHONEPE. Bal Rs.28,965.94. -Canara Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-03-14",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Canara Bank: debit alert",
+   "body": "Your A/c *0510 is debited for Rs.10,936.87 on 21-03-2025 - POS APOLLO PHARMACY. Bal Rs.1,40,230.92. -Canara Bank",
+   "date": "2025-03-21",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Your Cashback SBI Card Classic Monthly Statement - Mar 2025",
+   "body": "Dear Arjun,\nPlease find attached your Cashback SBI Card Classic XXXX XXXX XXXX 5503 statement for the period 26-Feb-2025 to 25-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-26",
+   "attachments": [
+    {
+     "filename": "eStatement_202503.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.16,036.10 has been transferred from your A/c XXXXXX0510 to Mohan Landlord A/c XX6414 (Punjab National Bank) via IMPS on 03-04-2025. Ref no 555832823755.",
+   "date": "2025-04-03",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.14,671.21 has been debited from your Canara Bank A/c xx0510 on 08-04-2025 (IMPS TATA PLAY). Avl bal Rs.1,63,770.29.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-04-08",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Apr 2025",
+   "body": "Dear Arjun,\nPlease find attached your SBI Card SimplySAVE XXXX XXXX XXXX 4232 statement for the period 09-Mar-2025 to 08-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-04-09",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Apr2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Canara Bank Account Statement - Apr 2025",
+   "body": "Dear Arjun,\nYour Canara Bank *0510 account statement for Apr 2025 is ready. Closing balance Rs.46,393.85.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-04-10",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.1,009.70 has been debited from your Canara Bank A/c XX0510 on 16-04-2025 (IMPS INDIGO AIRLINES). Avl bal Rs.52,177.13.\n\nOpt for e-statements and go green.",
+   "date": "2025-04-16",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Refer and earn",
+   "body": "Dear Arjun,\nGet up to 10% cashback on partner brands.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-04-18",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Card alert | Rs.329.20 | APOLLO PHARMACY | 20/04/25 | SBI Card Credit Card XXXX XXXX XXXX 5503",
+   "date": "2025-04-20",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "Your Cashback SBI Card Classic Monthly Statement - Apr 2025",
+   "body": "Hi Arjun,\nYour Cashback SBI Card Classic XXXX XXXX XXXX 5503 e-statement for Apr 2025 is now available. Pay Rs.3,452.58 by 13-May-2025 to avoid late fees.",
+   "date": "2025-04-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Payment Received - SBI Card",
+   "body": "Payment confirmation: Rs.327.98 posted to Cashback SBI Card Classic XXXX XXXX XXXX 5503 on 26/04/25.",
+   "date": "2025-04-26",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Canara Bank: debit alert",
+   "body": "Rs.921.45 withdrawn from XX0510 on 26-04-2025 via ECOM to APPLE SERVICES. Closing balance Rs.1,86,316.65.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-04-26",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Canara Bank: credit alert",
+   "body": "Deposit alert - Rs.100.63 received in account XX0510 on 28-04-2025 (INTEREST CREDIT) Ref 901742925182.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-04-28",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Canara Bank: debit alert",
+   "body": "Alert: Canara Bank A/c *0510 debited Rs.264.20 on 04-05-2025. Mode: IMPS. Details: MEDPLUS. Balance Rs.24,762.34.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-05-04",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.8,429.19 spent on Cashback SBI Card Classic XXXX XXXX XXXX 5503 at PVR INOX on 08/05/25.",
+   "date": "2025-05-08",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - May 2025",
+   "body": "Dear Arjun,\nPlease find attached your SBI Card SimplySAVE XXXX XXXX XXXX 4232 statement for the period 09-Apr-2025 to 08-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-05-09",
+   "attachments": [
+    {
+     "filename": "SBI_CC_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Canara Bank Account Statement - May 2025",
+   "body": "Dear Arjun,\nYour Canara Bank XXXXXX0510 account statement for May 2025 is ready. Closing balance Rs.6,748.47.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-10",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.3,386.98 has been transferred from your A/c *0510 to Sunil Plumber A/c XX9984 (IDFC FIRST Bank) via IMPS on 15-05-2025. Ref no 852479936891.",
+   "date": "2025-05-15",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Card alert | Rs.95.13 | CROMA | 17/05/25 | SBI Card SimplySAVE XXXX XXXX XXXX 4232",
+   "date": "2025-05-17",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.290.61 spent on Cashback SBI Card Classic XXXX XXXX XXXX 5503 at BLINKIT on 19/05/25.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-19",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.11,313.42 spent on your SBI Card SimplySAVE XXXX XXXX XXXX 4232 at URBAN COMPANY on 21/05/25. Your available limit is Rs.8,519.45.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-21",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "Your Cashback SBI Card Classic Monthly Statement - May 2025",
+   "body": "Dear Arjun,\nPlease find attached your Cashback SBI Card Classic XXXX XXXX XXXX 5503 statement for the period 26-Apr-2025 to 25-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-26",
+   "attachments": [
+    {
+     "filename": "SBI_CC_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,888.98 spent on your SBI Card Credit Card XXXX XXXX XXXX 4232 at CROMA on 27/05/25. Your available limit is Rs.1,42,131.36.\nContact 1860 180 1290 if this transaction was not done by you.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-05-27",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.516.11 debited from account XXXXXX0510 on 29-05-2025. Narration: UPI/APOLLO PHARMACY. Available balance Rs.19,410.06.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-05-29",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "SBI Card Credit Card XXXX XXXX XXXX 4232: purchase of Rs.907.34 at SODEXO on 31/05/25 11:18:50. Available limit Rs.10,157.20.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-31",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Payment Received - SBI Card",
+   "body": "Payment of Rs.3,099.51 has been received towards your SBI Card Credit Card XXXX XXXX XXXX 4232 on 06/06/25. Thank you for the payment.",
+   "date": "2025-06-06",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Jun 2025",
+   "body": "Dear Arjun,\nPlease find attached your SBI Card SimplySAVE XXXX XXXX XXXX 4232 statement for the period 09-May-2025 to 08-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-09",
+   "attachments": [
+    {
+     "filename": "eStatement_202506.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "Canara Bank Account Statement - Jun 2025",
+   "body": "Dear Arjun,\nYour Canara Bank XX0510 account statement for Jun 2025 is ready. Closing balance Rs.1,527.50.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-06-10",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.583.05 debited from account XXXXXX0510 on 16-06-2025. Narration: IMPS/UBER INDIA. Available balance Rs.1,03,796.34.",
+   "date": "2025-06-16",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "Payment Received - SBI Card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,969.15 on 25/06/25 for your SBI Card Credit Card XXXX XXXX XXXX 5503. Available credit limit has been updated.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-06-25",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Your Cashback SBI Card Classic Monthly Statement - Jun 2025",
+   "body": "Dear Arjun,\nPlease find attached your Cashback SBI Card Classic XXXX XXXX XXXX 5503 statement for the period 26-May-2025 to 25-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-06-26",
+   "attachments": [
+    {
+     "filename": "eStatement_202506.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Payment successful",
+   "body": "Hi Arjun,\nYou paid Rs.3,320.62 to IDFC FIRST Bank Credit Card ending 0439 (of Lakshmi Khan) on 05-Jul-2025. Ref 1194715522.",
+   "date": "2025-07-05",
+   "attachments": [],
+   "from": "CRED <noreply@cred.club>"
+  },
+  {
+   "id": "m111",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Jul 2025",
+   "body": "Dear Arjun,\nPlease find attached your SBI Card SimplySAVE XXXX XXXX XXXX 4232 statement for the period 09-Jun-2025 to 08-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-07-09",
+   "attachments": [
+    {
+     "filename": "4232_08072025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Canara Bank Account Statement - Jul 2025",
+   "body": "Dear Arjun,\nYour Canara Bank *0510 account statement for Jul 2025 is ready. Closing balance Rs.30,841.05.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-10",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Canara Bank: credit alert",
+   "body": "Credit alert: Rs.5,102.06 has been credited to account xx0510 on 14-07-2025 (NEFT). Avl bal Rs.42,772.12.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-07-14",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "OTP for your transaction",
+   "body": "963083 is the OTP for your transaction of Rs.903.21 at APOLLO PHARMACY. Valid for 10 minutes. Do not share.",
+   "date": "2025-07-15",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "Canara Bank: credit alert",
+   "body": "Deposit alert - Rs.180.06 received in account XXXXXX0510 on 18-07-2025 (SALARY NEFT) Ref 209443344511.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-07-18",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "SBI Card Credit Card XXXX XXXX XXXX 4232: purchase of Rs.1,445.91 at APOLLO PHARMACY on 20/07/25 02:23:39. Available limit Rs.45,968.24.",
+   "date": "2025-07-20",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Canara Bank: credit alert",
+   "body": "Dear Customer,\nRs.164.92 credited to your Canara Bank A/c xx0510 on 25-07-2025 by INTEREST CREDIT. Ref 524651923745.\nThank you for banking with us.\n\nOpt for e-statements and go green.",
+   "date": "2025-07-25",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "Your Cashback SBI Card Classic Monthly Statement - Jul 2025",
+   "body": "Dear Arjun,\nPlease find attached your Cashback SBI Card Classic XXXX XXXX XXXX 5503 statement for the period 26-Jun-2025 to 25-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-26",
+   "attachments": [
+    {
+     "filename": "5503_25072025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.28,535.09 has been debited from your Canara Bank A/c XXXXXX0510 on 28-07-2025 (ECOM INDIGO AIRLINES). Avl bal Rs.33,294.08.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-07-28",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Canara Bank: debit alert",
+   "body": "Your A/c XXXXXX0510 is debited for Rs.37,320.52 on 05-08-2025 - ECOM APOLLO PHARMACY. Bal Rs.6,079.12. -Canara Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-08-05",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "Update: your SBI Card Credit Card has a new name",
+   "body": "Dear Arjun Khan,\nYour Cashback SBI Card Classic XXXX XXXX XXXX 5503 is now the Cashback SBI Card. Your card number, limit and dues are unchanged; the card continues to work as before. New benefits are effective from 07/08/25.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-07",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Aug 2025",
+   "body": "Dear Arjun,\nStatement generated for SBI Card SimplySAVE XXXX XXXX XXXX 4232: amount payable Rs.6,511.07, last date 26-Aug-2025. Sign in to download.",
+   "date": "2025-08-09",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "Canara Bank Account Statement - Aug 2025",
+   "body": "Dear Arjun,\nYour Canara Bank XXXXXX0510 account statement for Aug 2025 is ready. Closing balance Rs.2,050.89.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-08-10",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "SBI Card Credit Card XXXX XXXX XXXX 5503: purchase of Rs.156.09 at STARBUCKS on 12/08/25 07:47:37. Available limit Rs.63,225.49.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-12",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "Canara Bank: credit alert",
+   "body": "Dear Customer,\nRs.7,217.97 credited to your Canara Bank A/c XX0510 on 16-08-2025 by REFUND. Ref 669735735309.\nThank you for banking with us.",
+   "date": "2025-08-16",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #425-7165732-2061804 is confirmed. Total Rs.14,697.61. Estimated delivery in 2 days.",
+   "date": "2025-08-22",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Your Cashback SBI Card Monthly Statement - Aug 2025",
+   "body": "Dear Arjun,\nPlease find attached your Cashback SBI Card XXXX XXXX XXXX 5503 statement for the period 26-Jul-2025 to 25-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-26",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Sep 2025",
+   "body": "Dear Arjun,\nStatement generated for SBI Card SimplySAVE XXXX XXXX XXXX 4232: amount payable Rs.21,609.71, last date 26-Sep-2025. Sign in to download.",
+   "date": "2025-09-09",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "SBI Card SimplySAVE XXXX XXXX XXXX 4232: purchase of Rs.2,083.72 at DMART on 09/09/25 01:41:10. Available limit Rs.71,351.45.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-09-09",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "Canara Bank Account Statement - Sep 2025",
+   "body": "Dear Arjun,\nPlease find attached your Canara Bank XXXXXX0510 statement for the period 10-Aug-2025 to 09-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-09-10",
+   "attachments": [
+    {
+     "filename": "Canara_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.5,271.39 spent on your Cashback SBI Card XXXX XXXX XXXX 5503 at DOMINOS on 12/09/25. Your available limit is Rs.6,100.85.\nContact 1860 180 1290 if this transaction was not done by you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-12",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.14,220.34 has been debited from your Canara Bank A/c XXXXXX0510 on 16-09-2025 (ECOM BLINKIT). Avl bal Rs.1,20,156.16.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-09-16",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Payment Received - SBI Card",
+   "body": "Payment of Rs.527.80 has been received towards your SBI Card Credit Card XXXX XXXX XXXX 4232 on 19/09/25. Thank you for the payment.\n\nOpt for e-statements and go green.",
+   "date": "2025-09-19",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Your Cashback SBI Card Monthly Statement - Sep 2025",
+   "body": "Dear Arjun,\nStatement generated for Cashback SBI Card XXXX XXXX XXXX 5503: amount payable Rs.871.97, last date 13-Oct-2025. Sign in to download.",
+   "date": "2025-09-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.2,732.10 spent on SBI Card Credit Card XXXX XXXX XXXX 5503 at ZEPTO on 01/10/25.",
+   "date": "2025-10-01",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Oct 2025",
+   "body": "Dear Arjun,\nPlease find attached your SBI Card SimplySAVE XXXX XXXX XXXX 4232 statement for the period 09-Sep-2025 to 08-Oct-2025. Total amount due Rs.16,109.19, due 23-Oct-2025.\n\n",
+   "date": "2025-10-09",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Oct2025.pdf",
+     "protected": false,
+     "pdfText": "SBI Card Credit Card Statement\nFor Statement Period 09-Sep-2025 to 08-Oct-2025\nARJUN KHAN\nFLAT 303, GREEN VALLEY APARTMENTS\n18TH CROSS, SECTOR 21\nBENGALURU - 692556\nCard Product: SBI Card SimplySAVE\nCredit Card Number XXXX XXXX XXXX 4232\nStatement Date: 08-Oct-2025\nPayment Due Date: 23-Oct-2025\nTotal Amount Due: Rs.16,109.19\nMinimum Amount Due: Rs.805.46\nCredit Limit: Rs.1,15,000.00\nAvailable Credit Limit: Rs.1,08,197.67\nAvailable Cash Limit: Rs.23,000.00\nTRANSACTIONS FOR ARJUN KHAN\nDate Transaction Details Amount\n09-Sep-2025 STARBUCKS KOCHI 8,380.45 D\n12-Sep-2025 STARBUCKS PUNE 1,485.51 D\n13-Sep-2025 PAYTM CHENNAI 916.54 D\n19-Sep-2025 STARBUCKS AHMEDABAD 580.43 D\n01-Oct-2025 GOOGLE PLAY HYDERABAD 144.65 D\n02-Oct-2025 EASEMYTRIP CHENNAI 131.61 D\n04-Oct-2025 INDIGO AIRLINES AHMEDABAD 533.73 D\n07-Oct-2025 PHONEPE PUNE 3,936.27 D\n\nAdd-on Card Transactions\nMANOJ KHAN - XXXX XXXX XXXX 1596\n10/09/25 MEDPLUS MUMBAI 104.02\n12/09/25 SWIGGY CHENNAI 18,067.96\n13/09/25 BIG BAZAAR GURUGRAM 1,109.71\n15/09/25 PHONEPE PUNE 176.03\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "Canara Bank Account Statement - Oct 2025",
+   "body": "Dear Arjun,\nYour Canara Bank XX0510 account statement for Oct 2025 is ready. Closing balance Rs.7,845.64.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-10-10",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.7,177.76 spent on your Cashback SBI Card XXXX XXXX XXXX 5503 at URBAN COMPANY on 13/10/25. Your available limit is Rs.10,597.55.\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-10-13",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "OTP for your transaction",
+   "body": "248382 is the OTP for your transaction of Rs.3,405.68 at SODEXO. Valid for 10 minutes. Do not share.",
+   "date": "2025-10-15",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.3,000.65 spent on your SBI Card Credit Card XXXX XXXX XXXX 4232 at BPCL FUEL on 16/10/25. Your available limit is Rs.5,633.87.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-10-16",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #580-7409800-5905938 is confirmed. Total Rs.619.59. Estimated delivery in 2 days.",
+   "date": "2025-10-18",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m142",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.4,442.11 spent on your SBI Card Credit Card XXXX XXXX XXXX 5503 at MAKEMYTRIP on 19/10/25. Your available limit is Rs.1,32,261.54.\nContact 1860 180 1290 if this transaction was not done by you.\n\nOpt for e-statements and go green.",
+   "date": "2025-10-19",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "Canara Bank: credit alert",
+   "body": "Your A/c xx0510 is credited with Rs.17,435.04 on 19-10-2025 - NEFT. Bal Rs.59,174.14. -Canara Bank",
+   "date": "2025-10-19",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Your Cashback SBI Card Monthly Statement - Oct 2025",
+   "body": "Dear Arjun,\nYour Cashback SBI Card XXXX XXXX XXXX 5503 statement for Oct 2025 is ready. Total amount due Rs.2,761.50, minimum amount due Rs.200.00, payable by 12-Nov-2025.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m145",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.2,577.50 spent on SBI Card SimplySAVE XXXX XXXX XXXX 4232 at ZEPTO on 03/11/25.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-03",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Card alert | Rs.1,642.38 | BESCOM | 06/11/25 | SBI Card Credit Card XXXX XXXX XXXX 4232",
+   "date": "2025-11-06",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.8,646.49 debited from account xx0510 on 08-11-2025. Narration: NEFT/BIGBASKET. Available balance Rs.2,684.74.\n\nOpt for e-statements and go green.",
+   "date": "2025-11-08",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Nov 2025",
+   "body": "Dear Arjun,\nPlease find attached your SBI Card SimplySAVE XXXX XXXX XXXX 4232 statement for the period 09-Oct-2025 to 08-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-11-09",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "Canara Bank Account Statement - Nov 2025",
+   "body": "Dear Arjun,\nYour Canara Bank *0510 account statement for Nov 2025 is ready. Closing balance Rs.11,676.21.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-10",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Canara Bank festive offers",
+   "body": "Dear Arjun,\nGet up to 10% cashback on partner brands.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-12",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Card alert | Rs.96.45 | NYKAA | 17/11/25 | Cashback SBI Card XXXX XXXX XXXX 5503\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-17",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.174.94 spent on your SBI Card Credit Card XXXX XXXX XXXX 5503 at APPLE SERVICES on 19/11/25. Your available limit is Rs.10,340.36.\nContact 1860 180 1290 if this transaction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-19",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.4,437.05 has been debited from your Canara Bank A/c XX0510 on 20-11-2025 (POS DECATHLON). Avl bal Rs.5,378.14.\n\nOpt for e-statements and go green.",
+   "date": "2025-11-20",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "Canara Bank: debit alert",
+   "body": "Rs.14,665.83 withdrawn from xx0510 on 21-11-2025 via UPI to TATA POWER. Closing balance Rs.25,247.43.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-21",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "Canara Bank: debit alert",
+   "body": "Rs.2,486.83 withdrawn from *0510 on 21-11-2025 via ECOM to HPCL PETROL. Closing balance Rs.28,476.90.",
+   "date": "2025-11-21",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "Your Cashback SBI Card Monthly Statement - Nov 2025",
+   "body": "Dear Arjun,\nYour Cashback SBI Card XXXX XXXX XXXX 5503 statement for Nov 2025 is ready. Total amount due Rs.15,620.79, minimum amount due Rs.781.04, payable by 13-Dec-2025.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Dec 2025",
+   "body": "Dear Arjun,\nPlease find attached your SBI Card SimplySAVE XXXX XXXX XXXX 4232 statement for the period 09-Nov-2025 to 08-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-12-09",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "Canara Bank Account Statement - Dec 2025",
+   "body": "Dear Arjun,\nPlease find attached your Canara Bank xx0510 statement for the period 10-Nov-2025 to 09-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-12-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202512.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "Canara Bank: funds transferred",
+   "body": "Dear Customer,\nRs.5,183.79 has been transferred from your A/c XX0510 to Sunil Plumber A/c XX8510 (SBI Card) via IMPS on 12-12-2025. Ref no 966620182770.",
+   "date": "2025-12-12",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "SBI Card Credit Card XXXX XXXX XXXX 5503: purchase of Rs.1,199.57 at JIO RECHARGE on 14/12/25 03:30:55. Available limit Rs.52,883.54.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-14",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.22,996.94 spent on SBI Card Credit Card XXXX XXXX XXXX 5503 at SPOTIFY on 15/12/25.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-12-15",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "Your Cashback SBI Card Monthly Statement - Dec 2025",
+   "body": "Dear Arjun,\nPlease find attached your Cashback SBI Card XXXX XXXX XXXX 5503 statement for the period 26-Nov-2025 to 25-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-12-26",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.2,237.43 spent on SBI Card Credit Card XXXX XXXX XXXX 5503 at EASEMYTRIP on 04/01/26.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-04",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "Update your KYC",
+   "body": "Dear Arjun,\nAs per RBI guidelines please complete re-KYC for your SBI Card relationship. Visit a branch or use the app.\n\n",
+   "date": "2026-01-08",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Jan 2026",
+   "body": "Dear Arjun,\nPlease find attached your SBI Card SimplySAVE XXXX XXXX XXXX 4232 statement for the period 09-Dec-2025 to 08-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-01-09",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "Canara Bank Account Statement - Jan 2026",
+   "body": "Dear Arjun,\nPlease find attached your Canara Bank *0510 statement for the period 10-Dec-2025 to 09-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-01-10",
+   "attachments": [
+    {
+     "filename": "0510_09012026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Card alert | Rs.121.78 | BESCOM | 23/01/26 | SBI Card Credit Card XXXX XXXX XXXX 4232\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-23",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "Your Cashback SBI Card Monthly Statement - Jan 2026",
+   "body": "Dear Arjun,\nYour Cashback SBI Card XXXX XXXX XXXX 5503 statement for Jan 2026 is ready. Total amount due Rs.6,258.75, minimum amount due Rs.312.94, payable by 12-Feb-2026.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Payment Received - SBI Card",
+   "body": "Thank you! We have credited Rs.5,677.60 to your SBI Card Credit Card XXXX XXXX XXXX 4232 on 29/01/26.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-29",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.29,549.93 has been transferred from your A/c XX0510 to Sunil Plumber A/c XX9984 (IDFC FIRST Bank) via IMPS on 02-02-2026. Ref no 659472435530.",
+   "date": "2026-02-02",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Feb 2026",
+   "body": "Dear Arjun,\nStatement generated for SBI Card SimplySAVE XXXX XXXX XXXX 4232: amount payable Rs.607.34, last date 26-Feb-2026. Sign in to download.",
+   "date": "2026-02-09",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m172",
+   "subject": "Canara Bank Account Statement - Feb 2026",
+   "body": "Dear Arjun,\nPlease find attached your Canara Bank XX0510 statement for the period 10-Jan-2026 to 09-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202602.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Arjun,\nPlease find attached the updated MITC for your SBI Card credit cards.\n\nOpt for e-statements and go green.",
+   "date": "2026-02-14",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m174",
+   "subject": "OTP for your transaction",
+   "body": "752989 is the OTP for your transaction of Rs.501.98 at BESCOM. Valid for 10 minutes. Do not share.",
+   "date": "2026-02-21",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "Your Cashback SBI Card Monthly Statement - Feb 2026",
+   "body": "Dear Arjun,\nPlease find attached your Cashback SBI Card XXXX XXXX XXXX 5503 statement for the period 26-Jan-2026 to 25-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-02-26",
+   "attachments": [
+    {
+     "filename": "5503_25022026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m176",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Card alert | Rs.8,761.14 | BESCOM | 26/02/26 | Cashback SBI Card XXXX XXXX XXXX 5503\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-02-26",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "Update your KYC",
+   "body": "Dear Arjun,\nAs per RBI guidelines please complete re-KYC for your SBI Card relationship. Visit a branch or use the app.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-02",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "SBI Card Credit Card XXXX XXXX XXXX 4232: purchase of Rs.182.57 at BESCOM on 05/03/26 17:42:22. Available limit Rs.14,953.99.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-05",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m179",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Mar 2026",
+   "body": "Hi Arjun,\nYour SBI Card SimplySAVE XXXX XXXX XXXX 4232 e-statement for Mar 2026 is now available. Pay Rs.5,508.61 by 26-Mar-2026 to avoid late fees.",
+   "date": "2026-03-09",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Card alert | Rs.14,411.85 | INDIGO AIRLINES | 09/03/26 | Cashback SBI Card XXXX XXXX XXXX 5503",
+   "date": "2026-03-09",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m181",
+   "subject": "Canara Bank Account Statement - Mar 2026",
+   "body": "Dear Arjun,\nYour Canara Bank XXXXXX0510 account statement for Mar 2026 is ready. Closing balance Rs.19,276.51.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-10",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "OTP for your transaction",
+   "body": "675705 is the OTP for your transaction of Rs.6,431.59 at NYKAA. Valid for 10 minutes. Do not share.",
+   "date": "2026-03-13",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m183",
+   "subject": "Update your KYC",
+   "body": "Dear Arjun,\nAs per RBI guidelines please complete re-KYC for your Canara Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2026-03-16",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "Your Cashback SBI Card Monthly Statement - Mar 2026",
+   "body": "Dear Arjun,\nPlease find attached your Cashback SBI Card XXXX XXXX XXXX 5503 statement for the period 26-Feb-2026 to 25-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-26",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m185",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.966.01 spent on your SBI Card SimplySAVE XXXX XXXX XXXX 4232 at TATA PLAY on 01/04/26. Your available limit is Rs.11,849.47.\nContact 1860 180 1290 if this transaction was not done by you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-01",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Card alert | Rs.3,390.61 | IKEA | 06/04/26 | SBI Card Credit Card XXXX XXXX XXXX 5503\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-06",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m187",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Card alert | Rs.3,012.67 | CROMA | 06/04/26 | SBI Card SimplySAVE XXXX XXXX XXXX 4232\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-06",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m188",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Apr 2026",
+   "body": "Dear Arjun,\nPlease find attached your SBI Card SimplySAVE XXXX XXXX XXXX 4232 statement for the period 09-Mar-2026 to 08-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-04-09",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m189",
+   "subject": "Canara Bank Account Statement - Apr 2026",
+   "body": "Dear Arjun,\nYour Canara Bank xx0510 account statement for Apr 2026 is ready. Closing balance Rs.5,351.87.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-10",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m190",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.14,733.42 debited from account *0510 on 11-04-2026. Narration: ECOM/OLA CABS. Available balance Rs.17,108.28.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-11",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "SBI Card SimplySAVE XXXX XXXX XXXX 4232: purchase of Rs.155.31 at INDIGO AIRLINES on 12/04/26 19:07:29. Available limit Rs.8,137.99.",
+   "date": "2026-04-12",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "Canara Bank: credit alert",
+   "body": "Dear Customer,\nRs.468.90 credited to your Canara Bank A/c xx0510 on 14-04-2026 by NEFT. Ref 407659320562.\nThank you for banking with us.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-14",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m193",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.1,559.75 debited from account *0510 on 15-04-2026. Narration: POS/BLINKIT. Available balance Rs.85,481.51.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-15",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m194",
+   "subject": "Canara Bank: funds transferred",
+   "body": "Dear Customer,\nRs.24,538.56 has been transferred from your A/c XX0510 to Priya Tailors A/c XX4648 (Punjab National Bank) via IMPS on 22-04-2026. Ref no 647298869371.",
+   "date": "2026-04-22",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m195",
+   "subject": "Your Cashback SBI Card Monthly Statement - Apr 2026",
+   "body": "Dear Arjun,\nStatement generated for Cashback SBI Card XXXX XXXX XXXX 5503: amount payable Rs.21,085.54, last date 13-May-2026. Sign in to download.",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.83.98 spent on SBI Card Credit Card XXXX XXXX XXXX 5503 at BIGBASKET on 27/04/26.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m197",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.10,115.30 debited from account xx0510 on 02-05-2026. Narration: POS/BLINKIT. Available balance Rs.3,614.50.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-02",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m198",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - May 2026",
+   "body": "Dear Arjun,\nPlease find attached your SBI Card SimplySAVE XXXX XXXX XXXX 4232 statement for the period 09-Apr-2026 to 08-May-2026. Total amount due Rs.19,383.78, due 26-May-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-09",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "SBI Card Credit Card Statement\nFor Statement Period 09-Apr-2026 to 08-May-2026\nARJUN KHAN\nFLAT 569, ORCHID APARTMENTS\n25TH CROSS, BANJARA HILLS\nPUNE - 638089\nCard Product: SBI Card SimplySAVE\nCredit Card Number XXXX XXXX XXXX 4232\nStatement Date: 08-May-2026\nPayment Due Date: 26-May-2026\nTotal Amount Due: Rs.19,383.78\nMinimum Amount Due: Rs.969.19\nCredit Limit: Rs.1,15,000.00\nAvailable Credit Limit: Rs.1,06,991.12\nAvailable Cash Limit: Rs.23,000.00\nTRANSACTIONS FOR ARJUN KHAN\nDate Transaction Details Amount\n10-Apr-2026 JIO RECHARGE JAIPUR 10,860.66 D\n13-Apr-2026 DOMINOS BENGALURU 4,065.26 D\n13-Apr-2026 HPCL PETROL KOLKATA 100.32 D\n16-Apr-2026 STARBUCKS KOCHI 1,486.66 D\n24-Apr-2026 MAKEMYTRIP JAIPUR 977.61 D\n27-Apr-2026 PAYTM PUNE 1,893.27 D\n\nAdd-on Card Transactions\nMANOJ KHAN - XXXX XXXX XXXX 1596\n14/04/26 DECATHLON GURUGRAM 2,521.77\n25/04/26 MCDONALDS GURUGRAM 1,181.73\n26/04/26 MYNTRA KOCHI 110.53\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m199",
+   "subject": "Canara Bank Account Statement - May 2026",
+   "body": "Dear Arjun,\nPlease find attached your Canara Bank XX0510 statement for the period 10-Apr-2026 to 09-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-10",
+   "attachments": [
+    {
+     "filename": "0510_09052026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m200",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.4,267.21 spent on your SBI Card Credit Card XXXX XXXX XXXX 5503 at JIO RECHARGE on 15/05/26. Your available limit is Rs.40,148.41.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-05-15",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.194.96 spent on SBI Card SimplySAVE XXXX XXXX XXXX 4232 at NYKAA on 24/05/26.",
+   "date": "2026-05-24",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "Your Cashback SBI Card Monthly Statement - May 2026",
+   "body": "Dear Arjun,\nPlease find attached your Cashback SBI Card XXXX XXXX XXXX 5503 statement for the period 26-Apr-2026 to 25-May-2026. Total amount due Rs.19,749.52, due 10-Jun-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-26",
+   "attachments": [
+    {
+     "filename": "5503_25052026_stmt.pdf",
+     "protected": false,
+     "pdfText": "SBI Card Credit Card Statement\nFor Statement Period 26-Apr-2026 to 25-May-2026\nARJUN KHAN\nFLAT 839, ORCHID APARTMENTS\n11TH CROSS, INDIRANAGAR\nPUNE - 553225\nCard Product: Cashback SBI Card\nCredit Card Number XXXX XXXX XXXX 5503\nStatement Date: 25-May-2026\nPayment Due Date: 10-Jun-2026\nTotal Amount Due: Rs.19,749.52\nMinimum Amount Due: Rs.987.48\nCredit Limit: Rs.1,65,000.00\nAvailable Credit Limit: Rs.1,59,872.67\nAvailable Cash Limit: Rs.33,000.00\nTRANSACTIONS FOR ARJUN KHAN\nDate Transaction Details Amount\n29-Apr-2026 BESCOM KOCHI 7,484.00 D\n02-May-2026 BATA INDIA KOCHI 398.69 D\n04-May-2026 TATA PLAY CHENNAI 2,716.29 D\n08-May-2026 NETFLIX CHENNAI 1,459.14 D\n12-May-2026 CROMA KOLKATA 569.48 D\n14-May-2026 RELIANCE DIGITAL GURUGRAM 1,421.95 D\n15-May-2026 INDIGO AIRLINES AHMEDABAD 1,317.25 D\n21-May-2026 RELIANCE DIGITAL BENGALURU 1,453.07 D\n24-May-2026 FLIPKART AHMEDABAD 2,929.65 D\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m203",
+   "subject": "OTP for your transaction",
+   "body": "711232 is the OTP for your transaction of Rs.464.13 at BOOKMYSHOW. Valid for 10 minutes. Do not share.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "Payment Received - SBI Card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.17,706.66 on 31/05/26 for your SBI Card Credit Card XXXX XXXX XXXX 5503. Available credit limit has been updated.",
+   "date": "2026-05-31",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m205",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.11,545.53 spent on your SBI Card Credit Card XXXX XXXX XXXX 5503 at EASEMYTRIP on 03/06/26. Your available limit is Rs.17,348.05.\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-03",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m206",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,481.14 spent on your SBI Card Credit Card XXXX XXXX XXXX 5503 at JIO RECHARGE on 07/06/26. Your available limit is Rs.36,915.43.\nContact 1860 180 1290 if this transaction was not done by you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-07",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m207",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Jun 2026",
+   "body": "Dear Arjun,\nPlease find attached your SBI Card SimplySAVE XXXX XXXX XXXX 4232 statement for the period 09-May-2026 to 08-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-09",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m208",
+   "subject": "Canara Bank Account Statement - Jun 2026",
+   "body": "Dear Arjun,\nPlease find attached your Canara Bank XX0510 statement for the period 10-May-2026 to 09-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-10",
+   "attachments": [
+    {
+     "filename": "Canara_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m209",
+   "subject": "OTP for your transaction",
+   "body": "214694 is the OTP for your transaction of Rs.289.09 at BIG BAZAAR. Valid for 10 minutes. Do not share.",
+   "date": "2026-06-16",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m210",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Card alert | Rs.7,798.78 | SODEXO | 25/06/26 | SBI Card SimplySAVE XXXX XXXX XXXX 4232\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m211",
+   "subject": "Your Cashback SBI Card Monthly Statement - Jun 2026",
+   "body": "Dear Arjun,\nPlease find attached your Cashback SBI Card XXXX XXXX XXXX 5503 statement for the period 26-May-2026 to 25-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-06-26",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m212",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #373-9181043-5224120 is confirmed. Total Rs.3,298.95. Estimated delivery in 2 days.",
+   "date": "2026-06-26",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m213",
+   "subject": "Earn more with your card",
+   "body": "Dear Arjun,\nConvert big spends to EMI at low interest.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m214",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "SBI Card Credit Card XXXX XXXX XXXX 4232: purchase of Rs.3,249.96 at TATA PLAY on 28/06/26 06:04:47. Available limit Rs.7,679.54.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m215",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.14,871.65 has been transferred from your A/c *0510 to Sunil Plumber A/c XX8510 (SBI Card) via IMPS on 01-07-2026. Ref no 505171220226.",
+   "date": "2026-07-01",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m216",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Jul 2026",
+   "body": "Dear Arjun,\nPlease find attached your SBI Card SimplySAVE XXXX XXXX XXXX 4232 statement for the period 09-Jun-2026 to 08-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-07-09",
+   "attachments": [
+    {
+     "filename": "eStatement_202607.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m217",
+   "subject": "Canara Bank Account Statement - Jul 2026",
+   "body": "Dear Arjun,\nPlease find attached your Canara Bank XXXXXX0510 statement for the period 10-Jun-2026 to 09-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-10",
+   "attachments": [
+    {
+     "filename": "Canara_Acct_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m218",
+   "subject": "Update your KYC",
+   "body": "Dear Arjun,\nAs per RBI guidelines please complete re-KYC for your SBI Card relationship. Visit a branch or use the app.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-11",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m219",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "SBI Card Credit Card XXXX XXXX XXXX 5503: purchase of Rs.3,637.95 at DECATHLON on 16/07/26 18:35:05. Available limit Rs.5,667.99.",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m220",
+   "subject": "Your Cashback SBI Card Monthly Statement - Jul 2026",
+   "body": "Dear Arjun,\nPlease find attached your Cashback SBI Card XXXX XXXX XXXX 5503 statement for the period 26-Jun-2026 to 25-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-26",
+   "attachments": [
+    {
+     "filename": "5503_25072026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m221",
+   "subject": "Canara Bank: credit alert",
+   "body": "Dear Customer,\nRs.8,617.68 credited to your Canara Bank A/c xx0510 on 28-07-2026 by IMPS. Ref 911174482213.\nThank you for banking with us.",
+   "date": "2026-07-28",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m222",
+   "subject": "Canara Bank: credit alert",
+   "body": "Canara Bank: xx0510 credited with Rs.16,188.03 on 04-08-2026. Source: IMPS. Balance Rs.14,678.82.",
+   "date": "2026-08-04",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m223",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Aug 2026",
+   "body": "Dear Arjun,\nStatement generated for SBI Card SimplySAVE XXXX XXXX XXXX 4232: amount payable Rs.1,761.69, last date 26-Aug-2026. Sign in to download.",
+   "date": "2026-08-09",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m224",
+   "subject": "Canara Bank Account Statement - Aug 2026",
+   "body": "Dear Arjun,\nPlease find attached your Canara Bank xx0510 statement for the period 10-Jul-2026 to 09-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-08-10",
+   "attachments": [
+    {
+     "filename": "0510_09082026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m225",
+   "subject": "Canara Bank: debit alert",
+   "body": "Rs.22,443.45 withdrawn from *0510 on 11-08-2026 via NEFT to DECATHLON. Closing balance Rs.61,055.60.\n\nOpt for e-statements and go green.",
+   "date": "2026-08-11",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m226",
+   "subject": "Canara Bank: debit alert",
+   "body": "Your A/c *0510 is debited for Rs.11,075.62 on 15-08-2026 - NEFT LENSKART. Bal Rs.2,087.16. -Canara Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-15",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m227",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.116.61 spent on SBI Card Credit Card XXXX XXXX XXXX 5503 at BIG BAZAAR on 17/08/26.\n\nOpt for e-statements and go green.",
+   "date": "2026-08-17",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m228",
+   "subject": "Canara Bank: credit alert",
+   "body": "Canara Bank: XXXXXX0510 credited with Rs.11,040.51 on 20-08-2026. Source: UPI. Balance Rs.7,162.17.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-20",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m229",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.1,562.26 has been transferred from your A/c xx0510 to Sunil Plumber A/c XX8510 (SBI Card) via IMPS on 23-08-2026. Ref no 609896859800.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m230",
+   "subject": "Canara Bank: debit alert",
+   "body": "Alert: Canara Bank A/c XXXXXX0510 debited Rs.629.06 on 24-08-2026. Mode: IMPS. Details: LENSKART. Balance Rs.13,822.81.",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m231",
+   "subject": "Your Cashback SBI Card Monthly Statement - Aug 2026",
+   "body": "Dear Arjun,\nPlease find attached your Cashback SBI Card XXXX XXXX XXXX 5503 statement for the period 26-Jul-2026 to 25-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-08-26",
+   "attachments": [
+    {
+     "filename": "eStatement_202608.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m232",
+   "subject": "Canara Bank: debit alert",
+   "body": "Your A/c XX0510 is debited for Rs.94.82 on 07-09-2026 - NEFT DOMINOS. Bal Rs.1,58,513.64. -Canara Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-07",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m233",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Sep 2026",
+   "body": "Dear Arjun,\nStatement generated for SBI Card SimplySAVE XXXX XXXX XXXX 4232: amount payable Rs.6,581.21, last date 26-Sep-2026. Sign in to download.",
+   "date": "2026-09-09",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m234",
+   "subject": "Canara Bank Account Statement - Sep 2026",
+   "body": "Dear Arjun,\nPlease find attached your Canara Bank XXXXXX0510 statement for the period 10-Aug-2026 to 09-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202609.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m235",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "SBI Card Credit Card XXXX XXXX XXXX 5503: purchase of Rs.1,183.12 at IXIGO on 10/09/26 12:00:12. Available limit Rs.71,652.01.\n\nOpt for e-statements and go green.",
+   "date": "2026-09-10",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m236",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "SBI Card Credit Card XXXX XXXX XXXX 4232: purchase of Rs.4,362.27 at SODEXO on 25/09/26 12:26:17. Available limit Rs.1,05,978.00.\n\nOpt for e-statements and go green.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m237",
+   "subject": "Your Cashback SBI Card Monthly Statement - Sep 2026",
+   "body": "Dear Arjun,\nYour Cashback SBI Card XXXX XXXX XXXX 5503 statement for Sep 2026 is ready. Total amount due Rs.27,936.66, minimum amount due Rs.1,396.83, payable by 13-Oct-2026.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m238",
+   "subject": "Canara Bank: debit alert",
+   "body": "Rs.534.57 withdrawn from XXXXXX0510 on 26-09-2026 via NEFT to PVR INOX. Closing balance Rs.12,071.80.",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m239",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "SBI Card Credit Card XXXX XXXX XXXX 4232: purchase of Rs.1,547.84 at EASEMYTRIP on 01/10/26 05:40:11. Available limit Rs.77,368.76.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-01",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m240",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #551-4316307-9406642 is confirmed. Total Rs.797.99. Estimated delivery in 2 days.",
+   "date": "2026-10-07",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m241",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.218.27 has been debited from your Canara Bank A/c XXXXXX0510 on 08-10-2026 (POS UBER INDIA). Avl bal Rs.1,90,214.00.",
+   "date": "2026-10-08",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m242",
+   "subject": "Your SBI Card SimplySAVE Monthly Statement - Oct 2026",
+   "body": "Dear Arjun,\nPlease find attached your SBI Card SimplySAVE XXXX XXXX XXXX 4232 statement for the period 09-Sep-2026 to 08-Oct-2026. Total amount due Rs.20,459.50, due 27-Oct-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-09",
+   "attachments": [
+    {
+     "filename": "4232_08102026_stmt.pdf",
+     "protected": false,
+     "pdfText": "SBI Card Credit Card Statement\nFor Statement Period 09-Sep-2026 to 08-Oct-2026\nARJUN KHAN\nFLAT 158, ORCHID APARTMENTS\n26TH CROSS, KOTHRUD\nKOCHI - 561891\nCard Product: SBI Card SimplySAVE\nCredit Card Number XXXX XXXX XXXX 4232\nStatement Date: 08-Oct-2026\nPayment Due Date: 27-Oct-2026\nTotal Amount Due: Rs.20,459.50\nMinimum Amount Due: Rs.1,022.98\nCredit Limit: Rs.1,15,000.00\nAvailable Credit Limit: Rs.96,942.67\nAvailable Cash Limit: Rs.23,000.00\nTRANSACTIONS FOR ARJUN KHAN\nDate Transaction Details Amount\n09-Sep-2026 UBER INDIA BENGALURU 879.62 D\n15-Sep-2026 PVR INOX KOLKATA 18,439.92 D\n16-Sep-2026 EAZYDINER BENGALURU 336.14 D\n20-Sep-2026 UBER INDIA AHMEDABAD 221.26 D\n28-Sep-2026 DMART JAIPUR 135.40 D\n04-Oct-2026 MEDPLUS GURUGRAM 447.16 D\n\nAdd-on Card Transactions\nMANOJ KHAN - XXXX XXXX XXXX 1596\n22/09/26 SODEXO HYDERABAD 394.22\n23/09/26 MEDPLUS CHENNAI 2,396.52\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m243",
+   "subject": "Canara Bank Account Statement - Oct 2026",
+   "body": "Dear Arjun,\nPlease find attached your Canara Bank *0510 statement for the period 10-Sep-2026 to 09-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-10",
+   "attachments": [
+    {
+     "filename": "Canara_Acct_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m244",
+   "subject": "Canara Bank: credit alert",
+   "body": "Deposit alert - Rs.721.66 received in account XX0510 on 14-10-2026 (NEFT) Ref 892949261411.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-14",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m245",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "SBI Card SimplySAVE XXXX XXXX XXXX 4232: purchase of Rs.342.99 at APOLLO PHARMACY on 16/10/26 07:03:31. Available limit Rs.6,198.41.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m246",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "SBI Card Credit Card XXXX XXXX XXXX 4232: purchase of Rs.7,712.11 at DMART on 22/10/26 06:24:27. Available limit Rs.3,324.69.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m247",
+   "subject": "Your Cashback SBI Card Monthly Statement - Oct 2026",
+   "body": "Dear Arjun,\nYour Cashback SBI Card XXXX XXXX XXXX 5503 statement for Oct 2026 is ready. Total amount due Rs.9,129.33, minimum amount due Rs.456.47, payable by 12-Nov-2026.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-10-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m248",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Card alert | Rs.407.42 | NYKAA | 26/10/26 | SBI Card Credit Card XXXX XXXX XXXX 5503\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-26",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m249",
+   "subject": "SBI Card festive offers",
+   "body": "Dear Arjun,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-26",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m250",
+   "subject": "Canara Bank: debit alert",
+   "body": "Rs.555.20 withdrawn from XX0510 on 27-10-2026 via UPI to IXIGO. Closing balance Rs.1,40,941.18.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m251",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Card alert | Rs.94.80 | PHONEPE | 30/10/26 | SBI Card Credit Card XXXX XXXX XXXX 4232\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-30",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "5503",
+    "kind": "CREDIT_CARD",
+    "variant": "Cashback",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "4232",
+    "kind": "CREDIT_CARD",
+    "variant": "SimplySAVE",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "1596",
+    "kind": "CREDIT_CARD",
+    "variant": "SimplySAVE",
+    "lifecycle": "ADDON",
+    "lifecyclePartnerLast4": "4232",
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": "4232"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "0510",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "6414",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "9984",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "4648",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "8510",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "bankofindia.co.in",
+    "last4": "7171",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "0403",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "8155",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "1964",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "0439",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

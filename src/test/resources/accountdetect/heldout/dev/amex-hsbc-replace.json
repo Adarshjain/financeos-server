@@ -1,0 +1,1990 @@
+{
+ "mailbox": "amex-hsbc-replace",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 4650 was used for INR 3,165.82 at MAKEMYTRIP on 02 Jan 2025.\nIf you did not authorise this transaction, call 1800 267 3456.",
+   "date": "2025-01-02",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m002",
+   "subject": "Mobile number updated",
+   "body": "Your mobile number XXXXXX4986 has been updated in our records. If not requested by you, visit the nearest branch.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-01-08",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - Jan 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 1008. Statement date: 12-Jan-2025. Total amount due Rs.414.84; minimum Rs.200.00; due 30-Jan-2025.\nSBI/BOB style auto pay available on request.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-01-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_Jan2025.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCard No: 4451 61XX XXXX 1008\nCard Type: Platinum Travel\nStatement Date: 12/01/2025\nStatement Period: 13/12/2024 - 12/01/2025\nPayment Due Date: 30/01/2025\nTotal Amount Due: Rs. 414.84\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,43,192.00\n\nDate        Transaction Details                        Amount (Rs.)\n15/12/2024  DECATHLON BANGALORE   635.77 Dr\n16/12/2024  REDBUS CHENNAI   10,407.59 Dr\n22/12/2024  MEDPLUS CHENNAI   496.17 Dr\n18/12/2024  GOOGLE PLAY MUMBAI   6,985.41 Dr\n30/12/2024  INDIGO AIRLINES BANGALORE   7,669.27 Dr\n03/01/2025  PAYMENT RECEIVED - THANK YOU   248.90 Cr\n\nReward Points Summary: Opening 4126  Earned 155  Closing 3263\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4494797044895  IFSC AMER0000539"
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Priya Banerjee,\nThe statement of your HSBC Visa Platinum Credit Card ending 4650 for Jan 2025 is ready. Total due Rs.34,121.14, pay by 30 Jan 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-01-12",
+   "attachments": [
+    {
+     "filename": "4650_12012025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m005",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 4650 was used for INR 6,312.46 at REDBUS on 21 Jan 2025.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-01-21",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m006",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.34,121.14 on 22-01-2025 towards your HSBC Credit Card XX4650. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. HSBC will never ask for these.",
+   "date": "2025-01-22",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m007",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 3,284.89 was made on your American Express(R) Card ending 1008 at AMAZON PAY INDIA on 26 January 2025.\nTo view this charge, log in to your account.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-01-26",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 4650 was used for INR 7,403.73 at JIO PREPAID on 27 Jan 2025.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-01-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m009",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 1,183.14 was made on your American Express(R) Card ending 1008 at BPCL FUEL on 10 February 2025.\nTo view this charge, log in to your account.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-02-10",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - Feb 2025",
+   "body": "Dear Cardholder,<br>\nPlease find enclosed your monthly statement XXXX XXXX XXXX 1008. Statement date: 12-Feb-2025. Total amount due Rs.3,592.08; minimum Rs.200.00; due 02-Mar-2025.<br>\nSBI/BOB style auto pay available on request.",
+   "date": "2025-02-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_Feb2025.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCard No: 4229 48XX XXXX 1008\nCard Type: Platinum Travel\nStatement Date: 12/02/2025\nStatement Period: 13/01/2025 - 12/02/2025\nPayment Due Date: 02/03/2025\nTotal Amount Due: Rs. 3,592.08\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 77,568.00\n\nDate        Transaction Details                        Amount (Rs.)\n18/01/2025  BOOKMYSHOW BANGALORE   784.57 Dr\n07/02/2025  AMAZON PAY INDIA CHENNAI   503.17 Dr\n21/01/2025  LENSKART HYDERABAD   3,475.29 Dr\n08/02/2025  LICIOUS KOCHI   1,788.51 Dr\n29/01/2025  OLA CABS PUNE   5,485.41 Dr\n19/01/2025  URBAN COMPANY MUMBAI   347.66 Dr\n02/02/2025  BATA INDIA GURGAON   21,377.56 Dr\n10/02/2025  ZEPTO MUMBAI   14,141.11 Dr\n03/02/2025  PAYMENT RECEIVED - THANK YOU   2,155.25 Cr\n\nReward Points Summary: Opening 7096  Earned 516  Closing 4373\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4494797044895  IFSC AMER0000746"
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Priya Banerjee,\nThe statement of your HSBC Visa Platinum Credit Card ending 4650 for Feb 2025 is ready. Total due Rs.12,255.93, pay by 02 Mar 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nT&C apply. Visit www.hsbc.co.in for more details.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-02-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Feb2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m012",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 25,787.22 was made on your American Express(R) Card ending 1008 at SHELL PETROL on 17 February 2025.\nTo view this charge, log in to your account.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-02-17",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 14,331.95 was made on your American Express(R) Card ending 1008 at APOLLO PHARMACY on 21 February 2025.\nTo view this charge, log in to your account.",
+   "date": "2025-02-21",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;HSBC&nbsp;Credit Card ending 4650 was used for INR 7,442.80 at REDBUS on 25 Feb 2025.\nIf you did not authorise this transaction, call 1800 267 3456.",
+   "date": "2025-02-25",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m015",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.12,255.93 on 25-02-2025 towards your HSBC Credit Card ending 4650. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. HSBC will never ask for these.",
+   "date": "2025-02-25",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m016",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.3,592.08 on 26-02-2025 towards your American Express Credit Card ending 1008. Thank you.",
+   "date": "2025-02-26",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "नमस्ते,\nDear Customer,\nYour HSBC Credit Card ending 4650 was used for INR 32,165.02 at SHELL PETROL on 02 Mar 2025.\nIf you did not authorise this transction, call 1800 267 3456.\n\nT&C apply. Visit www.hsbc.co.in for more details.",
+   "date": "2025-03-02",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m018",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 4650 was used for INR 7,992.59 at MEDPLUS on 05 Mar 2025.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-05",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m019",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Priya Banerjee,\nPlease find attached the updated MITC and Terms & Conditions applicable to your American Express Platinum Travel Credit Card. These are effective from the next billing cycle.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-03-09",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank at its discretion. The Cardholder shall not exceed the credit limit.\n3. Billing: An account statement is generated monthly and sent to the registered email address. The Cardholder should review the account statement and report discrepancies within 60 days.\n4. Interest: Finance charges apply on revolving balances up to 3.6% per month. 5. Payment: Minimum amount due must be paid on or before the due date. 6. Lost card: report immediately. 7. Grievance redressal and Ombudsman details are available on the website."
+    },
+    {
+     "filename": "Credit_Card_Terms_and_Conditions.pdf",
+     "protected": false,
+     "pdfText": "American Express Credit Card Cardmember Agreement\nThis agreement governs the use of the card. The credit limit may be increased or reduced with notice. The monthly account statement is deemed accepted unless disputed. Card is the property of the Bank. Applicable law: India. Arbitration at Mumbai. Authorised signatory. For queries contact the customer care number printed on your account statement."
+    }
+   ],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - Mar 2025",
+   "body": "नमस्ते,\nDear Cardholder,\nPlease find enclosed your monthly statement ending 1008. Statement date: 12-Mar-2025. Total amount due Rs.3,047.10; minimum Rs.200.00; due 30-Mar-2025.\nSBI/BOB style auto pay available on request.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-03-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_Mar2025.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCredit Card Number: XXXX XXXX XXXX 1008\nCard Type: Platinum Travel\nStatement Date: 12/03/2025\nStatement Period: 10/02/2025 - 12/03/2025\nPayment Due Date: 30/03/2025\nTotal Amount Due: Rs. 3,047.10\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,04,439.00\n\nDate        Transaction Details                        Amount (Rs.)\n18/02/2025  APOLLO PHARMACY HYDERABAD   1,062.83 Dr\n22/02/2025  WESTSIDE CHENNAI   11,450.83 Dr\n01/03/2025  TATA 1MG MUMBAI   1,275.01 Dr\n10/02/2025  IRCTC GURGAON   559.82 Dr\n27/02/2025  APOLLO PHARMACY MUMBAI   908.97 Dr\n14/02/2025  CAFE COFFEE DAY GURGAON   1,287.66 Dr\n17/02/2025  WESTSIDE KOCHI   2,162.62 Dr\n14/02/2025  UBER INDIA CHENNAI   5,962.26 Dr\n03/03/2025  PAYMENT RECEIVED - THANK YOU   1,828.26 Cr\n\nReward Points Summary: Opening 2601  Earned 326  Closing 3014\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4494797044895  IFSC AMER0000172"
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Priya Banerjee,\nThe statement of your HSBC Visa Platinum Credit Card ending 4650 for Mar 2025 is ready. Total due Rs.3,614.29, pay by 30 Mar 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2025-03-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m022",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 402.62 was made on your American Express(R) Card ending 1008 at GOOGLE PLAY on 16 March 2025.\nTo view this charge, log in to your account.\n\nNever share your OTP, PIN, CVV or password with anyone. American Express will never ask for these.",
+   "date": "2025-03-16",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card xx4650 was used for INR 1,712.60 at APOLLO PHARMACY on 19 Mar 2025.\nIf you did not authorise this transaction, call 1800 267 3456.",
+   "date": "2025-03-19",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m024",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.3,047.10 on 23-03-2025 towards your American Express Credit Card ending 1008. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-03-23",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Priya, a gentle nudge: Rs.3,047.10 due on 30 March for card ending 1008. Ignore if already paid. Kripya samay par bhugtan karein.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nT&C apply. Visit www.americanexpress.com for more details.",
+   "date": "2025-03-27",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Priya, a gentle nudge: Rs.3,614.29 due on 30 March for card ending 4650. Ignore if already paid. Kripya samay par bhugtan karein.\n\nT&C apply. Visit www.hsbc.co.in for more details.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m027",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 1,148.53 was made on your American Express(R) Card ending 1008 at URBAN COMPANY on 01 April 2025.\nTo view this charge, log in to your account.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-04-01",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 4650 was used for INR 2,752.89 at TATA 1MG on 11 Apr 2025.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-04-11",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m029",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - Apr 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 1008. Statement date: 12-Apr-2025. Total amount due Rs.10,412.03; minimum Rs.520.60; due 30-Apr-2025.\nSBI/BOB style auto pay availble on request.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-04-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_Apr2025.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCard No: 4533 84XX XXXX 1008\nStatement Date: 12/04/2025\nStatement Period: 13/03/2025 - 12/04/2025\nPayment Due Date: 30/04/2025\nTotal Amount Due: Rs. 10,412.03\nMinimum Amount Due: Rs. 520.60\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 48,060.00\n\nDate        Transaction Details                        Amount (Rs.)\n30/03/2025  THIRD WAVE COFFEE PUNE   13,881.74 Dr\n01/04/2025  WESTSIDE KOCHI   11,822.50 Dr\n20/03/2025  GOOGLE PLAY CHENNAI   4,670.26 Dr\n31/03/2025  BATA INDIA KOCHI   745.96 Dr\n25/03/2025  BIGBASKET MUMBAI   35,799.60 Dr\n03/04/2025  PAYMENT RECEIVED - THANK YOU   6,247.22 Cr\n\nReward Points Summary: Opening 3326  Earned 547  Closing 4223\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear&nbsp;Priya&nbsp;Banerjee,\nThe&nbsp;statement of your HSBC Visa Platinum Credit Card ending 4650 for Apr 2025 is ready. Total due Rs.7,575.84, pay by 30 Apr 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nNever share your OTP, PIN, CVV or password with anyone. HSBC will never ask for these.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-04-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Apr2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m031",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 221.23 was made on your American Express(R) Card ending 1008 at SPOTIFY on 16 April 2025.\nTo view this charge, log in to your account.\n\nNever share your OTP, PIN, CVV or password with anyone. American Express will never ask for these.",
+   "date": "2025-04-16",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Your reward points summary",
+   "body": "नमस्ते,\nDear Customer,\nYou have 4639 reward points on your American Express Platinum Travel Credit Card no. XXXXXXXXXXXX1008. Redeem them on the rewards portal before they expire.\n\nT&C apply. Visit www.americanexpress.com for more details.",
+   "date": "2025-04-25",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 1984 reward points on your HSBC Visa Platinum Credit Card ending 4650. Redeem them on the rewards portal before they expire.",
+   "date": "2025-04-25",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m034",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.10,412.03 on 26-04-2025 towards your American Express Credit Card ending 1008. Thank you.",
+   "date": "2025-04-26",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Payment reminder: American Express Credit Card ending 1008",
+   "body": "Dear Customer,\nThis is a reminder that Rs.10,412.03 (minimum Rs.520.60) is due on 30-Apr-2025 on your American Express Credit Card ending 1008. Pay on time to avoid late payment charges.\n\nNever share your OTP, PIN, CVV or password with anyone. American Express will never ask for these.",
+   "date": "2025-04-27",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;HSBC&nbsp;Credit Card XXXX XXXX XXXX 4650 was used for INR 5,428.88 at STARBUCKS on 27 Apr 2025.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-04-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m037",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - May 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 1008. Statement date: 12-May-2025. Total amount due Rs.7,393.36; minimum Rs.369.67; due 30-May-2025.\nSBI/BOB style auto pay available on request.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-05-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_May2025.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCard No: 4320 16XX XXXX 1008\nCard Type: Platinum Travel\nStatement Date: 12/05/2025\nStatement Period: 12/04/2025 - 12/05/2025\nPayment Due Date: 30/05/2025\nTotal Amount Due: Rs. 7,393.36\nMinimum Amount Due: Rs. 369.67\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,83,624.00\n\nDate        Transaction Details                        Amount (Rs.)\n09/05/2025  APOLLO PHARMACY BANGALORE   536.17 Dr\n06/05/2025  INDIGO AIRLINES BANGALORE   966.35 Dr\n01/05/2025  DMART BANGALORE   254.98 Dr\n24/04/2025  OLA CABS PUNE   20,456.14 Dr\n13/04/2025  ZEPTO KOCHI   1,303.58 Dr\n03/05/2025  PAYMENT RECEIVED - THANK YOU   4,436.02 Cr\n\nReward Points Summary: Opening 7829  Earned 786  Closing 4789\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Priya Banerjee,\nThe statement of your HSBC Visa Platinum Credit Card ending 4650 for May 2025 is ready. Total due Rs.268.19, pay by 30 May 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nNever share your OTP, PIN, CVV or password with anyone. HSBC will never ask for these.",
+   "date": "2025-05-12",
+   "attachments": [
+    {
+     "filename": "4650_12052025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m039",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 7,136.70 was made on your American Express(R) Card ending 1008 at THIRD WAVE COFFEE on 21 May 2025.\nTo view this charge, log in to your account.\n\nT&C apply. Visit www.americanexpress.com for more details.",
+   "date": "2025-05-21",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 32,934.09 was made on your American Express(R) Card XX1008 at ZOMATO on 21 May 2025.\nTo view this charge, log in to your account.",
+   "date": "2025-05-21",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.7,393.36 on 25-05-2025 towards your American Express Credit Card ending 1008. Thank you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-05-25",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,<br>\nYour HSBC Credit Card ending 4650 was used for INR 1,876.26 at THIRD WAVE COFFEE on 25 May 2025.<br>\nIf you did not authorise this transaction, call 1800 267 3456.",
+   "date": "2025-05-25",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m043",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.268.19 on 26-05-2025 towards your HSBC Credit Card ending 4650. Thank you.\n\nT&C apply. Visit www.hsbc.co.in for more details.",
+   "date": "2025-05-26",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m044",
+   "subject": "Payment reminder: American Express Credit Card ending 1008",
+   "body": "Dear Customer,\nThis is a reminder that Rs.7,393.36 (minimum Rs.369.67) is due on 30-May-2025 on your American Express Credit Card ending 1008. Pay on time to avoid late payment charges.",
+   "date": "2025-05-27",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Pre-approved Personal Loan for you",
+   "body": "Get Rs.7,00,000 at 11% p.a. Instant approval. Offer ID BF3233\nT&C apply.",
+   "date": "2025-06-11",
+   "attachments": [],
+   "from": "Bajaj Finserv <offers@bajajfinserv.in>"
+  },
+  {
+   "id": "m046",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - Jun 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment ending 1008. Statement date: 12-Jun-2025. Total amount due Rs.6,839.09; minimum Rs.341.95; due 30-Jun-2025.\nSBI/BOB style auto pay available on request.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_Jun2025.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCard No: 4436 57XX XXXX 1008\nStatement Date: 12/06/2025\nStatement Period: 13/05/2025 - 12/06/2025\nPayment Due Date: 30/06/2025\nTotal Amount Due: Rs. 6,839.09\nMinimum Amount Due: Rs. 341.95\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 95,436.00\n\nDate        Transaction Details                        Amount (Rs.)\n06/06/2025  RELIANCE SMART MUMBAI   3,489.57 Dr\n05/06/2025  ZEPTO MUMBAI   1,173.26 Dr\n07/06/2025  INDIGO AIRLINES KOCHI   972.74 Dr\n18/05/2025  CAFE COFFEE DAY CHENNAI   1,243.63 Dr\n04/06/2025  AMAZON PAY INDIA KOCHI   7,106.72 Dr\n16/05/2025  BOOKMYSHOW GURGAON   15,779.56 Dr\n05/06/2025  REDBUS MUMBAI   4,274.36 Dr\n27/05/2025  LENSKART HYDERABAD   5,239.32 Dr\n19/05/2025  NETFLIX.COM KOCHI   164.23 Dr\n03/06/2025  PAYMENT RECEIVED - THANK YOU   4,103.45 Cr\n\nReward Points Summary: Opening 2834  Earned 858  Closing 6166\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Priya Banerjee,\nThe statement of your HSBC Visa Platinum Credit Card no. XXXXXXXXXXXX4650 for Jun 2025 is ready. Total due Rs.4,351.36, pay by 30 Jun 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-06-12",
+   "attachments": [
+    {
+     "filename": "4650_12062025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m048",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 27,504.69 was made on your American Express(R) Card no. XXXXXXXXXXXX1008 at MEDPLUS on 18 June 2025.\nTo view this charge, log in to your account.\n\nT&C apply. Visit www.americanexpress.com for more details.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-06-18",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.4,351.36 on 26-06-2025 towards your HSBC Credit Card ending 4650. Thank you.",
+   "date": "2025-06-26",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m050",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.6,839.09 on 27-06-2025 towards your American Express Credit Card XX1008. Thank you.",
+   "date": "2025-06-27",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear&nbsp;Customer,<br>\nYour&nbsp;HSBC&nbsp;Credit Card ending 4650 was used for INR 2,914.35 at UBER INDIA on 28 Jun 2025.<br>\nIf you did not authorise this transction, call 1800 267 3456.",
+   "date": "2025-06-28",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m052",
+   "subject": "Secure your family with term insurance",
+   "body": "Plans from Rs 500/month. Policy no. will be shared post issuance. Quote ref 8267\nT&C apply.",
+   "date": "2025-07-03",
+   "attachments": [],
+   "from": "Tata AIA Life <news@tataaia.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Pre-approved Personal Loan for you",
+   "body": "Get Rs.7,00,000 at 11% p.a. Instant approval. Offer ID BF2824<br>\nT&C apply.",
+   "date": "2025-07-04",
+   "attachments": [],
+   "from": "Bajaj Finserv <offers@bajajfinserv.in>"
+  },
+  {
+   "id": "m054",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 4650 was used for INR 22,315.74 at IRCTC on 11 Jul 2025.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-07-11",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m055",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - Jul 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment ending 1008. Statement date: 12-Jul-2025. Total amount due Rs.28,771.86; minimum Rs.1,438.59; due 30-Jul-2025.\nSBI/BOB style auto pay available on request.\n\nT&C apply. Visit www.americanexpress.com for more details.",
+   "date": "2025-07-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_Jul2025.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCard No: 4507 66XX XXXX 1008\nCard Type: Platinum Travel\nStatement Date: 12/07/2025\nStatement Period: 12/06/2025 - 12/07/2025\nPayment Due Date: 30/07/2025\nTotal Amount Due: Rs. 28,771.86\nMinimum Amount Due: Rs. 1,438.59\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,87,607.00\n\nDate        Transaction Details                        Amount (Rs.)\n21/06/2025  IRCTC BANGALORE   3,507.89 Dr\n24/06/2025  AIRBNB HYDERABAD   2,006.38 Dr\n10/07/2025  STARBUCKS CHENNAI   29,346.11 Dr\n20/06/2025  DECATHLON HYDERABAD   22,885.38 Dr\n06/07/2025  MAKEMYTRIP HYDERABAD   3,084.03 Dr\n03/07/2025  PAYMENT RECEIVED - THANK YOU   17,263.12 Cr\n\nReward Points Summary: Opening 1651  Earned 790  Closing 3539\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4494797044895  IFSC AMER0000711"
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Priya Banerjee,\nThe statement of your HSBC Visa Platinum Credit Card ending 4650 for Jul 2025 is ready. Total due Rs.2,944.76, pay by 30 Jul 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m057",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 4650 was used for INR 4,553.84 at PVR INOX on 14 Jul 2025.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-07-14",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m058",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,<br>\nYour HSBC Credit Card xx4650 was used for INR 2,134.31 at IRCTC on 15 Jul 2025.<br>\nIf you did not authorise this transaction, call 1800 267 3456.\n\nT&C apply. Visit www.hsbc.co.in for more details.",
+   "date": "2025-07-15",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m059",
+   "subject": "Convert to EMI",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;transction&nbsp;of Rs.9,038.80 on card ending 4650 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.\n\nT&C apply. Visit www.hsbc.co.in for more details.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-22",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m060",
+   "subject": "Card Transaction Alert",
+   "body": "Dear&nbsp;Card&nbsp;Member,\nA&nbsp;charge of Rs. 484.08 was made on your American Express(R) Card ending 1008 at REDBUS on 23 July 2025.\nTo view this charge, log in to your account.",
+   "date": "2025-07-23",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.28,771.86 on 23-07-2025 towards your American Express Credit Card ending 1008. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-23",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,<br>\nA charge of Rs. 1,327.83 was made on your American Express(R) Card ending 1008 at BIGBASKET on 24 July 2025.<br>\nTo view this charge, log in to your account.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-07-24",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,944.76 on 24-07-2025 towards your HSBC Credit Card ending 4650. Thank you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-07-24",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m064",
+   "subject": "Payment reminder: American Express Credit Card no. XXXXXXXXXXXX1008",
+   "body": "Dear Customer,\nThis is a reminder that Rs.28,771.86 (minimum Rs.1,438.59) is due on 30-Jul-2025 on your American Express Credit Card no. XXXXXXXXXXXX1008. Pay on time to avoid late payment charges.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-07-27",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "नमस्ते,\nHi Priya, a gentle nudge: Rs.2,944.76 due on 30 July for card ending 4650. Ignore if already paid. Kripya samay par bhugtan karein.\n\nT&C apply. Visit www.hsbc.co.in for more details.",
+   "date": "2025-07-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m066",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card ending 4650 has been processed. Tenure 12 months. First EMI will appear on your next statment.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-08-05",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m067",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 4650 was used for INR 2,694.55 at TATA 1MG on 06 Aug 2025.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-06",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m068",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 714.44 was made on your American Express(R) Card ending 1008 at NETFLIX.COM on 08 August 2025.\nTo view this charge, log in to your account.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-08-08",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - Aug 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 1008. Statement date: 12-Aug-2025. Total amount due Rs.11,917.21; minimum Rs.595.86; due 30-Aug-2025.\nSBI/BOB style auto pay available on request.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_Aug2025.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCard No: 4451 25XX XXXX 1008\nCard Type: Platinum Travel\nStatement Date: 12/08/2025\nStatement Period: 13/07/2025 - 12/08/2025\nPayment Due Date: 30/08/2025\nTotal Amount Due: Rs. 11,917.21\nMinimum Amount Due: Rs. 595.86\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 46,025.00\n\nDate        Transaction Details                        Amount (Rs.)\n23/07/2025  BIGBASKET MUMBAI   19,848.07 Dr\n21/07/2025  RELIANCE SMART KOCHI   7,011.91 Dr\n17/07/2025  URBAN COMPANY GURGAON   19,741.70 Dr\n08/08/2025  SPOTIFY KOCHI   319.10 Dr\n03/08/2025  PAYMENT RECEIVED - THANK YOU   7,150.33 Cr\n\nReward Points Summary: Opening 4446  Earned 297  Closing 8237\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4494797044895  IFSC AMER0000899"
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Priya Banerjee,\nThe statment of your HSBC Visa Platinum Credit Card ending 4650 for Aug 2025 is ready. Total due Rs.19,764.12, pay by 30 Aug 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "4650_12082025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m071",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your HSBC Visa Platinum Credit Card ending 4650 has been increased to Rs.3,00,000.00 effective 17-08-2025.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-08-17",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m072",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 8,149.85 was made on your American Express(R) Card ending 1008 at ZEPTO on 24 August 2025.\nTo view this charge, log in to your account.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-08-24",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;recieved your payment of Rs.11,917.21 on 26-08-2025 towards your American Express Credit Card ending 1008. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-08-26",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - Sep 2025",
+   "body": "Dear&nbsp;Cardholder,<br>\nPlease&nbsp;find&nbsp;enclosed your monthly statement ending 1008. Statement date: 12-Sep-2025. Total amount due Rs.26,157.01; minimum Rs.1,307.85; due 30-Sep-2025.<br>\nSBI/BOB style auto pay available on request.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_Sep2025.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCard No: 4422 69XX XXXX 1008\nStatement Date: 12/09/2025\nStatement Period: 13/08/2025 - 12/09/2025\nPayment Due Date: 30/09/2025\nTotal Amount Due: Rs. 26,157.01\nMinimum Amount Due: Rs. 1,307.85\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,84,773.00\n\nDate        Transaction Details                        Amount (Rs.)\n14/08/2025  JIO PREPAID HYDERABAD   889.17 Dr\n31/08/2025  BIGBASKET KOCHI   303.65 Dr\n15/08/2025  JIO PREPAID CHENNAI   17,831.41 Dr\n28/08/2025  JIO PREPAID MUMBAI   7,809.99 Dr\n19/08/2025  AMAZON PAY INDIA BANGALORE   2,564.51 Dr\n13/08/2025  THIRD WAVE COFFEE MUMBAI   8,341.37 Dr\n08/09/2025  BIGBASKET BANGALORE   2,404.60 Dr\n19/08/2025  MEDPLUS KOCHI   2,154.36 Dr\n26/08/2025  TATA 1MG PUNE   7,945.69 Dr\n03/09/2025  PAYMENT RECEIVED - THANK YOU   15,694.21 Cr\n\nReward Points Summary: Opening 638  Earned 853  Closing 4869\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4494797044895  IFSC AMER0000761"
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Priya Banerjee,\nThe statement of your HSBC Visa Platinum Credit Card ending 4650 for Sep 2025 is ready. Total due Rs.1,928.97, pay by 30 Sep 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m076",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,<br>\nA charge of Rs. 769.75 was made on your American Express(R) Card ending 1008 at HOTSTAR on 13 September 2025.<br>\nTo view this charge, log in to your account.",
+   "date": "2025-09-13",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 4,387.21 was made on your American Express(R) Card no. XXXXXXXXXXXX1008 at SPOTIFY on 21 September 2025.\nTo view this charge, log in to your account.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-21",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.1,928.97 on 22-09-2025 towards your HSBC Credit Card ending 4650. Thank you.<br>\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-09-22",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m079",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "नमस्ते,\nDear&nbsp;Customer,<br>\nYour&nbsp;HSBC&nbsp;Credit Card ending 4650 was used for INR 31,903.10 at UBER INDIA on 24 Sep 2025.<br>\nIf you did not authorise this transaction, call 1800 267 3456.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nNever share your OTP, PIN, CVV or password with anyone. HSBC will never ask for these.",
+   "date": "2025-09-24",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m080",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 31,475.20 was made on your American Express(R) Card XXXX XXXX XXXX 1008 at APOLLO PHARMACY on 25 September 2025.\nTo view this charge, log in to your account.\n\nT&C apply. Visit www.americanexpress.com for more details.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 593 reward points on your American Express Platinum Travel Credit Card XXXX XXXX XXXX 1008. Redeem them on the rewards portal before they expire.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 5763 reward points on your HSBC Visa Platinum Credit Card ending 4650. Redeem them on the rewards portal before they expire.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m083",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Priya, a gentle nudge: Rs.26,157.01 due on 30 September for card ending 1008. Ignore if already paid. Kripya samay par bhugtan karein.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.26,157.01 on 29-09-2025 towards your American Express Credit Card no. XXXXXXXXXXXX1008. Thank you.",
+   "date": "2025-09-29",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Card Transaction Alert",
+   "body": "नमस्ते,\nDear Card Member,\nA charge of Rs. 13,792.33 was made on your American Express(R) Card ending 1008 at NETFLIX.COM on 04 October 2025.\nTo view this charge, log in to your account.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nNever share your OTP, PIN, CVV or password with anyone. American Express will never ask for these.",
+   "date": "2025-10-04",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 2,385.14 was made on your American Express(R) Card ending 1008 at SPOTIFY on 12 October 2025.\nTo view this charge, log in to your account.\n\nNever share your OTP, PIN, CVV or password with anyone. American Express will never ask for these.",
+   "date": "2025-10-12",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - Oct 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 1008. Statement date: 12-Oct-2025. Total amount due Rs.2,871.23; minimum Rs.200.00; due 30-Oct-2025.\nSBI/BOB style auto pay available on request.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_Oct2025.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCredit Card Number: XXXX XXXX XXXX 1008\nCard Type: Platinum Travel\nStatement Date: 12/10/2025\nStatement Period: 12/09/2025 - 12/10/2025\nPayment Due Date: 30/10/2025\nTotal Amount Due: Rs. 2,871.23\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 97,956.00\n\nDate        Transaction Details                        Amount (Rs.)\n25/09/2025  URBAN COMPANY HYDERABAD   25,681.79 Dr\n25/09/2025  OLA CABS HYDERABAD   16,275.89 Dr\n02/10/2025  WESTSIDE KOCHI   153.08 Dr\n01/10/2025  BIGBASKET PUNE   4,396.03 Dr\n12/09/2025  APOLLO PHARMACY PUNE   1,683.71 Dr\n03/10/2025  PAYMENT RECEIVED - THANK YOU   1,722.74 Cr\n\nReward Points Summary: Opening 5218  Earned 405  Closing 2536\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4494797044895  IFSC AMER0000161"
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Priya Banerjee,\nThe statement of your HSBC Visa Platinum Credit Card ending 4650 for Oct 2025 is ready. Total due Rs.8,196.41, pay by 30 Oct 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m089",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 4650 was used for INR 2,693.89 at SPOTIFY on 16 Oct 2025.\nIf you did not authorise this transaction, call 1800 267 3456.",
+   "date": "2025-10-16",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m090",
+   "subject": "Your card has been reissued",
+   "body": "Dear Customer,\nAs your card ending 4650 was reported lost/damaged, it has been blocked and a replacement card with a new number ending 7312 is being dispatched to you. Please use the new card once you receive it. Your credit limit and reward points are unchanged.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-20",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m091",
+   "subject": "Old card blocked",
+   "body": "Your card ending 4650 is now permanently blocked. Use the new card to continue.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-10-21",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m092",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 4650 was used for INR 2,029.72 at DMART on 21 Oct 2025.\nIf you did not authorise this transaction, call 1800 267 3456.",
+   "date": "2025-10-21",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m093",
+   "subject": "Your Swiggy order receipt",
+   "body": "Order&nbsp;#1506&nbsp;delivered.&nbsp;Paid via UPI. Rate your meal!\nT&C apply.",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m094",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.8,196.41 on 24-10-2025 towards your HSBC Credit Card ending 4650. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-10-24",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m095",
+   "subject": "Payment reminder: American Express Credit Card XXXX XXXX XXXX 1008",
+   "body": "Dear Customer,\nThis is a reminder that Rs.2,871.23 (minimum Rs.200.00) is due on 30-Oct-2025 on your American Express Credit Card XXXX XXXX XXXX 1008. Pay on time to avoid late payment charges.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Card Transaction Alert",
+   "body": "Dear&nbsp;Card&nbsp;Member,\nA&nbsp;charge of Rs. 1,309.37 was made on your American Express(R) Card ending 1008 at SPOTIFY on 28 October 2025.\nTo view this charge, log in to your account.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-10-28",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Your HSBC Visa Platinum Credit Card is on its way",
+   "body": "Dear Priya Banerjee,\nCongratulations! Your HSBC Visa Platinum Credit Card ending 7312 has been dispatched via Blue Dart, AWB 57772840521. Expected delivery in 3-5 working days.\nKindly find the welcome kit attached.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-11-02",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m098",
+   "subject": "Your card has been delivered",
+   "body": "Dear Customer,\nYour card ending 7312 was delivered on 06-11-2025. Activate it using the app to start spending.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-06",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m099",
+   "subject": "Your replacement card is here",
+   "body": "नमस्ते,\nDear Customer,<br>\nYour replacement HSBC Visa Platinum Credit Card ending 7312 has been delivered. Activate it in the app and set a PIN. Earlier card XX4650 will not work.",
+   "date": "2025-11-06",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m100",
+   "subject": "Card activated / PIN set successfully",
+   "body": "Dear Customer,<br>\nYour card XX7312 is now active. PIN has been set sucessfully on 08/11/2025.",
+   "date": "2025-11-08",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m101",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - Nov 2025",
+   "body": "Dear&nbsp;Cardholder,\nPlease&nbsp;find&nbsp;enclosed your monthly statement ending 1008. Statement date: 12-Nov-2025. Total amount due Rs.1,271.38; minimum Rs.200.00; due 30-Nov-2025.\nSBI/BOB style auto pay available on request.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCredit Card Number: XXXX XXXX XXXX 1008\nCard Type: Platinum Travel\nStatement Date: 12/11/2025\nStatement Period: 13/10/2025 - 12/11/2025\nPayment Due Date: 30/11/2025\nTotal Amount Due: Rs. 1,271.38\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,82,700.00\n\nDate        Transaction Details                        Amount (Rs.)\n21/10/2025  CROMA BANGALORE   1,525.21 Dr\n14/10/2025  WESTSIDE KOCHI   169.20 Dr\n08/11/2025  CROMA PUNE   18,177.09 Dr\n17/10/2025  CAFE COFFEE DAY MUMBAI   3,256.08 Dr\n03/11/2025  PAYMENT RECEIVED - THANK YOU   762.83 Cr\n\nReward Points Summary: Opening 7352  Earned 868  Closing 2706\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4494797044895  IFSC AMER0000405"
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 33,367.21 was made on your American Express(R) Card ending 1008 at HOTSTAR on 16 November 2025.\nTo view this charge, log in to your account.",
+   "date": "2025-11-16",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,271.38 on 23-11-2025 towards your American Express Credit Card ending 1008. Thank you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-11-23",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;HSBC&nbsp;Credit Card ending 7312 was used for INR 390.21 at BATA INDIA on 23 Nov 2025.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-11-23",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m105",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 7,683.78 was made on your American Express(R) Card ending 1008 at IRCTC on 03 December 2025.\nTo view this charge, log in to your account.",
+   "date": "2025-12-03",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 2,156.70 was made on your American Express(R) Card ending 1008 at INDIGO AIRLINES on 06 December 2025.\nTo view this charge, log in to your account.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-06",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "E-mandate cancelled",
+   "body": "Dear Customer,\nThe e-mandate for NETFLIX.COM registered on your American Express card XXXX XXXX XXXX 1008 has been cancelled as requested. No further auto-debits will happen. Your card remains active.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-09",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - Dec 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 1008. Statement date: 12-Dec-2025. Total amount due Rs.3,208.25; minimum Rs.200.00; due 30-Dec-2025.\nSBI/BOB style auto pay available on request.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_Dec2025.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCredit Card Number: XXXX XXXX XXXX 1008\nCard Type: Platinum Travel\nStatement Date: 12/12/2025\nStatement Period: 12/11/2025 - 12/12/2025\nPayment Due Date: 30/12/2025\nTotal Amount Due: Rs. 3,208.25\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 42,450.00\n\nDate        Transaction Details                        Amount (Rs.)\n04/12/2025  IRCTC CHENNAI   1,155.60 Dr\n28/11/2025  CAFE COFFEE DAY KOCHI   718.73 Dr\n12/11/2025  AIRBNB BANGALORE   40,769.42 Dr\n14/11/2025  RELIANCE SMART GURGAON   492.31 Dr\n03/12/2025  PAYMENT RECEIVED - THANK YOU   1,924.95 Cr\n\nReward Points Summary: Opening 3794  Earned 667  Closing 2930\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 7312 was used for INR 2,111.71 at BIGBASKET on 12 Dec 2025.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-12",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m110",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Priya Banerjee,\nThe statement of your HSBC Visa Platinum Credit Card ending 7312 for Dec 2025 is ready. Total due Rs.1,04,202.48, pay by 30 Dec 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "7312_12122025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m111",
+   "subject": "Magnus, Atlas and Flipkart Axis Bank cards: lifetime free offers",
+   "body": "Choose from ACE, Magnus, Atlas, Reserve, Airtel Axis Bank cards. Offer reference 9128\nT&C apply.",
+   "date": "2025-12-12",
+   "attachments": [],
+   "from": "Axis Bank <offers@axisbank.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 7312 was used for INR 3,617.35 at BLINKIT on 16 Dec 2025.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-16",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m113",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 18,784.82 was made on your American Express(R) Card ending 1008 at TATA 1MG on 18 December 2025.\nTo view this charge, log in to your account.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-12-18",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,<br>\nYour HSBC Credit Card ending 7312 was used for INR 1,661.97 at JIO PREPAID on 20 Dec 2025.<br>\nIf you did not authorise this transction, call 1800 267 3456.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-20",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m115",
+   "subject": "Payment reminder: American Express Credit Card ending 1008",
+   "body": "Dear Customer,\nThis is a reminder that Rs.3,208.25 (minimum Rs.200.00) is due on 30-Dec-2025 on your American Express Credit Card ending 1008. Pay on time to avoid late payment charges.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,04,202.48 on 27-12-2025 towards your HSBC Credit Card ending 7312. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m117",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 1,496.43 was made on your American Express(R) Card ending 1008 at HOTSTAR on 08 January 2026.\nTo view this charge, log in to your account.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-08",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 2,903.48 was made on your American Express(R) Card ending 1008 at SPOTIFY on 09 January 2026.\nTo view this charge, log in to your account.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-01-09",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - Jan 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 1008. Statement date: 12-Jan-2026. Total amount due Rs.44,239.32; minimum Rs.2,211.97; due 30-Jan-2026.\nSBI/BOB style auto pay available on request.\n\nT&C apply. Visit www.americanexpress.com for more details.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_Jan2026.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCredit Card Number: XXXX XXXX XXXX 1008\nStatement Date: 12/01/2026\nStatement Period: 13/12/2025 - 12/01/2026\nPayment Due Date: 30/01/2026\nTotal Amount Due: Rs. 44,239.32\nMinimum Amount Due: Rs. 2,211.97\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 34,118.00\n\nDate        Transaction Details                        Amount (Rs.)\n19/12/2025  WESTSIDE GURGAON   3,016.55 Dr\n15/12/2025  BOOKMYSHOW CHENNAI   7,335.64 Dr\n18/12/2025  MEDPLUS MUMBAI   692.04 Dr\n17/12/2025  REDBUS MUMBAI   13,368.44 Dr\n03/01/2026  PAYMENT RECEIVED - THANK YOU   26,543.59 Cr\n\nReward Points Summary: Opening 2668  Earned 255  Closing 6889\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Priya Banerjee,\nThe statement of your HSBC Visa Platinum Credit Card no. XXXXXXXXXXXX7312 for Jan 2026 is ready. Total due Rs.2,509.63, pay by 30 Jan 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m121",
+   "subject": "Your EMI request has been cancelled",
+   "body": "Your request to convert transction of Rs.9,715.32 on card ending 1008 to EMI has been cancelled. The transaction stays on your regular bill.\n\nT&C apply. Visit www.americanexpress.com for more details.",
+   "date": "2026-01-14",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 7312 was used for INR 646.28 at TATA 1MG on 23 Jan 2026.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-23",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m123",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,509.63 on 27-01-2026 towards your HSBC Credit Card ending 7312. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m124",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;received your payment of Rs.44,239.32 on 28-01-2026 towards your American Express Credit Card **1008. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-01-28",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 7312 was used for INR 2,404.10 at BOOKMYSHOW on 04 Feb 2026.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-02-04",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m126",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 33,506.54 was made on your American Express(R) Card XXXX XXXX XXXX 1008 at UBER INDIA on 05 February 2026.\nTo view this charge, log in to your account.",
+   "date": "2026-02-05",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - Feb 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement **1008. Statement date: 12-Feb-2026. Total amount due Rs.688.04; minimum Rs.200.00; due 02-Mar-2026.\nSBI/BOB style auto pay available on request.\n\nNever share your OTP, PIN, CVV or password with anyone. American Express will never ask for these.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCard No: 4907 34XX XXXX 1008\nCard Type: Platinum Travel\nStatement Date: 12/02/2026\nStatement Period: 13/01/2026 - 12/02/2026\nPayment Due Date: 02/03/2026\nTotal Amount Due: Rs. 688.04\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,23,487.00\n\nDate        Transaction Details                        Amount (Rs.)\n21/01/2026  SHELL PETROL PUNE   197.08 Dr\n24/01/2026  URBAN COMPANY CHENNAI   26,463.66 Dr\n23/01/2026  BPCL FUEL BANGALORE   526.03 Dr\n07/02/2026  WESTSIDE CHENNAI   1,010.55 Dr\n27/01/2026  IRCTC GURGAON   12,519.01 Dr\n18/01/2026  APOLLO PHARMACY HYDERABAD   259.21 Dr\n10/02/2026  MAKEMYTRIP GURGAON   6,283.73 Dr\n03/02/2026  PAYMENT RECEIVED - THANK YOU   412.82 Cr\n\nReward Points Summary: Opening 3390  Earned 346  Closing 2946\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Priya Banerjee,\nThe statement of your HSBC Visa Platinum Credit Card XXXX XXXX XXXX 7312 for Feb 2026 is ready. Total due Rs.62,643.13, pay by 02 Mar 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nNever share your OTP, PIN, CVV or password with anyone. HSBC will never ask for these.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m129",
+   "subject": "Card Transaction Alert",
+   "body": "Dear&nbsp;Card&nbsp;Member,\nA&nbsp;charge of Rs. 131.55 was made on your American Express(R) Card ending 1008 at MEDPLUS on 21 February 2026.\nTo view this charge, log in to your account.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-21",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "OTP for online transaction",
+   "body": "879416 is the One Time Password (OTP) for your online transction of INR 16,147.81 at GOOGLE PLAY. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-02-24",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 700.47 was made on your American Express(R) Card ending 1008 at BOOKMYSHOW on 25 February 2026.\nTo view this charge, log in to your account.\n\nNever share your OTP, PIN, CVV or password with anyone. American Express will never ask for these.",
+   "date": "2026-02-25",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "Your reward points summary",
+   "body": "नमस्ते,\nDear Customer,\nYou have 7353 reward points on your American Express Platinum Travel Credit Card ending 1008. Redeem them on the rewards portal before they expire.",
+   "date": "2026-02-25",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 1542 reward points on your HSBC Visa Platinum Credit Card ending 7312. Redeem them on the rewards portal before they expire.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-02-25",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m134",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Priya, a gentle nudge: Rs.688.04 due on 02 March for card ending 1008. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.688.04 on 27-02-2026 towards your American Express Credit Card ending 1008. Thank you.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Priya, a gentle nudge: Rs.62,643.13 due on 02 March for card ending 7312. Ignore if already paid. Kripya samay par bhugtan karein.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m137",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.62,643.13 on 28-02-2026 towards your HSBC Credit Card ending 7312. Thank you.<br>\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-28",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m138",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 6,821.37 was made on your American Express(R) Card ending 1008 at AMAZON PAY INDIA on 09 March 2026.\nTo view this charge, log in to your account.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-09",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 7312 was used for INR 539.07 at MAKEMYTRIP on 10 Mar 2026.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-10",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m140",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - Mar 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 1008. Statement date: 12-Mar-2026. Total amount due Rs.3,721.14; minimum Rs.200.00; due 30-Mar-2026.\nSBI/BOB style auto pay available on request.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_Mar2026.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCard No: 4982 88XX XXXX 1008\nStatement Date: 12/03/2026\nStatement Period: 10/02/2026 - 12/03/2026\nPayment Due Date: 30/03/2026\nTotal Amount Due: Rs. 3,721.14\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 59,392.00\n\nDate        Transaction Details                        Amount (Rs.)\n28/02/2026  DECATHLON PUNE   595.91 Dr\n20/02/2026  OLA CABS CHENNAI   2,137.68 Dr\n06/03/2026  SPOTIFY MUMBAI   2,077.91 Dr\n10/02/2026  IRCTC CHENNAI   28,563.00 Dr\n26/02/2026  DECATHLON GURGAON   5,053.21 Dr\n15/02/2026  OLA CABS HYDERABAD   417.41 Dr\n03/03/2026  PAYMENT RECEIVED - THANK YOU   2,232.68 Cr\n\nReward Points Summary: Opening 8197  Earned 278  Closing 3900\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Priya Banerjee,\nThe statement of your HSBC Visa Platinum Credit Card ending 7312 for Mar 2026 is ready. Total due Rs.2,542.47, pay by 30 Mar 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "7312_12032026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m142",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 7312 was used for INR 1,810.49 at ZOMATO on 20 Mar 2026.\nIf you did not authorise this transaction, call 1800 267 3456.",
+   "date": "2026-03-20",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m143",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.3,721.14 on 22-03-2026 towards your American Express Credit Card xx1008. Thank you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-03-22",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "नमस्ते,\nDear Customer,\nYour HSBC Credit Card ending 7312 was used for INR 156.47 at WESTSIDE on 22 Mar 2026.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-03-22",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m145",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 34,279.29 was made on your American Express(R) Card XX1008 at WESTSIDE on 24 March 2026.\nTo view this charge, log in to your account.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,542.47 on 24-03-2026 towards your HSBC Credit Card XX7312. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m147",
+   "subject": "Payment reminder: American Express Credit Card ending 1008",
+   "body": "Dear Customer,\nThis is a reminder that Rs.3,721.14 (minimum Rs.200.00) is due on 30-Mar-2026 on your American Express Credit Card ending 1008. Pay on time to avoid late payment charges.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "Payment reminder: HSBC Credit Card ending 7312",
+   "body": "Dear Customer,\nThis is a reminder that Rs.2,542.47 (minimum Rs.200.00) is due on 30-Mar-2026 on your HSBC Credit Card ending 7312. Pay on time to avoid late payment charges.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m149",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - Apr 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment ending 1008. Statement date: 12-Apr-2026. Total amount due Rs.3,335.27; minimum Rs.200.00; due 30-Apr-2026.\nSBI/BOB style auto pay available on request.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_Apr2026.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCard No: 4150 79XX XXXX 1008\nCard Type: Platinum Travel\nStatement Date: 12/04/2026\nStatement Period: 13/03/2026 - 12/04/2026\nPayment Due Date: 30/04/2026\nTotal Amount Due: Rs. 3,335.27\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 79,845.00\n\nDate        Transaction Details                        Amount (Rs.)\n09/04/2026  HOTSTAR PUNE   907.18 Dr\n21/03/2026  MEDPLUS PUNE   1,990.91 Dr\n29/03/2026  DMART PUNE   3,235.26 Dr\n10/04/2026  IRCTC PUNE   305.18 Dr\n25/03/2026  BLINKIT GURGAON   41,077.65 Dr\n24/03/2026  BPCL FUEL KOCHI   415.01 Dr\n16/03/2026  BLINKIT CHENNAI   668.82 Dr\n03/04/2026  PAYMENT RECEIVED - THANK YOU   2,001.16 Cr\n\nReward Points Summary: Opening 4564  Earned 212  Closing 1906\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4494797044895  IFSC AMER0000162"
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Priya Banerjee,\nThe statement of your HSBC Visa Platinum Credit Card XX7312 for Apr 2026 is ready. Total due Rs.4,220.72, pay by 30 Apr 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "7312_12042026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m151",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 711.00 was made on your American Express(R) Card ending 1008 at DECATHLON on 13 April 2026.\nTo view this charge, log in to your account.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-04-13",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "Mobile number updated",
+   "body": "Your mobile number XXXXXX7205 has been updated in our records. If not requested by you, visit the nearest branch.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-18",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.4,220.72 on 24-04-2026 towards your HSBC Credit Card ending 7312. Thank you.<br>\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-04-24",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m154",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 7312 was used for INR 1,882.86 at APOLLO PHARMACY on 25 Apr 2026.\nIf you did not authorise this transction, call 1800 267 3456.\n\nT&C apply. Visit www.hsbc.co.in for more details.\nNever share your OTP, PIN, CVV or password with anyone. HSBC will never ask for these.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m155",
+   "subject": "Payment reminder: American Express Credit Card ending 1008",
+   "body": "Dear Customer,\nThis is a reminder that Rs.3,335.27 (minimum Rs.200.00) is due on 30-Apr-2026 on your American Express Credit Card ending 1008. Pay on time to avoid late payment charges.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.3,335.27 on 28-04-2026 towards your American Express Credit Card XXXX XXXX XXXX 1008. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-04-28",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,<br>\nYour HSBC Credit Card ending 7312 was used for INR 758.93 at ZEPTO on 02 May 2026.<br>\nIf you did not authorise this transaction, call 1800 267 3456.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-05-02",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m158",
+   "subject": "Card Transaction Alert",
+   "body": "नमस्ते,\nDear Card Member,\nA charge of Rs. 6,840.50 was made on your American Express(R) Card ending 1008 at BOOKMYSHOW on 09 May 2026.\nTo view this charge, log in to your account.",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - May 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 1008. Statement date: 12-May-2026. Total amount due Rs.33,445.11; minimum Rs.1,672.26; due 30-May-2026.\nSBI/BOB style auto pay available on request.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCard No: 4897 86XX XXXX 1008\nCard Type: Platinum Travel\nStatement Date: 12/05/2026\nStatement Period: 12/04/2026 - 12/05/2026\nPayment Due Date: 30/05/2026\nTotal Amount Due: Rs. 33,445.11\nMinimum Amount Due: Rs. 1,672.26\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,57,021.00\n\nDate        Transaction Details                        Amount (Rs.)\n28/04/2026  GOOGLE PLAY CHENNAI   338.33 Dr\n15/04/2026  JIO PREPAID GURGAON   3,391.31 Dr\n14/04/2026  REDBUS GURGAON   849.30 Dr\n19/04/2026  INDIGO AIRLINES KOCHI   12,695.18 Dr\n14/04/2026  STARBUCKS HYDERABAD   16,809.67 Dr\n28/04/2026  WESTSIDE GURGAON   129.58 Dr\n29/04/2026  REDBUS PUNE   664.75 Dr\n03/05/2026  PAYMENT RECEIVED - THANK YOU   20,067.07 Cr\n\nReward Points Summary: Opening 4180  Earned 153  Closing 5243\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4494797044895  IFSC AMER0000562"
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Priya Banerjee,\nThe statement of your HSBC Visa Platinum Credit Card ending 7312 for May 2026 is ready. Total due Rs.3,400.81, pay by 30 May 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m161",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 7312 was used for INR 878.54 at GOOGLE PLAY on 13 May 2026.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-05-13",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m162",
+   "subject": "Magnus, Atlas and Flipkart Axis Bank cards: lifetime free offers",
+   "body": "Choose from ACE, Magnus, Atlas, Reserve, Airtel Axis Bank cards. Offer reference 7913\nT&C apply.",
+   "date": "2026-05-18",
+   "attachments": [],
+   "from": "Axis Bank <offers@axisbank.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.33,445.11 on 23-05-2026 towards your American Express Credit Card ending 1008. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-23",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Priya, a gentle nudge: Rs.33,445.11 due on 30 May for card ending 1008. Ignore if already paid. Kripya samay par bhugtan karein.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - Jun 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment XXXX XXXX XXXX 1008. Statement date: 12-Jun-2026. Total amount due Rs.2,381.85; minimum Rs.200.00; due 30-Jun-2026.\nSBI/BOB style auto pay available on request.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCredit Card Number: XXXX XXXX XXXX 1008\nCard Type: Platinum Travel\nStatement Date: 12/06/2026\nStatement Period: 13/05/2026 - 12/06/2026\nPayment Due Date: 30/06/2026\nTotal Amount Due: Rs. 2,381.85\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 59,350.00\n\nDate        Transaction Details                        Amount (Rs.)\n14/05/2026  TATA 1MG CHENNAI   379.96 Dr\n21/05/2026  GOOGLE PLAY HYDERABAD   3,672.40 Dr\n16/05/2026  THIRD WAVE COFFEE PUNE   7,168.21 Dr\n08/06/2026  SPOTIFY PUNE   752.01 Dr\n05/06/2026  CAFE COFFEE DAY PUNE   5,038.10 Dr\n06/06/2026  HOTSTAR HYDERABAD   494.13 Dr\n04/06/2026  MEDPLUS BANGALORE   148.07 Dr\n03/06/2026  PAYMENT RECEIVED - THANK YOU   1,429.11 Cr\n\nReward Points Summary: Opening 5048  Earned 733  Closing 8578\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "नमस्ते,\nDear Priya Banerjee,\nThe statement of your HSBC Visa Platinum Credit Card ending 7312 for Jun 2026 is ready. Total due Rs.45,942.91, pay by 30 Jun 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m167",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 8,767.18 was made on your American Express(R) Card ending 1008 at URBAN COMPANY on 23 June 2026.\nTo view this charge, log in to your account.",
+   "date": "2026-06-23",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,381.85 on 26-06-2026 towards your American Express Credit Card XXXX XXXX XXXX 1008. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-26",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Payment reminder: HSBC Credit Card xx7312",
+   "body": "Dear Customer,\nThis is a reminder that Rs.45,942.91 (minimum Rs.2,297.15) is due on 30-Jun-2026 on your HSBC Credit Card xx7312. Pay on time to avoid late payment charges.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m170",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 7312 was used for INR 4,492.71 at JIO PREPAID on 28 Jun 2026.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nT&C apply. Visit www.hsbc.co.in for more details.",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m171",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - Jul 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 1008. Statement date: 12-Jul-2026. Total amount due Rs.10,806.98; minimum Rs.540.35; due 30-Jul-2026.\nSBI/BOB style auto pay available on request.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCard No: 4401 57XX XXXX 1008\nStatement Date: 12/07/2026\nStatement Period: 12/06/2026 - 12/07/2026\nPayment Due Date: 30/07/2026\nTotal Amount Due: Rs. 10,806.98\nMinimum Amount Due: Rs. 540.35\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 87,410.00\n\nDate        Transaction Details                        Amount (Rs.)\n02/07/2026  BIGBASKET PUNE   367.78 Dr\n16/06/2026  OLA CABS KOCHI   90.56 Dr\n01/07/2026  BATA INDIA CHENNAI   434.95 Dr\n28/06/2026  GOOGLE PLAY HYDERABAD   3,135.54 Dr\n30/06/2026  LICIOUS HYDERABAD   2,344.89 Dr\n08/07/2026  WESTSIDE HYDERABAD   8,394.95 Dr\n15/06/2026  AIRBNB KOCHI   7,055.78 Dr\n08/07/2026  RELIANCE SMART MUMBAI   871.80 Dr\n03/07/2026  PAYMENT RECEIVED - THANK YOU   6,484.19 Cr\n\nReward Points Summary: Opening 6391  Earned 536  Closing 3437\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m172",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Priya Banerjee,\nThe statment of your HSBC Visa Platinum Credit Card no. XXXXXXXXXXXX7312 for Jul 2026 is ready. Total due Rs.12,380.30, pay by 30 Jul 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nT&C apply. Visit www.hsbc.co.in for more details.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "7312_12072026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m173",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 707.60 was made on your American Express(R) Card ending 1008 at LENSKART on 22 July 2026.\nTo view this charge, log in to your account.\n\nT&C apply. Visit www.americanexpress.com for more details.",
+   "date": "2026-07-22",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m174",
+   "subject": "OTP for online transaction",
+   "body": "496139 is the One Time Password (OTP) for your online transaction of INR 582.25 at GOOGLE PLAY. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nT&C apply. Visit www.americanexpress.com for more details.",
+   "date": "2026-07-24",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "Your reward points summary",
+   "body": "नमस्ते,\nDear Customer,\nYou have 11809 reward points on your American Express Platinum Travel Credit Card no. XXXXXXXXXXXX1008. Redeem them on the rewards portal before they expire.",
+   "date": "2026-07-25",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m176",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.12,380.30 on 25-07-2026 towards your HSBC Credit Card XX7312. Thank you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-07-25",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m177",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 1735 reward points on your HSBC Visa Platinum Credit Card ending 7312. Redeem them on the rewards portal before they expire.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-07-25",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m178",
+   "subject": "OTP for online transaction",
+   "body": "736122 is the One Time Password (OTP) for your online transaction of INR 131.87 at UBER INDIA. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-26",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m179",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;received your payment of Rs.10,806.98 on 27-07-2026 towards your American Express Credit Card **1008. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,<br>\nYour HSBC Credit Card ending 7312 was used for INR 4,248.11 at BPCL FUEL on 27 Jul 2026.<br>\nIf you did not authorise this transaction, call 1800 267 3456.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m181",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - Aug 2026",
+   "body": "Dear&nbsp;Cardholder,\nPlease&nbsp;find&nbsp;enclosed your monthly statement ending 1008. Statement date: 12-Aug-2026. Total amount due Rs.7,480.26; minimum Rs.374.01; due 30-Aug-2026.\nSBI/BOB style auto pay available on request.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCredit Card Number: XXXX XXXX XXXX 1008\nCard Type: Platinum Travel\nStatement Date: 12/08/2026\nStatement Period: 13/07/2026 - 12/08/2026\nPayment Due Date: 30/08/2026\nTotal Amount Due: Rs. 7,480.26\nMinimum Amount Due: Rs. 374.01\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,02,891.00\n\nDate        Transaction Details                        Amount (Rs.)\n13/07/2026  URBAN COMPANY HYDERABAD   661.07 Dr\n06/08/2026  NETFLIX.COM HYDERABAD   1,364.70 Dr\n23/07/2026  SPOTIFY PUNE   308.47 Dr\n03/08/2026  DECATHLON CHENNAI   197.43 Dr\n15/07/2026  SPOTIFY CHENNAI   2,621.42 Dr\n25/07/2026  IRCTC CHENNAI   35,656.15 Dr\n01/08/2026  CAFE COFFEE DAY CHENNAI   22,493.62 Dr\n25/07/2026  BOOKMYSHOW GURGAON   27,147.33 Dr\n03/08/2026  PAYMENT RECEIVED - THANK YOU   4,488.16 Cr\n\nReward Points Summary: Opening 2627  Earned 477  Closing 8979\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4494797044895  IFSC AMER0000744"
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Priya Banerjee,\nThe statement of your HSBC Visa Platinum Credit Card ending 7312 for Aug 2026 is ready. Total due Rs.1,47,400.73, pay by 30 Aug 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m183",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,<br>\nYour transction of Rs.8,662.30 on card ending 1008 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.<br>\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transaction of Rs.10,990.38 on card ending 7312 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m185",
+   "subject": "Card Transaction Alert",
+   "body": "Dear&nbsp;Card&nbsp;Member,\nA&nbsp;charge of Rs. 98.37 was made on your American Express(R) Card ending 1008 at ZOMATO on 23 August 2026.\nTo view this charge, log in to your account.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;received your payment of Rs.7,480.26 on 23-08-2026 towards your American Express Credit Card ending 1008. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m187",
+   "subject": "Payment reminder: American Express Credit Card ending 1008",
+   "body": "नमस्ते,\nDear Customer,\nThis is a reminder that Rs.7,480.26 (minimum Rs.374.01) is due on 30-Aug-2026 on your American Express Credit Card ending 1008. Pay on time to avoid late payment charges.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m188",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "नमस्ते,\nDear Customer,\nYour HSBC Credit Card ending 7312 was used for INR 39,267.24 at SPOTIFY on 27 Aug 2026.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m189",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;received your payment of Rs.1,47,400.73 on 28-08-2026 towards your HSBC Credit Card ending 7312. Thank you.",
+   "date": "2026-08-28",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m190",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card ending 1008 has been processed. Tenure 9 months. First EMI will appear on your next statement.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card ending 7312 has been processed. Tenure 9 months. First EMI will appear on your next statement.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m192",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card xx7312 was used for INR 34,755.05 at STARBUCKS on 11 Sep 2026.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m193",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - Sep 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement xx1008. Statement date: 12-Sep-2026. Total amount due Rs.1,65,201.04; minimum Rs.8,260.05; due 30-Sep-2026.\nSBI/BOB style auto pay available on request.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCard No: 4570 79XX XXXX 1008\nCard Type: Platinum Travel\nStatement Date: 12/09/2026\nStatement Period: 13/08/2026 - 12/09/2026\nPayment Due Date: 30/09/2026\nTotal Amount Due: Rs. 1,65,201.04\nMinimum Amount Due: Rs. 8,260.05\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 92,375.00\n\nDate        Transaction Details                        Amount (Rs.)\n27/08/2026  REDBUS CHENNAI   16,725.73 Dr\n06/09/2026  HOTSTAR PUNE   2,142.91 Dr\n20/08/2026  MEDPLUS BANGALORE   33,704.30 Dr\n24/08/2026  DECATHLON MUMBAI   28,130.41 Dr\n09/09/2026  INDIGO AIRLINES GURGAON   1,808.96 Dr\n01/09/2026  MEDPLUS KOCHI   16,905.85 Dr\n24/08/2026  MEDPLUS KOCHI   433.25 Dr\n14/08/2026  BIGBASKET HYDERABAD   37,088.43 Dr\n19/08/2026  STARBUCKS CHENNAI   1,177.02 Dr\n03/09/2026  PAYMENT RECEIVED - THANK YOU   99,120.62 Cr\n\nReward Points Summary: Opening 7681  Earned 396  Closing 1708\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4494797044895  IFSC AMER0000608"
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m194",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Priya Banerjee,<br>\nThe statement of your HSBC Visa Platinum Credit Card ending 7312 for Sep 2026 is ready. Total due Rs.7,352.25, pay by 30 Sep 2026.<br>\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m195",
+   "subject": "Credit limit change on your card",
+   "body": "Dear&nbsp;Customer,\nBased&nbsp;on&nbsp;your profile, the credit limit on your American Express Platinum Travel Credit Card ending 1008 has been increased to Rs.4,50,000.00 effective 17-09-2026.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your HSBC Visa Platinum Credit Card ending 7312 has been increased to Rs.2,00,000.00 effective 17-09-2026.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m197",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 7312 was used for INR 225.78 at AIRBNB on 20 Sep 2026.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nThis is a system generated email. Please do not reply to this message.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-20",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m198",
+   "subject": "Card Transaction Alert",
+   "body": "Dear&nbsp;Card&nbsp;Member,\nA&nbsp;charge of Rs. 18,253.03 was made on your American Express(R) Card ending 1008 at DECATHLON on 22 September 2026.\nTo view this charge, log in to your account.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-09-22",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m199",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,65,201.04 on 22-09-2026 towards your American Express Credit Card **1008. Thank you.\n\nT&C apply. Visit www.americanexpress.com for more details.",
+   "date": "2026-09-22",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m200",
+   "subject": "Payment reminder: American Express Credit Card xx1008",
+   "body": "Dear Customer,\nThis is a reminder that Rs.1,65,201.04 (minimum Rs.8,260.05) is due on 30-Sep-2026 on your American Express Credit Card xx1008. Pay on time to avoid late payment charges.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "American Express <donotreply@americanexpress.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.7,352.25 on 27-09-2026 towards your HSBC Credit Card XXXX XXXX XXXX 7312. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m202",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 2,257.76 was made on your American Express(R) Card ending 1008 at LENSKART on 10 October 2026.\nTo view this charge, log in to your account.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-10-10",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m203",
+   "subject": "American Express Platinum Travel Credit Card Monthly Statement - Oct 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 1008. Statement date: 12-Oct-2026. Total amount due Rs.28,213.14; minimum Rs.1,410.66; due 30-Oct-2026.\nSBI/BOB style auto pay available on request.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "AMEX_Statement_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "AMERICAN EXPRESS - CREDIT CARD STATEMENT\nName: PRIYA BANERJEE\nCard No: 4213 37XX XXXX 1008\nStatement Date: 12/10/2026\nStatement Period: 12/09/2026 - 12/10/2026\nPayment Due Date: 30/10/2026\nTotal Amount Due: Rs. 28,213.14\nMinimum Amount Due: Rs. 1,410.66\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,77,087.00\n\nDate        Transaction Details                        Amount (Rs.)\n24/09/2026  NETFLIX.COM HYDERABAD   1,225.42 Dr\n01/10/2026  RELIANCE SMART CHENNAI   1,801.18 Dr\n25/09/2026  HOTSTAR GURGAON   1,847.56 Dr\n25/09/2026  HOTSTAR CHENNAI   28,569.09 Dr\n12/09/2026  PVR INOX KOCHI   31,401.69 Dr\n19/09/2026  BLINKIT PUNE   892.42 Dr\n22/09/2026  URBAN COMPANY GURGAON   22,932.94 Dr\n03/10/2026  NETFLIX.COM GURGAON   2,059.45 Dr\n03/10/2026  PAYMENT RECEIVED - THANK YOU   16,927.88 Cr\n\nReward Points Summary: Opening 7592  Earned 388  Closing 553\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4494797044895  IFSC AMER0000908"
+    }
+   ],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Priya Banerjee,\nThe statement of your HSBC Visa Platinum Credit Card ending 7312 for Oct 2026 is ready. Total due Rs.3,851.71, pay by 30 Oct 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nNever share your OTP, PIN, CVV or password with anyone. HSBC will never ask for these.\nT&C apply. Visit www.hsbc.co.in for more details.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m205",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 7,782.07 was made on your American Express(R) Card ending 1008 at PVR INOX on 16 October 2026.\nTo view this charge, log in to your account.",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m206",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "नमस्ते,\nDear Customer,\nYour HSBC Credit Card ending 7312 was used for INR 2,042.44 at URBAN COMPANY on 19 Oct 2026.\nIf you did not authorise this transaction, call 1800 267 3456.",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m207",
+   "subject": "Transaction cancelled / refund initiated",
+   "body": "Dear Customer,\nYour transaction at STARBUCKS for Rs.670.23 has been cancelled by the merchant. A refund will be credited to your card ending 1008 in 5-7 working days.",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m208",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;received your payment of Rs.28,213.14 on 22-10-2026 towards your American Express Credit Card ending 1008. Thank you.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m209",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.3,851.71 on 23-10-2026 towards your HSBC Credit Card xx7312. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-23",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m210",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 191.28 was made on your American Express(R) Card ending 1008 at HOTSTAR on 28 October 2026.\nTo view this charge, log in to your account.\n\nT&C apply. Visit www.americanexpress.com for more details.",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  },
+  {
+   "id": "m211",
+   "subject": "Card Transaction Alert",
+   "body": "Dear Card Member,\nA charge of Rs. 5,496.34 was made on your American Express(R) Card ending 1008 at REDBUS on 01 November 2026.\nTo view this charge, log in to your account.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-11-01",
+   "attachments": [],
+   "from": "American Express <AmericanExpress@welcome.americanexpress.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "americanexpress.com",
+    "last4": "1008",
+    "kind": "CREDIT_CARD",
+    "variant": "Platinum Travel",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "4650",
+    "kind": "CREDIT_CARD",
+    "variant": "Visa Platinum",
+    "lifecycle": "REPLACED",
+    "lifecyclePartnerLast4": "7312",
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "7312",
+    "kind": "CREDIT_CARD",
+    "variant": "Visa Platinum",
+    "lifecycle": "REPLACEMENT",
+    "lifecyclePartnerLast4": "4650",
+    "minEvidence": "STRONG"
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "americanexpress.com",
+    "last4": "4895",
+    "why": "bank own beneficiary account in statement payment instructions"
+   },
+   {
+    "issuerDomain": "americanexpress.com",
+    "last4": "7205",
+    "why": "masked mobile number"
+   },
+   {
+    "issuerDomain": "americanexpress.com",
+    "last4": "4986",
+    "why": "masked mobile number"
+   }
+  ]
+ }
+}

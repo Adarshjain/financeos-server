@@ -1,0 +1,2069 @@
+{
+ "mailbox": "sbi-simplyclick-union",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Union Bank of India Account Statement - Nov 2024",
+   "body": "Dear Farhan,\nYour Union Bank of India xx9948 account statement for Nov 2024 is ready. Closing balance Rs.3,061.33.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-11-10",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m002",
+   "subject": "Union Bank of India Debit Card transaction alert",
+   "body": "Rs.707.40 withdrawn using your Union Bank of India Debit Card XX9379 at ATM EAZYDINER on 10-11-2024.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-10",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m003",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Dear Customer,\nRs.137.48 has been debited from your IDBI Bank A/c xx8354 on 11-11-2024 (ECOM ZEPTO). Avl bal Rs.61,846.76.",
+   "date": "2024-11-11",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m004",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Farhan,\nYour order #599-8200563-1783278 is confirmed. Total Rs.313.97. Estimated delivery in 2 days.",
+   "date": "2024-11-14",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m005",
+   "subject": "IDBI Bank Account Statement - Nov 2024",
+   "body": "Dear Farhan,\nPlease find attached your IDBI Bank XX8354 statement for the period 19-Oct-2024 to 18-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-11-19",
+   "attachments": [
+    {
+     "filename": "IDBI_Acct_Nov2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m006",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Nov 2024",
+   "body": "Dear Farhan,\nYour SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for Nov 2024 is ready. Total amount due Rs.15,142.87, minimum amount due Rs.757.14, payable by 11-Dec-2024.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-11-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Your A/c XXXXXX9948 is credited with Rs.27,090.39 on 24-11-2024 - NEFT. Bal Rs.1,83,772.30. -Union Bank of India\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-11-24",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m008",
+   "subject": "Union Bank of India Account Statement - Dec 2024",
+   "body": "Dear Farhan,\nYour Union Bank of India *9948 account statement for Dec 2024 is ready. Closing balance Rs.16,100.75.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2024-12-10",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m009",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Your A/c xx8354 is credited with Rs.11,663.91 on 16-12-2024 - REFUND. Bal Rs.41,851.01. -IDBI Bank",
+   "date": "2024-12-16",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m010",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.1,095.06 spent on SBI Card SimplyCLICK XXXX XXXX XXXX 3520 at RELIANCE DIGITAL on 22/12/24.",
+   "date": "2024-12-22",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Dec 2024",
+   "body": "Dear Farhan,\nPlease find attached your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for the period 24-Nov-2024 to 23-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-12-24",
+   "attachments": [
+    {
+     "filename": "eStatement_202412.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c *9948 is debited for Rs.579.13 on 30-12-2024 - NEFT INDIAN OIL. Bal Rs.1,33,078.31. -Union Bank of India\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-12-30",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m013",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.273.66 spent on SBI Card SimplyCLICK XXXX XXXX XXXX 3520 at MYNTRA on 01/01/25.",
+   "date": "2025-01-01",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Ganesh Maid Service (A/c XXXXXX7049, Kotak Mahindra Bank) has been added to your account *9948. It will be active after 30 minutes.",
+   "date": "2025-01-01",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m015",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Farhan,\nYour order #638-4906222-7735690 is confirmed. Total Rs.364.72. Estimated delivery in 2 days.",
+   "date": "2025-01-04",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m016",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.1,727.30 spent on SBI Card SimplyCLICK XXXX XXXX XXXX 3520 at JIO RECHARGE on 05/01/25.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-01-05",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Union Bank of India Account Statement - Jan 2025",
+   "body": "Dear Farhan,\nPlease find attached your Union Bank of India *9948 statement for the period 10-Dec-2024 to 09-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-01-10",
+   "attachments": [
+    {
+     "filename": "Union_Statement_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m018",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Your A/c xx8354 is credited with Rs.3,859.24 on 10-01-2025 - NEFT. Bal Rs.3,401.73. -IDBI Bank",
+   "date": "2025-01-10",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m019",
+   "subject": "Union Bank of India: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 1357 has been successfully linked/verified for your Union Bank of India relationship. If this was not you, contact us.",
+   "date": "2025-01-14",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m020",
+   "subject": "IDBI Bank Account Statement - Jan 2025",
+   "body": "Dear Farhan,\nYour IDBI Bank XX8354 account statement for Jan 2025 is ready. Closing balance Rs.669.03.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-01-19",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m021",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.910.86 spent on SBI Card Credit Card XXXX XXXX XXXX 3520 at PHONEPE on 23/01/25.\n\nOpt for e-statements and go green.",
+   "date": "2025-01-23",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Jan 2025",
+   "body": "Dear Farhan,\nPlease find attached your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for the period 24-Dec-2024 to 23-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-24",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.173.96 credited to your Union Bank of India A/c *9948 on 24-01-2025 by INTEREST CREDIT. Ref 941882312429.\nThank you for banking with us.",
+   "date": "2025-01-24",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m024",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c XX9948 is debited for Rs.24,068.36 on 28-01-2025 - ECOM SPOTIFY. Bal Rs.5,014.42. -Union Bank of India\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-01-28",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m025",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,000.00 transferred from XX9948 to Ganesh Maid Service A/c XX7049 on 01-02-2025. Rent for the month.",
+   "date": "2025-02-01",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m026",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Dear Customer,\nRs.1,157.85 has been debited from your IDBI Bank A/c xx8354 on 05-02-2025 (POS JIO RECHARGE). Avl bal Rs.3,242.51.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-02-05",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m027",
+   "subject": "Union Bank of India Debit Card transaction alert",
+   "body": "Your Union Bank of India Debit Card XX9379 was used for Rs.6,411.46 at BOOKMYSHOW on 09-02-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-02-09",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m028",
+   "subject": "Union Bank of India Account Statement - Feb 2025",
+   "body": "Dear Farhan,\nPlease find attached your Union Bank of India xx9948 statement for the period 10-Jan-2025 to 09-Feb-2025. \n\n",
+   "date": "2025-02-10",
+   "attachments": [
+    {
+     "filename": "9948_09022025_stmt.pdf",
+     "protected": false,
+     "pdfText": "UNION BANK OF INDIA\nSTATEMENT OF ACCOUNT\nAccount Name : FARHAN PATEL\nFLAT 547, GREEN VALLEY APARTMENTS\n11TH CROSS, SECTOR 21\nPUNE - 633887\nAccount Number : xx9948\nAccount Type : SAVINGS ACCOUNT\nIFSC : UNIO0803572\nStatement Period : 10-01-2025 to 09-02-2025\nOpening Balance : Rs.70,379.94\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n12-01-2025 ATM WDL/GOOGLE PLAY 398111764 5,396.87 - 64,983.07\n13-01-2025 NEFT DR/PVR INOX 683812963 2,452.55 - 62,530.52\n15-01-2025 SALARY NEFT 123759155 - 159.82 62,690.34\n17-01-2025 POS/MAKEMYTRIP 461694302 1,706.64 - 60,983.70\n20-01-2025 IMPS/CR 314436075 - 106.13 61,089.83\n21-01-2025 NEFT DR/AIRTEL PREPAID 766581343 173.46 - 60,916.37\n24-01-2025 NEFT DR/FLIPKART 505170768 2,414.47 - 58,501.90\n24-01-2025 ATM WDL/MCDONALDS 624088882 1,102.34 - 57,399.56\n27-01-2025 ATM WDL/APPLE SERVICES 854193137 263.15 - 57,136.41\n27-01-2025 UPI/PVR INOX 425956675 493.31 - 56,643.10\n28-01-2025 UPI/BIGBASKET 951239249 16,506.22 - 40,136.88\nClosing Balance : Rs.40,136.88\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m029",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c XX9948 is debited for Rs.215.53 on 10-02-2025 - NEFT SWIGGY. Bal Rs.51,592.14. -Union Bank of India\n\nOpt for e-statements and go green.",
+   "date": "2025-02-10",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m030",
+   "subject": "Union Bank of India Debit Card transaction alert",
+   "body": "Rs.4,888.95 withdrawn using your Union Bank of India Debit Card ending 9379 at ATM ZEPTO on 13-02-2025.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-02-13",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m031",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 614510938123. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-02-18",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Union Bank of India: debit alert",
+   "body": "INR debit alert: Rs.442.25 debited from account *9948 on 21-02-2025. Narration: POS/DOMINOS. Available balance Rs.53,656.43.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-02-21",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m033",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Feb 2025",
+   "body": "Dear Farhan,\nPlease find attached your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for the period 24-Jan-2025 to 23-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-02-24",
+   "attachments": [
+    {
+     "filename": "3520_23022025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Your A/c XXXXXX8354 is debited for Rs.424.71 on 25-02-2025 - UPI BIG BAZAAR. Bal Rs.2,088.93. -IDBI Bank",
+   "date": "2025-02-25",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m035",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Dear Customer,\nRs.8,497.76 credited to your IDBI Bank A/c xx8354 on 26-02-2025 by SALARY NEFT. Ref 119811422086.\nThank you for banking with us.",
+   "date": "2025-02-26",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m036",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,500.00 transferred from xx9948 to Ganesh Maid Service A/c XX7049 on 01-03-2025. Rent for the month.",
+   "date": "2025-03-01",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m037",
+   "subject": "IDBI Bank: debit alert",
+   "body": "INR debit alert: Rs.24,904.14 debited from account XX8354 on 02-03-2025. Narration: IMPS/SODEXO. Available balance Rs.1,00,962.14.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-03-02",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m038",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.2,555.29 has been transferred from your A/c XXXXXX9948 to Priya Tailors A/c XX6958 (Bandhan Bank) via IMPS on 02-03-2025. Ref no 692145323264.",
+   "date": "2025-03-02",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m039",
+   "subject": "Union Bank of India: debit alert",
+   "body": "INR debit alert: Rs.826.94 debited from account *9948 on 05-03-2025. Narration: ECOM/SWIGGY. Available balance Rs.10,958.99.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-03-05",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m040",
+   "subject": "Union Bank of India Account Statement - Mar 2025",
+   "body": "Dear Farhan,\nYour Union Bank of India XXXXXX9948 account statement for Mar 2025 is ready. Closing balance Rs.6,935.05.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-03-10",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m041",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c *9948 is debited for Rs.180.46 on 12-03-2025 - NEFT NYKAA. Bal Rs.2,975.34. -Union Bank of India\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-03-12",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m042",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX8877 has been updated on 02-11-2025. If not requested by you, call customer care.",
+   "date": "2025-03-12",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m043",
+   "subject": "IDBI Bank Account Statement - Mar 2025",
+   "body": "Dear Farhan,\nPlease find attached your IDBI Bank XXXXXX8354 statement for the period 19-Feb-2025 to 18-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-19",
+   "attachments": [
+    {
+     "filename": "IDBI_Acct_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m044",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c XX9948 is debited for Rs.3,635.65 on 22-03-2025 - UPI DMART. Bal Rs.6,402.08. -Union Bank of India",
+   "date": "2025-03-22",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m045",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Mar 2025",
+   "body": "Dear Farhan,\nPlease find attached your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for the period 24-Feb-2025 to 23-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-03-24",
+   "attachments": [
+    {
+     "filename": "eStatement_202503.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.184.19 spent on SBI Card SimplyCLICK XXXX XXXX XXXX 3520 at MEDPLUS on 29/03/25.",
+   "date": "2025-03-29",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,500.00 transferred from XXXXXX9948 to Ganesh Maid Service A/c XX7049 on 01-04-2025. Rent for the month.",
+   "date": "2025-04-01",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m048",
+   "subject": "Union Bank of India Debit Card transaction alert",
+   "body": "Rs.2,693.87 withdrawn using your Union Bank of India Debit Card ending 9379 at ATM STARBUCKS on 03-04-2025.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-04-03",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m049",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.922.72 spent on SBI Card SimplyCLICK XXXX XXXX XXXX 3520 at BIG BAZAAR on 05/04/25.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-04-05",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "OTP for your transaction",
+   "body": "410813 is the OTP for your transaction of Rs.5,792.69 at AMAZON PAY INDIA. Valid for 10 minutes. Do not share.",
+   "date": "2025-04-05",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m051",
+   "subject": "Union Bank of India Account Statement - Apr 2025",
+   "body": "Dear Farhan,\nYour Union Bank of India XXXXXX9948 account statement for Apr 2025 is ready. Closing balance Rs.15,212.88.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-04-10",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m052",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Credit alert: Rs.3,645.67 has been credited to account *8354 on 12-04-2025 (NEFT). Avl bal Rs.1,22,994.43.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-04-12",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m053",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c XX9948 is debited for Rs.111.67 on 17-04-2025 - UPI MYNTRA. Bal Rs.2,784.35. -Union Bank of India",
+   "date": "2025-04-17",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m054",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 394376696565. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-04-20",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Apr 2025",
+   "body": "Dear Farhan,\nPlease find attached your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for the period 24-Mar-2025 to 23-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-04-24",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Apr2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "OTP for your transaction",
+   "body": "112344 is the OTP for your transaction of Rs.442.26 at RELIANCE DIGITAL. Valid for 10 minutes. Do not share.",
+   "date": "2025-04-27",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m057",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Dear Customer,\nRs.162.98 credited to your IDBI Bank A/c XX8354 on 28-04-2025 by REFUND. Ref 522663045112.\nThank you for banking with us.",
+   "date": "2025-04-28",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m058",
+   "subject": "Union Bank of India: debit alert",
+   "body": "INR debit alert: Rs.5,250.30 debited from account XX9948 on 29-04-2025. Narration: UPI/MYNTRA. Available balance Rs.23,925.42.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-29",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m059",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,500.00 transferred from XX9948 to Ganesh Maid Service A/c XX7049 on 01-05-2025. Rent for the month.",
+   "date": "2025-05-01",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m060",
+   "subject": "Earn more with your card",
+   "body": "Dear Farhan,\nUpgrade your savings with a fixed deposit @ 7.25% p.a.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-02",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m061",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.543.03 spent on your SBI Card Credit Card XXXX XXXX XXXX 3520 at PVR INOX on 04/05/25. Your available limit is Rs.25,253.34.\nContact 1860 180 1290 if this transaction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-05-04",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "SBI Card festive offers",
+   "body": "Dear Farhan,\nUse your card on UPI and earn extra rewards.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-07",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Union Bank of India Account Statement - May 2025",
+   "body": "Dear Farhan,\nYour Union Bank of India XX9948 account statement for May 2025 is ready. Closing balance Rs.12,058.43.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-10",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m064",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.374.45 has been debited from your Union Bank of India A/c xx9948 on 10-05-2025 (ECOM BIGBASKET). Avl bal Rs.86,342.91.",
+   "date": "2025-05-10",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m065",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.2,762.58 spent on SBI Card Credit Card XXXX XXXX XXXX 3520 at OLA CABS on 12/05/25.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-05-12",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "IDBI Bank Account Statement - May 2025",
+   "body": "Dear Farhan,\nPlease find attached your IDBI Bank XX8354 statement for the period 19-Apr-2025 to 18-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-05-19",
+   "attachments": [
+    {
+     "filename": "IDBI_Statement_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m067",
+   "subject": "OTP for your transaction",
+   "body": "634720 is the OTP for your transaction of Rs.12,000.63 at TATA POWER. Valid for 10 minutes. Do not share.",
+   "date": "2025-05-19",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m068",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - May 2025",
+   "body": "Dear Farhan,\nYour SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for May 2025 is ready. Total amount due Rs.16,977.21, minimum amount due Rs.848.86, payable by 10-Jun-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-05-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Union Bank of India: debit alert",
+   "body": "INR debit alert: Rs.30,379.04 debited from account XXXXXX9948 on 30-05-2025. Narration: ECOM/OLA CABS. Available balance Rs.21,245.95.",
+   "date": "2025-05-30",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m070",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.12,693.15 spent on SBI Card SimplyCLICK XXXX XXXX XXXX 3520 at APOLLO PHARMACY on 01/06/25.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-06-01",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Union Bank of India Debit Card transaction alert",
+   "body": "Your Union Bank of India Debit Card XX9379 was used for Rs.130.84 at LENSKART on 03-06-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-03",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m072",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Your A/c XX8354 is debited for Rs.8,061.14 on 05-06-2025 - ECOM INDIAN OIL. Bal Rs.1,13,459.06. -IDBI Bank\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-06-05",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m073",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Farhan,\nConvert big spends to EMI at low interest.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-05",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "OTP for your transaction",
+   "body": "375006 is the OTP for your transaction of Rs.1,496.38 at SWIGGY. Valid for 10 minutes. Do not share.",
+   "date": "2025-06-09",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m075",
+   "subject": "Union Bank of India Account Statement - Jun 2025",
+   "body": "Dear Farhan,\nPlease find attached your Union Bank of India XXXXXX9948 statement for the period 10-May-2025 to 09-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-06-10",
+   "attachments": [
+    {
+     "filename": "9948_09062025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m076",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.704.41 credited to your Union Bank of India A/c *9948 on 15-06-2025 by IMPS. Ref 632952241085.\nThank you for banking with us.",
+   "date": "2025-06-15",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m077",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.220.64 spent on your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 at ZEPTO on 16/06/25. Your available limit is Rs.19,688.99.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-06-16",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.16,080.10 spent on SBI Card Credit Card XXXX XXXX XXXX 3520 at AMAZON PAY INDIA on 16/06/25.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-16",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.352.09 has been debited from your Union Bank of India A/c XXXXXX9948 on 16-06-2025 (UPI SODEXO). Avl bal Rs.1,25,825.66.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-06-16",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m080",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Your A/c *9948 is credited with Rs.121.68 on 17-06-2025 - UPI. Bal Rs.9,581.14. -Union Bank of India",
+   "date": "2025-06-17",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m081",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Credit alert: Rs.2,623.11 has been credited to account XXXXXX8354 on 19-06-2025 (UPI). Avl bal Rs.2,038.36.",
+   "date": "2025-06-19",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m082",
+   "subject": "Union Bank of India Debit Card transaction alert",
+   "body": "Rs.288.28 withdrawn using your Union Bank of India Debit Card ending 9379 at ATM DECATHLON on 22-06-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-06-22",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m083",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Jun 2025",
+   "body": "Dear Farhan,\nYour SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for Jun 2025 is ready. Total amount due Rs.39,499.78, minimum amount due Rs.1,974.99, payable by 11-Jul-2025.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-06-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Dear Customer,\nRs.164.82 has been debited from your IDBI Bank A/c *8354 on 24-06-2025 (POS DOMINOS). Avl bal Rs.6,507.02.\n\nOpt for e-statements and go green.",
+   "date": "2025-06-24",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m085",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.291.88 spent on SBI Card Credit Card XXXX XXXX XXXX 3520 at MCDONALDS on 27/06/25.\n\nOpt for e-statements and go green.",
+   "date": "2025-06-27",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.1,670.09 has been transferred from your A/c *9948 to Sita Devi A/c XX4724 (Punjab National Bank) via IMPS on 02-07-2025. Ref no 529259936401.",
+   "date": "2025-07-02",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m087",
+   "subject": "IDBI Bank: debit alert",
+   "body": "INR debit alert: Rs.9,861.98 debited from account *8354 on 05-07-2025. Narration: IMPS/IKEA. Available balance Rs.9,767.36.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-05",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m088",
+   "subject": "Union Bank of India Account Statement - Jul 2025",
+   "body": "Dear Farhan,\nPlease find attached your Union Bank of India xx9948 statement for the period 10-Jun-2025 to 09-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-07-10",
+   "attachments": [
+    {
+     "filename": "9948_09072025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m089",
+   "subject": "IDBI Bank Account Statement - Jul 2025",
+   "body": "Dear Farhan,\nPlease find attached your IDBI Bank *8354 statement for the period 19-Jun-2025 to 18-Jul-2025. \n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-19",
+   "attachments": [
+    {
+     "filename": "IDBI_Acct_Jul2025.pdf",
+     "protected": false,
+     "pdfText": "IDBI BANK\nSTATEMENT OF ACCOUNT\nAccount Name : FARHAN PATEL\nFLAT 149, ORCHID APARTMENTS\n19TH CROSS, BANJARA HILLS\nHYDERABAD - 411012\nAccount Number : xx8354\nAccount Type : SAVINGS ACCOUNT\nIFSC : IDBI0970625\nStatement Period : 19-06-2025 to 18-07-2025\nOpening Balance : Rs.4,052.60\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n21-06-2025 NEFT DR/MAKEMYTRIP 663216852 226.26 - 3,826.34\n22-06-2025 NEFT DR/UBER INDIA 350838676 162.79 - 3,663.55\n24-06-2025 SALARY NEFT 779604457 - 11,309.67 14,973.22\n26-06-2025 ATM WDL/IKEA 846656705 10,004.21 - 4,969.01\n29-06-2025 NEFT DR/PAYTM 980310297 10,032.28 - -5,063.27\n02-07-2025 NEFT DR/SODEXO 739741508 232.55 - -5,295.82\n04-07-2025 NEFT DR/BIG BAZAAR 358991521 116.68 - -5,412.50\n06-07-2025 NEFT DR/IXIGO 991454037 111.50 - -5,524.00\n07-07-2025 INTEREST 169998867 - 4,519.54 -1,004.46\n09-07-2025 NEFT DR/IRCTC 784012070 7,745.44 - -8,749.90\n11-07-2025 POS/MAKEMYTRIP 665127975 7,486.58 - -16,236.48\n12-07-2025 IMPS/CR 646123477 - 1,499.70 -14,736.78\nClosing Balance : -Rs.14,736.78\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m090",
+   "subject": "Update your KYC",
+   "body": "Dear Farhan,\nAs per RBI guidelines please complete re-KYC for your SBI Card relationship. Visit a branch or use the app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-21",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Jul 2025",
+   "body": "Dear Farhan,\nPlease find attached your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for the period 24-Jun-2025 to 23-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-07-24",
+   "attachments": [
+    {
+     "filename": "3520_23072025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c XX9948 is debited for Rs.432.28 on 06-08-2025 - ECOM JIO RECHARGE. Bal Rs.1,86,662.75. -Union Bank of India\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-08-06",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m093",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Your A/c XX8354 is credited with Rs.38,758.47 on 06-08-2025 - REFUND. Bal Rs.11,531.66. -IDBI Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-06",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m094",
+   "subject": "Union Bank of India Account Statement - Aug 2025",
+   "body": "Dear Farhan,\nPlease find attached your Union Bank of India XX9948 statement for the period 10-Jul-2025 to 09-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-10",
+   "attachments": [
+    {
+     "filename": "9948_09082025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m095",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.296.32 spent on your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 at INDIGO AIRLINES on 11/08/25. Your available limit is Rs.1,49,332.01.\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-11",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Union Bank of India: debit alert",
+   "body": "INR debit alert: Rs.462.42 debited from account XX9948 on 11-08-2025. Narration: UPI/TATA POWER. Available balance Rs.1,30,947.56.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-08-11",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m097",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Credit alert: Rs.129.36 has been credited to account xx8354 on 12-08-2025 (INTEREST CREDIT). Avl bal Rs.31,276.28.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-08-12",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m098",
+   "subject": "Payment Received - SBI Card",
+   "body": "Payment of Rs.106.89 has been received towards your SBI Card Credit Card XXXX XXXX XXXX 3520 on 14/08/25. Thank you for the payment.",
+   "date": "2025-08-14",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.763.08 has been debited from your Union Bank of India A/c *9948 on 18-08-2025 (IMPS OLA CABS). Avl bal Rs.14,815.86.\n\nOpt for e-statements and go green.",
+   "date": "2025-08-18",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m100",
+   "subject": "Union Bank of India Debit Card transaction alert",
+   "body": "Your Union Bank of India Debit Card ending 9379 was used for Rs.89.64 at INDIAN OIL on 20-08-2025.",
+   "date": "2025-08-20",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m101",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Aug 2025",
+   "body": "Dear Farhan,\nPlease find attached your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for the period 24-Jul-2025 to 23-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-08-24",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c *9948 is debited for Rs.13,662.14 on 02-09-2025 - NEFT DMART. Bal Rs.73,373.43. -Union Bank of India\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-02",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m103",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.7,439.87 spent on SBI Card Credit Card XXXX XXXX XXXX 3520 at CROMA on 03/09/25.",
+   "date": "2025-09-03",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Union Bank of India Account Statement - Sep 2025",
+   "body": "Dear Farhan,\nYour Union Bank of India xx9948 account statement for Sep 2025 is ready. Closing balance Rs.2,969.85.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-10",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m105",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c xx9948 is debited for Rs.154.43 on 12-09-2025 - UPI OLA CABS. Bal Rs.31,897.52. -Union Bank of India",
+   "date": "2025-09-12",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m106",
+   "subject": "IDBI Bank Account Statement - Sep 2025",
+   "body": "Dear Farhan,\nPlease find attached your IDBI Bank XXXXXX8354 statement for the period 19-Aug-2025 to 18-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-09-19",
+   "attachments": [
+    {
+     "filename": "IDBI_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m107",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Your A/c xx8354 is debited for Rs.1,439.05 on 23-09-2025 - POS INDIAN OIL. Bal Rs.4,113.41. -IDBI Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-09-23",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m108",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Sep 2025",
+   "body": "Dear Farhan,\nPlease find attached your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for the period 24-Aug-2025 to 23-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-09-24",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Update your KYC",
+   "body": "Dear Farhan,\nAs per RBI guidelines please complete re-KYC for your Union Bank of India relationship. Visit a branch or use the app.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m110",
+   "subject": "Union Bank of India Debit Card transaction alert",
+   "body": "Your Union Bank of India Debit Card XX9379 was used for Rs.8,424.02 at URBAN COMPANY on 29-09-2025.",
+   "date": "2025-09-29",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m111",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Your A/c XXXXXX8354 is credited with Rs.30,784.72 on 29-09-2025 - SALARY NEFT. Bal Rs.1,24,332.16. -IDBI Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-29",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m112",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.32,115.73 credited to your Union Bank of India A/c *9948 on 06-10-2025 by INTEREST CREDIT. Ref 483651622318.\nThank you for banking with us.",
+   "date": "2025-10-06",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m113",
+   "subject": "Union Bank of India Account Statement - Oct 2025",
+   "body": "Dear Farhan,\nYour Union Bank of India XX9948 account statement for Oct 2025 is ready. Closing balance Rs.1,447.44.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-10",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m114",
+   "subject": "Update your KYC",
+   "body": "Dear Farhan,\nAs per RBI guidelines please complete re-KYC for your Union Bank of India relationship. Visit a branch or use the app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-13",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m115",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.753.70 has been debited from your Union Bank of India A/c XXXXXX9948 on 18-10-2025 (IMPS APOLLO PHARMACY). Avl bal Rs.50,443.69.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-10-18",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m116",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Dear Customer,\nRs.167.89 has been debited from your IDBI Bank A/c XX8354 on 21-10-2025 (NEFT MCDONALDS). Avl bal Rs.97,241.88.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-21",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m117",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.3,176.99 spent on SBI Card Credit Card XXXX XXXX XXXX 3520 at DOMINOS on 23/10/25.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-23",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Your A/c XXXXXX8354 is debited for Rs.24,289.78 on 23-10-2025 - IMPS MAKEMYTRIP. Bal Rs.16,643.74. -IDBI Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-10-23",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m119",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Oct 2025",
+   "body": "Dear Farhan,\nPlease find attached your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for the period 24-Sep-2025 to 23-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-24",
+   "attachments": [
+    {
+     "filename": "3520_23102025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Bill payment successful",
+   "body": "Dear Customer,\nCredit card bill payment of Rs.22,653.83 for Axis Bank Credit Card ending 1142 (cardholder: AARAV PATEL) was successful from your A/c XXXXXX9948 on 24-10-2025.",
+   "date": "2025-10-24",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m121",
+   "subject": "Payment Received - SBI Card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,112.75 on 27/10/25 for your SBI Card SimplyCLICK XXXX XXXX XXXX 3520. Available credit limit has been updated.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "IDBI Bank: debit alert",
+   "body": "INR debit alert: Rs.144.21 debited from account XX8354 on 04-11-2025. Narration: NEFT/ZEPTO. Available balance Rs.6,222.80.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m123",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.285.34 credited to your Union Bank of India A/c *9948 on 08-11-2025 by INTEREST CREDIT. Ref 177344976684.\nThank you for banking with us.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-08",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m124",
+   "subject": "Union Bank of India Account Statement - Nov 2025",
+   "body": "Dear Farhan,\nYour Union Bank of India xx9948 account statement for Nov 2025 is ready. Closing balance Rs.48,801.39.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-10",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m125",
+   "subject": "IDBI Bank: debit alert",
+   "body": "INR debit alert: Rs.80.49 debited from account *8354 on 14-11-2025. Narration: UPI/NYKAA. Available balance Rs.40,637.14.\n\nOpt for e-statements and go green.",
+   "date": "2025-11-14",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m126",
+   "subject": "IDBI Bank Account Statement - Nov 2025",
+   "body": "Dear Farhan,\nYour IDBI Bank XX8354 account statement for Nov 2025 is ready. Closing balance Rs.2,072.76.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-19",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m127",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Nov 2025",
+   "body": "Dear Farhan,\nPlease find attached your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for the period 24-Oct-2025 to 23-Nov-2025. Total amount due Rs.18,463.86, due 12-Dec-2025.\n\n",
+   "date": "2025-11-24",
+   "attachments": [
+    {
+     "filename": "eStatement_202511.pdf",
+     "protected": false,
+     "pdfText": "SBI Card Credit Card Statement\nFor Statement Period 24-Oct-2025 to 23-Nov-2025\nFARHAN PATEL\nFLAT 531, GREEN VALLEY APARTMENTS\n5TH CROSS, BANJARA HILLS\nAHMEDABAD - 696517\nCard Product: SBI Card SimplyCLICK\nCredit Card Number XXXX XXXX XXXX 3520\nStatement Date: 23-Nov-2025\nPayment Due Date: 12-Dec-2025\nTotal Amount Due: Rs.18,463.86\nMinimum Amount Due: Rs.923.19\nCredit Limit: Rs.55,000.00\nAvailable Credit Limit: Rs.44,640.75\nAvailable Cash Limit: Rs.11,000.00\nTRANSACTIONS FOR FARHAN PATEL\nDate Transaction Details Amount\n01-Nov-2025 DMART KOCHI 108.41 D\n03-Nov-2025 BATA INDIA MUMBAI 9,372.98 D\n05-Nov-2025 MAKEMYTRIP PUNE 391.99 D\n09-Nov-2025 BESCOM BENGALURU 4,209.06 D\n12-Nov-2025 JIO RECHARGE PUNE 859.71 D\n13-Nov-2025 SODEXO AHMEDABAD 601.87 D\n19-Nov-2025 STARBUCKS HYDERABAD 2,400.45 D\n22-Nov-2025 BIG BAZAAR KOCHI 519.39 D\n\nAdd-on Card Transactions\nHARSH PATEL - XXXX XXXX XXXX 1347\n01/11/25 PAYTM BENGALURU 3,184.56\n12/11/25 IKEA KOLKATA 10,235.43\n14/11/25 URBAN COMPANY BENGALURU 173.33\n22/11/25 ZOMATO GURUGRAM 207.07\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Farhan,\nYour order #597-5259389-4354232 is confirmed. Total Rs.442.66. Estimated delivery in 2 days.",
+   "date": "2025-11-26",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m129",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Dear Customer,\nRs.263.03 has been debited from your IDBI Bank A/c XXXXXX8354 on 29-11-2025 (UPI DOMINOS). Avl bal Rs.11,929.10.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-29",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m130",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Dear Customer,\nRs.16,881.65 has been debited from your IDBI Bank A/c xx8354 on 01-12-2025 (UPI MYNTRA). Avl bal Rs.4,665.61.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-01",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m131",
+   "subject": "Refer and earn",
+   "body": "Dear Farhan,\nGet up to 10% cashback on partner brands.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-12-02",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m132",
+   "subject": "Union Bank of India Account Statement - Dec 2025",
+   "body": "Dear Farhan,\nPlease find attached your Union Bank of India XXXXXX9948 statement for the period 10-Nov-2025 to 09-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202512.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m133",
+   "subject": "Payment Received - SBI Card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.578.18 on 14/12/25 for your SBI Card SimplyCLICK XXXX XXXX XXXX 3520. Available credit limit has been updated.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-12-14",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.104.71 spent on SBI Card Credit Card XXXX XXXX XXXX 3520 at BLINKIT on 18/12/25.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-18",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Your A/c XXXXXX9948 is credited with Rs.506.84 on 21-12-2025 - SALARY NEFT. Bal Rs.21,727.53. -Union Bank of India\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-12-21",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m136",
+   "subject": "Union Bank of India Debit Card transaction alert",
+   "body": "Dear Customer,\nRs.3,213.87 spent on your Union Bank of India Debit Card XX9379 at APPLE SERVICES on 23-12-2025 08:07:02. Avl bal Rs.41,205.97.",
+   "date": "2025-12-23",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m137",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Dec 2025",
+   "body": "Dear Farhan,\nYour SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for Dec 2025 is ready. Total amount due Rs.4,807.30, minimum amount due Rs.240.37, payable by 10-Jan-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-12-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Union Bank of India Account Statement - Jan 2026",
+   "body": "Dear Farhan,\nPlease find attached your Union Bank of India *9948 statement for the period 10-Dec-2025 to 09-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-01-10",
+   "attachments": [
+    {
+     "filename": "Union_Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m139",
+   "subject": "IDBI Bank: credit alert",
+   "body": "Your A/c *8354 is credited with Rs.1,034.26 on 11-01-2026 - INTEREST CREDIT. Bal Rs.9,335.07. -IDBI Bank\n\nOpt for e-statements and go green.",
+   "date": "2026-01-11",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m140",
+   "subject": "IDBI Bank Account Statement - Jan 2026",
+   "body": "Dear Farhan,\nYour IDBI Bank XXXXXX8354 account statement for Jan 2026 is ready. Closing balance Rs.42,918.57.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-01-19",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m141",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Jan 2026",
+   "body": "Dear Farhan,\nYour SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for Jan 2026 is ready. Total amount due Rs.3,504.09, minimum amount due Rs.200.00, payable by 10-Feb-2026.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-01-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Farhan,\nYour order #591-1933566-8961375 is confirmed. Total Rs.7,950.17. Estimated delivery in 2 days.",
+   "date": "2026-02-03",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.8,065.17 spent on SBI Card Credit Card XXXX XXXX XXXX 3520 at GOOGLE PLAY on 06/02/26.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-02-06",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Union Bank of India Account Statement - Feb 2026",
+   "body": "Dear Farhan,\nYour Union Bank of India XX9948 account statement for Feb 2026 is ready. Closing balance Rs.3,265.31.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-10",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m145",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.3,192.83 spent on SBI Card Credit Card XXXX XXXX XXXX 3520 at BOOKMYSHOW on 17/02/26.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-02-17",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "Union Bank of India Debit Card transaction alert",
+   "body": "Your Union Bank of India Debit Card xx9379 was used for Rs.92.96 at MEDPLUS on 17-02-2026.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-02-17",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m147",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.2,835.41 has been transferred from your A/c XXXXXX9948 to Priya Tailors A/c XX6958 (Bandhan Bank) via IMPS on 23-02-2026. Ref no 322664028472.",
+   "date": "2026-02-23",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m148",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Feb 2026",
+   "body": "Dear Farhan,\nPlease find attached your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for the period 24-Jan-2026 to 23-Feb-2026. Total amount due Rs.42,157.92, due 10-Mar-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-24",
+   "attachments": [
+    {
+     "filename": "3520_23022026_stmt.pdf",
+     "protected": false,
+     "pdfText": "SBI Card Credit Card Statement\nFor Statement Period 24-Jan-2026 to 23-Feb-2026\nFARHAN PATEL\nFLAT 788, SUNRISE APARTMENTS\n3TH CROSS, BANJARA HILLS\nAHMEDABAD - 609767\nCard Product: SBI Card SimplyCLICK\nCredit Card Number XXXX XXXX XXXX 3520\nStatement Date: 23-Feb-2026\nPayment Due Date: 10-Mar-2026\nTotal Amount Due: Rs.42,157.92\nMinimum Amount Due: Rs.2,107.90\nCredit Limit: Rs.55,000.00\nAvailable Credit Limit: Rs.34,571.42\nAvailable Cash Limit: Rs.11,000.00\nTRANSACTIONS FOR FARHAN PATEL\nDate Transaction Details Amount\n26-Jan-2026 STARBUCKS KOLKATA 2,179.10 D\n31-Jan-2026 RELIANCE DIGITAL KOLKATA 20,476.86 D\n08-Feb-2026 DOMINOS CHENNAI 863.80 D\n16-Feb-2026 URBAN COMPANY CHENNAI 16,132.24 D\n18-Feb-2026 FLIPKART KOCHI 362.54 D\n22-Feb-2026 BATA INDIA JAIPUR 1,523.65 D\n22-Feb-2026 OLA CABS KOCHI 619.73 D\n\nAdd-on Card Transactions\nHARSH PATEL - XXXX XXXX XXXX 1347\n25/01/26 SODEXO HYDERABAD 1,304.94\n27/01/26 BESCOM CHENNAI 537.57\n28/01/26 MAKEMYTRIP KOCHI 6,279.05\n04/02/26 SODEXO KOLKATA 548.85\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.6,446.93 has been debited from your Union Bank of India A/c XX9948 on 03-03-2026 (ECOM RELIANCE DIGITAL). Avl bal Rs.3,239.41.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-03-03",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m150",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.11,655.27 spent on SBI Card SimplyCLICK XXXX XXXX XXXX 3520 at SODEXO on 04/03/26.",
+   "date": "2026-03-04",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Union Bank of India Account Statement - Mar 2026",
+   "body": "Dear Farhan,\nPlease find attached your Union Bank of India xx9948 statement for the period 10-Feb-2026 to 09-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-10",
+   "attachments": [
+    {
+     "filename": "9948_09032026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m152",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.696.64 spent on your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 at DECATHLON on 11/03/26. Your available limit is Rs.13,081.81.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-03-11",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "Update your KYC",
+   "body": "Dear Farhan,\nAs per RBI guidelines please complete re-KYC for your SBI Card relationship. Visit a branch or use the app.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-11",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Farhan,\nPlease find attached the updated MITC for your SBI Card credit cards.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.176.29 credited to your Union Bank of India A/c XX9948 on 14-03-2026 by SALARY NEFT. Ref 138358027455.\nThank you for banking with us.",
+   "date": "2026-03-14",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m156",
+   "subject": "IDBI Bank Account Statement - Mar 2026",
+   "body": "Dear Farhan,\nYour IDBI Bank XXXXXX8354 account statement for Mar 2026 is ready. Closing balance Rs.29,603.98.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-19",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m157",
+   "subject": "Refer and earn",
+   "body": "Dear Farhan,\nGet up to 10% cashback on partner brands.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-21",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m158",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Mar 2026",
+   "body": "Dear Farhan,\nPlease find attached your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for the period 24-Feb-2026 to 23-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-24",
+   "attachments": [
+    {
+     "filename": "eStatement_202603.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Your A/c XX8354 is debited for Rs.21,445.94 on 25-03-2026 - IMPS ZEPTO. Bal Rs.1,36,909.57. -IDBI Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-25",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m160",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,771.82 spent on your SBI Card Credit Card XXXX XXXX XXXX 3520 at BOOKMYSHOW on 26/03/26. Your available limit is Rs.75,795.67.\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-26",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "IDBI Bank: debit alert",
+   "body": "INR debit alert: Rs.295.35 debited from account *8354 on 29-03-2026. Narration: ECOM/PAYTM. Available balance Rs.1,30,968.70.",
+   "date": "2026-03-29",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m162",
+   "subject": "Union Bank of India: debit alert",
+   "body": "INR debit alert: Rs.124.82 debited from account *9948 on 30-03-2026. Narration: ECOM/STARBUCKS. Available balance Rs.74,971.13.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-30",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m163",
+   "subject": "Union Bank of India Account Statement - Apr 2026",
+   "body": "Dear Farhan,\nYour Union Bank of India XX9948 account statement for Apr 2026 is ready. Closing balance Rs.10,015.84.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-10",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m164",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c XX9948 is debited for Rs.14,278.66 on 21-04-2026 - UPI NYKAA. Bal Rs.34,171.67. -Union Bank of India",
+   "date": "2026-04-21",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m165",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Apr 2026",
+   "body": "Dear Farhan,\nYour SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for Apr 2026 is ready. Total amount due Rs.17,915.73, minimum amount due Rs.895.79, payable by 11-May-2026.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-04-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Dear Customer,\nRs.24,850.61 has been debited from your IDBI Bank A/c *8354 on 01-05-2026 (NEFT DMART). Avl bal Rs.94,416.68.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-05-01",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m167",
+   "subject": "Union Bank of India Account Statement - May 2026",
+   "body": "Dear Farhan,\nYour Union Bank of India xx9948 account statement for May 2026 is ready. Closing balance Rs.3,864.55.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-10",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m168",
+   "subject": "Union Bank of India Debit Card transaction alert",
+   "body": "Your Union Bank of India Debit Card xx9379 was used for Rs.254.02 at BESCOM on 17-05-2026.",
+   "date": "2026-05-17",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m169",
+   "subject": "IDBI Bank Account Statement - May 2026",
+   "body": "Dear Farhan,\nPlease find attached your IDBI Bank xx8354 statement for the period 19-Apr-2026 to 18-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-19",
+   "attachments": [
+    {
+     "filename": "IDBI_Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m170",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.551.99 spent on SBI Card SimplyCLICK XXXX XXXX XXXX 3520 at NYKAA on 21/05/26.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-21",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 366989600766. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-05-22",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m172",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - May 2026",
+   "body": "Dear Farhan,\nYour SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for May 2026 is ready. Total amount due Rs.505.95, minimum amount due Rs.200.00, payable by 10-Jun-2026.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "Union Bank of India Debit Card transaction alert",
+   "body": "Dear Customer,\nRs.6,455.79 spent on your Union Bank of India Debit Card xx9379 at CROMA on 31-05-2026 08:01:15. Avl bal Rs.1,67,677.95.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-05-31",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m174",
+   "subject": "OTP for your transaction",
+   "body": "960737 is the OTP for your transaction of Rs.17,940.72 at ZEPTO. Valid for 10 minutes. Do not share.",
+   "date": "2026-06-05",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m175",
+   "subject": "Union Bank of India Account Statement - Jun 2026",
+   "body": "Dear Farhan,\nPlease find attached your Union Bank of India XXXXXX9948 statement for the period 10-May-2026 to 09-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-10",
+   "attachments": [
+    {
+     "filename": "9948_09062026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m176",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Jun 2026",
+   "body": "Dear Farhan,\nPlease find attached your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for the period 24-May-2026 to 23-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-06-24",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Your A/c XX9948 is credited with Rs.13,235.67 on 26-06-2026 - IMPS. Bal Rs.52,734.12. -Union Bank of India\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-26",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m178",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.4,064.11 spent on SBI Card Credit Card XXXX XXXX XXXX 3520 at BIGBASKET on 27/06/26.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m179",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,728.90 spent on your SBI Card Credit Card XXXX XXXX XXXX 3520 at BIGBASKET on 28/06/26. Your available limit is Rs.2,038.08.\nContact 1860 180 1290 if this transaction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.5,311.51 has been transferred from your A/c XXXXXX9948 to Priya Tailors A/c XX6958 (Bandhan Bank) via IMPS on 03-07-2026. Ref no 589797916347.",
+   "date": "2026-07-03",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m181",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.144.74 spent on SBI Card Credit Card XXXX XXXX XXXX 3520 at BLINKIT on 04/07/26.\n\nOpt for e-statements and go green.",
+   "date": "2026-07-04",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Your A/c XX8354 is debited for Rs.9,714.04 on 04-07-2026 - UPI BESCOM. Bal Rs.1,41,571.63. -IDBI Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-07-04",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m183",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.6,660.27 spent on SBI Card SimplyCLICK XXXX XXXX XXXX 3520 at SODEXO on 08/07/26.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-08",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "IDBI Bank: debit alert",
+   "body": "INR debit alert: Rs.144.66 debited from account *8354 on 08-07-2026. Narration: IMPS/SPOTIFY. Available balance Rs.50,364.96.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-08",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m185",
+   "subject": "Union Bank of India Debit Card transaction alert",
+   "body": "Rs.12,845.62 withdrawn using your Union Bank of India Debit Card XX9379 at ATM URBAN COMPANY on 09-07-2026.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-09",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m186",
+   "subject": "Union Bank of India Account Statement - Jul 2026",
+   "body": "Dear Farhan,\nYour Union Bank of India XXXXXX9948 account statement for Jul 2026 is ready. Closing balance Rs.10,575.61.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-10",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m187",
+   "subject": "IDBI Bank: debit alert",
+   "body": "INR debit alert: Rs.401.07 debited from account XX8354 on 12-07-2026. Narration: UPI/UBER INDIA. Available balance Rs.2,303.52.",
+   "date": "2026-07-12",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m188",
+   "subject": "OTP for your transaction",
+   "body": "599394 is the OTP for your transaction of Rs.407.80 at DMART. Valid for 10 minutes. Do not share.",
+   "date": "2026-07-13",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m189",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.3,175.58 has been debited from your Union Bank of India A/c XX9948 on 16-07-2026 (IMPS MYNTRA). Avl bal Rs.1,70,778.41.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m190",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Farhan,\nYour order #206-6215778-6895780 is confirmed. Total Rs.3,104.95. Estimated delivery in 2 days.",
+   "date": "2026-07-17",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "OTP for your transaction",
+   "body": "705104 is the OTP for your transaction of Rs.1,426.29 at DOMINOS. Valid for 10 minutes. Do not share.",
+   "date": "2026-07-17",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Your A/c XX8354 is debited for Rs.9,893.00 on 18-07-2026 - POS LENSKART. Bal Rs.11,878.44. -IDBI Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-18",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m193",
+   "subject": "IDBI Bank Account Statement - Jul 2026",
+   "body": "Dear Farhan,\nPlease find attached your IDBI Bank XX8354 statement for the period 19-Jun-2026 to 18-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-19",
+   "attachments": [
+    {
+     "filename": "IDBI_Acct_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m194",
+   "subject": "Union Bank of India Debit Card transaction alert",
+   "body": "Dear Customer,\nRs.1,478.91 spent on your Union Bank of India Debit Card XX9379 at GOOGLE PLAY on 21-07-2026 18:00:52. Avl bal Rs.1,47,156.06.\n\nOpt for e-statements and go green.",
+   "date": "2026-07-21",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m195",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Jul 2026",
+   "body": "Dear Farhan,\nPlease find attached your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for the period 24-Jun-2026 to 23-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-07-24",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.1,576.44 has been debited from your Union Bank of India A/c *9948 on 31-07-2026 (UPI PVR INOX). Avl bal Rs.1,13,583.40.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-07-31",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m197",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Your A/c XXXXXX8354 is debited for Rs.6,068.13 on 04-08-2026 - IMPS HPCL PETROL. Bal Rs.7,409.75. -IDBI Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-04",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m198",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.9,613.83 spent on your SBI Card Credit Card XXXX XXXX XXXX 3520 at UBER INDIA on 05/08/26. Your available limit is Rs.93,835.78.\nContact 1860 180 1290 if this transaction was not done by you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-05",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m199",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.1,749.40 has been debited from your Union Bank of India A/c XXXXXX9948 on 05-08-2026 (IMPS TATA PLAY). Avl bal Rs.7,791.54.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-05",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m200",
+   "subject": "Union Bank of India: funds transferred",
+   "body": "Dear Customer,\nRs.950.04 has been transferred from your A/c xx9948 to Sita Devi A/c XX4724 (Punjab National Bank) via IMPS on 08-08-2026. Ref no 379091805353.",
+   "date": "2026-08-08",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m201",
+   "subject": "Union Bank of India Account Statement - Aug 2026",
+   "body": "Dear Farhan,\nPlease find attached your Union Bank of India xx9948 statement for the period 10-Jul-2026 to 09-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-10",
+   "attachments": [
+    {
+     "filename": "9948_09082026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m202",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.11,214.36 spent on your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 at OLA CABS on 16/08/26. Your available limit is Rs.18,928.15.\nContact 1860 180 1290 if this transaction was not done by you.\n\nOpt for e-statements and go green.",
+   "date": "2026-08-16",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m203",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,772.31 spent on your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 at HPCL PETROL on 17/08/26. Your available limit is Rs.10,205.94.\nContact 1860 180 1290 if this transaction was not done by you.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-17",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "Payment Received - SBI Card",
+   "body": "Payment of Rs.129.44 has been received towards your SBI Card Credit Card XXXX XXXX XXXX 3520 on 21/08/26. Thank you for the payment.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-21",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m205",
+   "subject": "IDBI Bank: debit alert",
+   "body": "INR debit alert: Rs.26,014.69 debited from account xx8354 on 22-08-2026. Narration: ECOM/SPOTIFY. Available balance Rs.3,807.06.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m206",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Aug 2026",
+   "body": "Dear Farhan,\nYour SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for Aug 2026 is ready. Total amount due Rs.21,028.89, minimum amount due Rs.1,051.44, payable by 10-Sep-2026.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m207",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,723.00 spent on your SBI Card Credit Card XXXX XXXX XXXX 3520 at NETFLIX on 24/08/26. Your available limit is Rs.31,948.89.\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m208",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.3,309.61 credited to your Union Bank of India A/c XXXXXX9948 on 25-08-2026 by INTEREST CREDIT. Ref 804512758192.\nThank you for banking with us.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-25",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m209",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.91.57 has been debited from your Union Bank of India A/c xx9948 on 31-08-2026 (POS CROMA). Avl bal Rs.1,92,746.82.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-31",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m210",
+   "subject": "Union Bank of India: debit alert",
+   "body": "INR debit alert: Rs.3,946.36 debited from account XXXXXX9948 on 01-09-2026. Narration: POS/EASEMYTRIP. Available balance Rs.43,746.92.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-01",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m211",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,366.10 spent on your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 at EAZYDINER on 02/09/26. Your available limit is Rs.3,182.64.\nContact 1860 180 1290 if this transaction was not done by you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-09-02",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m212",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Dear Customer,\nRs.475.15 has been debited from your IDBI Bank A/c XXXXXX8354 on 04-09-2026 (POS UBER INDIA). Avl bal Rs.3,043.77.",
+   "date": "2026-09-04",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m213",
+   "subject": "Update your KYC",
+   "body": "Dear Farhan,\nAs per RBI guidelines please complete re-KYC for your SBI Card relationship. Visit a branch or use the app.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-06",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m214",
+   "subject": "Union Bank of India Account Statement - Sep 2026",
+   "body": "Dear Farhan,\nPlease find attached your Union Bank of India xx9948 statement for the period 10-Aug-2026 to 09-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-09-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202609.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m215",
+   "subject": "IDBI Bank Account Statement - Sep 2026",
+   "body": "Dear Farhan,\nYour IDBI Bank XXXXXX8354 account statement for Sep 2026 is ready. Closing balance Rs.15,910.25.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-09-19",
+   "attachments": [],
+   "from": "IDBI Bank <estatement@idbi.co.in>"
+  },
+  {
+   "id": "m216",
+   "subject": "IDBI Bank: debit alert",
+   "body": "INR debit alert: Rs.12,239.16 debited from account xx8354 on 19-09-2026. Narration: UPI/OLA CABS. Available balance Rs.3,220.60.",
+   "date": "2026-09-19",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m217",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Sep 2026",
+   "body": "Dear Farhan,\nYour SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for Sep 2026 is ready. Total amount due Rs.7,027.79, minimum amount due Rs.351.39, payable by 11-Oct-2026.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m218",
+   "subject": "Union Bank of India: funds transferred",
+   "body": "Dear Customer,\nRs.22,249.17 has been transferred from your A/c XXXXXX9948 to Lata Tutor A/c XX3718 (SBI Card) via IMPS on 24-09-2026. Ref no 730994169791.",
+   "date": "2026-09-24",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m219",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.16,114.95 spent on your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 at PAYTM on 09/10/26. Your available limit is Rs.6,542.49.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-10-09",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m220",
+   "subject": "IDBI Bank: debit alert",
+   "body": "Dear Customer,\nRs.3,164.45 has been debited from your IDBI Bank A/c *8354 on 09-10-2026 (NEFT BPCL FUEL). Avl bal Rs.72,405.29.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-09",
+   "attachments": [],
+   "from": "IDBI Bank <alerts@idbi.co.in>"
+  },
+  {
+   "id": "m221",
+   "subject": "Union Bank of India Account Statement - Oct 2026",
+   "body": "Dear Farhan,\nYour Union Bank of India *9948 account statement for Oct 2026 is ready. Closing balance Rs.2,070.38.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-10-10",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m222",
+   "subject": "Your SBI Card SimplyCLICK Monthly Statement - Oct 2026",
+   "body": "Dear Farhan,\nPlease find attached your SBI Card SimplyCLICK XXXX XXXX XXXX 3520 statement for the period 24-Sep-2026 to 23-Oct-2026. Total amount due Rs.46,509.29, due 11-Nov-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-24",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "SBI Card Credit Card Statement\nFor Statement Period 24-Sep-2026 to 23-Oct-2026\nFARHAN PATEL\nFLAT 391, LAKESHORE APARTMENTS\n11TH CROSS, ADYAR\nMUMBAI - 593242\nCard Product: SBI Card SimplyCLICK\nCredit Card Number XXXX XXXX XXXX 3520\nStatement Date: 23-Oct-2026\nPayment Due Date: 11-Nov-2026\nTotal Amount Due: Rs.46,509.29\nMinimum Amount Due: Rs.2,325.46\nCredit Limit: Rs.55,000.00\nAvailable Credit Limit: Rs.38,527.37\nAvailable Cash Limit: Rs.11,000.00\nTRANSACTIONS FOR FARHAN PATEL\nDate Transaction Details Amount\n25-Sep-2026 PAYTM BENGALURU 9,039.72 D\n27-Sep-2026 DOMINOS HYDERABAD 213.54 D\n02-Oct-2026 BLINKIT KOCHI 810.12 D\n02-Oct-2026 MCDONALDS GURUGRAM 15,617.04 D\n07-Oct-2026 BLINKIT HYDERABAD 628.20 D\n08-Oct-2026 GOOGLE PLAY HYDERABAD 202.08 D\n09-Oct-2026 IRCTC KOLKATA 97.59 D\n10-Oct-2026 BPCL FUEL AHMEDABAD 4,243.30 D\n14-Oct-2026 DMART BENGALURU 4,265.57 D\n17-Oct-2026 LENSKART GURUGRAM 3,427.07 D\n17-Oct-2026 RELIANCE DIGITAL KOCHI 3,356.97 D\n22-Oct-2026 BPCL FUEL GURUGRAM 4,608.09 D\n\nAdd-on Card Transactions\nHARSH PATEL - XXXX XXXX XXXX 1347\n24/09/26 TATA POWER HYDERABAD 617.72\n28/09/26 INDIGO AIRLINES AHMEDABAD 472.97\n30/09/26 BOOKMYSHOW HYDERABAD 2,224.73\n18/10/26 PAYTM JAIPUR 7,800.50\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "3520",
+    "kind": "CREDIT_CARD",
+    "variant": "SimplyCLICK",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "<1L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "1347",
+    "kind": "CREDIT_CARD",
+    "variant": "SimplyCLICK",
+    "lifecycle": "ADDON",
+    "lifecyclePartnerLast4": "3520",
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": "3520"
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "9948",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "9379",
+    "kind": "DEBIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "idbi.co.in",
+    "last4": "8354",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "3718",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "4724",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "6958",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "7049",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "1357",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "8877",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "6565",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "0766",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "8123",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "1142",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

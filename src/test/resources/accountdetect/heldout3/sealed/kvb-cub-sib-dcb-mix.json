@@ -1,0 +1,2345 @@
+{
+ "mailbox": "kvb-cub-sib-dcb-mix",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Karur Vysya Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.1,264.19 credited to your Karur Vysya Bank A/c XX3109 on 05-Sep-2024 by UPI. Ref 506468784524.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-09-05",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m002",
+   "subject": "South Indian Bank Account Statement - Sep 2024",
+   "body": "Dear Arjun,\nPlease find attached your South Indian Bank xx4156 statement for the period 11-Aug-2024 to 10-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-09-11",
+   "attachments": [
+    {
+     "filename": "South_Acct_Sep2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "South Indian Bank <estatement@southindianbank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Karur Vysya Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.1,509.38 has been debited from your Karur Vysya Bank A/c *3109 on 11-Sep-2024 (UPI PVR INOX). Avl bal Rs.63,472.37.",
+   "date": "2024-09-11",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m004",
+   "subject": "DCB Bank: credit alert on your account",
+   "body": "Your A/c XXXXXX9856 is credited with Rs.149.33 on 13-Sep-2024 - IMPS. Bal Rs.89,192.33. -DCB Bank",
+   "date": "2024-09-13",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "DCB Bank Account Statement - Sep 2024",
+   "body": "Dear Arjun,\nPlease find attached your DCB Bank *9856 statement for the period 15-Aug-2024 to 14-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-09-15",
+   "attachments": [
+    {
+     "filename": "DCB_Acct_Sep2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DCB Bank <estatement@dcbbank.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "South Indian Bank: debit alert on your account",
+   "body": "Alert: South Indian Bank A/c *4156 debited Rs.94.94 on 15-Sep-2024. Mode: ECOM. Details: DOMINOS. Balance Rs.38,129.59.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-09-15",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Karur Vysya Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.528.07 debited from account XXXXXX3109 on 16-Sep-2024. Narration: NEFT/BATA INDIA. Available balance Rs.17,715.68.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-09-16",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m008",
+   "subject": "City Union Bank Account Statement - Sep 2024",
+   "body": "Dear Arjun,\nYour City Union Bank xx9772 account statement for Sep 2024 is ready. Closing balance Rs.33,753.25.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-09-19",
+   "attachments": [],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "DCB Bank: debit alert on your account",
+   "body": "Your A/c *9856 is debited for Rs.22,737.82 on 23-Sep-2024 - ECOM FLIPKART. Bal Rs.1,49,222.18. -DCB Bank\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-09-23",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "DCB Bank: debit alert on your account",
+   "body": "Rs.13,109.16 withdrawn from XX9856 on 26-Sep-2024 via IMPS to BIG BAZAAR. Closing balance Rs.4,484.49.",
+   "date": "2024-09-26",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Karur Vysya Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.6,886.13 has been debited from your Karur Vysya Bank A/c XXXXXX3109 on 01-Oct-2024 (ECOM INDIAN OIL). Avl bal Rs.5,238.63.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-10-01",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m012",
+   "subject": "Karur Vysya Bank Account Statement - Oct 2024",
+   "body": "Dear Arjun,\nPlease find attached your Karur Vysya Bank XXXXXX3109 statement for the period 04-Sep-2024 to 03-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-10-04",
+   "attachments": [
+    {
+     "filename": "Karur_Statement_Oct2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m013",
+   "subject": "Karur Vysya Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.1,318.73 has been debited from your Karur Vysya Bank A/c xx3109 on 04-Oct-2024 (POS OLA CABS). Avl bal Rs.7,529.37.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-10-04",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m014",
+   "subject": "Update your KYC",
+   "body": "Dear Arjun,\nAs per RBI guidelines please complete re-KYC for your South Indian Bank relationship. Visit a branch or use the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-10-08",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "DCB Bank Debit Card transaction alert",
+   "body": "Your DCB Bank Debit Card ending 4560 was used for Rs.2,628.40 at FLIPKART on 09-Oct-2024.\n\nOpt for e-statements and go green.",
+   "date": "2024-10-09",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Karur Vysya Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.2,372.45 received in account XX3109 on 14-Oct-2024 (IMPS) Ref 419626389803.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-10-14",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m017",
+   "subject": "Karur Vysya Bank: credit alert on your account",
+   "body": "Karur Vysya Bank: xx3109 credited with Rs.655.19 on 18-Oct-2024. Source: SALARY NEFT. Balance Rs.28,380.12.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-10-18",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m018",
+   "subject": "City Union Bank Account Statement - Oct 2024",
+   "body": "Dear Arjun,\nPlease find attached your City Union Bank *9772 statement for the period 19-Sep-2024 to 18-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-10-19",
+   "attachments": [
+    {
+     "filename": "City_Acct_Oct2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "DCB Bank: credit alert on your account",
+   "body": "DCB Bank: *9856 credited with Rs.124.97 on 20-Oct-2024. Source: SALARY NEFT. Balance Rs.7,917.20.",
+   "date": "2024-10-20",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "DCB Bank Debit Card transaction alert",
+   "body": "Rs.260.99 withdrawn using your DCB Bank Debit Card XX4560 at ATM INDIGO AIRLINES on 23-Oct-2024.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-10-23",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "South Indian Bank: debit alert on your account",
+   "body": "Rs.517.93 withdrawn from *4156 on 25-Oct-2024 via ECOM to IRCTC. Closing balance Rs.10,481.24.",
+   "date": "2024-10-25",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Karur Vysya Bank Account Statement - Nov 2024",
+   "body": "Dear Arjun,\nPlease find attached your Karur Vysya Bank *3109 statement for the period 04-Oct-2024 to 03-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-11-04",
+   "attachments": [
+    {
+     "filename": "3109_03112024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m023",
+   "subject": "DCB Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.33,452.33 debited from account xx9856 on 05-Nov-2024. Narration: POS/UBER INDIA. Available balance Rs.7,993.59.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-11-05",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "South Indian Bank Account Statement - Nov 2024",
+   "body": "Dear Arjun,\nYour South Indian Bank XXXXXX4156 account statement for Nov 2024 is ready. Closing balance Rs.17,515.88.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-11-11",
+   "attachments": [],
+   "from": "South Indian Bank <estatement@southindianbank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Karur Vysya Bank: credit alert on your account",
+   "body": "Credit alert: Rs.7,848.40 has been credited to account *3109 on 11-Nov-2024 (INTEREST CREDIT). Avl bal Rs.18,172.68.",
+   "date": "2024-11-11",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m026",
+   "subject": "DCB Bank Debit Card transaction alert",
+   "body": "Your DCB Bank Debit Card XX4560 was used for Rs.19,140.07 at EAZYDINER on 13-Nov-2024.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-11-13",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "DCB Bank Account Statement - Nov 2024",
+   "body": "Dear Arjun,\nPlease find attached your DCB Bank XX9856 statement for the period 15-Oct-2024 to 14-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-11-15",
+   "attachments": [
+    {
+     "filename": "DCB_Statement_Nov2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DCB Bank <estatement@dcbbank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Karur Vysya Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.163.23 has been debited from your Karur Vysya Bank A/c xx3109 on 15-Nov-2024 (NEFT OLA CABS). Avl bal Rs.17,151.63.",
+   "date": "2024-11-15",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m029",
+   "subject": "City Union Bank Account Statement - Nov 2024",
+   "body": "Dear Arjun,\nYour City Union Bank XXXXXX9772 account statement for Nov 2024 is ready. Closing balance Rs.2,642.62.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-11-19",
+   "attachments": [],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "South Indian Bank: credit alert on your account",
+   "body": "Credit alert: Rs.337.03 has been credited to account xx4156 on 20-Nov-2024 (INTEREST CREDIT). Avl bal Rs.6,849.02.",
+   "date": "2024-11-20",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Ramesh Kumar (A/c XXXXXX0053, ICICI Bank) has been added to your account XX9856. It will be active after 30 minutes.",
+   "date": "2024-11-21",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "City Union Bank: credit alert on your account",
+   "body": "City Union Bank: xx9772 credited with Rs.13,130.95 on 23-Nov-2024. Source: INTEREST CREDIT. Balance Rs.1,52,199.13.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-11-23",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "DCB Bank Debit Card transaction alert",
+   "body": "DCB Bank Debit Card ending 4560: Rs.1,170.64 debited at BOOKMYSHOW (23-Nov-2024 06:21:50).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-11-23",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "South Indian Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.270.53 debited from account xx4156 on 28-Nov-2024. Narration: ECOM/PVR INOX. Available balance Rs.2,164.17.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-28",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "DCB Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.114.81 has been debited from your DCB Bank A/c *9856 on 29-Nov-2024 (POS IRCTC). Avl bal Rs.1,30,656.15.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-11-29",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Karur Vysya Bank Account Statement - Dec 2024",
+   "body": "Dear Arjun,\nYour Karur Vysya Bank *3109 account statement for Dec 2024 is ready. Closing balance Rs.812.08.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-12-04",
+   "attachments": [],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m037",
+   "subject": "DCB Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.955.73 credited to your DCB Bank A/c *9856 on 13-Dec-2024 by REFUND. Ref 152119159007.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-12-13",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "DCB Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.1,098.11 received in account *9856 on 15-Dec-2024 (SALARY NEFT) Ref 151927851428.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-12-15",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "City Union Bank Account Statement - Dec 2024",
+   "body": "Dear Arjun,\nYour City Union Bank *9772 account statement for Dec 2024 is ready. Closing balance Rs.9,023.98.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-12-19",
+   "attachments": [],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX6827 has been updated on 02-Oct-2025. If not requested by you, call customer care.",
+   "date": "2024-12-20",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,500.00 transferred from XXXXXX9856 to Ramesh Kumar A/c XX0053 on 21-Dec-2024. Rent for the month.",
+   "date": "2024-12-21",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "DCB Bank Debit Card transaction alert",
+   "body": "POS purchase of Rs.1,054.53 at DOMINOS on 31-Dec-2024 with DCB Bank Debit Card XX4560.",
+   "date": "2024-12-31",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Karur Vysya Bank Account Statement - Jan 2025",
+   "body": "Dear Arjun,\nPlease find attached your Karur Vysya Bank *3109 statement for the period 04-Dec-2024 to 03-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-01-04",
+   "attachments": [
+    {
+     "filename": "3109_03012025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m044",
+   "subject": "DCB Bank Debit Card transaction alert",
+   "body": "DCB Bank Debit Card xx4560: Rs.507.62 debited at IKEA (07-Jan-2025 11:48:16).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-07",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Update your KYC",
+   "body": "Dear Arjun,\nAs per RBI guidelines please complete re-KYC for your South Indian Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-01-09",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "South Indian Bank Account Statement - Jan 2025",
+   "body": "Dear Arjun,\nYour South Indian Bank XXXXXX4156 account statement for Jan 2025 is ready. Closing balance Rs.2,325.87.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-01-11",
+   "attachments": [],
+   "from": "South Indian Bank <estatement@southindianbank.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "DCB Bank Account Statement - Jan 2025",
+   "body": "Dear Arjun,\nPlease find attached your DCB Bank XXXXXX9856 statement for the period 15-Dec-2024 to 14-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-01-15",
+   "attachments": [
+    {
+     "filename": "9856_14012025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DCB Bank <estatement@dcbbank.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "City Union Bank Account Statement - Jan 2025",
+   "body": "Dear Arjun,\nPlease find attached your City Union Bank XX9772 statement for the period 19-Dec-2024 to 18-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-19",
+   "attachments": [
+    {
+     "filename": "eStatement_202501.pdf",
+     "protected": true
+    }
+   ],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,500.00 transferred from xx9856 to Ramesh Kumar A/c XX0053 on 21-Jan-2025. Rent for the month.",
+   "date": "2025-01-21",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "South Indian Bank: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 9250 has been successfully linked/verified for your South Indian Bank relationship. If this was not you, contact us.",
+   "date": "2025-01-24",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Alert: City Union Bank A/c xx9772 debited Rs.905.23 on 27-Jan-2025. Mode: NEFT. Details: AMAZON PAY INDIA. Balance Rs.17,457.98.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-01-27",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "City Union Bank: credit alert on your account",
+   "body": "Credit alert: Rs.179.76 has been credited to account *9772 on 01-Feb-2025 (INTEREST CREDIT). Avl bal Rs.52,551.81.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-02-01",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Karur Vysya Bank Account Statement - Feb 2025",
+   "body": "Dear Arjun,\nYour Karur Vysya Bank XXXXXX3109 account statement for Feb 2025 is ready. Closing balance Rs.551.90.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-02-04",
+   "attachments": [],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m054",
+   "subject": "DCB Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX9856 is debited for Rs.569.55 on 07-Feb-2025 - UPI INDIGO AIRLINES. Bal Rs.1,40,803.43. -DCB Bank",
+   "date": "2025-02-07",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "City Union Bank Account Statement - Feb 2025",
+   "body": "Dear Arjun,\nPlease find attached your City Union Bank XXXXXX9772 statement for the period 19-Jan-2025 to 18-Feb-2025. \n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-02-19",
+   "attachments": [
+    {
+     "filename": "eStatement_202502.pdf",
+     "protected": false,
+     "pdfText": "CITY UNION BANK\nSTATEMENT OF ACCOUNT\nAccount Name : ARJUN RAO\nFLAT 479, SUNRISE APARTMENTS\n18TH CROSS, INDIRANAGAR\nBENGALURU - 487836\nCustomer ID : 23675122\nAccount Number : XXXXXX9772\nAccount Type : SAVINGS ACCOUNT\nIFSC : CUBX0788093\nStatement Period : 19-01-2025 to 18-02-2025\nOpening Balance : Rs.27,621.83\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n20-01-2025 UPI/CR 612774890 - 123.35 27,745.18\n20-01-2025 UPI/CROMA 201467940 17,029.66 - 10,715.52\n21-01-2025 SALARY NEFT 613962821 - 11,254.88 21,970.40\n24-01-2025 POS/INDIGO AIRLINES 820533266 242.36 - 21,728.04\n24-01-2025 POS/DECATHLON 249833054 16,066.76 - 5,661.28\n26-01-2025 UPI/CR 600943917 - 3,270.36 8,931.64\n26-01-2025 IMPS/CR 812499315 - 126.84 9,058.48\n26-01-2025 NEFT DR/APPLE SERVICES 894512734 345.33 - 8,713.15\n28-01-2025 UPI/FLIPKART 565095911 4,391.81 - 4,321.34\n29-01-2025 POS/SODEXO 723858049 2,109.24 - 2,212.10\nClosing Balance : Rs.2,212.10\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,500.00 transferred from *9856 to Ramesh Kumar A/c XX0053 on 21-Feb-2025. Rent for the month.",
+   "date": "2025-02-21",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Karur Vysya Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.20,663.34 has been debited from your Karur Vysya Bank A/c *3109 on 23-Feb-2025 (IMPS UBER INDIA). Avl bal Rs.19,869.29.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-02-23",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m058",
+   "subject": "Karur Vysya Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.2,074.43 received in account xx3109 on 28-Feb-2025 (SALARY NEFT) Ref 628264886883.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-02-28",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m059",
+   "subject": "Karur Vysya Bank Account Statement - Mar 2025",
+   "body": "Dear Arjun,\nPlease find attached your Karur Vysya Bank xx3109 statement for the period 04-Feb-2025 to 03-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-04",
+   "attachments": [
+    {
+     "filename": "3109_03032025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m060",
+   "subject": "South Indian Bank Account Statement - Mar 2025",
+   "body": "Dear Arjun,\nPlease find attached your South Indian Bank *4156 statement for the period 11-Feb-2025 to 10-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-03-11",
+   "attachments": [
+    {
+     "filename": "South_Statement_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "South Indian Bank <estatement@southindianbank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Karur Vysya Bank: credit alert on your account",
+   "body": "Your A/c *3109 is credited with Rs.1,086.34 on 12-Mar-2025 - IMPS. Bal Rs.7,216.97. -Karur Vysya Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-03-12",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m062",
+   "subject": "DCB Bank Account Statement - Mar 2025",
+   "body": "Dear Arjun,\nYour DCB Bank XX9856 account statement for Mar 2025 is ready. Closing balance Rs.400.24.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-03-15",
+   "attachments": [],
+   "from": "DCB Bank <estatement@dcbbank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "City Union Bank festive offers",
+   "body": "Dear Arjun,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-03-18",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "City Union Bank Account Statement - Mar 2025",
+   "body": "Dear Arjun,\nPlease find attached your City Union Bank xx9772 statement for the period 19-Feb-2025 to 18-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-03-19",
+   "attachments": [
+    {
+     "filename": "eStatement_202503.pdf",
+     "protected": true
+    }
+   ],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,000.00 transferred from xx9856 to Ramesh Kumar A/c XX0053 on 21-Mar-2025. Rent for the month.",
+   "date": "2025-03-21",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Alert: City Union Bank A/c *9772 debited Rs.2,691.21 on 25-Mar-2025. Mode: UPI. Details: PHONEPE. Balance Rs.1,45,825.48.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-25",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Refer and earn",
+   "body": "Dear Arjun,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-03-29",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Karur Vysya Bank Account Statement - Apr 2025",
+   "body": "Dear Arjun,\nPlease find attached your Karur Vysya Bank *3109 statement for the period 04-Mar-2025 to 03-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-04-04",
+   "attachments": [
+    {
+     "filename": "Karur_Acct_Apr2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m069",
+   "subject": "South Indian Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.105.75 has been debited from your South Indian Bank A/c XX4156 on 05-Apr-2025 (NEFT URBAN COMPANY). Avl bal Rs.33,433.59.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-04-05",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Karur Vysya Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.1,285.24 debited from account XX3109 on 18-Apr-2025. Narration: ECOM/MAKEMYTRIP. Available balance Rs.3,382.28.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-18",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m071",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.4,026.01 debited from account xx9772 on 18-Apr-2025. Narration: POS/BATA INDIA. Available balance Rs.4,508.10.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-04-18",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "City Union Bank Account Statement - Apr 2025",
+   "body": "Dear Arjun,\nYour City Union Bank XX9772 account statement for Apr 2025 is ready. Closing balance Rs.7,812.33.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-19",
+   "attachments": [],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Karur Vysya Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX3109 is debited for Rs.22,049.37 on 19-Apr-2025 - ECOM MYNTRA. Bal Rs.3,030.61. -Karur Vysya Bank",
+   "date": "2025-04-19",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m074",
+   "subject": "Karur Vysya Bank: debit alert on your account",
+   "body": "Your A/c XX3109 is debited for Rs.17,043.95 on 19-Apr-2025 - UPI EASEMYTRIP. Bal Rs.2,370.25. -Karur Vysya Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-19",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m075",
+   "subject": "Karur Vysya Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.193.78 has been debited from your Karur Vysya Bank A/c *3109 on 19-Apr-2025 (POS TATA PLAY). Avl bal Rs.9,640.01.",
+   "date": "2025-04-19",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m076",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,500.00 transferred from XXXXXX9856 to Ramesh Kumar A/c XX0053 on 21-Apr-2025. Rent for the month.",
+   "date": "2025-04-21",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "City Union Bank: credit alert on your account",
+   "body": "Credit alert: Rs.364.00 has been credited to account XX9772 on 22-Apr-2025 (UPI). Avl bal Rs.21,585.91.",
+   "date": "2025-04-22",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Karur Vysya Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.360.55 debited from account XX3109 on 26-Apr-2025. Narration: POS/ZOMATO. Available balance Rs.10,907.29.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-04-26",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m079",
+   "subject": "Payment successful",
+   "body": "Hi Arjun,\nYou paid Rs.9,301.63 to Canara Bank Credit Card ending 9943 (of Neha Rao) on 02-May-2025. Ref 9678127950.",
+   "date": "2025-05-02",
+   "attachments": [],
+   "from": "CRED <noreply@cred.club>"
+  },
+  {
+   "id": "m080",
+   "subject": "Karur Vysya Bank Account Statement - May 2025",
+   "body": "Dear Arjun,\nYour Karur Vysya Bank XX3109 account statement for May 2025 is ready. Closing balance Rs.1,593.67.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-04",
+   "attachments": [],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m081",
+   "subject": "South Indian Bank Account Statement - May 2025",
+   "body": "Dear Arjun,\nPlease find attached your South Indian Bank xx4156 statement for the period 11-Apr-2025 to 10-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-11",
+   "attachments": [
+    {
+     "filename": "eStatement_202505.pdf",
+     "protected": true
+    }
+   ],
+   "from": "South Indian Bank <estatement@southindianbank.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "DCB Bank Account Statement - May 2025",
+   "body": "Dear Arjun,\nPlease find attached your DCB Bank XX9856 statement for the period 15-Apr-2025 to 14-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-05-15",
+   "attachments": [
+    {
+     "filename": "DCB_Acct_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DCB Bank <estatement@dcbbank.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "City Union Bank Account Statement - May 2025",
+   "body": "Dear Arjun,\nPlease find attached your City Union Bank xx9772 statement for the period 19-Apr-2025 to 18-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-19",
+   "attachments": [
+    {
+     "filename": "9772_18052025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "City Union Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.916.21 credited to your City Union Bank A/c *9772 on 20-May-2025 by REFUND. Ref 354346777275.\nThank you for banking with us.",
+   "date": "2025-05-20",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "DCB Bank Debit Card transaction alert",
+   "body": "Your DCB Bank Debit Card xx4560 was used for Rs.299.02 at PAYTM on 20-May-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-05-20",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,000.00 transferred from XXXXXX9856 to Ramesh Kumar A/c XX0053 on 21-May-2025. Rent for the month.",
+   "date": "2025-05-21",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "South Indian Bank: credit alert on your account",
+   "body": "South Indian Bank: *4156 credited with Rs.130.21 on 26-May-2025. Source: UPI. Balance Rs.39,550.73.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-05-26",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #936-6754192-1086061 is confirmed. Total Rs.776.09. Estimated delivery in 2 days.",
+   "date": "2025-05-29",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m089",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #835-9026835-7409268 is confirmed. Total Rs.5,507.79. Estimated delivery in 2 days.",
+   "date": "2025-06-02",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Karur Vysya Bank Account Statement - Jun 2025",
+   "body": "Dear Arjun,\nPlease find attached your Karur Vysya Bank XXXXXX3109 statement for the period 04-May-2025 to 03-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-06-04",
+   "attachments": [
+    {
+     "filename": "3109_03062025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m091",
+   "subject": "South Indian Bank: debit alert on your account",
+   "body": "Rs.30,867.54 withdrawn from XX4156 on 05-Jun-2025 via ECOM to UBER INDIA. Closing balance Rs.10,109.65.",
+   "date": "2025-06-05",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #417-9619111-8750280 is confirmed. Total Rs.327.22. Estimated delivery in 2 days.",
+   "date": "2025-06-11",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "DCB Bank: debit alert on your account",
+   "body": "Rs.9,356.59 withdrawn from xx9856 on 14-Jun-2025 via IMPS to EASEMYTRIP. Closing balance Rs.1,75,132.63.",
+   "date": "2025-06-14",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "City Union Bank Account Statement - Jun 2025",
+   "body": "Dear Arjun,\nYour City Union Bank xx9772 account statement for Jun 2025 is ready. Closing balance Rs.2,925.02.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-19",
+   "attachments": [],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Earn more with your card",
+   "body": "Dear Arjun,\nUse your card on UPI and earn extra rewards.\n\n",
+   "date": "2025-06-27",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Karur Vysya Bank Account Statement - Jul 2025",
+   "body": "Dear Arjun,\nYour Karur Vysya Bank XXXXXX3109 account statement for Jul 2025 is ready. Closing balance Rs.546.48.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-04",
+   "attachments": [],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m097",
+   "subject": "South Indian Bank Account Statement - Jul 2025",
+   "body": "Dear Arjun,\nPlease find attached your South Indian Bank XXXXXX4156 statement for the period 11-Jun-2025 to 10-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-07-11",
+   "attachments": [
+    {
+     "filename": "South_Acct_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "South Indian Bank <estatement@southindianbank.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Alert: City Union Bank A/c XX9772 debited Rs.9,109.71 on 12-Jul-2025. Mode: UPI. Details: BESCOM. Balance Rs.79,530.26.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-12",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.14,038.58 has been debited from your City Union Bank A/c XXXXXX9772 on 14-Jul-2025 (UPI MAKEMYTRIP). Avl bal Rs.14,531.92.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-14",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "DCB Bank Account Statement - Jul 2025",
+   "body": "Dear Arjun,\nPlease find attached your DCB Bank *9856 statement for the period 15-Jun-2025 to 14-Jul-2025. \n\n",
+   "date": "2025-07-15",
+   "attachments": [
+    {
+     "filename": "DCB_Acct_Jul2025.pdf",
+     "protected": false,
+     "pdfText": "DCB BANK\nSTATEMENT OF ACCOUNT\nAccount Name : ARJUN RAO\nFLAT 690, LAKESHORE APARTMENTS\n26TH CROSS, KOTHRUD\nJAIPUR - 649879\nCustomer ID : 45023628\nAccount Number : XX9856\nAccount Type : SAVINGS ACCOUNT\nIFSC : DCBX0321142\nStatement Period : 15-06-2025 to 14-07-2025\nOpening Balance : Rs.2,768.93\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n17-06-2025 IMPS/CR 305247989 - 8,209.78 10,978.71\n18-06-2025 SALARY NEFT 795349710 - 1,242.48 12,221.19\n20-06-2025 IMPS/CR 687979664 - 1,798.41 14,019.60\n22-06-2025 UPI/CR 768269381 - 6,143.65 20,163.25\n24-06-2025 NEFT DR/BATA INDIA 259305134 101.10 - 20,062.15\n27-06-2025 UPI/CROMA 905793869 3,449.25 - 16,612.90\n29-06-2025 UPI/BIG BAZAAR 444095454 238.49 - 16,374.41\n29-06-2025 SALARY NEFT 389968731 - 3,837.91 20,212.32\n29-06-2025 ATM WDL/BPCL FUEL 584791534 3,389.91 - 16,822.41\n30-06-2025 ATM WDL/NYKAA 557433555 12,288.85 - 4,533.56\n01-07-2025 UPI/CR 455729763 - 440.05 4,973.61\n04-07-2025 UPI/CR 699909048 - 17,167.93 22,141.54\nClosing Balance : Rs.22,141.54\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "DCB Bank <estatement@dcbbank.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "DCB Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.403.39 debited from account xx9856 on 15-Jul-2025. Narration: NEFT/EASEMYTRIP. Available balance Rs.2,828.12.",
+   "date": "2025-07-15",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "City Union Bank Account Statement - Jul 2025",
+   "body": "Dear Arjun,\nPlease find attached your City Union Bank XX9772 statement for the period 19-Jun-2025 to 18-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-19",
+   "attachments": [
+    {
+     "filename": "9772_18072025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "South Indian Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.777.38 debited from account XX4156 on 20-Jul-2025. Narration: IMPS/CROMA. Available balance Rs.1,14,846.19.\n\nOpt for e-statements and go green.",
+   "date": "2025-07-20",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "South Indian Bank: credit alert on your account",
+   "body": "South Indian Bank: XXXXXX4156 credited with Rs.30,926.66 on 23-Jul-2025. Source: IMPS. Balance Rs.5,918.37.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-07-23",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Karur Vysya Bank: credit alert on your account",
+   "body": "Karur Vysya Bank: xx3109 credited with Rs.31,307.40 on 24-Jul-2025. Source: REFUND. Balance Rs.65,199.16.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-24",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m106",
+   "subject": "Karur Vysya Bank Account Statement - Aug 2025",
+   "body": "Dear Arjun,\nYour Karur Vysya Bank *3109 account statement for Aug 2025 is ready. Closing balance Rs.2,036.49.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-04",
+   "attachments": [],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m107",
+   "subject": "Karur Vysya Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.107.29 credited to your Karur Vysya Bank A/c XX3109 on 10-Aug-2025 by IMPS. Ref 871451045979.\nThank you for banking with us.",
+   "date": "2025-08-10",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m108",
+   "subject": "South Indian Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.23,182.38 debited from account XX4156 on 16-Aug-2025. Narration: NEFT/LENSKART. Available balance Rs.5,188.99.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-08-16",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "OTP for your transaction",
+   "body": "516478 is the OTP for your transaction of Rs.2,587.85 at PHONEPE. Valid for 10 minutes. Do not share.",
+   "date": "2025-08-18",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "City Union Bank Account Statement - Aug 2025",
+   "body": "Dear Arjun,\nYour City Union Bank XX9772 account statement for Aug 2025 is ready. Closing balance Rs.651.60.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-19",
+   "attachments": [],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Karur Vysya Bank: debit alert on your account",
+   "body": "Alert: Karur Vysya Bank A/c XXXXXX3109 debited Rs.1,808.67 on 19-Aug-2025. Mode: NEFT. Details: CROMA. Balance Rs.18,934.56.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-19",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m112",
+   "subject": "Update your KYC",
+   "body": "Dear Arjun,\nAs per RBI guidelines please complete re-KYC for your DCB Bank relationship. Visit a branch or use the app.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-08-21",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "DCB Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX9856 is debited for Rs.394.83 on 22-Aug-2025 - NEFT BATA INDIA. Bal Rs.67,436.14. -DCB Bank",
+   "date": "2025-08-22",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #896-7060063-7716762 is confirmed. Total Rs.7,965.72. Estimated delivery in 2 days.",
+   "date": "2025-08-25",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m115",
+   "subject": "South Indian Bank: credit alert on your account",
+   "body": "Credit alert: Rs.9,267.12 has been credited to account XX4156 on 03-Sep-2025 (SALARY NEFT). Avl bal Rs.99,238.94.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-03",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Karur Vysya Bank Account Statement - Sep 2025",
+   "body": "Dear Arjun,\nPlease find attached your Karur Vysya Bank XXXXXX3109 statement for the period 04-Aug-2025 to 03-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-09-04",
+   "attachments": [
+    {
+     "filename": "Karur_Acct_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m117",
+   "subject": "South Indian Bank: funds transferred",
+   "body": "Dear Customer,\nRs.3,547.68 has been transferred from your A/c *4156 to Lata Tutor A/c XX6849 (Axis Bank) via IMPS on 05-Sep-2025. Ref no 251747679804.",
+   "date": "2025-09-05",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "South Indian Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.169.16 debited from account *4156 on 09-Sep-2025. Narration: POS/RELIANCE DIGITAL. Available balance Rs.61,440.63.\n\nOpt for e-statements and go green.",
+   "date": "2025-09-09",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "South Indian Bank Account Statement - Sep 2025",
+   "body": "Dear Arjun,\nPlease find attached your South Indian Bank xx4156 statement for the period 11-Aug-2025 to 10-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-09-11",
+   "attachments": [
+    {
+     "filename": "South_Acct_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "South Indian Bank <estatement@southindianbank.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "OTP for your transaction",
+   "body": "478290 is the OTP for your transaction of Rs.9,638.00 at IRCTC. Valid for 10 minutes. Do not share.",
+   "date": "2025-09-13",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m121",
+   "subject": "DCB Bank Account Statement - Sep 2025",
+   "body": "Dear Arjun,\nPlease find attached your DCB Bank *9856 statement for the period 15-Aug-2025 to 14-Sep-2025. \n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-15",
+   "attachments": [
+    {
+     "filename": "eStatement_202509.pdf",
+     "protected": false,
+     "pdfText": "DCB BANK\nSTATEMENT OF ACCOUNT\nAccount Name : ARJUN RAO\nFLAT 755, ORCHID APARTMENTS\n15TH CROSS, KOTHRUD\nAHMEDABAD - 660368\nCustomer ID : 46917971\nAccount Number : xx9856\nAccount Type : SAVINGS ACCOUNT\nIFSC : DCBX0510115\nStatement Period : 15-08-2025 to 14-09-2025\nOpening Balance : Rs.30,946.72\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n16-08-2025 UPI/SODEXO 536848008 6,362.73 - 24,583.99\n17-08-2025 UPI/CR 768854087 - 631.33 25,215.32\n18-08-2025 POS/JIO RECHARGE 377641790 255.25 - 24,960.07\n20-08-2025 IMPS/CR 805182202 - 432.13 25,392.20\n20-08-2025 POS/MEDPLUS 515909952 436.05 - 24,956.15\n21-08-2025 POS/TATA PLAY 215872721 171.33 - 24,784.82\n21-08-2025 IMPS/CR 651153036 - 11,631.60 36,416.42\n22-08-2025 ATM WDL/EAZYDINER 204079105 325.53 - 36,090.89\n24-08-2025 UPI/CR 895448197 - 8,505.27 44,596.16\n25-08-2025 SALARY NEFT 559692127 - 616.44 45,212.60\n27-08-2025 POS/IKEA 980350459 10,521.54 - 34,691.06\nClosing Balance : Rs.34,691.06\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "DCB Bank <estatement@dcbbank.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "City Union Bank Account Statement - Sep 2025",
+   "body": "Dear Arjun,\nPlease find attached your City Union Bank xx9772 statement for the period 19-Aug-2025 to 18-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-19",
+   "attachments": [
+    {
+     "filename": "9772_18092025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "South Indian Bank: debit alert on your account",
+   "body": "Alert: South Indian Bank A/c xx4156 debited Rs.2,138.79 on 21-Sep-2025. Mode: POS. Details: JIO RECHARGE. Balance Rs.15,710.34.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-21",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.21,196.98 has been transferred from your A/c *9772 to Ganesh Maid Service A/c XX8389 (HDFC Bank) via IMPS on 23-Sep-2025. Ref no 397186450967.",
+   "date": "2025-09-23",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "South Indian Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.5,324.90 has been debited from your South Indian Bank A/c XXXXXX4156 on 24-Sep-2025 (UPI DOMINOS). Avl bal Rs.8,260.04.",
+   "date": "2025-09-24",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "South Indian Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.34,471.94 received in account XX4156 on 29-Sep-2025 (UPI) Ref 932068407821.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-29",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Karur Vysya Bank Account Statement - Oct 2025",
+   "body": "Dear Arjun,\nPlease find attached your Karur Vysya Bank xx3109 statement for the period 04-Sep-2025 to 03-Oct-2025. \n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-04",
+   "attachments": [
+    {
+     "filename": "Karur_Acct_Oct2025.pdf",
+     "protected": false,
+     "pdfText": "KARUR VYSYA BANK\nSTATEMENT OF ACCOUNT\nAccount Name : ARJUN RAO\nFLAT 223, ORCHID APARTMENTS\n25TH CROSS, INDIRANAGAR\nHYDERABAD - 643887\nCustomer ID : 19515650\nAccount Number : *3109\nAccount Type : CURRENT ACCOUNT\nIFSC : KVBX0397405\nStatement Period : 04-09-2025 to 03-10-2025\nOpening Balance : Rs.36,847.69\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n04-09-2025 UPI/SWIGGY 620466267 1,824.76 - 35,022.93\n05-09-2025 IMPS/CR 806100100 - 1,521.35 36,544.28\n06-09-2025 UPI/DECATHLON 863311702 2,688.26 - 33,856.02\n09-09-2025 ATM WDL/MEDPLUS 141368362 7,770.30 - 26,085.72\n10-09-2025 NEFT DR/PVR INOX 883272836 18,354.59 - 7,731.13\n11-09-2025 NEFT DR/JIO RECHARGE 640747987 546.69 - 7,184.44\n14-09-2025 UPI/CR 640985907 - 4,331.39 11,515.83\n16-09-2025 ATM WDL/BESCOM 654778138 649.29 - 10,866.54\n16-09-2025 NEFT DR/ZEPTO 466765170 191.26 - 10,675.28\n16-09-2025 UPI/SWIGGY 562185010 1,243.29 - 9,431.99\n16-09-2025 UPI/IXIGO 738001574 16,910.12 - -7,478.13\n18-09-2025 UPI/MAKEMYTRIP 722595934 205.08 - -7,683.21\nClosing Balance : -Rs.7,683.21\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m128",
+   "subject": "City Union Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.2,014.07 received in account *9772 on 07-Oct-2025 (REFUND) Ref 590754395635.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-07",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "DCB Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.3,937.86 credited to your DCB Bank A/c *9856 on 12-Oct-2025 by IMPS. Ref 304389636048.\nThank you for banking with us.\n\nOpt for e-statements and go green.",
+   "date": "2025-10-12",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "DCB Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.87.42 received in account XXXXXX9856 on 13-Oct-2025 (IMPS) Ref 635938372461.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-13",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "DCB Bank Debit Card transaction alert",
+   "body": "DCB Bank Debit Card XX4560: Rs.5,156.02 debited at STARBUCKS (14-Oct-2025 21:45:20).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-14",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "DCB Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX9856 is debited for Rs.10,136.66 on 18-Oct-2025 - UPI JIO RECHARGE. Bal Rs.3,427.71. -DCB Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-10-18",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "City Union Bank Account Statement - Oct 2025",
+   "body": "Dear Arjun,\nPlease find attached your City Union Bank *9772 statement for the period 19-Sep-2025 to 18-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-19",
+   "attachments": [
+    {
+     "filename": "City_Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Karur Vysya Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.2,413.27 received in account XX3109 on 19-Oct-2025 (SALARY NEFT) Ref 814287351052.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-19",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m135",
+   "subject": "DCB Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.2,707.00 received in account XXXXXX9856 on 22-Oct-2025 (SALARY NEFT) Ref 721234380111.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "South Indian Bank: debit alert on your account",
+   "body": "Your A/c *4156 is debited for Rs.10,255.73 on 26-Oct-2025 - ECOM DOMINOS. Bal Rs.32,024.93. -South Indian Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-26",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "City Union Bank: credit alert on your account",
+   "body": "City Union Bank: XXXXXX9772 credited with Rs.85.66 on 27-Oct-2025. Source: UPI. Balance Rs.5,447.72.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Karur Vysya Bank: debit alert on your account",
+   "body": "Alert: Karur Vysya Bank A/c *3109 debited Rs.6,449.25 on 29-Oct-2025. Mode: NEFT. Details: SPOTIFY. Balance Rs.72,269.64.",
+   "date": "2025-10-29",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m139",
+   "subject": "Karur Vysya Bank Account Statement - Nov 2025",
+   "body": "Dear Arjun,\nYour Karur Vysya Bank XXXXXX3109 account statement for Nov 2025 is ready. Closing balance Rs.22,190.37.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m140",
+   "subject": "South Indian Bank: debit alert on your account",
+   "body": "Your A/c *4156 is debited for Rs.4,419.72 on 06-Nov-2025 - ECOM GOOGLE PLAY. Bal Rs.4,480.53. -South Indian Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-06",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.3,722.32 has been debited from your City Union Bank A/c xx9772 on 10-Nov-2025 (POS SWIGGY). Avl bal Rs.95,269.24.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-10",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "South Indian Bank Account Statement - Nov 2025",
+   "body": "Dear Arjun,\nPlease find attached your South Indian Bank XXXXXX4156 statement for the period 11-Oct-2025 to 10-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-11",
+   "attachments": [
+    {
+     "filename": "South_Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "South Indian Bank <estatement@southindianbank.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "DCB Bank: credit alert on your account",
+   "body": "Credit alert: Rs.84.80 has been credited to account *9856 on 12-Nov-2025 (UPI). Avl bal Rs.22,152.52.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-12",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "DCB Bank: debit alert on your account",
+   "body": "Alert: DCB Bank A/c *9856 debited Rs.3,667.81 on 12-Nov-2025. Mode: UPI. Details: STARBUCKS. Balance Rs.2,286.45.",
+   "date": "2025-11-12",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m145",
+   "subject": "South Indian Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.95.96 has been debited from your South Indian Bank A/c XX4156 on 14-Nov-2025 (ECOM PHONEPE). Avl bal Rs.34,133.47.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-14",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "DCB Bank Account Statement - Nov 2025",
+   "body": "Dear Arjun,\nPlease find attached your DCB Bank *9856 statement for the period 15-Oct-2025 to 14-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-11-15",
+   "attachments": [
+    {
+     "filename": "DCB_Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DCB Bank <estatement@dcbbank.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.14,549.42 has been transferred from your A/c xx9856 to Ramesh Kumar A/c XX6798 (Bandhan Bank) via IMPS on 18-Nov-2025. Ref no 384028602028.",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "City Union Bank Account Statement - Nov 2025",
+   "body": "Dear Arjun,\nYour City Union Bank xx9772 account statement for Nov 2025 is ready. Closing balance Rs.48,509.20.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-19",
+   "attachments": [],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "DCB Bank: credit alert on your account",
+   "body": "Your A/c XXXXXX9856 is credited with Rs.498.27 on 21-Nov-2025 - UPI. Bal Rs.4,454.48. -DCB Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-21",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Karur Vysya Bank Account Statement - Dec 2025",
+   "body": "Dear Arjun,\nPlease find attached your Karur Vysya Bank XX3109 statement for the period 04-Nov-2025 to 03-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-12-04",
+   "attachments": [
+    {
+     "filename": "Karur_Acct_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m151",
+   "subject": "South Indian Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.13,611.30 has been debited from your South Indian Bank A/c XXXXXX4156 on 12-Dec-2025 (UPI SODEXO). Avl bal Rs.2,412.42.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-12",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "City Union Bank Account Statement - Dec 2025",
+   "body": "Dear Arjun,\nPlease find attached your City Union Bank XXXXXX9772 statement for the period 19-Nov-2025 to 18-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-19",
+   "attachments": [
+    {
+     "filename": "eStatement_202512.pdf",
+     "protected": true
+    }
+   ],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "South Indian Bank: debit alert on your account",
+   "body": "Alert: South Indian Bank A/c XXXXXX4156 debited Rs.1,096.77 on 20-Dec-2025. Mode: IMPS. Details: BIG BAZAAR. Balance Rs.47,435.59.",
+   "date": "2025-12-20",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "DCB Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.142.37 has been debited from your DCB Bank A/c xx9856 on 22-Dec-2025 (IMPS MCDONALDS). Avl bal Rs.6,015.86.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-22",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "DCB Bank: credit alert on your account",
+   "body": "DCB Bank: *9856 credited with Rs.2,144.88 on 29-Dec-2025. Source: UPI. Balance Rs.82,709.07.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-29",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "Karur Vysya Bank: credit alert on your account",
+   "body": "Credit alert: Rs.10,378.73 has been credited to account XXXXXX3109 on 03-Jan-2026 (NEFT). Avl bal Rs.29,222.87.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-03",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m157",
+   "subject": "Karur Vysya Bank Account Statement - Jan 2026",
+   "body": "Dear Arjun,\nYour Karur Vysya Bank XXXXXX3109 account statement for Jan 2026 is ready. Closing balance Rs.33,311.86.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-04",
+   "attachments": [],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m158",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX9772 is debited for Rs.13,289.76 on 04-Jan-2026 - POS NETFLIX. Bal Rs.55,848.80. -City Union Bank\n\nOpt for e-statements and go green.",
+   "date": "2026-01-04",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.642.77 has been debited from your City Union Bank A/c XX9772 on 09-Jan-2026 (IMPS IKEA). Avl bal Rs.17,080.60.",
+   "date": "2026-01-09",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "South Indian Bank Account Statement - Jan 2026",
+   "body": "Dear Arjun,\nYour South Indian Bank *4156 account statement for Jan 2026 is ready. Closing balance Rs.4,215.46.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-01-11",
+   "attachments": [],
+   "from": "South Indian Bank <estatement@southindianbank.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "City Union Bank: credit alert on your account",
+   "body": "City Union Bank: *9772 credited with Rs.23,816.04 on 11-Jan-2026. Source: INTEREST CREDIT. Balance Rs.81,735.91.",
+   "date": "2026-01-11",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "Karur Vysya Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.13,271.13 debited from account XXXXXX3109 on 12-Jan-2026. Narration: IMPS/BATA INDIA. Available balance Rs.13,404.25.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-12",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m163",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.2,341.05 has been debited from your City Union Bank A/c XX9772 on 12-Jan-2026 (UPI CROMA). Avl bal Rs.2,008.73.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-01-12",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "DCB Bank: credit alert on your account",
+   "body": "Credit alert: Rs.2,804.69 has been credited to account *9856 on 14-Jan-2026 (INTEREST CREDIT). Avl bal Rs.5,164.38.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-14",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "DCB Bank Account Statement - Jan 2026",
+   "body": "Dear Arjun,\nPlease find attached your DCB Bank xx9856 statement for the period 15-Dec-2025 to 14-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-01-15",
+   "attachments": [
+    {
+     "filename": "DCB_Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DCB Bank <estatement@dcbbank.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #158-7543905-3629030 is confirmed. Total Rs.411.65. Estimated delivery in 2 days.",
+   "date": "2026-01-15",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "South Indian Bank: debit alert on your account",
+   "body": "Alert: South Indian Bank A/c xx4156 debited Rs.114.58 on 18-Jan-2026. Mode: ECOM. Details: TATA POWER. Balance Rs.96,725.35.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-01-18",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "City Union Bank Account Statement - Jan 2026",
+   "body": "Dear Arjun,\nYour City Union Bank xx9772 account statement for Jan 2026 is ready. Closing balance Rs.693.00.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-19",
+   "attachments": [],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Karur Vysya Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.32,189.62 credited to your Karur Vysya Bank A/c XXXXXX3109 on 20-Jan-2026 by NEFT. Ref 564221557460.\nThank you for banking with us.",
+   "date": "2026-01-20",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m170",
+   "subject": "Refer and earn",
+   "body": "Dear Arjun,\nConvert big spends to EMI at low interest.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-21",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "Your South Indian Bank Account has been closed",
+   "body": "Dear Arjun Rao,\nAs per your request, we have closed your SIB Savings Account xx4156 effective 28-Jan-2026. There are no outstanding dues. We are sorry to see you go.",
+   "date": "2026-01-28",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m172",
+   "subject": "DCB Bank Debit Card transaction alert",
+   "body": "Rs.1,826.44 withdrawn using your DCB Bank Debit Card XX4560 at ATM DMART on 01-Feb-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-01",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "Karur Vysya Bank Account Statement - Feb 2026",
+   "body": "Dear Arjun,\nPlease find attached your Karur Vysya Bank *3109 statement for the period 04-Jan-2026 to 03-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-04",
+   "attachments": [
+    {
+     "filename": "Karur_Acct_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m174",
+   "subject": "DCB Bank Debit Card transaction alert",
+   "body": "POS purchase of Rs.10,303.15 at IRCTC on 06-Feb-2026 with DCB Bank Debit Card ending 4560.",
+   "date": "2026-02-06",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "OTP for your transaction",
+   "body": "423048 is the OTP for your transaction of Rs.1,675.96 at AIRTEL PREPAID. Valid for 10 minutes. Do not share.",
+   "date": "2026-02-17",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m176",
+   "subject": "City Union Bank Account Statement - Feb 2026",
+   "body": "Dear Arjun,\nYour City Union Bank *9772 account statement for Feb 2026 is ready. Closing balance Rs.1,219.07.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-02-19",
+   "attachments": [],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "Karur Vysya Bank Account Statement - Mar 2026",
+   "body": "Dear Arjun,\nPlease find attached your Karur Vysya Bank *3109 statement for the period 04-Feb-2026 to 03-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-04",
+   "attachments": [
+    {
+     "filename": "Karur_Acct_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m178",
+   "subject": "DCB Bank: debit alert on your account",
+   "body": "Rs.2,253.62 withdrawn from xx9856 on 04-Mar-2026 via IMPS to GOOGLE PLAY. Closing balance Rs.50,898.02.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-04",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m179",
+   "subject": "City Union Bank: funds transferred",
+   "body": "Dear Customer,\nRs.925.76 has been transferred from your A/c xx9772 to Ganesh Maid Service A/c XX8389 (HDFC Bank) via IMPS on 06-Mar-2026. Ref no 704413479840.",
+   "date": "2026-03-06",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "DCB Bank: credit alert on your account",
+   "body": "DCB Bank: XX9856 credited with Rs.6,932.03 on 07-Mar-2026. Source: IMPS. Balance Rs.10,077.32.",
+   "date": "2026-03-07",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m181",
+   "subject": "City Union Bank: credit alert on your account",
+   "body": "Credit alert: Rs.153.88 has been credited to account XX9772 on 10-Mar-2026 (IMPS). Avl bal Rs.81,190.91.",
+   "date": "2026-03-10",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 858625266501. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-03-12",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m183",
+   "subject": "DCB Bank Account Statement - Mar 2026",
+   "body": "Dear Arjun,\nPlease find attached your DCB Bank xx9856 statement for the period 15-Feb-2026 to 14-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-03-15",
+   "attachments": [
+    {
+     "filename": "DCB_Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DCB Bank <estatement@dcbbank.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "City Union Bank Account Statement - Mar 2026",
+   "body": "Dear Arjun,\nYour City Union Bank *9772 account statement for Mar 2026 is ready. Closing balance Rs.400.89.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-19",
+   "attachments": [],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m185",
+   "subject": "Earn more with your card",
+   "body": "Dear Arjun,\nGet up to 10% cashback on partner brands.\n\n",
+   "date": "2026-03-25",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "City Union Bank: credit alert on your account",
+   "body": "Credit alert: Rs.176.23 has been credited to account XXXXXX9772 on 27-Mar-2026 (SALARY NEFT). Avl bal Rs.16,000.13.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m187",
+   "subject": "Karur Vysya Bank Account Statement - Apr 2026",
+   "body": "Dear Arjun,\nPlease find attached your Karur Vysya Bank XX3109 statement for the period 04-Mar-2026 to 03-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-04",
+   "attachments": [
+    {
+     "filename": "Karur_Acct_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m188",
+   "subject": "DCB Bank: funds transferred",
+   "body": "Dear Customer,\nRs.15,100.94 has been transferred from your A/c xx9856 to Ramesh Kumar A/c XX6798 (Bandhan Bank) via IMPS on 05-Apr-2026. Ref no 236676584677.",
+   "date": "2026-04-05",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m189",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Your A/c xx9772 is debited for Rs.3,645.08 on 07-Apr-2026 - IMPS EAZYDINER. Bal Rs.10,744.14. -City Union Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-07",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m190",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 420211905090. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-04-07",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "Karur Vysya Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.13,235.90 has been debited from your Karur Vysya Bank A/c xx3109 on 09-Apr-2026 (NEFT MCDONALDS). Avl bal Rs.5,435.80.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-09",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m192",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.490.03 has been debited from your City Union Bank A/c XX9772 on 11-Apr-2026 (UPI ZEPTO). Avl bal Rs.3,752.12.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-11",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m193",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #797-1785917-7211336 is confirmed. Total Rs.619.24. Estimated delivery in 2 days.",
+   "date": "2026-04-16",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m194",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.2,753.20 has been debited from your City Union Bank A/c *9772 on 18-Apr-2026 (POS BOOKMYSHOW). Avl bal Rs.1,33,210.62.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-18",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m195",
+   "subject": "City Union Bank Account Statement - Apr 2026",
+   "body": "Dear Arjun,\nPlease find attached your City Union Bank XXXXXX9772 statement for the period 19-Mar-2026 to 18-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-19",
+   "attachments": [
+    {
+     "filename": "City_Acct_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "DCB Bank: debit alert on your account",
+   "body": "Your A/c XX9856 is debited for Rs.811.61 on 26-Apr-2026 - POS NETFLIX. Bal Rs.5,379.04. -DCB Bank\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m197",
+   "subject": "DCB Bank Debit Card transaction alert",
+   "body": "Rs.182.89 withdrawn using your DCB Bank Debit Card xx4560 at ATM DMART on 01-May-2026.\n\nOpt for e-statements and go green.",
+   "date": "2026-05-01",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m198",
+   "subject": "Refer and earn",
+   "body": "Dear Arjun,\nGet up to 10% cashback on partner brands.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-02",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m199",
+   "subject": "DCB Bank: credit alert on your account",
+   "body": "DCB Bank: *9856 credited with Rs.152.99 on 03-May-2026. Source: IMPS. Balance Rs.1,07,535.04.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-05-03",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m200",
+   "subject": "Karur Vysya Bank Account Statement - May 2026",
+   "body": "Dear Arjun,\nYour Karur Vysya Bank xx3109 account statement for May 2026 is ready. Closing balance Rs.6,026.20.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-05-04",
+   "attachments": [],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m201",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.13,142.08 has been debited from your City Union Bank A/c xx9772 on 05-May-2026 (UPI INDIGO AIRLINES). Avl bal Rs.52,825.64.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-05",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "DCB Bank Account Statement - May 2026",
+   "body": "Dear Arjun,\nPlease find attached your DCB Bank XX9856 statement for the period 15-Apr-2026 to 14-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-15",
+   "attachments": [
+    {
+     "filename": "DCB_Acct_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "DCB Bank <estatement@dcbbank.com>"
+  },
+  {
+   "id": "m203",
+   "subject": "Karur Vysya Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.14,069.63 received in account XX3109 on 18-May-2026 (UPI) Ref 656006214731.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-18",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m204",
+   "subject": "City Union Bank Account Statement - May 2026",
+   "body": "Dear Arjun,\nYour City Union Bank xx9772 account statement for May 2026 is ready. Closing balance Rs.712.87.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-19",
+   "attachments": [],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m205",
+   "subject": "Karur Vysya Bank: debit alert on your account",
+   "body": "Alert: Karur Vysya Bank A/c xx3109 debited Rs.1,458.38 on 27-May-2026. Mode: UPI. Details: MCDONALDS. Balance Rs.65,170.91.\n\nOpt for e-statements and go green.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m206",
+   "subject": "DCB Bank Debit Card transaction alert",
+   "body": "POS purchase of Rs.82.62 at OLA CABS on 31-May-2026 with DCB Bank Debit Card ending 4560.",
+   "date": "2026-05-31",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m207",
+   "subject": "Karur Vysya Bank Account Statement - Jun 2026",
+   "body": "Dear Arjun,\nPlease find attached your Karur Vysya Bank xx3109 statement for the period 04-May-2026 to 03-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-04",
+   "attachments": [
+    {
+     "filename": "Karur_Acct_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m208",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Alert: City Union Bank A/c *9772 debited Rs.562.96 on 04-Jun-2026. Mode: UPI. Details: LENSKART. Balance Rs.48,631.84.",
+   "date": "2026-06-04",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m209",
+   "subject": "DCB Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.16,925.15 debited from account XXXXXX9856 on 08-Jun-2026. Narration: UPI/BLINKIT. Available balance Rs.2,167.62.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-08",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m210",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #280-3075754-2963834 is confirmed. Total Rs.1,915.36. Estimated delivery in 2 days.",
+   "date": "2026-06-09",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m211",
+   "subject": "City Union Bank Account Statement - Jun 2026",
+   "body": "Dear Arjun,\nYour City Union Bank XXXXXX9772 account statement for Jun 2026 is ready. Closing balance Rs.13,176.82.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-06-19",
+   "attachments": [],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m212",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Rs.1,148.43 withdrawn from XX9772 on 19-Jun-2026 via UPI to TATA POWER. Closing balance Rs.69,181.88.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-06-19",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m213",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #928-6994174-5389503 is confirmed. Total Rs.1,507.06. Estimated delivery in 2 days.",
+   "date": "2026-06-21",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m214",
+   "subject": "Karur Vysya Bank festive offers",
+   "body": "Dear Arjun,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-02",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m215",
+   "subject": "Karur Vysya Bank Account Statement - Jul 2026",
+   "body": "Dear Arjun,\nYour Karur Vysya Bank *3109 account statement for Jul 2026 is ready. Closing balance Rs.1,575.34.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-07-04",
+   "attachments": [],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m216",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Arjun,\nYour order #563-6727875-6909549 is confirmed. Total Rs.4,038.88. Estimated delivery in 2 days.",
+   "date": "2026-07-04",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m217",
+   "subject": "City Union Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.10,581.41 credited to your City Union Bank A/c XX9772 on 05-Jul-2026 by SALARY NEFT. Ref 377529372308.\nThank you for banking with us.",
+   "date": "2026-07-05",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m218",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.8,381.01 debited from account XXXXXX9772 on 11-Jul-2026. Narration: IMPS/TATA POWER. Available balance Rs.2,807.82.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-11",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m219",
+   "subject": "DCB Bank Account Statement - Jul 2026",
+   "body": "Dear Arjun,\nPlease find attached your DCB Bank xx9856 statement for the period 15-Jun-2026 to 14-Jul-2026. \n\n",
+   "date": "2026-07-15",
+   "attachments": [
+    {
+     "filename": "DCB_Statement_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "DCB BANK\nSTATEMENT OF ACCOUNT\nAccount Name : ARJUN RAO\nFLAT 357, LAKESHORE APARTMENTS\n2TH CROSS, ADYAR\nGURUGRAM - 579173\nCustomer ID : 54847751\nAccount Number : xx9856\nAccount Type : SAVINGS ACCOUNT\nIFSC : DCBX0606822\nStatement Period : 15-06-2026 to 14-07-2026\nOpening Balance : Rs.15,338.09\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n16-06-2026 POS/ZOMATO 928318566 149.73 - 15,188.36\n18-06-2026 POS/BIGBASKET 814730531 376.30 - 14,812.06\n21-06-2026 IMPS/CR 855430961 - 147.99 14,960.05\n23-06-2026 NEFT DR/TATA POWER 482598628 567.15 - 14,392.90\n23-06-2026 IMPS/CR 901168831 - 11,157.54 25,550.44\n23-06-2026 ATM WDL/PVR INOX 875522406 120.36 - 25,430.08\n24-06-2026 SALARY NEFT 199534131 - 2,361.78 27,791.86\n27-06-2026 ATM WDL/BATA INDIA 932692001 1,112.69 - 26,679.17\n29-06-2026 POS/FLIPKART 425376054 640.42 - 26,038.75\n01-07-2026 NEFT DR/APPLE SERVICES 656298532 741.78 - 25,296.97\n02-07-2026 UPI/ZOMATO 358658115 417.40 - 24,879.57\n03-07-2026 POS/BPCL FUEL 710153976 7,395.00 - 17,484.57\n04-07-2026 POS/FLIPKART 978562319 840.53 - 16,644.04\nClosing Balance : Rs.16,644.04\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "DCB Bank <estatement@dcbbank.com>"
+  },
+  {
+   "id": "m220",
+   "subject": "City Union Bank Account Statement - Jul 2026",
+   "body": "Dear Arjun,\nPlease find attached your City Union Bank XXXXXX9772 statement for the period 19-Jun-2026 to 18-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-19",
+   "attachments": [
+    {
+     "filename": "eStatement_202607.pdf",
+     "protected": true
+    }
+   ],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m221",
+   "subject": "City Union Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.28,546.51 received in account XX9772 on 31-Jul-2026 (INTEREST CREDIT) Ref 628120672130.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-07-31",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m222",
+   "subject": "DCB Bank: credit alert on your account",
+   "body": "Your A/c XX9856 is credited with Rs.1,063.90 on 01-Aug-2026 - REFUND. Bal Rs.3,599.70. -DCB Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-01",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m223",
+   "subject": "Karur Vysya Bank Account Statement - Aug 2026",
+   "body": "Dear Arjun,\nYour Karur Vysya Bank xx3109 account statement for Aug 2026 is ready. Closing balance Rs.6,255.89.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-04",
+   "attachments": [],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m224",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Your A/c XX9772 is debited for Rs.504.72 on 05-Aug-2026 - ECOM DOMINOS. Bal Rs.43,692.56. -City Union Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-05",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m225",
+   "subject": "Karur Vysya Bank: credit alert on your account",
+   "body": "Credit alert: Rs.3,648.70 has been credited to account xx3109 on 12-Aug-2026 (UPI). Avl bal Rs.35,727.75.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-12",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m226",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Your A/c xx9772 is debited for Rs.388.88 on 16-Aug-2026 - ECOM BPCL FUEL. Bal Rs.85,340.15. -City Union Bank",
+   "date": "2026-08-16",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m227",
+   "subject": "Karur Vysya Bank: debit alert on your account",
+   "body": "Alert: Karur Vysya Bank A/c XX3109 debited Rs.83.18 on 17-Aug-2026. Mode: UPI. Details: NYKAA. Balance Rs.1,53,727.84.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-17",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m228",
+   "subject": "City Union Bank Account Statement - Aug 2026",
+   "body": "Dear Arjun,\nYour City Union Bank XXXXXX9772 account statement for Aug 2026 is ready. Closing balance Rs.19,764.96.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-19",
+   "attachments": [],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m229",
+   "subject": "DCB Bank Debit Card transaction alert",
+   "body": "POS purchase of Rs.252.78 at MAKEMYTRIP on 24-Aug-2026 with DCB Bank Debit Card XX4560.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m230",
+   "subject": "South Indian Bank: funds transferred",
+   "body": "Dear Customer,\nRs.3,207.87 has been transferred from your A/c XX4156 to Lata Tutor A/c XX6849 (Axis Bank) via IMPS on 30-Aug-2026. Ref no 277615297349.",
+   "date": "2026-08-30",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m231",
+   "subject": "Karur Vysya Bank Account Statement - Sep 2026",
+   "body": "Dear Arjun,\nYour Karur Vysya Bank *3109 account statement for Sep 2026 is ready. Closing balance Rs.1,269.76.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-09-04",
+   "attachments": [],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m232",
+   "subject": "Karur Vysya Bank: credit alert on your account",
+   "body": "Credit alert: Rs.2,827.28 has been credited to account xx3109 on 06-Sep-2026 (UPI). Avl bal Rs.8,456.49.",
+   "date": "2026-09-06",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m233",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.39,529.19 has been transferred from your A/c XXXXXX4156 to Lata Tutor A/c XX6849 (Axis Bank) via IMPS on 10-Sep-2026. Ref no 895005851674.",
+   "date": "2026-09-10",
+   "attachments": [],
+   "from": "South Indian Bank <alerts@southindianbank.com>"
+  },
+  {
+   "id": "m234",
+   "subject": "OTP for your transaction",
+   "body": "113496 is the OTP for your transaction of Rs.634.94 at SODEXO. Valid for 10 minutes. Do not share.",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m235",
+   "subject": "DCB Bank Account Statement - Sep 2026",
+   "body": "Dear Arjun,\nYour DCB Bank XXXXXX9856 account statement for Sep 2026 is ready. Closing balance Rs.25,166.37.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-15",
+   "attachments": [],
+   "from": "DCB Bank <estatement@dcbbank.com>"
+  },
+  {
+   "id": "m236",
+   "subject": "Karur Vysya Bank: debit alert on your account",
+   "body": "Rs.677.86 withdrawn from XXXXXX3109 on 17-Sep-2026 via NEFT to IRCTC. Closing balance Rs.7,096.57.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m237",
+   "subject": "Karur Vysya Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.167.50 received in account *3109 on 18-Sep-2026 (INTEREST CREDIT) Ref 666494766620.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-18",
+   "attachments": [],
+   "from": "Karur Vysya Bank <alerts@kvb.co.in>"
+  },
+  {
+   "id": "m238",
+   "subject": "City Union Bank Account Statement - Sep 2026",
+   "body": "Dear Arjun,\nPlease find attached your City Union Bank *9772 statement for the period 19-Aug-2026 to 18-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-09-19",
+   "attachments": [
+    {
+     "filename": "eStatement_202609.pdf",
+     "protected": true
+    }
+   ],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m239",
+   "subject": "City Union Bank: credit alert on your account",
+   "body": "City Union Bank: XX9772 credited with Rs.11,340.98 on 25-Sep-2026. Source: NEFT. Balance Rs.1,29,305.02.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m240",
+   "subject": "DCB Bank: debit alert on your account",
+   "body": "Alert: DCB Bank A/c XX9856 debited Rs.6,448.26 on 30-Sep-2026. Mode: POS. Details: STARBUCKS. Balance Rs.1,43,036.69.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-30",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m241",
+   "subject": "DCB Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.680.02 received in account XXXXXX9856 on 30-Sep-2026 (INTEREST CREDIT) Ref 624285780208.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-30",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m242",
+   "subject": "OTP for your transaction",
+   "body": "100747 is the OTP for your transaction of Rs.975.23 at MAKEMYTRIP. Valid for 10 minutes. Do not share.",
+   "date": "2026-10-02",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m243",
+   "subject": "City Union Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.6,024.58 received in account xx9772 on 03-Oct-2026 (UPI) Ref 290651008722.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-03",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m244",
+   "subject": "Karur Vysya Bank Account Statement - Oct 2026",
+   "body": "Dear Arjun,\nPlease find attached your Karur Vysya Bank xx3109 statement for the period 04-Sep-2026 to 03-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-10-04",
+   "attachments": [
+    {
+     "filename": "Karur_Acct_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karur Vysya Bank <estatement@kvb.co.in>"
+  },
+  {
+   "id": "m245",
+   "subject": "DCB Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.14,736.09 debited from account XXXXXX9856 on 05-Oct-2026. Narration: NEFT/EASEMYTRIP. Available balance Rs.26,354.04.",
+   "date": "2026-10-05",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m246",
+   "subject": "DCB Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.6,330.74 credited to your DCB Bank A/c XXXXXX9856 on 05-Oct-2026 by NEFT. Ref 231124671319.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-05",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m247",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.18,374.89 debited from account *9772 on 06-Oct-2026. Narration: NEFT/NYKAA. Available balance Rs.67,346.88.",
+   "date": "2026-10-06",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m248",
+   "subject": "DCB Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.124.78 has been debited from your DCB Bank A/c XXXXXX9856 on 13-Oct-2026 (UPI MYNTRA). Avl bal Rs.1,43,329.48.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-13",
+   "attachments": [],
+   "from": "DCB Bank <alerts@dcbbank.com>"
+  },
+  {
+   "id": "m249",
+   "subject": "City Union Bank: credit alert on your account",
+   "body": "City Union Bank: *9772 credited with Rs.4,351.20 on 15-Oct-2026. Source: NEFT. Balance Rs.3,607.54.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-15",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m250",
+   "subject": "Update your KYC",
+   "body": "Dear Arjun,\nAs per RBI guidelines please complete re-KYC for your City Union Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m251",
+   "subject": "City Union Bank Account Statement - Oct 2026",
+   "body": "Dear Arjun,\nPlease find attached your City Union Bank xx9772 statement for the period 19-Sep-2026 to 18-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-19",
+   "attachments": [
+    {
+     "filename": "9772_18102026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "kvb.co.in",
+    "last4": "3109",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "cityunionbank.com",
+    "last4": "9772",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "southindianbank.com",
+    "last4": "4156",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": "CLOSED",
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "dcbbank.com",
+    "last4": "9856",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "dcbbank.com",
+    "last4": "4560",
+    "kind": "DEBIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "8389",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "6798",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "6849",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "0053",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "southindianbank.com",
+    "last4": "9250",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "dcbbank.com",
+    "last4": "6827",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "cityunionbank.com",
+    "last4": "5090",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "cityunionbank.com",
+    "last4": "6501",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "9943",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

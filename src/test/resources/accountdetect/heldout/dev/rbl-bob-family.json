@@ -1,0 +1,1875 @@
+{
+ "mailbox": "rbl-bob-family",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear&nbsp;Customer,\nTransaction&nbsp;of&nbsp;Rs 2,359.62 done on your BOB Credit Card ending 5410 at AIRBNB on 01-08-2025. Available limit Rs 2,78,181.00. Call 1800 267 6789 for any query.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-08-01",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 2,320.49 done on your BOB Credit Card XX5410 at BATA INDIA on 04-08-2025. Available limit Rs 1,65,935.00. Call 1800 267 6789 for any query.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-04",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "RBL Bank Platinum Delight Credit Card Statement - Aug 2025",
+   "body": "Dear Customer,\nYour RBL Bank Platinum Delight Credit Card ending 2299 Statement for the period 13/07/2025 to 12/08/2025 is attached.\nTotal Amount Due: Rs. 4,180.79\nMinimum Amount Due: Rs. 209.04\nPayment Due Date: 30/08/2025\nPay via NetBanking, UPI or auto-debit.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_Aug2025.pdf",
+     "protected": false,
+     "pdfText": "RBL BANK - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCard No: 4201 84XX XXXX 2299\nStatement Date: 12/08/2025\nStatement Period: 13/07/2025 - 12/08/2025\nPayment Due Date: 30/08/2025\nTotal Amount Due: Rs. 4,180.79\nMinimum Amount Due: Rs. 209.04\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,35,422.00\n\nDate        Transaction Details                        Amount (Rs.)\n22/07/2025  LICIOUS KOCHI   218.40 Dr\n07/08/2025  CROMA CHENNAI   25,246.97 Dr\n13/07/2025  WESTSIDE CHENNAI   23,278.07 Dr\n10/08/2025  AIRBNB KOCHI   22,241.17 Dr\n16/07/2025  JIO PREPAID BANGALORE   11,328.69 Dr\n22/07/2025  OLA CABS HYDERABAD   40,705.45 Dr\n16/07/2025  WESTSIDE MUMBAI   8,651.99 Dr\n15/07/2025  RELIANCE SMART BANGALORE   9,152.23 Dr\n10/08/2025  IRCTC CHENNAI   1,070.16 Dr\n03/08/2025  PAYMENT RECEIVED - THANK YOU   2,508.47 Cr\n\nReward Points Summary: Opening 744  Earned 633  Closing 6342\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "RBL Bank Credit Card <creditcardstatement@rblbank.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "BOBCARD Eterna Credit Card Monthly Statement - Aug 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 5410. Statement date: 12-Aug-2025. Total amount due Rs.1,834.27; minimum Rs.200.00; due 30-Aug-2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "BOBCARD Easy Credit Card Monthly Statement - Aug 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement no. XXXXXXXXXXXX9115. Statement date: 12-Aug-2025. Total amount due Rs.14,771.33; minimum Rs.738.57; due 30-Aug-2025.\nSBI/BOB style auto pay available on request.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_Aug2025.pdf",
+     "protected": false,
+     "pdfText": "BOBCARD - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCredit Card Number: XXXX XXXX XXXX 9115\nCard Type: Easy\nStatement Date: 12/08/2025\nStatement Period: 13/07/2025 - 12/08/2025\nPayment Due Date: 30/08/2025\nTotal Amount Due: Rs. 14,771.33\nMinimum Amount Due: Rs. 738.57\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 76,490.00\n\nDate        Transaction Details                        Amount (Rs.)\n15/07/2025  OLA CABS CHENNAI   20,293.98 Dr\n07/08/2025  BPCL FUEL MUMBAI   303.73 Dr\n28/07/2025  CAFE COFFEE DAY MUMBAI   2,070.73 Dr\n14/07/2025  AMAZON PAY INDIA HYDERABAD   2,602.29 Dr\n19/07/2025  CAFE COFFEE DAY KOCHI   12,478.46 Dr\n18/07/2025  MAKEMYTRIP BANGALORE   501.52 Dr\n03/08/2025  PAYMENT RECEIVED - THANK YOU   8,862.80 Cr\n\nReward Points Summary: Opening 6619  Earned 340  Closing 6841\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 762.00 done on your BOB Credit Card ending 9115 at THIRD WAVE COFFEE on 15-08-2025. Available limit Rs 2,88,229.00. Call 1800 267 6789 for any query.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-15",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 6,836.82 done on your BOB Credit Card ending 9115 at MEDPLUS on 16-08-2025. Available limit Rs 2,34,134.00. Call 1800 267 6789 for any query.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-08-16",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;3,314.92&nbsp;has been spent on your RBL Bank Credit Card ending 2299 at DECATHLON on 17-08-2025. Your available limit is INR 1,60,462.00.\nIf not done by you, call 022-62327777 immediately.",
+   "date": "2025-08-17",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 2,628.75 done on your BOB Credit Card ending 5410 at GOOGLE PLAY on 22-08-2025. Available limit Rs 2,91,094.00. Call 1800 267 6789 for any query.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-08-22",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.14,771.33 on 23-08-2025 towards your BOBCARD Credit Card ending 9115. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-23",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.4,180.79 on 25-08-2025 towards your RBL Bank Credit Card ending 2299. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-08-25",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Neha, a gentle nudge: Rs.4,180.79 due on 30 August for card ending 2299. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "RBL Bank <customercare@rblbank.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Payment reminder: BOBCARD Credit Card ending 5410",
+   "body": "Dear Customer,\nThis is a reminder that Rs.1,834.27 (minimum Rs.200.00) is due on 30-Aug-2025 on your BOBCARD Credit Card ending 5410. Pay on time to avoid late payment charges.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,834.27 on 27-08-2025 towards your BOBCARD Credit Card ending 5410. Thank you.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Neha, a gentle nudge: Rs.14,771.33 due on 30 August for card ending 9115. Ignore if already paid. Kripya samay par bhugtan karein.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 16,568.69 done on your BOB Credit Card xx5410 at URBAN COMPANY on 08-09-2025. Available limit Rs 57,112.00. Call 1800 267 6789 for any query.\n\nT&C apply. Visit www.bobfinancial.com for more details.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-09-08",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "RBL Bank Platinum Delight Credit Card Statement - Sep 2025",
+   "body": "Dear Customer,\nYour RBL Bank Platinum Delight Credit Card ending 2299 Statement for the period 13/08/2025 to 12/09/2025 is attached.\nTotal Amount Due: Rs. 29,362.30\nMinimum Amount Due: Rs. 1,468.12\nPayment Due Date: 30/09/2025\nPay via NetBanking, UPI or auto-debit.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_Sep2025.pdf",
+     "protected": false,
+     "pdfText": "RBL BANK - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCredit Card Number: XXXX XXXX XXXX 2299\nCard Type: Platinum Delight\nStatement Date: 12/09/2025\nStatement Period: 13/08/2025 - 12/09/2025\nPayment Due Date: 30/09/2025\nTotal Amount Due: Rs. 29,362.30\nMinimum Amount Due: Rs. 1,468.12\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,22,722.00\n\nDate        Transaction Details                        Amount (Rs.)\n18/08/2025  NETFLIX.COM CHENNAI   627.76 Dr\n31/08/2025  CAFE COFFEE DAY MUMBAI   669.86 Dr\n21/08/2025  DECATHLON BANGALORE   9,747.74 Dr\n22/08/2025  REDBUS CHENNAI   7,282.25 Dr\n03/09/2025  PAYMENT RECEIVED - THANK YOU   17,617.38 Cr\n\nReward Points Summary: Opening 2353  Earned 404  Closing 8041\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "RBL Bank Credit Card <creditcardstatement@rblbank.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "BOBCARD Eterna Credit Card Monthly Statement - Sep 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 5410. Statement date: 12-Sep-2025. Total amount due Rs.11,205.36; minimum Rs.560.27; due 30-Sep-2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "BOBCARD Easy Credit Card Monthly Statement - Sep 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 9115. Statement date: 12-Sep-2025. Total amount due Rs.9,498.46; minimum Rs.474.92; due 30-Sep-2025.\nSBI/BOB style auto pay available on request.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_Sep2025.pdf",
+     "protected": false,
+     "pdfText": "BOBCARD - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCard No: 4353 50XX XXXX 9115\nCard Type: Easy\nStatement Date: 12/09/2025\nStatement Period: 13/08/2025 - 12/09/2025\nPayment Due Date: 30/09/2025\nTotal Amount Due: Rs. 9,498.46\nMinimum Amount Due: Rs. 474.92\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,72,858.00\n\nDate        Transaction Details                        Amount (Rs.)\n14/08/2025  REDBUS BANGALORE   253.43 Dr\n27/08/2025  MAKEMYTRIP PUNE   889.57 Dr\n06/09/2025  GOOGLE PLAY GURGAON   5,487.73 Dr\n17/08/2025  ZEPTO PUNE   27,939.38 Dr\n24/08/2025  BOOKMYSHOW GURGAON   20,323.88 Dr\n14/08/2025  NETFLIX.COM MUMBAI   3,344.88 Dr\n18/08/2025  URBAN COMPANY GURGAON   2,400.60 Dr\n23/08/2025  BIGBASKET HYDERABAD   108.61 Dr\n25/08/2025  CAFE COFFEE DAY GURGAON   13,257.47 Dr\n03/09/2025  PAYMENT RECEIVED - THANK YOU   5,699.08 Cr\n\nReward Points Summary: Opening 1297  Earned 263  Closing 5245\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5187848011111  IFSC BOBC0000166"
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 22,273.54 has been spent on your RBL Bank Credit Card ending 2299 at INDIGO AIRLINES on 15-09-2025. Your available limit is INR 2,53,436.00.\nIf not done by you, call 022-62327777 immediately.",
+   "date": "2025-09-15",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.29,362.30 on 22-09-2025 towards your RBL Bank Credit Card ending 2299. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-22",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 2,296.52 done on your BOB Credit Card ending 9115 at INDIGO AIRLINES on 24-09-2025. Available limit Rs 22,138.00. Call 1800 267 6789 for any query.",
+   "date": "2025-09-24",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Payment reminder: BOBCARD Credit Card ending 5410",
+   "body": "Dear Customer,\nThis is a reminder that Rs.11,205.36 (minimum Rs.560.27) is due on 30-Sep-2025 on your BOBCARD Credit Card ending 5410. Pay on time to avoid late payment charges.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Neha, a gentle nudge: Rs.9,498.46 due on 30 September for card XX9115. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.11,205.36 on 28-09-2025 towards your BOBCARD Credit Card ending 5410. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-09-28",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 489.17 done on your BOB Credit Card ending 9115 at REDBUS on 03-10-2025. Available limit Rs 2,83,482.00. Call 1800 267 6789 for any query.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-03",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "We have received your request",
+   "body": "Dear Customer,\nYour service request is registered. Reference No. SR202650771650. We will resolve it within 3 working days.",
+   "date": "2025-10-03",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "OTP for online transaction",
+   "body": "309919 is the One Time Password (OTP) for your online transaction of INR 27,558.21 at PVR INOX. Valid for 5 minutes. Do not share with anyone, including bank staff.",
+   "date": "2025-10-07",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Neha Mehta,\nPlease find attached the updated MITC and Terms & Conditions applicable to your BOBCARD Eterna Credit Card. These are effective from the next billing cycle.",
+   "date": "2025-10-09",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "BOBCARD CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank at its discretion. The Cardholder shall not exceed the credit limit.\n3. Billing: An account statement is generated monthly and sent to the registered email address. The Cardholder should review the account statement and report discrepancies within 60 days.\n4. Interest: Finance charges apply on revolving balances up to 3.6% per month. 5. Payment: Minimum amount due must be paid on or before the due date. 6. Lost card: report immediately. 7. Grievance redressal and Ombudsman details are available on the website."
+    },
+    {
+     "filename": "Credit_Card_Terms_and_Conditions.pdf",
+     "protected": false,
+     "pdfText": "BOBCARD Credit Card Cardmember Agreement\nThis agreement governs the use of the card. The credit limit may be increased or reduced with notice. The monthly account statement is deemed accepted unless disputed. Card is the property of the Bank. Applicable law: India. Arbitration at Mumbai. Authorised signatory. For queries contact the customer care number printed on your account statement."
+    }
+   ],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "नमस्ते,\nDear Customer,\nINR 8,258.32 has been spent on your RBL Bank Credit Card ending 2299 at ZOMATO on 10-10-2025. Your available limit is INR 3,80,907.00.\nIf not done by you, call 022-62327777 immediately.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-10-10",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,<br>\nINR 31,515.56 has been spent on your RBL Bank Credit Card ending 2299 at BOOKMYSHOW on 12-10-2025. Your available limit is INR 1,29,447.00.<br>\nIf not done by you, call 022-62327777 immediately.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-10-12",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "RBL Bank Platinum Delight Credit Card Statement - Oct 2025",
+   "body": "Dear Customer,\nYour RBL Bank Platinum Delight Credit Card ending 2299 Statement for the period 12/09/2025 to 12/10/2025 is attached.\nTotal Amount Due: Rs. 7,134.59\nMinimum Amount Due: Rs. 356.73\nPayment Due Date: 30/10/2025\nPay via NetBanking, UPI or auto-debit.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_Oct2025.pdf",
+     "protected": false,
+     "pdfText": "RBL BANK - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCredit Card Number: XXXX XXXX XXXX 2299\nStatement Date: 12/10/2025\nStatement Period: 12/09/2025 - 12/10/2025\nPayment Due Date: 30/10/2025\nTotal Amount Due: Rs. 7,134.59\nMinimum Amount Due: Rs. 356.73\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 46,873.00\n\nDate        Transaction Details                        Amount (Rs.)\n02/10/2025  GOOGLE PLAY GURGAON   41,515.02 Dr\n23/09/2025  DECATHLON PUNE   512.44 Dr\n08/10/2025  BIGBASKET HYDERABAD   302.95 Dr\n04/10/2025  ZEPTO GURGAON   5,960.64 Dr\n28/09/2025  TATA 1MG KOCHI   16,669.75 Dr\n03/10/2025  PAYMENT RECEIVED - THANK YOU   4,280.75 Cr\n\nReward Points Summary: Opening 2270  Earned 609  Closing 6992\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 1923677836900  IFSC RBL 0000197"
+    }
+   ],
+   "from": "RBL Bank Credit Card <creditcardstatement@rblbank.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "BOBCARD Eterna Credit Card Monthly Statement - Oct 2025",
+   "body": "Dear Cardholder,<br>\nPlease find enclosed your monthly statement ending 5410. Statement date: 12-Oct-2025. Total amount due Rs.2,320.92; minimum Rs.200.00; due 30-Oct-2025.<br>\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nNever share your OTP, PIN, CVV or password with anyone. BOBCARD will never ask for these.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "BOBCARD Easy Credit Card Monthly Statement - Oct 2025",
+   "body": "Dear Cardholder,<br>\nPlease find enclosed your monthly statement XXXX XXXX XXXX 9115. Statement date: 12-Oct-2025. Total amount due Rs.20,336.14; minimum Rs.1,016.81; due 30-Oct-2025.<br>\nSBI/BOB style auto pay available on request.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_Oct2025.pdf",
+     "protected": false,
+     "pdfText": "BOBCARD - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCard No: 4283 65XX XXXX 9115\nCard Type: Easy\nStatement Date: 12/10/2025\nStatement Period: 12/09/2025 - 12/10/2025\nPayment Due Date: 30/10/2025\nTotal Amount Due: Rs. 20,336.14\nMinimum Amount Due: Rs. 1,016.81\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,55,196.00\n\nDate        Transaction Details                        Amount (Rs.)\n14/09/2025  NETFLIX.COM KOCHI   6,000.50 Dr\n07/10/2025  RELIANCE SMART PUNE   272.27 Dr\n09/10/2025  MAKEMYTRIP CHENNAI   30,119.38 Dr\n17/09/2025  RELIANCE SMART BANGALORE   8,176.95 Dr\n08/10/2025  AIRBNB PUNE   1,163.28 Dr\n08/10/2025  NETFLIX.COM KOCHI   1,946.55 Dr\n03/10/2025  PAYMENT RECEIVED - THANK YOU   12,201.68 Cr\n\nReward Points Summary: Opening 7943  Earned 776  Closing 4650\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "BOBCARD transaction alert",
+   "body": "नमस्ते,\nDear Customer,\nTransaction of Rs 102.44 done on your BOB Credit Card ending 5410 at AIRBNB on 14-10-2025. Available limit Rs 3,57,432.00. Call 1800 267 6789 for any query.",
+   "date": "2025-10-14",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 173.64 done on your BOB Credit Card ending 5410 at RELIANCE SMART on 16-10-2025. Available limit Rs 2,63,587.00. Call 1800 267 6789 for any query.\n\nNever share your OTP, PIN, CVV or password with anyone. BOBCARD will never ask for these.",
+   "date": "2025-10-16",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 2,652.52 done on your BOB Credit Card ending 9115 at JIO PREPAID on 16-10-2025. Available limit Rs 3,01,481.00. Call 1800 267 6789 for any query.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-16",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "KYC update: Aadhaar verification",
+   "body": "Dear Customer,<br>\nYour Aadhaar (XXXX XXXX 7798) has been successfully verified for e-KYC. PAN status: linked. No further action needed.<br>\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-10-20",
+   "attachments": [],
+   "from": "RBL Bank <customercare@rblbank.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 31,465.71 has been spent on your RBL Bank Credit Card ending 2299 at BPCL FUEL on 21-10-2025. Your available limit is INR 3,29,864.00.\nIf not done by you, call 022-62327777 immediately.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-21",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 411.49 has been spent on your RBL Bank Credit Card no. XXXXXXXXXXXX2299 at THIRD WAVE COFFEE on 24-10-2025. Your available limit is INR 2,76,776.00.\nIf not done by you, call 022-62327777 immediately.",
+   "date": "2025-10-24",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,320.92 on 25-10-2025 towards your BOBCARD Credit Card ending 5410. Thank you.",
+   "date": "2025-10-25",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 430.72 done on your BOB Credit Card ending 9115 at TATA 1MG on 25-10-2025. Available limit Rs 1,31,876.00. Call 1800 267 6789 for any query.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-10-25",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Neha, a gentle nudge: Rs.2,320.92 due on 30 October for card ending 5410. Ignore if already paid. Kripya samay par bhugtan karein.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.7,134.59 on 29-10-2025 towards your RBL Bank Credit Card ending 2299. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-29",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear&nbsp;Customer,\nTransaction&nbsp;of&nbsp;Rs 11,427.18 done on your BOB Credit Card ending 9115 at UBER INDIA on 07-11-2025. Available limit Rs 3,71,625.00. Call 1800 267 6789 for any query.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-07",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "BOBCARD transaction alert",
+   "body": "नमस्ते,\nDear Customer,<br>\nTransaction of Rs 30,822.09 done on your BOB Credit Card ending 5410 at TATA 1MG on 09-11-2025. Available limit Rs 2,05,736.00. Call 1800 267 6789 for any query.",
+   "date": "2025-11-09",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,<br>\nINR 19,831.76 has been spent on your RBL Bank Credit Card xx2299 at THIRD WAVE COFFEE on 10-11-2025. Your available limit is INR 1,25,877.00.<br>\nIf not done by you, call 022-62327777 immediately.\n\nT&C apply. Visit www.rblbank.com for more details.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-11-10",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "RBL Bank Platinum Delight Credit Card Statement - Nov 2025",
+   "body": "Dear Customer,\nYour RBL Bank Platinum Delight Credit Card ending 2299 Statement for the period 13/10/2025 to 12/11/2025 is attached.\nTotal Amount Due: Rs. 12,228.37\nMinimum Amount Due: Rs. 611.42\nPayment Due Date: 30/11/2025\nPay via NetBanking, UPI or auto-debit.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "RBL BANK - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCredit Card Number: XXXX XXXX XXXX 2299\nCard Type: Platinum Delight\nStatement Date: 12/11/2025\nStatement Period: 13/10/2025 - 12/11/2025\nPayment Due Date: 30/11/2025\nTotal Amount Due: Rs. 12,228.37\nMinimum Amount Due: Rs. 611.42\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 64,972.00\n\nDate        Transaction Details                        Amount (Rs.)\n07/11/2025  WESTSIDE GURGAON   8,088.60 Dr\n13/10/2025  MEDPLUS CHENNAI   3,399.02 Dr\n09/11/2025  REDBUS MUMBAI   3,202.38 Dr\n04/11/2025  TATA 1MG PUNE   623.50 Dr\n07/11/2025  BLINKIT PUNE   13,390.10 Dr\n22/10/2025  UBER INDIA GURGAON   1,483.97 Dr\n27/10/2025  WESTSIDE KOCHI   38,105.71 Dr\n25/10/2025  CAFE COFFEE DAY GURGAON   3,723.70 Dr\n06/11/2025  THIRD WAVE COFFEE BANGALORE   19,342.43 Dr\n03/11/2025  PAYMENT RECEIVED - THANK YOU   7,337.02 Cr\n\nReward Points Summary: Opening 4989  Earned 397  Closing 4457\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "RBL Bank Credit Card <creditcardstatement@rblbank.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "BOBCARD Eterna Credit Card Monthly Statement - Nov 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment ending 5410. Statement date: 12-Nov-2025. Total amount due Rs.2,618.04; minimum Rs.200.00; due 30-Nov-2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "BOBCARD Easy Credit Card Monthly Statement - Nov 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment ending 9115. Statement date: 12-Nov-2025. Total amount due Rs.10,604.30; minimum Rs.530.22; due 30-Nov-2025.\nSBI/BOB style auto pay available on request.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "BOBCARD - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCard No: 4486 97XX XXXX 9115\nCard Type: Easy\nStatement Date: 12/11/2025\nStatement Period: 13/10/2025 - 12/11/2025\nPayment Due Date: 30/11/2025\nTotal Amount Due: Rs. 10,604.30\nMinimum Amount Due: Rs. 530.22\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 24,342.00\n\nDate        Transaction Details                        Amount (Rs.)\n24/10/2025  BPCL FUEL CHENNAI   225.94 Dr\n16/10/2025  RELIANCE SMART KOCHI   19,371.77 Dr\n20/10/2025  INDIGO AIRLINES BANGALORE   2,114.22 Dr\n04/11/2025  HOTSTAR BANGALORE   791.94 Dr\n31/10/2025  SPOTIFY MUMBAI   3,053.03 Dr\n03/11/2025  PAYMENT RECEIVED - THANK YOU   6,362.58 Cr\n\nReward Points Summary: Opening 916  Earned 159  Closing 6674\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5187848011111  IFSC BOBC0000876"
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 23,564.67 has been spent on your RBL Bank Credit Card ending 2299 at GOOGLE PLAY on 13-11-2025. Your availble limit is INR 3,60,588.00.\nIf not done by you, call 022-62327777 immediately.\n\nNever share your OTP, PIN, CVV or password with anyone. RBL Bank will never ask for these.",
+   "date": "2025-11-13",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "BOBCARD transaction alert",
+   "body": "नमस्ते,\nDear Customer,\nTransaction of Rs 763.60 done on your BOB Credit Card ending 5410 at AMAZON PAY INDIA on 16-11-2025. Available limit Rs 2,03,210.00. Call 1800 267 6789 for any query.\n\nThis is a system generated email. Please do not reply to this message.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-11-16",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 20,034.95 has been spent on your RBL Bank Credit Card ending 2299 at PVR INOX on 17-11-2025. Your availble limit is INR 2,05,202.00.\nIf not done by you, call 022-62327777 immediately.",
+   "date": "2025-11-17",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 6,779.49 done on your BOB Credit Card ending 9115 at AMAZON PAY INDIA on 24-11-2025. Available limit Rs 1,10,324.00. Call 1800 267 6789 for any query.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-11-24",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,<br>\nYou have 10548 reward points on your RBL Bank Platinum Delight Credit Card ending 2299. Redeem them on the rewards portal before they expire.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "RBL Bank <customercare@rblbank.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Your reward points summary",
+   "body": "Dear&nbsp;Customer,\nYou&nbsp;have&nbsp;3001 reward points on your BOBCARD Eterna Credit Card XXXX XXXX XXXX 5410. Redeem them on the rewards portal before they expire.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 11130 reward points on your BOBCARD Easy Credit Card ending 9115. Redeem them on the rewards portal before they expire.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Neha, a gentle nudge: Rs.10,604.30 due on 30 November for card no. XXXXXXXXXXXX9115. Ignore if already paid. Kripya samay par bhugtan karein.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 346.89 done on your BOB Credit Card ending 5410 at OLA CABS on 02-12-2025. Available limit Rs 2,97,403.00. Call 1800 267 6789 for any query.\n\nNever share your OTP, PIN, CVV or password with anyone. BOBCARD will never ask for these.",
+   "date": "2025-12-02",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "RBL Bank Platinum Delight Credit Card Statement - Dec 2025",
+   "body": "Dear Customer,\nYour RBL Bank Platinum Delight Credit Card XX2299 Statement for the period 12/11/2025 to 12/12/2025 is attached.\nTotal Amount Due: Rs. 67,886.34\nMinimum Amount Due: Rs. 3,394.32\nPayment Due Date: 30/12/2025\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_Dec2025.pdf",
+     "protected": false,
+     "pdfText": "RBL BANK - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCredit Card Number: XXXX XXXX XXXX 2299\nStatement Date: 12/12/2025\nStatement Period: 12/11/2025 - 12/12/2025\nPayment Due Date: 30/12/2025\nTotal Amount Due: Rs. 67,886.34\nMinimum Amount Due: Rs. 3,394.32\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,13,981.00\n\nDate        Transaction Details                        Amount (Rs.)\n26/11/2025  OLA CABS BANGALORE   2,990.41 Dr\n21/11/2025  INDIGO AIRLINES KOCHI   24,470.70 Dr\n23/11/2025  URBAN COMPANY PUNE   22,741.26 Dr\n23/11/2025  ZOMATO BANGALORE   554.48 Dr\n03/12/2025  PAYMENT RECEIVED - THANK YOU   40,731.80 Cr\n\nReward Points Summary: Opening 5974  Earned 238  Closing 1921\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "RBL Bank Credit Card <creditcardstatement@rblbank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "BOBCARD Eterna Credit Card Monthly Statement - Dec 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment ending 5410. Statement date: 12-Dec-2025. Total amount due Rs.4,405.47; minimum Rs.220.27; due 30-Dec-2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "BOBCARD Easy Credit Card Monthly Statement - Dec 2025",
+   "body": "Dear Cardholder,<br>\nPlease find enclosed your monthly statement ending 9115. Statement date: 12-Dec-2025. Total amount due Rs.1,654.06; minimum Rs.200.00; due 30-Dec-2025.<br>\nSBI/BOB style auto pay available on request.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_Dec2025.pdf",
+     "protected": false,
+     "pdfText": "BOBCARD - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCard No: 4192 24XX XXXX 9115\nCard Type: Easy\nStatement Date: 12/12/2025\nStatement Period: 12/11/2025 - 12/12/2025\nPayment Due Date: 30/12/2025\nTotal Amount Due: Rs. 1,654.06\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 64,730.00\n\nDate        Transaction Details                        Amount (Rs.)\n05/12/2025  TATA 1MG CHENNAI   1,295.11 Dr\n21/11/2025  TATA 1MG BANGALORE   6,822.98 Dr\n18/11/2025  STARBUCKS MUMBAI   2,517.04 Dr\n29/11/2025  DMART MUMBAI   914.42 Dr\n14/11/2025  URBAN COMPANY MUMBAI   9,706.69 Dr\n26/11/2025  INDIGO AIRLINES GURGAON   2,918.12 Dr\n03/12/2025  PAYMENT RECEIVED - THANK YOU   992.44 Cr\n\nReward Points Summary: Opening 1568  Earned 517  Closing 1256\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 3,636.04 has been spent on your RBL Bank Credit Card ending 2299 at CROMA on 18-12-2025. Your available limit is INR 1,45,998.00.\nIf not done by you, call 022-62327777 immediately.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-18",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transaction of Rs.8,820.26 on card **9115 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-12-22",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.67,886.34 on 25-12-2025 towards your RBL Bank Credit Card xx2299. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. RBL Bank will never ask for these.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,<br>\nTransaction of Rs 5,817.63 done on your BOB Credit Card ending 9115 at PVR INOX on 25-12-2025. Available limit Rs 62,491.00. Call 1800 267 6789 for any query.<br>\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,654.06 on 25-12-2025 towards your BOBCARD Credit Card ending 9115. Thank you.\n\nT&C apply. Visit www.bobfinancial.com for more details.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Your Swiggy order receipt",
+   "body": "Order #4980 delivered. Paid via UPI. Rate your meal!\nT&C apply.",
+   "date": "2025-12-26",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m069",
+   "subject": "Payment reminder: RBL Bank Credit Card ending 2299",
+   "body": "Dear Customer,\nThis is a reminder that Rs.67,886.34 (minimum Rs.3,394.32) is due on 30-Dec-2025 on your RBL Bank Credit Card ending 2299. Pay on time to avoid late payment charges.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "RBL Bank <customercare@rblbank.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Payment reminder: BOBCARD Credit Card ending 9115",
+   "body": "Dear Customer,\nThis is a reminder that Rs.1,654.06 (minimum Rs.200.00) is due on 30-Dec-2025 on your BOBCARD Credit Card ending 9115. Pay on time to avoid late payment charges.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.4,405.47 on 28-12-2025 towards your BOBCARD Credit Card ending 5410. Thank you.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 898.83 done on your BOB Credit Card ending 5410 at BPCL FUEL on 02-01-2026. Available limit Rs 79,527.00. Call 1800 267 6789 for any query.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nT&C apply. Visit www.bobfinancial.com for more details.",
+   "date": "2026-01-02",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card XX9115 has been processed. Tenure 12 months. First EMI will appear on your next statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-05",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 4,221.42 done on your BOB Credit Card ending 5410 at IRCTC on 07-01-2026. Available limit Rs 1,30,299.00. Call 1800 267 6789 for any query.\n\nNever share your OTP, PIN, CVV or password with anyone. BOBCARD will never ask for these.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-07",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,<br>\nTransaction of Rs 3,158.14 done on your BOB Credit Card ending 9115 at INDIGO AIRLINES on 08-01-2026. Available limit Rs 1,78,932.00. Call 1800 267 6789 for any query.<br>\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-01-08",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Pre-approved Personal Loan for you",
+   "body": "Get Rs.7,00,000 at 11% p.a. Instant approval. Offer ID BF5887\nT&C apply.",
+   "date": "2026-01-08",
+   "attachments": [],
+   "from": "Bajaj Finserv <offers@bajajfinserv.in>"
+  },
+  {
+   "id": "m077",
+   "subject": "RBL Bank Platinum Delight Credit Card Statement - Jan 2026",
+   "body": "Dear Customer,\nYour RBL Bank Platinum Delight Credit Card ending 2299 Statement for the period 13/12/2025 to 12/01/2026 is attached.\nTotal Amount Due: Rs. 3,024.66\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/01/2026\nPay via NetBanking, UPI or auto-debit.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_Jan2026.pdf",
+     "protected": false,
+     "pdfText": "RBL BANK - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCredit Card Number: XXXX XXXX XXXX 2299\nStatement Date: 12/01/2026\nStatement Period: 13/12/2025 - 12/01/2026\nPayment Due Date: 30/01/2026\nTotal Amount Due: Rs. 3,024.66\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,34,851.00\n\nDate        Transaction Details                        Amount (Rs.)\n16/12/2025  MEDPLUS MUMBAI   423.87 Dr\n10/01/2026  LENSKART BANGALORE   2,835.06 Dr\n19/12/2025  ZEPTO CHENNAI   8,260.69 Dr\n20/12/2025  LICIOUS HYDERABAD   3,024.84 Dr\n23/12/2025  BOOKMYSHOW PUNE   765.67 Dr\n02/01/2026  HOTSTAR BANGALORE   330.70 Dr\n10/01/2026  CROMA BANGALORE   4,468.85 Dr\n03/01/2026  PAYMENT RECEIVED - THANK YOU   1,814.80 Cr\n\nReward Points Summary: Opening 623  Earned 626  Closing 1173\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "RBL Bank Credit Card <creditcardstatement@rblbank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "BOBCARD Eterna Credit Card Monthly Statement - Jan 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 5410. Statement date: 12-Jan-2026. Total amount due Rs.10,179.94; minimum Rs.509.00; due 30-Jan-2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "BOBCARD Easy Credit Card Monthly Statement - Jan 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 9115. Statement date: 12-Jan-2026. Total amount due Rs.23,941.43; minimum Rs.1,197.07; due 30-Jan-2026.\nSBI/BOB style auto pay available on request.\n\nT&C apply. Visit www.bobfinancial.com for more details.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_Jan2026.pdf",
+     "protected": false,
+     "pdfText": "BOBCARD - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCard No: 4838 13XX XXXX 9115\nStatement Date: 12/01/2026\nStatement Period: 13/12/2025 - 12/01/2026\nPayment Due Date: 30/01/2026\nTotal Amount Due: Rs. 23,941.43\nMinimum Amount Due: Rs. 1,197.07\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,79,658.00\n\nDate        Transaction Details                        Amount (Rs.)\n09/01/2026  BOOKMYSHOW MUMBAI   6,418.07 Dr\n22/12/2025  HOTSTAR MUMBAI   1,478.36 Dr\n09/01/2026  AMAZON PAY INDIA HYDERABAD   35,568.83 Dr\n20/12/2025  NETFLIX.COM PUNE   1,726.80 Dr\n31/12/2025  BIGBASKET BANGALORE   24,247.42 Dr\n30/12/2025  INDIGO AIRLINES KOCHI   3,410.96 Dr\n18/12/2025  LICIOUS KOCHI   5,630.18 Dr\n05/01/2026  BATA INDIA CHENNAI   494.54 Dr\n03/01/2026  PAYMENT RECEIVED - THANK YOU   14,364.86 Cr\n\nReward Points Summary: Opening 2452  Earned 169  Closing 6192\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 5187848011111  IFSC BOBC0000359"
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 699.16 done on your BOB Credit Card ending 5410 at BPCL FUEL on 14-01-2026. Available limit Rs 58,512.00. Call 1800 267 6789 for any query.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-01-14",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Your contract note",
+   "body": "Contract note for trades done today is attached. Client ID ZR3575\nT&C apply.",
+   "date": "2026-01-16",
+   "attachments": [],
+   "from": "Zerodha <noreply@zerodha.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your BOBCARD Easy Credit Card ending 9115 has been increased to Rs.3,00,000.00 effective 17-01-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. BOBCARD will never ask for these.",
+   "date": "2026-01-17",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 5,808.62 has been spent on your RBL Bank Credit Card ending 2299 at SPOTIFY on 18-01-2026. Your availble limit is INR 3,85,336.00.\nIf not done by you, call 022-62327777 immediately.\n\nT&C apply. Visit www.rblbank.com for more details.",
+   "date": "2026-01-18",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "BOBCARD transaction alert",
+   "body": "नमस्ते,\nDear Customer,\nTransaction of Rs 1,127.66 done on your BOB Credit Card ending 5410 at JIO PREPAID on 25-01-2026. Available limit Rs 2,03,108.00. Call 1800 267 6789 for any query.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-25",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.3,024.66 on 27-01-2026 towards your RBL Bank Credit Card ending 2299. Thank you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Neha, a gentle nudge: Rs.10,179.94 due on 30 January for card XXXX XXXX XXXX 5410. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "OTP for online transaction",
+   "body": "859797 is the One Time Password (OTP) for your online transaction of INR 1,948.11 at AIRBNB. Valid for 5 minutes. Do not share with anyone, including bank staff.",
+   "date": "2026-01-28",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.23,941.43 on 29-01-2026 towards your BOBCARD Credit Card **9115. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-29",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 651.98 done on your BOB Credit Card ending 5410 at WESTSIDE on 02-02-2026. Available limit Rs 91,219.00. Call 1800 267 6789 for any query.",
+   "date": "2026-02-02",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 310.21 has been spent on your RBL Bank Credit Card **2299 at BOOKMYSHOW on 05-02-2026. Your availble limit is INR 3,46,003.00.\nIf not done by you, call 022-62327777 immediately.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-05",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "BOBCARD transaction alert",
+   "body": "नमस्ते,\nDear Customer,\nTransaction of Rs 816.85 done on your BOB Credit Card ending 5410 at UBER INDIA on 09-02-2026. Available limit Rs 3,09,402.00. Call 1800 267 6789 for any query.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-09",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "RBL Bank Platinum Delight Credit Card Statement - Feb 2026",
+   "body": "Dear Customer,\nYour RBL Bank Platinum Delight Credit Card ending 2299 Statement for the period 13/01/2026 to 12/02/2026 is attached.\nTotal Amount Due: Rs. 5,536.01\nMinimum Amount Due: Rs. 276.80\nPayment Due Date: 02/03/2026\nPay via NetBanking, UPI or auto-debit.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "RBL BANK - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCredit Card Number: XXXX XXXX XXXX 2299\nCard Type: Platinum Delight\nStatement Date: 12/02/2026\nStatement Period: 13/01/2026 - 12/02/2026\nPayment Due Date: 02/03/2026\nTotal Amount Due: Rs. 5,536.01\nMinimum Amount Due: Rs. 276.80\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,43,941.00\n\nDate        Transaction Details                        Amount (Rs.)\n15/01/2026  APOLLO PHARMACY PUNE   2,968.22 Dr\n30/01/2026  ZEPTO GURGAON   23,690.57 Dr\n18/01/2026  STARBUCKS HYDERABAD   879.62 Dr\n21/01/2026  APOLLO PHARMACY PUNE   552.17 Dr\n05/02/2026  LICIOUS PUNE   567.54 Dr\n30/01/2026  STARBUCKS HYDERABAD   872.12 Dr\n03/02/2026  PAYMENT RECEIVED - THANK YOU   3,321.61 Cr\n\nReward Points Summary: Opening 8067  Earned 231  Closing 5191\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "RBL Bank Credit Card <creditcardstatement@rblbank.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "BOBCARD Eterna Credit Card Monthly Statement - Feb 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 5410. Statement date: 12-Feb-2026. Total amount due Rs.3,507.46; minimum Rs.200.00; due 02-Mar-2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "BOBCARD Easy Credit Card Monthly Statement - Feb 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 9115. Statement date: 12-Feb-2026. Total amount due Rs.7,009.37; minimum Rs.350.47; due 02-Mar-2026.\nSBI/BOB style auto pay available on request.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "BOBCARD - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCard No: 4553 26XX XXXX 9115\nCard Type: Easy\nStatement Date: 12/02/2026\nStatement Period: 13/01/2026 - 12/02/2026\nPayment Due Date: 02/03/2026\nTotal Amount Due: Rs. 7,009.37\nMinimum Amount Due: Rs. 350.47\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 48,404.00\n\nDate        Transaction Details                        Amount (Rs.)\n07/02/2026  WESTSIDE PUNE   380.79 Dr\n25/01/2026  URBAN COMPANY KOCHI   38,716.66 Dr\n15/01/2026  ZEPTO BANGALORE   32,559.53 Dr\n07/02/2026  CAFE COFFEE DAY HYDERABAD   198.48 Dr\n03/02/2026  PAYMENT RECEIVED - THANK YOU   4,205.62 Cr\n\nReward Points Summary: Opening 8898  Earned 369  Closing 2131\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Secure your family with term insurance",
+   "body": "Plans&nbsp;from&nbsp;Rs&nbsp;500/month. Policy no. will be shared post issuance. Quote ref 2594\nT&C apply.",
+   "date": "2026-02-12",
+   "attachments": [],
+   "from": "Tata AIA Life <news@tataaia.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "OTP for online transaction",
+   "body": "971919 is the One Time Password (OTP) for your online transaction of INR 33,400.82 at BOOKMYSHOW. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nT&C apply. Visit www.rblbank.com for more details.",
+   "date": "2026-02-16",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,<br>\nTransaction of Rs 7,085.00 done on your BOB Credit Card ending 5410 at GOOGLE PLAY on 21-02-2026. Available limit Rs 2,01,280.00. Call 1800 267 6789 for any query.",
+   "date": "2026-02-21",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 483.54 done on your BOB Credit Card **9115 at BLINKIT on 21-02-2026. Available limit Rs 77,054.00. Call 1800 267 6789 for any query.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-21",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.3,507.46 on 23-02-2026 towards your BOBCARD Credit Card ending 5410. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-02-23",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear&nbsp;Customer,\nTransaction&nbsp;of&nbsp;Rs 303.86 done on your BOB Credit Card ending 5410 at REDBUS on 26-02-2026. Available limit Rs 2,28,391.00. Call 1800 267 6789 for any query.",
+   "date": "2026-02-26",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 5,312.76 has been spent on your RBL Bank Credit Card ending 2299 at SHELL PETROL on 27-02-2026. Your available limit is INR 1,22,540.00.\nIf not done by you, call 022-62327777 immediately.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Neha, a gentle nudge: Rs.5,536.01 due on 02 March for card ending 2299. Ignore if already paid. Kripya samay par bhugtan karein.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "RBL Bank <customercare@rblbank.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Neha, a gentle nudge: Rs.7,009.37 due on 02 March for card ending 9115. Ignore if already paid. Kripya samay par bhugtan karein.\n\nT&C apply. Visit www.bobfinancial.com for more details.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.5,536.01 on 28-02-2026 towards your RBL Bank Credit Card XX2299. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-28",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.7,009.37 on 28-02-2026 towards your BOBCARD Credit Card ending 9115. Thank you.<br>\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nNever share your OTP, PIN, CVV or password with anyone. BOBCARD will never ask for these.",
+   "date": "2026-02-28",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 6,079.85 done on your BOB Credit Card ending 9115 at JIO PREPAID on 04-03-2026. Available limit Rs 59,790.00. Call 1800 267 6789 for any query.",
+   "date": "2026-03-04",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 23,129.26 has been spent on your RBL Bank Credit Card ending 2299 at BPCL FUEL on 09-03-2026. Your available limit is INR 3,18,200.00.\nIf not done by you, call 022-62327777 immediately.",
+   "date": "2026-03-09",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "नमस्ते,\nDear Customer,\nINR 7,602.88 has been spent on your RBL Bank Credit Card ending 2299 at THIRD WAVE COFFEE on 11-03-2026. Your available limit is INR 88,017.00.\nIf not done by you, call 022-62327777 immediately.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-03-11",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "RBL Bank Platinum Delight Credit Card Statement - Mar 2026",
+   "body": "Dear Customer,\nYour RBL Bank Platinum Delight Credit Card ending 2299 Statement for the period 10/02/2026 to 12/03/2026 is attached.\nTotal Amount Due: Rs. 1,218.15\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/03/2026\nPay via NetBanking, UPI or auto-debit.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_Mar2026.pdf",
+     "protected": false,
+     "pdfText": "RBL BANK - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCard No: 4392 10XX XXXX 2299\nStatement Date: 12/03/2026\nStatement Period: 10/02/2026 - 12/03/2026\nPayment Due Date: 30/03/2026\nTotal Amount Due: Rs. 1,218.15\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 54,337.00\n\nDate        Transaction Details                        Amount (Rs.)\n01/03/2026  REDBUS BANGALORE   304.92 Dr\n25/02/2026  GOOGLE PLAY MUMBAI   466.62 Dr\n21/02/2026  BIGBASKET CHENNAI   1,043.72 Dr\n19/02/2026  TATA 1MG HYDERABAD   2,860.36 Dr\n22/02/2026  DMART PUNE   24,653.46 Dr\n25/02/2026  TATA 1MG CHENNAI   839.77 Dr\n15/02/2026  CAFE COFFEE DAY KOCHI   3,318.98 Dr\n03/03/2026  PAYMENT RECEIVED - THANK YOU   730.89 Cr\n\nReward Points Summary: Opening 6414  Earned 836  Closing 5800\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "RBL Bank Credit Card <creditcardstatement@rblbank.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "BOBCARD Eterna Credit Card Monthly Statement - Mar 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 5410. Statement date: 12-Mar-2026. Total amount due Rs.20,767.75; minimum Rs.1,038.39; due 30-Mar-2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "BOBCARD Easy Credit Card Monthly Statement - Mar 2026",
+   "body": "Dear Cardholder,<br>\nPlease find enclosed your monthly statement ending 9115. Statement date: 12-Mar-2026. Total amount due Rs.26,904.40; minimum Rs.1,345.22; due 30-Mar-2026.<br>\nSBI/BOB style auto pay available on request.\n\nT&C apply. Visit www.bobfinancial.com for more details.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_Mar2026.pdf",
+     "protected": false,
+     "pdfText": "BOBCARD - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCard No: 4718 23XX XXXX 9115\nCard Type: Easy\nStatement Date: 12/03/2026\nStatement Period: 10/02/2026 - 12/03/2026\nPayment Due Date: 30/03/2026\nTotal Amount Due: Rs. 26,904.40\nMinimum Amount Due: Rs. 1,345.22\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,16,374.00\n\nDate        Transaction Details                        Amount (Rs.)\n15/02/2026  SPOTIFY KOCHI   782.60 Dr\n10/02/2026  TATA 1MG HYDERABAD   718.74 Dr\n16/02/2026  DECATHLON MUMBAI   7,356.19 Dr\n27/02/2026  HOTSTAR GURGAON   38,055.00 Dr\n09/03/2026  CAFE COFFEE DAY GURGAON   482.84 Dr\n24/02/2026  WESTSIDE PUNE   10,940.58 Dr\n19/02/2026  JIO PREPAID PUNE   833.12 Dr\n07/03/2026  STARBUCKS MUMBAI   1,790.64 Dr\n11/02/2026  DMART HYDERABAD   7,210.63 Dr\n03/03/2026  PAYMENT RECEIVED - THANK YOU   16,142.64 Cr\n\nReward Points Summary: Opening 2855  Earned 814  Closing 6580\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 1,879.69 done on your BOB Credit Card ending 9115 at SPOTIFY on 13-03-2026. Available limit Rs 2,66,377.00. Call 1800 267 6789 for any query.\n\nNever share your OTP, PIN, CVV or password with anyone. BOBCARD will never ask for these.",
+   "date": "2026-03-13",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 144.60 has been spent on your RBL Bank Credit Card XXXX XXXX XXXX 2299 at SHELL PETROL on 15-03-2026. Your available limit is INR 2,53,075.00.\nIf not done by you, call 022-62327777 immediately.\n\nT&C apply. Visit www.rblbank.com for more details.",
+   "date": "2026-03-15",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear&nbsp;Customer,\nTransaction&nbsp;of&nbsp;Rs 30,865.18 done on your BOB Credit Card XX5410 at NETFLIX.COM on 16-03-2026. Available limit Rs 3,47,944.00. Call 1800 267 6789 for any query.",
+   "date": "2026-03-16",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "Magnus, Atlas and Flipkart Axis Bank cards: lifetime free offers",
+   "body": "Choose from ACE, Magnus, Atlas, Reserve, Airtel Axis Bank cards. Offer reference 1125<br>\nT&C apply.",
+   "date": "2026-03-16",
+   "attachments": [],
+   "from": "Axis Bank <offers@axisbank.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 3,186.27 has been spent on your RBL Bank Credit Card ending 2299 at REDBUS on 17-03-2026. Your available limit is INR 3,44,170.00.\nIf not done by you, call 022-62327777 immediately.\n\nT&C apply. Visit www.rblbank.com for more details.",
+   "date": "2026-03-17",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Your BOBCARD Credit Card has been closed",
+   "body": "Dear&nbsp;Neha&nbsp;Mehta,<br>\nThis&nbsp;is to confirm that your BOBCARD Easy Credit Card ending 9115 has been closed on 20-03-2026 at your request. No dues are pending.<br>\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-20",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 730.31 done on your BOB Credit Card ending 5410 at BIGBASKET on 21-03-2026. Available limit Rs 43,831.00. Call 1800 267 6789 for any query.\n\nT&C apply. Visit www.bobfinancial.com for more details.",
+   "date": "2026-03-21",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 6,020.64 done on your BOB Credit Card ending 5410 at TATA 1MG on 25-03-2026. Available limit Rs 3,59,738.00. Call 1800 267 6789 for any query.\n\nNever share your OTP, PIN, CVV or password with anyone. BOBCARD will never ask for these.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-03-25",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 4,561.14 done on your BOB Credit Card xx9115 at LICIOUS on 26-03-2026. Available limit Rs 1,20,250.00. Call 1800 267 6789 for any query.\n\nNever share your OTP, PIN, CVV or password with anyone. BOBCARD will never ask for these.",
+   "date": "2026-03-26",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "Payment reminder: RBL Bank Credit Card ending 2299",
+   "body": "Dear Customer,\nThis is a reminder that Rs.1,218.15 (minimum Rs.200.00) is due on 30-Mar-2026 on your RBL Bank Credit Card ending 2299. Pay on time to avoid late payment charges.\n\nNever share your OTP, PIN, CVV or password with anyone. RBL Bank will never ask for these.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "RBL Bank <customercare@rblbank.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Payment reminder: BOBCARD Credit Card ending 5410",
+   "body": "Dear Customer,\nThis is a reminder that Rs.20,767.75 (minimum Rs.1,038.39) is due on 30-Mar-2026 on your BOBCARD Credit Card ending 5410. Pay on time to avoid late payment charges.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.26,904.40 on 27-03-2026 towards your BOBCARD Credit Card ending 9115. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.20,767.75 on 28-03-2026 towards your BOBCARD Credit Card ending 5410. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-03-28",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "RBL Bank Platinum Delight Credit Card Statement - Apr 2026",
+   "body": "Dear Customer,\nYour RBL Bank Platinum Delight Credit Card XXXX XXXX XXXX 2299 Statement for the period 13/03/2026 to 12/04/2026 is attached.\nTotal Amount Due: Rs. 6,897.49\nMinimum Amount Due: Rs. 344.87\nPayment Due Date: 30/04/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_Apr2026.pdf",
+     "protected": false,
+     "pdfText": "RBL BANK - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCredit Card Number: XXXX XXXX XXXX 2299\nStatement Date: 12/04/2026\nStatement Period: 13/03/2026 - 12/04/2026\nPayment Due Date: 30/04/2026\nTotal Amount Due: Rs. 6,897.49\nMinimum Amount Due: Rs. 344.87\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 80,718.00\n\nDate        Transaction Details                        Amount (Rs.)\n22/03/2026  BLINKIT KOCHI   1,260.69 Dr\n14/03/2026  INDIGO AIRLINES GURGAON   90.08 Dr\n27/03/2026  INDIGO AIRLINES CHENNAI   1,499.23 Dr\n05/04/2026  BPCL FUEL BANGALORE   9,077.21 Dr\n07/04/2026  TATA 1MG PUNE   34,910.72 Dr\n21/03/2026  BLINKIT GURGAON   547.14 Dr\n04/04/2026  THIRD WAVE COFFEE CHENNAI   32,857.40 Dr\n09/04/2026  ZOMATO CHENNAI   2,384.73 Dr\n03/04/2026  PAYMENT RECEIVED - THANK YOU   4,138.49 Cr\n\nReward Points Summary: Opening 5689  Earned 96  Closing 8775\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "RBL Bank Credit Card <creditcardstatement@rblbank.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "BOBCARD Eterna Credit Card Monthly Statement - Apr 2026",
+   "body": "Dear&nbsp;Cardholder,<br>\nPlease&nbsp;find&nbsp;enclosed your monthly statement **5410. Statement date: 12-Apr-2026. Total amount due Rs.1,46,239.86; minimum Rs.7,311.99; due 30-Apr-2026.<br>\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 23,625.92 has been spent on your RBL Bank Credit Card ending 2299 at LENSKART on 15-04-2026. Your available limit is INR 49,801.00.\nIf not done by you, call 022-62327777 immediately.\n\nT&C apply. Visit www.rblbank.com for more details.",
+   "date": "2026-04-15",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 343.81 done on your BOB Credit Card ending 5410 at BATA INDIA on 16-04-2026. Available limit Rs 2,03,474.00. Call 1800 267 6789 for any query.",
+   "date": "2026-04-16",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 2,858.57 done on your BOB Credit Card ending 5410 at REDBUS on 20-04-2026. Available limit Rs 2,70,700.00. Call 1800 267 6789 for any query.\n\nT&C apply. Visit www.bobfinancial.com for more details.",
+   "date": "2026-04-20",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.6,897.49 on 22-04-2026 towards your RBL Bank Credit Card ending 2299. Thank you.",
+   "date": "2026-04-22",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 5313 reward points on your RBL Bank Platinum Delight Credit Card ending 2299. Redeem them on the rewards portal before they expire.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "RBL Bank <customercare@rblbank.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.1,46,239.86 on 25-04-2026 towards your BOBCARD Credit Card ending 5410. Thank you.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 2407 reward points on your BOBCARD Eterna Credit Card ending 5410. Redeem them on the rewards portal before they expire.\n\nT&C apply. Visit www.bobfinancial.com for more details.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Your contract note",
+   "body": "Contract note for trades done today is attached. Client ID ZR4164\nT&C apply.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "Zerodha <noreply@zerodha.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Payment reminder: RBL Bank Credit Card ending 2299",
+   "body": "Dear&nbsp;Customer,\nThis&nbsp;is&nbsp;a reminder that Rs.6,897.49 (minimum Rs.344.87) is due on 30-Apr-2026 on your RBL Bank Credit Card ending 2299. Pay on time to avoid late payment charges.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "RBL Bank <customercare@rblbank.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 1,130.70 has been spent on your RBL Bank Credit Card xx2299 at REDBUS on 01-05-2026. Your available limit is INR 2,38,659.00.\nIf not done by you, call 022-62327777 immediately.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-05-01",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 1,385.62 done on your BOB Credit Card XX5410 at SPOTIFY on 04-05-2026. Available limit Rs 69,073.00. Call 1800 267 6789 for any query.",
+   "date": "2026-05-04",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "RBL Bank Platinum Delight Credit Card Statement - May 2026",
+   "body": "Dear Customer,\nYour RBL Bank Platinum Delight Credit Card XX2299 Statement for the period 12/04/2026 to 12/05/2026 is attached.\nTotal Amount Due: Rs. 2,531.18\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/05/2026\nPay via NetBanking, UPI or auto-debit.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "RBL BANK - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCredit Card Number: XXXX XXXX XXXX 2299\nCard Type: Platinum Delight\nStatement Date: 12/05/2026\nStatement Period: 12/04/2026 - 12/05/2026\nPayment Due Date: 30/05/2026\nTotal Amount Due: Rs. 2,531.18\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 77,080.00\n\nDate        Transaction Details                        Amount (Rs.)\n06/05/2026  BATA INDIA HYDERABAD   41,170.02 Dr\n25/04/2026  MEDPLUS BANGALORE   869.57 Dr\n16/04/2026  AMAZON PAY INDIA GURGAON   25,508.03 Dr\n06/05/2026  CAFE COFFEE DAY PUNE   361.03 Dr\n18/04/2026  ZOMATO MUMBAI   3,484.81 Dr\n30/04/2026  STARBUCKS PUNE   177.07 Dr\n19/04/2026  SHELL PETROL PUNE   6,412.29 Dr\n03/05/2026  PAYMENT RECEIVED - THANK YOU   1,518.71 Cr\n\nReward Points Summary: Opening 4672  Earned 345  Closing 1132\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 1923677836900  IFSC RBL 0000913"
+    }
+   ],
+   "from": "RBL Bank Credit Card <creditcardstatement@rblbank.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "BOBCARD Eterna Credit Card Monthly Statement - May 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment ending 5410. Statement date: 12-May-2026. Total amount due Rs.538.48; minimum Rs.200.00; due 30-May-2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nNever share your OTP, PIN, CVV or password with anyone. BOBCARD will never ask for these.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "BOBCARD transaction alert",
+   "body": "नमस्ते,\nDear Customer,<br>\nTransaction of Rs 2,776.33 done on your BOB Credit Card ending 5410 at OLA CABS on 20-05-2026. Available limit Rs 2,04,931.00. Call 1800 267 6789 for any query.<br>\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-05-20",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "Payment reminder: RBL Bank Credit Card ending 2299",
+   "body": "Dear Customer,\nThis is a reminder that Rs.2,531.18 (minimum Rs.200.00) is due on 30-May-2026 on your RBL Bank Credit Card ending 2299. Pay on time to avoid late payment charges.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "RBL Bank <customercare@rblbank.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,531.18 on 27-05-2026 towards your RBL Bank Credit Card ending 2299. Thank you.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.538.48 on 29-05-2026 towards your BOBCARD Credit Card ending 5410. Thank you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-05-29",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "RBL Bank Platinum Delight Credit Card Statement - Jun 2026",
+   "body": "Dear Customer,<br>\nYour RBL Bank Platinum Delight Credit Card ending 2299 Statement for the period 13/05/2026 to 12/06/2026 is attached.<br>\nTotal Amount Due: Rs. 19,762.08\nMinimum Amount Due: Rs. 988.10\nPayment Due Date: 30/06/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "RBL BANK - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCard No: 4917 43XX XXXX 2299\nStatement Date: 12/06/2026\nStatement Period: 13/05/2026 - 12/06/2026\nPayment Due Date: 30/06/2026\nTotal Amount Due: Rs. 19,762.08\nMinimum Amount Due: Rs. 988.10\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,82,079.00\n\nDate        Transaction Details                        Amount (Rs.)\n18/05/2026  BIGBASKET PUNE   7,117.15 Dr\n07/06/2026  OLA CABS CHENNAI   1,516.66 Dr\n29/05/2026  ZEPTO KOCHI   392.13 Dr\n02/06/2026  BIGBASKET HYDERABAD   719.08 Dr\n16/05/2026  BATA INDIA MUMBAI   20,977.42 Dr\n03/06/2026  PAYMENT RECEIVED - THANK YOU   11,857.25 Cr\n\nReward Points Summary: Opening 945  Earned 376  Closing 5914\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "RBL Bank Credit Card <creditcardstatement@rblbank.com>"
+  },
+  {
+   "id": "m145",
+   "subject": "BOBCARD Eterna Credit Card Monthly Statement - Jun 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 5410. Statement date: 12-Jun-2026. Total amount due Rs.26,342.26; minimum Rs.1,317.11; due 30-Jun-2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "5410_12062026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 10,472.27 has been spent on your RBL Bank Credit Card **2299 at DMART on 19-06-2026. Your available limit is INR 2,68,706.00.\nIf not done by you, call 022-62327777 immediately.",
+   "date": "2026-06-19",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.26,342.26 on 23-06-2026 towards your BOBCARD Credit Card ending 5410. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-06-23",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 1,587.51 done on your BOB Credit Card ending 5410 at CAFE COFFEE DAY on 24-06-2026. Available limit Rs 85,717.00. Call 1800 267 6789 for any query.\n\nT&C apply. Visit www.bobfinancial.com for more details.",
+   "date": "2026-06-24",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Neha, a gentle nudge: Rs.19,762.08 due on 30 June for card ending 2299. Ignore if already paid. Kripya samay par bhugtan karein.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "RBL Bank <customercare@rblbank.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Neha, a gentle nudge: Rs.26,342.26 due on 30 June for card ending 5410. Ignore if already paid. Kripya samay par bhugtan karein.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.19,762.08 on 28-06-2026 towards your RBL Bank Credit Card ending 2299. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "OTP for online transaction",
+   "body": "528824 is the One Time Password (OTP) for your online transaction of INR 29,283.69 at MEDPLUS. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-07-10",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "RBL Bank Platinum Delight Credit Card Statement - Jul 2026",
+   "body": "Dear Customer,\nYour RBL Bank Platinum Delight Credit Card no. XXXXXXXXXXXX2299 Statement for the period 12/06/2026 to 12/07/2026 is attached.\nTotal Amount Due: Rs. 1,308.14\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/07/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "RBL BANK - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCard No: 4824 92XX XXXX 2299\nCard Type: Platinum Delight\nStatement Date: 12/07/2026\nStatement Period: 12/06/2026 - 12/07/2026\nPayment Due Date: 30/07/2026\nTotal Amount Due: Rs. 1,308.14\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 23,437.00\n\nDate        Transaction Details                        Amount (Rs.)\n13/06/2026  LICIOUS HYDERABAD   10,467.05 Dr\n15/06/2026  AIRBNB BANGALORE   1,634.71 Dr\n19/06/2026  DMART MUMBAI   558.14 Dr\n30/06/2026  HOTSTAR CHENNAI   3,341.64 Dr\n20/06/2026  CAFE COFFEE DAY PUNE   1,097.83 Dr\n17/06/2026  RELIANCE SMART BANGALORE   713.48 Dr\n21/06/2026  ZEPTO CHENNAI   765.47 Dr\n30/06/2026  LICIOUS BANGALORE   791.30 Dr\n03/07/2026  PAYMENT RECEIVED - THANK YOU   784.88 Cr\n\nReward Points Summary: Opening 3318  Earned 144  Closing 7053\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "RBL Bank Credit Card <creditcardstatement@rblbank.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "BOBCARD Eterna Credit Card Monthly Statement - Jul 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment ending 5410. Statement date: 12-Jul-2026. Total amount due Rs.4,652.06; minimum Rs.232.60; due 30-Jul-2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.4,652.06 on 23-07-2026 towards your BOBCARD Credit Card **5410. Thank you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "OTP for online transaction",
+   "body": "507708 is the One Time Password (OTP) for your online transaction of INR 7,293.69 at THIRD WAVE COFFEE. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-07-24",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 797.98 has been spent on your RBL Bank Credit Card ending 2299 at RELIANCE SMART on 25-07-2026. Your available limit is INR 2,76,736.00.\nIf not done by you, call 022-62327777 immediately.",
+   "date": "2026-07-25",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 11,345.10 has been spent on your RBL Bank Credit Card ending 2299 at GOOGLE PLAY on 26-07-2026. Your available limit is INR 3,62,832.00.\nIf not done by you, call 022-62327777 immediately.\n\nNever share your OTP, PIN, CVV or password with anyone. RBL Bank will never ask for these.",
+   "date": "2026-07-26",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "Payment reminder: BOBCARD Credit Card ending 5410",
+   "body": "Dear Customer,\nThis is a reminder that Rs.4,652.06 (minimum Rs.232.60) is due on 30-Jul-2026 on your BOBCARD Credit Card ending 5410. Pay on time to avoid late payment charges.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 5,184.52 done on your BOB Credit Card ending 5410 at SHELL PETROL on 28-07-2026. Available limit Rs 93,752.00. Call 1800 267 6789 for any query.\n\nNever share your OTP, PIN, CVV or password with anyone. BOBCARD will never ask for these.",
+   "date": "2026-07-28",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,308.14 on 29-07-2026 towards your RBL Bank Credit Card no. XXXXXXXXXXXX2299. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-07-29",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,<br>\nTransaction of Rs 5,654.48 done on your BOB Credit Card ending 5410 at CAFE COFFEE DAY on 06-08-2026. Available limit Rs 3,41,484.00. Call 1800 267 6789 for any query.<br>\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-08-06",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 277.68 done on your BOB Credit Card ending 5410 at SPOTIFY on 06-08-2026. Available limit Rs 1,11,846.00. Call 1800 267 6789 for any query.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-06",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 706.97 has been spent on your RBL Bank Credit Card ending 2299 at NETFLIX.COM on 07-08-2026. Your available limit is INR 1,75,934.00.\nIf not done by you, call 022-62327777 immediately.",
+   "date": "2026-08-07",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "RBL Bank Platinum Delight Credit Card Statement - Aug 2026",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;RBL&nbsp;Bank Platinum Delight Credit Card ending 2299 Statement for the period 13/07/2026 to 12/08/2026 is attached.\nTotal Amount Due: Rs. 1,963.41\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/08/2026\nPay via NetBanking, UPI or auto-debit.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "RBL BANK - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCredit Card Number: XXXX XXXX XXXX 2299\nStatement Date: 12/08/2026\nStatement Period: 13/07/2026 - 12/08/2026\nPayment Due Date: 30/08/2026\nTotal Amount Due: Rs. 1,963.41\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,86,280.00\n\nDate        Transaction Details                        Amount (Rs.)\n09/08/2026  STARBUCKS CHENNAI   2,208.69 Dr\n07/08/2026  OLA CABS MUMBAI   210.18 Dr\n10/08/2026  CROMA PUNE   7,637.73 Dr\n08/08/2026  JIO PREPAID GURGAON   26,843.13 Dr\n14/07/2026  HOTSTAR MUMBAI   2,137.38 Dr\n23/07/2026  LICIOUS HYDERABAD   2,247.88 Dr\n07/08/2026  CROMA KOCHI   670.78 Dr\n27/07/2026  LENSKART KOCHI   22,102.63 Dr\n10/08/2026  AIRBNB BANGALORE   3,360.72 Dr\n03/08/2026  PAYMENT RECEIVED - THANK YOU   1,178.05 Cr\n\nReward Points Summary: Opening 3245  Earned 380  Closing 3862\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "RBL Bank Credit Card <creditcardstatement@rblbank.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "BOBCARD Eterna Credit Card Monthly Statement - Aug 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 5410. Statement date: 12-Aug-2026. Total amount due Rs.3,419.77; minimum Rs.200.00; due 30-Aug-2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "5410_12082026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 36,119.78 done on your BOB Credit Card ending 5410 at APOLLO PHARMACY on 21-08-2026. Available limit Rs 2,16,894.00. Call 1800 267 6789 for any query.\n\nNever share your OTP, PIN, CVV or password with anyone. BOBCARD will never ask for these.",
+   "date": "2026-08-21",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transaction of Rs.13,044.56 on card ending 2299 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "RBL Bank <customercare@rblbank.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transaction of Rs.8,503.10 on card ending 5410 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Neha, a gentle nudge: Rs.3,419.77 due on 30 August for card ending 5410. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.3,419.77 on 29-08-2026 towards your BOBCARD Credit Card ending 5410. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nT&C apply. Visit www.bobfinancial.com for more details.",
+   "date": "2026-08-29",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m172",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 2,923.66 has been spent on your RBL Bank Credit Card XX2299 at REDBUS on 05-09-2026. Your available limit is INR 1,25,306.00.\nIf not done by you, call 022-62327777 immediately.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nT&C apply. Visit www.rblbank.com for more details.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card ending 2299 has been processed. Tenure 9 months. First EMI will appear on your next statement.\n\nT&C apply. Visit www.rblbank.com for more details.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "RBL Bank <customercare@rblbank.com>"
+  },
+  {
+   "id": "m174",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card ending 5410 has been processed. Tenure 12 months. First EMI will appear on your next statement.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 9,005.63 has been spent on your RBL Bank Credit Card ending 2299 at REDBUS on 06-09-2026. Your available limit is INR 3,45,403.00.\nIf not done by you, call 022-62327777 immediately.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-06",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m176",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 2,249.92 has been spent on your RBL Bank Credit Card ending 2299 at URBAN COMPANY on 10-09-2026. Your available limit is INR 99,835.00.\nIf not done by you, call 022-62327777 immediately.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-09-10",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "RBL Bank Platinum Delight Credit Card Statement - Sep 2026",
+   "body": "Dear Customer,\nYour RBL Bank Platinum Delight Credit Card ending 2299 Statement for the period 13/08/2026 to 12/09/2026 is attached.\nTotal Amount Due: Rs. 6,914.52\nMinimum Amount Due: Rs. 345.73\nPayment Due Date: 30/09/2026\nPay via NetBanking, UPI or auto-debit.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "RBL BANK - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCard No: 4290 29XX XXXX 2299\nCard Type: Platinum Delight\nStatement Date: 12/09/2026\nStatement Period: 13/08/2026 - 12/09/2026\nPayment Due Date: 30/09/2026\nTotal Amount Due: Rs. 6,914.52\nMinimum Amount Due: Rs. 345.73\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,46,857.00\n\nDate        Transaction Details                        Amount (Rs.)\n19/08/2026  MEDPLUS HYDERABAD   2,031.24 Dr\n22/08/2026  DECATHLON KOCHI   3,024.97 Dr\n23/08/2026  UBER INDIA BANGALORE   772.53 Dr\n06/09/2026  CROMA PUNE   4,730.94 Dr\n03/09/2026  MEDPLUS PUNE   3,426.63 Dr\n30/08/2026  PVR INOX PUNE   26,494.59 Dr\n10/09/2026  LENSKART KOCHI   4,470.45 Dr\n01/09/2026  ZEPTO CHENNAI   34,515.91 Dr\n21/08/2026  GOOGLE PLAY GURGAON   4,380.81 Dr\n03/09/2026  PAYMENT RECEIVED - THANK YOU   4,148.71 Cr\n\nReward Points Summary: Opening 6437  Earned 524  Closing 3401\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 1923677836900  IFSC RBL 0000718"
+    }
+   ],
+   "from": "RBL Bank Credit Card <creditcardstatement@rblbank.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "BOBCARD Eterna Credit Card Monthly Statement - Sep 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 5410. Statement date: 12-Sep-2026. Total amount due Rs.8,382.30; minimum Rs.419.12; due 30-Sep-2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m179",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 3,468.20 done on your BOB Credit Card XXXX XXXX XXXX 5410 at INDIGO AIRLINES on 15-09-2026. Available limit Rs 1,63,373.00. Call 1800 267 6789 for any query.",
+   "date": "2026-09-15",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your RBL Bank Platinum Delight Credit Card xx2299 has been increased to Rs.3,00,000.00 effective 17-09-2026.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nT&C apply. Visit www.rblbank.com for more details.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "RBL Bank <customercare@rblbank.com>"
+  },
+  {
+   "id": "m181",
+   "subject": "Credit limit change on your card",
+   "body": "Dear&nbsp;Customer,<br>\nBased&nbsp;on&nbsp;your profile, the credit limit on your BOBCARD Eterna Credit Card XX5410 has been increased to Rs.2,00,000.00 effective 17-09-2026.<br>\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,<br>\nTransaction of Rs 18,407.39 done on your BOB Credit Card XXXX XXXX XXXX 5410 at PVR INOX on 22-09-2026. Available limit Rs 1,26,336.00. Call 1800 267 6789 for any query.",
+   "date": "2026-09-22",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m183",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,<br>\nWe have received your payment of Rs.6,914.52 on 25-09-2026 towards your RBL Bank Credit Card ending 2299. Thank you.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 8029 reward points on your RBL Bank Platinum Delight Credit Card XX2299. Redeem them on the rewards portal before they expire.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "RBL Bank <customercare@rblbank.com>"
+  },
+  {
+   "id": "m185",
+   "subject": "Your reward points summary",
+   "body": "Dear&nbsp;Customer,\nYou&nbsp;have&nbsp;2782 reward points on your BOBCARD Eterna Credit Card ending 5410. Redeem them on the rewards portal before they expire.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.8,382.30 on 26-09-2026 towards your BOBCARD Credit Card ending 5410. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. BOBCARD will never ask for these.",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m187",
+   "subject": "Payment reminder: BOBCARD Credit Card XX5410",
+   "body": "Dear Customer,\nThis is a reminder that Rs.8,382.30 (minimum Rs.419.12) is due on 30-Sep-2026 on your BOBCARD Credit Card XX5410. Pay on time to avoid late payment charges.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m188",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 4,818.43 done on your BOB Credit Card ending 5410 at GOOGLE PLAY on 01-10-2026. Available limit Rs 1,68,905.00. Call 1800 267 6789 for any query.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-01",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m189",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,<br>\nTransaction of Rs 8,068.90 done on your BOB Credit Card **5410 at ZOMATO on 07-10-2026. Available limit Rs 3,42,748.00. Call 1800 267 6789 for any query.<br>\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-10-07",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m190",
+   "subject": "RBL Bank Platinum Delight Credit Card Statement - Oct 2026",
+   "body": "Dear Customer,\nYour RBL Bank Platinum Delight Credit Card ending 2299 Statement for the period 12/09/2026 to 12/10/2026 is attached.\nTotal Amount Due: Rs. 12,362.52\nMinimum Amount Due: Rs. 618.13\nPayment Due Date: 30/10/2026\nPay via NetBanking, UPI or auto-debit.\n\nNever share your OTP, PIN, CVV or password with anyone. RBL Bank will never ask for these.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "RBL_Statement_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "RBL BANK - CREDIT CARD STATEMENT\nName: NEHA MEHTA\nCredit Card Number: XXXX XXXX XXXX 2299\nStatement Date: 12/10/2026\nStatement Period: 12/09/2026 - 12/10/2026\nPayment Due Date: 30/10/2026\nTotal Amount Due: Rs. 12,362.52\nMinimum Amount Due: Rs. 618.13\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,22,118.00\n\nDate        Transaction Details                        Amount (Rs.)\n16/09/2026  WESTSIDE CHENNAI   3,316.71 Dr\n17/09/2026  STARBUCKS MUMBAI   41,778.18 Dr\n17/09/2026  SPOTIFY KOCHI   3,164.27 Dr\n02/10/2026  SPOTIFY KOCHI   685.03 Dr\n03/10/2026  PAYMENT RECEIVED - THANK YOU   7,417.51 Cr\n\nReward Points Summary: Opening 6926  Earned 707  Closing 5966\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "RBL Bank Credit Card <creditcardstatement@rblbank.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "BOBCARD Eterna Credit Card Monthly Statement - Oct 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 5410. Statement date: 12-Oct-2026. Total amount due Rs.7,032.46; minimum Rs.351.62; due 30-Oct-2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "BOB_Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "BOBCARD <statements@bobfinancial.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;31,481.83&nbsp;has been spent on your RBL Bank Credit Card ending 2299 at CROMA on 15-10-2026. Your availble limit is INR 3,19,052.00.\nIf not done by you, call 022-62327777 immediately.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-10-15",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m193",
+   "subject": "BOBCARD transaction alert",
+   "body": "Dear Customer,\nTransaction of Rs 10,999.76 done on your BOB Credit Card ending 5410 at ZOMATO on 16-10-2026. Available limit Rs 1,88,348.00. Call 1800 267 6789 for any query.\n\nNever share your OTP, PIN, CVV or password with anyone. BOBCARD will never ask for these.",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m194",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;28,933.96&nbsp;has been spent on your RBL Bank Credit Card ending 2299 at BIGBASKET on 20-10-2026. Your availble limit is INR 1,40,148.00.\nIf not done by you, call 022-62327777 immediately.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-10-20",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m195",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.12,362.52 on 22-10-2026 towards your RBL Bank Credit Card ending 2299. Thank you.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "RBL Bank Credit Card transaction alert",
+   "body": "Dear Customer,\nINR 3,027.08 has been spent on your RBL Bank Credit Card ending 2299 at HOTSTAR on 24-10-2026. Your available limit is INR 2,17,593.00.\nIf not done by you, call 022-62327777 immediately.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-10-24",
+   "attachments": [],
+   "from": "RBL Bank <cardalerts@rblbank.com>"
+  },
+  {
+   "id": "m197",
+   "subject": "Payment reminder: BOBCARD Credit Card no. XXXXXXXXXXXX5410",
+   "body": "Dear Customer,\nThis is a reminder that Rs.7,032.46 (minimum Rs.351.62) is due on 30-Oct-2026 on your BOBCARD Credit Card no. XXXXXXXXXXXX5410. Pay on time to avoid late payment charges.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "BOBCARD <customercare@bobfinancial.com>"
+  },
+  {
+   "id": "m198",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;received your payment of Rs.7,032.46 on 29-10-2026 towards your BOBCARD Credit Card no. XXXXXXXXXXXX5410. Thank you.",
+   "date": "2026-10-29",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  },
+  {
+   "id": "m199",
+   "subject": "BOBCARD transaction alert",
+   "body": "नमस्ते,\nDear Customer,\nTransaction of Rs 3,295.72 done on your BOB Credit Card ending 5410 at HOTSTAR on 02-11-2026. Available limit Rs 1,97,237.00. Call 1800 267 6789 for any query.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-11-02",
+   "attachments": [],
+   "from": "BOBCARD <alerts@bobfinancial.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "rblbank.com",
+    "last4": "2299",
+    "kind": "CREDIT_CARD",
+    "variant": "Platinum Delight",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "bobfinancial.com",
+    "last4": "5410",
+    "kind": "CREDIT_CARD",
+    "variant": "Eterna",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "bobfinancial.com",
+    "last4": "9115",
+    "kind": "CREDIT_CARD",
+    "variant": "Easy",
+    "lifecycle": "CLOSED",
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "rblbank.com",
+    "last4": "6900",
+    "why": "bank own beneficiary account in statement payment instructions"
+   },
+   {
+    "issuerDomain": "bobfinancial.com",
+    "last4": "1111",
+    "why": "bank own beneficiary account in statement payment instructions"
+   },
+   {
+    "issuerDomain": "bobfinancial.com",
+    "last4": "1650",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "rblbank.com",
+    "last4": "7798",
+    "why": "masked Aadhaar number"
+   }
+  ]
+ }
+}

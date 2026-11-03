@@ -1,0 +1,2531 @@
+{
+ "mailbox": "au-altura-ixigo",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Credit alert: AU Small Finance Bank",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;48,000.00&nbsp;credited to your A/c XX7044 on 01-08-2025 by SALARY NEFT. Ref 1873289948.\nThank you for banking with us.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-08-01",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m002",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,<br>\nINR 5,864.29 was spent on your AU Small Finance Bank Credit Card XXXX6602 at MEDPLUS on 03-08-2025.<br>\nNot you? Block instantly on the AU 0101 app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-08-03",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m003",
+   "subject": "Your account statement for August 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c XXXX7044 for Aug 2025 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2025-08-03",
+   "attachments": [
+    {
+     "filename": "Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m004",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,<br>\nINR 302.78 was spent on your AU Small Finance Bank Credit Card no. XXXXXXXXXXXX3815 at MEDPLUS on 04-08-2025.<br>\nNot you? Block instantly on the AU 0101 app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-08-04",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m005",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 3,092.85 is debited from your AU Savings A/c XXXX7044 on 05/08/2025 to VPA irctcweb@okaxis (UPI Ref No. 911403714516).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-08-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m006",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 194.40 is debited from your AU Savings A/c XXXX7044 on 11/08/2025 to VPA merchant@ybl (UPI Ref No. 950332103954).\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-08-11",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m007",
+   "subject": "AU Small Finance Bank Altura Plus Credit Card Statement - Aug 2025",
+   "body": "Dear Customer,<br>\nYour AU Small Finance Bank Altura Plus Credit Card ending 6602 Statement for the period 13/07/2025 to 12/08/2025 is attached.<br>\nTotal Amount Due: Rs. 748.42\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/08/2025\nPay via NetBanking, UPI or auto-debit.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Aug2025.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: POOJA BANERJEE\nCard No: 4865 26XX XXXX 6602\nCard Type: Altura Plus\nStatement Date: 12/08/2025\nStatement Period: 13/07/2025 - 12/08/2025\nPayment Due Date: 30/08/2025\nTotal Amount Due: Rs. 748.42\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 96,865.00\n\nDate        Transaction Details                        Amount (Rs.)\n18/07/2025  URBAN COMPANY CHENNAI   6,095.27 Dr\n04/08/2025  NETFLIX.COM HYDERABAD   391.99 Dr\n17/07/2025  CAFE COFFEE DAY BANGALORE   1,241.27 Dr\n09/08/2025  BIGBASKET BANGALORE   396.09 Dr\n30/07/2025  BATA INDIA KOCHI   8,235.88 Dr\n19/07/2025  BIGBASKET PUNE   2,371.01 Dr\n22/07/2025  JIO PREPAID BANGALORE   428.82 Dr\n16/07/2025  THIRD WAVE COFFEE GURGAON   6,541.84 Dr\n04/08/2025  AMAZON PAY INDIA KOCHI   8,180.99 Dr\n03/08/2025  PAYMENT RECEIVED - THANK YOU   449.05 Cr\n\nReward Points Summary: Opening 3141  Earned 270  Closing 7106\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m008",
+   "subject": "Ixigo AU Credit Card Statement - Aug 2025",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;Ixigo&nbsp;AU Credit Card XXXX3815 Statement for the period 13/07/2025 to 12/08/2025 is attached.\nTotal Amount Due: Rs. 242.14\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/08/2025\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m009",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour AU Small Finance Bank Platinum Debit Card XXXX3170 was used for Rs.5,000.00 at CAFE COFFEE DAY on 12-Aug-2025.\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2025-08-12",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m010",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,<br>\nINR 4,070.27 was spent on your AU Small Finance Bank Credit Card XXXX3815 at RELIANCE SMART on 16-08-2025.<br>\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2025-08-16",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m011",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 25,894.79 is debited from your AU Savings A/c XXXX7044 on 18/08/2025 to VPA irctcweb@okhdfcbank (UPI Ref No. 308391930178).\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-08-18",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m012",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.748.42 on 23-08-2025 towards your AU Small Finance Bank Credit Card xx6602. Thank you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-08-23",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m013",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.748.42 due on 30 August for card XXXX6602. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m014",
+   "subject": "Payment reminder: AU Small Finance Bank Credit Card XXXX3815",
+   "body": "Dear Customer,\nThis is a reminder that Rs.242.14 (minimum Rs.200.00) is due on 30-Aug-2025 on your AU Small Finance Bank Credit Card XXXX3815. Pay on time to avoid late payment charges.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m015",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.242.14 on 28-08-2025 towards your AU Small Finance Bank Credit Card XXXX3815. Thank you.",
+   "date": "2025-08-28",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m016",
+   "subject": "Credit alert: AU Small Finance Bank",
+   "body": "Dear&nbsp;Customer,<br>\nINR&nbsp;65,000.00&nbsp;credited to your A/c XX7044 on 01-09-2025 by SALARY NEFT. Ref 7859819126.<br>\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-01",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m017",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Sunita Iyer (A/c no. XXXXXXXX1739, Canara Bank) has been added to your account XX7044 on 02-09-2025. It will be active after a cooling period of 30 minutes.",
+   "date": "2025-09-02",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m018",
+   "subject": "Your account statement for September 2025",
+   "body": "Dear&nbsp;Customer,<br>\nYour&nbsp;e-statement&nbsp;for A/c XXXX7044 for Sep 2025 is attached. The PDF is protected; password is your Customer ID.<br>\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-03",
+   "attachments": [
+    {
+     "filename": "Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m019",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 710.65 is debited from your AU Savings A/c XXXX7044 on 06/09/2025 to VPA paytm.s1@okaxis (UPI Ref No. 736498903170).\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2025-09-06",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m020",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 867.40 was spent on your AU Small Finance Bank Credit Card XXXX3815 at AMAZON PAY INDIA on 10-09-2025.\nNot you? Block instantly on the AU 0101 app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-10",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m021",
+   "subject": "AU Small Finance Bank Altura Plus Credit Card Statement - Sep 2025",
+   "body": "Dear Customer,\nYour AU Small Finance Bank Altura Plus Credit Card **6602 Statement for the period 13/08/2025 to 12/09/2025 is attached.\nTotal Amount Due: Rs. 6,208.60\nMinimum Amount Due: Rs. 310.43\nPayment Due Date: 30/09/2025\nPay via NetBanking, UPI or auto-debit.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Sep2025.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: POOJA BANERJEE\nCard No: 4832 24XX XXXX 6602\nStatement Date: 12/09/2025\nStatement Period: 13/08/2025 - 12/09/2025\nPayment Due Date: 30/09/2025\nTotal Amount Due: Rs. 6,208.60\nMinimum Amount Due: Rs. 310.43\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,75,788.00\n\nDate        Transaction Details                        Amount (Rs.)\n10/09/2025  TATA 1MG GURGAON   1,302.14 Dr\n21/08/2025  INDIGO AIRLINES BANGALORE   489.43 Dr\n07/09/2025  AIRBNB HYDERABAD   3,166.74 Dr\n26/08/2025  UBER INDIA BANGALORE   28,982.91 Dr\n01/09/2025  CROMA KOCHI   7,136.80 Dr\n04/09/2025  LICIOUS MUMBAI   5,399.81 Dr\n03/09/2025  PAYMENT RECEIVED - THANK YOU   3,725.16 Cr\n\nReward Points Summary: Opening 152  Earned 859  Closing 3475\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m022",
+   "subject": "Ixigo AU Credit Card Statement - Sep 2025",
+   "body": "Dear Customer,\nYour Ixigo AU Credit Card XXXX3815 Statement for the period 13/08/2025 to 12/09/2025 is attached.\nTotal Amount Due: Rs. 2,165.26\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/09/2025\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m023",
+   "subject": "Debit card transaction alert",
+   "body": "नमस्ते,\nDear Customer,\nYour AU Small Finance Bank Platinum Debit Card XXXX3170 was used for Rs.2,000.00 at BIGBASKET on 19-Sep-2025.\n\nThis is a system generated email. Please do not reply to this message.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-09-19",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m024",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 7,598.49 was spent on your AU Small Finance Bank Credit Card **3815 at RELIANCE SMART on 21-09-2025.\nNot you? Block instantly on the AU 0101 app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-21",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m025",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 4,076.76 was spent on your AU Small Finance Bank Credit Card **6602 at BIGBASKET on 22-09-2025.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2025-09-22",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m026",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 17,987.52 is debited from your AU Savings A/c XXXX7044 on 22/09/2025 to VPA swiggy@paytm (UPI Ref No. 628547836376).\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-09-22",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m027",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.6,208.60 on 23-09-2025 towards your AU Small Finance Bank Credit Card XXXX6602. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-09-23",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m028",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 5,072.15 was spent on your AU Small Finance Bank Credit Card xx3815 at AIRBNB on 25-09-2025.\nNot you? Block instantly on the AU 0101 app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m029",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,165.26 on 28-09-2025 towards your AU Small Finance Bank Credit Card XXXX3815. Thank you.\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2025-09-28",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m030",
+   "subject": "Credit alert: AU Small Finance Bank",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;65,000.00&nbsp;credited to your A/c XX7044 on 01-10-2025 by SALARY NEFT. Ref 4523127711.\nThank you for banking with us.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-01",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m031",
+   "subject": "Your account statement for October 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c XXXX XXXX XXXX 7044 for Oct 2025 is attached. The PDF is protected; password is your Customer ID.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-10-03",
+   "attachments": [
+    {
+     "filename": "Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m032",
+   "subject": "AU Bank: Debit alert",
+   "body": "Standing Instruction executed. Dear Customer, INR 35,000.00 is debited from your AU Savings A/c XXXX7044 on 05/10/2025 to Sunita Iyer A/c no. XXXXXXXX1739 (Canara Bank), SI Ref 499373749096.",
+   "date": "2025-10-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m033",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 32,801.57 was spent on your AU Small Finance Bank Credit Card XXXX3815 at LICIOUS on 09-10-2025.\nNot you? Block instantly on the AU 0101 app.\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2025-10-09",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m034",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 37,677.09 is debited from your AU Savings A/c XXXX7044 on 09/10/2025 to VPA swiggy@paytm (UPI Ref No. 838404961302).<br>\n<br>\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-09",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m035",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 525.59 is debited from your AU Savings A/c XXXX7044 on 09/10/2025 to VPA merchant@paytm (UPI Ref No. 702468067973).",
+   "date": "2025-10-09",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m036",
+   "subject": "AU Small Finance Bank Altura Plus Credit Card Statement - Oct 2025",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;AU&nbsp;Small Finance Bank Altura Plus Credit Card ending 6602 Statement for the period 12/09/2025 to 12/10/2025 is attached.\nTotal Amount Due: Rs. 2,554.61\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/10/2025\nPay via NetBanking, UPI or auto-debit.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Oct2025.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: POOJA BANERJEE\nCredit Card Number: XXXX XXXX XXXX 6602\nCard Type: Altura Plus\nStatement Date: 12/10/2025\nStatement Period: 12/09/2025 - 12/10/2025\nPayment Due Date: 30/10/2025\nTotal Amount Due: Rs. 2,554.61\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,99,272.00\n\nDate        Transaction Details                        Amount (Rs.)\n07/10/2025  BPCL FUEL GURGAON   834.63 Dr\n26/09/2025  JIO PREPAID KOCHI   6,274.31 Dr\n08/10/2025  HOTSTAR CHENNAI   3,336.14 Dr\n17/09/2025  PVR INOX KOCHI   104.80 Dr\n17/09/2025  PVR INOX GURGAON   287.58 Dr\n03/10/2025  PAYMENT RECEIVED - THANK YOU   1,532.77 Cr\n\nReward Points Summary: Opening 8136  Earned 819  Closing 7211\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4315904020826  IFSC AU S0000191"
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m037",
+   "subject": "Ixigo AU Credit Card Statement - Oct 2025",
+   "body": "Dear Customer,<br>\nYour Ixigo AU Credit Card XXXX3815 Statement for the period 12/09/2025 to 12/10/2025 is attached.<br>\nTotal Amount Due: Rs. 29,263.63\nMinimum Amount Due: Rs. 1,463.18\nPayment Due Date: 30/10/2025\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m038",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 2,882.53 was spent on your AU Small Finance Bank Credit Card XXXX XXXX XXXX 3815 at RELIANCE SMART on 19-10-2025.\nNot you? Block instantly on the AU 0101 app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2025-10-19",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m039",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 492.51 is debited from your AU Savings A/c XXXX7044 on 21/10/2025 to VPA irctcweb@okhdfcbank (UPI Ref No. 467756121734).",
+   "date": "2025-10-21",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m040",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 25,582.42 was spent on your AU Small Finance Bank Credit Card XXXX3815 at BPCL FUEL on 24-10-2025.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2025-10-24",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m041",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.3,000.00 withdrawn using your AU Small Finance Bank Platinum Debit Card XXXX3170 at ATM CHENNAI on 25-10-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2025-10-25",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m042",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 3,496.02 was spent on your AU Small Finance Bank Credit Card XXXX6602 at ZOMATO on 26-10-2025.\nNot you? Block instantly on the AU 0101 app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-10-26",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m043",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.29,263.63 on 29-10-2025 towards your AU Small Finance Bank Credit Card **3815. Thank you.",
+   "date": "2025-10-29",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m044",
+   "subject": "Credit alert: AU Small Finance Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX7044 on 01-11-2025 by SALARY NEFT. Ref 2841564293.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-11-01",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m045",
+   "subject": "Your account statement for November 2025",
+   "body": "Dear Customer,<br>\nYour e-statement for A/c XXXX7044 for Nov 2025 is attached. The PDF is protected; password is your Customer ID.<br>\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-03",
+   "attachments": [
+    {
+     "filename": "Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m046",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour AU Small Finance Bank Platinum Debit Card XXXX3170 was used for Rs.29,420.01 at HOTSTAR on 03-Nov-2025.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-03",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m047",
+   "subject": "Standing instruction executed",
+   "body": "Standing Instruction executed. Dear Customer, INR 35,000.00 is debited from your AU Savings A/c XXXX7044 on 05/11/2025 to Sunita Iyer A/c no. XXXXXXXX1739 (Canara Bank), SI Ref 500759730967.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m048",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 3,355.97 was spent on your AU Small Finance Bank Credit Card XXXX3815 at GOOGLE PLAY on 10-11-2025.\nNot you? Block instantly on the AU 0101 app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-10",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m049",
+   "subject": "AU Small Finance Bank Altura Plus Credit Card Statement - Nov 2025",
+   "body": "Dear Customer,<br>\nYour AU Small Finance Bank Altura Plus Credit Card XXXX6602 Statement for the period 13/10/2025 to 12/11/2025 is attached.<br>\nTotal Amount Due: Rs. 18,833.63\nMinimum Amount Due: Rs. 941.68\nPayment Due Date: 30/11/2025\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: POOJA BANERJEE\nCard No: 4266 35XX XXXX 6602\nCard Type: Altura Plus\nStatement Date: 12/11/2025\nStatement Period: 13/10/2025 - 12/11/2025\nPayment Due Date: 30/11/2025\nTotal Amount Due: Rs. 18,833.63\nMinimum Amount Due: Rs. 941.68\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 77,631.00\n\nDate        Transaction Details                        Amount (Rs.)\n24/10/2025  SPOTIFY BANGALORE   879.23 Dr\n02/11/2025  INDIGO AIRLINES BANGALORE   3,172.05 Dr\n24/10/2025  IRCTC HYDERABAD   3,008.48 Dr\n08/11/2025  BIGBASKET GURGAON   6,484.23 Dr\n27/10/2025  DMART PUNE   23,052.55 Dr\n09/11/2025  AIRBNB BANGALORE   23,901.60 Dr\n03/11/2025  PAYMENT RECEIVED - THANK YOU   11,300.18 Cr\n\nReward Points Summary: Opening 3131  Earned 727  Closing 6565\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4315904020826  IFSC AU S0000854"
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m050",
+   "subject": "Ixigo AU Credit Card Statement - Nov 2025",
+   "body": "Dear Customer,\nYour Ixigo AU Credit Card no. XXXXXXXXXXXX3815 Statement for the period 13/10/2025 to 12/11/2025 is attached.\nTotal Amount Due: Rs. 1,230.22\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/11/2025\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m051",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 2,814.40 is debited from your AU Savings A/c XXXX7044 on 17/11/2025 to VPA irctcweb@ybl (UPI Ref No. 522457035348).",
+   "date": "2025-11-17",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m052",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.18,833.63 on 22-11-2025 towards your AU Small Finance Bank Credit Card XXXX6602. Thank you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-11-22",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m053",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 2,530.75 is debited from your AU Savings A/c XXXX7044 on 22/11/2025 to VPA swiggy@okhdfcbank (UPI Ref No. 388031869739).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-22",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m054",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,230.22 on 23-11-2025 towards your AU Small Finance Bank Credit Card XXXX3815. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-11-23",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m055",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 3398 reward points on your AU Small Finance Bank Altura Plus Credit Card XXXX6602. Redeem them on the rewards portal before they expire.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m056",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 1365 reward points on your Ixigo AU Credit Card XXXX3815. Redeem them on the rewards portal before they expire.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m057",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.18,833.63 due on 30 November for card XXXX6602. Ignore if already paid. Kripya samay par bhugtan karein.\n\nThis is a system generated email. Please do not reply to this message.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m058",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,<br>\nINR 6,647.10 was spent on your AU Small Finance Bank Credit Card XXXX6602 at BPCL FUEL on 28-11-2025.<br>\nNot you? Block instantly on the AU 0101 app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-28",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m059",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 2,513.59 is debited from your AU Savings A/c XXXX7044 on 28/11/2025 to VPA paytm.s1@okhdfcbank (UPI Ref No. 809771415108).",
+   "date": "2025-11-28",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m060",
+   "subject": "We have received your request",
+   "body": "Dear Customer,\nYour service request is registered. Reference No. SR202624495560. We will resolve it within 3 working days.",
+   "date": "2025-11-28",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m061",
+   "subject": "Credit alert: AU Small Finance Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX7044 on 01-12-2025 by SALARY NEFT. Ref 4375196593.\nThank you for banking with us.",
+   "date": "2025-12-01",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m062",
+   "subject": "Your account statement for December 2025",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;e-statement&nbsp;for A/c **7044 for Dec 2025 is attached. The PDF is protected; password is your Customer ID.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-03",
+   "attachments": [
+    {
+     "filename": "Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m063",
+   "subject": "Standing instruction executed",
+   "body": "Standing&nbsp;Instruction&nbsp;executed.&nbsp;Dear Customer, INR 35,000.00 is debited from your AU Savings A/c XXXX7044 on 05/12/2025 to Sunita Iyer A/c no. XXXXXXXX1739 (Canara Bank), SI Ref 660501873476.<br>\n<br>\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m064",
+   "subject": "Debit card transaction alert",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;AU&nbsp;Small Finance Bank Platinum Debit Card XXXX3170 was used for Rs.6,289.16 at CROMA on 06-Dec-2025.",
+   "date": "2025-12-06",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m065",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 207.62 was spent on your AU Small Finance Bank Credit Card XXXX6602 at IXIGO on 11-12-2025.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2025-12-11",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m066",
+   "subject": "AU Small Finance Bank Altura Plus Credit Card Statement - Dec 2025",
+   "body": "Dear Customer,\nYour AU Small Finance Bank Altura Plus Credit Card XXXX6602 Statement for the period 12/11/2025 to 12/12/2025 is attached.\nTotal Amount Due: Rs. 3,658.79\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/12/2025\nPay via NetBanking, UPI or auto-debit.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Dec2025.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: POOJA BANERJEE\nCard No: 4798 13XX XXXX 6602\nCard Type: Altura Plus\nStatement Date: 12/12/2025\nStatement Period: 12/11/2025 - 12/12/2025\nPayment Due Date: 30/12/2025\nTotal Amount Due: Rs. 3,658.79\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,47,992.00\n\nDate        Transaction Details                        Amount (Rs.)\n16/11/2025  MAKEMYTRIP PUNE   2,719.22 Dr\n22/11/2025  CAFE COFFEE DAY CHENNAI   391.05 Dr\n21/11/2025  INDIGO AIRLINES MUMBAI   23,661.80 Dr\n23/11/2025  CROMA CHENNAI   1,098.71 Dr\n03/12/2025  PAYMENT RECEIVED - THANK YOU   2,195.27 Cr\n\nReward Points Summary: Opening 247  Earned 141  Closing 8828\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4315904020826  IFSC AU S0000901"
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m067",
+   "subject": "Ixigo AU Credit Card Statement - Dec 2025",
+   "body": "Dear Customer,<br>\nYour Ixigo AU Credit Card XXXX3815 Statement for the period 12/11/2025 to 12/12/2025 is attached.<br>\nTotal Amount Due: Rs. 1,85,340.65\nMinimum Amount Due: Rs. 9,267.03\nPayment Due Date: 30/12/2025\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m068",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 767.24 was spent on your AU Small Finance Bank Credit Card XXXX3815 at LENSKART on 17-12-2025.\nNot you? Block instantly on the AU 0101 app.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2025-12-17",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m069",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi&nbsp;Pooja,\nINR&nbsp;1,840.03&nbsp;was spent on your AU Small Finance Bank Credit Card XXXX6602 at RELIANCE SMART on 20-12-2025.\nNot you? Block instantly on the AU 0101 app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-12-20",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m070",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 1,209.45 was spent on your AU Small Finance Bank Credit Card XXXX3815 at LENSKART on 20-12-2025.\nNot you? Block instantly on the AU 0101 app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-12-20",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m071",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear&nbsp;Customer,&nbsp;INR&nbsp;1,691.37 is debited from your AU Savings A/c XXXX7044 on 20/12/2025 to VPA swiggy@okhdfcbank (UPI Ref No. 795703804803).\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-12-20",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m072",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 1,221.61 was spent on your AU Small Finance Bank Credit Card no. XXXXXXXXXXXX3815 at INDIGO AIRLINES on 24-12-2025.\nNot you? Block instantly on the AU 0101 app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-24",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m073",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.3,658.79 on 25-12-2025 towards your AU Small Finance Bank Credit Card XXXX6602. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m074",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,85,340.65 on 25-12-2025 towards your AU Small Finance Bank Credit Card **3815. Thank you.\n\nThis is a system generated email. Please do not reply to this message.\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m075",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.1,85,340.65 due on 30 December for card XXXX3815. Ignore if already paid. Kripya samay par bhugtan karein.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m076",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 12,489.55 is debited from your AU Savings A/c XXXX7044 on 28/12/2025 to VPA paytm.s1@paytm (UPI Ref No. 815762998807).\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m077",
+   "subject": "Credit alert: AU Small Finance Bank",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;48,000.00&nbsp;credited to your A/c XX7044 on 01-01-2026 by SALARY NEFT. Ref 5777727265.\nThank you for banking with us.",
+   "date": "2026-01-01",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m078",
+   "subject": "Your account statement for January 2026",
+   "body": "Dear Customer,\nYour e-statment for A/c xx7044 for Jan 2026 is attached. The PDF is protected; password is your Customer ID.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-01-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m079",
+   "subject": "Standing instruction executed",
+   "body": "Standing Instruction executed. Dear Customer, INR 35,000.00 is debited from your AU Savings A/c XXXX7044 on 05/01/2026 to Sunita Iyer A/c no. XXXXXXXX1739 (Canara Bank), SI Ref 409929825935.",
+   "date": "2026-01-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m080",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 25,856.19 was spent on your AU Small Finance Bank Credit Card XXXX3815 at OLA CABS on 07-01-2026.\nNot you? Block instantly on the AU 0101 app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-01-07",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m081",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,<br>\nINR 1,885.40 was spent on your AU Small Finance Bank Credit Card XXXX3815 at AIRBNB on 09-01-2026.<br>\nNot you? Block instantly on the AU 0101 app.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2026-01-09",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m082",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 2,402.65 was spent on your AU Small Finance Bank Credit Card XXXX6602 at SPOTIFY on 12-01-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-01-12",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m083",
+   "subject": "AU Small Finance Bank Altura Plus Credit Card Statement - Jan 2026",
+   "body": "Dear Customer,\nYour AU Small Finance Bank Altura Plus Credit Card XXXX6602 Statement for the period 13/12/2025 to 12/01/2026 is attached.\nTotal Amount Due: Rs. 1,085.72\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/01/2026\nPay via NetBanking, UPI or auto-debit.\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Jan2026.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: POOJA BANERJEE\nCard No: 4112 18XX XXXX 6602\nCard Type: Altura Plus\nStatement Date: 12/01/2026\nStatement Period: 13/12/2025 - 12/01/2026\nPayment Due Date: 30/01/2026\nTotal Amount Due: Rs. 1,085.72\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,18,998.00\n\nDate        Transaction Details                        Amount (Rs.)\n04/01/2026  BATA INDIA BANGALORE   3,075.15 Dr\n01/01/2026  BATA INDIA GURGAON   757.67 Dr\n21/12/2025  HOTSTAR KOCHI   748.17 Dr\n18/12/2025  OLA CABS PUNE   768.19 Dr\n03/01/2026  PAYMENT RECEIVED - THANK YOU   651.43 Cr\n\nReward Points Summary: Opening 1952  Earned 177  Closing 7969\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m084",
+   "subject": "Ixigo AU Credit Card Statement - Jan 2026",
+   "body": "Dear Customer,\nYour Ixigo AU Credit Card XXXX3815 Statement for the period 13/12/2025 to 12/01/2026 is attached.\nTotal Amount Due: Rs. 4,161.67\nMinimum Amount Due: Rs. 208.08\nPayment Due Date: 30/01/2026\nThe statment is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "3815_12012026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m085",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 2,669.18 is debited from your AU Savings A/c XXXX7044 on 16/01/2026 to VPA merchant@icici (UPI Ref No. 540505579583).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-01-16",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m086",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 30,846.38 was spent on your AU Small Finance Bank Credit Card XXXX6602 at DECATHLON on 19-01-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-01-19",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m087",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour AU Small Finance Bank Platinum Debit Card XX3170 was used for Rs.34,799.71 at AIRBNB on 20-Jan-2026.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-01-20",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m088",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,085.72 on 22-01-2026 towards your AU Small Finance Bank Credit Card XXXX6602. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-22",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m089",
+   "subject": "Your AU Credit Card transaction",
+   "body": "नमस्ते,\nHi Pooja,\nINR 456.73 was spent on your AU Small Finance Bank Credit Card XXXX3815 at CROMA on 24-01-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-01-24",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m090",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 1,401.23 was spent on your AU Small Finance Bank Credit Card XXXX3815 at URBAN COMPANY on 25-01-2026.\nNot you? Block instantly on the AU 0101 app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-01-25",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m091",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.4,161.67 on 26-01-2026 towards your AU Small Finance Bank Credit Card XX3815. Thank you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-01-26",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m092",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 8,252.23 is debited from your AU Savings A/c XXXX7044 on 27/01/2026 to VPA irctcweb@paytm (UPI Ref No. 499594629101).\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m093",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 37,940.33 is debited from your AU Savings A/c XXXX7044 on 27/01/2026 to VPA bigbasket@ybl (UPI Ref No. 901312386994).\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m094",
+   "subject": "Credit alert: AU Small Finance Bank",
+   "body": "नमस्ते,\nDear Customer,\nINR 1,05,000.00 credited to your A/c XX7044 on 01-02-2026 by SALARY NEFT. Ref 3007235824.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-01",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m095",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 8,468.78 was spent on your AU Small Finance Bank Credit Card XXXX3815 at APOLLO PHARMACY on 02-02-2026.\nNot you? Block instantly on the AU 0101 app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-02",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m096",
+   "subject": "Your account statement for February 2026",
+   "body": "Dear Customer,\nYour e-statment for A/c XXXX7044 for Feb 2026 is attached. The PDF is protected; password is your Customer ID.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2026-02-03",
+   "attachments": [
+    {
+     "filename": "Statement_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m097",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 3,098.62 was spent on your AU Small Finance Bank Credit Card xx3815 at BLINKIT on 05-02-2026.\nNot you? Block instantly on the AU 0101 app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m098",
+   "subject": "Standing instruction executed",
+   "body": "Standing Instruction executed. Dear Customer, INR 35,000.00 is debited from your AU Savings A/c XXXX7044 on 05/02/2026 to Sunita Iyer A/c no. XXXXXXXX1739 (Canara Bank), SI Ref 451444695679.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2026-02-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m099",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 711.97 is debited from your AU Savings A/c XXXX7044 on 09/02/2026 to VPA q774300908@okhdfcbank (UPI Ref No. 297568870843).\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-09",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m100",
+   "subject": "AU Small Finance Bank Altura Plus Credit Card Statement - Feb 2026",
+   "body": "Dear Customer,\nYour AU Small Finance Bank Altura Plus Credit Card XXXX6602 Statement for the period 13/01/2026 to 12/02/2026 is attached.\nTotal Amount Due: Rs. 83,227.12\nMinimum Amount Due: Rs. 4,161.36\nPayment Due Date: 02/03/2026\nPay via NetBanking, UPI or auto-debit.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: POOJA BANERJEE\nCard No: 4521 66XX XXXX 6602\nCard Type: Altura Plus\nStatement Date: 12/02/2026\nStatement Period: 13/01/2026 - 12/02/2026\nPayment Due Date: 02/03/2026\nTotal Amount Due: Rs. 83,227.12\nMinimum Amount Due: Rs. 4,161.36\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,91,673.00\n\nDate        Transaction Details                        Amount (Rs.)\n19/01/2026  MEDPLUS HYDERABAD   303.82 Dr\n03/02/2026  NETFLIX.COM KOCHI   518.54 Dr\n08/02/2026  MEDPLUS BANGALORE   943.75 Dr\n27/01/2026  BATA INDIA CHENNAI   31,441.59 Dr\n23/01/2026  URBAN COMPANY CHENNAI   6,100.49 Dr\n08/02/2026  REDBUS HYDERABAD   416.13 Dr\n28/01/2026  IRCTC GURGAON   868.06 Dr\n27/01/2026  PVR INOX GURGAON   555.08 Dr\n27/01/2026  TATA 1MG MUMBAI   17,887.96 Dr\n03/02/2026  PAYMENT RECEIVED - THANK YOU   49,936.27 Cr\n\nReward Points Summary: Opening 7667  Earned 171  Closing 5128\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m101",
+   "subject": "Ixigo AU Credit Card Statement - Feb 2026",
+   "body": "Dear Customer,\nYour Ixigo AU Credit Card XXXX3815 Statement for the period 13/01/2026 to 12/02/2026 is attached.\nTotal Amount Due: Rs. 64,374.55\nMinimum Amount Due: Rs. 3,218.73\nPayment Due Date: 02/03/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m102",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 5,760.59 was spent on your AU Small Finance Bank Credit Card XXXX6602 at ZEPTO on 13-02-2026.\nNot you? Block instantly on the AU 0101 app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-02-13",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m103",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 4,950.05 is debited from your AU Savings A/c XXXX7044 on 17/02/2026 to VPA irctcweb@okhdfcbank (UPI Ref No. 167630168211).\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2026-02-17",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m104",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 129.49 was spent on your AU Small Finance Bank Credit Card XXXX3815 at NETFLIX.COM on 20-02-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-02-20",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m105",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour AU Small Finance Bank Platinum Debit Card XXXX XXXX XXXX 3170 was used for Rs.3,000.00 at CROMA on 22-Feb-2026.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-22",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m106",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 601.24 was spent on your AU Small Finance Bank Credit Card XXXX6602 at RELIANCE SMART on 24-02-2026.\nNot you? Block instantly on the AU 0101 app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-02-24",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m107",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi&nbsp;Pooja,\nINR&nbsp;2,035.30&nbsp;was spent on your AU Small Finance Bank Credit Card XXXX6602 at CROMA on 25-02-2026.\nNot you? Block instantly on the AU 0101 app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-02-25",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m108",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.83,227.12 on 25-02-2026 towards your AU Small Finance Bank Credit Card XXXX6602. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-25",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m109",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.64,374.55 on 26-02-2026 towards your AU Small Finance Bank Credit Card ending 3815. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-26",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m110",
+   "subject": "Payment reminder: AU Small Finance Bank Credit Card XXXX6602",
+   "body": "Dear Customer,\nThis is a reminder that Rs.83,227.12 (minimum Rs.4,161.36) is due on 02-Mar-2026 on your AU Small Finance Bank Credit Card XXXX6602. Pay on time to avoid late payment charges.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m111",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.64,374.55 due on 02 March for card XXXX3815. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m112",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,<br>\nINR 610.34 was spent on your AU Small Finance Bank Credit Card XXXX3815 at DECATHLON on 01-03-2026.<br>\nNot you? Block instantly on the AU 0101 app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2026-03-01",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m113",
+   "subject": "Credit alert: AU Small Finance Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX7044 on 01-03-2026 by SALARY NEFT. Ref 8072207849.\nThank you for banking with us.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-03-01",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m114",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 20,612.79 is debited from your AU Savings A/c XXXX7044 on 02/03/2026 to VPA merchant@ybl (UPI Ref No. 233074923919).\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2026-03-02",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m115",
+   "subject": "Your account statement for March 2026",
+   "body": "Dear Customer,<br>\nYour e-statement for A/c XXXX XXXX XXXX 7044 for Mar 2026 is attached. The PDF is protected; password is your Customer ID.<br>\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-03-03",
+   "attachments": [
+    {
+     "filename": "Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m116",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 585.55 is debited from your AU Savings A/c XXXX7044 on 05/03/2026 to VPA paytm.s1@paytm (UPI Ref No. 203422461632).\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2026-03-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m117",
+   "subject": "Standing instruction executed",
+   "body": "Standing Instruction executed. Dear Customer, INR 35,000.00 is debited from your AU Savings A/c XXXX7044 on 05/03/2026 to Sunita Iyer A/c no. XXXXXXXX1739 (Canara Bank), SI Ref 756688752093.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m118",
+   "subject": "OTP for online transaction",
+   "body": "924111 is the One Time Password (OTP) for your online transaction of INR 550.25 at LICIOUS. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-06",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m119",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 1,736.23 is debited from your AU Savings A/c XXXX7044 on 08/03/2026 to VPA merchant@okaxis (UPI Ref No. 565629967489).",
+   "date": "2026-03-08",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m120",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 3,075.86 is debited from your AU Savings A/c XXXX7044 on 10/03/2026 to VPA q114736315@okhdfcbank (UPI Ref No. 810907935817).\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-03-10",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m121",
+   "subject": "AU Small Finance Bank Altura Plus Credit Card Statement - Mar 2026",
+   "body": "Dear Customer,\nYour AU Small Finance Bank Altura Plus Credit Card XXXX6602 Statement for the period 10/02/2026 to 12/03/2026 is attached.\nTotal Amount Due: Rs. 17,219.17\nMinimum Amount Due: Rs. 860.96\nPayment Due Date: 30/03/2026\nPay via NetBanking, UPI or auto-debit.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Mar2026.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: POOJA BANERJEE\nCard No: 4975 17XX XXXX 6602\nStatement Date: 12/03/2026\nStatement Period: 10/02/2026 - 12/03/2026\nPayment Due Date: 30/03/2026\nTotal Amount Due: Rs. 17,219.17\nMinimum Amount Due: Rs. 860.96\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,28,798.00\n\nDate        Transaction Details                        Amount (Rs.)\n14/02/2026  OLA CABS GURGAON   462.84 Dr\n08/03/2026  TATA 1MG KOCHI   601.52 Dr\n18/02/2026  BOOKMYSHOW KOCHI   1,479.16 Dr\n18/02/2026  BLINKIT CHENNAI   3,233.80 Dr\n20/02/2026  ZEPTO CHENNAI   3,121.63 Dr\n13/02/2026  AIRBNB PUNE   3,473.97 Dr\n03/03/2026  INDIGO AIRLINES GURGAON   15,381.55 Dr\n16/02/2026  APOLLO PHARMACY CHENNAI   21,273.95 Dr\n17/02/2026  REDBUS KOCHI   377.46 Dr\n03/03/2026  PAYMENT RECEIVED - THANK YOU   10,331.50 Cr\n\nReward Points Summary: Opening 6289  Earned 753  Closing 6170\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4315904020826  IFSC AU S0000418"
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m122",
+   "subject": "Ixigo AU Credit Card Statement - Mar 2026",
+   "body": "Dear Customer,\nYour Ixigo AU Credit Card XX3815 Statement for the period 10/02/2026 to 12/03/2026 is attached.\nTotal Amount Due: Rs. 68,425.92\nMinimum Amount Due: Rs. 3,421.30\nPayment Due Date: 30/03/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m123",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 32,326.82 was spent on your AU Small Finance Bank Credit Card XXXX6602 at NETFLIX.COM on 20-03-2026.\nNot you? Block instantly on the AU 0101 app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-03-20",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m124",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 2,449.74 was spent on your AU Small Finance Bank Credit Card XXXX6602 at APOLLO PHARMACY on 21-03-2026.\nNot you? Block instantly on the AU 0101 app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-03-21",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m125",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 23,057.76 was spent on your AU Small Finance Bank Credit Card XXXX6602 at ZOMATO on 23-03-2026.\nNot you? Block instantly on the AU 0101 app.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2026-03-23",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m126",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 1,135.80 was spent on your AU Small Finance Bank Credit Card XXXX3815 at BIGBASKET on 23-03-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-03-23",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m127",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,<br>\nINR 36,917.67 was spent on your AU Small Finance Bank Credit Card xx6602 at APOLLO PHARMACY on 25-03-2026.<br>\nNot you? Block instantly on the AU 0101 app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-03-25",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m128",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.68,425.92 on 25-03-2026 towards your AU Small Finance Bank Credit Card XXXX3815. Thank you.\n\nT&C apply. Visit www.aubank.in for more details.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-03-25",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m129",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.500.00 withdrawn using your AU Small Finance Bank Platinum Debit Card XXXX3170 at ATM BANGALORE on 26-03-2026.\n\nThis is a system generated email. Please do not reply to this message.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-03-26",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m130",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.17,219.17 on 28-03-2026 towards your AU Small Finance Bank Credit Card XXXX6602. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-28",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m131",
+   "subject": "Credit alert: AU Small Finance Bank",
+   "body": "Dear Customer,\nINR 65,000.00 credited to your A/c XX7044 on 01-04-2026 by SALARY NEFT. Ref 8773809666.\nThank you for banking with us.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-04-01",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m132",
+   "subject": "Your account statement for April 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 7044 for Apr 2026 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2026-04-03",
+   "attachments": [
+    {
+     "filename": "Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m133",
+   "subject": "AU Bank: Debit alert",
+   "body": "Standing Instruction executed. Dear Customer, INR 35,000.00 is debited from your AU Savings A/c XXXX7044 on 05/04/2026 to Sunita Iyer A/c no. XXXXXXXX1739 (Canara Bank), SI Ref 487076505598.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-04-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m134",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 147.48 was spent on your AU Small Finance Bank Credit Card XXXX3815 at UBER INDIA on 07-04-2026.\nNot you? Block instantly on the AU 0101 app.\n\nThis is a system generated email. Please do not reply to this message.\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2026-04-07",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m135",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 1,146.27 is debited from your AU Savings A/c XXXX7044 on 08/04/2026 to VPA swiggy@icici (UPI Ref No. 824574371263).\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-04-08",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m136",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 4,668.38 is debited from your AU Savings A/c XXXX7044 on 08/04/2026 to VPA irctcweb@okhdfcbank (UPI Ref No. 205698533405).\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2026-04-08",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m137",
+   "subject": "E-mandate cancelled",
+   "body": "Dear Customer,\nThe e-mandate for NETFLIX.COM registered on your AU Small Finance Bank card XXXX6602 has been cancelled as requested. No further auto-debits will happen. Your card remains active.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-04-09",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m138",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 956.53 is debited from your AU Savings A/c XXXX7044 on 11/04/2026 to VPA irctcweb@ybl (UPI Ref No. 289782882614).",
+   "date": "2026-04-11",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m139",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour AU Small Finance Bank Platinum Debit Card XXXX XXXX XXXX 3170 was used for Rs.5,000.00 at THIRD WAVE COFFEE on 11-Apr-2026.",
+   "date": "2026-04-11",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m140",
+   "subject": "AU Small Finance Bank Altura Plus Credit Card Statement - Apr 2026",
+   "body": "Dear Customer,\nYour AU Small Finance Bank Altura Plus Credit Card XX6602 Statement for the period 13/03/2026 to 12/04/2026 is attached.\nTotal Amount Due: Rs. 5,784.00\nMinimum Amount Due: Rs. 289.20\nPayment Due Date: 30/04/2026\nPay via NetBanking, UPI or auto-debit.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Apr2026.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: POOJA BANERJEE\nCard No: 4782 86XX XXXX 6602\nCard Type: Altura Plus\nStatement Date: 12/04/2026\nStatement Period: 13/03/2026 - 12/04/2026\nPayment Due Date: 30/04/2026\nTotal Amount Due: Rs. 5,784.00\nMinimum Amount Due: Rs. 289.20\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,14,335.00\n\nDate        Transaction Details                        Amount (Rs.)\n02/04/2026  SPOTIFY PUNE   7,898.84 Dr\n24/03/2026  OLA CABS CHENNAI   40,610.24 Dr\n05/04/2026  WESTSIDE PUNE   564.02 Dr\n06/04/2026  TATA 1MG MUMBAI   22,890.57 Dr\n25/03/2026  DECATHLON GURGAON   9,701.73 Dr\n30/03/2026  INDIGO AIRLINES BANGALORE   13,158.69 Dr\n09/04/2026  APOLLO PHARMACY GURGAON   992.84 Dr\n19/03/2026  LICIOUS MUMBAI   708.90 Dr\n03/04/2026  PAYMENT RECEIVED - THANK YOU   3,470.40 Cr\n\nReward Points Summary: Opening 6548  Earned 753  Closing 3795\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m141",
+   "subject": "Ixigo AU Credit Card Statement - Apr 2026",
+   "body": "Dear Customer,\nYour Ixigo AU Credit Card XXXX3815 Statement for the period 13/03/2026 to 12/04/2026 is attached.\nTotal Amount Due: Rs. 4,907.02\nMinimum Amount Due: Rs. 245.35\nPayment Due Date: 30/04/2026\nThe statment is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m142",
+   "subject": "Pay your bills and earn on Regalia Gold Credit Card",
+   "body": "Apply now for Regalia Gold, Millennia or Swiggy HDFC Bank Credit Card. Pre-approved. Offer code 9007\nT&C apply.",
+   "date": "2026-04-12",
+   "attachments": [],
+   "from": "HDFC Bank <offers@hdfcbank.net>"
+  },
+  {
+   "id": "m143",
+   "subject": "Your AU Credit Card transaction",
+   "body": "नमस्ते,\nHi Pooja,\nINR 8,076.43 was spent on your AU Small Finance Bank Credit Card XXXX3815 at STARBUCKS on 14-04-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-04-14",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m144",
+   "subject": "Your AU Credit Card transaction",
+   "body": "नमस्ते,\nHi Pooja,\nINR 1,009.68 was spent on your AU Small Finance Bank Credit Card no. XXXXXXXXXXXX6602 at DMART on 16-04-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-04-16",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m145",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 1,854.37 was spent on your AU Small Finance Bank Credit Card XXXX XXXX XXXX 6602 at SPOTIFY on 21-04-2026.\nNot you? Block instantly on the AU 0101 app.\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2026-04-21",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m146",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,<br>\nWe have recieved your payment of Rs.5,784.00 on 23-04-2026 towards your AU Small Finance Bank Credit Card XXXX6602. Thank you.<br>\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-04-23",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m147",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 5046 reward points on your AU Small Finance Bank Altura Plus Credit Card no. XXXXXXXXXXXX6602. Redeem them on the rewards portal before they expire.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m148",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 10800 reward points on your Ixigo AU Credit Card XXXX3815. Redeem them on the rewards portal before they expire.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m149",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 8,009.77 is debited from your AU Savings A/c XXXX7044 on 25/04/2026 to Imran Singh A/c no. XXXXXXXX2120 (Axis Bank), IMPS Ref 424546927109.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m150",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.4,907.02 on 26-04-2026 towards your AU Small Finance Bank Credit Card no. XXXXXXXXXXXX3815. Thank you.",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m151",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.5,784.00 due on 30 April for card XXXX6602. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m152",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 415.19 is debited from your AU Savings A/c XXXX7044 on 28/04/2026 to VPA bigbasket@icici (UPI Ref No. 439718473760).",
+   "date": "2026-04-28",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m153",
+   "subject": "Credit alert: AU Small Finance Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX7044 on 01-05-2026 by SALARY NEFT. Ref 2373872815.\nThank you for banking with us.",
+   "date": "2026-05-01",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m154",
+   "subject": "Your account statement for May 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XXXX7044 for May 2026 is attached. The PDF is protected; password is your Customer ID.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-05-03",
+   "attachments": [
+    {
+     "filename": "Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m155",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 4,215.84 was spent on your AU Small Finance Bank Credit Card XXXX3815 at URBAN COMPANY on 04-05-2026.\nNot you? Block instantly on the AU 0101 app.\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2026-05-04",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m156",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 1,157.01 is debited from your AU Savings A/c XXXX7044 on 04/05/2026 to VPA irctcweb@icici (UPI Ref No. 325445780176).\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-05-04",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m157",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour AU Small Finance Bank Platinum Debit Card XXXX3170 was used for Rs.500.00 at UBER INDIA on 04-May-2026.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-05-04",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m158",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear&nbsp;Customer,&nbsp;INR&nbsp;402.96 is debited from your AU Savings A/c XXXX7044 on 04/05/2026 to Ananya Kulkarni A/c no. XXXXXXXX8846 (ICICI Bank), IMPS Ref 776712161149.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-05-04",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m159",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 492.75 was spent on your AU Small Finance Bank Credit Card xx6602 at BPCL FUEL on 05-05-2026.\nNot you? Block instantly on the AU 0101 app.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-05-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m160",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 30,914.63 was spent on your AU Small Finance Bank Credit Card no. XXXXXXXXXXXX3815 at BPCL FUEL on 05-05-2026.\nNot you? Block instantly on the AU 0101 app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m161",
+   "subject": "AU Bank: Debit alert",
+   "body": "Standing&nbsp;Instruction&nbsp;executed.&nbsp;Dear Customer, INR 35,000.00 is debited from your AU Savings A/c XXXX7044 on 05/05/2026 to Sunita Iyer A/c no. XXXXXXXX1739 (Canara Bank), SI Ref 549856736041.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m162",
+   "subject": "OTP for online transaction",
+   "body": "562190 is the One Time Password (OTP) for your online transaction of INR 7,641.61 at INDIGO AIRLINES. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2026-05-07",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m163",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 17,612.77 is debited from your AU Savings A/c XXXX7044 on 10/05/2026 to VPA paytm.s1@icici (UPI Ref No. 300138025463).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-05-10",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m164",
+   "subject": "AU Small Finance Bank Altura Plus Credit Card Statement - May 2026",
+   "body": "Dear Customer,\nYour AU Small Finance Bank Altura Plus Credit Card XXXX6602 Statement for the period 12/04/2026 to 12/05/2026 is attached.\nTotal Amount Due: Rs. 10,700.97\nMinimum Amount Due: Rs. 535.05\nPayment Due Date: 30/05/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: POOJA BANERJEE\nCard No: 4725 78XX XXXX 6602\nCard Type: Altura Plus\nStatement Date: 12/05/2026\nStatement Period: 12/04/2026 - 12/05/2026\nPayment Due Date: 30/05/2026\nTotal Amount Due: Rs. 10,700.97\nMinimum Amount Due: Rs. 535.05\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,30,124.00\n\nDate        Transaction Details                        Amount (Rs.)\n17/04/2026  APOLLO PHARMACY KOCHI   657.43 Dr\n02/05/2026  LENSKART MUMBAI   301.74 Dr\n12/04/2026  CROMA KOCHI   1,852.31 Dr\n14/04/2026  MEDPLUS HYDERABAD   1,499.93 Dr\n28/04/2026  URBAN COMPANY PUNE   4,568.74 Dr\n29/04/2026  THIRD WAVE COFFEE MUMBAI   40,327.50 Dr\n26/04/2026  IRCTC PUNE   648.53 Dr\n16/04/2026  OLA CABS MUMBAI   37,001.94 Dr\n03/05/2026  PAYMENT RECEIVED - THANK YOU   6,420.58 Cr\n\nReward Points Summary: Opening 4878  Earned 896  Closing 7592\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4315904020826  IFSC AU S0000341"
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m165",
+   "subject": "Ixigo AU Credit Card Statement - May 2026",
+   "body": "Dear Customer,<br>\nYour Ixigo AU Credit Card XXXX3815 Statement for the period 12/04/2026 to 12/05/2026 is attached.<br>\nTotal Amount Due: Rs. 34,476.90\nMinimum Amount Due: Rs. 1,723.85\nPayment Due Date: 30/05/2026\nThe statment is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "3815_12052026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m166",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 3,389.49 is debited from your AU Savings A/c XXXX7044 on 14/05/2026 to VPA paytm.s1@ybl (UPI Ref No. 327152821582).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-05-14",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m167",
+   "subject": "Your EMI request has been cancelled",
+   "body": "Your request to convert transaction of Rs.38,268.87 on card ending 6602 to EMI has been cancelled. The transaction stays on your regular bill.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-14",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m168",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 3,996.34 was spent on your AU Small Finance Bank Credit Card XXXX3815 at ZOMATO on 15-05-2026.\nNot you? Block instantly on the AU 0101 app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-15",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m169",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 23,863.72 was spent on your AU Small Finance Bank Credit Card XXXX3815 at GOOGLE PLAY on 24-05-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-05-24",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m170",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.34,476.90 on 25-05-2026 towards your AU Small Finance Bank Credit Card XXXX3815. Thank you.<br>\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m171",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 2,655.50 is debited from your AU Savings A/c XXXX7044 on 26/05/2026 to VPA q818695495@icici (UPI Ref No. 138407241325).\n\nT&C apply. Visit www.aubank.in for more details.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m172",
+   "subject": "Your order has been shipped",
+   "body": "Order 402-2302-1100 shipped. Pay on delivery Rs 1,299.\nT&C apply.",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m173",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.10,700.97 due on 30 May for card XXXX6602. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m174",
+   "subject": "Payment reminder: AU Small Finance Bank Credit Card XXXX3815",
+   "body": "Dear Customer,\nThis is a reminder that Rs.34,476.90 (minimum Rs.1,723.85) is due on 30-May-2026 on your AU Small Finance Bank Credit Card XXXX3815. Pay on time to avoid late payment charges.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m175",
+   "subject": "Credit alert: AU Small Finance Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX7044 on 01-06-2026 by SALARY NEFT. Ref 7478984254.\nThank you for banking with us.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m176",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 850.54 is debited from your AU Savings A/c XXXX7044 on 01/06/2026 to Imran Shetty A/c no. XXXXXXXX3538 (Canara Bank), IMPS Ref 560970199106.",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m177",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 3,657.78 was spent on your AU Small Finance Bank Credit Card XXXX6602 at LICIOUS on 03-06-2026.\nNot you? Block instantly on the AU 0101 app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-06-03",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m178",
+   "subject": "Your account statement for June 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XXXX7044 for Jun 2026 is attached. The PDF is protected; password is your Customer ID.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-06-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m179",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 3,281.15 was spent on your AU Small Finance Bank Credit Card XXXX3815 at BLINKIT on 04-06-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-06-04",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m180",
+   "subject": "AU Bank: Debit alert",
+   "body": "Standing Instruction executed. Dear Customer, INR 35,000.00 is debited from your AU Savings A/c XXXX7044 on 05/06/2026 to Sunita Iyer A/c no. XXXXXXXX1739 (Canara Bank), SI Ref 224119109357.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-06-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m181",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 24,296.27 is debited from your AU Savings A/c XXXX7044 on 09/06/2026 to VPA bigbasket@okhdfcbank (UPI Ref No. 173366478874).\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2026-06-09",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m182",
+   "subject": "AU Small Finance Bank Altura Plus Credit Card Statement - Jun 2026",
+   "body": "Dear Customer,\nYour AU Small Finance Bank Altura Plus Credit Card XXXX6602 Statement for the period 13/05/2026 to 12/06/2026 is attached.\nTotal Amount Due: Rs. 8,305.70\nMinimum Amount Due: Rs. 415.29\nPayment Due Date: 30/06/2026\nPay via NetBanking, UPI or auto-debit.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: POOJA BANERJEE\nCredit Card Number: XXXX XXXX XXXX 6602\nCard Type: Altura Plus\nStatement Date: 12/06/2026\nStatement Period: 13/05/2026 - 12/06/2026\nPayment Due Date: 30/06/2026\nTotal Amount Due: Rs. 8,305.70\nMinimum Amount Due: Rs. 415.29\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 58,276.00\n\nDate        Transaction Details                        Amount (Rs.)\n21/05/2026  REDBUS MUMBAI   309.22 Dr\n08/06/2026  BATA INDIA KOCHI   3,069.35 Dr\n18/05/2026  AIRBNB PUNE   1,990.67 Dr\n04/06/2026  DMART CHENNAI   18,579.87 Dr\n30/05/2026  NETFLIX.COM KOCHI   4,632.94 Dr\n04/06/2026  APOLLO PHARMACY MUMBAI   4,501.31 Dr\n28/05/2026  BLINKIT PUNE   6,310.57 Dr\n14/05/2026  DMART GURGAON   780.87 Dr\n06/06/2026  BIGBASKET MUMBAI   30,229.86 Dr\n03/06/2026  PAYMENT RECEIVED - THANK YOU   4,983.42 Cr\n\nReward Points Summary: Opening 6460  Earned 320  Closing 4574\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4315904020826  IFSC AU S0000668"
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m183",
+   "subject": "Ixigo AU Credit Card Statement - Jun 2026",
+   "body": "Dear Customer,<br>\nYour Ixigo AU Credit Card xx3815 Statement for the period 13/05/2026 to 12/06/2026 is attached.<br>\nTotal Amount Due: Rs. 38,101.77\nMinimum Amount Due: Rs. 1,905.09\nPayment Due Date: 30/06/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m184",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 20,774.13 was spent on your AU Small Finance Bank Credit Card XXXX6602 at WESTSIDE on 13-06-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-06-13",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m185",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 14,936.25 was spent on your AU Small Finance Bank Credit Card XXXX3815 at BATA INDIA on 14-06-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-06-14",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m186",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 2,860.01 was spent on your AU Small Finance Bank Credit Card XXXX6602 at ZOMATO on 16-06-2026.\nNot you? Block instantly on the AU 0101 app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-16",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m187",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.331.14 withdrawn using your AU Small Finance Bank Platinum Debit Card XXXX3170 at ATM KOCHI on 19-06-2026.",
+   "date": "2026-06-19",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m188",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 29,706.24 was spent on your AU Small Finance Bank Credit Card XXXX6602 at WESTSIDE on 24-06-2026.\nNot you? Block instantly on the AU 0101 app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-06-24",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m189",
+   "subject": "AU Bank: Debit alert",
+   "body": "नमस्ते,\nDear Customer, INR 1,911.29 is debited from your AU Savings A/c XXXX7044 on 24/06/2026 to VPA zomato@okhdfcbank (UPI Ref No. 578922393107).",
+   "date": "2026-06-24",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m190",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;received your payment of Rs.38,101.77 on 26-06-2026 towards your AU Small Finance Bank Credit Card XXXX3815. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-26",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m191",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.8,305.70 due on 30 June for card XXXX6602. Ignore if already paid. Kripya samay par bhugtan karein.\n\nT&C apply. Visit www.aubank.in for more details.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m192",
+   "subject": "Payment reminder: AU Small Finance Bank Credit Card XXXX3815",
+   "body": "Dear Customer,<br>\nThis is a reminder that Rs.38,101.77 (minimum Rs.1,905.09) is due on 30-Jun-2026 on your AU Small Finance Bank Credit Card XXXX3815. Pay on time to avoid late payment charges.<br>\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m193",
+   "subject": "Credit alert: AU Small Finance Bank",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;48,000.00&nbsp;credited to your A/c XX7044 on 01-07-2026 by SALARY NEFT. Ref 4495197102.\nThank you for banking with us.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2026-07-01",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m194",
+   "subject": "Your account statement for July 2026",
+   "body": "Dear Customer,\nYour e-statment for A/c xx7044 for Jul 2026 is attached. The PDF is protected; password is your Customer ID.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m195",
+   "subject": "AU Bank: Debit alert",
+   "body": "Standing Instruction executed. Dear Customer, INR 35,000.00 is debited from your AU Savings A/c XXXX7044 on 05/07/2026 to Sunita Iyer A/c no. XXXXXXXX1739 (Canara Bank), SI Ref 916343301816.\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2026-07-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m196",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 1,134.81 was spent on your AU Small Finance Bank Credit Card no. XXXXXXXXXXXX6602 at APOLLO PHARMACY on 07-07-2026.\nNot you? Block instantly on the AU 0101 app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-07-07",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m197",
+   "subject": "AU Small Finance Bank Altura Plus Credit Card Statement - Jul 2026",
+   "body": "Dear Customer,\nYour AU Small Finance Bank Altura Plus Credit Card XX6602 Statement for the period 12/06/2026 to 12/07/2026 is attached.\nTotal Amount Due: Rs. 19,727.88\nMinimum Amount Due: Rs. 986.39\nPayment Due Date: 30/07/2026\nPay via NetBanking, UPI or auto-debit.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: POOJA BANERJEE\nCredit Card Number: XXXX XXXX XXXX 6602\nCard Type: Altura Plus\nStatement Date: 12/07/2026\nStatement Period: 12/06/2026 - 12/07/2026\nPayment Due Date: 30/07/2026\nTotal Amount Due: Rs. 19,727.88\nMinimum Amount Due: Rs. 986.39\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 82,391.00\n\nDate        Transaction Details                        Amount (Rs.)\n12/06/2026  URBAN COMPANY BANGALORE   732.75 Dr\n07/07/2026  BPCL FUEL MUMBAI   2,456.78 Dr\n16/06/2026  LENSKART MUMBAI   195.62 Dr\n02/07/2026  AMAZON PAY INDIA CHENNAI   11,949.26 Dr\n24/06/2026  LICIOUS CHENNAI   40,140.95 Dr\n20/06/2026  HOTSTAR CHENNAI   10,798.21 Dr\n01/07/2026  WESTSIDE BANGALORE   2,642.49 Dr\n03/07/2026  PAYMENT RECEIVED - THANK YOU   11,836.73 Cr\n\nReward Points Summary: Opening 2137  Earned 333  Closing 5826\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m198",
+   "subject": "Ixigo AU Credit Card Statement - Jul 2026",
+   "body": "Dear Customer,\nYour Ixigo AU Credit Card XXXX3815 Statement for the period 12/06/2026 to 12/07/2026 is attached.\nTotal Amount Due: Rs. 7,064.50\nMinimum Amount Due: Rs. 353.23\nPayment Due Date: 30/07/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m199",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 2,518.87 was spent on your AU Small Finance Bank Credit Card XXXX6602 at IRCTC on 15-07-2026.\nNot you? Block instantly on the AU 0101 app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-07-15",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m200",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 32,981.07 was spent on your AU Small Finance Bank Credit Card XXXX3815 at INDIGO AIRLINES on 15-07-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-07-15",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m201",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 3,186.52 was spent on your AU Small Finance Bank Credit Card XXXX3815 at PVR INOX on 16-07-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m202",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 153.21 was spent on your AU Small Finance Bank Credit Card XXXX6602 at URBAN COMPANY on 19-07-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-07-19",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m203",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 1,183.95 was spent on your AU Small Finance Bank Credit Card XXXX6602 at SHELL PETROL on 19-07-2026.\nNot you? Block instantly on the AU 0101 app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-07-19",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m204",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear&nbsp;Customer,\nRs.500.00&nbsp;withdrawn&nbsp;using your AU Small Finance Bank Platinum Debit Card XXXX3170 at ATM GURGAON on 22-07-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-22",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m205",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 289.97 is debited from your AU Savings A/c XXXX7044 on 23/07/2026 to VPA swiggy@okaxis (UPI Ref No. 733322231877).\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m206",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.7,064.50 on 24-07-2026 towards your AU Small Finance Bank Credit Card XXXX3815. Thank you.\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2026-07-24",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m207",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 715.16 is debited from your AU Savings A/c XXXX7044 on 24/07/2026 to VPA q908814160@icici (UPI Ref No. 940916630109).",
+   "date": "2026-07-24",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m208",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 2,774.87 was spent on your AU Small Finance Bank Credit Card XX3815 at LENSKART on 27-07-2026.\nNot you? Block instantly on the AU 0101 app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m209",
+   "subject": "Payment reminder: AU Small Finance Bank Credit Card ending 3815",
+   "body": "Dear Customer,\nThis is a reminder that Rs.7,064.50 (minimum Rs.353.23) is due on 30-Jul-2026 on your AU Small Finance Bank Credit Card ending 3815. Pay on time to avoid late payment charges.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m210",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.19,727.88 on 29-07-2026 towards your AU Small Finance Bank Credit Card xx6602. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-07-29",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m211",
+   "subject": "Credit alert: AU Small Finance Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX7044 on 01-08-2026 by SALARY NEFT. Ref 7917431759.\nThank you for banking with us.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-08-01",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m212",
+   "subject": "Your account statement for August 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XX7044 for Aug 2026 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2026-08-03",
+   "attachments": [
+    {
+     "filename": "Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m213",
+   "subject": "AU Bank: Debit alert",
+   "body": "Standing Instruction executed. Dear Customer, INR 35,000.00 is debited from your AU Savings A/c XXXX7044 on 05/08/2026 to Sunita Iyer A/c no. XXXXXXXX1739 (Canara Bank), SI Ref 384373420740.\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2026-08-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m214",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 457.76 was spent on your AU Small Finance Bank Credit Card XXXX6602 at WESTSIDE on 07-08-2026.\nNot you? Block instantly on the AU 0101 app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-07",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m215",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,<br>\nINR 352.26 was spent on your AU Small Finance Bank Credit Card XXXX3815 at SPOTIFY on 08-08-2026.<br>\nNot you? Block instantly on the AU 0101 app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-08",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m216",
+   "subject": "OTP for online transaction",
+   "body": "519770 is the One Time Password (OTP) for your online transaction of INR 461.99 at BATA INDIA. Valid for 5 minutes. Do not share with anyone, including bank staff.<br>\n<br>\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-08",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m217",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 860.39 was spent on your AU Small Finance Bank Credit Card **3815 at SHELL PETROL on 10-08-2026.\nNot you? Block instantly on the AU 0101 app.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.",
+   "date": "2026-08-10",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m218",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 41,274.68 is debited from your AU Savings A/c XXXX7044 on 11/08/2026 to VPA swiggy@icici (UPI Ref No. 509376003447).\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-08-11",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m219",
+   "subject": "AU Small Finance Bank Altura Plus Credit Card Statement - Aug 2026",
+   "body": "Dear Customer,\nYour AU Small Finance Bank Altura Plus Credit Card XXXX6602 Statement for the period 13/07/2026 to 12/08/2026 is attached.\nTotal Amount Due: Rs. 1,24,513.73\nMinimum Amount Due: Rs. 6,225.69\nPayment Due Date: 30/08/2026\nPay via NetBanking, UPI or auto-debit.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: POOJA BANERJEE\nCredit Card Number: XXXX XXXX XXXX 6602\nStatement Date: 12/08/2026\nStatement Period: 13/07/2026 - 12/08/2026\nPayment Due Date: 30/08/2026\nTotal Amount Due: Rs. 1,24,513.73\nMinimum Amount Due: Rs. 6,225.69\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 29,731.00\n\nDate        Transaction Details                        Amount (Rs.)\n07/08/2026  GOOGLE PLAY BANGALORE   654.16 Dr\n02/08/2026  JIO PREPAID KOCHI   2,123.04 Dr\n06/08/2026  INDIGO AIRLINES KOCHI   5,906.00 Dr\n30/07/2026  THIRD WAVE COFFEE BANGALORE   7,197.79 Dr\n07/08/2026  PVR INOX BANGALORE   36,632.98 Dr\n29/07/2026  THIRD WAVE COFFEE HYDERABAD   1,099.60 Dr\n16/07/2026  HOTSTAR GURGAON   31,067.68 Dr\n06/08/2026  AMAZON PAY INDIA MUMBAI   117.25 Dr\n03/08/2026  PAYMENT RECEIVED - THANK YOU   74,708.24 Cr\n\nReward Points Summary: Opening 2729  Earned 646  Closing 3230\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4315904020826  IFSC AU S0000489"
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m220",
+   "subject": "Ixigo AU Credit Card Statement - Aug 2026",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;Ixigo&nbsp;AU Credit Card XXXX3815 Statement for the period 13/07/2026 to 12/08/2026 is attached.\nTotal Amount Due: Rs. 2,867.90\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/08/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "3815_12082026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m221",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 2,014.42 is debited from your AU Savings A/c XXXX7044 on 13/08/2026 to VPA bigbasket@okaxis (UPI Ref No. 250807154539).<br>\n<br>\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-08-13",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m222",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.500.00 withdrawn using your AU Small Finance Bank Platinum Debit Card XX3170 at ATM PUNE on 13-08-2026.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-13",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m223",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 7,142.06 is debited from your AU Savings A/c XXXX7044 on 16/08/2026 to VPA paytm.s1@paytm (UPI Ref No. 715213441476).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-16",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m224",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 7,460.58 was spent on your AU Small Finance Bank Credit Card XXXX3815 at MEDPLUS on 20-08-2026.\nNot you? Block instantly on the AU 0101 app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-20",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m225",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 4,254.60 was spent on your AU Small Finance Bank Credit Card XXXX6602 at ZEPTO on 21-08-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-08-21",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m226",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transaction of Rs.32,526.97 on card XXXX6602 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m227",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transaction of Rs.10,382.69 on card XXXX3815 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m228",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have recieved your payment of Rs.1,24,513.73 on 24-08-2026 towards your AU Small Finance Bank Credit Card XXXX6602. Thank you.<br>\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m229",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear&nbsp;Customer,&nbsp;INR&nbsp;805.71 is debited from your AU Savings A/c XXXX7044 on 25/08/2026 to VPA q436377286@okhdfcbank (UPI Ref No. 391734982519).",
+   "date": "2026-08-25",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m230",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,867.90 on 26-08-2026 towards your AU Small Finance Bank Credit Card XXXX3815. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-08-26",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m231",
+   "subject": "Credit alert: AU Small Finance Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX7044 on 01-09-2026 by SALARY NEFT. Ref 6367802677.\nThank you for banking with us.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-09-01",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m232",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 15,985.01 was spent on your AU Small Finance Bank Credit Card XX3815 at APOLLO PHARMACY on 02-09-2026.\nNot you? Block instantly on the AU 0101 app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-02",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m233",
+   "subject": "Your account statement for September 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XXXX7044 for Sep 2026 is attached. The PDF is protected; password is your Customer ID.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-09-03",
+   "attachments": [
+    {
+     "filename": "Statement_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m234",
+   "subject": "Secure your family with term insurance",
+   "body": "Plans from Rs 500/month. Policy no. will be shared post issuance. Quote ref 1337\nT&C apply.",
+   "date": "2026-09-04",
+   "attachments": [],
+   "from": "Tata AIA Life <news@tataaia.com>"
+  },
+  {
+   "id": "m235",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card XXXX6602 has been processed. Tenure 9 months. First EMI will appear on your next statment.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m236",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card ending 3815 has been processed. Tenure 6 months. First EMI will appear on your next statement.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m237",
+   "subject": "Standing instruction executed",
+   "body": "Standing Instruction executed. Dear Customer, INR 35,000.00 is debited from your AU Savings A/c XXXX7044 on 05/09/2026 to Sunita Iyer A/c no. XXXXXXXX1739 (Canara Bank), SI Ref 969099902424.\n\nThis is a system generated email. Please do not reply to this message.\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m238",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 2,548.24 was spent on your AU Small Finance Bank Credit Card ending 3815 at ZEPTO on 06-09-2026.\nNot you? Block instantly on the AU 0101 app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-06",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m239",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 619.08 was spent on your AU Small Finance Bank Credit Card XXXX XXXX XXXX 3815 at REDBUS on 07-09-2026.\nNot you? Block instantly on the AU 0101 app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-09-07",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m240",
+   "subject": "Your AU Credit Card transaction",
+   "body": "नमस्ते,\nHi Pooja,\nINR 6,601.04 was spent on your AU Small Finance Bank Credit Card XXXX6602 at REDBUS on 10-09-2026.\nNot you? Block instantly on the AU 0101 app.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-10",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m241",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 8,949.74 is debited from your AU Savings A/c XXXX7044 on 11/09/2026 to VPA paytm.s1@okaxis (UPI Ref No. 617776321476).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m242",
+   "subject": "AU Small Finance Bank Altura Plus Credit Card Statement - Sep 2026",
+   "body": "नमस्ते,\nDear Customer,\nYour AU Small Finance Bank Altura Plus Credit Card XXXX6602 Statement for the period 13/08/2026 to 12/09/2026 is attached.\nTotal Amount Due: Rs. 45,598.84\nMinimum Amount Due: Rs. 2,279.94\nPayment Due Date: 30/09/2026\nPay via NetBanking, UPI or auto-debit.\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: POOJA BANERJEE\nCredit Card Number: XXXX XXXX XXXX 6602\nStatement Date: 12/09/2026\nStatement Period: 13/08/2026 - 12/09/2026\nPayment Due Date: 30/09/2026\nTotal Amount Due: Rs. 45,598.84\nMinimum Amount Due: Rs. 2,279.94\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,59,127.00\n\nDate        Transaction Details                        Amount (Rs.)\n13/08/2026  REDBUS MUMBAI   2,938.19 Dr\n17/08/2026  URBAN COMPANY HYDERABAD   4,408.70 Dr\n08/09/2026  BLINKIT PUNE   19,215.17 Dr\n25/08/2026  SPOTIFY CHENNAI   459.26 Dr\n14/08/2026  AMAZON PAY INDIA PUNE   2,782.16 Dr\n29/08/2026  MEDPLUS HYDERABAD   19,254.27 Dr\n04/09/2026  REDBUS PUNE   16,393.02 Dr\n03/09/2026  PAYMENT RECEIVED - THANK YOU   27,359.30 Cr\n\nReward Points Summary: Opening 5555  Earned 54  Closing 7237\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m243",
+   "subject": "Ixigo AU Credit Card Statement - Sep 2026",
+   "body": "Dear Customer,\nYour Ixigo AU Credit Card XXXX3815 Statement for the period 13/08/2026 to 12/09/2026 is attached.\nTotal Amount Due: Rs. 62,492.61\nMinimum Amount Due: Rs. 3,124.63\nPayment Due Date: 30/09/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "3815_12092026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m244",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 10,517.39 was spent on your AU Small Finance Bank Credit Card XXXX6602 at IXIGO on 13-09-2026.\nNot you? Block instantly on the AU 0101 app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-09-13",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m245",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour AU Small Finance Bank Platinum Debit Card XXXX XXXX XXXX 3170 was used for Rs.7,081.98 at ZOMATO on 14-Sep-2026.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-14",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m246",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your AU Small Finance Bank Altura Plus Credit Card XXXX6602 has been increased to Rs.3,00,000.00 effective 17-09-2026.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m247",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your Ixigo AU Credit Card XXXX3815 has been increased to Rs.3,00,000.00 effective 17-09-2026.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m248",
+   "subject": "AU Bank: Debit alert",
+   "body": "नमस्ते,\nDear Customer, INR 2,166.39 is debited from your AU Savings A/c XXXX7044 on 19/09/2026 to VPA bigbasket@ybl (UPI Ref No. 233520011174).\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-19",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m249",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 24,300.64 was spent on your AU Small Finance Bank Credit Card XXXX6602 at BIGBASKET on 21-09-2026.\nNot you? Block instantly on the AU 0101 app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-21",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m250",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.45,598.84 on 23-09-2026 towards your AU Small Finance Bank Credit Card XXXX6602. Thank you.",
+   "date": "2026-09-23",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m251",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 4088 reward points on your AU Small Finance Bank Altura Plus Credit Card no. XXXXXXXXXXXX6602. Redeem them on the rewards portal before they expire.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m252",
+   "subject": "Your reward points summary",
+   "body": "Dear&nbsp;Customer,\nYou&nbsp;have&nbsp;7482 reward points on your Ixigo AU Credit Card no. XXXXXXXXXXXX3815. Redeem them on the rewards portal before they expire.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m253",
+   "subject": "Payment reminder: AU Small Finance Bank Credit Card XXXX6602",
+   "body": "Dear Customer,\nThis is a reminder that Rs.45,598.84 (minimum Rs.2,279.94) is due on 30-Sep-2026 on your AU Small Finance Bank Credit Card XXXX6602. Pay on time to avoid late payment charges.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m254",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Pooja, a gentle nudge: Rs.62,492.61 due on 30 September for card XXXX3815. Ignore if already paid. Kripya samay par bhugtan karein.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m255",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.62,492.61 on 27-09-2026 towards your AU Small Finance Bank Credit Card XXXX3815. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. AU Small Finance Bank will never ask for these.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m256",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 32,024.11 is debited from your AU Savings A/c XXXX7044 on 27/09/2026 to VPA q468326707@okaxis (UPI Ref No. 616141299875).\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m257",
+   "subject": "AU Bank: Debit alert",
+   "body": "नमस्ते,\nDear Customer, INR 3,004.27 is debited from your AU Savings A/c XXXX7044 on 28/09/2026 to VPA swiggy@paytm (UPI Ref No. 267128103521).",
+   "date": "2026-09-28",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m258",
+   "subject": "Credit alert: AU Small Finance Bank",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;72,500.00&nbsp;credited to your A/c XX7044 on 01-10-2026 by SALARY NEFT. Ref 4171914327.\nThank you for banking with us.",
+   "date": "2026-10-01",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m259",
+   "subject": "Your account statement for October 2026",
+   "body": "नमस्ते,\nDear Customer,\nYour e-statement for A/c XXXX7044 for Oct 2026 is attached. The PDF is protected; password is your Customer ID.\n\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2026-10-03",
+   "attachments": [
+    {
+     "filename": "Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m260",
+   "subject": "ATM withdrawal alert",
+   "body": "नमस्ते,\nDear Customer,\nRs.2,401.58 withdrawn using your AU Small Finance Bank Platinum Debit Card XXXX3170 at ATM HYDERABAD on 04-10-2026.",
+   "date": "2026-10-04",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m261",
+   "subject": "Your Swiggy order receipt",
+   "body": "Order #7762 delivered. Paid via UPI. Rate your meal!\nT&C apply.",
+   "date": "2026-10-04",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m262",
+   "subject": "AU Bank: Debit alert",
+   "body": "Standing&nbsp;Instruction&nbsp;executed.&nbsp;Dear Customer, INR 35,000.00 is debited from your AU Savings A/c XXXX7044 on 05/10/2026 to Sunita Iyer A/c no. XXXXXXXX1739 (Canara Bank), SI Ref 405516130275.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nT&C apply. Visit www.aubank.in for more details.",
+   "date": "2026-10-05",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m263",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 28,598.60 is debited from your AU Savings A/c XXXX7044 on 10/10/2026 to VPA merchant@ybl (UPI Ref No. 404682668719).",
+   "date": "2026-10-10",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m264",
+   "subject": "AU Small Finance Bank Altura Plus Credit Card Statement - Oct 2026",
+   "body": "Dear Customer,\nYour AU Small Finance Bank Altura Plus Credit Card XXXX6602 Statement for the period 12/09/2026 to 12/10/2026 is attached.\nTotal Amount Due: Rs. 1,009.75\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/10/2026\nPay via NetBanking, UPI or auto-debit.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK - CREDIT CARD STATEMENT\nName: POOJA BANERJEE\nCredit Card Number: XXXX XXXX XXXX 6602\nCard Type: Altura Plus\nStatement Date: 12/10/2026\nStatement Period: 12/09/2026 - 12/10/2026\nPayment Due Date: 30/10/2026\nTotal Amount Due: Rs. 1,009.75\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,12,543.00\n\nDate        Transaction Details                        Amount (Rs.)\n15/09/2026  DECATHLON MUMBAI   623.47 Dr\n16/09/2026  ZOMATO MUMBAI   846.82 Dr\n16/09/2026  SHELL PETROL GURGAON   5,148.20 Dr\n10/10/2026  HOTSTAR CHENNAI   1,629.46 Dr\n20/09/2026  BATA INDIA CHENNAI   5,066.60 Dr\n20/09/2026  HOTSTAR CHENNAI   258.85 Dr\n03/10/2026  IRCTC BANGALORE   8,788.47 Dr\n02/10/2026  UBER INDIA KOCHI   1,995.99 Dr\n03/10/2026  PAYMENT RECEIVED - THANK YOU   605.85 Cr\n\nReward Points Summary: Opening 7001  Earned 213  Closing 8328\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m265",
+   "subject": "Ixigo AU Credit Card Statement - Oct 2026",
+   "body": "Dear Customer,<br>\nYour Ixigo AU Credit Card XXXX3815 Statement for the period 12/09/2026 to 12/10/2026 is attached.<br>\nTotal Amount Due: Rs. 73,254.45\nMinimum Amount Due: Rs. 3,662.72\nPayment Due Date: 30/10/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Bank Credit Card <creditcard.statement@aubank.in>"
+  },
+  {
+   "id": "m266",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 103.80 was spent on your AU Small Finance Bank Credit Card XXXX6602 at MAKEMYTRIP on 14-10-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-10-14",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m267",
+   "subject": "Your order has been shipped",
+   "body": "Order 402-3869-1100 shipped. Pay on delivery Rs 1,299.\nT&C apply.",
+   "date": "2026-10-14",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m268",
+   "subject": "Transaction cancelled / refund initiated",
+   "body": "Dear Customer,\nYour transaction at BPCL FUEL for Rs.2,467.08 has been cancelled by the merchant. A refund will be credited to your card XXXX6602 in 5-7 working days.\n\nT&C apply. Visit www.aubank.in for more details.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m269",
+   "subject": "Mobile number updated",
+   "body": "Your mobile number XXXXXX8580 has been updated in our records. If not requested by you, visit the nearest branch.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m270",
+   "subject": "AU Bank: Debit alert",
+   "body": "Dear Customer, INR 33,864.00 is debited from your AU Savings A/c XXXX7044 on 24/10/2026 to VPA bigbasket@okaxis (UPI Ref No. 156808352637).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-24",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m271",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 8,463.87 was spent on your AU Small Finance Bank Credit Card **3815 at BPCL FUEL on 25-10-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-10-25",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m272",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.73,254.45 on 26-10-2026 towards your AU Small Finance Bank Credit Card XXXX3815. Thank you.<br>\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-10-26",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m273",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,009.75 on 27-10-2026 towards your AU Small Finance Bank Credit Card XXXX6602. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m274",
+   "subject": "Payment reminder: AU Small Finance Bank Credit Card XX3815",
+   "body": "Dear Customer,\nThis is a reminder that Rs.73,254.45 (minimum Rs.3,662.72) is due on 30-Oct-2026 on your AU Small Finance Bank Credit Card XX3815. Pay on time to avoid late payment charges.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <customercare@aubank.in>"
+  },
+  {
+   "id": "m275",
+   "subject": "Credit alert: AU Small Finance Bank",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;65,000.00&nbsp;credited to your A/c XX7044 on 01-11-2026 by SALARY NEFT. Ref 1534916093.\nThank you for banking with us.",
+   "date": "2026-11-01",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m276",
+   "subject": "Your AU Credit Card transaction",
+   "body": "Hi Pooja,\nINR 614.99 was spent on your AU Small Finance Bank Credit Card ending 6602 at IXIGO on 02-11-2026.\nNot you? Block instantly on the AU 0101 app.",
+   "date": "2026-11-02",
+   "attachments": [],
+   "from": "AU Bank <alerts@aubank.in>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "aubank.in",
+    "last4": "6602",
+    "kind": "CREDIT_CARD",
+    "variant": "Altura Plus",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "aubank.in",
+    "last4": "3815",
+    "kind": "CREDIT_CARD",
+    "variant": "Ixigo",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "aubank.in",
+    "last4": "7044",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "aubank.in",
+    "last4": "3170",
+    "kind": "DEBIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "aubank.in",
+    "last4": "0826",
+    "why": "bank own beneficiary account in statement payment instructions"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "1739",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "aubank.in",
+    "last4": "8580",
+    "why": "masked mobile number"
+   },
+   {
+    "issuerDomain": "aubank.in",
+    "last4": "5560",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "2120",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "3538",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "8846",
+    "why": "UPI/IMPS payee account"
+   }
+  ]
+ }
+}

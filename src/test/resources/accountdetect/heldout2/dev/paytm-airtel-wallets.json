@@ -1,0 +1,1339 @@
+{
+ "mailbox": "paytm-airtel-wallets",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Airtel Payments Bank: credit alert on your account",
+   "body": "Credit alert: Rs.120.44 has been credited to account XXXXXX3420 on 04-Aug-2025 (REFUND). Avl bal Rs.2,818.85.",
+   "date": "2025-08-04",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Paytm Payments Bank Account Statement - Aug 2025",
+   "body": "Dear Pooja,\nPlease find attached your Paytm Payments Bank XX5261 statement for the period 12-Jul-2025 to 11-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "5261_11082025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX4692 is debited for Rs.1,138.34 on 14-Aug-2025 - NEFT BATA INDIA. Bal Rs.8,571.44. -Airtel Payments Bank",
+   "date": "2025-08-14",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.83.52 is debited from your HDFC Bank PIXEL Credit Card ending 9884 towards AMAZON PAY INDIA on 14-08-2025. Not you? Call us immediately.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-14",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m005",
+   "subject": "Airtel Payments Bank Account Statement - Aug 2025",
+   "body": "Dear Pooja,\nYour Airtel Payments Bank XXXXXX3420 account statement for Aug 2025 is ready. Closing balance Rs.6,661.96.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-08-15",
+   "attachments": [],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.343.32 debited from account XXXXXX3420 on 19-Aug-2025. Narration: POS/HPCL PETROL. Available balance Rs.3,953.40.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-19",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Pooja,\nConvert big spends to EMI at low interest.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-08-21",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m008",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank PIXEL Credit Card ending 9884 for Rs.9,892.42 at SODEXO on 24-08-2025 at 04:34:29.\nAvailable limit: Rs.21,831.17. If you did not make this transaction, please call 1800 258 6161.",
+   "date": "2025-08-24",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m009",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 9884 for Rs.14,706.21 at CROMA on 27-08-2025 at 04:07:10.\nAvailable limit: Rs.32,586.09. If you did not make this transaction, please call 1800 258 6161.\n\nOpt for e-statements and go green.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m010",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.1,327.84 debited from account XXXXXX5261 on 29-Aug-2025. Narration: IMPS/PVR INOX. Available balance Rs.21,971.10.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-08-29",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.38,647.37 has been transferred from your A/c xx3420 to Priya Tailors A/c XX1527 (ICICI Bank) via IMPS on 29-Aug-2025. Ref no 271371320422.",
+   "date": "2025-08-29",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.6,969.67 debited from account XX4692 on 31-Aug-2025. Narration: NEFT/BESCOM. Available balance Rs.3,618.09.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-08-31",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Your HDFC Bank PIXEL Credit Card Statement - Sep 2025",
+   "body": "Dear Pooja,\nYour HDFC Bank PIXEL Credit Card ending 9884 statement for Sep 2025 is ready. Total amount due Rs.33,227.16, minimum amount due Rs.1,661.36, payable by 20 Sep, 2025.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-09-03",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m014",
+   "subject": "Airtel Payments Bank: funds transferred",
+   "body": "Dear Customer,\nRs.16,767.69 has been transferred from your A/c *3420 to Priya Tailors A/c XX1527 (ICICI Bank) via IMPS on 04-Sep-2025. Ref no 816634767594.",
+   "date": "2025-09-04",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 9884 for Rs.379.10 at EAZYDINER on 06-09-2025 at 16:16:19.\nAvailable limit: Rs.16,698.99. If you did not make this transaction, please call 1800 258 6161.\n\nOpt for e-statements and go green.",
+   "date": "2025-09-06",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m016",
+   "subject": "Airtel Payments Bank: credit alert on your account",
+   "body": "Credit alert: Rs.128.12 has been credited to account *3420 on 08-Sep-2025 (REFUND). Avl bal Rs.8,468.46.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-08",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.5,081.36 debited from account XXXXXX3420 on 08-Sep-2025. Narration: POS/MCDONALDS. Available balance Rs.12,754.05.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-08",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Your Airtel Wallet has been topped up",
+   "body": "Dear Pooja,\nRs.794.31 has been added to your Airtel Wallet wallet no. 4692 on 10-Sep-2025. Wallet balance: Rs.1,177.91.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2025-09-10",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Sunil Plumber (A/c XXXXXX6442, Bandhan Bank) has been added to your account XXXXXX3420. It will be active after 30 minutes.",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "OTP for your transaction",
+   "body": "151033 is the OTP for your transaction of Rs.352.49 at FLIPKART. Valid for 10 minutes. Do not share.",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Your HDFC Bank PIXEL Credit Card Statement - Oct 2025",
+   "body": "Dear Pooja,\nYour HDFC Bank PIXEL Credit Card ending 9884 statement for Oct 2025 is ready. Total amount due Rs.13,588.04, minimum amount due Rs.679.40, payable by 20 Oct, 2025.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-03",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m022",
+   "subject": "Your Airtel Wallet has been topped up",
+   "body": "Dear Pooja,\nRs.909.35 has been added to your Airtel Wallet ID ending 4692 on 03-Oct-2025. Wallet balance: Rs.68.24.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2025-10-03",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.8,355.97 debited from account xx3090 on 08-Oct-2025. Narration: IMPS/SODEXO. Available balance Rs.2,721.82.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-10-08",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Your Airtel Wallet has been topped up",
+   "body": "Dear Pooja,\nRs.833.12 has been added to your Airtel Wallet XXXXXX4692 on 09-Oct-2025. Wallet balance: Rs.50.54.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2025-10-09",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX8466 has been updated on 18-03-2026. If not requested by you, call customer care.",
+   "date": "2025-10-11",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m026",
+   "subject": "Airtel Payments Bank Account Statement - Oct 2025",
+   "body": "Dear Pooja,\nPlease find attached your Airtel Payments Bank XX3420 statement for the period 15-Sep-2025 to 14-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-10-15",
+   "attachments": [
+    {
+     "filename": "eStatement_202510.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Update your KYC",
+   "body": "Dear Pooja,\nAs per RBI guidelines please complete re-KYC for your HDFC Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-10-17",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m028",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.1,613.56 has been debited from your Paytm Payments Bank A/c *3090 on 22-Oct-2025 (IMPS SODEXO). Avl bal Rs.1,14,950.71.",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "OTP for your transaction",
+   "body": "399994 is the OTP for your transaction of Rs.145.50 at BIG BAZAAR. Valid for 10 minutes. Do not share.",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,000.00 transferred from xx3420 to Sunil Plumber A/c XX6442 on 25-Oct-2025. Rent for the month.",
+   "date": "2025-10-25",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Paytm Payments Bank wallet: Rs.2,279.14 added",
+   "body": "Dear Pooja,\nRs.2,279.14 has been added to your Paytm Wallet XXXXXX3090 on 26-Oct-2025. Wallet balance: Rs.661.46.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2025-10-26",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Your HDFC Bank PIXEL Credit Card Statement - Nov 2025",
+   "body": "Dear Pooja,\nPlease find attached your HDFC Bank PIXEL Credit Card ending 9884 statement for the period 03 Oct, 2025 to 02 Nov, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-03",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m033",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank PIXEL Credit Card ending 9884 for Rs.13,117.48 at BOOKMYSHOW on 04-11-2025 at 14:32:48.\nAvailable limit: Rs.15,532.66. If you did not make this transaction, please call 1800 258 6161.",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m034",
+   "subject": "Paytm Payments Bank Account Statement - Nov 2025",
+   "body": "Dear Pooja,\nPlease find attached your Paytm Payments Bank xx5261 statement for the period 12-Oct-2025 to 11-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "Paytm_Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Credit alert: Rs.6,169.86 has been credited to account XXXXXX5261 on 15-Nov-2025 (REFUND). Avl bal Rs.2,019.91.",
+   "date": "2025-11-15",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c XX5261 is debited for Rs.221.21 on 16-Nov-2025 - NEFT APOLLO PHARMACY. Bal Rs.1,42,652.98. -Paytm Payments Bank",
+   "date": "2025-11-16",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,000.00 transferred from xx3420 to Sunil Plumber A/c XX6442 on 25-Nov-2025. Rent for the month.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c xx3090 is debited for Rs.25,819.95 on 27-Nov-2025 - IMPS AMAZON PAY INDIA. Bal Rs.4,381.69. -Paytm Payments Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "OTP for your transaction",
+   "body": "864506 is the OTP for your transaction of Rs.5,236.84 at CROMA. Valid for 10 minutes. Do not share.",
+   "date": "2025-11-28",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Your HDFC Bank PIXEL Credit Card Statement - Dec 2025",
+   "body": "Dear Pooja,\nPlease find attached your HDFC Bank PIXEL Credit Card ending 9884 statement for the period 03 Nov, 2025 to 02 Dec, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-12-03",
+   "attachments": [
+    {
+     "filename": "HDFC_CC_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m041",
+   "subject": "Paytm Payments Bank wallet: Rs.3,954.24 added",
+   "body": "Dear Pooja,\nRs.3,954.24 has been added to your Paytm Wallet XXXXXX3090 on 13-Dec-2025. Wallet balance: Rs.64.47.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2025-12-13",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.439.71 debited from account xx3420 on 13-Dec-2025. Narration: ECOM/EASEMYTRIP. Available balance Rs.1,26,131.49.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-13",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Airtel Payments Bank Account Statement - Dec 2025",
+   "body": "Dear Pooja,\nPlease find attached your Airtel Payments Bank xx3420 statement for the period 15-Nov-2025 to 14-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-12-15",
+   "attachments": [
+    {
+     "filename": "3420_14122025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Your A/c *5261 is credited with Rs.23,683.89 on 23-Dec-2025 - SALARY NEFT. Bal Rs.2,160.35. -Paytm Payments Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-23",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from XX3420 to Sunil Plumber A/c XX6442 on 25-Dec-2025. Rent for the month.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Your HDFC Bank PIXEL Credit Card Statement - Jan 2026",
+   "body": "Dear Pooja,\nPlease find attached your HDFC Bank PIXEL Credit Card ending 9884 statement for the period 03 Dec, 2025 to 02 Jan, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-01-03",
+   "attachments": [
+    {
+     "filename": "eStatement_202601.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m047",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Your A/c xx3420 is debited for Rs.35,351.35 on 06-Jan-2026 - ECOM TATA PLAY. Bal Rs.1,23,607.69. -Airtel Payments Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-01-06",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.2,163.91 has been debited from your Paytm Payments Bank A/c XX3090 on 18-Jan-2026 (NEFT MEDPLUS). Avl bal Rs.38,121.11.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-18",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Paytm Payments Bank festive offers",
+   "body": "Dear Pooja,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\n",
+   "date": "2026-01-22",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank PIXEL Credit Card ending 9884 for Rs.16,804.06 at GOOGLE PLAY on 24-01-2026 at 05:47:35.\nAvailable limit: Rs.25,227.54. If you did not make this transaction, please call 1800 258 6161.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-24",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m051",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Your A/c XX3090 is credited with Rs.27,909.89 on 30-Jan-2026 - INTEREST CREDIT. Bal Rs.32,747.43. -Paytm Payments Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-30",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Your HDFC Bank PIXEL Credit Card Statement - Feb 2026",
+   "body": "Dear Pooja,\nPlease find attached your HDFC Bank PIXEL Credit Card ending 9884 statement for the period 03 Jan, 2026 to 02 Feb, 2026. Total amount due Rs.20,272.17, due 21 Feb, 2026.\n\n",
+   "date": "2026-02-03",
+   "attachments": [
+    {
+     "filename": "9884_02022026_stmt.pdf",
+     "protected": false,
+     "pdfText": "HDFC Bank Credit Cards\nStatement for HDFC Bank PIXEL Credit Card\nPOOJA REDDY\nFLAT 629, ORCHID APARTMENTS\n10TH CROSS, SECTOR 21\nGURUGRAM - 655041\nCredit Card No: 5668 61XX XXXX 9884\nStatement Date: 02 Feb, 2026\nBilling Period: 03 Jan, 2026 - 02 Feb, 2026\nPayment Due Date Total Dues Minimum Amount Due\n21 Feb, 2026 Rs.20,272.17 Rs.1,013.61\nCredit Limit Available Credit Limit Available Cash Limit\nRs.1,10,000.00 Rs.1,03,068.68 Rs.22,000.00\nDomestic Transactions\nDate Transaction Description Amount (in Rs.)\n03/01/26 EAZYDINER BENGALURU 286.29\n07/01/26 DECATHLON HYDERABAD 200.35\n08/01/26 LENSKART KOLKATA 186.70\n09/01/26 LENSKART KOCHI 1,005.52\n13/01/26 JIO RECHARGE HYDERABAD 1,390.08\n19/01/26 SODEXO PUNE 2,892.09\n23/01/26 UBER INDIA MUMBAI 6,603.09\n24/01/26 BOOKMYSHOW MUMBAI 1,175.81\n25/01/26 BIG BAZAAR GURUGRAM 5,344.18\n26/01/26 AIRTEL PREPAID JAIPUR 596.43\n27/01/26 PHONEPE CHENNAI 591.63\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m053",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Your A/c *3420 is debited for Rs.136.49 on 05-Feb-2026 - NEFT TATA PLAY. Bal Rs.1,12,015.39. -Airtel Payments Bank",
+   "date": "2026-02-05",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Your A/c *3420 is debited for Rs.1,092.46 on 08-Feb-2026 - IMPS ZOMATO. Bal Rs.18,540.81. -Airtel Payments Bank\n\nOpt for e-statements and go green.",
+   "date": "2026-02-08",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.5,359.29 has been debited from your Airtel Payments Bank A/c xx4692 on 10-Feb-2026 (POS EASEMYTRIP). Avl bal Rs.60,168.69.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-10",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Paytm Payments Bank Account Statement - Feb 2026",
+   "body": "Dear Pooja,\nPlease find attached your Paytm Payments Bank *5261 statement for the period 12-Jan-2026 to 11-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "5261_11022026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Airtel Payments Bank Account Statement - Feb 2026",
+   "body": "Dear Pooja,\nYour Airtel Payments Bank xx3420 account statement for Feb 2026 is ready. Closing balance Rs.680.94.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-02-15",
+   "attachments": [],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c xx5261 is debited for Rs.32,936.07 on 21-Feb-2026 - IMPS HPCL PETROL. Bal Rs.2,973.18. -Paytm Payments Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-02-21",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Your HDFC Bank PIXEL Credit Card Statement - Mar 2026",
+   "body": "Dear Pooja,\nPlease find attached your HDFC Bank PIXEL Credit Card ending 9884 statement for the period 03 Feb, 2026 to 02 Mar, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-03-03",
+   "attachments": [
+    {
+     "filename": "HDFC_CC_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m060",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.28,155.49 debited from account XX4692 on 06-Mar-2026. Narration: IMPS/INDIAN OIL. Available balance Rs.2,333.14.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-03-06",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Paytm Payments Bank wallet: Rs.103.97 added",
+   "body": "Dear Pooja,\nRs.103.97 has been added to your Paytm Wallet XXXXXX3090 on 09-Mar-2026. Wallet balance: Rs.1,191.39.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2026-03-09",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c XX3090 is debited for Rs.1,851.27 on 09-Mar-2026 - POS SPOTIFY. Bal Rs.43,323.18. -Paytm Payments Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-09",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Payment of Rs.228.74 has been received towards your HDFC Bank PIXEL Credit Card ending 9884 on 10-03-2026. Thank you for the payment.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-10",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m064",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.94.56 has been debited from your Airtel Payments Bank A/c *4692 on 11-Mar-2026 (ECOM MYNTRA). Avl bal Rs.2,941.93.",
+   "date": "2026-03-11",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c *3090 is debited for Rs.10,839.89 on 13-Mar-2026 - UPI DOMINOS. Bal Rs.37,559.27. -Paytm Payments Bank\n\nOpt for e-statements and go green.",
+   "date": "2026-03-13",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Airtel Payments Bank: credit alert on your account",
+   "body": "Credit alert: Rs.1,035.97 has been credited to account *3420 on 13-Mar-2026 (NEFT). Avl bal Rs.2,652.86.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-03-13",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.34,651.66 has been transferred from your A/c *5261 to Sunil Plumber A/c XX2878 (IDFC FIRST Bank) via IMPS on 19-Mar-2026. Ref no 191947724878.",
+   "date": "2026-03-19",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.358.31 credited to your Paytm Payments Bank A/c *3090 on 22-Mar-2026 by IMPS. Ref 523684629423.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-22",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "HDFC Bank: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 4493 has been successfully linked/verified for your HDFC Bank relationship. If this was not you, contact us.",
+   "date": "2026-03-22",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m070",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Pooja,\nYour order #781-9118244-7420116 is confirmed. Total Rs.705.67. Estimated delivery in 2 days.",
+   "date": "2026-03-22",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m071",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.2,585.46 has been transferred from your A/c XXXXXX3420 to Ramesh Kumar A/c XX9217 (IDFC FIRST Bank) via IMPS on 27-Mar-2026. Ref no 666646143652.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Your HDFC Bank PIXEL Credit Card Statement - Apr 2026",
+   "body": "Dear Pooja,\nYour HDFC Bank PIXEL Credit Card ending 9884 statement for Apr 2026 is ready. Total amount due Rs.24,776.91, minimum amount due Rs.1,238.85, payable by 20 Apr, 2026.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-03",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m073",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.6,859.09 has been debited from your Airtel Payments Bank A/c xx4692 on 08-Apr-2026 (ECOM NETFLIX). Avl bal Rs.15,628.68.",
+   "date": "2026-04-08",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Airtel Payments Bank Account Statement - Apr 2026",
+   "body": "Dear Pooja,\nPlease find attached your Airtel Payments Bank XXXXXX3420 statement for the period 15-Mar-2026 to 14-Apr-2026. \n\nOpt for e-statements and go green.",
+   "date": "2026-04-15",
+   "attachments": [
+    {
+     "filename": "eStatement_202604.pdf",
+     "protected": false,
+     "pdfText": "AIRTEL PAYMENTS BANK\nSTATEMENT OF ACCOUNT\nAccount Name : POOJA REDDY\nFLAT 132, LAKESHORE APARTMENTS\n19TH CROSS, KOTHRUD\nPUNE - 685531\nCustomer ID : 58853773\nAccount Number : *3420\nAccount Type : SAVINGS ACCOUNT\nIFSC : AIRT0444495\nStatement Period : 15-03-2026 to 14-04-2026\nOpening Balance : Rs.87,842.58\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n18-03-2026 UPI/CR 472364033 - 8,021.93 95,864.51\n19-03-2026 UPI/APOLLO PHARMACY 298594919 12,223.51 - 83,641.00\n22-03-2026 POS/PAYTM 116077119 235.79 - 83,405.21\n25-03-2026 SALARY NEFT 855478952 - 1,147.46 84,552.67\n25-03-2026 INTEREST 599851404 - 1,434.52 85,987.19\n26-03-2026 ATM WDL/BLINKIT 279377854 1,516.24 - 84,470.95\n26-03-2026 SALARY NEFT 912478614 - 247.10 84,718.05\n28-03-2026 POS/SODEXO 517571071 325.77 - 84,392.28\n28-03-2026 IMPS/CR 374538696 - 153.21 84,545.49\n31-03-2026 IMPS/CR 423703305 - 1,377.18 85,922.67\nClosing Balance : Rs.85,922.67\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Airtel Payments Bank: credit alert on your account",
+   "body": "Your A/c xx3420 is credited with Rs.2,139.71 on 19-Apr-2026 - INTEREST CREDIT. Bal Rs.1,65,268.49. -Airtel Payments Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-04-19",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.3,391.64 is debited from your HDFC Bank Credit Card ending 9884 towards DOMINOS on 19-04-2026. Not you? Call us immediately.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m077",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX5261 is debited for Rs.2,056.89 on 27-Apr-2026 - UPI BIGBASKET. Bal Rs.31,930.34. -Paytm Payments Bank\n\nOpt for e-statements and go green.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.8,336.71 is debited from your HDFC Bank Credit Card ending 9884 towards BLINKIT on 27-04-2026. Not you? Call us immediately.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m079",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.4,288.37 debited from account XX3090 on 29-Apr-2026. Narration: ECOM/MAKEMYTRIP. Available balance Rs.10,953.90.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-29",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.19,647.23 has been transferred from your A/c xx5261 to Ganesh Maid Service A/c XX4342 (Bank of India) via IMPS on 30-Apr-2026. Ref no 501188013070.",
+   "date": "2026-04-30",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.345.47 credited to your Paytm Payments Bank A/c xx3090 on 01-May-2026 by IMPS. Ref 672456793726.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-01",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Your HDFC Bank PIXEL Credit Card Statement - May 2026",
+   "body": "Dear Pooja,\nPlease find attached your HDFC Bank PIXEL Credit Card ending 9884 statement for the period 03 Apr, 2026 to 02 May, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-05-03",
+   "attachments": [
+    {
+     "filename": "eStatement_202605.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m083",
+   "subject": "Airtel Payments Bank: credit alert on your account",
+   "body": "Credit alert: Rs.731.37 has been credited to account *4692 on 03-May-2026 (NEFT). Avl bal Rs.5,601.39.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-03",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Pooja,\nYour order #834-4841229-6614666 is confirmed. Total Rs.5,253.05. Estimated delivery in 2 days.",
+   "date": "2026-05-06",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m085",
+   "subject": "Paytm Payments Bank Account Statement - May 2026",
+   "body": "Dear Pooja,\nPlease find attached your Paytm Payments Bank xx5261 statement for the period 12-Apr-2026 to 11-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "Paytm_Acct_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank PIXEL Credit Card ending 9884 for Rs.2,028.71 at INDIAN OIL on 17-05-2026 at 12:31:16.\nAvailable limit: Rs.8,312.48. If you did not make this transaction, please call 1800 258 6161.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-05-17",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m087",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX5261 is debited for Rs.4,407.37 on 20-May-2026 - NEFT BIGBASKET. Bal Rs.82,403.82. -Paytm Payments Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-20",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "Airtel Payments Bank: credit alert on your account",
+   "body": "Credit alert: Rs.19,766.34 has been credited to account xx4692 on 21-May-2026 (INTEREST CREDIT). Avl bal Rs.1,02,271.12.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-21",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c xx3090 is debited for Rs.5,317.08 on 30-May-2026 - POS SODEXO. Bal Rs.34,121.89. -Paytm Payments Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-30",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Your HDFC Bank PIXEL Credit Card Statement - Jun 2026",
+   "body": "Dear Pooja,\nPlease find attached your HDFC Bank PIXEL Credit Card ending 9884 statement for the period 03 May, 2026 to 02 Jun, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-03",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m091",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Your A/c XX5261 is credited with Rs.372.61 on 04-Jun-2026 - INTEREST CREDIT. Bal Rs.17,266.89. -Paytm Payments Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-04",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.10,553.09 has been debited from your Paytm Payments Bank A/c xx3090 on 10-Jun-2026 (NEFT EAZYDINER). Avl bal Rs.5,766.91.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-10",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Pooja,\nGet up to 10% cashback on partner brands.\n\n",
+   "date": "2026-06-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m094",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.1,090.78 has been debited from your Paytm Payments Bank A/c XX5261 on 14-Jun-2026 (UPI PVR INOX). Avl bal Rs.5,382.17.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-14",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Airtel Payments Bank Account Statement - Jun 2026",
+   "body": "Dear Pooja,\nYour Airtel Payments Bank *3420 account statement for Jun 2026 is ready. Closing balance Rs.54,028.98.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-15",
+   "attachments": [],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Paytm Payments Bank wallet statement - Jun 2026",
+   "body": "Your wallet statement is attached.",
+   "date": "2026-06-17",
+   "attachments": [
+    {
+     "filename": "Wallet_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "PAYTM PAYMENTS BANK\nWALLET STATEMENT\nWallet Holder : POOJA REDDY\nWallet ID : XXXXXX3090\nWallet Type : MINIMUM-KYC PREPAID WALLET\nPeriod : 17-05-2026 to 17-06-2026\nDate Description Credit Debit Balance\n17-05-2026 PAID TO PAYTM 527.24 - 117.72\n20-05-2026 ADD MONEY 76.76 - 1,737.97\n23-05-2026 PAID TO ZEPTO 140.45 - 943.63\n26-05-2026 PAID TO ZEPTO 273.37 - 303.11\n29-05-2026 PAID TO AMAZON PAY INDIA 154.75 - 1,725.70\n01-06-2026 PAID TO BPCL FUEL 941.68 - 602.75\n04-06-2026 CASHBACK 56.04 - 146.67"
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Airtel Payments Bank wallet statement - Jun 2026",
+   "body": "Your wallet statement is attached.",
+   "date": "2026-06-17",
+   "attachments": [
+    {
+     "filename": "Wallet_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "AIRTEL PAYMENTS BANK\nWALLET STATEMENT\nWallet Holder : POOJA REDDY\nWallet ID : XXXXXX4692\nWallet Type : MINIMUM-KYC PREPAID WALLET\nPeriod : 17-05-2026 to 17-06-2026\nDate Description Credit Debit Balance\n17-05-2026 ADD MONEY 1,133.83 - 167.11\n20-05-2026 ADD MONEY 134.13 - 1,028.68\n23-05-2026 CASHBACK 690.58 - 258.20\n26-05-2026 CASHBACK 115.17 - 106.96\n29-05-2026 CASHBACK 88.50 - 137.26\n01-06-2026 CASHBACK 239.35 - 387.86\n04-06-2026 ADD MONEY 72.37 - 164.33"
+    }
+   ],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Update your KYC",
+   "body": "Dear Pooja,\nAs per RBI guidelines please complete re-KYC for your Airtel Payments Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2026-06-19",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "HDFC Bank festive offers",
+   "body": "Dear Pooja,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-06-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m100",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.12,087.10 debited from account XX5261 on 26-Jun-2026. Narration: IMPS/HPCL PETROL. Available balance Rs.96,015.70.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-26",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.1,631.34 has been transferred from your A/c xx3420 to Priya Tailors A/c XX1527 (ICICI Bank) via IMPS on 26-Jun-2026. Ref no 721379100034.",
+   "date": "2026-06-26",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Your HDFC Bank PIXEL Credit Card Statement - Jul 2026",
+   "body": "Dear Pooja,\nYour HDFC Bank PIXEL Credit Card ending 9884 statement for Jul 2026 is ready. Total amount due Rs.41,059.00, minimum amount due Rs.2,052.95, payable by 20 Jul, 2026.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-03",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m103",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX3420 is debited for Rs.1,986.86 on 03-Jul-2026 - POS OLA CABS. Bal Rs.41,631.81. -Airtel Payments Bank",
+   "date": "2026-07-03",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Paytm Payments Bank wallet: Rs.586.04 added",
+   "body": "Dear Pooja,\nRs.586.04 has been added to your Paytm Wallet ID ending 3090 on 05-Jul-2026. Wallet balance: Rs.3,857.73.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2026-07-05",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.2,230.57 has been debited from your Airtel Payments Bank A/c xx4692 on 09-Jul-2026 (ECOM STARBUCKS). Avl bal Rs.18,762.38.\n\nOpt for e-statements and go green.",
+   "date": "2026-07-09",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 9884 for Rs.2,134.85 at PAYTM on 14-07-2026 at 16:33:02.\nAvailable limit: Rs.15,305.99. If you did not make this transaction, please call 1800 258 6161.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-14",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m107",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Pooja,\nPlease find attached the updated MITC for your HDFC Bank credit cards.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-16",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "HDFC BANK CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m108",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Your A/c XX3420 is debited for Rs.141.27 on 23-Jul-2026 - NEFT OLA CABS. Bal Rs.4,088.77. -Airtel Payments Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.1,406.37 debited from account xx5261 on 26-Jul-2026. Narration: NEFT/URBAN COMPANY. Available balance Rs.81,624.13.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-26",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Your HDFC Bank PIXEL Credit Card Statement - Aug 2026",
+   "body": "Dear Pooja,\nYour HDFC Bank PIXEL Credit Card ending 9884 statement for Aug 2026 is ready. Total amount due Rs.1,829.93, minimum amount due Rs.200.00, payable by 20 Aug, 2026.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-08-03",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m111",
+   "subject": "Paytm Payments Bank Account Statement - Aug 2026",
+   "body": "Dear Pooja,\nPlease find attached your Paytm Payments Bank XX5261 statement for the period 12-Jul-2026 to 11-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202608.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.3,081.86 debited from account XXXXXX4692 on 13-Aug-2026. Narration: UPI/BIG BAZAAR. Available balance Rs.93,234.47.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-13",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Airtel Payments Bank Account Statement - Aug 2026",
+   "body": "Dear Pooja,\nPlease find attached your Airtel Payments Bank xx3420 statement for the period 15-Jul-2026 to 14-Aug-2026. \n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-15",
+   "attachments": [
+    {
+     "filename": "Airtel_Statement_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "AIRTEL PAYMENTS BANK\nSTATEMENT OF ACCOUNT\nAccount Name : POOJA REDDY\nFLAT 438, SUNRISE APARTMENTS\n21TH CROSS, ADYAR\nPUNE - 685088\nCustomer ID : 97608932\nAccount Number : *3420\nAccount Type : SAVINGS ACCOUNT\nIFSC : AIRT0391713\nStatement Period : 15-07-2026 to 14-08-2026\nOpening Balance : Rs.20,895.40\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n17-07-2026 ATM WDL/DMART 701581892 164.57 - 20,730.83\n17-07-2026 ATM WDL/CROMA 844360127 7,179.14 - 13,551.69\n17-07-2026 SALARY NEFT 383336234 - 7,826.97 21,378.66\n17-07-2026 ATM WDL/NYKAA 557642624 15,103.70 - 6,274.96\n20-07-2026 NEFT DR/BIGBASKET 525848435 1,934.84 - 4,340.12\n20-07-2026 UPI/OLA CABS 403198051 125.97 - 4,214.15\n20-07-2026 ATM WDL/APOLLO PHARMACY 686829200 251.19 - 3,962.96\n20-07-2026 POS/CROMA 865188965 163.25 - 3,799.71\n23-07-2026 IMPS/CR 904941254 - 5,564.97 9,364.68\n24-07-2026 ATM WDL/IKEA 276681522 106.02 - 9,258.66\nClosing Balance : Rs.9,258.66\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "Refer and earn",
+   "body": "Dear Pooja,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-19",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.3,569.94 has been debited from your Paytm Payments Bank A/c xx5261 on 26-Aug-2026 (UPI BESCOM). Avl bal Rs.2,130.55.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-26",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Your A/c xx4692 is debited for Rs.12,427.50 on 28-Aug-2026 - NEFT DOMINOS. Bal Rs.19,568.53. -Airtel Payments Bank",
+   "date": "2026-08-28",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Your HDFC Bank PIXEL Credit Card Statement - Sep 2026",
+   "body": "Dear Pooja,\nYour HDFC Bank PIXEL Credit Card ending 9884 statement for Sep 2026 is ready. Total amount due Rs.2,621.22, minimum amount due Rs.200.00, payable by 20 Sep, 2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-09-03",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m118",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.2,714.92 is debited from your HDFC Bank Credit Card ending 9884 towards MEDPLUS on 03-09-2026. Not you? Call us immediately.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-03",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m119",
+   "subject": "Bill payment successful",
+   "body": "Dear Customer,\nCredit card bill payment of Rs.18,963.94 for IDFC FIRST Bank Credit Card ending 1265 (cardholder: ROHIT REDDY) was successful from your A/c *5261 on 03-Sep-2026.",
+   "date": "2026-09-03",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank PIXEL Credit Card ending 9884 for Rs.17,969.27 at PVR INOX on 04-09-2026 at 10:57:58.\nAvailable limit: Rs.5,076.41. If you did not make this transaction, please call 1800 258 6161.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-09-04",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m121",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Pooja,\nGet up to 10% cashback on partner brands.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-06",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Paytm Payments Bank: funds transferred",
+   "body": "Dear Customer,\nRs.1,800.24 has been transferred from your A/c *5261 to Sunil Plumber A/c XX2878 (IDFC FIRST Bank) via IMPS on 08-Sep-2026. Ref no 561631257235.",
+   "date": "2026-09-08",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 508864730365. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-09-08",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.5,856.88 has been debited from your Paytm Payments Bank A/c XXXXXX5261 on 13-Sep-2026 (POS AMAZON PAY INDIA). Avl bal Rs.1,33,346.61.",
+   "date": "2026-09-13",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Your A/c *3420 is debited for Rs.6,611.58 on 16-Sep-2026 - POS PHONEPE. Bal Rs.49,217.83. -Airtel Payments Bank",
+   "date": "2026-09-16",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX4692 is debited for Rs.5,012.63 on 21-Sep-2026 - UPI TATA POWER. Bal Rs.29,254.42. -Airtel Payments Bank",
+   "date": "2026-09-21",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Update your KYC",
+   "body": "Dear Pooja,\nAs per RBI guidelines please complete re-KYC for your Paytm Payments Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2026-09-22",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Airtel Payments Bank wallet: Rs.864.18 added",
+   "body": "Dear Pooja,\nRs.864.18 has been added to your Airtel Wallet XXXXXX4692 on 29-Sep-2026. Wallet balance: Rs.414.69.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2026-09-29",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 336946858610. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-09-29",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "Your Paytm Wallet has been topped up",
+   "body": "Dear Pooja,\nRs.104.07 has been added to your Paytm Wallet XXXXXX3090 on 02-Oct-2026. Wallet balance: Rs.3,727.56.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2026-10-02",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Your HDFC Bank PIXEL Credit Card Statement - Oct 2026",
+   "body": "Dear Pooja,\nPlease find attached your HDFC Bank PIXEL Credit Card ending 9884 statement for the period 03 Sep, 2026 to 02 Oct, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-10-03",
+   "attachments": [
+    {
+     "filename": "HDFC_CC_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m132",
+   "subject": "Airtel Payments Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.478.69 credited to your Airtel Payments Bank A/c xx3420 on 07-Oct-2026 by INTEREST CREDIT. Ref 175031878272.\nThank you for banking with us.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-07",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.5,728.77 credited to your Paytm Payments Bank A/c xx3090 on 08-Oct-2026 by IMPS. Ref 272176931521.\nThank you for banking with us.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-08",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Airtel Payments Bank Account Statement - Oct 2026",
+   "body": "Dear Pooja,\nYour Airtel Payments Bank xx3420 account statement for Oct 2026 is ready. Closing balance Rs.609.42.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-15",
+   "attachments": [],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.10,594.34 has been debited from your Airtel Payments Bank A/c *4692 on 15-Oct-2026 (POS TATA POWER). Avl bal Rs.13,235.76.",
+   "date": "2026-10-15",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.9,055.53 has been transferred from your A/c xx5261 to Sunil Plumber A/c XX2878 (IDFC FIRST Bank) via IMPS on 15-Oct-2026. Ref no 573137585048.",
+   "date": "2026-10-15",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "Paytm Payments Bank wallet: Rs.157.28 added",
+   "body": "Dear Pooja,\nRs.157.28 has been added to your Paytm Wallet XXXXXX3090 on 16-Oct-2026. Wallet balance: Rs.127.27.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 9884 for Rs.4,315.71 at STARBUCKS on 17-10-2026 at 16:03:53.\nAvailable limit: Rs.48,111.02. If you did not make this transaction, please call 1800 258 6161.\n\nOpt for e-statements and go green.",
+   "date": "2026-10-17",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m139",
+   "subject": "Airtel Payments Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.678.62 credited to your Airtel Payments Bank A/c *4692 on 18-Oct-2026 by IMPS. Ref 596564954136.\nThank you for banking with us.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-18",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c XX3090 is debited for Rs.2,156.70 on 23-Oct-2026 - NEFT SWIGGY. Bal Rs.2,412.65. -Paytm Payments Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-23",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.5,187.29 credited to your Paytm Payments Bank A/c *5261 on 23-Oct-2026 by NEFT. Ref 931720932407.\nThank you for banking with us.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-23",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "paytmbank.com",
+    "last4": "5261",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "airtelbank.com",
+    "last4": "3420",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "9884",
+    "kind": "CREDIT_CARD",
+    "variant": "Pixel",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "paytmbank.com",
+    "last4": "3090",
+    "why": "payments-bank wallet id, not a card or bank account"
+   },
+   {
+    "issuerDomain": "airtelbank.com",
+    "last4": "4692",
+    "why": "payments-bank wallet id, not a card or bank account"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "2878",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "bankofindia.co.in",
+    "last4": "4342",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "1527",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "9217",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "6442",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "4493",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "8466",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "airtelbank.com",
+    "last4": "0365",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "paytmbank.com",
+    "last4": "8610",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "1265",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

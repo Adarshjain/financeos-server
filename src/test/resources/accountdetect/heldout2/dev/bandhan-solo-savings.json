@@ -1,0 +1,804 @@
+{
+ "mailbox": "bandhan-solo-savings",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c *9514 is debited for Rs.38,726.40 on 10-Mar-2026 - POS STARBUCKS. Bal Rs.5,262.77. -Bandhan Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-10",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Tanvi,\nGet up to 10% cashback on partner brands.\n\n",
+   "date": "2026-03-11",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Bandhan Bank Account Statement - Mar 2026",
+   "body": "Dear Tanvi,\nPlease find attached your Bandhan Bank XXXXXX9514 statement for the period 12-Feb-2026 to 11-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "9514_11032026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c *9514 is debited for Rs.161.35 on 15-Mar-2026 - UPI BIGBASKET. Bal Rs.29,507.48. -Bandhan Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-15",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Tanvi,\nYour order #713-7124027-6912359 is confirmed. Total Rs.3,984.01. Estimated delivery in 2 days.",
+   "date": "2026-03-16",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c XXXXXX9514 is debited for Rs.134.77 on 21-Mar-2026 - NEFT RELIANCE DIGITAL. Bal Rs.43,960.47. -Bandhan Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-21",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 546264286722. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Credit alert: Rs.2,458.41 has been credited to account XXXXXX9514 on 06-Apr-2026 (REFUND). Avl bal Rs.60,073.56.",
+   "date": "2026-04-06",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Lata Tutor (A/c XXXXXX9515, IDBI Bank) has been added to your account XX9514. It will be active after 30 minutes.",
+   "date": "2026-04-06",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Bandhan Bank Account Statement - Apr 2026",
+   "body": "Dear Tanvi,\nPlease find attached your Bandhan Bank *9514 statement for the period 12-Mar-2026 to 11-Apr-2026. \n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202604.pdf",
+     "protected": false,
+     "pdfText": "BANDHAN BANK\nSTATEMENT OF ACCOUNT\nAccount Name : TANVI CHATTERJEE\nFLAT 825, GREEN VALLEY APARTMENTS\n20TH CROSS, ADYAR\nKOCHI - 531511\nAccount Number : XXXXXX9514\nAccount Type : SAVINGS ACCOUNT\nIFSC : BAND0164130\nStatement Period : 12-03-2026 to 11-04-2026\nOpening Balance : Rs.79,538.98\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n12-03-2026 ATM WDL/BIG BAZAAR 521390932 667.46 - 78,871.52\n15-03-2026 POS/EAZYDINER 850288123 7,959.48 - 70,912.04\n15-03-2026 POS/PVR INOX 236414753 2,021.43 - 68,890.61\n15-03-2026 NEFT DR/INDIAN OIL 724889604 1,864.34 - 67,026.27\n15-03-2026 UPI/CR 443452261 - 1,822.42 68,848.69\n18-03-2026 ATM WDL/SODEXO 134863264 1,092.07 - 67,756.62\n18-03-2026 INTEREST 387443575 - 4,001.47 71,758.09\n19-03-2026 POS/BIGBASKET 954903118 3,147.30 - 68,610.79\n19-03-2026 ATM WDL/MEDPLUS 768775294 13,027.13 - 55,583.66\n21-03-2026 POS/BOOKMYSHOW 352657166 158.63 - 55,425.03\n21-03-2026 UPI/CR 763056325 - 9,636.97 65,062.00\n23-03-2026 IMPS/CR 917919130 - 435.45 65,497.45\nClosing Balance : Rs.65,497.45\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "INR debit alert: Rs.16,210.67 debited from account XX9514 on 12-Apr-2026. Narration: POS/OLA CABS. Available balance Rs.8,984.75.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-04-12",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Credit alert: Rs.277.24 has been credited to account XX9514 on 16-Apr-2026 (REFUND). Avl bal Rs.78,443.05.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-16",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Your A/c XXXXXX9514 is credited with Rs.30,733.91 on 17-Apr-2026 - INTEREST CREDIT. Bal Rs.3,336.24. -Bandhan Bank\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-17",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.4,700.47 has been transferred from your A/c xx9514 to Sita Devi A/c XX0321 (Axis Bank) via IMPS on 18-Apr-2026. Ref no 235830696689.",
+   "date": "2026-04-18",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "INR debit alert: Rs.151.73 debited from account XXXXXX9514 on 22-Apr-2026. Narration: NEFT/CROMA. Available balance Rs.2,028.66.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-22",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Your A/c *9514 is credited with Rs.20,114.43 on 26-Apr-2026 - SALARY NEFT. Bal Rs.5,990.27. -Bandhan Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Bandhan Bank: funds transferred",
+   "body": "Dear Customer,\nRs.9,578.62 has been transferred from your A/c *9514 to Lata Tutor A/c XX3037 (Kotak Mahindra Bank) via IMPS on 26-Apr-2026. Ref no 376904360070.",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Dear Customer,\nRs.156.06 credited to your Bandhan Bank A/c XXXXXX9514 on 03-May-2026 by IMPS. Ref 100073918483.\nThank you for banking with us.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-03",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,000.00 transferred from *9514 to Lata Tutor A/c XX9515 on 06-May-2026. Rent for the month.",
+   "date": "2026-05-06",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Tanvi,\nYour order #695-8974621-9554537 is confirmed. Total Rs.7,399.36. Estimated delivery in 2 days.",
+   "date": "2026-05-07",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Credit alert: Rs.498.48 has been credited to account *9514 on 10-May-2026 (NEFT). Avl bal Rs.59,353.67.",
+   "date": "2026-05-10",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c XXXXXX9514 is debited for Rs.2,270.75 on 11-May-2026 - POS IXIGO. Bal Rs.28,886.65. -Bandhan Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-11",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Bandhan Bank Account Statement - May 2026",
+   "body": "Dear Tanvi,\nPlease find attached your Bandhan Bank XXXXXX9514 statement for the period 12-Apr-2026 to 11-May-2026. \n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "Bandhan_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "BANDHAN BANK\nSTATEMENT OF ACCOUNT\nAccount Name : TANVI CHATTERJEE\nFLAT 764, ORCHID APARTMENTS\n28TH CROSS, ADYAR\nCHENNAI - 583267\nAccount Number : XX9514\nAccount Type : SAVINGS ACCOUNT\nIFSC : BAND0465252\nStatement Period : 12-04-2026 to 11-05-2026\nOpening Balance : Rs.68,952.16\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n12-04-2026 POS/BATA INDIA 969141972 273.98 - 68,678.18\n12-04-2026 SALARY NEFT 967828277 - 341.94 69,020.12\n14-04-2026 ATM WDL/AMAZON PAY INDIA 835718141 141.69 - 68,878.43\n14-04-2026 UPI/PAYTM 997154090 1,969.31 - 66,909.12\n16-04-2026 NEFT DR/LENSKART 803265808 5,627.85 - 61,281.27\n19-04-2026 UPI/CR 424424468 - 249.52 61,530.79\n22-04-2026 UPI/CR 175832362 - 4,735.56 66,266.35\n22-04-2026 UPI/APPLE SERVICES 547221510 681.46 - 65,584.89\n22-04-2026 NEFT DR/CROMA 182520305 1,803.33 - 63,781.56\n25-04-2026 POS/TATA POWER 746076656 134.23 - 63,647.33\n28-04-2026 UPI/APPLE SERVICES 299021302 6,215.91 - 57,431.42\n28-04-2026 UPI/PAYTM 125718946 171.33 - 57,260.09\nClosing Balance : Rs.57,260.09\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Dear Customer,\nRs.2,619.04 credited to your Bandhan Bank A/c xx9514 on 12-May-2026 by UPI. Ref 482541048633.\nThank you for banking with us.\n\nOpt for e-statements and go green.",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.2,778.84 has been transferred from your A/c XX9514 to Mohan Landlord A/c XX5621 (IDFC FIRST Bank) via IMPS on 15-May-2026. Ref no 858091040923.",
+   "date": "2026-05-15",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c XXXXXX9514 is debited for Rs.414.97 on 16-May-2026 - NEFT DMART. Bal Rs.4,027.25. -Bandhan Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-16",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "INR debit alert: Rs.1,804.04 debited from account XX9514 on 20-May-2026. Narration: UPI/TATA PLAY. Available balance Rs.3,127.69.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-20",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Dear Customer,\nRs.791.49 credited to your Bandhan Bank A/c XX9514 on 23-May-2026 by NEFT. Ref 674215444830.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-23",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "Bandhan Bank: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 2921 has been successfully linked/verified for your Bandhan Bank relationship. If this was not you, contact us.",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Dear Customer,\nRs.39,845.33 has been debited from your Bandhan Bank A/c *9514 on 29-May-2026 (NEFT TATA POWER). Avl bal Rs.2,058.99.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-29",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "INR debit alert: Rs.576.90 debited from account *9514 on 29-May-2026. Narration: UPI/MCDONALDS. Available balance Rs.1,48,491.18.\n\nOpt for e-statements and go green.",
+   "date": "2026-05-29",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,000.00 transferred from xx9514 to Lata Tutor A/c XX9515 on 06-Jun-2026. Rent for the month.",
+   "date": "2026-06-06",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c XX9514 is debited for Rs.86.25 on 11-Jun-2026 - ECOM MYNTRA. Bal Rs.60,943.84. -Bandhan Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-06-11",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Bandhan Bank Account Statement - Jun 2026",
+   "body": "Dear Tanvi,\nPlease find attached your Bandhan Bank XXXXXX9514 statement for the period 12-May-2026 to 11-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "Bandhan_Acct_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "INR debit alert: Rs.89.91 debited from account XX9514 on 14-Jun-2026. Narration: ECOM/IXIGO. Available balance Rs.55,928.89.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-14",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Credit alert: Rs.22,321.27 has been credited to account XXXXXX9514 on 16-Jun-2026 (SALARY NEFT). Avl bal Rs.7,629.84.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-16",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c *9514 is debited for Rs.409.75 on 20-Jun-2026 - ECOM NETFLIX. Bal Rs.9,547.43. -Bandhan Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-20",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c *9514 is debited for Rs.26,762.03 on 30-Jun-2026 - UPI LENSKART. Bal Rs.1,52,829.78. -Bandhan Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-30",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "INR debit alert: Rs.26,393.63 debited from account XXXXXX9514 on 03-Jul-2026. Narration: ECOM/SWIGGY. Available balance Rs.20,967.43.\n\nOpt for e-statements and go green.",
+   "date": "2026-07-03",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 827840126950. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-07-03",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Bandhan Bank: funds transferred",
+   "body": "Dear Customer,\nRs.7,484.73 has been transferred from your A/c XXXXXX9514 to Mohan Landlord A/c XX5621 (IDFC FIRST Bank) via IMPS on 04-Jul-2026. Ref no 382782105811.",
+   "date": "2026-07-04",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c *9514 is debited for Rs.649.68 on 06-Jul-2026 - NEFT URBAN COMPANY. Bal Rs.3,636.11. -Bandhan Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-06",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,000.00 transferred from XX9514 to Lata Tutor A/c XX9515 on 06-Jul-2026. Rent for the month.",
+   "date": "2026-07-06",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Dear Customer,\nRs.8,020.07 credited to your Bandhan Bank A/c XX9514 on 07-Jul-2026 by UPI. Ref 398164535657.\nThank you for banking with us.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-07",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Dear Customer,\nRs.1,987.05 has been debited from your Bandhan Bank A/c XXXXXX9514 on 09-Jul-2026 (ECOM IRCTC). Avl bal Rs.34,271.14.",
+   "date": "2026-07-09",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX0411 has been updated on 03-Jul-2026. If not requested by you, call customer care.",
+   "date": "2026-07-09",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Bandhan Bank Account Statement - Jul 2026",
+   "body": "Dear Tanvi,\nYour Bandhan Bank xx9514 account statement for Jul 2026 is ready. Closing balance Rs.48,867.53.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-12",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c xx9514 is debited for Rs.1,235.34 on 15-Jul-2026 - POS SODEXO. Bal Rs.1,05,625.62. -Bandhan Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-15",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c *9514 is debited for Rs.1,442.24 on 21-Jul-2026 - POS BPCL FUEL. Bal Rs.6,655.29. -Bandhan Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-21",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Credit alert: Rs.895.64 has been credited to account xx9514 on 24-Jul-2026 (IMPS). Avl bal Rs.50,646.49.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-24",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Dear Customer,\nRs.99.00 has been debited from your Bandhan Bank A/c XXXXXX9514 on 27-Jul-2026 (POS BESCOM). Avl bal Rs.3,468.74.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "OTP for your transaction",
+   "body": "146492 is the OTP for your transaction of Rs.164.00 at GOOGLE PLAY. Valid for 10 minutes. Do not share.",
+   "date": "2026-07-29",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,500.00 transferred from XXXXXX9514 to Lata Tutor A/c XX9515 on 06-Aug-2026. Rent for the month.",
+   "date": "2026-08-06",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Bandhan Bank Account Statement - Aug 2026",
+   "body": "Dear Tanvi,\nPlease find attached your Bandhan Bank *9514 statement for the period 12-Jul-2026 to 11-Aug-2026. \n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202608.pdf",
+     "protected": false,
+     "pdfText": "BANDHAN BANK\nSTATEMENT OF ACCOUNT\nAccount Name : TANVI CHATTERJEE\nFLAT 388, ORCHID APARTMENTS\n11TH CROSS, INDIRANAGAR\nAHMEDABAD - 669400\nAccount Number : xx9514\nAccount Type : SAVINGS ACCOUNT\nIFSC : BAND0284432\nStatement Period : 12-07-2026 to 11-08-2026\nOpening Balance : Rs.46,674.77\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n13-07-2026 SALARY NEFT 461458996 - 734.43 47,409.20\n14-07-2026 IMPS/CR 527111174 - 15,919.35 63,328.55\n17-07-2026 POS/MYNTRA 998597594 8,416.43 - 54,912.12\n17-07-2026 NEFT DR/JIO RECHARGE 615494314 375.18 - 54,536.94\n20-07-2026 POS/MCDONALDS 734991851 6,912.39 - 47,624.55\n22-07-2026 UPI/LENSKART 114035394 10,322.44 - 37,302.11\n25-07-2026 NEFT DR/MAKEMYTRIP 395122100 13,851.29 - 23,450.82\n27-07-2026 INTEREST 296329095 - 957.72 24,408.54\n29-07-2026 UPI/PVR INOX 268115082 338.28 - 24,070.26\n29-07-2026 IMPS/CR 157674825 - 843.98 24,914.24\n29-07-2026 POS/MAKEMYTRIP 460553564 530.13 - 24,384.11\nClosing Balance : Rs.24,384.11\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.18,907.35 has been transferred from your A/c *9514 to Dr. Rao Clinic A/c XX0615 (Punjab National Bank) via IMPS on 17-Aug-2026. Ref no 792741138483.",
+   "date": "2026-08-17",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Dear Customer,\nRs.2,159.57 credited to your Bandhan Bank A/c xx9514 on 18-Aug-2026 by IMPS. Ref 922448691440.\nThank you for banking with us.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-18",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Credit alert: Rs.1,004.83 has been credited to account xx9514 on 19-Aug-2026 (REFUND). Avl bal Rs.20,236.51.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-19",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Dear Customer,\nRs.21,837.55 has been debited from your Bandhan Bank A/c XX9514 on 20-Aug-2026 (POS JIO RECHARGE). Avl bal Rs.1,47,057.76.\n\nOpt for e-statements and go green.",
+   "date": "2026-08-20",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Credit alert: Rs.1,832.04 has been credited to account XXXXXX9514 on 21-Aug-2026 (UPI). Avl bal Rs.6,136.25.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-21",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Credit alert: Rs.110.09 has been credited to account XXXXXX9514 on 21-Aug-2026 (IMPS). Avl bal Rs.23,461.27.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-21",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "INR debit alert: Rs.108.79 debited from account XX9514 on 26-Aug-2026. Narration: POS/EAZYDINER. Available balance Rs.12,523.62.",
+   "date": "2026-08-26",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from XXXXXX9514 to Lata Tutor A/c XX9515 on 06-Sep-2026. Rent for the month.",
+   "date": "2026-09-06",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Payment successful",
+   "body": "Hi Tanvi,\nYou paid Rs.36,181.91 to IDBI Bank Credit Card ending 4864 (of Harsh Chatterjee) on 06-Sep-2026. Ref 1670089501.",
+   "date": "2026-09-06",
+   "attachments": [],
+   "from": "CRED <noreply@cred.club>"
+  },
+  {
+   "id": "m064",
+   "subject": "Bandhan Bank Account Statement - Sep 2026",
+   "body": "Dear Tanvi,\nPlease find attached your Bandhan Bank *9514 statement for the period 12-Aug-2026 to 11-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202609.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Your A/c xx9514 is credited with Rs.139.09 on 20-Sep-2026 - INTEREST CREDIT. Bal Rs.45,213.41. -Bandhan Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-20",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Your A/c XXXXXX9514 is credited with Rs.319.55 on 20-Sep-2026 - NEFT. Bal Rs.9,225.59. -Bandhan Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-20",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c xx9514 is debited for Rs.11,877.67 on 22-Sep-2026 - ECOM STARBUCKS. Bal Rs.1,82,683.98. -Bandhan Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-22",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 230427640868. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-09-22",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Dear Customer,\nRs.130.19 has been debited from your Bandhan Bank A/c xx9514 on 26-Sep-2026 (ECOM AIRTEL PREPAID). Avl bal Rs.2,947.09.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Dear Customer,\nRs.132.48 has been debited from your Bandhan Bank A/c XXXXXX9514 on 28-Sep-2026 (NEFT INDIGO AIRLINES). Avl bal Rs.95,771.57.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-28",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "INR debit alert: Rs.1,318.04 debited from account xx9514 on 29-Sep-2026. Narration: UPI/MCDONALDS. Available balance Rs.2,241.50.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-29",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.8,576.38 has been transferred from your A/c xx9514 to Lata Tutor A/c XX3037 (Kotak Mahindra Bank) via IMPS on 29-Sep-2026. Ref no 913820478531.",
+   "date": "2026-09-29",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "INR debit alert: Rs.1,285.81 debited from account XX9514 on 06-Oct-2026. Narration: NEFT/NETFLIX. Available balance Rs.6,730.47.",
+   "date": "2026-10-06",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,000.00 transferred from XXXXXX9514 to Lata Tutor A/c XX9515 on 06-Oct-2026. Rent for the month.",
+   "date": "2026-10-06",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Dear Customer,\nRs.11,315.56 has been debited from your Bandhan Bank A/c *9514 on 08-Oct-2026 (UPI NYKAA). Avl bal Rs.40,546.65.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-08",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.31,389.38 has been transferred from your A/c XXXXXX9514 to Mohan Landlord A/c XX5621 (IDFC FIRST Bank) via IMPS on 09-Oct-2026. Ref no 322161824773.",
+   "date": "2026-10-09",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Your A/c XXXXXX9514 is credited with Rs.2,633.57 on 10-Oct-2026 - NEFT. Bal Rs.18,348.24. -Bandhan Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-10",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c XXXXXX9514 is debited for Rs.10,301.66 on 11-Oct-2026 - POS RELIANCE DIGITAL. Bal Rs.5,548.29. -Bandhan Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-11",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Bandhan Bank Account Statement - Oct 2026",
+   "body": "Dear Tanvi,\nPlease find attached your Bandhan Bank *9514 statement for the period 12-Sep-2026 to 11-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "Bandhan_Acct_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Tanvi,\nGet up to 10% cashback on partner brands.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-12",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Your A/c XXXXXX9514 is credited with Rs.747.53 on 17-Oct-2026 - SALARY NEFT. Bal Rs.1,05,080.95. -Bandhan Bank\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-17",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Refer and earn",
+   "body": "Dear Tanvi,\nUpgrade your savings with a fixed deposit @ 7.25% p.a.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-17",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c *9514 is debited for Rs.104.67 on 25-Oct-2026 - POS EAZYDINER. Bal Rs.1,83,555.01. -Bandhan Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-25",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Tanvi,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-25",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Tanvi,\nGet up to 10% cashback on partner brands.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Your A/c XXXXXX9514 is credited with Rs.1,169.65 on 29-Oct-2026 - REFUND. Bal Rs.45,175.74. -Bandhan Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-29",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "9514",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "3037",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "0615",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "5621",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "0321",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "idbi.co.in",
+    "last4": "9515",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "2921",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "0411",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "0868",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "6722",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "6950",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "idbi.co.in",
+    "last4": "4864",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

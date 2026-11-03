@@ -1,0 +1,1291 @@
+{
+ "mailbox": "jupiter-sbm-kiwi",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Your Jupiter Edge statement for Sep 2025",
+   "body": "Dear Yash,\nYour Jupiter Edge CSB Bank RuPay Credit Card xx8949 statement for Sep 2025 is ready. Total amount due Rs.618.49, minimum amount due Rs.200.00, payable by 27-Sep-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-09-10",
+   "attachments": [],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m002",
+   "subject": "Your Kiwi statement - Sep 2025",
+   "body": "Dear Yash,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card XX8459 statement for the period 15-Aug-2025 to 14-Sep-2025. Total amount due Rs.15,466.16, due 04-Oct-2025.\n\n",
+   "date": "2025-09-15",
+   "attachments": [
+    {
+     "filename": "eStatement_202509.pdf",
+     "protected": false,
+     "pdfText": "SBM Bank India Credit Card Statement\nYASH SHETTY\nFLAT 843, LAKESHORE APARTMENTS\n28TH CROSS, SECTOR 21\nHYDERABAD - 577948\nCard Name: Kiwi SBM Bank RuPay Credit Card\nCredit Card Number: 657088XXXXXX8459\nBilling Cycle: 15/08/25 - 14/09/25\nStatement Date: 14/09/25\nPayment Summary\nTotal Amount Due: Rs.15,466.16\nMinimum Amount Due: Rs.773.31\nDue Date: 04/10/25\nAccount Summary\nCredit Limit: Rs.85,000.00\nAvailable Credit Limit: Rs.69,771.74\nAvailable Cash Limit: Rs.17,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n15/08/25 TATA PLAY KOLKATA 290.30 Dr\n20/08/25 BATA INDIA MUMBAI 4,419.61 Dr\n22/08/25 SWIGGY MUMBAI 5,932.65 Dr\n31/08/25 ZOMATO CHENNAI 272.17 Dr\n01/09/25 STARBUCKS MUMBAI 2,615.21 Dr\n02/09/25 UBER INDIA CHENNAI 248.66 Dr\n06/09/25 CROMA KOLKATA 921.57 Dr\n09/09/25 TATA PLAY BENGALURU 156.94 Dr\n10/09/25 SODEXO KOCHI 423.90 Dr\n14/09/25 IKEA HYDERABAD 185.15 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m003",
+   "subject": "SBM Bank: credit alert",
+   "body": "Credit alert: Rs.743.55 has been credited to account *8840 on 20-Sep-2025 (SALARY NEFT). Avl bal Rs.3,454.84.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-20",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m004",
+   "subject": "SBM Bank: debit alert",
+   "body": "Dear Customer,\nRs.1,210.11 has been debited from your SBM Bank India A/c XX8840 on 25-Sep-2025 (POS MYNTRA). Avl bal Rs.62,455.25.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m005",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.8,692.72 has been transferred from your A/c XX9560 to S K Enterprises A/c XX6543 (IDFC FIRST Bank) via IMPS on 25-Sep-2025. Ref no 670667534971.",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m006",
+   "subject": "SBM Bank: credit alert",
+   "body": "Dear Customer,\nRs.220.87 credited to your SBM Bank India A/c xx8840 on 03-Oct-2025 by NEFT. Ref 884444973377.\nThank you for banking with us.",
+   "date": "2025-10-03",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m007",
+   "subject": "Payment received on your Edge CSB Bank RuPay Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,353.40 on 06-Oct-2025 for your Jupiter Edge CSB Bank RuPay Credit Card XX8949. Available credit limit has been updated.",
+   "date": "2025-10-06",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m008",
+   "subject": "Payment of Rs.Rs.9,703.09 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Yash,\nYou paid Rs.9,703.09 to ZEPTO from your Jupiter Edge CSB Bank RuPay Credit Card ending 8949. Pay in 3 instalments from the app.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-06",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m009",
+   "subject": "Your Jupiter Edge statement for Oct 2025",
+   "body": "Dear Yash,\nPlease find attached your Jupiter Edge CSB Bank RuPay Credit Card ending 8949 statement for the period 10-Sep-2025 to 09-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-10-10",
+   "attachments": [
+    {
+     "filename": "Jupiter_CC_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m010",
+   "subject": "SBM Bank: credit alert",
+   "body": "Credit alert: Rs.458.61 has been credited to account *8840 on 11-Oct-2025 (REFUND). Avl bal Rs.3,298.54.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-10-11",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m011",
+   "subject": "Your Kiwi statement - Oct 2025",
+   "body": "Dear Yash,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card ending 8459 statement for the period 15-Sep-2025 to 14-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-15",
+   "attachments": [
+    {
+     "filename": "SBM_Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m012",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.731.38 has been transferred from your A/c *8840 to Lata Tutor A/c XX2321 (IDFC FIRST Bank) via IMPS on 16-Oct-2025. Ref no 137547099842.",
+   "date": "2025-10-16",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m013",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Ganesh Maid Service (A/c XXXXXX0896, SBI Card) has been added to your account XX8840. It will be active after 30 minutes.",
+   "date": "2025-10-23",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m014",
+   "subject": "Credit alert: Jupiter",
+   "body": "Your A/c xx9560 is credited with Rs.6,267.33 on 27-Oct-2025 - NEFT. Bal Rs.21,276.12. -Jupiter\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m015",
+   "subject": "Debit: Jupiter",
+   "body": "Dear Customer,\nRs.2,773.51 has been debited from your Jupiter A/c xx9560 on 31-Oct-2025 (POS PAYTM). Avl bal Rs.99,529.78.\n\nOpt for e-statements and go green.",
+   "date": "2025-10-31",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m016",
+   "subject": "You spent at DMART with Kiwi",
+   "body": "Hey Yash,\nYou paid Rs.3,070.13 to DMART from your Kiwi SBM Bank RuPay Credit Card xx8459. \n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-02",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m017",
+   "subject": "You spent at ZEPTO with Kiwi",
+   "body": "Hey Yash,\nyou spent Rs.2,888.71 at ZEPTO using your Kiwi SBM Bank RuPay Credit Card ending 8459. Pay in 3 instalments from the app.",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m018",
+   "subject": "SBM Bank: credit alert",
+   "body": "Your A/c *8840 is credited with Rs.160.59 on 04-Nov-2025 - SALARY NEFT. Bal Rs.2,613.91. -SBM Bank India\n\nOpt for e-statements and go green.",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m019",
+   "subject": "Your Jupiter Edge statement for Nov 2025",
+   "body": "Dear Yash,\nPlease find attached your Jupiter Edge CSB Bank RuPay Credit Card XX8949 statement for the period 10-Oct-2025 to 09-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-11-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202511.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m020",
+   "subject": "Update your KYC",
+   "body": "Dear Yash,\nAs per RBI guidelines please complete re-KYC for your SBM Bank India relationship. Visit a branch or use the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-12",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m021",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Yash,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-14",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m022",
+   "subject": "Your Kiwi statement - Nov 2025",
+   "body": "Dear Yash,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card XX8459 statement for the period 15-Oct-2025 to 14-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-15",
+   "attachments": [
+    {
+     "filename": "8459_14112025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m023",
+   "subject": "Payment of Rs.Rs.3,388.74 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Yash,\nyou spent Rs.3,388.74 at ZOMATO using your Jupiter Edge CSB Bank RuPay Credit Card ending 8949. Pay in 3 instalments from the app.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-16",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m024",
+   "subject": "Debit: Jupiter",
+   "body": "INR debit alert: Rs.1,363.52 debited from account XX9560 on 18-Nov-2025. Narration: NEFT/IRCTC. Available balance Rs.77,264.97.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m025",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,000.00 transferred from xx8840 to Ganesh Maid Service A/c XX0896 on 23-Nov-2025. Rent for the month.",
+   "date": "2025-11-23",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m026",
+   "subject": "Payment received on your Edge CSB Bank RuPay Credit Card",
+   "body": "Payment of Rs.84.29 has been received towards your Jupiter Edge CSB Bank RuPay Credit Card xx8949 on 29-Nov-2025. Thank you for the payment.",
+   "date": "2025-11-29",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m027",
+   "subject": "Debit: Jupiter",
+   "body": "Your A/c XX9560 is debited for Rs.464.78 on 01-Dec-2025 - IMPS DMART. Bal Rs.26,028.17. -Jupiter",
+   "date": "2025-12-01",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m028",
+   "subject": "You spent at UBER INDIA with Kiwi",
+   "body": "Hey Yash,\nYou paid Rs.1,823.58 to UBER INDIA from your Kiwi SBM Bank RuPay Credit Card ending 8459. \n\nOpt for e-statements and go green.",
+   "date": "2025-12-04",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m029",
+   "subject": "OTP for your transaction",
+   "body": "587089 is the OTP for your transaction of Rs.455.87 at INDIAN OIL. Valid for 10 minutes. Do not share.",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m030",
+   "subject": "Debit: Jupiter",
+   "body": "Dear Customer,\nRs.7,195.26 has been debited from your Jupiter A/c xx9560 on 06-Dec-2025 (UPI APOLLO PHARMACY). Avl bal Rs.18,449.44.",
+   "date": "2025-12-06",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m031",
+   "subject": "Your Jupiter Edge statement for Dec 2025",
+   "body": "Dear Yash,\nYour Jupiter Edge CSB Bank RuPay Credit Card XX8949 statement for Dec 2025 is ready. Total amount due Rs.5,383.59, minimum amount due Rs.269.18, payable by 27-Dec-2025.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-10",
+   "attachments": [],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m032",
+   "subject": "Your Kiwi statement - Dec 2025",
+   "body": "Dear Yash,\nYour Kiwi SBM Bank RuPay Credit Card xx8459 statement for Dec 2025 is ready. Total amount due Rs.466.46, minimum amount due Rs.200.00, payable by 01-Jan-2026.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-15",
+   "attachments": [],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m033",
+   "subject": "Debit: Jupiter",
+   "body": "INR debit alert: Rs.6,429.08 debited from account *9560 on 21-Dec-2025. Narration: UPI/TATA PLAY. Available balance Rs.5,571.40.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-21",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m034",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,000.00 transferred from xx8840 to Ganesh Maid Service A/c XX0896 on 23-Dec-2025. Rent for the month.",
+   "date": "2025-12-23",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m035",
+   "subject": "You spent at BOOKMYSHOW with Kiwi",
+   "body": "Hey Yash,\nYou paid Rs.16,622.72 to BOOKMYSHOW from your Kiwi SBM Bank RuPay Credit Card XX8459. Check your cashback in the app.\n\nOpt for e-statements and go green.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m036",
+   "subject": "Payment of Rs.Rs.4,434.59 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Yash,\nYou paid Rs.4,434.59 to CROMA from your Jupiter Edge CSB Bank RuPay Credit Card ending 8949. Check your cashback in the app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-31",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m037",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.1,579.01 has been transferred from your A/c XX8840 to Ganesh Maid Service A/c XX0724 (IndusInd Bank) via IMPS on 01-Jan-2026. Ref no 804207673779.",
+   "date": "2026-01-01",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m038",
+   "subject": "Debit: Jupiter",
+   "body": "INR debit alert: Rs.6,339.74 debited from account xx9560 on 04-Jan-2026. Narration: IMPS/APOLLO PHARMACY. Available balance Rs.31,721.82.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-04",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m039",
+   "subject": "Your Jupiter Edge statement for Jan 2026",
+   "body": "Dear Yash,\nPlease find attached your Jupiter Edge CSB Bank RuPay Credit Card XX8949 statement for the period 10-Dec-2025 to 09-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202601.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m040",
+   "subject": "Your Kiwi statement - Jan 2026",
+   "body": "Dear Yash,\nYour Kiwi SBM Bank RuPay Credit Card xx8459 statement for Jan 2026 is ready. Total amount due Rs.3,139.22, minimum amount due Rs.200.00, payable by 01-Feb-2026.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-15",
+   "attachments": [],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m041",
+   "subject": "Credit alert: Jupiter",
+   "body": "Your A/c *9560 is credited with Rs.553.90 on 20-Jan-2026 - SALARY NEFT. Bal Rs.7,833.01. -Jupiter\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-20",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m042",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Yash,\nGet up to 10% cashback on partner brands.\n\n",
+   "date": "2026-01-22",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m043",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from *8840 to Ganesh Maid Service A/c XX0896 on 23-Jan-2026. Rent for the month.",
+   "date": "2026-01-23",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m044",
+   "subject": "Payment received on your Kiwi card",
+   "body": "Payment of Rs.15,211.80 has been received towards your Kiwi SBM Bank RuPay Credit Card XX8459 on 26-Jan-2026. Thank you for the payment.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-26",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m045",
+   "subject": "SBM Bank: debit alert",
+   "body": "INR debit alert: Rs.517.73 debited from account XX8840 on 26-Jan-2026. Narration: POS/AMAZON PAY INDIA. Available balance Rs.21,965.58.",
+   "date": "2026-01-26",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m046",
+   "subject": "You spent at UBER INDIA with Kiwi",
+   "body": "Hey Yash,\nyou spent Rs.418.61 at UBER INDIA using your Kiwi SBM Bank RuPay Credit Card XX8459. \n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-03",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m047",
+   "subject": "SBM Bank: debit alert",
+   "body": "Dear Customer,\nRs.193.01 has been debited from your SBM Bank India A/c XXXXXX8840 on 05-Feb-2026 (UPI SWIGGY). Avl bal Rs.80,424.37.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-05",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m048",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.36,569.07 has been transferred from your A/c XX8840 to Lata Tutor A/c XX2321 (IDFC FIRST Bank) via IMPS on 06-Feb-2026. Ref no 514232131792.",
+   "date": "2026-02-06",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m049",
+   "subject": "Your Jupiter Edge statement for Feb 2026",
+   "body": "Dear Yash,\nPlease find attached your Jupiter Edge CSB Bank RuPay Credit Card XX8949 statement for the period 10-Jan-2026 to 09-Feb-2026. Total amount due Rs.34,191.92, due 28-Feb-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-10",
+   "attachments": [
+    {
+     "filename": "8949_09022026_stmt.pdf",
+     "protected": false,
+     "pdfText": "Jupiter Credit Card Statement\nYASH SHETTY\nFLAT 323, GREEN VALLEY APARTMENTS\n27TH CROSS, BANJARA HILLS\nGURUGRAM - 549749\nCard Name: Jupiter Edge CSB Bank RuPay Credit Card\nCredit Card Number: 640127XXXXXX8949\nBilling Cycle: 10/01/26 - 09/02/26\nStatement Date: 09/02/26\nPayment Summary\nTotal Amount Due: Rs.34,191.92\nMinimum Amount Due: Rs.1,709.60\nDue Date: 28/02/26\nAccount Summary\nCredit Limit: Rs.1,10,000.00\nAvailable Credit Limit: Rs.95,702.48\nAvailable Cash Limit: Rs.22,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n19/01/26 INDIAN OIL KOCHI 633.34 Dr\n20/01/26 JIO RECHARGE JAIPUR 111.78 Dr\n21/01/26 DECATHLON HYDERABAD 13,316.90 Dr\n26/01/26 DECATHLON BENGALURU 2,668.13 Dr\n06/02/26 NYKAA KOLKATA 4,771.51 Dr\n07/02/26 BIG BAZAAR MUMBAI 284.71 Dr\n09/02/26 AMAZON PAY INDIA PUNE 10,585.60 Dr\n09/02/26 DECATHLON KOLKATA 1,509.23 Dr\n09/02/26 IRCTC AHMEDABAD 310.72 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m050",
+   "subject": "Payment received on your Edge CSB Bank RuPay Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.14,915.89 on 12-Feb-2026 for your Jupiter Edge CSB Bank RuPay Credit Card xx8949. Available credit limit has been updated.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-12",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m051",
+   "subject": "Payment of Rs.Rs.969.33 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Yash,\nyou spent Rs.969.33 at HPCL PETROL using your Jupiter Edge CSB Bank RuPay Credit Card xx8949. Pay in 3 instalments from the app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-02-13",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m052",
+   "subject": "Your Kiwi statement - Feb 2026",
+   "body": "Dear Yash,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card XX8459 statement for the period 15-Jan-2026 to 14-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-15",
+   "attachments": [
+    {
+     "filename": "eStatement_202602.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m053",
+   "subject": "OTP for your transaction",
+   "body": "770727 is the OTP for your transaction of Rs.689.39 at GOOGLE PLAY. Valid for 10 minutes. Do not share.",
+   "date": "2026-02-16",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m054",
+   "subject": "You spent at FLIPKART with Kiwi",
+   "body": "Hey Yash,\nYou paid Rs.1,798.11 to FLIPKART from your Kiwi SBM Bank RuPay Credit Card xx8459. ",
+   "date": "2026-02-21",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m055",
+   "subject": "SBM Bank: credit alert",
+   "body": "Dear Customer,\nRs.9,549.73 credited to your SBM Bank India A/c XX8840 on 22-Feb-2026 by SALARY NEFT. Ref 390638402940.\nThank you for banking with us.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-22",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m056",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,000.00 transferred from XX8840 to Ganesh Maid Service A/c XX0896 on 23-Feb-2026. Rent for the month.",
+   "date": "2026-02-23",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m057",
+   "subject": "Debit: Jupiter",
+   "body": "Your A/c XXXXXX9560 is debited for Rs.293.94 on 26-Feb-2026 - UPI TATA PLAY. Bal Rs.1,24,945.96. -Jupiter\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-26",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m058",
+   "subject": "SBM Bank: debit alert",
+   "body": "Dear Customer,\nRs.13,410.13 has been debited from your SBM Bank India A/c XXXXXX8840 on 01-Mar-2026 (ECOM LENSKART). Avl bal Rs.1,71,571.47.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-01",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m059",
+   "subject": "Payment of Rs.Rs.5,250.49 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Yash,\nyou spent Rs.5,250.49 at SODEXO using your Jupiter Edge CSB Bank RuPay Credit Card xx8949. \n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-03-06",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m060",
+   "subject": "You spent at AMAZON PAY INDIA with Kiwi",
+   "body": "Hey Yash,\nyou spent Rs.1,778.18 at AMAZON PAY INDIA using your Kiwi SBM Bank RuPay Credit Card ending 8459. Check your cashback in the app.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-09",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m061",
+   "subject": "Your Jupiter Edge statement for Mar 2026",
+   "body": "Dear Yash,\nPlease find attached your Jupiter Edge CSB Bank RuPay Credit Card XX8949 statement for the period 10-Feb-2026 to 09-Mar-2026. Total amount due Rs.22,696.38, due 27-Mar-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-03-10",
+   "attachments": [
+    {
+     "filename": "8949_09032026_stmt.pdf",
+     "protected": false,
+     "pdfText": "Jupiter Credit Card Statement\nYASH SHETTY\nFLAT 394, LAKESHORE APARTMENTS\n27TH CROSS, INDIRANAGAR\nAHMEDABAD - 457546\nCard Name: Jupiter Edge CSB Bank RuPay Credit Card\nCredit Card Number: 640127XXXXXX8949\nBilling Cycle: 10/02/26 - 09/03/26\nStatement Date: 09/03/26\nPayment Summary\nTotal Amount Due: Rs.22,696.38\nMinimum Amount Due: Rs.1,134.82\nDue Date: 27/03/26\nAccount Summary\nCredit Limit: Rs.1,10,000.00\nAvailable Credit Limit: Rs.98,358.99\nAvailable Cash Limit: Rs.22,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n14/02/26 INDIAN OIL BENGALURU 6,514.49 Dr\n26/02/26 AMAZON PAY INDIA KOLKATA 1,370.61 Dr\n27/02/26 SWIGGY KOCHI 8,022.25 Dr\n02/03/26 APOLLO PHARMACY HYDERABAD 939.23 Dr\n07/03/26 RELIANCE DIGITAL PUNE 5,472.96 Dr\n09/03/26 BATA INDIA CHENNAI 376.84 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m062",
+   "subject": "Your Kiwi statement - Mar 2026",
+   "body": "Dear Yash,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card XX8459 statement for the period 15-Feb-2026 to 14-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-15",
+   "attachments": [
+    {
+     "filename": "8459_14032026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m063",
+   "subject": "Payment successful",
+   "body": "Hi Yash,\nYou paid Rs.8,452.34 to Axis Bank Credit Card ending 9727 (of Arjun Shetty) on 16-Mar-2026. Ref 1496686851.",
+   "date": "2026-03-16",
+   "attachments": [],
+   "from": "CRED <noreply@cred.club>"
+  },
+  {
+   "id": "m064",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,000.00 transferred from XX8840 to Ganesh Maid Service A/c XX0896 on 23-Mar-2026. Rent for the month.",
+   "date": "2026-03-23",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m065",
+   "subject": "You spent at MYNTRA with Kiwi",
+   "body": "Hey Yash,\nyou spent Rs.107.32 at MYNTRA using your Kiwi SBM Bank RuPay Credit Card XX8459. Check your cashback in the app.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m066",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Yash,\nYour order #804-7197883-2562129 is confirmed. Total Rs.1,572.99. Estimated delivery in 2 days.",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Jupiter: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 9547 has been successfully linked/verified for your Jupiter relationship. If this was not you, contact us.",
+   "date": "2026-03-26",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m068",
+   "subject": "SBM Bank: debit alert",
+   "body": "INR debit alert: Rs.4,324.99 debited from account *8840 on 30-Mar-2026. Narration: POS/IRCTC. Available balance Rs.54,057.61.",
+   "date": "2026-03-30",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m069",
+   "subject": "You spent at CROMA with Kiwi",
+   "body": "Hey Yash,\nYou paid Rs.1,356.32 to CROMA from your Kiwi SBM Bank RuPay Credit Card ending 8459. Check your cashback in the app.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-04-04",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m070",
+   "subject": "Your Jupiter Edge statement for Apr 2026",
+   "body": "Dear Yash,\nPlease find attached your Jupiter Edge CSB Bank RuPay Credit Card XX8949 statement for the period 10-Mar-2026 to 09-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202604.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m071",
+   "subject": "Your Kiwi statement - Apr 2026",
+   "body": "Dear Yash,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card XX8459 statement for the period 15-Mar-2026 to 14-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-15",
+   "attachments": [
+    {
+     "filename": "SBM_CC_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m072",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 213432370761. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-04-19",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m073",
+   "subject": "OTP for your transaction",
+   "body": "194185 is the OTP for your transaction of Rs.2,956.29 at MEDPLUS. Valid for 10 minutes. Do not share.",
+   "date": "2026-04-22",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m074",
+   "subject": "Payment of Rs.Rs.1,758.16 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Yash,\nyou spent Rs.1,758.16 at PAYTM using your Jupiter Edge CSB Bank RuPay Credit Card XX8949. Pay in 3 instalments from the app.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-04-24",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m075",
+   "subject": "You spent at CROMA with Kiwi",
+   "body": "Hey Yash,\nyou spent Rs.152.82 at CROMA using your Kiwi SBM Bank RuPay Credit Card ending 8459. Check your cashback in the app.",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m076",
+   "subject": "SBM Bank: debit alert",
+   "body": "INR debit alert: Rs.10,339.33 debited from account xx8840 on 27-Apr-2026. Narration: IMPS/URBAN COMPANY. Available balance Rs.2,905.21.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m077",
+   "subject": "SBM Bank: debit alert",
+   "body": "Your A/c XXXXXX8840 is debited for Rs.6,791.87 on 29-Apr-2026 - NEFT DMART. Bal Rs.1,06,124.40. -SBM Bank India\n\nOpt for e-statements and go green.",
+   "date": "2026-04-29",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m078",
+   "subject": "Debit: Jupiter",
+   "body": "Your A/c XX9560 is debited for Rs.638.04 on 06-May-2026 - IMPS ZOMATO. Bal Rs.8,823.66. -Jupiter\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-06",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m079",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.2,720.13 has been transferred from your A/c XXXXXX8840 to Ganesh Maid Service A/c XX0724 (IndusInd Bank) via IMPS on 09-May-2026. Ref no 614254641111.",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m080",
+   "subject": "Your Jupiter Edge statement for May 2026",
+   "body": "Dear Yash,\nPlease find attached your Jupiter Edge CSB Bank RuPay Credit Card XX8949 statement for the period 10-Apr-2026 to 09-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-10",
+   "attachments": [
+    {
+     "filename": "8949_09052026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m081",
+   "subject": "Payment of Rs.Rs.173.14 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Yash,\nyou spent Rs.173.14 at BIGBASKET using your Jupiter Edge CSB Bank RuPay Credit Card XX8949. \n\nOpt for e-statements and go green.",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m082",
+   "subject": "Your Kiwi statement - May 2026",
+   "body": "Dear Yash,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card ending 8459 statement for the period 15-Apr-2026 to 14-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-15",
+   "attachments": [
+    {
+     "filename": "SBM_CC_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m083",
+   "subject": "Payment of Rs.Rs.115.85 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Yash,\nyou spent Rs.115.85 at GOOGLE PLAY using your Jupiter Edge CSB Bank RuPay Credit Card XX8949. Check your cashback in the app.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-16",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m084",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.26,943.24 has been transferred from your A/c *9560 to S K Enterprises A/c XX6543 (IDFC FIRST Bank) via IMPS on 27-May-2026. Ref no 398432783844.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m085",
+   "subject": "Debit: Jupiter",
+   "body": "Your A/c XX9560 is debited for Rs.359.93 on 01-Jun-2026 - POS PVR INOX. Bal Rs.1,40,298.54. -Jupiter\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m086",
+   "subject": "You spent at DMART with Kiwi",
+   "body": "Hey Yash,\nYou paid Rs.116.34 to DMART from your Kiwi SBM Bank RuPay Credit Card XX8459. Rewards are on the way.",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m087",
+   "subject": "OTP for your transaction",
+   "body": "919199 is the OTP for your transaction of Rs.11,994.40 at MYNTRA. Valid for 10 minutes. Do not share.",
+   "date": "2026-06-04",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m088",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.18,250.18 has been transferred from your A/c *8840 to Sita Devi A/c XX2313 (IDFC FIRST Bank) via IMPS on 06-Jun-2026. Ref no 408813591311.",
+   "date": "2026-06-06",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m089",
+   "subject": "Debit: Jupiter",
+   "body": "INR debit alert: Rs.1,236.97 debited from account *9560 on 08-Jun-2026. Narration: ECOM/JIO RECHARGE. Available balance Rs.2,112.09.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-08",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m090",
+   "subject": "You spent at PAYTM with Kiwi",
+   "body": "Hey Yash,\nyou spent Rs.446.23 at PAYTM using your Kiwi SBM Bank RuPay Credit Card xx8459. Check your cashback in the app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-09",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m091",
+   "subject": "Your Jupiter Edge statement for Jun 2026",
+   "body": "Dear Yash,\nYour Jupiter Edge CSB Bank RuPay Credit Card XX8949 statement for Jun 2026 is ready. Total amount due Rs.10,360.92, minimum amount due Rs.518.05, payable by 27-Jun-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-06-10",
+   "attachments": [],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m092",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX1437 has been updated on 03-Apr-2026. If not requested by you, call customer care.",
+   "date": "2026-06-13",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m093",
+   "subject": "Your Kiwi statement - Jun 2026",
+   "body": "Dear Yash,\nYour Kiwi SBM Bank RuPay Credit Card XX8459 statement for Jun 2026 is ready. Total amount due Rs.661.24, minimum amount due Rs.200.00, payable by 02-Jul-2026.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-15",
+   "attachments": [],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m094",
+   "subject": "SBM Bank: debit alert",
+   "body": "INR debit alert: Rs.29,896.65 debited from account XXXXXX8840 on 19-Jun-2026. Narration: ECOM/BIG BAZAAR. Available balance Rs.1,49,342.13.",
+   "date": "2026-06-19",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m095",
+   "subject": "You spent at IRCTC with Kiwi",
+   "body": "Hey Yash,\nYou paid Rs.362.37 to IRCTC from your Kiwi SBM Bank RuPay Credit Card xx8459. 5X coins on partner brands.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-20",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m096",
+   "subject": "You spent at DMART with Kiwi",
+   "body": "Hey Yash,\nyou spent Rs.101.03 at DMART using your Kiwi SBM Bank RuPay Credit Card XX8459. 5X coins on partner brands.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-26",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m097",
+   "subject": "OTP for your transaction",
+   "body": "457832 is the OTP for your transaction of Rs.158.12 at CROMA. Valid for 10 minutes. Do not share.",
+   "date": "2026-07-01",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m098",
+   "subject": "Debit: Jupiter",
+   "body": "Your A/c *9560 is debited for Rs.148.33 on 03-Jul-2026 - IMPS UBER INDIA. Bal Rs.8,303.15. -Jupiter",
+   "date": "2026-07-03",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m099",
+   "subject": "Credit alert: Jupiter",
+   "body": "Your A/c XX9560 is credited with Rs.3,508.00 on 04-Jul-2026 - IMPS. Bal Rs.3,755.05. -Jupiter\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-04",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m100",
+   "subject": "Your Jupiter Edge statement for Jul 2026",
+   "body": "Dear Yash,\nYour Jupiter Edge CSB Bank RuPay Credit Card ending 8949 statement for Jul 2026 is ready. Total amount due Rs.1,473.68, minimum amount due Rs.200.00, payable by 27-Jul-2026.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-07-10",
+   "attachments": [],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m101",
+   "subject": "Your Kiwi statement - Jul 2026",
+   "body": "Dear Yash,\nYour Kiwi SBM Bank RuPay Credit Card XX8459 statement for Jul 2026 is ready. Total amount due Rs.10,076.80, minimum amount due Rs.503.84, payable by 01-Aug-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-07-15",
+   "attachments": [],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m102",
+   "subject": "Debit: Jupiter",
+   "body": "Your A/c XX9560 is debited for Rs.4,226.10 on 16-Jul-2026 - UPI OLA CABS. Bal Rs.1,14,982.58. -Jupiter\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m103",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Yash,\nPlease find attached the updated MITC for your SBM Bank India credit cards.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-17",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "SBM BANK INDIA CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m104",
+   "subject": "Payment of Rs.Rs.1,607.21 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Yash,\nYou paid Rs.1,607.21 to IRCTC from your Jupiter Edge CSB Bank RuPay Credit Card xx8949. Pay in 3 instalments from the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-17",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m105",
+   "subject": "Debit: Jupiter",
+   "body": "INR debit alert: Rs.10,943.60 debited from account xx9560 on 21-Jul-2026. Narration: NEFT/IKEA. Available balance Rs.84,045.77.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-07-21",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m106",
+   "subject": "OTP for your transaction",
+   "body": "491858 is the OTP for your transaction of Rs.737.65 at APOLLO PHARMACY. Valid for 10 minutes. Do not share.",
+   "date": "2026-07-24",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m107",
+   "subject": "Your Jupiter Edge statement for Aug 2026",
+   "body": "Dear Yash,\nPlease find attached your Jupiter Edge CSB Bank RuPay Credit Card XX8949 statement for the period 10-Jul-2026 to 09-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-10",
+   "attachments": [
+    {
+     "filename": "8949_09082026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m108",
+   "subject": "Your Kiwi statement - Aug 2026",
+   "body": "Dear Yash,\nYour Kiwi SBM Bank RuPay Credit Card xx8459 statement for Aug 2026 is ready. Total amount due Rs.1,369.19, minimum amount due Rs.200.00, payable by 01-Sep-2026.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-15",
+   "attachments": [],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m109",
+   "subject": "You spent at IKEA with Kiwi",
+   "body": "Hey Yash,\nYou paid Rs.22,239.45 to IKEA from your Kiwi SBM Bank RuPay Credit Card XX8459. Rewards are on the way.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m110",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 664225554738. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m111",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.1,461.33 has been transferred from your A/c *8840 to Sita Devi A/c XX2313 (IDFC FIRST Bank) via IMPS on 30-Aug-2026. Ref no 495193654143.",
+   "date": "2026-08-30",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m112",
+   "subject": "Payment of Rs.Rs.686.99 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Yash,\nYou paid Rs.686.99 to INDIGO AIRLINES from your Jupiter Edge CSB Bank RuPay Credit Card ending 8949. \n\nOpt for e-statements and go green.",
+   "date": "2026-09-02",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m113",
+   "subject": "Your Jupiter Edge statement for Sep 2026",
+   "body": "Dear Yash,\nPlease find attached your Jupiter Edge CSB Bank RuPay Credit Card xx8949 statement for the period 10-Aug-2026 to 09-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-10",
+   "attachments": [
+    {
+     "filename": "Jupiter_CC_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m114",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.5,789.14 has been transferred from your A/c XXXXXX8840 to Sita Devi A/c XX2313 (IDFC FIRST Bank) via IMPS on 10-Sep-2026. Ref no 768081050704.",
+   "date": "2026-09-10",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m115",
+   "subject": "SBM Bank: debit alert",
+   "body": "Dear Customer,\nRs.139.51 has been debited from your SBM Bank India A/c XX8840 on 13-Sep-2026 (UPI DMART). Avl bal Rs.19,288.64.",
+   "date": "2026-09-13",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m116",
+   "subject": "You spent at TATA PLAY with Kiwi",
+   "body": "Hey Yash,\nYou paid Rs.1,116.92 to TATA PLAY from your Kiwi SBM Bank RuPay Credit Card xx8459. 5X coins on partner brands.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-09-14",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m117",
+   "subject": "Your Kiwi statement - Sep 2026",
+   "body": "Dear Yash,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card XX8459 statement for the period 15-Aug-2026 to 14-Sep-2026. Total amount due Rs.48,441.95, due 30-Sep-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-15",
+   "attachments": [
+    {
+     "filename": "8459_14092026_stmt.pdf",
+     "protected": false,
+     "pdfText": "SBM Bank India Credit Card Statement\nYASH SHETTY\nFLAT 198, SUNRISE APARTMENTS\n7TH CROSS, ADYAR\nCHENNAI - 430610\nCard Name: Kiwi SBM Bank RuPay Credit Card\nCredit Card Number: 657088XXXXXX8459\nBilling Cycle: 15/08/26 - 14/09/26\nStatement Date: 14/09/26\nPayment Summary\nTotal Amount Due: Rs.48,441.95\nMinimum Amount Due: Rs.2,422.10\nDue Date: 30/09/26\nAccount Summary\nCredit Limit: Rs.85,000.00\nAvailable Credit Limit: Rs.44,277.97\nAvailable Cash Limit: Rs.17,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n21/08/26 ZEPTO KOCHI 1,886.00 Dr\n23/08/26 GOOGLE PLAY BENGALURU 123.50 Dr\n23/08/26 ZOMATO JAIPUR 6,723.78 Dr\n24/08/26 BESCOM HYDERABAD 394.95 Dr\n30/08/26 BPCL FUEL CHENNAI 17,080.11 Dr\n30/08/26 MAKEMYTRIP PUNE 291.58 Dr\n31/08/26 APPLE SERVICES AHMEDABAD 21,599.63 Dr\n04/09/26 GOOGLE PLAY AHMEDABAD 132.95 Dr\n09/09/26 BIGBASKET PUNE 209.45 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m118",
+   "subject": "You spent at MAKEMYTRIP with Kiwi",
+   "body": "Hey Yash,\nyou spent Rs.9,948.93 at MAKEMYTRIP using your Kiwi SBM Bank RuPay Credit Card XX8459. Rewards are on the way.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m119",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Yash,\nYour order #572-3775449-8412111 is confirmed. Total Rs.3,381.41. Estimated delivery in 2 days.",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.15,988.03 has been transferred from your A/c *8840 to Ganesh Maid Service A/c XX0724 (IndusInd Bank) via IMPS on 29-Sep-2026. Ref no 196721342614.",
+   "date": "2026-09-29",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m121",
+   "subject": "Debit: Jupiter",
+   "body": "INR debit alert: Rs.881.50 debited from account XXXXXX9560 on 04-Oct-2026. Narration: ECOM/ZEPTO. Available balance Rs.91,348.85.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-04",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m122",
+   "subject": "Payment of Rs.Rs.4,385.50 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Yash,\nYou paid Rs.4,385.50 to LENSKART from your Jupiter Edge CSB Bank RuPay Credit Card XX8949. \n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-07",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m123",
+   "subject": "SBM Bank: debit alert",
+   "body": "Dear Customer,\nRs.306.26 has been debited from your SBM Bank India A/c XX8840 on 07-Oct-2026 (POS INDIAN OIL). Avl bal Rs.7,259.40.",
+   "date": "2026-10-07",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m124",
+   "subject": "Earn more with your card",
+   "body": "Dear Yash,\nConvert big spends to EMI at low interest.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-07",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m125",
+   "subject": "SBM Bank: credit alert",
+   "body": "Dear Customer,\nRs.4,170.36 credited to your SBM Bank India A/c *8840 on 08-Oct-2026 by IMPS. Ref 160867127418.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-08",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m126",
+   "subject": "Your Jupiter Edge statement for Oct 2026",
+   "body": "Dear Yash,\nPlease find attached your Jupiter Edge CSB Bank RuPay Credit Card ending 8949 statement for the period 10-Sep-2026 to 09-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-10-10",
+   "attachments": [
+    {
+     "filename": "8949_09102026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Jupiter <statements@jupiter.money>"
+  },
+  {
+   "id": "m127",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Yash,\nYour order #969-5260108-2405305 is confirmed. Total Rs.124.83. Estimated delivery in 2 days.",
+   "date": "2026-10-10",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Your Kiwi statement - Oct 2026",
+   "body": "Dear Yash,\nPlease find attached your Kiwi SBM Bank RuPay Credit Card XX8459 statement for the period 15-Sep-2026 to 14-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-10-15",
+   "attachments": [
+    {
+     "filename": "8459_14102026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBM Bank India <statements@sbmbank.co.in>"
+  },
+  {
+   "id": "m129",
+   "subject": "Payment of Rs.Rs.949.78 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Yash,\nyou spent Rs.949.78 at FLIPKART using your Jupiter Edge CSB Bank RuPay Credit Card XX8949. Check your cashback in the app.",
+   "date": "2026-10-15",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m130",
+   "subject": "Payment of Rs.Rs.5,612.98 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Yash,\nYou paid Rs.5,612.98 to CROMA from your Jupiter Edge CSB Bank RuPay Credit Card xx8949. Check your cashback in the app.",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m131",
+   "subject": "SBM Bank: credit alert",
+   "body": "Your A/c XXXXXX8840 is credited with Rs.1,973.56 on 22-Oct-2026 - UPI. Bal Rs.92,730.79. -SBM Bank India\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m132",
+   "subject": "Payment of Rs.Rs.1,104.06 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Yash,\nyou spent Rs.1,104.06 at NYKAA using your Jupiter Edge CSB Bank RuPay Credit Card XX8949. Pay in 3 instalments from the app.\n\nOpt for e-statements and go green.",
+   "date": "2026-10-25",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m133",
+   "subject": "Credit alert: Jupiter",
+   "body": "Your A/c XX9560 is credited with Rs.750.37 on 26-Oct-2026 - INTEREST CREDIT. Bal Rs.42,489.58. -Jupiter\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-26",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  },
+  {
+   "id": "m134",
+   "subject": "SBM Bank: credit alert",
+   "body": "Credit alert: Rs.7,259.31 has been credited to account XX8840 on 26-Oct-2026 (REFUND). Avl bal Rs.8,816.34.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-26",
+   "attachments": [],
+   "from": "Kiwi <support@gokiwi.in>"
+  },
+  {
+   "id": "m135",
+   "subject": "Payment of Rs.Rs.1,629.23 on your Edge CSB Bank RuPay Credit Card",
+   "body": "Hey Yash,\nYou paid Rs.1,629.23 to MAKEMYTRIP from your Jupiter Edge CSB Bank RuPay Credit Card ending 8949. 5X coins on partner brands.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-30",
+   "attachments": [],
+   "from": "Jupiter <noreply@jupiter.money>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "jupiter.money",
+    "last4": "8949",
+    "kind": "CREDIT_CARD",
+    "variant": "Edge",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "jupiter.money",
+    "last4": "9560",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "sbmbank.co.in",
+    "last4": "8459",
+    "kind": "CREDIT_CARD",
+    "variant": "Kiwi",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "<1L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "sbmbank.co.in",
+    "last4": "8840",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "2313",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "indusind.com",
+    "last4": "0724",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "6543",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "2321",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "0896",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "jupiter.money",
+    "last4": "9547",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "sbmbank.co.in",
+    "last4": "1437",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "jupiter.money",
+    "last4": "0761",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "jupiter.money",
+    "last4": "4738",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "9727",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

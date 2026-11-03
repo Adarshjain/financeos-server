@@ -1,0 +1,1539 @@
+{
+ "mailbox": "airtelpb-paytm-slice",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Your slice statement for May 2025",
+   "body": "Dear Ishita,\nPlease find attached your slice Super Card XX4876 statement for the period 10-Apr-2025 to 09-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-05-10",
+   "attachments": [
+    {
+     "filename": "slice_Statement_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Airtel Payments Bank: credit alert on your account",
+   "body": "Your A/c *4925 is credited with Rs.222.07 on 16-May-2025 - NEFT. Bal Rs.2,571.61. -Airtel Payments Bank\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-16",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Update your KYC",
+   "body": "Dear Ishita,\nAs per RBI guidelines please complete re-KYC for your Airtel Payments Bank relationship. Visit a branch or use the app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-25",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Airtel Payments Bank Account Statement - May 2025",
+   "body": "Dear Ishita,\nPlease find attached your Airtel Payments Bank XXXXXX6353 statement for the period 26-Apr-2025 to 25-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-05-26",
+   "attachments": [
+    {
+     "filename": "Airtel_Statement_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "slice: debit alert",
+   "body": "Rs.7,369.37 withdrawn from *2704 on 29-May-2025 via ECOM to SWIGGY. Closing balance Rs.81,885.82.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-05-29",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX6353 is debited for Rs.14,632.29 on 31-May-2025 - NEFT STARBUCKS. Bal Rs.41,546.31. -Airtel Payments Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-05-31",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.21,306.62 debited from account XXXXXX1700 on 31-May-2025. Narration: NEFT/LENSKART. Available balance Rs.15,067.01.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-31",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Ishita,\nYour order #995-2514735-3757791 is confirmed. Total Rs.230.69. Estimated delivery in 2 days.",
+   "date": "2025-06-03",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Your Airtel Wallet has been topped up",
+   "body": "Dear Ishita,\nRs.1,826.54 has been added to your Airtel Wallet ID ending 4925 on 06-Jun-2025. Wallet balance: Rs.282.19.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2025-06-06",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Your slice statement for Jun 2025",
+   "body": "Dear Ishita,\nPlease find attached your slice Super Card xx4876 statement for the period 10-May-2025 to 09-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-06-10",
+   "attachments": [
+    {
+     "filename": "slice_CC_Jun2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "You spent Rs.Rs.588.57 using slice",
+   "body": "Card alert | Rs.588.57 | INDIGO AIRLINES | 14-Jun-2025 | slice Super Card ending 4876\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-14",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Ishita,\nYour order #466-8530506-7886353 is confirmed. Total Rs.1,100.78. Estimated delivery in 2 days.",
+   "date": "2025-06-14",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m013",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.19,308.11 has been transferred from your A/c XX2704 to Priya Tailors A/c XX9878 (Canara Bank) via IMPS on 17-Jun-2025. Ref no 970341199178.",
+   "date": "2025-06-17",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Your Airtel Wallet has been topped up",
+   "body": "Dear Ishita,\nRs.397.26 has been added to your Airtel Wallet wallet no. 4925 on 18-Jun-2025. Wallet balance: Rs.157.35.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2025-06-18",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "slice: debit alert",
+   "body": "Your A/c xx2704 is debited for Rs.15,402.23 on 19-Jun-2025 - UPI SWIGGY. Bal Rs.43,161.41. -slice",
+   "date": "2025-06-19",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Airtel Payments Bank Account Statement - Jun 2025",
+   "body": "Dear Ishita,\nYour Airtel Payments Bank xx6353 account statement for Jun 2025 is ready. Closing balance Rs.3,423.28.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-06-26",
+   "attachments": [],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Rs.3,075.95 withdrawn from xx4925 on 29-Jun-2025 via IMPS to SWIGGY. Closing balance Rs.55,208.06.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-06-29",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "slice: debit alert",
+   "body": "Rs.1,881.55 withdrawn from *2704 on 05-Jul-2025 via POS to URBAN COMPANY. Closing balance Rs.8,861.40.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-07-05",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Payment received on slice",
+   "body": "Dear Customer,\nWe have received your payment of Rs.12,837.14 on 08-Jul-2025 for your slice Super Card ending 4876. Available credit limit has been updated.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-07-08",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Your slice statement for Jul 2025",
+   "body": "Dear Ishita,\nPlease find attached your slice Super Card XX4876 statement for the period 10-Jun-2025 to 09-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-07-10",
+   "attachments": [
+    {
+     "filename": "slice_CC_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "You spent Rs.Rs.447.78 using slice",
+   "body": "Hey Ishita,\nyou spent Rs.447.78 at BLINKIT using your slice Super Card XX4876. 5X coins on partner brands.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-16",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "OTP for your transaction",
+   "body": "527984 is the OTP for your transaction of Rs.9,356.23 at URBAN COMPANY. Valid for 10 minutes. Do not share.",
+   "date": "2025-07-21",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Airtel Payments Bank: credit alert on your account",
+   "body": "Credit alert: Rs.16,831.00 has been credited to account *4925 on 23-Jul-2025 (REFUND). Avl bal Rs.7,105.27.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-07-23",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Airtel Payments Bank Account Statement - Jul 2025",
+   "body": "Dear Ishita,\nYour Airtel Payments Bank xx6353 account statement for Jul 2025 is ready. Closing balance Rs.1,032.90.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-26",
+   "attachments": [],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Ramesh Kumar (A/c XXXXXX4471, Bandhan Bank) has been added to your account *2704. It will be active after 30 minutes.",
+   "date": "2025-07-27",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Your Paytm Wallet has been topped up",
+   "body": "Dear Ishita,\nRs.1,089.87 has been added to your Paytm Wallet wallet no. 1700 on 03-Aug-2025. Wallet balance: Rs.975.17.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2025-08-03",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Alert: Airtel Payments Bank A/c XXXXXX6353 debited Rs.3,874.78 on 06-Aug-2025. Mode: UPI. Details: MEDPLUS. Balance Rs.22,710.06.",
+   "date": "2025-08-06",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Your slice statement for Aug 2025",
+   "body": "Dear Ishita,\nPlease find attached your slice Super Card ending 4876 statement for the period 10-Jul-2025 to 09-Aug-2025. Total amount due Rs.29,442.85, due 26-Aug-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-10",
+   "attachments": [
+    {
+     "filename": "4876_09082025_stmt.pdf",
+     "protected": false,
+     "pdfText": "slice Credit Card Statement\nISHITA RAO\nFLAT 321, LAKESHORE APARTMENTS\n15TH CROSS, SECTOR 21\nAHMEDABAD - 550168\nCard Name: slice Super Card\nCredit Card Number: 660253XXXXXX4876\nBilling Cycle: 10/07/25 - 09/08/25\nStatement Date: 09/08/25\nPayment Summary\nTotal Amount Due: Rs.29,442.85\nMinimum Amount Due: Rs.1,472.14\nDue Date: 26/08/25\nAccount Summary\nCredit Limit: Rs.35,000.00\nAvailable Credit Limit: Rs.16,407.03\nAvailable Cash Limit: Rs.7,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n16/07/25 STARBUCKS BENGALURU 2,168.35 Dr\n22/07/25 DECATHLON AHMEDABAD 696.14 Dr\n25/07/25 MYNTRA JAIPUR 860.72 Dr\n26/07/25 BPCL FUEL HYDERABAD 4,670.12 Dr\n26/07/25 TATA POWER CHENNAI 2,484.08 Dr\n02/08/25 NYKAA KOCHI 777.64 Dr\n04/08/25 APOLLO PHARMACY AHMEDABAD 6,463.38 Dr\n07/08/25 TATA POWER MUMBAI 9,111.28 Dr\n09/08/25 CROMA AHMEDABAD 1,840.14 Dr\n09/08/25 DOMINOS KOCHI 371.00 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.4,650.79 has been debited from your Airtel Payments Bank A/c XX6353 on 14-Aug-2025 (IMPS ZEPTO). Avl bal Rs.2,587.64.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-14",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "OTP for your transaction",
+   "body": "635295 is the OTP for your transaction of Rs.124.75 at STARBUCKS. Valid for 10 minutes. Do not share.",
+   "date": "2025-08-15",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.754.82 debited from account XX6353 on 19-Aug-2025. Narration: ECOM/EAZYDINER. Available balance Rs.60,803.83.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-19",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Rs.146.35 withdrawn from XX1700 on 20-Aug-2025 via POS to EAZYDINER. Closing balance Rs.5,378.07.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-20",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Rs.316.24 withdrawn from *4925 on 23-Aug-2025 via POS to PAYTM. Closing balance Rs.82,757.76.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-08-23",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Airtel Payments Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.3,807.48 received in account XX4925 on 25-Aug-2025 (IMPS) Ref 479650627620.",
+   "date": "2025-08-25",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "You spent Rs.Rs.1,279.43 using slice",
+   "body": "Card alert | Rs.1,279.43 | BIG BAZAAR | 25-Aug-2025 | slice Super Card ending 4876",
+   "date": "2025-08-25",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Airtel Payments Bank Account Statement - Aug 2025",
+   "body": "Dear Ishita,\nPlease find attached your Airtel Payments Bank xx6353 statement for the period 26-Jul-2025 to 25-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-26",
+   "attachments": [
+    {
+     "filename": "Airtel_Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,500.00 transferred from *2704 to Ramesh Kumar A/c XX4471 on 27-Aug-2025. Rent for the month.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Airtel Payments Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.39,990.40 received in account XXXXXX4925 on 02-Sep-2025 (INTEREST CREDIT) Ref 687885676162.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-02",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "slice: debit alert",
+   "body": "Alert: slice A/c *2704 debited Rs.152.06 on 04-Sep-2025. Mode: IMPS. Details: HPCL PETROL. Balance Rs.65,200.25.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-04",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Your slice statement for Sep 2025",
+   "body": "Dear Ishita,\nStatement generated for slice Super Card XX4876: amount payable Rs.3,647.62, last date 27-Sep-2025. Sign in to download.",
+   "date": "2025-09-10",
+   "attachments": [],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "You spent Rs.Rs.15,845.13 using slice",
+   "body": "Hey Ishita,\nYou paid Rs.15,845.13 to TATA PLAY from your slice Super Card XX4876. Pay in 3 instalments from the app.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-09-10",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Airtel Payments Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.126.01 credited to your Airtel Payments Bank A/c XX6353 on 14-Sep-2025 by INTEREST CREDIT. Ref 825123994816.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-14",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "slice: credit alert",
+   "body": "Credit alert: Rs.672.07 has been credited to account XXXXXX2704 on 15-Sep-2025 (UPI). Avl bal Rs.4,181.97.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-15",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.809.00 debited from account xx1700 on 17-Sep-2025. Narration: POS/IXIGO. Available balance Rs.43,403.96.",
+   "date": "2025-09-17",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Airtel Payments Bank Account Statement - Sep 2025",
+   "body": "Dear Ishita,\nPlease find attached your Airtel Payments Bank *6353 statement for the period 26-Aug-2025 to 25-Sep-2025. \n\n",
+   "date": "2025-09-26",
+   "attachments": [
+    {
+     "filename": "eStatement_202509.pdf",
+     "protected": false,
+     "pdfText": "AIRTEL PAYMENTS BANK\nSTATEMENT OF ACCOUNT\nAccount Name : ISHITA RAO\nFLAT 161, LAKESHORE APARTMENTS\n17TH CROSS, SECTOR 21\nPUNE - 560072\nCustomer ID : 50159073\nAccount Number : xx6353\nAccount Type : SAVINGS ACCOUNT\nIFSC : AIRT0719346\nStatement Period : 26-08-2025 to 25-09-2025\nOpening Balance : Rs.63,145.24\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n29-08-2025 ATM WDL/NETFLIX 323644822 278.90 - 62,866.34\n01-09-2025 POS/STARBUCKS 264221005 2,979.22 - 59,887.12\n02-09-2025 NEFT DR/APPLE SERVICES 360611622 659.42 - 59,227.70\n05-09-2025 ATM WDL/JIO RECHARGE 456620386 162.46 - 59,065.24\n07-09-2025 POS/SODEXO 350163323 1,056.53 - 58,008.71\n10-09-2025 UPI/BPCL FUEL 301840314 17,528.23 - 40,480.48\n12-09-2025 POS/BPCL FUEL 723158468 424.01 - 40,056.47\n13-09-2025 POS/PVR INOX 335063198 2,000.51 - 38,055.96\n15-09-2025 IMPS/CR 327172922 - 456.61 38,512.57\n18-09-2025 ATM WDL/SWIGGY 833712492 4,131.92 - 34,380.65\n19-09-2025 POS/FLIPKART 327976701 11,169.07 - 23,211.58\n21-09-2025 IMPS/CR 469592969 - 6,509.57 29,721.15\nClosing Balance : Rs.29,721.15\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "slice: credit alert",
+   "body": "slice: XXXXXX2704 credited with Rs.307.42 on 26-Sep-2025. Source: INTEREST CREDIT. Balance Rs.52,144.14.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-26",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,000.00 transferred from XX2704 to Ramesh Kumar A/c XX4471 on 27-Sep-2025. Rent for the month.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "slice: debit alert",
+   "body": "INR debit alert: Rs.1,063.91 debited from account XXXXXX2704 on 09-Oct-2025. Narration: UPI/DOMINOS. Available balance Rs.3,942.82.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-09",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Your slice statement for Oct 2025",
+   "body": "Dear Ishita,\nYour slice Super Card ending 4876 statement for Oct 2025 is ready. Total amount due Rs.41,871.30, minimum amount due Rs.2,093.57, payable by 27-Oct-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-10-10",
+   "attachments": [],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "OTP for your transaction",
+   "body": "367048 is the OTP for your transaction of Rs.643.97 at JIO RECHARGE. Valid for 10 minutes. Do not share.",
+   "date": "2025-10-17",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Airtel Payments Bank: credit alert on your account",
+   "body": "Airtel Payments Bank: XX6353 credited with Rs.133.31 on 19-Oct-2025. Source: UPI. Balance Rs.30,601.91.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-19",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "slice: debit alert",
+   "body": "Rs.8,717.80 withdrawn from XX2704 on 19-Oct-2025 via IMPS to ZEPTO. Closing balance Rs.48,272.73.",
+   "date": "2025-10-19",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Airtel Payments Bank Account Statement - Oct 2025",
+   "body": "Dear Ishita,\nPlease find attached your Airtel Payments Bank XX6353 statement for the period 26-Sep-2025 to 25-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-10-26",
+   "attachments": [
+    {
+     "filename": "Airtel_Acct_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from xx2704 to Ramesh Kumar A/c XX4471 on 27-Oct-2025. Rent for the month.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Your Airtel Wallet has been topped up",
+   "body": "Dear Ishita,\nRs.472.31 has been added to your Airtel Wallet ID ending 4925 on 29-Oct-2025. Wallet balance: Rs.784.38.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2025-10-29",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "You spent Rs.Rs.1,808.32 using slice",
+   "body": "slice Super Card XX4876: purchase of Rs.1,808.32 at BATA INDIA on 04-Nov-2025 22:03:00. Available limit Rs.4,200.42.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Airtel Payments Bank wallet: Rs.419.19 added",
+   "body": "Dear Ishita,\nRs.419.19 has been added to your Airtel Wallet ID ending 4925 on 07-Nov-2025. Wallet balance: Rs.389.35.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2025-11-07",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "OTP for your transaction",
+   "body": "132366 is the OTP for your transaction of Rs.259.37 at BATA INDIA. Valid for 10 minutes. Do not share.",
+   "date": "2025-11-07",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Your slice statement for Nov 2025",
+   "body": "Dear Ishita,\nPlease find attached your slice Super Card ending 4876 statement for the period 10-Oct-2025 to 09-Nov-2025. Total amount due Rs.36,067.22, due 26-Nov-2025.\n\n",
+   "date": "2025-11-10",
+   "attachments": [
+    {
+     "filename": "4876_09112025_stmt.pdf",
+     "protected": false,
+     "pdfText": "slice Credit Card Statement\nISHITA RAO\nFLAT 694, SUNRISE APARTMENTS\n11TH CROSS, SECTOR 21\nKOLKATA - 477657\nCard Name: slice Super Card\nCredit Card Number: 660253XXXXXX4876\nBilling Cycle: 10/10/25 - 09/11/25\nStatement Date: 09/11/25\nPayment Summary\nTotal Amount Due: Rs.36,067.22\nMinimum Amount Due: Rs.1,803.36\nDue Date: 26/11/25\nAccount Summary\nCredit Limit: Rs.35,000.00\nAvailable Credit Limit: Rs.495.10\nAvailable Cash Limit: Rs.7,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n10/10/25 SWIGGY BENGALURU 2,596.34 Dr\n12/10/25 APOLLO PHARMACY KOLKATA 118.43 Dr\n12/10/25 SPOTIFY CHENNAI 563.03 Dr\n13/10/25 BLINKIT GURUGRAM 12,988.95 Dr\n14/10/25 CROMA MUMBAI 912.84 Dr\n14/10/25 SPOTIFY KOCHI 308.73 Dr\n27/10/25 DECATHLON MUMBAI 11,685.03 Dr\n27/10/25 IXIGO HYDERABAD 3,671.02 Dr\n31/10/25 EAZYDINER CHENNAI 1,178.07 Dr\n04/11/25 INDIAN OIL JAIPUR 1,873.94 Dr\n05/11/25 OLA CABS KOCHI 170.84 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Payment received on slice",
+   "body": "Dear Customer,\nWe have received your payment of Rs.18,503.68 on 10-Nov-2025 for your slice Super Card XX4876. Available credit limit has been updated.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-10",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX1700 is debited for Rs.254.38 on 14-Nov-2025 - ECOM STARBUCKS. Bal Rs.22,144.06. -Paytm Payments Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-14",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Bill payment successful",
+   "body": "Dear Customer,\nCredit card bill payment of Rs.3,377.59 for Union Bank of India Credit Card ending 0916 (cardholder: ROHIT RAO) was successful from your A/c XX6353 on 21-Nov-2025.",
+   "date": "2025-11-21",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Airtel Payments Bank Account Statement - Nov 2025",
+   "body": "Dear Ishita,\nYour Airtel Payments Bank XXXXXX6353 account statement for Nov 2025 is ready. Closing balance Rs.53,975.59.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-26",
+   "attachments": [],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Ishita,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-26",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,000.00 transferred from *2704 to Ramesh Kumar A/c XX4471 on 27-Nov-2025. Rent for the month.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Your A/c XX6353 is debited for Rs.302.32 on 29-Nov-2025 - UPI CROMA. Bal Rs.1,16,955.46. -Airtel Payments Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-29",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Rs.368.67 withdrawn from xx4925 on 03-Dec-2025 via NEFT to BIG BAZAAR. Closing balance Rs.2,451.67.\n\nOpt for e-statements and go green.",
+   "date": "2025-12-03",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Airtel Payments Bank: credit alert on your account",
+   "body": "Credit alert: Rs.332.77 has been credited to account XX6353 on 06-Dec-2025 (INTEREST CREDIT). Avl bal Rs.3,468.69.\n\nOpt for e-statements and go green.",
+   "date": "2025-12-06",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Your slice statement for Dec 2025",
+   "body": "Dear Ishita,\nYour slice Super Card ending 4876 statement for Dec 2025 is ready. Total amount due Rs.545.78, minimum amount due Rs.200.00, payable by 27-Dec-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-12-10",
+   "attachments": [],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "OTP for your transaction",
+   "body": "700893 is the OTP for your transaction of Rs.199.56 at PHONEPE. Valid for 10 minutes. Do not share.",
+   "date": "2025-12-11",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "You spent Rs.Rs.193.69 using slice",
+   "body": "Hey Ishita,\nYou paid Rs.193.69 to MYNTRA from your slice Super Card ending 4876. Rewards are on the way.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-18",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.189.15 has been debited from your Paytm Payments Bank A/c XX1700 on 18-Dec-2025 (ECOM IXIGO). Avl bal Rs.63,777.97.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-12-18",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Your Paytm Wallet has been topped up",
+   "body": "Dear Ishita,\nRs.713.34 has been added to your Paytm Wallet ID ending 1700 on 24-Dec-2025. Wallet balance: Rs.573.38.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2025-12-24",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Airtel Payments Bank Account Statement - Dec 2025",
+   "body": "Dear Ishita,\nPlease find attached your Airtel Payments Bank *6353 statement for the period 26-Nov-2025 to 25-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-26",
+   "attachments": [
+    {
+     "filename": "eStatement_202512.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,500.00 transferred from *2704 to Ramesh Kumar A/c XX4471 on 27-Dec-2025. Rent for the month.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Airtel Payments Bank: credit alert on your account",
+   "body": "Your A/c xx4925 is credited with Rs.5,154.26 on 01-Jan-2026 - INTEREST CREDIT. Bal Rs.6,504.44. -Airtel Payments Bank\n\nOpt for e-statements and go green.",
+   "date": "2026-01-01",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Alert: Paytm Payments Bank A/c *1700 debited Rs.9,885.26 on 08-Jan-2026. Mode: NEFT. Details: INDIAN OIL. Balance Rs.8,067.23.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-08",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Your slice statement for Jan 2026",
+   "body": "Dear Ishita,\nYour slice Super Card XX4876 statement for Jan 2026 is ready. Total amount due Rs.462.72, minimum amount due Rs.200.00, payable by 27-Jan-2026.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-01-10",
+   "attachments": [],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "You spent Rs.Rs.7,587.51 using slice",
+   "body": "Hey Ishita,\nYou paid Rs.7,587.51 to PAYTM from your slice Super Card XX4876. \n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-13",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "You spent Rs.Rs.1,003.48 using slice",
+   "body": "slice Super Card ending 4876: purchase of Rs.1,003.48 at RELIANCE DIGITAL on 17-Jan-2026 15:19:14. Available limit Rs.1,57,221.97.",
+   "date": "2026-01-17",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Your Airtel Wallet has been topped up",
+   "body": "Dear Ishita,\nRs.4,714.45 has been added to your Airtel Wallet XXXXXX4925 on 21-Jan-2026. Wallet balance: Rs.117.54.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2026-01-21",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Airtel Payments Bank Account Statement - Jan 2026",
+   "body": "Dear Ishita,\nYour Airtel Payments Bank xx6353 account statement for Jan 2026 is ready. Closing balance Rs.36,041.28.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-26",
+   "attachments": [],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from XXXXXX2704 to Ramesh Kumar A/c XX4471 on 27-Jan-2026. Rent for the month.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "slice: credit alert",
+   "body": "Deposit alert - Rs.9,074.02 received in account *2704 on 29-Jan-2026 (SALARY NEFT) Ref 876937832663.",
+   "date": "2026-01-29",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Ishita,\nYour order #348-3511150-8843405 is confirmed. Total Rs.275.42. Estimated delivery in 2 days.",
+   "date": "2026-01-29",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m086",
+   "subject": "Airtel Payments Bank: credit alert on your account",
+   "body": "Your A/c xx4925 is credited with Rs.129.76 on 30-Jan-2026 - INTEREST CREDIT. Bal Rs.6,977.81. -Airtel Payments Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-30",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Your Airtel Wallet has been topped up",
+   "body": "Dear Ishita,\nRs.1,599.81 has been added to your Airtel Wallet ID ending 4925 on 04-Feb-2026. Wallet balance: Rs.1,670.66.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2026-02-04",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.10,018.83 debited from account *6353 on 05-Feb-2026. Narration: UPI/SODEXO. Available balance Rs.78,994.75.",
+   "date": "2026-02-05",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Your slice statement for Feb 2026",
+   "body": "Dear Ishita,\nPlease find attached your slice Super Card XX4876 statement for the period 10-Jan-2026 to 09-Feb-2026. Total amount due Rs.32,360.86, due 27-Feb-2026.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-02-10",
+   "attachments": [
+    {
+     "filename": "slice_Statement_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "slice Credit Card Statement\nISHITA RAO\nFLAT 848, LAKESHORE APARTMENTS\n16TH CROSS, INDIRANAGAR\nGURUGRAM - 461049\nCard Name: slice Super Card\nCredit Card Number: 660253XXXXXX4876\nBilling Cycle: 10/01/26 - 09/02/26\nStatement Date: 09/02/26\nPayment Summary\nTotal Amount Due: Rs.32,360.86\nMinimum Amount Due: Rs.1,618.04\nDue Date: 27/02/26\nAccount Summary\nCredit Limit: Rs.35,000.00\nAvailable Credit Limit: Rs.14,377.08\nAvailable Cash Limit: Rs.7,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n10/01/26 RELIANCE DIGITAL HYDERABAD 5,715.47 Dr\n14/01/26 BIG BAZAAR CHENNAI 8,509.42 Dr\n18/01/26 DOMINOS KOLKATA 647.57 Dr\n22/01/26 SODEXO CHENNAI 860.00 Dr\n29/01/26 BIG BAZAAR MUMBAI 916.40 Dr\n30/01/26 SPOTIFY CHENNAI 109.58 Dr\n31/01/26 RELIANCE DIGITAL KOLKATA 15,602.42 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "slice: debit alert",
+   "body": "Dear Customer,\nRs.137.05 has been debited from your slice A/c XX2704 on 13-Feb-2026 (ECOM ZEPTO). Avl bal Rs.16,491.73.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-13",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.2,746.87 has been transferred from your A/c *6353 to Priya Tailors A/c XX8993 (SBI Card) via IMPS on 13-Feb-2026. Ref no 785381200715.",
+   "date": "2026-02-13",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.202.44 has been debited from your Paytm Payments Bank A/c *1700 on 19-Feb-2026 (ECOM TATA PLAY). Avl bal Rs.69,635.90.",
+   "date": "2026-02-19",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "Your Paytm Wallet has been topped up",
+   "body": "Dear Ishita,\nRs.3,803.04 has been added to your Paytm Wallet ID ending 1700 on 20-Feb-2026. Wallet balance: Rs.384.28.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2026-02-20",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Rs.184.16 withdrawn from *4925 on 23-Feb-2026 via IMPS to AMAZON PAY INDIA. Closing balance Rs.1,26,152.30.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-23",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "You spent Rs.Rs.19,487.46 using slice",
+   "body": "slice Super Card ending 4876: purchase of Rs.19,487.46 at TATA POWER on 24-Feb-2026 16:55:02. Available limit Rs.35,357.16.\n\nOpt for e-statements and go green.",
+   "date": "2026-02-24",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Airtel Payments Bank Account Statement - Feb 2026",
+   "body": "Dear Ishita,\nPlease find attached your Airtel Payments Bank XXXXXX6353 statement for the period 26-Jan-2026 to 25-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-02-26",
+   "attachments": [
+    {
+     "filename": "6353_25022026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Alert: Airtel Payments Bank A/c XXXXXX4925 debited Rs.30,374.78 on 07-Mar-2026. Mode: POS. Details: BESCOM. Balance Rs.2,611.47.\n\nOpt for e-statements and go green.",
+   "date": "2026-03-07",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Your slice statement for Mar 2026",
+   "body": "Dear Ishita,\nYour slice Super Card ending 4876 statement for Mar 2026 is ready. Total amount due Rs.765.70, minimum amount due Rs.200.00, payable by 27-Mar-2026.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-10",
+   "attachments": [],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Rs.482.80 withdrawn from xx4925 on 12-Mar-2026 via ECOM to BIG BAZAAR. Closing balance Rs.10,812.78.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-12",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "slice: credit alert",
+   "body": "Credit alert: Rs.8,438.72 has been credited to account XXXXXX2704 on 20-Mar-2026 (IMPS). Avl bal Rs.43,102.60.",
+   "date": "2026-03-20",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Alert: Airtel Payments Bank A/c xx4925 debited Rs.2,121.77 on 22-Mar-2026. Mode: ECOM. Details: INDIGO AIRLINES. Balance Rs.1,90,229.01.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-22",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Refer and earn",
+   "body": "Dear Ishita,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-23",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Airtel Payments Bank Account Statement - Mar 2026",
+   "body": "Dear Ishita,\nPlease find attached your Airtel Payments Bank XXXXXX6353 statement for the period 26-Feb-2026 to 25-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-26",
+   "attachments": [
+    {
+     "filename": "eStatement_202603.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "slice: debit alert",
+   "body": "Rs.186.20 withdrawn from *2704 on 27-Mar-2026 via NEFT to DMART. Closing balance Rs.41,754.11.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Your A/c *1700 is credited with Rs.3,370.93 on 27-Mar-2026 - UPI. Bal Rs.1,10,564.03. -Paytm Payments Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Rs.104.67 withdrawn from *6353 on 31-Mar-2026 via POS to BIGBASKET. Closing balance Rs.1,31,989.95.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-31",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "slice: credit alert",
+   "body": "Deposit alert - Rs.621.98 received in account xx2704 on 03-Apr-2026 (REFUND) Ref 195627839542.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-03",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Rs.1,268.07 withdrawn from *4925 on 04-Apr-2026 via ECOM to SODEXO. Closing balance Rs.1,35,525.08.",
+   "date": "2026-04-04",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "You spent Rs.Rs.130.24 using slice",
+   "body": "Card alert | Rs.130.24 | MAKEMYTRIP | 05-Apr-2026 | slice Super Card xx4876",
+   "date": "2026-04-05",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Your slice statement for Apr 2026",
+   "body": "Hi Ishita,\nYour slice Super Card XX4876 e-statement for Apr 2026 is now available. Pay Rs.20,974.27 by 27-Apr-2026 to avoid late fees.",
+   "date": "2026-04-10",
+   "attachments": [],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX0282 has been updated on 01-Feb-2026. If not requested by you, call customer care.",
+   "date": "2026-04-10",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Airtel Payments Bank Account Statement - Apr 2026",
+   "body": "Dear Ishita,\nYour Airtel Payments Bank *6353 account statement for Apr 2026 is ready. Closing balance Rs.9,713.33.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "OTP for your transaction",
+   "body": "337855 is the OTP for your transaction of Rs.983.22 at NETFLIX. Valid for 10 minutes. Do not share.",
+   "date": "2026-05-02",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "You spent Rs.Rs.710.83 using slice",
+   "body": "Card alert | Rs.710.83 | BOOKMYSHOW | 03-May-2026 | slice Super Card XX4876\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-03",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "You spent Rs.Rs.5,236.43 using slice",
+   "body": "slice Super Card XX4876: purchase of Rs.5,236.43 at BESCOM on 07-May-2026 11:48:24. Available limit Rs.38,777.16.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-07",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Your slice statement for May 2026",
+   "body": "Dear Ishita,\nPlease find attached your slice Super Card XX4876 statement for the period 10-Apr-2026 to 09-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-10",
+   "attachments": [
+    {
+     "filename": "eStatement_202605.pdf",
+     "protected": true
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 869718636770. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-05-11",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "Airtel Payments Bank wallet statement - May 2026",
+   "body": "Your wallet statement is attached.",
+   "date": "2026-05-20",
+   "attachments": [
+    {
+     "filename": "Wallet_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "AIRTEL PAYMENTS BANK\nWALLET STATEMENT\nWallet Holder : ISHITA RAO\nWallet ID : XXXXXX4925\nWallet Type : MINIMUM-KYC PREPAID WALLET\nPeriod : 20-04-2026 to 20-05-2026\nDate Description Credit Debit Balance\n20-04-2026 ADD MONEY 2,320.06 - 256.22\n23-04-2026 PAID TO BIGBASKET 638.40 - 253.87\n26-04-2026 CASHBACK 569.21 - 1,522.81\n29-04-2026 CASHBACK 59.75 - 187.47\n02-05-2026 ADD MONEY 55.46 - 468.50\n05-05-2026 ADD MONEY 634.97 - 996.52\n08-05-2026 CASHBACK 383.38 - 432.10"
+    }
+   ],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "Paytm Payments Bank wallet statement - May 2026",
+   "body": "Your wallet statement is attached.",
+   "date": "2026-05-20",
+   "attachments": [
+    {
+     "filename": "Wallet_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "PAYTM PAYMENTS BANK\nWALLET STATEMENT\nWallet Holder : ISHITA RAO\nWallet ID : XXXXXX1700\nWallet Type : MINIMUM-KYC PREPAID WALLET\nPeriod : 20-04-2026 to 20-05-2026\nDate Description Credit Debit Balance\n20-04-2026 CASHBACK 51.62 - 111.25\n23-04-2026 ADD MONEY 845.05 - 687.65\n26-04-2026 ADD MONEY 943.43 - 100.16\n29-04-2026 ADD MONEY 1,453.91 - 105.48\n02-05-2026 PAID TO BOOKMYSHOW 71.23 - 147.51\n05-05-2026 PAID TO ZEPTO 1,940.62 - 965.20\n08-05-2026 ADD MONEY 83.67 - 602.86"
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Airtel Payments Bank festive offers",
+   "body": "Dear Ishita,\nUpgrade your savings with a fixed deposit @ 7.25% p.a.\n\n",
+   "date": "2026-05-21",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Alert: Paytm Payments Bank A/c XX1700 debited Rs.17,617.62 on 22-May-2026. Mode: UPI. Details: LENSKART. Balance Rs.7,066.97.",
+   "date": "2026-05-22",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Airtel Payments Bank Account Statement - May 2026",
+   "body": "Dear Ishita,\nPlease find attached your Airtel Payments Bank xx6353 statement for the period 26-Apr-2026 to 25-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-26",
+   "attachments": [
+    {
+     "filename": "6353_25052026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "You spent Rs.Rs.20,841.12 using slice",
+   "body": "Hey Ishita,\nyou spent Rs.20,841.12 at BIGBASKET using your slice Super Card XX4876. ",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "Your slice statement for Jun 2026",
+   "body": "Dear Ishita,\nStatement generated for slice Super Card XX4876: amount payable Rs.874.92, last date 27-Jun-2026. Sign in to download.",
+   "date": "2026-06-10",
+   "attachments": [],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Ishita,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-10",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "slice: credit alert",
+   "body": "slice: XX2704 credited with Rs.667.80 on 13-Jun-2026. Source: IMPS. Balance Rs.3,873.82.",
+   "date": "2026-06-13",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Your A/c XX6353 is debited for Rs.1,247.09 on 15-Jun-2026 - IMPS EAZYDINER. Bal Rs.25,571.63. -Airtel Payments Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-15",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Alert: Paytm Payments Bank A/c XX1700 debited Rs.82.05 on 16-Jun-2026. Mode: POS. Details: MEDPLUS. Balance Rs.6,236.44.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-06-16",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Airtel Payments Bank Account Statement - Jun 2026",
+   "body": "Dear Ishita,\nPlease find attached your Airtel Payments Bank XX6353 statement for the period 26-May-2026 to 25-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-06-26",
+   "attachments": [
+    {
+     "filename": "Airtel_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "slice: credit alert",
+   "body": "Your A/c XX2704 is credited with Rs.7,645.41 on 02-Jul-2026 - UPI. Bal Rs.1,38,792.41. -slice",
+   "date": "2026-07-02",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Your slice statement for Jul 2026",
+   "body": "Dear Ishita,\nPlease find attached your slice Super Card ending 4876 statement for the period 10-Jun-2026 to 09-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-07-10",
+   "attachments": [
+    {
+     "filename": "slice_CC_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Paytm Payments Bank: *1700 credited with Rs.5,575.11 on 10-Jul-2026. Source: IMPS. Balance Rs.10,788.44.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-10",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c XX1700 is debited for Rs.8,589.56 on 19-Jul-2026 - UPI APPLE SERVICES. Bal Rs.9,835.88. -Paytm Payments Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-19",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Paytm Payments Bank: XXXXXX1700 credited with Rs.8,826.25 on 19-Jul-2026. Source: INTEREST CREDIT. Balance Rs.68,872.71.",
+   "date": "2026-07-19",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.256.21 has been debited from your Paytm Payments Bank A/c xx1700 on 22-Jul-2026 (NEFT APPLE SERVICES). Avl bal Rs.3,770.68.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-22",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "Airtel Payments Bank Account Statement - Jul 2026",
+   "body": "Dear Ishita,\nYour Airtel Payments Bank XX6353 account statement for Jul 2026 is ready. Closing balance Rs.46,827.99.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-26",
+   "attachments": [],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Alert: Airtel Payments Bank A/c XX6353 debited Rs.5,431.43 on 27-Jul-2026. Mode: NEFT. Details: PVR INOX. Balance Rs.47,316.82.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "slice: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 1664 has been successfully linked/verified for your slice relationship. If this was not you, contact us.",
+   "date": "2026-07-31",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX1700 is debited for Rs.267.68 on 05-Aug-2026 - IMPS AIRTEL PREPAID. Bal Rs.9,697.85. -Paytm Payments Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-05",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.1,101.46 has been transferred from your A/c xx2704 to Priya Tailors A/c XX9878 (Canara Bank) via IMPS on 07-Aug-2026. Ref no 124087005945.",
+   "date": "2026-08-07",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "Update your KYC",
+   "body": "Dear Ishita,\nAs per RBI guidelines please complete re-KYC for your slice relationship. Visit a branch or use the app.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-07",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Your slice statement for Aug 2026",
+   "body": "Dear Ishita,\nPlease find attached your slice Super Card ending 4876 statement for the period 10-Jul-2026 to 09-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-10",
+   "attachments": [
+    {
+     "filename": "slice_CC_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "slice: debit alert",
+   "body": "Rs.9,480.33 withdrawn from XXXXXX2704 on 11-Aug-2026 via UPI to PHONEPE. Closing balance Rs.83,378.47.",
+   "date": "2026-08-11",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.10,766.11 has been debited from your Airtel Payments Bank A/c XXXXXX6353 on 18-Aug-2026 (ECOM DMART). Avl bal Rs.1,22,197.73.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-18",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m145",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.140.66 has been debited from your Paytm Payments Bank A/c XX1700 on 25-Aug-2026 (ECOM SPOTIFY). Avl bal Rs.14,128.97.",
+   "date": "2026-08-25",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "Airtel Payments Bank Account Statement - Aug 2026",
+   "body": "Dear Ishita,\nPlease find attached your Airtel Payments Bank xx6353 statement for the period 26-Jul-2026 to 25-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-26",
+   "attachments": [
+    {
+     "filename": "6353_25082026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "Airtel Payments Bank: credit alert on your account",
+   "body": "Airtel Payments Bank: XX4925 credited with Rs.111.75 on 27-Aug-2026. Source: INTEREST CREDIT. Balance Rs.8,554.64.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.206.57 debited from account XXXXXX6353 on 27-Aug-2026. Narration: IMPS/NETFLIX. Available balance Rs.8,493.83.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "Paytm Payments Bank wallet: Rs.214.31 added",
+   "body": "Dear Ishita,\nRs.214.31 has been added to your Paytm Wallet XXXXXX1700 on 06-Sep-2026. Wallet balance: Rs.832.27.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2026-09-06",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Ishita,\nYour order #692-1186054-5971164 is confirmed. Total Rs.1,136.15. Estimated delivery in 2 days.",
+   "date": "2026-09-06",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m151",
+   "subject": "Airtel Payments Bank: credit alert on your account",
+   "body": "Your A/c *6353 is credited with Rs.24,086.98 on 07-Sep-2026 - UPI. Bal Rs.89,299.34. -Airtel Payments Bank",
+   "date": "2026-09-07",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "Your Airtel Wallet has been topped up",
+   "body": "Dear Ishita,\nRs.215.10 has been added to your Airtel Wallet wallet no. 4925 on 09-Sep-2026. Wallet balance: Rs.1,848.32.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2026-09-09",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Alert: Airtel Payments Bank A/c xx6353 debited Rs.4,971.79 on 09-Sep-2026. Mode: IMPS. Details: TATA POWER. Balance Rs.6,996.13.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-09",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "Your slice statement for Sep 2026",
+   "body": "Hi Ishita,\nYour slice Super Card XX4876 e-statement for Sep 2026 is now available. Pay Rs.22,145.37 by 27-Sep-2026 to avoid late fees.",
+   "date": "2026-09-10",
+   "attachments": [],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "Airtel Payments Bank wallet: Rs.2,628.08 added",
+   "body": "Dear Ishita,\nRs.2,628.08 has been added to your Airtel Wallet XXXXXX4925 on 12-Sep-2026. Wallet balance: Rs.169.77.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2026-09-12",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "You spent Rs.Rs.5,493.59 using slice",
+   "body": "Hey Ishita,\nyou spent Rs.5,493.59 at SWIGGY using your slice Super Card ending 4876. 5X coins on partner brands.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-12",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "Airtel Payments Bank Account Statement - Sep 2026",
+   "body": "Dear Ishita,\nPlease find attached your Airtel Payments Bank XXXXXX6353 statement for the period 26-Aug-2026 to 25-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-09-26",
+   "attachments": [
+    {
+     "filename": "6353_25092026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "slice: debit alert",
+   "body": "Dear Customer,\nRs.490.07 has been debited from your slice A/c XX2704 on 26-Sep-2026 (NEFT GOOGLE PLAY). Avl bal Rs.4,136.32.",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "You spent Rs.Rs.4,205.52 using slice",
+   "body": "Hey Ishita,\nyou spent Rs.4,205.52 at DECATHLON using your slice Super Card ending 4876. Pay in 3 instalments from the app.\n\nOpt for e-statements and go green.",
+   "date": "2026-10-02",
+   "attachments": [],
+   "from": "slice <hello@sliceit.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "Your slice statement for Oct 2026",
+   "body": "Hi Ishita,\nYour slice Super Card XX4876 e-statement for Oct 2026 is now available. Pay Rs.562.67 by 27-Oct-2026 to avoid late fees.",
+   "date": "2026-10-10",
+   "attachments": [],
+   "from": "slice <statements@sliceit.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Rs.125.79 withdrawn from XXXXXX4925 on 11-Oct-2026 via ECOM to MCDONALDS. Closing balance Rs.8,756.19.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-11",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.38,416.14 has been debited from your Airtel Payments Bank A/c *4925 on 13-Oct-2026 (ECOM INDIAN OIL). Avl bal Rs.4,110.27.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-13",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Alert: Paytm Payments Bank A/c XX1700 debited Rs.241.68 on 15-Oct-2026. Mode: ECOM. Details: ZEPTO. Balance Rs.5,634.02.",
+   "date": "2026-10-15",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "Airtel Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.38,879.43 has been debited from your Airtel Payments Bank A/c *6353 on 17-Oct-2026 (POS PAYTM). Avl bal Rs.1,64,960.00.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-17",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "Airtel Payments Bank festive offers",
+   "body": "Dear Ishita,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-20",
+   "attachments": [],
+   "from": "Airtel Payments Bank <no-reply@airtelbank.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "Airtel Payments Bank Account Statement - Oct 2026",
+   "body": "Dear Ishita,\nPlease find attached your Airtel Payments Bank XX6353 statement for the period 26-Sep-2026 to 25-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-10-26",
+   "attachments": [
+    {
+     "filename": "Airtel_Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Airtel Payments Bank <statements@airtelbank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "airtelbank.com",
+    "last4": "6353",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "sliceit.com",
+    "last4": "4876",
+    "kind": "CREDIT_CARD",
+    "variant": "Super",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "<1L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "sliceit.com",
+    "last4": "2704",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "airtelbank.com",
+    "last4": "4925",
+    "why": "payments-bank wallet id, not a card or bank account"
+   },
+   {
+    "issuerDomain": "paytmbank.com",
+    "last4": "1700",
+    "why": "payments-bank wallet id, not a card or bank account"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "8993",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "9878",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "4471",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "sliceit.com",
+    "last4": "1664",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "sliceit.com",
+    "last4": "0282",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "sliceit.com",
+    "last4": "6770",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "0916",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

@@ -1,0 +1,1634 @@
+{
+ "mailbox": "utkarsh-suryoday-ktk",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.9,455.25 credited to your Suryoday Small Finance Bank A/c XXXXXX8083 on 06-Mar-2025 by IMPS. Ref 206487517304.\nThank you for banking with us.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-03-06",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Suryoday Small Finance Bank Account Statement - Mar 2025",
+   "body": "Dear Divya,\nPlease find attached your Suryoday Small Finance Bank xx8083 statement for the period 07-Feb-2025 to 06-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-03-07",
+   "attachments": [
+    {
+     "filename": "eStatement_202503.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Suryoday SFB <estatement@suryodaybank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Mar 2025",
+   "body": "Dear Divya,\nPlease find attached your Utkarsh Small Finance Bank *9282 statement for the period 08-Feb-2025 to 07-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-03-08",
+   "attachments": [
+    {
+     "filename": "Utkarsh_Statement_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m004",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.18,147.19 debited from account XX8083 on 11-Mar-2025. Narration: NEFT/EASEMYTRIP. Available balance Rs.29,245.88.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-03-11",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Karnataka Bank: debit alert on your account",
+   "body": "Alert: Karnataka Bank A/c XXXXXX9246 debited Rs.23,829.57 on 11-Mar-2025. Mode: IMPS. Details: APOLLO PHARMACY. Balance Rs.11,364.12.",
+   "date": "2025-03-11",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Utkarsh Small Finance Bank Debit Card transaction alert",
+   "body": "Your Utkarsh Small Finance Bank Debit Card XX7706 was used for Rs.1,161.45 at JIO RECHARGE on 14-Mar-2025.",
+   "date": "2025-03-14",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m007",
+   "subject": "Refer and earn",
+   "body": "Dear Divya,\nGet up to 10% cashback on partner brands.\n\n",
+   "date": "2025-03-14",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX8083 is debited for Rs.28,489.84 on 15-Mar-2025 - ECOM URBAN COMPANY. Bal Rs.10,827.74. -Suryoday Small Finance Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-03-15",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Karnataka Bank Account Statement - Mar 2025",
+   "body": "Dear Divya,\nYour Karnataka Bank XXXXXX9246 account statement for Mar 2025 is ready. Closing balance Rs.8,651.08.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-17",
+   "attachments": [],
+   "from": "Karnataka Bank <estatement@ktkbank.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.1,494.42 has been debited from your Utkarsh Small Finance Bank A/c XXXXXX9282 on 18-Mar-2025 (POS APOLLO PHARMACY). Avl bal Rs.3,582.58.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-03-18",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m011",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.26,123.32 credited to your Suryoday Small Finance Bank A/c xx8083 on 25-Mar-2025 by INTEREST CREDIT. Ref 925416454265.\nThank you for banking with us.",
+   "date": "2025-03-25",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.15,541.06 debited from account xx9282 on 27-Mar-2025. Narration: UPI/BIGBASKET. Available balance Rs.21,002.65.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-03-27",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m013",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Apr 2025",
+   "body": "Dear Divya,\nPlease find attached your Utkarsh Small Finance Bank xx9282 statement for the period 08-Mar-2025 to 07-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-04-08",
+   "attachments": [
+    {
+     "filename": "eStatement_202504.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m014",
+   "subject": "Karnataka Bank Account Statement - Apr 2025",
+   "body": "Dear Divya,\nPlease find attached your Karnataka Bank XXXXXX9246 statement for the period 17-Mar-2025 to 16-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-04-17",
+   "attachments": [
+    {
+     "filename": "Karnataka_Acct_Apr2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karnataka Bank <estatement@ktkbank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.2,137.62 credited to your Suryoday Small Finance Bank A/c *8083 on 24-Apr-2025 by NEFT. Ref 799237516700.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-04-24",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Update your KYC",
+   "body": "Dear Divya,\nAs per RBI guidelines please complete re-KYC for your Utkarsh Small Finance Bank relationship. Visit a branch or use the app.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-05-01",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m017",
+   "subject": "Karnataka Bank: debit alert on your account",
+   "body": "Your A/c XX9246 is debited for Rs.7,263.52 on 06-May-2025 - IMPS BATA INDIA. Bal Rs.26,475.61. -Karnataka Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-06",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Karnataka Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.615.16 received in account *9246 on 06-May-2025 (INTEREST CREDIT) Ref 550837146840.",
+   "date": "2025-05-06",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Utkarsh Small Finance Bank Account Statement - May 2025",
+   "body": "Dear Divya,\nPlease find attached your Utkarsh Small Finance Bank *9282 statement for the period 08-Apr-2025 to 07-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-05-08",
+   "attachments": [
+    {
+     "filename": "Utkarsh_Statement_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m020",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Alert: Utkarsh Small Finance Bank A/c *9282 debited Rs.1,448.63 on 11-May-2025. Mode: UPI. Details: DECATHLON. Balance Rs.1,76,257.47.",
+   "date": "2025-05-11",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m021",
+   "subject": "Update your KYC",
+   "body": "Dear Divya,\nAs per RBI guidelines please complete re-KYC for your Utkarsh Small Finance Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-05-16",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m022",
+   "subject": "Karnataka Bank Account Statement - May 2025",
+   "body": "Dear Divya,\nYour Karnataka Bank XXXXXX9246 account statement for May 2025 is ready. Closing balance Rs.6,750.26.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-05-17",
+   "attachments": [],
+   "from": "Karnataka Bank <estatement@ktkbank.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Utkarsh Small Finance Bank: credit alert on your account",
+   "body": "Utkarsh Small Finance Bank: xx9282 credited with Rs.5,403.79 on 17-May-2025. Source: IMPS. Balance Rs.45,261.78.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-17",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m024",
+   "subject": "Update your KYC",
+   "body": "Dear Divya,\nAs per RBI guidelines please complete re-KYC for your Karnataka Bank relationship. Visit a branch or use the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-05-18",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.19,216.46 has been transferred from your A/c XX9282 to Dr. Rao Clinic A/c XX3016 (IDBI Bank) via IMPS on 23-May-2025. Ref no 704602589980.",
+   "date": "2025-05-23",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m026",
+   "subject": "Karnataka Bank: debit alert on your account",
+   "body": "Your A/c xx9246 is debited for Rs.235.88 on 25-May-2025 - UPI PHONEPE. Bal Rs.48,762.83. -Karnataka Bank",
+   "date": "2025-05-25",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Karnataka Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.9,263.49 has been debited from your Karnataka Bank A/c xx9246 on 02-Jun-2025 (NEFT IRCTC). Avl bal Rs.40,654.98.",
+   "date": "2025-06-02",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Karnataka Bank: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 2052 has been successfully linked/verified for your Karnataka Bank relationship. If this was not you, contact us.",
+   "date": "2025-06-03",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.5,879.66 debited from account *9282 on 06-Jun-2025. Narration: ECOM/EASEMYTRIP. Available balance Rs.3,402.33.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-06",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m030",
+   "subject": "Suryoday Small Finance Bank Account Statement - Jun 2025",
+   "body": "Dear Divya,\nPlease find attached your Suryoday Small Finance Bank XXXXXX8083 statement for the period 07-May-2025 to 06-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-06-07",
+   "attachments": [
+    {
+     "filename": "8083_06062025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Suryoday SFB <estatement@suryodaybank.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Earn more with your card",
+   "body": "Dear Divya,\nConvert big spends to EMI at low interest.\n\nOpt for e-statements and go green.",
+   "date": "2025-06-07",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Jun 2025",
+   "body": "Dear Divya,\nPlease find attached your Utkarsh Small Finance Bank *9282 statement for the period 08-May-2025 to 07-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-06-08",
+   "attachments": [
+    {
+     "filename": "Utkarsh_Acct_Jun2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m033",
+   "subject": "Karnataka Bank Account Statement - Jun 2025",
+   "body": "Dear Divya,\nPlease find attached your Karnataka Bank *9246 statement for the period 17-May-2025 to 16-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-06-17",
+   "attachments": [
+    {
+     "filename": "eStatement_202506.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karnataka Bank <estatement@ktkbank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Karnataka Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.1,571.91 has been debited from your Karnataka Bank A/c XXXXXX9246 on 21-Jun-2025 (POS PVR INOX). Avl bal Rs.2,292.14.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-06-21",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Karnataka Bank: debit alert on your account",
+   "body": "Alert: Karnataka Bank A/c xx9246 debited Rs.6,470.93 on 23-Jun-2025. Mode: POS. Details: JIO RECHARGE. Balance Rs.4,572.31.\n\nOpt for e-statements and go green.",
+   "date": "2025-06-23",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Divya,\nGet up to 10% cashback on partner brands.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-30",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Sunil Plumber (A/c XXXXXX2256, IDFC FIRST Bank) has been added to your account *8083. It will be active after 30 minutes.",
+   "date": "2025-07-03",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Karnataka Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.110.87 credited to your Karnataka Bank A/c *9246 on 07-Jul-2025 by UPI. Ref 652559840887.\nThank you for banking with us.",
+   "date": "2025-07-07",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Jul 2025",
+   "body": "Dear Divya,\nPlease find attached your Utkarsh Small Finance Bank *9282 statement for the period 08-Jun-2025 to 07-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-07-08",
+   "attachments": [
+    {
+     "filename": "eStatement_202507.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m040",
+   "subject": "Utkarsh Small Finance Bank festive offers",
+   "body": "Dear Divya,\nGet up to 10% cashback on partner brands.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-07-10",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m041",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.1,466.48 credited to your Suryoday Small Finance Bank A/c XX8083 on 15-Jul-2025 by NEFT. Ref 917483779428.\nThank you for banking with us.",
+   "date": "2025-07-15",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Karnataka Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.380.95 credited to your Karnataka Bank A/c XXXXXX9246 on 16-Jul-2025 by IMPS. Ref 925031915531.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-16",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Karnataka Bank Account Statement - Jul 2025",
+   "body": "Dear Divya,\nYour Karnataka Bank XX9246 account statement for Jul 2025 is ready. Closing balance Rs.51,294.75.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-07-17",
+   "attachments": [],
+   "from": "Karnataka Bank <estatement@ktkbank.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Utkarsh Small Finance Bank Debit Card transaction alert",
+   "body": "Your Utkarsh Small Finance Bank Debit Card XX7706 was used for Rs.4,096.58 at IRCTC on 31-Jul-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-07-31",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m045",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,500.00 transferred from XX8083 to Sunil Plumber A/c XX2256 on 03-Aug-2025. Rent for the month.",
+   "date": "2025-08-03",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Aug 2025",
+   "body": "Dear Divya,\nYour Utkarsh Small Finance Bank xx9282 account statement for Aug 2025 is ready. Closing balance Rs.1,425.43.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-08-08",
+   "attachments": [],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m047",
+   "subject": "OTP for your transaction",
+   "body": "771277 is the OTP for your transaction of Rs.8,325.81 at ZEPTO. Valid for 10 minutes. Do not share.",
+   "date": "2025-08-08",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m048",
+   "subject": "Karnataka Bank Account Statement - Aug 2025",
+   "body": "Dear Divya,\nPlease find attached your Karnataka Bank xx9246 statement for the period 17-Jul-2025 to 16-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-08-17",
+   "attachments": [
+    {
+     "filename": "9246_16082025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karnataka Bank <estatement@ktkbank.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Update your KYC",
+   "body": "Dear Divya,\nAs per RBI guidelines please complete re-KYC for your Karnataka Bank relationship. Visit a branch or use the app.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-08-23",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Utkarsh Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.21,866.84 has been credited to account xx9282 on 27-Aug-2025 (UPI). Avl bal Rs.1,38,928.60.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m051",
+   "subject": "OTP for your transaction",
+   "body": "499469 is the OTP for your transaction of Rs.848.72 at SWIGGY. Valid for 10 minutes. Do not share.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Rs.533.56 withdrawn from XXXXXX9282 on 30-Aug-2025 via POS to TATA POWER. Closing balance Rs.66,302.81.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-08-30",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m053",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.4,861.34 credited to your Suryoday Small Finance Bank A/c *8083 on 31-Aug-2025 by REFUND. Ref 879467823135.\nThank you for banking with us.",
+   "date": "2025-08-31",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.93.13 has been credited to account xx8083 on 03-Sep-2025 (NEFT). Avl bal Rs.9,556.75.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-09-03",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Alert: Suryoday Small Finance Bank A/c XX8083 debited Rs.588.46 on 03-Sep-2025. Mode: NEFT. Details: BOOKMYSHOW. Balance Rs.42,704.41.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-03",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,000.00 transferred from XX8083 to Sunil Plumber A/c XX2256 on 03-Sep-2025. Rent for the month.",
+   "date": "2025-09-03",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Suryoday Small Finance Bank Account Statement - Sep 2025",
+   "body": "Dear Divya,\nYour Suryoday Small Finance Bank XXXXXX8083 account statement for Sep 2025 is ready. Closing balance Rs.3,461.07.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-07",
+   "attachments": [],
+   "from": "Suryoday SFB <estatement@suryodaybank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Karnataka Bank Debit Card transaction alert",
+   "body": "Your Karnataka Bank Debit Card XX8138 was used for Rs.18,577.55 at HPCL PETROL on 07-Sep-2025.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-07",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Update your KYC",
+   "body": "Dear Divya,\nAs per RBI guidelines please complete re-KYC for your Suryoday Small Finance Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-09-07",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Sep 2025",
+   "body": "Dear Divya,\nPlease find attached your Utkarsh Small Finance Bank *9282 statement for the period 08-Aug-2025 to 07-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-08",
+   "attachments": [
+    {
+     "filename": "Utkarsh_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m061",
+   "subject": "Karnataka Bank: credit alert on your account",
+   "body": "Karnataka Bank: XX9246 credited with Rs.481.28 on 09-Sep-2025. Source: NEFT. Balance Rs.3,212.20.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-09-09",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Suryoday Small Finance Bank: XX8083 credited with Rs.11,903.54 on 15-Sep-2025. Source: REFUND. Balance Rs.4,300.73.",
+   "date": "2025-09-15",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Karnataka Bank Account Statement - Sep 2025",
+   "body": "Dear Divya,\nPlease find attached your Karnataka Bank xx9246 statement for the period 17-Aug-2025 to 16-Sep-2025. \n\n",
+   "date": "2025-09-17",
+   "attachments": [
+    {
+     "filename": "9246_16092025_stmt.pdf",
+     "protected": false,
+     "pdfText": "KARNATAKA BANK\nSTATEMENT OF ACCOUNT\nAccount Name : DIVYA VERMA\nFLAT 693, GREEN VALLEY APARTMENTS\n19TH CROSS, BANJARA HILLS\nMUMBAI - 452041\nCustomer ID : 81680905\nAccount Number : xx9246\nAccount Type : SAVINGS ACCOUNT\nIFSC : KTKX0956472\nStatement Period : 17-08-2025 to 16-09-2025\nOpening Balance : Rs.38,729.42\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n20-08-2025 POS/SWIGGY 292332101 402.37 - 38,327.05\n22-08-2025 INTEREST 579103527 - 118.08 38,445.13\n25-08-2025 POS/INDIGO AIRLINES 756031476 1,480.23 - 36,964.90\n28-08-2025 ATM WDL/INDIGO AIRLINES 421814021 150.53 - 36,814.37\n30-08-2025 POS/MEDPLUS 581851952 1,758.30 - 35,056.07\n31-08-2025 SALARY NEFT 476079482 - 1,525.11 36,581.18\n03-09-2025 UPI/CR 363223733 - 474.94 37,056.12\n06-09-2025 INTEREST 349130345 - 156.88 37,213.00\n08-09-2025 UPI/AIRTEL PREPAID 980151943 332.17 - 36,880.83\n09-09-2025 ATM WDL/SWIGGY 568423556 2,062.06 - 34,818.77\n12-09-2025 NEFT DR/BATA INDIA 999449150 213.07 - 34,605.70\n15-09-2025 ATM WDL/BIG BAZAAR 917655848 12,122.80 - 22,482.90\n15-09-2025 UPI/IKEA 525801694 1,491.90 - 20,991.00\nClosing Balance : Rs.20,990.100\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Karnataka Bank <estatement@ktkbank.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,500.00 transferred from xx8083 to Sunil Plumber A/c XX2256 on 03-Oct-2025. Rent for the month.",
+   "date": "2025-10-03",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Oct 2025",
+   "body": "Dear Divya,\nPlease find attached your Utkarsh Small Finance Bank xx9282 statement for the period 08-Sep-2025 to 07-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-10-08",
+   "attachments": [
+    {
+     "filename": "9282_07102025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m066",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.19,949.79 has been transferred from your A/c xx9246 to Sita Devi A/c XX4670 (HDFC Bank) via IMPS on 16-Oct-2025. Ref no 949997025882.",
+   "date": "2025-10-16",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Karnataka Bank Account Statement - Oct 2025",
+   "body": "Dear Divya,\nYour Karnataka Bank XX9246 account statement for Oct 2025 is ready. Closing balance Rs.48,705.84.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-10-17",
+   "attachments": [],
+   "from": "Karnataka Bank <estatement@ktkbank.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX9282 is debited for Rs.725.42 on 17-Oct-2025 - IMPS LENSKART. Bal Rs.83,563.97. -Utkarsh Small Finance Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-10-17",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m069",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Rs.3,685.50 withdrawn from XX9282 on 21-Oct-2025 via IMPS to MEDPLUS. Closing balance Rs.34,760.73.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-10-21",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m070",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Alert: Suryoday Small Finance Bank A/c xx8083 debited Rs.264.46 on 21-Oct-2025. Mode: ECOM. Details: PAYTM. Balance Rs.14,937.12.",
+   "date": "2025-10-21",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.1,302.49 debited from account XXXXXX8083 on 26-Oct-2025. Narration: UPI/ZEPTO. Available balance Rs.1,75,716.19.",
+   "date": "2025-10-26",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Utkarsh Small Finance Bank Debit Card transaction alert",
+   "body": "Your Utkarsh Small Finance Bank Debit Card ending 7706 was used for Rs.8,374.18 at JIO RECHARGE on 29-Oct-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-29",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m073",
+   "subject": "Utkarsh Small Finance Bank Debit Card transaction alert",
+   "body": "POS purchase of Rs.2,092.78 at INDIGO AIRLINES on 01-Nov-2025 with Utkarsh Small Finance Bank Debit Card xx7706.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-01",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m074",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from XX8083 to Sunil Plumber A/c XX2256 on 03-Nov-2025. Rent for the month.",
+   "date": "2025-11-03",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Karnataka Bank: debit alert on your account",
+   "body": "Your A/c XX9246 is debited for Rs.8,474.35 on 07-Nov-2025 - UPI BESCOM. Bal Rs.47,636.11. -Karnataka Bank\n\nOpt for e-statements and go green.",
+   "date": "2025-11-07",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Nov 2025",
+   "body": "Dear Divya,\nYour Utkarsh Small Finance Bank *9282 account statement for Nov 2025 is ready. Closing balance Rs.45,907.40.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-11-08",
+   "attachments": [],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m077",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.24,360.63 debited from account XX8083 on 10-Nov-2025. Narration: POS/NETFLIX. Available balance Rs.28,894.44.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-10",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Karnataka Bank: credit alert on your account",
+   "body": "Karnataka Bank: XX9246 credited with Rs.166.11 on 10-Nov-2025. Source: INTEREST CREDIT. Balance Rs.18,514.67.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-10",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Karnataka Bank Account Statement - Nov 2025",
+   "body": "Dear Divya,\nPlease find attached your Karnataka Bank XXXXXX9246 statement for the period 17-Oct-2025 to 16-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-17",
+   "attachments": [
+    {
+     "filename": "eStatement_202511.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karnataka Bank <estatement@ktkbank.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Karnataka Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX9246 is debited for Rs.19,867.72 on 17-Nov-2025 - ECOM BOOKMYSHOW. Bal Rs.3,314.80. -Karnataka Bank\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-17",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XX9282 is debited for Rs.221.12 on 18-Nov-2025 - POS PHONEPE. Bal Rs.1,11,918.46. -Utkarsh Small Finance Bank",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m082",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Rs.1,319.24 withdrawn from *8083 on 18-Nov-2025 via NEFT to EASEMYTRIP. Closing balance Rs.5,593.05.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Divya,\nYour order #302-8335740-3504871 is confirmed. Total Rs.259.79. Estimated delivery in 2 days.",
+   "date": "2025-11-21",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m084",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Suryoday Small Finance Bank: XX8083 credited with Rs.12,599.01 on 25-Nov-2025. Source: UPI. Balance Rs.5,911.69.\n\nOpt for e-statements and go green.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,000.00 transferred from XXXXXX8083 to Sunil Plumber A/c XX2256 on 03-Dec-2025. Rent for the month.",
+   "date": "2025-12-03",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Suryoday Small Finance Bank Account Statement - Dec 2025",
+   "body": "Dear Divya,\nYour Suryoday Small Finance Bank XXXXXX8083 account statement for Dec 2025 is ready. Closing balance Rs.27,434.38.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-07",
+   "attachments": [],
+   "from": "Suryoday SFB <estatement@suryodaybank.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Dec 2025",
+   "body": "Dear Divya,\nYour Utkarsh Small Finance Bank *9282 account statement for Dec 2025 is ready. Closing balance Rs.539.34.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-08",
+   "attachments": [],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m088",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX9282 is debited for Rs.160.71 on 09-Dec-2025 - POS TATA POWER. Bal Rs.7,131.59. -Utkarsh Small Finance Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-09",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m089",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.1,160.82 credited to your Suryoday Small Finance Bank A/c xx8083 on 12-Dec-2025 by SALARY NEFT. Ref 698845430138.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-12",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Karnataka Bank Account Statement - Dec 2025",
+   "body": "Dear Divya,\nYour Karnataka Bank XX9246 account statement for Dec 2025 is ready. Closing balance Rs.15,109.93.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-12-17",
+   "attachments": [],
+   "from": "Karnataka Bank <estatement@ktkbank.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 157227118044. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-12-21",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.1,818.83 debited from account *9282 on 28-Dec-2025. Narration: UPI/MYNTRA. Available balance Rs.27,203.65.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m093",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Your A/c XX8083 is debited for Rs.270.75 on 28-Dec-2025 - ECOM NETFLIX. Bal Rs.74,656.94. -Suryoday Small Finance Bank",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.677.47 has been credited to account XXXXXX8083 on 29-Dec-2025 (SALARY NEFT). Avl bal Rs.26,023.26.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-29",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.34,908.49 has been debited from your Suryoday Small Finance Bank A/c XXXXXX8083 on 31-Dec-2025 (NEFT EAZYDINER). Avl bal Rs.27,481.79.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-12-31",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.211.17 debited from account XX8083 on 01-Jan-2026. Narration: IMPS/BIG BAZAAR. Available balance Rs.13,891.67.",
+   "date": "2026-01-01",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,000.00 transferred from XX8083 to Sunil Plumber A/c XX2256 on 03-Jan-2026. Rent for the month.",
+   "date": "2026-01-03",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Jan 2026",
+   "body": "Dear Divya,\nPlease find attached your Utkarsh Small Finance Bank XXXXXX9282 statement for the period 08-Dec-2025 to 07-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-01-08",
+   "attachments": [
+    {
+     "filename": "Utkarsh_Acct_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m099",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Rs.734.40 withdrawn from XXXXXX9282 on 10-Jan-2026 via NEFT to NYKAA. Closing balance Rs.12,180.22.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-10",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m100",
+   "subject": "Karnataka Bank: credit alert on your account",
+   "body": "Credit alert: Rs.3,649.19 has been credited to account *9246 on 16-Jan-2026 (REFUND). Avl bal Rs.2,166.99.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-16",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Karnataka Bank Account Statement - Jan 2026",
+   "body": "Dear Divya,\nPlease find attached your Karnataka Bank *9246 statement for the period 17-Dec-2025 to 16-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-01-17",
+   "attachments": [
+    {
+     "filename": "Karnataka_Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karnataka Bank <estatement@ktkbank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Karnataka Bank: debit alert on your account",
+   "body": "Your A/c xx9246 is debited for Rs.167.16 on 20-Jan-2026 - NEFT BPCL FUEL. Bal Rs.9,955.19. -Karnataka Bank",
+   "date": "2026-01-20",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Karnataka Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.1,432.36 debited from account XXXXXX9246 on 25-Jan-2026. Narration: IMPS/BIG BAZAAR. Available balance Rs.1,57,212.27.",
+   "date": "2026-01-25",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Utkarsh Small Finance Bank Debit Card transaction alert",
+   "body": "Rs.465.26 withdrawn using your Utkarsh Small Finance Bank Debit Card XX7706 at ATM BIG BAZAAR on 27-Jan-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m105",
+   "subject": "Utkarsh Small Finance Bank Debit Card transaction alert",
+   "body": "Your Utkarsh Small Finance Bank Debit Card xx7706 was used for Rs.1,267.26 at INDIAN OIL on 05-Feb-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-05",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m106",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Feb 2026",
+   "body": "Dear Divya,\nPlease find attached your Utkarsh Small Finance Bank xx9282 statement for the period 08-Jan-2026 to 07-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-02-08",
+   "attachments": [
+    {
+     "filename": "Utkarsh_Statement_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m107",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.406.39 has been debited from your Utkarsh Small Finance Bank A/c XX9282 on 10-Feb-2026 (POS GOOGLE PLAY). Avl bal Rs.23,277.46.",
+   "date": "2026-02-10",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m108",
+   "subject": "Karnataka Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.22,241.56 debited from account *9246 on 16-Feb-2026. Narration: UPI/INDIAN OIL. Available balance Rs.2,448.74.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-16",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Karnataka Bank Account Statement - Feb 2026",
+   "body": "Dear Divya,\nYour Karnataka Bank XX9246 account statement for Feb 2026 is ready. Closing balance Rs.46,828.74.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-17",
+   "attachments": [],
+   "from": "Karnataka Bank <estatement@ktkbank.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 239437247530. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-02-20",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Karnataka Bank: debit alert on your account",
+   "body": "Alert: Karnataka Bank A/c xx9246 debited Rs.1,689.14 on 28-Feb-2026. Mode: POS. Details: INDIAN OIL. Balance Rs.1,65,325.42.\n\nOpt for e-statements and go green.",
+   "date": "2026-02-28",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Suryoday Small Finance Bank Account Statement - Mar 2026",
+   "body": "Dear Divya,\nPlease find attached your Suryoday Small Finance Bank XX8083 statement for the period 07-Feb-2026 to 06-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-03-07",
+   "attachments": [
+    {
+     "filename": "eStatement_202603.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Suryoday SFB <estatement@suryodaybank.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Mar 2026",
+   "body": "Dear Divya,\nPlease find attached your Utkarsh Small Finance Bank *9282 statement for the period 08-Feb-2026 to 07-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-03-08",
+   "attachments": [
+    {
+     "filename": "9282_07032026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m114",
+   "subject": "Karnataka Bank Account Statement - Mar 2026",
+   "body": "Dear Divya,\nPlease find attached your Karnataka Bank XX9246 statement for the period 17-Feb-2026 to 16-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-03-17",
+   "attachments": [
+    {
+     "filename": "9246_16032026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karnataka Bank <estatement@ktkbank.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Alert: Suryoday Small Finance Bank A/c xx8083 debited Rs.1,636.41 on 30-Mar-2026. Mode: ECOM. Details: NYKAA. Balance Rs.17,859.65.\n\nOpt for e-statements and go green.",
+   "date": "2026-03-30",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Karnataka Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.134.26 credited to your Karnataka Bank A/c XX9246 on 04-Apr-2026 by UPI. Ref 405769703348.\nThank you for banking with us.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-04",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Bill payment successful",
+   "body": "Dear Customer,\nCredit card bill payment of Rs.34,962.52 for Bandhan Bank Credit Card ending 4370 (cardholder: DIVYA VERMA) was successful from your A/c xx9282 on 07-Apr-2026.",
+   "date": "2026-04-07",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m118",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Apr 2026",
+   "body": "Dear Divya,\nPlease find attached your Utkarsh Small Finance Bank XX9282 statement for the period 08-Mar-2026 to 07-Apr-2026. \n\n",
+   "date": "2026-04-08",
+   "attachments": [
+    {
+     "filename": "Utkarsh_Statement_Apr2026.pdf",
+     "protected": false,
+     "pdfText": "UTKARSH SMALL FINANCE BANK\nSTATEMENT OF ACCOUNT\nAccount Name : DIVYA VERMA\nFLAT 899, SUNRISE APARTMENTS\n8TH CROSS, BANJARA HILLS\nKOLKATA - 687035\nCustomer ID : 51933443\nAccount Number : *9282\nAccount Type : SAVINGS ACCOUNT\nIFSC : UTKA0902706\nStatement Period : 08-03-2026 to 07-04-2026\nOpening Balance : Rs.41,580.57\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n08-03-2026 IMPS/CR 284753604 - 567.54 42,148.11\n10-03-2026 ATM WDL/TATA PLAY 961266569 4,111.80 - 38,036.31\n10-03-2026 UPI/BPCL FUEL 569512535 2,397.40 - 35,638.91\n13-03-2026 UPI/CR 317442893 - 622.82 36,261.73\n13-03-2026 IMPS/CR 789550646 - 18,186.32 54,448.05\n14-03-2026 UPI/BOOKMYSHOW 278773291 2,209.83 - 52,238.22\n15-03-2026 NEFT DR/GOOGLE PLAY 810295739 1,070.80 - 51,167.42\n17-03-2026 ATM WDL/LENSKART 289938009 851.89 - 50,315.53\n19-03-2026 UPI/BPCL FUEL 150566849 9,258.12 - 41,057.41\nClosing Balance : Rs.41,057.41\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m119",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.660.68 debited from account XX8083 on 13-Apr-2026. Narration: UPI/IKEA. Available balance Rs.3,678.27.",
+   "date": "2026-04-13",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Karnataka Bank: debit alert on your account",
+   "body": "Your A/c xx9246 is debited for Rs.7,933.86 on 13-Apr-2026 - NEFT BLINKIT. Bal Rs.1,77,418.41. -Karnataka Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-13",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "Karnataka Bank Account Statement - Apr 2026",
+   "body": "Dear Divya,\nPlease find attached your Karnataka Bank XX9246 statement for the period 17-Mar-2026 to 16-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-17",
+   "attachments": [
+    {
+     "filename": "Karnataka_Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karnataka Bank <estatement@ktkbank.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Karnataka Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.87.46 has been debited from your Karnataka Bank A/c xx9246 on 29-Apr-2026 (UPI UBER INDIA). Avl bal Rs.3,887.65.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-29",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "Update your KYC",
+   "body": "Dear Divya,\nAs per RBI guidelines please complete re-KYC for your Utkarsh Small Finance Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2026-05-06",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m124",
+   "subject": "Utkarsh Small Finance Bank Account Statement - May 2026",
+   "body": "Dear Divya,\nYour Utkarsh Small Finance Bank XX9282 account statement for May 2026 is ready. Closing balance Rs.11,082.71.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-05-08",
+   "attachments": [],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m125",
+   "subject": "Utkarsh Small Finance Bank Debit Card transaction alert",
+   "body": "Your Utkarsh Small Finance Bank Debit Card ending 7706 was used for Rs.3,957.72 at JIO RECHARGE on 14-May-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-14",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m126",
+   "subject": "Karnataka Bank Account Statement - May 2026",
+   "body": "Dear Divya,\nPlease find attached your Karnataka Bank XXXXXX9246 statement for the period 17-Apr-2026 to 16-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-05-17",
+   "attachments": [
+    {
+     "filename": "9246_16052026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karnataka Bank <estatement@ktkbank.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Divya,\nUse your card on UPI and earn extra rewards.\n\nOpt for e-statements and go green.",
+   "date": "2026-05-20",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Utkarsh Small Finance Bank Debit Card transaction alert",
+   "body": "Rs.6,292.77 withdrawn using your Utkarsh Small Finance Bank Debit Card XX7706 at ATM SWIGGY on 01-Jun-2026.",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m129",
+   "subject": "Karnataka Bank: debit alert on your account",
+   "body": "Your A/c *9246 is debited for Rs.19,690.70 on 03-Jun-2026 - UPI BIGBASKET. Bal Rs.5,600.43. -Karnataka Bank\n\nOpt for e-statements and go green.",
+   "date": "2026-06-03",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "Suryoday Small Finance Bank Account Statement - Jun 2026",
+   "body": "Dear Divya,\nYour Suryoday Small Finance Bank XX8083 account statement for Jun 2026 is ready. Closing balance Rs.4,603.83.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-07",
+   "attachments": [],
+   "from": "Suryoday SFB <estatement@suryodaybank.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Jun 2026",
+   "body": "Dear Divya,\nPlease find attached your Utkarsh Small Finance Bank *9282 statement for the period 08-May-2026 to 07-Jun-2026. \n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-08",
+   "attachments": [
+    {
+     "filename": "Utkarsh_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "UTKARSH SMALL FINANCE BANK\nSTATEMENT OF ACCOUNT\nAccount Name : DIVYA VERMA\nFLAT 522, LAKESHORE APARTMENTS\n24TH CROSS, KOTHRUD\nMUMBAI - 565549\nCustomer ID : 28829465\nAccount Number : xx9282\nAccount Type : SAVINGS ACCOUNT\nIFSC : UTKA0477829\nStatement Period : 08-05-2026 to 07-06-2026\nOpening Balance : Rs.23,920.61\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n08-05-2026 NEFT DR/PHONEPE 181484288 5,190.31 - 18,730.30\n11-05-2026 SALARY NEFT 838152179 - 317.21 19,047.51\n14-05-2026 IMPS/CR 493756268 - 18,052.14 37,099.65\n15-05-2026 IMPS/CR 985320400 - 733.32 37,832.97\n17-05-2026 UPI/CR 313705447 - 440.81 38,273.78\n18-05-2026 ATM WDL/LENSKART 522102852 4,351.79 - 33,921.99\n19-05-2026 POS/INDIGO AIRLINES 123712985 9,346.59 - 24,575.40\n20-05-2026 UPI/IRCTC 381228033 15,553.05 - 9,022.35\n21-05-2026 UPI/LENSKART 618226955 256.44 - 8,765.91\n22-05-2026 IMPS/CR 889002206 - 13,649.75 22,415.66\n23-05-2026 NEFT DR/PHONEPE 573385309 17,251.49 - 5,164.17\n23-05-2026 ATM WDL/DECATHLON 982293764 13,842.81 - -8,678.64\n24-05-2026 POS/EASEMYTRIP 300338672 1,156.28 - -9,834.92\nClosing Balance : -Rs.9,834.92\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m132",
+   "subject": "Suryoday Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.16,692.37 credited to your Suryoday Small Finance Bank A/c XX8083 on 12-Jun-2026 by SALARY NEFT. Ref 516201824857.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-12",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Karnataka Bank Account Statement - Jun 2026",
+   "body": "Dear Divya,\nPlease find attached your Karnataka Bank xx9246 statement for the period 17-May-2026 to 16-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-17",
+   "attachments": [
+    {
+     "filename": "eStatement_202606.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karnataka Bank <estatement@ktkbank.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Utkarsh Small Finance Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.9,674.34 received in account xx9282 on 19-Jun-2026 (NEFT) Ref 650202003689.",
+   "date": "2026-06-19",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m135",
+   "subject": "Utkarsh Small Finance Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.15,292.97 received in account XXXXXX9282 on 29-Jun-2026 (IMPS) Ref 652723194396.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-29",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m136",
+   "subject": "Karnataka Bank: credit alert on your account",
+   "body": "Karnataka Bank: XXXXXX9246 credited with Rs.3,311.08 on 29-Jun-2026. Source: SALARY NEFT. Balance Rs.3,233.41.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-06-29",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "Karnataka Bank: debit alert on your account",
+   "body": "Rs.179.60 withdrawn from *9246 on 04-Jul-2026 via IMPS to UBER INDIA. Closing balance Rs.23,317.84.\n\nOpt for e-statements and go green.",
+   "date": "2026-07-04",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Alert: Utkarsh Small Finance Bank A/c *9282 debited Rs.159.45 on 07-Jul-2026. Mode: ECOM. Details: BIGBASKET. Balance Rs.14,584.35.\n\nOpt for e-statements and go green.",
+   "date": "2026-07-07",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m139",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Jul 2026",
+   "body": "Dear Divya,\nYour Utkarsh Small Finance Bank *9282 account statement for Jul 2026 is ready. Closing balance Rs.916.32.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-07-08",
+   "attachments": [],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m140",
+   "subject": "Karnataka Bank: debit alert on your account",
+   "body": "Your A/c XX9246 is debited for Rs.3,735.83 on 13-Jul-2026 - UPI MAKEMYTRIP. Bal Rs.1,29,242.26. -Karnataka Bank",
+   "date": "2026-07-13",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.167.61 debited from account xx8083 on 14-Jul-2026. Narration: NEFT/IRCTC. Available balance Rs.20,513.73.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-14",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Refer and earn",
+   "body": "Dear Divya,\nConvert big spends to EMI at low interest.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-15",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "Karnataka Bank Account Statement - Jul 2026",
+   "body": "Dear Divya,\nYour Karnataka Bank xx9246 account statement for Jul 2026 is ready. Closing balance Rs.22,160.42.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-17",
+   "attachments": [],
+   "from": "Karnataka Bank <estatement@ktkbank.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.117.81 debited from account xx9282 on 22-Jul-2026. Narration: NEFT/MCDONALDS. Available balance Rs.4,748.85.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-22",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m145",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX0131 has been updated on 01-Jan-2026. If not requested by you, call customer care.",
+   "date": "2026-07-28",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Rs.10,947.09 withdrawn from xx9282 on 30-Jul-2026 via UPI to APPLE SERVICES. Closing balance Rs.1,17,795.92.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-30",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m147",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Aug 2026",
+   "body": "Dear Divya,\nYour Utkarsh Small Finance Bank xx9282 account statement for Aug 2026 is ready. Closing balance Rs.1,586.58.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-08",
+   "attachments": [],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m148",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Alert: Suryoday Small Finance Bank A/c *8083 debited Rs.7,086.15 on 08-Aug-2026. Mode: UPI. Details: UBER INDIA. Balance Rs.1,25,983.95.\n\nOpt for e-statements and go green.",
+   "date": "2026-08-08",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "Karnataka Bank Account Statement - Aug 2026",
+   "body": "Dear Divya,\nYour Karnataka Bank XXXXXX9246 account statement for Aug 2026 is ready. Closing balance Rs.3,241.03.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-08-17",
+   "attachments": [],
+   "from": "Karnataka Bank <estatement@ktkbank.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Utkarsh Small Finance Bank Debit Card transaction alert",
+   "body": "POS purchase of Rs.848.21 at EAZYDINER on 22-Aug-2026 with Utkarsh Small Finance Bank Debit Card xx7706.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m151",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 936562093514. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-08-26",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Rs.21,800.61 withdrawn from *9282 on 02-Sep-2026 via NEFT to NETFLIX. Closing balance Rs.79,231.64.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-02",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m153",
+   "subject": "Suryoday Small Finance Bank Account Statement - Sep 2026",
+   "body": "Dear Divya,\nPlease find attached your Suryoday Small Finance Bank XX8083 statement for the period 07-Aug-2026 to 06-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-07",
+   "attachments": [
+    {
+     "filename": "8083_06092026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Suryoday SFB <estatement@suryodaybank.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Sep 2026",
+   "body": "Dear Divya,\nPlease find attached your Utkarsh Small Finance Bank xx9282 statement for the period 08-Aug-2026 to 07-Sep-2026. \n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-08",
+   "attachments": [
+    {
+     "filename": "eStatement_202609.pdf",
+     "protected": false,
+     "pdfText": "UTKARSH SMALL FINANCE BANK\nSTATEMENT OF ACCOUNT\nAccount Name : DIVYA VERMA\nFLAT 526, SUNRISE APARTMENTS\n2TH CROSS, ADYAR\nPUNE - 634266\nCustomer ID : 77896678\nAccount Number : XX9282\nAccount Type : SAVINGS ACCOUNT\nIFSC : UTKA0199372\nStatement Period : 08-08-2026 to 07-09-2026\nOpening Balance : Rs.78,114.33\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n08-08-2026 NEFT DR/SODEXO 919213890 6,009.35 - 72,104.98\n10-08-2026 SALARY NEFT 297916834 - 340.15 72,445.13\n12-08-2026 UPI/GOOGLE PLAY 498745483 2,596.82 - 69,848.31\n15-08-2026 UPI/CR 936511507 - 7,216.74 77,065.05\n16-08-2026 POS/URBAN COMPANY 280797974 2,969.20 - 74,095.85\n17-08-2026 INTEREST 480693457 - 6,764.63 80,860.48\n20-08-2026 NEFT DR/EAZYDINER 149217555 779.83 - 80,080.65\n23-08-2026 INTEREST 770160647 - 157.11 80,237.76\n26-08-2026 UPI/BIG BAZAAR 530292943 10,109.22 - 70,128.54\n29-08-2026 INTEREST 906814115 - 10,909.86 81,038.40\n01-09-2026 POS/ZEPTO 517359495 2,506.99 - 78,531.41\nClosing Balance : Rs.78,531.41\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m155",
+   "subject": "Karnataka Bank Account Statement - Sep 2026",
+   "body": "Dear Divya,\nPlease find attached your Karnataka Bank XXXXXX9246 statement for the period 17-Aug-2026 to 16-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-17",
+   "attachments": [
+    {
+     "filename": "9246_16092026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karnataka Bank <estatement@ktkbank.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "Karnataka Bank: debit alert on your account",
+   "body": "Your A/c XX9246 is debited for Rs.610.33 on 17-Sep-2026 - UPI AIRTEL PREPAID. Bal Rs.7,543.61. -Karnataka Bank",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "Utkarsh Small Finance Bank: credit alert on your account",
+   "body": "Your A/c xx9282 is credited with Rs.350.09 on 18-Sep-2026 - IMPS. Bal Rs.13,620.26. -Utkarsh Small Finance Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-18",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m158",
+   "subject": "Update your KYC",
+   "body": "Dear Divya,\nAs per RBI guidelines please complete re-KYC for your Suryoday Small Finance Bank relationship. Visit a branch or use the app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-23",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "Utkarsh Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.37,418.17 has been credited to account *9282 on 24-Sep-2026 (UPI). Avl bal Rs.38,703.54.",
+   "date": "2026-09-24",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m160",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.4,054.20 debited from account XXXXXX9282 on 30-Sep-2026. Narration: POS/INDIGO AIRLINES. Available balance Rs.5,913.83.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-09-30",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m161",
+   "subject": "Utkarsh Small Finance Bank Debit Card transaction alert",
+   "body": "POS purchase of Rs.3,171.21 at IXIGO on 30-Sep-2026 with Utkarsh Small Finance Bank Debit Card XX7706.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-09-30",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m162",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.1,523.76 debited from account xx8083 on 01-Oct-2026. Narration: IMPS/OLA CABS. Available balance Rs.9,072.22.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-01",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.214.49 has been debited from your Utkarsh Small Finance Bank A/c xx9282 on 05-Oct-2026 (POS MYNTRA). Avl bal Rs.1,56,895.96.",
+   "date": "2026-10-05",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m164",
+   "subject": "Refer and earn",
+   "body": "Dear Divya,\nGet up to 10% cashback on partner brands.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-06",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "Utkarsh Small Finance Bank Account Statement - Oct 2026",
+   "body": "Dear Divya,\nPlease find attached your Utkarsh Small Finance Bank XXXXXX9282 statement for the period 08-Sep-2026 to 07-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-10-08",
+   "attachments": [
+    {
+     "filename": "eStatement_202610.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Utkarsh SFB <estatement@utkarsh.bank>"
+  },
+  {
+   "id": "m166",
+   "subject": "Utkarsh Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.287.53 has been credited to account *9282 on 13-Oct-2026 (REFUND). Avl bal Rs.2,993.32.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-13",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m167",
+   "subject": "Suryoday Small Finance Bank: debit alert on your account",
+   "body": "Rs.11,222.24 withdrawn from XXXXXX8083 on 13-Oct-2026 via ECOM to BATA INDIA. Closing balance Rs.90,028.46.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-13",
+   "attachments": [],
+   "from": "Suryoday SFB <alerts@suryodaybank.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "Karnataka Bank Account Statement - Oct 2026",
+   "body": "Dear Divya,\nPlease find attached your Karnataka Bank xx9246 statement for the period 17-Sep-2026 to 16-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-17",
+   "attachments": [
+    {
+     "filename": "Karnataka_Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Karnataka Bank <estatement@ktkbank.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Karnataka Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.1,127.06 has been debited from your Karnataka Bank A/c XX9246 on 20-Oct-2026 (NEFT EAZYDINER). Avl bal Rs.20,016.02.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-20",
+   "attachments": [],
+   "from": "Karnataka Bank <alerts@ktkbank.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "Utkarsh Small Finance Bank: debit alert on your account",
+   "body": "Alert: Utkarsh Small Finance Bank A/c XX9282 debited Rs.7,443.07 on 23-Oct-2026. Mode: ECOM. Details: PAYTM. Balance Rs.6,370.14.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-23",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  },
+  {
+   "id": "m171",
+   "subject": "Utkarsh Small Finance Bank: credit alert on your account",
+   "body": "Deposit alert - Rs.5,374.22 received in account *9282 on 30-Oct-2026 (SALARY NEFT) Ref 549295733367.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-30",
+   "attachments": [],
+   "from": "Utkarsh SFB <alerts@utkarsh.bank>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "utkarsh.bank",
+    "last4": "9282",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "utkarsh.bank",
+    "last4": "7706",
+    "kind": "DEBIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "suryodaybank.com",
+    "last4": "8083",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "ktkbank.com",
+    "last4": "9246",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "ktkbank.com",
+    "last4": "8138",
+    "kind": "DEBIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "WEAK",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "idbi.co.in",
+    "last4": "3016",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "4670",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "2256",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "ktkbank.com",
+    "last4": "2052",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "suryodaybank.com",
+    "last4": "0131",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "suryodaybank.com",
+    "last4": "7530",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "ktkbank.com",
+    "last4": "8044",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "suryodaybank.com",
+    "last4": "3514",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "4370",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

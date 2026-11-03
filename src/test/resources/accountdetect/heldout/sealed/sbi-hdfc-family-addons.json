@@ -1,0 +1,3169 @@
+{
+ "mailbox": "sbi-hdfc-family-addons",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,435.67 spent on your SBI Credit Card ending 1450 at IRCTC on 01/08/25. Your available limit is Rs.68,717.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-01",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.321.48 has been debited from account **7007 on 01-08-25 to VPA bigbasket@paytm (UPI Ref No. 841236893971).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-08-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m003",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,<br>\nINR 48,000.00 credited to your A/c XX7007 on 01-08-2025 by SALARY NEFT. Ref 6664911061.<br>\nThank you for banking with us.",
+   "date": "2025-08-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m004",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 6112 for Rs.260.22 at BPCL FUEL on 02-08-2025 at 18:51:30.\nAvailable limit: Rs.3,00,948.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-02",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m005",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.28,930.02 has been debited from account **7007 on 02-08-25 to VPA q976518016@paytm (UPI Ref No. 813521733674).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2025-08-02",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m006",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 5171 was used for INR 311.75 at STARBUCKS on 02 Aug 2025.\nIf you did not authorise this transction, call 1800 267 3456.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-02",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m007",
+   "subject": "Magnus, Atlas and Flipkart Axis Bank cards: lifetime free offers",
+   "body": "Choose from ACE, Magnus, Atlas, Reserve, Airtel Axis Bank cards. Offer reference 7392<br>\nT&C apply.",
+   "date": "2025-08-02",
+   "attachments": [],
+   "from": "Axis Bank <offers@axisbank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Your account statement for August 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 7007 for Aug 2025 is attached. The PDF is protected; password is your Customer ID.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-08-03",
+   "attachments": [
+    {
+     "filename": "Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m009",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card XXXX XXXX XXXX 5171 was used for INR 1,755.38 at BLINKIT on 03 Aug 2025.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-03",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m010",
+   "subject": "Your contract note",
+   "body": "नमस्ते,\nContract note for trades done today is attached. Client ID ZR1589\nT&C apply.",
+   "date": "2025-08-07",
+   "attachments": [],
+   "from": "Zerodha <noreply@zerodha.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.646.12 has been debited from account **7007 on 09-08-25 to VPA paytm.s1@icici (UPI Ref No. 826501587522).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2025-08-09",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m012",
+   "subject": "SBI Card SimplySAVE Credit Card Monthly Statement - Aug 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 1450. Statement date: 12-Aug-2025. Total amount due Rs.9,650.87; minimum Rs.482.54; due 30-Aug-2025.\nSBI/BOB style auto pay available on request.\n\nT&C apply. Visit www.sbicard.com for more details.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Aug2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: ROHIT BANERJEE\nCard No: 4997 18XX XXXX 1450\nCard Type: SimplySAVE\nStatement Date: 12/08/2025\nStatement Period: 13/07/2025 - 12/08/2025\nPayment Due Date: 30/08/2025\nTotal Amount Due: Rs. 9,650.87\nMinimum Amount Due: Rs. 482.54\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 68,167.00\n\nDate        Transaction Details                        Amount (Rs.)\n22/07/2025  URBAN COMPANY KOCHI   5,666.30 Dr\n15/07/2025  HOTSTAR KOCHI   2,092.32 Dr\n05/08/2025  AIRBNB BANGALORE   143.31 Dr\n03/08/2025  BOOKMYSHOW KOCHI   333.68 Dr\n19/07/2025  STARBUCKS PUNE   11,582.20 Dr\n30/07/2025  TATA 1MG HYDERABAD   8,910.62 Dr\n25/07/2025  BPCL FUEL CHENNAI   8,806.63 Dr\n03/08/2025  PAYMENT RECEIVED - THANK YOU   5,790.52 Cr\n\nReward Points Summary: Opening 4639  Earned 721  Closing 8867\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "HDFC Bank Swiggy Credit Card Statement - Aug 2025",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;HDFC&nbsp;Bank Swiggy Credit Card ending 6112 Statement for the period 13/07/2025 to 12/08/2025 is attached.\nTotal Amount Due: Rs. 2,30,249.22\nMinimum Amount Due: Rs. 11,512.46\nPayment Due Date: 30/08/2025\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "6112_12082025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m014",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Rohit Banerjee,<br>\nThe statement of your HSBC Visa Platinum Credit Card **5171 for Aug 2025 is ready. Total due Rs.1,700.14, pay by 30 Aug 2025.<br>\nView it in the app or NetBanking under Cards.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Aug2025.pdf",
+     "protected": false,
+     "pdfText": "HSBC - CREDIT CARD STATEMENT\nName: ROHIT BANERJEE\nCard No: 4280 55XX XXXX 5171\nCard Type: Visa Platinum\nStatement Date: 12/08/2025\nStatement Period: 13/07/2025 - 12/08/2025\nPayment Due Date: 30/08/2025\nTotal Amount Due: Rs. 1,700.14\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,99,538.00\n\nDate        Transaction Details                        Amount (Rs.)\n14/07/2025  APOLLO PHARMACY MUMBAI   4,159.41 Dr\n01/08/2025  REDBUS GURGAON   26,215.06 Dr\n04/08/2025  JIO PREPAID MUMBAI   8,373.72 Dr\n05/08/2025  AMAZON PAY INDIA CHENNAI   1,476.40 Dr\n20/07/2025  MAKEMYTRIP GURGAON   2,036.70 Dr\n25/07/2025  WESTSIDE KOCHI   1,094.33 Dr\n28/07/2025  WESTSIDE GURGAON   14,666.52 Dr\n03/08/2025  PAYMENT RECEIVED - THANK YOU   1,020.08 Cr\n\nReward Points Summary: Opening 5627  Earned 443  Closing 3955\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 7557881905747  IFSC HSBC0000990"
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m015",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.3,187.72 withdrawn using your HDFC Bank Platinum Debit Card ending 3320 at ATM KOCHI on 15-08-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-08-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m016",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;received your payment of Rs.9,650.87 on 24-08-2025 towards your SBI Card Credit Card ending 1450. Thank you.",
+   "date": "2025-08-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "नमस्ते,\nDear Customer,<br>\nYour HSBC Credit Card ending 5171 was used for INR 6,241.44 at SPOTIFY on 26 Aug 2025.<br>\nIf you did not authorise this transaction, call 1800 267 3456.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-08-26",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m018",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Rohit, a gentle nudge: Rs.9,650.87 due on 30 August for card ending 1450. Ignore if already paid. Kripya samay par bhugtan karein.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Rohit, a gentle nudge: Rs.2,30,249.22 due on 30 August for card ending 6112. Ignore if already paid. Kripya samay par bhugtan karein.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m020",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,30,249.22 on 27-08-2025 towards your HDFC Bank Credit Card ending 6112. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m021",
+   "subject": "Payment reminder: HSBC Credit Card ending 5171",
+   "body": "Dear Customer,<br>\nThis is a reminder that Rs.1,700.14 (minimum Rs.200.00) is due on 30-Aug-2025 on your HSBC Credit Card ending 5171. Pay on time to avoid late payment charges.<br>\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m022",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,700.14 on 27-08-2025 towards your HSBC Credit Card ending 5171. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m023",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.29,317.21 spent on your SBI Credit Card ending 1450 at MEDPLUS on 01/09/25. Your available limit is Rs.82,917.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-01",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX7007 on 01-09-2025 by SALARY NEFT. Ref 9162708118.\nThank you for banking with us.",
+   "date": "2025-09-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m025",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Gopal Gupta (A/c no. XXXXXXXX2435, Punjab National Bank) has been added to your account XX7007 on 02-09-2025. It will be active after a cooling period of 30 minutes.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-02",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m026",
+   "subject": "NEFT funds transfer alert",
+   "body": "Dear Customer,\nRs.15,261.01 has been debited from account **7007 on 02-09-25 to Vikram Joshi A/c no. XXXXXXXX2670 (ICICI Bank), NEFT Ref 254753528214.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nT&C apply. Visit www.hdfcbank.net for more details.\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2025-09-02",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m027",
+   "subject": "Your account statement for September 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c XX7007 for Sep 2025 is attached. The PDF is protected; password is your Customer ID.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-09-03",
+   "attachments": [
+    {
+     "filename": "Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m028",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour HDFC Bank Platinum Debit Card ending 3320 was used for Rs.500.00 at HOTSTAR on 03-Sep-2025.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-09-03",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m029",
+   "subject": "SBI Card SimplySAVE Credit Card Monthly Statement - Sep 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement XXXX XXXX XXXX 1450. Statement date: 12-Sep-2025. Total amount due Rs.2,557.34; minimum Rs.200.00; due 30-Sep-2025.\nSBI/BOB style auto pay available on request.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Sep2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: ROHIT BANERJEE\nCard No: 4705 86XX XXXX 1450\nStatement Date: 12/09/2025\nStatement Period: 13/08/2025 - 12/09/2025\nPayment Due Date: 30/09/2025\nTotal Amount Due: Rs. 2,557.34\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,80,229.00\n\nDate        Transaction Details                        Amount (Rs.)\n30/08/2025  TATA 1MG GURGAON   29,205.18 Dr\n18/08/2025  RELIANCE SMART BANGALORE   440.00 Dr\n23/08/2025  IRCTC BANGALORE   640.41 Dr\n21/08/2025  MEDPLUS CHENNAI   1,676.83 Dr\n23/08/2025  OLA CABS CHENNAI   345.25 Dr\n20/08/2025  SPOTIFY HYDERABAD   128.94 Dr\n30/08/2025  BATA INDIA BANGALORE   3,219.35 Dr\n03/09/2025  PAYMENT RECEIVED - THANK YOU   1,534.40 Cr\n\nReward Points Summary: Opening 6051  Earned 172  Closing 538\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 7334393212292  IFSC SBI 0000854"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "HDFC Bank Swiggy Credit Card Statement - Sep 2025",
+   "body": "Dear Customer,<br>\nYour HDFC Bank Swiggy Credit Card ending 6112 Statement for the period 13/08/2025 to 12/09/2025 is attached.<br>\nTotal Amount Due: Rs. 9,498.29\nMinimum Amount Due: Rs. 474.91\nPayment Due Date: 30/09/2025\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m031",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Rohit Banerjee,\nThe statement of your HSBC Visa Platinum Credit Card no. XXXXXXXXXXXX5171 for Sep 2025 is ready. Total due Rs.17,426.36, pay by 30 Sep 2025.\nView it in the app or NetBanking under Cards.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Sep2025.pdf",
+     "protected": false,
+     "pdfText": "HSBC - CREDIT CARD STATEMENT\nName: ROHIT BANERJEE\nCard No: 4750 28XX XXXX 5171\nCard Type: Visa Platinum\nStatement Date: 12/09/2025\nStatement Period: 13/08/2025 - 12/09/2025\nPayment Due Date: 30/09/2025\nTotal Amount Due: Rs. 17,426.36\nMinimum Amount Due: Rs. 871.32\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,23,133.00\n\nDate        Transaction Details                        Amount (Rs.)\n19/08/2025  INDIGO AIRLINES GURGAON   204.72 Dr\n08/09/2025  URBAN COMPANY MUMBAI   1,159.78 Dr\n05/09/2025  AIRBNB KOCHI   23,988.12 Dr\n03/09/2025  LENSKART HYDERABAD   3,153.23 Dr\n03/09/2025  PAYMENT RECEIVED - THANK YOU   10,455.82 Cr\n\nReward Points Summary: Opening 8475  Earned 653  Closing 2095\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 7557881905747  IFSC HSBC0000248"
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m032",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.3,193.70 has been debited from account **7007 on 15-09-25 to VPA bigbasket@paytm (UPI Ref No. 508367192546).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2025-09-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m033",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card no. XXXXXXXXXXXX5171 was used for INR 1,274.07 at BPCL FUEL on 16 Sep 2025.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-16",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m034",
+   "subject": "NEFT funds transfer alert",
+   "body": "Dear Customer,\nRs.10,000.00 has been debited from account **7007 on 16-09-25 to Kamla Banerjee A/c no. XXXXXXXX1342 (State Bank of India), NEFT Ref 179326487076.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2025-09-16",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m035",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.6,792.86 has been debited from account **7007 on 18-09-25 to VPA q425004875@paytm (UPI Ref No. 491961111910).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-18",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m036",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 5171 was used for INR 12,129.47 at ZEPTO on 21 Sep 2025.\nIf you did not authorise this transaction, call 1800 267 3456.",
+   "date": "2025-09-21",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m037",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transaction of Rs.8,194.46 on card ending 5171 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nT&C apply. Visit www.hsbc.co.in for more details.",
+   "date": "2025-09-22",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m038",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.9,498.29 on 24-09-2025 towards your HDFC Bank Credit Card no. XXXXXXXXXXXX6112. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-09-24",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m039",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 5171 was used for INR 8,450.35 at DMART on 24 Sep 2025.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-24",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m040",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear&nbsp;Card&nbsp;Member,\nThank&nbsp;you for using your HDFC Bank Credit Card ending 6112 for Rs.3,150.71 at LICIOUS on 25-09-2025 at 20:50:39.\nAvailable limit: Rs.1,23,290.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m041",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Rohit, a gentle nudge: Rs.2,557.34 due on 30 September for card ending 1450. Ignore if already paid. Kripya samay par bhugtan karein.<br>\n<br>\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Payment reminder: HDFC Bank Credit Card no. XXXXXXXXXXXX6112",
+   "body": "Dear Customer,\nThis is a reminder that Rs.9,498.29 (minimum Rs.474.91) is due on 30-Sep-2025 on your HDFC Bank Credit Card no. XXXXXXXXXXXX6112. Pay on time to avoid late payment charges.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m043",
+   "subject": "Payment reminder: HSBC Credit Card ending 5171",
+   "body": "Dear Customer,\nThis is a reminder that Rs.17,426.36 (minimum Rs.871.32) is due on 30-Sep-2025 on your HSBC Credit Card ending 5171. Pay on time to avoid late payment charges.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m044",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.17,426.36 on 28-09-2025 towards your HSBC Credit Card ending 5171. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-09-28",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m045",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.2,557.34 on 29-09-2025 towards your SBI Card Credit Card ending 1450. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-29",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.595.22 spent on your SBI Add-on Credit Card XX9904 at BLINKIT on 01/10/25. Your available limit is Rs.32,281.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-01",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card xx6112 for Rs.4,215.96 at RELIANCE SMART on 01-10-2025 at 15:03:35.\nAvailable limit: Rs.2,82,381.00\nIf you have not done this transction, please call us immediately on the number given on your card.",
+   "date": "2025-10-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m048",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.3,213.88 has been debited from account **7007 on 01-10-25 to VPA q786575825@paytm (UPI Ref No. 412871781242).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2025-10-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m049",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 65,000.00 credited to your A/c XX7007 on 01-10-2025 by SALARY NEFT. Ref 8712108372.\nThank you for banking with us.",
+   "date": "2025-10-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m050",
+   "subject": "Your SBI Card SimplySAVE Credit Card is on its way",
+   "body": "Dear Rohit Banerjee,\nCongratulations! Your SBI Card SimplySAVE Credit Card ending 9904 has been dispatched via Blue Dart, AWB 13096750514. Expected delivery in 3-5 working days.\nKindly find the welcome kit attached.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-02",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Your account statement for October 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c XXXX XXXX XXXX 7007 for Oct 2025 is attached. The PDF is protected; password is your Customer ID.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-03",
+   "attachments": [
+    {
+     "filename": "Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m052",
+   "subject": "Add-on card issued",
+   "body": "नमस्ते,\nDear Rohit Banerjee,\nAs requested, an add-on card for Vikram Banerjee has been issued on your SBI Card SimplySAVE Credit Card (primary card ending 1450). The add-on card ending 9904 will reach the address on record. Spends on the add-on card are billed to your primary statement.",
+   "date": "2025-10-04",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card xx5171 has been processed. Tenure 9 months. First EMI will appear on your next statement.\n\nT&C apply. Visit www.hsbc.co.in for more details.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-10-05",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m054",
+   "subject": "SI funds transfer alert",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.35,000.00 has been debited from account **7007 on 05-10-25 to Gopal Gupta A/c no. XXXXXXXX2435 (Punjab National Bank), SI Ref 268354786518.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m055",
+   "subject": "Your card has been delivered",
+   "body": "Dear Customer,<br>\nYour card ending 9904 was delivered on 06-10-2025. Activate it using the app to start spending.<br>\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-10-06",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Card activated / PIN set successfully",
+   "body": "Dear Customer,<br>\nYour card ending 9904 is now active. PIN has been set successfully on 08/10/2025.<br>\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-08",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Rohit Banerjee,\nPlease find attached the updated MITC and Terms & Conditions applicable to your SBI Card SimplySAVE Credit Card. These are effective from the next billing cycle.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-10-09",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank at its discretion. The Cardholder shall not exceed the credit limit.\n3. Billing: An account statement is generated monthly and sent to the registered email address. The Cardholder should review the account statement and report discrepancies within 60 days.\n4. Interest: Finance charges apply on revolving balances up to 3.6% per month. 5. Payment: Minimum amount due must be paid on or before the due date. 6. Lost card: report immediately. 7. Grievance redressal and Ombudsman details are available on the website."
+    },
+    {
+     "filename": "Credit_Card_Terms_and_Conditions.pdf",
+     "protected": false,
+     "pdfText": "SBI Card Credit Card Cardmember Agreement\nThis agreement governs the use of the card. The credit limit may be increased or reduced with notice. The monthly account statement is deemed accepted unless disputed. Card is the property of the Bank. Applicable law: India. Arbitration at Mumbai. Authorised signatory. For queries contact the customer care number printed on your account statement."
+    }
+   ],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.418.43 spent on your SBI Credit Card ending 1450 at TATA 1MG on 11/10/25. Your available limit is Rs.2,25,021.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-10-11",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Add-on card activated",
+   "body": "The add-on card ending 9904 is now activated. Set PIN in app.",
+   "date": "2025-10-11",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "नमस्ते,\nDear Customer,\nRs.215.24 has been debited from account **7007 on 11-10-25 to VPA irctcweb@okhdfcbank (UPI Ref No. 461744284188).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-10-11",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m061",
+   "subject": "SBI Card SimplySAVE Credit Card Monthly Statement - Oct 2025",
+   "body": "नमस्ते,\nDear Cardholder,\nPlease find enclosed your monthly statement ending 1450. Statement date: 12-Oct-2025. Total amount due Rs.1,439.71; minimum Rs.200.00; due 30-Oct-2025.\nSBI/BOB style auto pay available on request.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Oct2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: ROHIT BANERJEE\nCredit Card Number: XXXX XXXX XXXX 1450\nCard Type: SimplySAVE\nStatement Date: 12/10/2025\nStatement Period: 12/09/2025 - 12/10/2025\nPayment Due Date: 30/10/2025\nTotal Amount Due: Rs. 1,439.71\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,16,703.00\n\nDate        Transaction Details                        Amount (Rs.)\n18/09/2025  BIGBASKET PUNE   28,373.18 Dr\n02/10/2025  MEDPLUS CHENNAI   2,143.95 Dr\n08/10/2025  STARBUCKS HYDERABAD   643.37 Dr\n22/09/2025  BLINKIT HYDERABAD   3,575.68 Dr\n23/09/2025  AIRBNB GURGAON   2,704.79 Dr\n19/09/2025  UBER INDIA HYDERABAD   8,468.87 Dr\n15/09/2025  OLA CABS GURGAON   476.96 Dr\n03/10/2025  PAYMENT RECEIVED - THANK YOU   863.83 Cr\n\nReward Points Summary: Opening 6917  Earned 845  Closing 8268\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "HDFC Bank Swiggy Credit Card Statement - Oct 2025",
+   "body": "Dear Customer,\nYour HDFC Bank Swiggy Credit Card XXXX XXXX XXXX 6112 Statement for the period 12/09/2025 to 12/10/2025 is attached.\nTotal Amount Due: Rs. 2,496.61\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/10/2025\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m063",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Rohit Banerjee,\nThe statement of your HSBC Visa Platinum Credit Card ending 5171 for Oct 2025 is ready. Total due Rs.3,369.25, pay by 30 Oct 2025.\nView it in the app or NetBanking under Cards.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Oct2025.pdf",
+     "protected": false,
+     "pdfText": "HSBC - CREDIT CARD STATEMENT\nName: ROHIT BANERJEE\nCard No: 4880 61XX XXXX 5171\nStatement Date: 12/10/2025\nStatement Period: 12/09/2025 - 12/10/2025\nPayment Due Date: 30/10/2025\nTotal Amount Due: Rs. 3,369.25\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,47,822.00\n\nDate        Transaction Details                        Amount (Rs.)\n29/09/2025  DMART PUNE   1,856.33 Dr\n25/09/2025  AMAZON PAY INDIA PUNE   5,096.23 Dr\n23/09/2025  SHELL PETROL BANGALORE   2,447.07 Dr\n13/09/2025  AMAZON PAY INDIA BANGALORE   37,985.24 Dr\n16/09/2025  BATA INDIA PUNE   2,257.67 Dr\n06/10/2025  LENSKART HYDERABAD   485.19 Dr\n29/09/2025  BPCL FUEL CHENNAI   37,993.60 Dr\n03/10/2025  PAYMENT RECEIVED - THANK YOU   2,021.55 Cr\n\nReward Points Summary: Opening 6889  Earned 412  Closing 3207\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 7557881905747  IFSC HSBC0000698"
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m064",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.2,523.15 has been debited from account **7007 on 16-10-25 to VPA irctcweb@okhdfcbank (UPI Ref No. 380219297077).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2025-10-16",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m065",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour HDFC Bank Platinum Debit Card ending 3320 was used for Rs.26,793.19 at HOTSTAR on 16-Oct-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2025-10-16",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m066",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your HSBC Visa Platinum Credit Card ending 5171 has been increased to Rs.2,00,000.00 effective 17-10-2025.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-17",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m067",
+   "subject": "Pay your bills and earn on Regalia Gold Credit Card",
+   "body": "Apply now for Regalia Gold, Millennia or Swiggy HDFC Bank Credit Card. Pre-approved. Offer code 4895\nT&C apply.",
+   "date": "2025-10-17",
+   "attachments": [],
+   "from": "HDFC Bank <offers@hdfcbank.net>"
+  },
+  {
+   "id": "m068",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,439.71 on 22-10-2025 towards your SBI Card Credit Card ending 1450. Thank you.",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,<br>\nYour HSBC Credit Card ending 5171 was used for INR 39,309.80 at APOLLO PHARMACY on 22 Oct 2025.<br>\nIf you did not authorise this transaction, call 1800 267 3456.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m070",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.2,496.61 on 25-10-2025 towards your HDFC Bank Credit Card ending 6112. Thank you.<br>\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-10-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m071",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.34,514.05 has been debited from account **7007 on 25-10-25 to VPA paytm.s1@okhdfcbank (UPI Ref No. 900767236278).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-10-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m072",
+   "subject": "Your contract note",
+   "body": "Contract note for trades done today is attached. Client ID ZR2500\nT&C apply.",
+   "date": "2025-10-25",
+   "attachments": [],
+   "from": "Zerodha <noreply@zerodha.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Payment reminder: HDFC Bank Credit Card XX6112",
+   "body": "Dear&nbsp;Customer,\nThis&nbsp;is&nbsp;a reminder that Rs.2,496.61 (minimum Rs.200.00) is due on 30-Oct-2025 on your HDFC Bank Credit Card XX6112. Pay on time to avoid late payment charges.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m074",
+   "subject": "Payment reminder: HSBC Credit Card ending 5171",
+   "body": "Dear Customer,\nThis is a reminder that Rs.3,369.25 (minimum Rs.200.00) is due on 30-Oct-2025 on your HSBC Credit Card ending 5171. Pay on time to avoid late payment charges.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m075",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.3,369.25 on 29-10-2025 towards your HSBC Credit Card ending 5171. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. HSBC will never ask for these.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-10-29",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m076",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX7007 on 01-11-2025 by SALARY NEFT. Ref 8025145450.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m077",
+   "subject": "Your HDFC Bank Swiggy Credit Card is on its way",
+   "body": "Dear Rohit Banerjee,\nCongratulations! Your HDFC Bank Swiggy Credit Card ending 8250 has been dispatched via Blue Dart, AWB 17214760194. Expected delivery in 3-5 working days.\nKindly find the welcome kit attached.",
+   "date": "2025-11-02",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m078",
+   "subject": "Your account statement for November 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 7007 for Nov 2025 is attached. The PDF is protected; password is your Customer ID.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-03",
+   "attachments": [
+    {
+     "filename": "Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m079",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 6112 for Rs.34,919.23 at JIO PREPAID on 04-11-2025 at 08:05:31.\nAvailable limit: Rs.2,06,150.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m080",
+   "subject": "Add-on card issued",
+   "body": "Dear Rohit Banerjee,\nAs requested, an add-on card for Suresh Banerjee has been issued on your HDFC Bank Swiggy Credit Card (primary card xx6112). The add-on card XXXX XXXX XXXX 8250 will reach the address on record. Spends on the add-on card are billed to your primary statement.",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m081",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.36,361.50 has been debited from account **7007 on 04-11-25 to VPA bigbasket@okaxis (UPI Ref No. 586943274683).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m082",
+   "subject": "OTP for online transaction",
+   "body": "373321 is the One Time Password (OTP) for your online transaction of INR 502.36 at AIRBNB. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m083",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Add-on Credit Card ending 8250 for Rs.325.94 at THIRD WAVE COFFEE on 05-11-2025 at 02:11:54.\nAvailable limit: Rs.2,48,513.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2025-11-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m084",
+   "subject": "SI funds transfer alert",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.35,000.00 has been debited from account **7007 on 05-11-25 to Gopal Gupta A/c no. XXXXXXXX2435 (Punjab National Bank), SI Ref 279751341658.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-11-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m085",
+   "subject": "Your card has been delivered",
+   "body": "Dear Customer,\nYour card ending 8250 was delivered on 06-11-2025. Activate it using the app to start spending.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-11-06",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m086",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.879.22 has been debited from account **7007 on 07-11-25 to VPA zomato@okhdfcbank (UPI Ref No. 699317960232).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-07",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m087",
+   "subject": "Card activated / PIN set successfully",
+   "body": "Dear Customer,\nYour card **8250 is now active. PIN has been set sucessfully on 08/11/2025.\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2025-11-08",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m088",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.551.91 spent on your SBI Add-on Credit Card ending 9904 at LENSKART on 09/11/25. Your availble limit is Rs.3,57,612.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-11-09",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Add-on card activated",
+   "body": "The add-on card ending 8250 is now activated. Set PIN in app.",
+   "date": "2025-11-11",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m090",
+   "subject": "SBI Card SimplySAVE Credit Card Monthly Statement - Nov 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement **1450. Statement date: 12-Nov-2025. Total amount due Rs.1,34,913.83; minimum Rs.6,745.69; due 30-Nov-2025.\nSBI/BOB style auto pay available on request.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: ROHIT BANERJEE\nCard No: 4965 13XX XXXX 1450\nCard Type: SimplySAVE\nStatement Date: 12/11/2025\nStatement Period: 13/10/2025 - 12/11/2025\nPayment Due Date: 30/11/2025\nTotal Amount Due: Rs. 1,34,913.83\nMinimum Amount Due: Rs. 6,745.69\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,10,781.00\n\nDate        Transaction Details                        Amount (Rs.)\n23/10/2025  DECATHLON KOCHI   36,332.85 Dr\n28/10/2025  BIGBASKET KOCHI   4,348.03 Dr\n28/10/2025  BOOKMYSHOW BANGALORE   1,864.45 Dr\n06/11/2025  TATA 1MG KOCHI   7,346.45 Dr\n03/11/2025  PAYMENT RECEIVED - THANK YOU   80,948.30 Cr\n\nReward Points Summary: Opening 4860  Earned 353  Closing 4615\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 7334393212292  IFSC SBI 0000239"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "HDFC Bank Swiggy Credit Card Statement - Nov 2025",
+   "body": "Dear Customer,\nYour HDFC Bank Swiggy Credit Card ending 6112 Statement for the period 13/10/2025 to 12/11/2025 is attached.\nTotal Amount Due: Rs. 7,411.03\nMinimum Amount Due: Rs. 370.55\nPayment Due Date: 30/11/2025\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m092",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear&nbsp;Rohit&nbsp;Banerjee,\nThe&nbsp;statement of your HSBC Visa Platinum Credit Card ending 5171 for Nov 2025 is ready. Total due Rs.1,907.27, pay by 30 Nov 2025.\nView it in the app or NetBanking under Cards.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "HSBC - CREDIT CARD STATEMENT\nName: ROHIT BANERJEE\nCredit Card Number: XXXX XXXX XXXX 5171\nCard Type: Visa Platinum\nStatement Date: 12/11/2025\nStatement Period: 13/10/2025 - 12/11/2025\nPayment Due Date: 30/11/2025\nTotal Amount Due: Rs. 1,907.27\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,00,620.00\n\nDate        Transaction Details                        Amount (Rs.)\n29/10/2025  BPCL FUEL PUNE   14,869.18 Dr\n30/10/2025  THIRD WAVE COFFEE BANGALORE   3,555.24 Dr\n31/10/2025  BIGBASKET BANGALORE   398.39 Dr\n05/11/2025  RELIANCE SMART KOCHI   7,091.68 Dr\n30/10/2025  INDIGO AIRLINES GURGAON   3,663.26 Dr\n13/10/2025  GOOGLE PLAY MUMBAI   5,789.30 Dr\n03/11/2025  PAYMENT RECEIVED - THANK YOU   1,144.36 Cr\n\nReward Points Summary: Opening 6302  Earned 197  Closing 7769\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m093",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 5171 was used for INR 448.89 at WESTSIDE on 14 Nov 2025.\nIf you did not authorise this transction, call 1800 267 3456.\n\nNever share your OTP, PIN, CVV or password with anyone. HSBC will never ask for these.",
+   "date": "2025-11-14",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m094",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.34,510.00 spent on your SBI Add-on Credit Card ending 9904 at STARBUCKS on 16/11/25. Your available limit is Rs.96,123.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-16",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Add-on Credit Card no. XXXXXXXXXXXX8250 for Rs.2,503.25 at APOLLO PHARMACY on 16-11-2025 at 08:37:05.\nAvailable limit: Rs.2,15,330.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-11-16",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m096",
+   "subject": "NEFT funds transfer alert",
+   "body": "Dear Customer,\nRs.10,000.00 has been debited from account **7007 on 16-11-25 to Kamla Banerjee A/c no. XXXXXXXX1342 (State Bank of India), NEFT Ref 860288091064.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-11-16",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m097",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,<br>\nYour HSBC Credit Card ending 5171 was used for INR 5,031.87 at CROMA on 17 Nov 2025.<br>\nIf you did not authorise this transaction, call 1800 267 3456.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-17",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m098",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;HSBC&nbsp;Credit Card ending 5171 was used for INR 27,746.03 at HOTSTAR on 24 Nov 2025.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nNever share your OTP, PIN, CVV or password with anyone. HSBC will never ask for these.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-24",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m099",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,<br>\nRs.5,477.24 spent on your SBI Credit Card ending 1450 at HOTSTAR on 25/11/25. Your available limit is Rs.1,66,441.00.<br>\nContact 1860 180 1290 if this transaction was not done by you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 7180 reward points on your SBI Card SimplySAVE Credit Card ending 1450. Redeem them on the rewards portal before they expire.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 6353 reward points on your HDFC Bank Swiggy Credit Card XXXX XXXX XXXX 6112. Redeem them on the rewards portal before they expire.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m102",
+   "subject": "Your reward points summary",
+   "body": "Dear&nbsp;Customer,\nYou&nbsp;have&nbsp;7192 reward points on your HSBC Visa Platinum Credit Card ending 5171. Redeem them on the rewards portal before they expire.\n\nThis is a system generated email. Please do not reply to this message.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m103",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour HDFC Bank Platinum Debit Card ending 3320 was used for Rs.500.00 at REDBUS on 26-Nov-2025.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-11-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m104",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Rohit, a gentle nudge: Rs.1,34,913.83 due on 30 November for card ending 1450. Ignore if already paid. Kripya samay par bhugtan karein.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,907.27 on 27-11-2025 towards your HSBC Credit Card ending 5171. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m106",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,34,913.83 on 28-11-2025 towards your SBI Card Credit Card ending 1450. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-28",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,202.83 spent on your SBI Add-on Credit Card ending 9904 at LICIOUS on 28/11/25. Your available limit is Rs.68,337.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-11-28",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.7,411.03 on 29-11-2025 towards your HDFC Bank Credit Card ending 6112. Thank you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-11-29",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m109",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,<br>\nINR 65,000.00 credited to your A/c XX7007 on 01-12-2025 by SALARY NEFT. Ref 6354556924.<br>\nThank you for banking with us.",
+   "date": "2025-12-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m110",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "नमस्ते,\nDear Cardholder,\nRs.8,374.20 spent on your SBI Credit Card ending 1450 at SPOTIFY on 03/12/25. Your available limit is Rs.48,848.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-03",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "नमस्ते,\nDear Customer,\nRs.607.05 has been debited from account **7007 on 03-12-25 to VPA paytm.s1@ybl (UPI Ref No. 215803696548).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2025-12-03",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m112",
+   "subject": "Your account statement for December 2025",
+   "body": "नमस्ते,\nDear Customer,<br>\nYour e-statement for A/c ending 7007 for Dec 2025 is attached. The PDF is protected; password is your Customer ID.<br>\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-12-03",
+   "attachments": [
+    {
+     "filename": "Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m113",
+   "subject": "Standing instruction executed",
+   "body": "Dear&nbsp;Customer,<br>\nStanding&nbsp;Instruction&nbsp;executed: Rs.35,000.00 has been debited from account **7007 on 05-12-25 to Gopal Gupta A/c no. XXXXXXXX2435 (Punjab National Bank), SI Ref 848843632791.<br>\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m114",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Add-on Credit Card ending 8250 for Rs.10,990.57 at LICIOUS on 07-12-2025 at 19:25:45.\nAvailable limit: Rs.2,89,306.00\nIf you have not done this transction, please call us immediately on the number given on your card.\n\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2025-12-07",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m115",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.1,908.18 has been debited from account **7007 on 08-12-25 to VPA zomato@okhdfcbank (UPI Ref No. 621265757986).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nThis is a system generated email. Please do not reply to this message.\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2025-12-08",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m116",
+   "subject": "SBI Card SimplySAVE Credit Card Monthly Statement - Dec 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement xx1450. Statement date: 12-Dec-2025. Total amount due Rs.1,31,333.52; minimum Rs.6,566.68; due 30-Dec-2025.\nSBI/BOB style auto pay available on request.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Dec2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: ROHIT BANERJEE\nCard No: 4517 32XX XXXX 1450\nCard Type: SimplySAVE\nStatement Date: 12/12/2025\nStatement Period: 12/11/2025 - 12/12/2025\nPayment Due Date: 30/12/2025\nTotal Amount Due: Rs. 1,31,333.52\nMinimum Amount Due: Rs. 6,566.68\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,27,869.00\n\nDate        Transaction Details                        Amount (Rs.)\n04/12/2025  BOOKMYSHOW CHENNAI   827.81 Dr\n01/12/2025  BLINKIT KOCHI   225.24 Dr\n20/11/2025  BLINKIT PUNE   541.19 Dr\n02/12/2025  ZEPTO PUNE   8,275.20 Dr\n13/11/2025  BATA INDIA MUMBAI   6,981.59 Dr\n13/11/2025  CROMA KOCHI   6,454.23 Dr\n03/12/2025  PAYMENT RECEIVED - THANK YOU   78,800.11 Cr\n\nReward Points Summary: Opening 566  Earned 642  Closing 6798\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "HDFC Bank Swiggy Credit Card Statement - Dec 2025",
+   "body": "Dear Customer,\nYour HDFC Bank Swiggy Credit Card ending 6112 Statement for the period 12/11/2025 to 12/12/2025 is attached.\nTotal Amount Due: Rs. 1,029.68\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/12/2025\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m118",
+   "subject": "Your HSBC Visa Platinum Credit Card statement is ready",
+   "body": "Dear Rohit Banerjee,\nThe statement of your HSBC Visa Platinum Credit Card XX5171 for Dec 2025 is ready. Total due Rs.1,889.90, pay by 30 Dec 2025.\nView it in the app or NetBanking under Cards.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Dec2025.pdf",
+     "protected": false,
+     "pdfText": "HSBC - CREDIT CARD STATEMENT\nName: ROHIT BANERJEE\nCard No: 4250 91XX XXXX 5171\nStatement Date: 12/12/2025\nStatement Period: 12/11/2025 - 12/12/2025\nPayment Due Date: 30/12/2025\nTotal Amount Due: Rs. 1,889.90\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,20,619.00\n\nDate        Transaction Details                        Amount (Rs.)\n26/11/2025  HOTSTAR MUMBAI   40,452.81 Dr\n20/11/2025  AMAZON PAY INDIA HYDERABAD   610.96 Dr\n30/11/2025  NETFLIX.COM KOCHI   3,016.66 Dr\n14/11/2025  BIGBASKET BANGALORE   7,491.14 Dr\n18/11/2025  RELIANCE SMART HYDERABAD   1,804.83 Dr\n08/12/2025  INDIGO AIRLINES HYDERABAD   274.37 Dr\n22/11/2025  HOTSTAR HYDERABAD   413.28 Dr\n23/11/2025  UBER INDIA BANGALORE   24,683.37 Dr\n03/12/2025  PAYMENT RECEIVED - THANK YOU   1,133.94 Cr\n\nReward Points Summary: Opening 2070  Earned 863  Closing 1148\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m119",
+   "subject": "OTP for online transaction",
+   "body": "916482 is the One Time Password (OTP) for your online transaction of INR 21,319.88 at INDIGO AIRLINES. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-12-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m120",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.19,552.33 has been debited from account **7007 on 15-12-25 to VPA q750148763@okhdfcbank (UPI Ref No. 129130725843).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m121",
+   "subject": "We have processed your request",
+   "body": "Dear Rohit Banerjee,\nAs requested, we have processed your request to discontinue your HSBC Visa Platinum Credit Card ending 5171. Outstanding is Rs.0.00. Please destroy the card by cutting it diagonally. Any recurring merchant instructions on this card will stop working. We're sorry to see you go.\n\nNever share your OTP, PIN, CVV or password with anyone. HSBC will never ask for these.",
+   "date": "2025-12-20",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m122",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.2,000.00 withdrawn using your HDFC Bank Platinum Debit Card **3320 at ATM KOCHI on 21-12-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-21",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m123",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 5171 was used for INR 2,263.06 at HOTSTAR on 23 Dec 2025.\nIf you did not authorise this transction, call 1800 267 3456.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-23",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m124",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.470.85 spent on your SBI Add-on Credit Card ending 9904 at SHELL PETROL on 25/12/25. Your available limit is Rs.30,643.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.647.80 has been debited from account **7007 on 25-12-25 to VPA merchant@okaxis (UPI Ref No. 154810240728).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m126",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,889.90 on 25-12-2025 towards your HSBC Credit Card ending 5171. Thank you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m127",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,029.68 on 26-12-2025 towards your HDFC Bank Credit Card ending 6112. Thank you.",
+   "date": "2025-12-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m128",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 5171 was used for INR 473.28 at BIGBASKET on 26 Dec 2025.\nIf you did not authorise this transaction, call 1800 267 3456.\n\nT&C apply. Visit www.hsbc.co.in for more details.",
+   "date": "2025-12-26",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m129",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 6112 for Rs.2,853.27 at ZEPTO on 27-12-2025 at 00:43:20.\nAvailable limit: Rs.1,80,880.00\nIf you have not done this transction, please call us immediately on the number given on your card.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m130",
+   "subject": "Payment reminder: HDFC Bank Credit Card ending 6112",
+   "body": "Dear Customer,\nThis is a reminder that Rs.1,029.68 (minimum Rs.200.00) is due on 30-Dec-2025 on your HDFC Bank Credit Card ending 6112. Pay on time to avoid late payment charges.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m131",
+   "subject": "Payment reminder: HSBC Credit Card ending 5171",
+   "body": "Dear Customer,<br>\nThis is a reminder that Rs.1,889.90 (minimum Rs.200.00) is due on 30-Dec-2025 on your HSBC Credit Card ending 5171. Pay on time to avoid late payment charges.<br>\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m132",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 6112 for Rs.2,520.84 at NETFLIX.COM on 28-12-2025 at 07:36:37.\nAvailable limit: Rs.97,685.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m133",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nYour HSBC Credit Card ending 5171 was used for INR 8,418.16 at HOTSTAR on 28 Dec 2025.\nIf you did not authorise this transction, call 1800 267 3456.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m134",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX7007 on 01-01-2026 by SALARY NEFT. Ref 7455722335.\nThank you for banking with us.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-01-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m135",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.406.69 has been debited from account **7007 on 02-01-26 to VPA zomato@ybl (UPI Ref No. 272271524644).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-02",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m136",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,<br>\nYour HDFC Bank Platinum Debit Card no. XXXXXXXXXXXX3320 was used for Rs.10,405.85 at URBAN COMPANY on 02-Jan-2026.",
+   "date": "2026-01-02",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m137",
+   "subject": "Your account statement for January 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 7007 for Jan 2026 is attached. The PDF is protected; password is your Customer ID.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-01-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m138",
+   "subject": "SI funds transfer alert",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.35,000.00 has been debited from account **7007 on 05-01-26 to Gopal Gupta A/c no. XXXXXXXX2435 (Punjab National Bank), SI Ref 822499195856.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m139",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Add-on Credit Card ending 8250 for Rs.463.08 at AIRBNB on 07-01-2026 at 10:52:01.\nAvailable limit: Rs.3,70,864.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2026-01-07",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m140",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.190.79 spent on your SBI Credit Card ending 1450 at SPOTIFY on 11/01/26. Your available limit is Rs.3,26,754.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-11",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "SBI Card SimplySAVE Credit Card Monthly Statement - Jan 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement xx1450. Statement date: 12-Jan-2026. Total amount due Rs.9,859.54; minimum Rs.492.98; due 30-Jan-2026.\nSBI/BOB style auto pay available on request.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jan2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: ROHIT BANERJEE\nCard No: 4400 80XX XXXX 1450\nCard Type: SimplySAVE\nStatement Date: 12/01/2026\nStatement Period: 13/12/2025 - 12/01/2026\nPayment Due Date: 30/01/2026\nTotal Amount Due: Rs. 9,859.54\nMinimum Amount Due: Rs. 492.98\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,93,698.00\n\nDate        Transaction Details                        Amount (Rs.)\n22/12/2025  BIGBASKET CHENNAI   1,289.78 Dr\n02/01/2026  SHELL PETROL PUNE   21,554.31 Dr\n09/01/2026  RELIANCE SMART BANGALORE   18,853.09 Dr\n30/12/2025  BPCL FUEL HYDERABAD   4,829.40 Dr\n13/12/2025  SHELL PETROL BANGALORE   8,673.21 Dr\n03/01/2026  PAYMENT RECEIVED - THANK YOU   5,915.72 Cr\n\nReward Points Summary: Opening 2492  Earned 156  Closing 7703\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "HDFC Bank Swiggy Credit Card Statement - Jan 2026",
+   "body": "Dear Customer,\nYour HDFC Bank Swiggy Credit Card ending 6112 Statement for the period 13/12/2025 to 12/01/2026 is attached.\nTotal Amount Due: Rs. 1,69,247.68\nMinimum Amount Due: Rs. 8,462.38\nPayment Due Date: 30/01/2026\nThe statment is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m143",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,69,247.68 on 24-01-2026 towards your HDFC Bank Credit Card ending 6112. Thank you.",
+   "date": "2026-01-24",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m144",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear&nbsp;Customer,\nRs.2,245.15&nbsp;has&nbsp;been debited from account **7007 on 24-01-26 to VPA paytm.s1@icici (UPI Ref No. 965093789700).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-01-24",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m145",
+   "subject": "IMPS funds transfer alert",
+   "body": "नमस्ते,\nDear Customer,\nRs.10,000.00 has been debited from account **7007 on 25-01-26 to Kamla Banerjee A/c no. XXXXXXXX1342 (State Bank of India), IMPS Ref 188026900995.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2026-01-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m146",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.137.55 spent on your SBI Add-on Credit Card ending 9904 at LICIOUS on 26/01/26. Your available limit is Rs.3,50,293.00.\nContact 1860 180 1290 if this transction was not done by you.",
+   "date": "2026-01-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Rohit, a gentle nudge: Rs.9,859.54 due on 30 January for card XX1450. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.9,859.54 on 27-01-2026 towards your SBI Card Credit Card ending 1450. Thank you.\n\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,<br>\nThank you for using your HDFC Bank Credit Card ending 6112 for Rs.2,808.70 at CROMA on 28-01-2026 at 06:52:44.<br>\nAvailable limit: Rs.2,00,188.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-28",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m150",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX7007 on 01-02-2026 by SALARY NEFT. Ref 5143670905.\nThank you for banking with us.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-02-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m151",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear&nbsp;Card&nbsp;Member,\nThank&nbsp;you for using your HDFC Bank Credit Card xx6112 for Rs.1,178.65 at OLA CABS on 02-02-2026 at 14:58:13.\nAvailable limit: Rs.3,18,949.00\nIf you have not done this transction, please call us immediately on the number given on your card.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-02-02",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m152",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.23,892.43 spent on your SBI Credit Card ending 1450 at SPOTIFY on 03/02/26. Your available limit is Rs.3,58,133.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-03",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 6112 for Rs.28,247.27 at INDIGO AIRLINES on 03-02-2026 at 16:41:27.\nAvailable limit: Rs.58,891.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-02-03",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m154",
+   "subject": "Your account statement for February 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c **7007 for Feb 2026 is attached. The PDF is protected; password is your Customer ID.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-03",
+   "attachments": [
+    {
+     "filename": "Statement_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m155",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.441.68 has been debited from account **7007 on 04-02-26 to VPA q268580976@okhdfcbank (UPI Ref No. 599525167723).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nT&C apply. Visit www.hdfcbank.net for more details.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-04",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m156",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.34,752.08 withdrawn using your HDFC Bank Platinum Debit Card ending 3320 at ATM KOCHI on 05-02-2026.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-02-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m157",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,<br>\nStanding Instruction executed: Rs.35,000.00 has been debited from account **7007 on 05-02-26 to Gopal Gupta A/c no. XXXXXXXX2435 (Punjab National Bank), SI Ref 728286961430.<br>\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-02-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m158",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,<br>\nRs.3,222.57 has been debited from account **7007 on 09-02-26 to VPA paytm.s1@ybl (UPI Ref No. 497812957823).<br>\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-09",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m159",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "नमस्ते,\nDear Cardholder,\nRs.6,881.68 spent on your SBI Credit Card ending 1450 at ZOMATO on 12/02/26. Your available limit is Rs.2,55,507.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-02-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "SBI Card SimplySAVE Credit Card Monthly Statement - Feb 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 1450. Statement date: 12-Feb-2026. Total amount due Rs.44,553.68; minimum Rs.2,227.68; due 02-Mar-2026.\nSBI/BOB style auto pay available on request.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: ROHIT BANERJEE\nCredit Card Number: XXXX XXXX XXXX 1450\nStatement Date: 12/02/2026\nStatement Period: 13/01/2026 - 12/02/2026\nPayment Due Date: 02/03/2026\nTotal Amount Due: Rs. 44,553.68\nMinimum Amount Due: Rs. 2,227.68\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 90,283.00\n\nDate        Transaction Details                        Amount (Rs.)\n26/01/2026  MAKEMYTRIP HYDERABAD   36,987.39 Dr\n02/02/2026  UBER INDIA GURGAON   1,631.31 Dr\n01/02/2026  THIRD WAVE COFFEE BANGALORE   303.88 Dr\n17/01/2026  DMART PUNE   38,583.06 Dr\n03/02/2026  PAYMENT RECEIVED - THANK YOU   26,732.21 Cr\n\nReward Points Summary: Opening 5462  Earned 170  Closing 4447\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 7334393212292  IFSC SBI 0000991"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "HDFC Bank Swiggy Credit Card Statement - Feb 2026",
+   "body": "Dear Customer,\nYour HDFC Bank Swiggy Credit Card ending 6112 Statement for the period 13/01/2026 to 12/02/2026 is attached.\nTotal Amount Due: Rs. 10,447.26\nMinimum Amount Due: Rs. 522.36\nPayment Due Date: 02/03/2026\nThe statment is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m162",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "नमस्ते,\nDear Customer,\nRs.7,995.29 has been debited from account **7007 on 13-02-26 to VPA merchant@okhdfcbank (UPI Ref No. 432427422298).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2026-02-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m163",
+   "subject": "Your contract note",
+   "body": "Contract note for trades done today is attached. Client ID ZR7546\nT&C apply.",
+   "date": "2026-02-13",
+   "attachments": [],
+   "from": "Zerodha <noreply@zerodha.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,424.41 spent on your SBI Add-on Credit Card no. XXXXXXXXXXXX9904 at APOLLO PHARMACY on 18/02/26. Your available limit is Rs.3,11,636.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-02-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear&nbsp;Cardholder,\nRs.19,242.39&nbsp;spent&nbsp;on your SBI Credit Card ending 1450 at CROMA on 22/02/26. Your available limit is Rs.2,66,051.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-02-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.10,447.26 on 22-02-2026 towards your HDFC Bank Credit Card ending 6112. Thank you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-02-22",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m167",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 6112 for Rs.32,456.86 at PVR INOX on 27-02-2026 at 12:05:24.\nAvailable limit: Rs.1,02,219.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nThis is a system generated email. Please do not reply to this message.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m168",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Rohit, a gentle nudge: Rs.10,447.26 due on 02 March for card ending 6112. Ignore if already paid. Kripya samay par bhugtan karein.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m169",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear&nbsp;Card&nbsp;Member,\nThank&nbsp;you for using your HDFC Bank Add-on Credit Card ending 8250 for Rs.10,709.39 at BATA INDIA on 28-02-2026 at 15:07:09.\nAvailable limit: Rs.2,37,450.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-28",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m170",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 65,000.00 credited to your A/c XX7007 on 01-03-2026 by SALARY NEFT. Ref 9647504546.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-03-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m171",
+   "subject": "Your account statement for March 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 7007 for Mar 2026 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2026-03-03",
+   "attachments": [
+    {
+     "filename": "Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m172",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.35,000.00 has been debited from account **7007 on 05-03-26 to Gopal Gupta A/c no. XXXXXXXX2435 (Punjab National Bank), SI Ref 117144612969.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-03-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m173",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.5,000.00 withdrawn using your HDFC Bank Platinum Debit Card XXXX XXXX XXXX 3320 at ATM GURGAON on 07-03-2026.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2026-03-07",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m174",
+   "subject": "IMPS funds transfer alert",
+   "body": "Dear Customer,<br>\nRs.7,500.00 has been debited from account **7007 on 08-03-26 to Kamla Banerjee A/c no. XXXXXXXX1342 (State Bank of India), IMPS Ref 301284039307.<br>\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-08",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m175",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,<br>\nRs.31,394.83 spent on your SBI Credit Card ending 1450 at LICIOUS on 10/03/26. Your available limit is Rs.2,22,546.00.<br>\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-03-10",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m176",
+   "subject": "SBI Card SimplySAVE Credit Card Monthly Statement - Mar 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 1450. Statement date: 12-Mar-2026. Total amount due Rs.5,641.08; minimum Rs.282.05; due 30-Mar-2026.\nSBI/BOB style auto pay available on request.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Mar2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: ROHIT BANERJEE\nCredit Card Number: XXXX XXXX XXXX 1450\nCard Type: SimplySAVE\nStatement Date: 12/03/2026\nStatement Period: 10/02/2026 - 12/03/2026\nPayment Due Date: 30/03/2026\nTotal Amount Due: Rs. 5,641.08\nMinimum Amount Due: Rs. 282.05\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,96,301.00\n\nDate        Transaction Details                        Amount (Rs.)\n05/03/2026  BPCL FUEL HYDERABAD   761.29 Dr\n25/02/2026  GOOGLE PLAY HYDERABAD   13,346.41 Dr\n21/02/2026  BIGBASKET MUMBAI   665.41 Dr\n03/03/2026  AIRBNB PUNE   24,636.65 Dr\n18/02/2026  BLINKIT CHENNAI   23,486.47 Dr\n13/02/2026  GOOGLE PLAY MUMBAI   2,532.25 Dr\n03/03/2026  PAYMENT RECEIVED - THANK YOU   3,384.65 Cr\n\nReward Points Summary: Opening 2449  Earned 520  Closing 8548\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "HDFC Bank Swiggy Credit Card Statement - Mar 2026",
+   "body": "Dear Customer,\nYour HDFC Bank Swiggy Credit Card ending 6112 Statement for the period 10/02/2026 to 12/03/2026 is attached.\nTotal Amount Due: Rs. 2,879.70\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/03/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m178",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.37,838.89 has been debited from account **7007 on 13-03-26 to VPA merchant@okhdfcbank (UPI Ref No. 329233742477).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nThis is a system generated email. Please do not reply to this message.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-03-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m179",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.793.44 spent on your SBI Credit Card ending 1450 at GOOGLE PLAY on 14/03/26. Your available limit is Rs.1,00,347.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-03-14",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card xx6112 for Rs.533.79 at TATA 1MG on 16-03-2026 at 01:36:58.\nAvailable limit: Rs.33,103.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-16",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m181",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.3,028.78 spent on your SBI Add-on Credit Card ending 9904 at DECATHLON on 17/03/26. Your available limit is Rs.2,03,894.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nT&C apply. Visit www.sbicard.com for more details.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-17",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.26,841.71 spent on your SBI Add-on Credit Card ending 9904 at MAKEMYTRIP on 19/03/26. Your available limit is Rs.2,18,556.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-03-19",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m183",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,879.70 on 22-03-2026 towards your HDFC Bank Credit Card ending 6112. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-22",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m184",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.320.76 has been debited from account **7007 on 22-03-26 to VPA q289608266@okhdfcbank (UPI Ref No. 378754812904).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-03-22",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m185",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.5,641.08 on 23-03-2026 towards your SBI Card Credit Card ending 1450. Thank you.",
+   "date": "2026-03-23",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Add-on Credit Card ending 8250 for Rs.702.43 at TATA 1MG on 25-03-2026 at 08:23:54.\nAvailable limit: Rs.2,73,538.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-03-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m187",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.3,124.62 spent on your SBI Credit Card ending 1450 at AIRBNB on 26/03/26. Your available limit is Rs.3,42,468.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m188",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Rohit, a gentle nudge: Rs.2,879.70 due on 30 March for card ending 6112. Ignore if already paid. Kripya samay par bhugtan karein.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m189",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.39,585.97 spent on your SBI Add-on Credit Card ending 9904 at WESTSIDE on 01/04/26. Your available limit is Rs.1,79,974.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-04-01",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m190",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX7007 on 01-04-2026 by SALARY NEFT. Ref 5327481031.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m191",
+   "subject": "Your account statement for April 2026",
+   "body": "Dear Customer,\nYour e-statment for A/c ending 7007 for Apr 2026 is attached. The PDF is protected; password is your Customer ID.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-04-03",
+   "attachments": [
+    {
+     "filename": "Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m192",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.1,694.02 has been debited from account **7007 on 05-04-26 to VPA q653173512@ybl (UPI Ref No. 966741098900).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2026-04-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m193",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.35,000.00 has been debited from account **7007 on 05-04-26 to Gopal Gupta A/c no. XXXXXXXX2435 (Punjab National Bank), SI Ref 649788226877.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2026-04-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m194",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Add-on Credit Card ending 8250 for Rs.41,767.71 at LICIOUS on 07-04-2026 at 16:47:09.\nAvailable limit: Rs.2,35,057.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-07",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m195",
+   "subject": "E-mandate cancelled",
+   "body": "Dear Customer,\nThe e-mandate for NETFLIX.COM registered on your SBI Card card xx1450 has been cancelled as requested. No further auto-debits will happen. Your card remains active.",
+   "date": "2026-04-09",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "SBI Card SimplySAVE Credit Card Monthly Statement - Apr 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 1450. Statement date: 12-Apr-2026. Total amount due Rs.6,615.73; minimum Rs.330.79; due 30-Apr-2026.\nSBI/BOB style auto pay available on request.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Apr2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: ROHIT BANERJEE\nCredit Card Number: XXXX XXXX XXXX 1450\nCard Type: SimplySAVE\nStatement Date: 12/04/2026\nStatement Period: 13/03/2026 - 12/04/2026\nPayment Due Date: 30/04/2026\nTotal Amount Due: Rs. 6,615.73\nMinimum Amount Due: Rs. 330.79\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,87,660.00\n\nDate        Transaction Details                        Amount (Rs.)\n06/04/2026  RELIANCE SMART MUMBAI   39,271.74 Dr\n07/04/2026  UBER INDIA HYDERABAD   2,896.77 Dr\n30/03/2026  AMAZON PAY INDIA CHENNAI   1,137.57 Dr\n22/03/2026  CAFE COFFEE DAY KOCHI   1,123.53 Dr\n24/03/2026  REDBUS BANGALORE   1,204.05 Dr\n03/04/2026  PAYMENT RECEIVED - THANK YOU   3,969.44 Cr\n\nReward Points Summary: Opening 814  Earned 530  Closing 5624\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 7334393212292  IFSC SBI 0000695"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m197",
+   "subject": "HDFC Bank Swiggy Credit Card Statement - Apr 2026",
+   "body": "Dear Customer,\nYour HDFC Bank Swiggy Credit Card ending 6112 Statement for the period 13/03/2026 to 12/04/2026 is attached.\nTotal Amount Due: Rs. 1,948.48\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/04/2026\nThe statment is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nT&C apply. Visit www.hdfcbank.net for more details.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "6112_12042026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m198",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,<br>\nThank you for using your HDFC Bank Credit Card ending 6112 for Rs.3,262.88 at GOOGLE PLAY on 13-04-2026 at 12:11:34.<br>\nAvailable limit: Rs.1,45,413.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-04-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m199",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour HDFC Bank Platinum Debit Card no. XXXXXXXXXXXX3320 was used for Rs.158.99 at JIO PREPAID on 13-Apr-2026.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m200",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.871.90 spent on your SBI Credit Card ending 1450 at IRCTC on 15/04/26. Your available limit is Rs.57,855.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-04-15",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "NEFT funds transfer alert",
+   "body": "Dear Customer,\nRs.801.56 has been debited from account **7007 on 17-04-26 to Divya Reddy A/c no. XXXXXXXX9035 (Canara Bank), NEFT Ref 871323835573.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2026-04-17",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m202",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Add-on Credit Card ending 8250 for Rs.8,049.64 at DMART on 23-04-2026 at 10:49:28.\nAvailable limit: Rs.2,71,043.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2026-04-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m203",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,500.37 spent on your SBI Credit Card ending 1450 at NETFLIX.COM on 24/04/26. Your available limit is Rs.1,97,749.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 3391 reward points on your SBI Card SimplySAVE Credit Card ending 1450. Redeem them on the rewards portal before they expire.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m205",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 10658 reward points on your HDFC Bank Swiggy Credit Card **6112. Redeem them on the rewards portal before they expire.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m206",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.129.00 has been debited from account **7007 on 25-04-26 to VPA irctcweb@okaxis (UPI Ref No. 415338066218).\nIf you did not authorise, call 18002586161.\nWarm Regrads, HDFC Bank\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m207",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Rohit, a gentle nudge: Rs.6,615.73 due on 30 April for card ending 1450. Ignore if already paid. Kripya samay par bhugtan karein.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m208",
+   "subject": "Payment reminder: HDFC Bank Credit Card ending 6112",
+   "body": "Dear Customer,\nThis is a reminder that Rs.1,948.48 (minimum Rs.200.00) is due on 30-Apr-2026 on your HDFC Bank Credit Card ending 6112. Pay on time to avoid late payment charges.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m209",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.6,615.73 on 28-04-2026 towards your SBI Card Credit Card ending 1450. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-04-28",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m210",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,948.48 on 29-04-2026 towards your HDFC Bank Credit Card ending 6112. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-29",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m211",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX7007 on 01-05-2026 by SALARY NEFT. Ref 9532725081.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m212",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Add-on Credit Card ending 8250 for Rs.3,387.08 at BLINKIT on 03-05-2026 at 18:23:56.\nAvailable limit: Rs.1,98,066.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2026-05-03",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m213",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.1,050.15 has been debited from account **7007 on 03-05-26 to VPA paytm.s1@okhdfcbank (UPI Ref No. 410102763780).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2026-05-03",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m214",
+   "subject": "Your account statement for May 2026",
+   "body": "Dear&nbsp;Customer,<br>\nYour&nbsp;e-statement&nbsp;for A/c ending 7007 for May 2026 is attached. The PDF is protected; password is your Customer ID.<br>\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-03",
+   "attachments": [
+    {
+     "filename": "Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m215",
+   "subject": "SI funds transfer alert",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.35,000.00 has been debited from account **7007 on 05-05-26 to Gopal Gupta A/c no. XXXXXXXX2435 (Punjab National Bank), SI Ref 210872646891.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m216",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 6112 for Rs.954.84 at WESTSIDE on 09-05-2026 at 17:06:02.\nAvailable limit: Rs.3,69,000.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m217",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear&nbsp;Cardholder,\nRs.3,281.21&nbsp;spent&nbsp;on your SBI Add-on Credit Card ending 9904 at HOTSTAR on 10/05/26. Your available limit is Rs.3,40,208.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-05-10",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m218",
+   "subject": "NEFT funds transfer alert",
+   "body": "Dear Customer,\nRs.10,000.00 has been debited from account **7007 on 11-05-26 to Kamla Banerjee A/c no. XXXXXXXX1342 (State Bank of India), NEFT Ref 706338389088.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2026-05-11",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m219",
+   "subject": "SBI Card SimplySAVE Credit Card Monthly Statement - May 2026",
+   "body": "Dear Cardholder,<br>\nPlease find enclosed your monthly statment ending 1450. Statement date: 12-May-2026. Total amount due Rs.8,654.11; minimum Rs.432.71; due 30-May-2026.<br>\nSBI/BOB style auto pay available on request.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: ROHIT BANERJEE\nCard No: 4449 81XX XXXX 1450\nStatement Date: 12/05/2026\nStatement Period: 12/04/2026 - 12/05/2026\nPayment Due Date: 30/05/2026\nTotal Amount Due: Rs. 8,654.11\nMinimum Amount Due: Rs. 432.71\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,73,105.00\n\nDate        Transaction Details                        Amount (Rs.)\n30/04/2026  NETFLIX.COM GURGAON   3,365.18 Dr\n08/05/2026  GOOGLE PLAY GURGAON   26,485.14 Dr\n09/05/2026  AIRBNB HYDERABAD   6,140.26 Dr\n25/04/2026  INDIGO AIRLINES GURGAON   8,766.84 Dr\n05/05/2026  LICIOUS HYDERABAD   586.82 Dr\n14/04/2026  HOTSTAR BANGALORE   671.06 Dr\n13/04/2026  BLINKIT BANGALORE   3,271.44 Dr\n10/05/2026  SPOTIFY BANGALORE   14,858.98 Dr\n06/05/2026  RELIANCE SMART MUMBAI   35,524.57 Dr\n03/05/2026  PAYMENT RECEIVED - THANK YOU   5,192.47 Cr\n\nReward Points Summary: Opening 7690  Earned 663  Closing 2553\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 7334393212292  IFSC SBI 0000344"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m220",
+   "subject": "HDFC Bank Swiggy Credit Card Statement - May 2026",
+   "body": "Dear Customer,\nYour HDFC Bank Swiggy Credit Card ending 6112 Statement for the period 12/04/2026 to 12/05/2026 is attached.\nTotal Amount Due: Rs. 2,193.14\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/05/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m221",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.2,490.32 has been debited from account **7007 on 12-05-26 to VPA merchant@paytm (UPI Ref No. 156938751873).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m222",
+   "subject": "Your EMI request has been cancelled",
+   "body": "Your request to convert transaction of Rs.49,306.53 on card ending 1450 to EMI has been cancelled. The transaction stays on your regular bill.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-05-14",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m223",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,<br>\nYour HDFC Bank Platinum Debit Card ending 3320 was used for Rs.5,000.00 at BIGBASKET on 15-May-2026.<br>\n\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-05-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m224",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Add-on Credit Card XXXX XXXX XXXX 8250 for Rs.782.86 at LICIOUS on 17-05-2026 at 17:01:46.\nAvailable limit: Rs.1,24,399.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-17",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m225",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 6112 for Rs.17,168.54 at AIRBNB on 19-05-2026 at 00:06:44.\nAvailable limit: Rs.1,19,779.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-05-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m226",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.24,233.42 spent on your SBI Credit Card XXXX XXXX XXXX 1450 at CROMA on 20/05/26. Your available limit is Rs.2,18,778.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-05-20",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m227",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear&nbsp;Customer,\nRs.2,189.20&nbsp;has&nbsp;been debited from account **7007 on 20-05-26 to VPA zomato@okaxis (UPI Ref No. 162775723408).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-20",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m228",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,<br>\nRs.865.76 spent on your SBI Credit Card ending 1450 at ZOMATO on 21/05/26. Your available limit is Rs.60,868.00.<br>\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-05-21",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m229",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "नमस्ते,\nDear Cardholder,\nRs.31,974.75 spent on your SBI Credit Card ending 1450 at BATA INDIA on 23/05/26. Your available limit is Rs.56,734.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-05-23",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m230",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.1,346.33 has been debited from account **7007 on 24-05-26 to VPA bigbasket@okaxis (UPI Ref No. 890415660270).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-24",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m231",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.8,654.11 on 25-05-2026 towards your SBI Card Credit Card XX1450. Thank you.<br>\n\nThis is a system generated email. Please do not reply to this message.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m232",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Rohit, a gentle nudge: Rs.8,654.11 due on 30 May for card ending 1450. Ignore if already paid. Kripya samay par bhugtan karein.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m233",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Rohit, a gentle nudge: Rs.2,193.14 due on 30 May for card ending 6112. Ignore if already paid. Kripya samay par bhugtan karein.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m234",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.444.36 spent on your SBI Add-on Credit Card ending 9904 at CROMA on 28/05/26. Your available limit is Rs.81,894.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m235",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;65,000.00&nbsp;credited to your A/c XX7007 on 01-06-2026 by SALARY NEFT. Ref 4266419726.\nThank you for banking with us.\n\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m236",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card XX6112 for Rs.720.29 at BLINKIT on 03-06-2026 at 13:46:24.\nAvailable limit: Rs.82,942.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2026-06-03",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m237",
+   "subject": "Your account statement for June 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 7007 for Jun 2026 is attached. The PDF is protected; password is your Customer ID.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-06-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m238",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.579.19 spent on your SBI Credit Card ending 1450 at CROMA on 04/06/26. Your availble limit is Rs.1,63,141.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-06-04",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m239",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,<br>\nThank you for using your HDFC Bank Credit Card ending 6112 for Rs.4,080.96 at CAFE COFFEE DAY on 04-06-2026 at 04:04:17.<br>\nAvailable limit: Rs.3,90,214.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2026-06-04",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m240",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,348.13 spent on your SBI Add-on Credit Card ending 9904 at WESTSIDE on 05/06/26. Your available limit is Rs.3,46,712.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-06-05",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m241",
+   "subject": "SI funds transfer alert",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.35,000.00 has been debited from account **7007 on 05-06-26 to Gopal Gupta A/c no. XXXXXXXX2435 (Punjab National Bank), SI Ref 491247015421.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-06-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m242",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 6112 for Rs.15,156.26 at NETFLIX.COM on 06-06-2026 at 14:01:17.\nAvailable limit: Rs.1,18,543.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-06-06",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m243",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.5,231.12 has been debited from account **7007 on 11-06-26 to VPA zomato@ybl (UPI Ref No. 561378441573).\nIf you did not authorise, call 18002586161.\nWarm Regrads, HDFC Bank\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-06-11",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m244",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour HDFC Bank Platinum Debit Card ending 3320 was used for Rs.5,000.00 at RELIANCE SMART on 11-Jun-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-06-11",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m245",
+   "subject": "SBI Card SimplySAVE Credit Card Monthly Statement - Jun 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 1450. Statement date: 12-Jun-2026. Total amount due Rs.6,986.57; minimum Rs.349.33; due 30-Jun-2026.\nSBI/BOB style auto pay available on request.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: ROHIT BANERJEE\nCard No: 4649 16XX XXXX 1450\nCard Type: SimplySAVE\nStatement Date: 12/06/2026\nStatement Period: 13/05/2026 - 12/06/2026\nPayment Due Date: 30/06/2026\nTotal Amount Due: Rs. 6,986.57\nMinimum Amount Due: Rs. 349.33\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,44,837.00\n\nDate        Transaction Details                        Amount (Rs.)\n04/06/2026  BLINKIT PUNE   6,980.22 Dr\n14/05/2026  STARBUCKS MUMBAI   8,929.37 Dr\n27/05/2026  NETFLIX.COM HYDERABAD   3,472.90 Dr\n28/05/2026  BATA INDIA HYDERABAD   744.37 Dr\n04/06/2026  RELIANCE SMART CHENNAI   1,978.80 Dr\n03/06/2026  BPCL FUEL BANGALORE   3,084.43 Dr\n14/05/2026  MAKEMYTRIP KOCHI   34,083.81 Dr\n03/06/2026  PAYMENT RECEIVED - THANK YOU   4,191.94 Cr\n\nReward Points Summary: Opening 1092  Earned 378  Closing 8345\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 7334393212292  IFSC SBI 0000906"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m246",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.37,701.90 spent on your SBI Add-on Credit Card ending 9904 at DECATHLON on 12/06/26. Your available limit is Rs.3,26,751.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-06-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m247",
+   "subject": "HDFC Bank Swiggy Credit Card Statement - Jun 2026",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;HDFC&nbsp;Bank Swiggy Credit Card ending 6112 Statement for the period 13/05/2026 to 12/06/2026 is attached.\nTotal Amount Due: Rs. 827.11\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/06/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m248",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Add-on Credit Card ending 8250 for Rs.2,270.00 at BOOKMYSHOW on 12-06-2026 at 01:38:21.\nAvailable limit: Rs.3,31,718.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-06-12",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m249",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,403.10 spent on your SBI Add-on Credit Card ending 9904 at JIO PREPAID on 13/06/26. Your available limit is Rs.77,907.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-06-13",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m250",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,<br>\nRs.2,857.02 has been debited from account **7007 on 15-06-26 to VPA zomato@paytm (UPI Ref No. 217107424295).<br>\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2026-06-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m251",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,<br>\nRs.1,227.07 has been debited from account **7007 on 23-06-26 to VPA irctcweb@ybl (UPI Ref No. 560223254930).<br>\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nT&C apply. Visit www.hdfcbank.net for more details.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-06-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m252",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,973.29 spent on your SBI Credit Card ending 1450 at URBAN COMPANY on 26/06/26. Your available limit is Rs.2,34,490.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m253",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.16,196.91 has been debited from account **7007 on 28-06-26 to VPA merchant@okaxis (UPI Ref No. 442664292760).\nIf you did not authorise, call 18002586161.\nWarm Regrads, HDFC Bank\n\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m254",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.6,986.57 on 29-06-2026 towards your SBI Card Credit Card XX1450. Thank you.",
+   "date": "2026-06-29",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m255",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.827.11 on 29-06-2026 towards your HDFC Bank Credit Card ending 6112. Thank you.\n\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-06-29",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m256",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.28,329.31 spent on your SBI Credit Card no. XXXXXXXXXXXX1450 at APOLLO PHARMACY on 01/07/26. Your available limit is Rs.1,57,983.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-07-01",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m257",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "नमस्ते,\nDear Cardholder,\nRs.259.33 spent on your SBI Add-on Credit Card ending 9904 at BLINKIT on 01/07/26. Your available limit is Rs.1,91,700.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-07-01",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m258",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX7007 on 01-07-2026 by SALARY NEFT. Ref 7094076139.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-07-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m259",
+   "subject": "Your account statement for July 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XX7007 for Jul 2026 is attached. The PDF is protected; password is your Customer ID.\n\nT&C apply. Visit www.hdfcbank.net for more details.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m260",
+   "subject": "SI funds transfer alert",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.35,000.00 has been debited from account **7007 on 05-07-26 to Gopal Gupta A/c no. XXXXXXXX2435 (Punjab National Bank), SI Ref 368444233492.\nIf you did not authorise, call 18002586161.\nWarm Regrads, HDFC Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m261",
+   "subject": "SBI Card SimplySAVE Credit Card Monthly Statement - Jul 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement **1450. Statement date: 12-Jul-2026. Total amount due Rs.24,282.90; minimum Rs.1,214.15; due 30-Jul-2026.\nSBI/BOB style auto pay available on request.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: ROHIT BANERJEE\nCard No: 4709 39XX XXXX 1450\nStatement Date: 12/07/2026\nStatement Period: 12/06/2026 - 12/07/2026\nPayment Due Date: 30/07/2026\nTotal Amount Due: Rs. 24,282.90\nMinimum Amount Due: Rs. 1,214.15\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,58,156.00\n\nDate        Transaction Details                        Amount (Rs.)\n07/07/2026  APOLLO PHARMACY CHENNAI   3,386.11 Dr\n02/07/2026  BLINKIT PUNE   763.75 Dr\n10/07/2026  MEDPLUS CHENNAI   2,822.81 Dr\n08/07/2026  BLINKIT GURGAON   3,635.88 Dr\n12/06/2026  URBAN COMPANY KOCHI   1,763.27 Dr\n03/07/2026  PAYMENT RECEIVED - THANK YOU   14,569.74 Cr\n\nReward Points Summary: Opening 5438  Earned 685  Closing 1284\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 7334393212292  IFSC SBI 0000697"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m262",
+   "subject": "HDFC Bank Swiggy Credit Card Statement - Jul 2026",
+   "body": "Dear Customer,<br>\nYour HDFC Bank Swiggy Credit Card xx6112 Statement for the period 12/06/2026 to 12/07/2026 is attached.<br>\nTotal Amount Due: Rs. 2,428.13\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/07/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m263",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 6112 for Rs.8,210.05 at LENSKART on 14-07-2026 at 21:59:35.\nAvailable limit: Rs.1,81,054.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-14",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m264",
+   "subject": "NEFT funds transfer alert",
+   "body": "Dear Customer,\nRs.2,219.16 has been debited from account **7007 on 16-07-26 to Ananya Pillai A/c no. XXXXXXXX2773 (ICICI Bank), NEFT Ref 546465056462.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m265",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.39,561.59 spent on your SBI Add-on Credit Card ending 9904 at MAKEMYTRIP on 20/07/26. Your available limit is Rs.3,58,975.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-07-20",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m266",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.1,794.97 has been debited from account **7007 on 20-07-26 to VPA irctcweb@okhdfcbank (UPI Ref No. 299062854705).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nThis is a system generated email. Please do not reply to this message.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-20",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m267",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "नमस्ते,\nDear Card Member,\nThank you for using your HDFC Bank Credit Card ending 6112 for Rs.412.31 at IRCTC on 21-07-2026 at 09:24:44.\nAvailable limit: Rs.22,449.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-21",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m268",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.3,000.00 withdrawn using your HDFC Bank Platinum Debit Card XX3320 at ATM KOCHI on 23-07-2026.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m269",
+   "subject": "NEFT funds transfer alert",
+   "body": "Dear Customer,\nRs.7,500.00 has been debited from account **7007 on 25-07-26 to Kamla Banerjee A/c no. XXXXXXXX1342 (State Bank of India), NEFT Ref 854007501569.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2026-07-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m270",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Rohit, a gentle nudge: Rs.24,282.90 due on 30 July for card ending 1450. Ignore if already paid. Kripya samay par bhugtan karein.<br>\n<br>\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m271",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;received your payment of Rs.24,282.90 on 27-07-2026 towards your SBI Card Credit Card XX1450. Thank you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m272",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Rohit, a gentle nudge: Rs.2,428.13 due on 30 July for card ending 6112. Ignore if already paid. Kripya samay par bhugtan karein.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m273",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,428.13 on 28-07-2026 towards your HDFC Bank Credit Card ending 6112. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-28",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m274",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Add-on Credit Card ending 8250 for Rs.558.26 at RELIANCE SMART on 28-07-2026 at 13:15:20.\nAvailable limit: Rs.1,10,767.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2026-07-28",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m275",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "नमस्ते,\nDear Customer,\nRs.39,522.05 has been debited from account **7007 on 28-07-26 to VPA irctcweb@ybl (UPI Ref No. 636972081681).\nIf you did not authorise, call 18002586161.\nWarm Regrads, HDFC Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-07-28",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m276",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,<br>\nThank you for using your HDFC Bank Credit Card ending 6112 for Rs.4,384.21 at JIO PREPAID on 01-08-2026 at 15:01:59.<br>\nAvailable limit: Rs.81,734.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m277",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX7007 on 01-08-2026 by SALARY NEFT. Ref 8245594347.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-08-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m278",
+   "subject": "Your account statement for August 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 7007 for Aug 2026 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2026-08-03",
+   "attachments": [
+    {
+     "filename": "Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m279",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.35,000.00 has been debited from account **7007 on 05-08-26 to Gopal Gupta A/c no. XXXXXXXX2435 (Punjab National Bank), SI Ref 408328799285.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-08-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m280",
+   "subject": "KYC update: Aadhaar verification",
+   "body": "Dear Customer,\nYour Aadhaar (XXXX XXXX 5570) has been successfully verified for e-KYC. PAN status: linked. No further action needed.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-08-06",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m281",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Add-on Credit Card ending 8250 for Rs.2,021.34 at SHELL PETROL on 08-08-2026 at 19:41:47.\nAvailable limit: Rs.2,30,158.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-08",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m282",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,<br>\nRs.29,485.40 has been debited from account **7007 on 10-08-26 to VPA irctcweb@paytm (UPI Ref No. 828664564604).<br>\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-08-10",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m283",
+   "subject": "SBI Card SimplySAVE Credit Card Monthly Statement - Aug 2026",
+   "body": "Dear Cardholder,<br>\nPlease find enclosed your monthly statement ending 1450. Statement date: 12-Aug-2026. Total amount due Rs.1,592.78; minimum Rs.200.00; due 30-Aug-2026.<br>\nSBI/BOB style auto pay available on request.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: ROHIT BANERJEE\nCredit Card Number: XXXX XXXX XXXX 1450\nStatement Date: 12/08/2026\nStatement Period: 13/07/2026 - 12/08/2026\nPayment Due Date: 30/08/2026\nTotal Amount Due: Rs. 1,592.78\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 33,617.00\n\nDate        Transaction Details                        Amount (Rs.)\n02/08/2026  NETFLIX.COM HYDERABAD   99.05 Dr\n09/08/2026  LICIOUS HYDERABAD   301.69 Dr\n13/07/2026  DMART MUMBAI   578.45 Dr\n10/08/2026  HOTSTAR CHENNAI   739.83 Dr\n25/07/2026  OLA CABS KOCHI   2,183.32 Dr\n15/07/2026  URBAN COMPANY PUNE   28,525.54 Dr\n05/08/2026  JIO PREPAID PUNE   7,284.52 Dr\n03/08/2026  PAYMENT RECEIVED - THANK YOU   955.67 Cr\n\nReward Points Summary: Opening 5905  Earned 95  Closing 2395\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m284",
+   "subject": "HDFC Bank Swiggy Credit Card Statement - Aug 2026",
+   "body": "Dear Customer,\nYour HDFC Bank Swiggy Credit Card ending 6112 Statement for the period 13/07/2026 to 12/08/2026 is attached.\nTotal Amount Due: Rs. 25,764.17\nMinimum Amount Due: Rs. 1,288.21\nPayment Due Date: 30/08/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m285",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.7,386.30 has been debited from account **7007 on 12-08-26 to VPA bigbasket@ybl (UPI Ref No. 434086373379).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2026-08-12",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m286",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,857.49 spent on your SBI Credit Card ending 1450 at OLA CABS on 14/08/26. Your available limit is Rs.26,422.00.\nContact 1860 180 1290 if this transction was not done by you.",
+   "date": "2026-08-14",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m287",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,<br>\nRs.574.11 spent on your SBI Add-on Credit Card no. XXXXXXXXXXXX9904 at INDIGO AIRLINES on 15/08/26. Your available limit is Rs.1,66,278.00.<br>\nContact 1860 180 1290 if this transction was not done by you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-08-15",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m288",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 6112 for Rs.272.52 at DECATHLON on 19-08-2026 at 10:42:02.\nAvailable limit: Rs.1,46,794.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2026-08-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m289",
+   "subject": "OTP for online transaction",
+   "body": "362686 is the One Time Password (OTP) for your online transaction of INR 4,780.46 at LICIOUS. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-08-19",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m290",
+   "subject": "Convert to EMI",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;transaction&nbsp;of Rs.11,364.32 on card xx1450 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m291",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transaction of Rs.12,499.99 on card ending 6112 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m292",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour HDFC Bank Platinum Debit Card ending 3320 was used for Rs.34,300.05 at BLINKIT on 25-Aug-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-25",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m293",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Rohit, a gentle nudge: Rs.1,592.78 due on 30 August for card ending 1450. Ignore if already paid. Kripya samay par bhugtan karein.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m294",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,592.78 on 27-08-2026 towards your SBI Card Credit Card no. XXXXXXXXXXXX1450. Thank you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m295",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.948.19 spent on your SBI Add-on Credit Card ending 9904 at OLA CABS on 28/08/26. Your available limit is Rs.22,162.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-28",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m296",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.25,764.17 on 29-08-2026 towards your HDFC Bank Credit Card no. XXXXXXXXXXXX6112. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2026-08-29",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m297",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX7007 on 01-09-2026 by SALARY NEFT. Ref 6526914969.\nThank you for banking with us.",
+   "date": "2026-09-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m298",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 6112 for Rs.513.53 at APOLLO PHARMACY on 02-09-2026 at 19:09:51.\nAvailable limit: Rs.3,57,611.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2026-09-02",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m299",
+   "subject": "Your account statement for September 2026",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;e-statement&nbsp;for A/c ending 7007 for Sep 2026 is attached. The PDF is protected; password is your Customer ID.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-09-03",
+   "attachments": [
+    {
+     "filename": "Statement_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m300",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.308.64 spent on your SBI Credit Card ending 1450 at TATA 1MG on 04/09/26. Your available limit is Rs.1,65,103.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-04",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m301",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card ending 1450 has been processed. Tenure 9 months. First EMI will appear on your next statement.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m302",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card ending 6112 has been processed. Tenure 12 months. First EMI will appear on your next statement.<br>\n<br>\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m303",
+   "subject": "SI funds transfer alert",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.35,000.00 has been debited from account **7007 on 05-09-26 to Gopal Gupta A/c no. XXXXXXXX2435 (Punjab National Bank), SI Ref 831926492729.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m304",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,065.37 spent on your SBI Credit Card ending 1450 at THIRD WAVE COFFEE on 10/09/26. Your available limit is Rs.3,80,367.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-09-10",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m305",
+   "subject": "SBI Card SimplySAVE Credit Card Monthly Statement - Sep 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 1450. Statement date: 12-Sep-2026. Total amount due Rs.1,811.13; minimum Rs.200.00; due 30-Sep-2026.\nSBI/BOB style auto pay available on request.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: ROHIT BANERJEE\nCredit Card Number: XXXX XXXX XXXX 1450\nCard Type: SimplySAVE\nStatement Date: 12/09/2026\nStatement Period: 13/08/2026 - 12/09/2026\nPayment Due Date: 30/09/2026\nTotal Amount Due: Rs. 1,811.13\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,65,347.00\n\nDate        Transaction Details                        Amount (Rs.)\n16/08/2026  MEDPLUS KOCHI   2,753.62 Dr\n25/08/2026  AMAZON PAY INDIA HYDERABAD   410.89 Dr\n18/08/2026  PVR INOX MUMBAI   865.42 Dr\n15/08/2026  OLA CABS HYDERABAD   632.95 Dr\n03/09/2026  PAYMENT RECEIVED - THANK YOU   1,086.68 Cr\n\nReward Points Summary: Opening 5616  Earned 178  Closing 5181\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m306",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card XX6112 for Rs.2,738.67 at CAFE COFFEE DAY on 12-09-2026 at 06:58:28.\nAvailable limit: Rs.2,14,258.00\nIf you have not done this transction, please call us immediately on the number given on your card.",
+   "date": "2026-09-12",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m307",
+   "subject": "HDFC Bank Swiggy Credit Card Statement - Sep 2026",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;HDFC&nbsp;Bank Swiggy Credit Card ending 6112 Statement for the period 13/08/2026 to 12/09/2026 is attached.\nTotal Amount Due: Rs. 10,276.88\nMinimum Amount Due: Rs. 513.84\nPayment Due Date: 30/09/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m308",
+   "subject": "IMPS funds transfer alert",
+   "body": "Dear Customer,<br>\nRs.15,000.00 has been debited from account **7007 on 12-09-26 to Kamla Banerjee A/c no. XXXXXXXX1342 (State Bank of India), IMPS Ref 671805654252.<br>\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-12",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m309",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.19,866.54 withdrawn using your HDFC Bank Platinum Debit Card ending 3320 at ATM HYDERABAD on 13-09-2026.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-13",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m310",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,<br>\nRs.33,643.66 spent on your SBI Credit Card XXXX XXXX XXXX 1450 at BPCL FUEL on 15/09/26. Your available limit is Rs.2,23,734.00.<br>\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-09-15",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m311",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your SBI Card SimplySAVE Credit Card ending 1450 has been increased to Rs.2,00,000.00 effective 17-09-2026.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m312",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your HDFC Bank Swiggy Credit Card ending 6112 has been increased to Rs.2,00,000.00 effective 17-09-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m313",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.6,103.31 spent on your SBI Add-on Credit Card ending 9904 at LENSKART on 20/09/26. Your available limit is Rs.3,24,351.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-20",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m314",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 6112 for Rs.5,590.47 at IRCTC on 21-09-2026 at 18:32:17.\nAvailable limit: Rs.2,13,711.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-09-21",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m315",
+   "subject": "OTP for online transaction",
+   "body": "नमस्ते,\n952080 is the One Time Password (OTP) for your online transaction of INR 4,280.82 at JIO PREPAID. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-21",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m316",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear&nbsp;Card&nbsp;Member,\nThank&nbsp;you for using your HDFC Bank Add-on Credit Card ending 8250 for Rs.823.12 at AMAZON PAY INDIA on 23-09-2026 at 13:59:18.\nAvailable limit: Rs.1,40,824.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nT&C apply. Visit www.hdfcbank.net for more details.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-09-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m317",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.2,290.62 has been debited from account **7007 on 23-09-26 to VPA paytm.s1@paytm (UPI Ref No. 588031429667).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m318",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.10,276.88 on 24-09-2026 towards your HDFC Bank Credit Card **6112. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-24",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m319",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 2913 reward points on your SBI Card SimplySAVE Credit Card ending 1450. Redeem them on the rewards portal before they expire.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m320",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,<br>\nYou have 1481 reward points on your HDFC Bank Swiggy Credit Card **6112. Redeem them on the rewards portal before they expire.<br>\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m321",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.1,811.13 on 26-09-2026 towards your SBI Card Credit Card no. XXXXXXXXXXXX1450. Thank you.<br>\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m322",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear&nbsp;Customer,\nRs.1,655.86&nbsp;has&nbsp;been debited from account **7007 on 26-09-26 to VPA paytm.s1@okaxis (UPI Ref No. 730933128930).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m323",
+   "subject": "Payment reminder: SBI Card Credit Card ending 1450",
+   "body": "Dear Customer,\nThis is a reminder that Rs.1,811.13 (minimum Rs.200.00) is due on 30-Sep-2026 on your SBI Card Credit Card ending 1450. Pay on time to avoid late payment charges.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m324",
+   "subject": "Payment reminder: HDFC Bank Credit Card ending 6112",
+   "body": "Dear Customer,\nThis is a reminder that Rs.10,276.88 (minimum Rs.513.84) is due on 30-Sep-2026 on your HDFC Bank Credit Card ending 6112. Pay on time to avoid late payment charges.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m325",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.1,461.92 has been debited from account **7007 on 01-10-26 to VPA swiggy@okhdfcbank (UPI Ref No. 832692020258).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m326",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX7007 on 01-10-2026 by SALARY NEFT. Ref 3291418400.\nThank you for banking with us.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-10-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m327",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Add-on Credit Card ending 8250 for Rs.35,468.58 at UBER INDIA on 02-10-2026 at 22:30:11.\nAvailable limit: Rs.1,15,505.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-10-02",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m328",
+   "subject": "Your account statement for October 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 7007 for Oct 2026 is attached. The PDF is protected; password is your Customer ID.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-10-03",
+   "attachments": [
+    {
+     "filename": "Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m329",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,774.13 spent on your SBI Add-on Credit Card ending 9904 at OLA CABS on 04/10/26. Your available limit is Rs.89,782.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-04",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m330",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding Instruction executed: Rs.35,000.00 has been debited from account **7007 on 05-10-26 to Gopal Gupta A/c no. XXXXXXXX2435 (Punjab National Bank), SI Ref 495047516335.\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-10-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m331",
+   "subject": "You have done a UPI txn. Check details!",
+   "body": "Dear Customer,\nRs.10,522.23 has been debited from account **7007 on 06-10-26 to VPA swiggy@ybl (UPI Ref No. 809402219661).\nIf you did not authorise, call 18002586161.\nWarm Regards, HDFC Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-06",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m332",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Add-on Credit Card ending 8250 for Rs.13,609.71 at THIRD WAVE COFFEE on 10-10-2026 at 02:00:54.\nAvailable limit: Rs.1,26,216.00\nIf you have not done this transaction, please call us immediately on the number given on your card.",
+   "date": "2026-10-10",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m333",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,255.20 spent on your SBI Add-on Credit Card **9904 at WESTSIDE on 11/10/26. Your available limit is Rs.66,736.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-10-11",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m334",
+   "subject": "SBI Card SimplySAVE Credit Card Monthly Statement - Oct 2026",
+   "body": "Dear Cardholder,<br>\nPlease find enclosed your monthly statement ending 1450. Statement date: 12-Oct-2026. Total amount due Rs.1,28,265.04; minimum Rs.6,413.25; due 30-Oct-2026.<br>\nSBI/BOB style auto pay available on request.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: ROHIT BANERJEE\nCard No: 4290 15XX XXXX 1450\nStatement Date: 12/10/2026\nStatement Period: 12/09/2026 - 12/10/2026\nPayment Due Date: 30/10/2026\nTotal Amount Due: Rs. 1,28,265.04\nMinimum Amount Due: Rs. 6,413.25\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,46,463.00\n\nDate        Transaction Details                        Amount (Rs.)\n30/09/2026  ZEPTO BANGALORE   4,894.01 Dr\n09/10/2026  INDIGO AIRLINES MUMBAI   27,013.94 Dr\n27/09/2026  URBAN COMPANY MUMBAI   867.53 Dr\n23/09/2026  PVR INOX MUMBAI   2,672.83 Dr\n06/10/2026  BLINKIT BANGALORE   1,219.22 Dr\n07/10/2026  BOOKMYSHOW CHENNAI   22,815.02 Dr\n05/10/2026  SPOTIFY GURGAON   8,667.25 Dr\n03/10/2026  PAYMENT RECEIVED - THANK YOU   76,959.02 Cr\n\nReward Points Summary: Opening 4780  Earned 835  Closing 5489\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 7334393212292  IFSC SBI 0000327"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m335",
+   "subject": "HDFC Bank Swiggy Credit Card Statement - Oct 2026",
+   "body": "Dear Customer,\nYour HDFC Bank Swiggy Credit Card ending 6112 Statement for the period 12/09/2026 to 12/10/2026 is attached.\nTotal Amount Due: Rs. 9,057.20\nMinimum Amount Due: Rs. 452.86\nPayment Due Date: 30/10/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nT&C apply. Visit www.hdfcbank.net for more details.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank Credit Cards <emailstatements.cc@hdfcbank.net>"
+  },
+  {
+   "id": "m336",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.31,244.07 spent on your SBI Add-on Credit Card ending 9904 at GOOGLE PLAY on 13/10/26. Your available limit is Rs.1,62,561.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-10-13",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m337",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.500.00 withdrawn using your HDFC Bank Platinum Debit Card ending 3320 at ATM GURGAON on 17-10-2026.",
+   "date": "2026-10-17",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m338",
+   "subject": "Transaction cancelled / refund initiated",
+   "body": "Dear Customer,\nYour transaction at IRCTC for Rs.1,182.94 has been cancelled by the merchant. A refund will be credited to your card XX1450 in 5-7 working days.",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m339",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.521.50 spent on your SBI Credit Card ending 1450 at DMART on 22/10/26. Your available limit is Rs.1,02,490.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m340",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card xx6112 for Rs.150.52 at WESTSIDE on 23-10-2026 at 02:56:47.\nAvailable limit: Rs.78,607.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nT&C apply. Visit www.hdfcbank.net for more details.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m341",
+   "subject": "Payment reminder: HDFC Bank Credit Card ending 6112",
+   "body": "Dear Customer,\nThis is a reminder that Rs.9,057.20 (minimum Rs.452.86) is due on 30-Oct-2026 on your HDFC Bank Credit Card ending 6112. Pay on time to avoid late payment charges.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "HDFC Bank <services@hdfcbank.net>"
+  },
+  {
+   "id": "m342",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,592.30 spent on your SBI Credit Card ending 1450 at REDBUS on 28/10/26. Your available limit is Rs.1,29,907.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m343",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,28,265.04 on 28-10-2026 towards your SBI Card Credit Card ending 1450. Thank you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m344",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.9,057.20 on 28-10-2026 towards your HDFC Bank Credit Card ending 6112. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. HDFC Bank will never ask for these.",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m345",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 6112 for Rs.4,657.18 at CROMA on 01-11-2026 at 22:48:20.\nAvailable limit: Rs.25,104.00\nIf you have not done this transaction, please call us immediately on the number given on your card.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-11-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m346",
+   "subject": "Credit alert: HDFC Bank",
+   "body": "Dear Customer,\nINR 65,000.00 credited to your A/c XX7007 on 01-11-2026 by SALARY NEFT. Ref 5704718976.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-11-01",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "1450",
+    "kind": "CREDIT_CARD",
+    "variant": "SimplySAVE",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "9904",
+    "kind": "CREDIT_CARD",
+    "variant": "SimplySAVE",
+    "lifecycle": "ADDON",
+    "lifecyclePartnerLast4": "1450",
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "6112",
+    "kind": "CREDIT_CARD",
+    "variant": "Swiggy",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "8250",
+    "kind": "CREDIT_CARD",
+    "variant": "Swiggy",
+    "lifecycle": "ADDON",
+    "lifecyclePartnerLast4": "6112",
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "7007",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "3320",
+    "kind": "DEBIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "5171",
+    "kind": "CREDIT_CARD",
+    "variant": "Visa Platinum",
+    "lifecycle": "CLOSED",
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "2292",
+    "why": "bank own beneficiary account in statement payment instructions"
+   },
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "5747",
+    "why": "bank own beneficiary account in statement payment instructions"
+   },
+   {
+    "issuerDomain": "pnb.co.in",
+    "last4": "2435",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "sbi.co.in",
+    "last4": "1342",
+    "why": "family member account receiving repeated transfers"
+   },
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "7706",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "5570",
+    "why": "masked Aadhaar number"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "2670",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "2773",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "9035",
+    "why": "UPI/IMPS payee account"
+   }
+  ]
+ }
+}

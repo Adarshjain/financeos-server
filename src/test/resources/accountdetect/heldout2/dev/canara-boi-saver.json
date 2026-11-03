@@ -1,0 +1,1040 @@
+{
+ "mailbox": "canara-boi-saver",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Your Canara Bank Debit Card XX2409 was used for Rs.19,202.11 at BESCOM on 04-09-2025.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-09-04",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Canara Bank Account Statement - Sep 2025",
+   "body": "Dear Aarav,\nYour Canara Bank xx3729 account statement for Sep 2025 is ready. Closing balance Rs.18,656.65.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-09-06",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.18,499.93 credited to your Bank of India A/c XXXXXX4209 on 07-09-2025 by UPI. Ref 792729899095.\nThank you for banking with us.",
+   "date": "2025-09-07",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m004",
+   "subject": "Canara Bank: credit alert",
+   "body": "Dear Customer,\nRs.9,756.08 credited to your Canara Bank A/c xx3729 on 09-09-2025 by SALARY NEFT. Ref 348138881276.\nThank you for banking with us.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-09-09",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Update your KYC",
+   "body": "Dear Aarav,\nAs per RBI guidelines please complete re-KYC for your Bank of India relationship. Visit a branch or use the app.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-09-28",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m006",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.4,240.58 debited from account xx3729 on 03-10-2025. Narration: NEFT/CROMA. Available balance Rs.33,810.35.\n\nOpt for e-statements and go green.",
+   "date": "2025-10-03",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Bank of India Account Statement - Oct 2025",
+   "body": "Dear Aarav,\nPlease find attached your Bank of India xx4209 statement for the period 04-Sep-2025 to 03-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-04",
+   "attachments": [
+    {
+     "filename": "4209_03102025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m008",
+   "subject": "Canara Bank: credit alert",
+   "body": "Dear Customer,\nRs.459.58 credited to your Canara Bank A/c xx3729 on 07-10-2025 by IMPS. Ref 406200564437.\nThank you for banking with us.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-07",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.889.01 debited from account *3729 on 10-10-2025. Narration: NEFT/INDIAN OIL. Available balance Rs.2,895.04.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-10",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.4,679.25 has been debited from your Canara Bank A/c XXXXXX3729 on 11-10-2025 (IMPS PVR INOX). Avl bal Rs.45,594.17.",
+   "date": "2025-10-11",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Canara Bank: debit alert",
+   "body": "Your A/c xx3729 is debited for Rs.275.44 on 12-10-2025 - UPI PHONEPE. Bal Rs.32,764.74. -Canara Bank",
+   "date": "2025-10-12",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.3,184.40 debited from account xx3729 on 15-10-2025. Narration: UPI/JIO RECHARGE. Available balance Rs.20,257.59.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-15",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Bank of India: debit alert",
+   "body": "Your A/c XXXXXX4209 is debited for Rs.353.32 on 15-10-2025 - ECOM IKEA. Bal Rs.7,947.54. -Bank of India\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-15",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m014",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Aarav,\nGet up to 10% cashback on partner brands.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-10-19",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Ganesh Maid Service (A/c XXXXXX8274, IndusInd Bank) has been added to your account xx4209. It will be active after 30 minutes.",
+   "date": "2025-10-31",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m016",
+   "subject": "Bank of India: credit alert",
+   "body": "Credit alert: Rs.1,037.03 has been credited to account XXXXXX4209 on 01-11-2025 (NEFT). Avl bal Rs.8,067.62.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-01",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m017",
+   "subject": "Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.294.91 has been debited from your Bank of India A/c *4209 on 04-11-2025 (NEFT STARBUCKS). Avl bal Rs.10,625.34.",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m018",
+   "subject": "Canara Bank Account Statement - Nov 2025",
+   "body": "Dear Aarav,\nYour Canara Bank xx3729 account statement for Nov 2025 is ready. Closing balance Rs.2,427.32.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-06",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Canara Bank: debit alert",
+   "body": "Your A/c *3729 is debited for Rs.17,481.46 on 12-11-2025 - ECOM EASEMYTRIP. Bal Rs.9,775.76. -Canara Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-12",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,500.00 transferred from XXXXXX4209 to Ganesh Maid Service A/c XX8274 on 28-11-2025. Rent for the month.",
+   "date": "2025-11-28",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m021",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Dear Customer,\nRs.954.77 spent on your Canara Bank Debit Card ending 2409 at STARBUCKS on 29-11-2025 23:56:01. Avl bal Rs.23,976.43.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-29",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Payment successful",
+   "body": "Hi Aarav,\nYou paid Rs.6,210.69 to YES BANK Credit Card ending 1530 (of Ishita Nair) on 05-Dec-2025. Ref 1065159335.",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "CRED <noreply@cred.club>"
+  },
+  {
+   "id": "m023",
+   "subject": "Bank of India: debit alert",
+   "body": "INR debit alert: Rs.38,922.50 debited from account *4209 on 07-12-2025. Narration: ECOM/RELIANCE DIGITAL. Available balance Rs.14,819.75.",
+   "date": "2025-12-07",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m024",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.13,127.71 has been debited from your Canara Bank A/c *3729 on 08-12-2025 (ECOM STARBUCKS). Avl bal Rs.10,434.67.\n\nOpt for e-statements and go green.",
+   "date": "2025-12-08",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Bank of India Debit Card transaction alert",
+   "body": "Rs.210.25 withdrawn using your Bank of India Debit Card ending 7640 at ATM LENSKART on 10-12-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-10",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m026",
+   "subject": "Canara Bank: debit alert",
+   "body": "Your A/c *3729 is debited for Rs.329.22 on 12-12-2025 - POS BLINKIT. Bal Rs.13,284.87. -Canara Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-12",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Your Canara Bank Debit Card ending 2409 was used for Rs.9,166.41 at SPOTIFY on 16-12-2025.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-12-16",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Bank of India Debit Card transaction alert",
+   "body": "Rs.339.23 withdrawn using your Bank of India Debit Card XX7640 at ATM EAZYDINER on 19-12-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-19",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m029",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,500.00 transferred from xx4209 to Ganesh Maid Service A/c XX8274 on 28-12-2025. Rent for the month.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m030",
+   "subject": "Bank of India: debit alert",
+   "body": "Your A/c xx4209 is debited for Rs.9,216.99 on 30-12-2025 - ECOM DMART. Bal Rs.6,896.20. -Bank of India",
+   "date": "2025-12-30",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m031",
+   "subject": "Bank of India Account Statement - Jan 2026",
+   "body": "Dear Aarav,\nYour Bank of India XX4209 account statement for Jan 2026 is ready. Closing balance Rs.7,151.80.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-04",
+   "attachments": [],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m032",
+   "subject": "Bank of India: debit alert",
+   "body": "Your A/c xx4209 is debited for Rs.17,388.59 on 05-01-2026 - UPI BATA INDIA. Bal Rs.1,84,298.12. -Bank of India",
+   "date": "2026-01-05",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m033",
+   "subject": "Canara Bank Account Statement - Jan 2026",
+   "body": "Dear Aarav,\nPlease find attached your Canara Bank XXXXXX3729 statement for the period 06-Dec-2025 to 05-Jan-2026. \n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-06",
+   "attachments": [
+    {
+     "filename": "Canara_Statement_Jan2026.pdf",
+     "protected": false,
+     "pdfText": "CANARA BANK\nSTATEMENT OF ACCOUNT\nAccount Name : AARAV NAIR\nFLAT 141, ORCHID APARTMENTS\n2TH CROSS, KOTHRUD\nAHMEDABAD - 484019\nAccount Number : XXXXXX3729\nAccount Type : SAVINGS ACCOUNT\nIFSC : CANA0322379\nStatement Period : 06-12-2025 to 05-01-2026\nOpening Balance : Rs.17,780.50\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n06-12-2025 UPI/CR 973530551 - 139.00 17,919.50\n07-12-2025 NEFT DR/MCDONALDS 991459090 192.23 - 17,727.27\n10-12-2025 POS/ZOMATO 919470760 1,698.62 - 16,028.65\n10-12-2025 NEFT DR/EAZYDINER 778056583 9,434.38 - 6,594.27\n10-12-2025 SALARY NEFT 313768715 - 2,150.10 8,744.37\n13-12-2025 UPI/CR 720901346 - 10,627.35 19,371.72\n14-12-2025 POS/BLINKIT 706575350 2,282.15 - 17,089.57\n15-12-2025 UPI/APOLLO PHARMACY 840442329 2,917.20 - 14,172.37\n16-12-2025 ATM WDL/SPOTIFY 192030308 19,938.13 - -5,765.76\n17-12-2025 UPI/CR 734791995 - 305.93 -5,459.83\n17-12-2025 NEFT DR/CROMA 857616073 4,892.44 - -10,352.27\n18-12-2025 NEFT DR/INDIGO AIRLINES 861449449 1,480.65 - -11,832.92\n21-12-2025 POS/PVR INOX 193519897 104.29 - -11,937.21\n24-12-2025 SALARY NEFT 630798794 - 330.43 -11,606.78\nClosing Balance : -Rs.11,606.78\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Bank of India: debit alert",
+   "body": "INR debit alert: Rs.11,631.20 debited from account XXXXXX4209 on 11-01-2026. Narration: UPI/TATA POWER. Available balance Rs.65,751.68.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-11",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m035",
+   "subject": "Bank of India: debit alert",
+   "body": "INR debit alert: Rs.15,847.75 debited from account XX4209 on 12-01-2026. Narration: POS/SODEXO. Available balance Rs.2,822.14.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-01-12",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m036",
+   "subject": "Canara Bank: credit alert",
+   "body": "Dear Customer,\nRs.11,913.39 credited to your Canara Bank A/c XXXXXX3729 on 18-01-2026 by INTEREST CREDIT. Ref 836580939979.\nThank you for banking with us.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-18",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Canara Bank: debit alert",
+   "body": "Your A/c *3729 is debited for Rs.708.41 on 20-01-2026 - NEFT SWIGGY. Bal Rs.3,431.41. -Canara Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-20",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.1,881.40 has been transferred from your A/c XX4209 to Sunil Plumber A/c XX8882 (IndusInd Bank) via IMPS on 20-01-2026. Ref no 167517850309.",
+   "date": "2026-01-20",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m039",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,000.00 transferred from xx4209 to Ganesh Maid Service A/c XX8274 on 28-01-2026. Rent for the month.",
+   "date": "2026-01-28",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m040",
+   "subject": "Canara Bank festive offers",
+   "body": "Dear Aarav,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\n",
+   "date": "2026-01-28",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.688.49 debited from account XXXXXX3729 on 01-02-2026. Narration: POS/APPLE SERVICES. Available balance Rs.99,683.31.\n\nOpt for e-statements and go green.",
+   "date": "2026-02-01",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.583.14 debited from account XXXXXX3729 on 04-02-2026. Narration: NEFT/LENSKART. Available balance Rs.53,915.84.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-04",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.1,115.27 has been transferred from your A/c XXXXXX4209 to Sunil Plumber A/c XX8882 (IndusInd Bank) via IMPS on 14-02-2026. Ref no 112390420903.",
+   "date": "2026-02-14",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m044",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Aarav,\nUse your card on UPI and earn extra rewards.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-02-14",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Your Canara Bank Debit Card XX2409 was used for Rs.640.66 at INDIGO AIRLINES on 26-02-2026.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-02-26",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,000.00 transferred from xx4209 to Ganesh Maid Service A/c XX8274 on 28-02-2026. Rent for the month.",
+   "date": "2026-02-28",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m047",
+   "subject": "Canara Bank Account Statement - Mar 2026",
+   "body": "Dear Aarav,\nPlease find attached your Canara Bank XX3729 statement for the period 06-Feb-2026 to 05-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-06",
+   "attachments": [
+    {
+     "filename": "eStatement_202603.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Canara Bank: credit alert",
+   "body": "Dear Customer,\nRs.15,714.50 credited to your Canara Bank A/c *3729 on 11-03-2026 by IMPS. Ref 183517635261.\nThank you for banking with us.",
+   "date": "2026-03-11",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Bank of India: debit alert",
+   "body": "Your A/c *4209 is debited for Rs.3,760.32 on 16-03-2026 - UPI INDIGO AIRLINES. Bal Rs.23,197.22. -Bank of India\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-16",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m050",
+   "subject": "Canara Bank: debit alert",
+   "body": "Your A/c XX3729 is debited for Rs.9,246.98 on 24-03-2026 - NEFT RELIANCE DIGITAL. Bal Rs.2,849.45. -Canara Bank\n\nOpt for e-statements and go green.",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Bank of India: debit alert",
+   "body": "Your A/c xx4209 is debited for Rs.109.98 on 03-04-2026 - NEFT MAKEMYTRIP. Bal Rs.1,88,519.30. -Bank of India",
+   "date": "2026-04-03",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m052",
+   "subject": "Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.10,321.67 has been debited from your Bank of India A/c xx4209 on 03-04-2026 (UPI URBAN COMPANY). Avl bal Rs.29,626.03.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-03",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m053",
+   "subject": "Bank of India Account Statement - Apr 2026",
+   "body": "Dear Aarav,\nPlease find attached your Bank of India XXXXXX4209 statement for the period 04-Mar-2026 to 03-Apr-2026. \n\nOpt for e-statements and go green.",
+   "date": "2026-04-04",
+   "attachments": [
+    {
+     "filename": "Bank_Acct_Apr2026.pdf",
+     "protected": false,
+     "pdfText": "BANK OF INDIA\nSTATEMENT OF ACCOUNT\nAccount Name : AARAV NAIR\nFLAT 247, ORCHID APARTMENTS\n10TH CROSS, SECTOR 21\nCHENNAI - 508978\nAccount Number : xx4209\nAccount Type : SAVINGS ACCOUNT\nIFSC : BOIX0358179\nStatement Period : 04-03-2026 to 03-04-2026\nOpening Balance : Rs.16,074.79\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n06-03-2026 UPI/CR 889564574 - 2,102.71 18,177.50\n06-03-2026 ATM WDL/GOOGLE PLAY 872556112 7,151.25 - 11,026.25\n06-03-2026 NEFT DR/MAKEMYTRIP 325727881 9,819.53 - 1,206.72\n06-03-2026 ATM WDL/SWIGGY 856355881 1,895.24 - -688.52\n08-03-2026 UPI/OLA CABS 548372435 18,891.16 - -19,579.68\n08-03-2026 IMPS/CR 498395759 - 2,523.53 -17,056.15\n09-03-2026 ATM WDL/EAZYDINER 315774842 3,259.76 - -20,315.91\n09-03-2026 POS/LENSKART 381689965 17,119.89 - -37,435.80\nClosing Balance : -Rs.37,435.80\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m054",
+   "subject": "Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.174.60 credited to your Bank of India A/c XXXXXX4209 on 05-04-2026 by REFUND. Ref 807047248134.\nThank you for banking with us.",
+   "date": "2026-04-05",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m055",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Your Canara Bank Debit Card xx2409 was used for Rs.501.41 at NYKAA on 13-04-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-13",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "OTP for your transaction",
+   "body": "635589 is the OTP for your transaction of Rs.180.54 at BOOKMYSHOW. Valid for 10 minutes. Do not share.",
+   "date": "2026-04-13",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Bank of India: debit alert",
+   "body": "Your A/c xx4209 is debited for Rs.1,856.90 on 16-04-2026 - POS CROMA. Bal Rs.1,93,724.27. -Bank of India",
+   "date": "2026-04-16",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m058",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.4,473.56 debited from account XXXXXX3729 on 19-04-2026. Narration: POS/BOOKMYSHOW. Available balance Rs.15,449.43.",
+   "date": "2026-04-19",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "OTP for your transaction",
+   "body": "918522 is the OTP for your transaction of Rs.254.28 at DECATHLON. Valid for 10 minutes. Do not share.",
+   "date": "2026-04-20",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m060",
+   "subject": "Bank of India: credit alert",
+   "body": "Credit alert: Rs.21,933.33 has been credited to account *4209 on 23-04-2026 (REFUND). Avl bal Rs.11,129.25.",
+   "date": "2026-04-23",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m061",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 152663669904. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-04-23",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Aarav,\nYour order #641-7888143-3040313 is confirmed. Total Rs.1,037.81. Estimated delivery in 2 days.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Canara Bank Account Statement - May 2026",
+   "body": "Dear Aarav,\nYour Canara Bank xx3729 account statement for May 2026 is ready. Closing balance Rs.1,844.65.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-06",
+   "attachments": [],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Canara Bank: credit alert",
+   "body": "Credit alert: Rs.2,492.00 has been credited to account *3729 on 12-05-2026 (REFUND). Avl bal Rs.14,465.87.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 105787227649. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-05-14",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m066",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.751.58 has been debited from your Canara Bank A/c XXXXXX3729 on 19-05-2026 (NEFT PAYTM). Avl bal Rs.1,62,952.56.",
+   "date": "2026-05-19",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.138.60 has been debited from your Bank of India A/c *4209 on 22-05-2026 (POS EASEMYTRIP). Avl bal Rs.2,679.82.",
+   "date": "2026-05-22",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m068",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX6713 has been updated on 03-04-2026. If not requested by you, call customer care.",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.5,023.55 has been transferred from your A/c XX3729 to S K Enterprises A/c XX8911 (Punjab National Bank) via IMPS on 26-05-2026. Ref no 287112704271.",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Rs.306.03 withdrawn using your Canara Bank Debit Card XX2409 at ATM PAYTM on 31-05-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-31",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.227.55 has been debited from your Bank of India A/c xx4209 on 15-06-2026 (ECOM PAYTM). Avl bal Rs.10,107.14.\n\nOpt for e-statements and go green.",
+   "date": "2026-06-15",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m072",
+   "subject": "Canara Bank: credit alert",
+   "body": "Dear Customer,\nRs.12,915.13 credited to your Canara Bank A/c *3729 on 16-06-2026 by NEFT. Ref 119735071211.\nThank you for banking with us.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-06-16",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Bank of India: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 3570 has been successfully linked/verified for your Bank of India relationship. If this was not you, contact us.",
+   "date": "2026-06-19",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m074",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.11,243.80 debited from account xx3729 on 20-06-2026. Narration: UPI/IKEA. Available balance Rs.75,824.76.",
+   "date": "2026-06-20",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.2,399.67 credited to your Bank of India A/c XXXXXX4209 on 22-06-2026 by IMPS. Ref 965542704825.\nThank you for banking with us.\n\nOpt for e-statements and go green.",
+   "date": "2026-06-22",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m076",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Dear Customer,\nRs.13,462.95 spent on your Canara Bank Debit Card XX2409 at AIRTEL PREPAID on 25-06-2026 23:20:30. Avl bal Rs.9,606.54.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Rs.22,945.21 withdrawn using your Canara Bank Debit Card XX2409 at ATM DOMINOS on 27-06-2026.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Refer and earn",
+   "body": "Dear Aarav,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-02",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.15,410.80 has been debited from your Canara Bank A/c XX3729 on 03-07-2026 (POS RELIANCE DIGITAL). Avl bal Rs.2,965.38.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-03",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Bank of India Account Statement - Jul 2026",
+   "body": "Dear Aarav,\nPlease find attached your Bank of India *4209 statement for the period 04-Jun-2026 to 03-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-07-04",
+   "attachments": [
+    {
+     "filename": "Bank_Acct_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m081",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.6,577.01 has been transferred from your A/c xx4209 to Sunil Plumber A/c XX8882 (IndusInd Bank) via IMPS on 04-07-2026. Ref no 621497123786.",
+   "date": "2026-07-04",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m082",
+   "subject": "Canara Bank Account Statement - Jul 2026",
+   "body": "Dear Aarav,\nPlease find attached your Canara Bank XXXXXX3729 statement for the period 06-Jun-2026 to 05-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-06",
+   "attachments": [
+    {
+     "filename": "eStatement_202607.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.20,910.44 has been debited from your Bank of India A/c *4209 on 13-07-2026 (ECOM ZEPTO). Avl bal Rs.25,563.38.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-13",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m084",
+   "subject": "Bank of India: debit alert",
+   "body": "INR debit alert: Rs.2,306.72 debited from account xx4209 on 14-07-2026. Narration: IMPS/EAZYDINER. Available balance Rs.5,814.33.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-14",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m085",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Rs.909.14 withdrawn using your Canara Bank Debit Card ending 2409 at ATM IKEA on 15-07-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-15",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Bank of India: credit alert",
+   "body": "Credit alert: Rs.31,625.14 has been credited to account *4209 on 23-07-2026 (SALARY NEFT). Avl bal Rs.89,702.61.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m087",
+   "subject": "Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.11,037.08 credited to your Bank of India A/c xx4209 on 23-07-2026 by INTEREST CREDIT. Ref 646464133484.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m088",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.342.25 has been debited from your Canara Bank A/c XX3729 on 03-08-2026 (POS BPCL FUEL). Avl bal Rs.1,70,364.76.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-03",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Canara Bank: debit alert",
+   "body": "Your A/c xx3729 is debited for Rs.16,899.01 on 04-08-2026 - ECOM AMAZON PAY INDIA. Bal Rs.8,203.58. -Canara Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-04",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Bank of India: credit alert",
+   "body": "Credit alert: Rs.20,413.66 has been credited to account XX4209 on 04-08-2026 (SALARY NEFT). Avl bal Rs.6,398.24.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-04",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m091",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.1,374.81 debited from account *3729 on 06-08-2026. Narration: UPI/BESCOM. Available balance Rs.3,816.69.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-06",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.1,600.97 debited from account xx3729 on 07-08-2026. Narration: UPI/IXIGO. Available balance Rs.1,74,615.61.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-07",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "Bank of India: credit alert",
+   "body": "Credit alert: Rs.9,312.90 has been credited to account XX4209 on 08-08-2026 (UPI). Avl bal Rs.10,898.15.",
+   "date": "2026-08-08",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m094",
+   "subject": "Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.758.81 has been debited from your Bank of India A/c XX4209 on 14-08-2026 (NEFT BOOKMYSHOW). Avl bal Rs.5,792.78.",
+   "date": "2026-08-14",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m095",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Your Canara Bank Debit Card XX2409 was used for Rs.131.89 at APPLE SERVICES on 19-08-2026.",
+   "date": "2026-08-19",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.756.75 has been debited from your Canara Bank A/c *3729 on 21-08-2026 (IMPS OLA CABS). Avl bal Rs.18,105.20.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-21",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Bank of India: credit alert",
+   "body": "Your A/c xx4209 is credited with Rs.3,248.00 on 21-08-2026 - UPI. Bal Rs.3,075.55. -Bank of India\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-21",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m098",
+   "subject": "Refer and earn",
+   "body": "Dear Aarav,\nConvert big spends to EMI at low interest.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-26",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Canara Bank: debit alert",
+   "body": "Dear Customer,\nRs.2,398.91 has been debited from your Canara Bank A/c XXXXXX3729 on 28-08-2026 (ECOM LENSKART). Avl bal Rs.61,554.67.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-28",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Your Canara Bank Debit Card ending 2409 was used for Rs.3,526.87 at SODEXO on 04-09-2026.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-04",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.3,474.02 debited from account xx3729 on 05-09-2026. Narration: NEFT/FLIPKART. Available balance Rs.1,40,188.27.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Canara Bank Account Statement - Sep 2026",
+   "body": "Dear Aarav,\nPlease find attached your Canara Bank *3729 statement for the period 06-Aug-2026 to 05-Sep-2026. \n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-06",
+   "attachments": [
+    {
+     "filename": "Canara_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "CANARA BANK\nSTATEMENT OF ACCOUNT\nAccount Name : AARAV NAIR\nFLAT 383, LAKESHORE APARTMENTS\n29TH CROSS, SECTOR 21\nPUNE - 664027\nAccount Number : *3729\nAccount Type : SAVINGS ACCOUNT\nIFSC : CANA0473110\nStatement Period : 06-08-2026 to 05-09-2026\nOpening Balance : Rs.83,546.34\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n07-08-2026 INTEREST 558559781 - 1,139.22 84,685.56\n07-08-2026 NEFT DR/AMAZON PAY INDIA 846782457 400.75 - 84,284.81\n08-08-2026 UPI/DOMINOS 883238414 238.61 - 84,046.20\n08-08-2026 IMPS/CR 458552386 - 3,577.31 87,623.51\n08-08-2026 UPI/AIRTEL PREPAID 358599314 365.05 - 87,258.46\n08-08-2026 POS/LENSKART 573356515 425.83 - 86,832.63\n11-08-2026 ATM WDL/TATA POWER 887485593 4,420.43 - 82,412.20\nClosing Balance : Rs.82,412.20\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Canara Bank <estatement@canarabank.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Canara Bank: funds transferred",
+   "body": "Dear Customer,\nRs.4,746.01 has been transferred from your A/c XXXXXX3729 to Lata Tutor A/c XX1634 (Punjab National Bank) via IMPS on 10-09-2026. Ref no 895011212585.",
+   "date": "2026-09-10",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Bank of India: debit alert",
+   "body": "Your A/c xx4209 is debited for Rs.499.76 on 23-09-2026 - UPI ZEPTO. Bal Rs.11,849.82. -Bank of India\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-23",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m105",
+   "subject": "Bank of India: debit alert",
+   "body": "INR debit alert: Rs.15,076.46 debited from account XXXXXX4209 on 24-09-2026. Narration: IMPS/TATA PLAY. Available balance Rs.2,529.37.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-09-24",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m106",
+   "subject": "Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.7,530.74 credited to your Bank of India A/c XX4209 on 25-09-2026 by UPI. Ref 784139151500.\nThank you for banking with us.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m107",
+   "subject": "Canara Bank Debit Card transaction alert",
+   "body": "Your Canara Bank Debit Card XX2409 was used for Rs.3,157.19 at GOOGLE PLAY on 29-09-2026.",
+   "date": "2026-09-29",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "Bank of India Account Statement - Oct 2026",
+   "body": "Dear Aarav,\nPlease find attached your Bank of India xx4209 statement for the period 04-Sep-2026 to 03-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-10-04",
+   "attachments": [
+    {
+     "filename": "eStatement_202610.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m109",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Aarav,\nYour order #943-4896824-1502891 is confirmed. Total Rs.1,218.65. Estimated delivery in 2 days.",
+   "date": "2026-10-17",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Canara Bank: debit alert",
+   "body": "INR debit alert: Rs.12,183.71 debited from account XX3729 on 18-10-2026. Narration: ECOM/ZEPTO. Available balance Rs.63,946.44.",
+   "date": "2026-10-18",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Update your KYC",
+   "body": "Dear Aarav,\nAs per RBI guidelines please complete re-KYC for your Canara Bank relationship. Visit a branch or use the app.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-23",
+   "attachments": [],
+   "from": "Canara Bank <canarabank@canarabank.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Bank of India: credit alert",
+   "body": "Your A/c *4209 is credited with Rs.2,730.49 on 26-10-2026 - UPI. Bal Rs.3,989.23. -Bank of India\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-26",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "3729",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "2409",
+    "kind": "DEBIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "bankofindia.co.in",
+    "last4": "4209",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "bankofindia.co.in",
+    "last4": "7640",
+    "kind": "DEBIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "WEAK",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "8911",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "1634",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "indusind.com",
+    "last4": "8882",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "indusind.com",
+    "last4": "8274",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "bankofindia.co.in",
+    "last4": "3570",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "6713",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "9904",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "bankofindia.co.in",
+    "last4": "7649",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "yesbank.in",
+    "last4": "1530",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

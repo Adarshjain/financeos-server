@@ -1,0 +1,1098 @@
+{
+ "mailbox": "paytm-wallet-union",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c *8640 is debited for Rs.7,323.99 on 04-Nov-2025 - ECOM BATA INDIA. Bal Rs.10,772.76. -Paytm Payments Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "OTP for your transaction",
+   "body": "943398 is the OTP for your transaction of Rs.923.48 at TATA PLAY. Valid for 10 minutes. Do not share.",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.769.83 credited to your Union Bank of India A/c XXXXXX2448 on 05-11-2025 by UPI. Ref 436350649803.\nThank you for banking with us.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-05",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m004",
+   "subject": "Paytm Payments Bank Account Statement - Nov 2025",
+   "body": "Dear Farhan,\nPlease find attached your Paytm Payments Bank xx7744 statement for the period 07-Oct-2025 to 06-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-07",
+   "attachments": [
+    {
+     "filename": "Paytm_Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Sita Devi (A/c XXXXXX1338, Union Bank of India) has been added to your account xx7744. It will be active after 30 minutes.",
+   "date": "2025-11-23",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.19,537.84 debited from account XXXXXX7744 on 27-Nov-2025. Narration: NEFT/BOOKMYSHOW. Available balance Rs.15,413.64.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c xx2448 is debited for Rs.115.27 on 27-11-2025 - POS MCDONALDS. Bal Rs.19,988.00. -Union Bank of India\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m008",
+   "subject": "Union Bank of India Account Statement - Nov 2025",
+   "body": "Dear Farhan,\nYour Union Bank of India XXXXXX2448 account statement for Nov 2025 is ready. Closing balance Rs.9,162.45.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-28",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m009",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.6,663.55 debited from account XXXXXX8640 on 28-Nov-2025. Narration: UPI/URBAN COMPANY. Available balance Rs.4,609.46.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-28",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.5,164.05 has been debited from your Paytm Payments Bank A/c XX7744 on 29-Nov-2025 (IMPS NETFLIX). Avl bal Rs.10,117.53.",
+   "date": "2025-11-29",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Paytm Payments Bank Account Statement - Dec 2025",
+   "body": "Dear Farhan,\nYour Paytm Payments Bank *7744 account statement for Dec 2025 is ready. Closing balance Rs.21,855.83.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-07",
+   "attachments": [],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.6,672.46 credited to your Paytm Payments Bank A/c *8640 on 09-Dec-2025 by REFUND. Ref 230983148336.\nThank you for banking with us.",
+   "date": "2025-12-09",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Union Bank of India: debit alert",
+   "body": "INR debit alert: Rs.731.25 debited from account *2448 on 09-12-2025. Narration: ECOM/LENSKART. Available balance Rs.5,749.47.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-09",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m014",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.1,591.17 has been debited from your Paytm Payments Bank A/c XXXXXX7744 on 16-Dec-2025 (UPI SPOTIFY). Avl bal Rs.1,99,122.93.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-12-16",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Your A/c XX7744 is credited with Rs.521.43 on 21-Dec-2025 - IMPS. Bal Rs.2,030.43. -Paytm Payments Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-21",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,000.00 transferred from XXXXXX7744 to Sita Devi A/c XX1338 on 23-Dec-2025. Rent for the month.",
+   "date": "2025-12-23",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "OTP for your transaction",
+   "body": "996753 is the OTP for your transaction of Rs.1,323.88 at ZEPTO. Valid for 10 minutes. Do not share.",
+   "date": "2025-12-23",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m018",
+   "subject": "Union Bank of India Account Statement - Dec 2025",
+   "body": "Dear Farhan,\nYour Union Bank of India xx2448 account statement for Dec 2025 is ready. Closing balance Rs.1,145.97.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m019",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.2,054.02 credited to your Union Bank of India A/c XX2448 on 31-12-2025 by REFUND. Ref 748104200571.\nThank you for banking with us.\n\nOpt for e-statements and go green.",
+   "date": "2025-12-31",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m020",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 158999452053. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-01-01",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Paytm Payments Bank: funds transferred",
+   "body": "Dear Customer,\nRs.6,018.20 has been transferred from your A/c *7744 to Dr. Rao Clinic A/c XX1699 (SBI Card) via IMPS on 03-Jan-2026. Ref no 505904079977.",
+   "date": "2026-01-03",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Paytm Payments Bank Account Statement - Jan 2026",
+   "body": "Dear Farhan,\nPlease find attached your Paytm Payments Bank *7744 statement for the period 07-Dec-2025 to 06-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-01-07",
+   "attachments": [
+    {
+     "filename": "7744_06012026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.3,617.41 credited to your Paytm Payments Bank A/c XX8640 on 09-Jan-2026 by SALARY NEFT. Ref 674799509051.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-09",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.14,215.60 debited from account *7744 on 10-Jan-2026. Narration: IMPS/APOLLO PHARMACY. Available balance Rs.1,59,910.76.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-10",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.10,451.52 debited from account xx8640 on 11-Jan-2026. Narration: ECOM/FLIPKART. Available balance Rs.8,098.07.",
+   "date": "2026-01-11",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.5,908.81 debited from account XX7744 on 13-Jan-2026. Narration: NEFT/INDIGO AIRLINES. Available balance Rs.50,211.86.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-01-13",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Union Bank of India: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 3051 has been successfully linked/verified for your Union Bank of India relationship. If this was not you, contact us.",
+   "date": "2026-01-13",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m028",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,500.00 transferred from *7744 to Sita Devi A/c XX1338 on 23-Jan-2026. Rent for the month.",
+   "date": "2026-01-23",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.742.93 has been debited from your Paytm Payments Bank A/c xx8640 on 24-Jan-2026 (UPI APPLE SERVICES). Avl bal Rs.37,959.58.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-24",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "OTP for your transaction",
+   "body": "298905 is the OTP for your transaction of Rs.3,882.36 at EASEMYTRIP. Valid for 10 minutes. Do not share.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Union Bank of India Account Statement - Jan 2026",
+   "body": "Dear Farhan,\nPlease find attached your Union Bank of India XXXXXX2448 statement for the period 28-Dec-2025 to 27-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-01-28",
+   "attachments": [
+    {
+     "filename": "Union_Acct_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m032",
+   "subject": "Union Bank of India Debit Card transaction alert",
+   "body": "Your Union Bank of India Debit Card xx9063 was used for Rs.87.95 at PHONEPE on 28-01-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-28",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m033",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c *7744 is debited for Rs.700.78 on 02-Feb-2026 - UPI FLIPKART. Bal Rs.1,11,353.90. -Paytm Payments Bank",
+   "date": "2026-02-02",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Your A/c *7744 is credited with Rs.2,171.15 on 02-Feb-2026 - UPI. Bal Rs.9,939.73. -Paytm Payments Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-02-02",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Paytm Payments Bank Account Statement - Feb 2026",
+   "body": "Dear Farhan,\nPlease find attached your Paytm Payments Bank *7744 statement for the period 07-Jan-2026 to 06-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-07",
+   "attachments": [
+    {
+     "filename": "7744_06022026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Paytm Payments Bank wallet: Rs.200.23 added",
+   "body": "Dear Farhan,\nRs.200.23 has been added to your Paytm Wallet XXXXXX8640 on 08-Feb-2026. Wallet balance: Rs.3,145.85.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2026-02-08",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.1,031.77 credited to your Paytm Payments Bank A/c *8640 on 08-Feb-2026 by INTEREST CREDIT. Ref 109899674410.\nThank you for banking with us.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-08",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.35,097.50 has been transferred from your A/c xx2448 to Mohan Landlord A/c XX2553 (IDFC FIRST Bank) via IMPS on 08-02-2026. Ref no 993776460816.",
+   "date": "2026-02-08",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m039",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.130.82 has been debited from your Union Bank of India A/c *2448 on 09-02-2026 (ECOM AMAZON PAY INDIA). Avl bal Rs.2,540.41.",
+   "date": "2026-02-09",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m040",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c *2448 is debited for Rs.489.78 on 11-02-2026 - POS IKEA. Bal Rs.6,858.71. -Union Bank of India\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-02-11",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m041",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Credit alert: Rs.9,278.98 has been credited to account *8640 on 14-Feb-2026 (UPI). Avl bal Rs.16,469.74.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-14",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.13,568.19 has been transferred from your A/c XX2448 to Mohan Landlord A/c XX2553 (IDFC FIRST Bank) via IMPS on 14-02-2026. Ref no 410760059467.",
+   "date": "2026-02-14",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m043",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.505.61 has been transferred from your A/c *7744 to Dr. Rao Clinic A/c XX1699 (SBI Card) via IMPS on 14-Feb-2026. Ref no 186229162678.",
+   "date": "2026-02-14",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Your A/c *8640 is credited with Rs.1,004.77 on 15-Feb-2026 - UPI. Bal Rs.11,872.11. -Paytm Payments Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-15",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,000.00 transferred from XX7744 to Sita Devi A/c XX1338 on 23-Feb-2026. Rent for the month.",
+   "date": "2026-02-23",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.927.49 has been debited from your Union Bank of India A/c *2448 on 27-02-2026 (UPI BIGBASKET). Avl bal Rs.6,784.16.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m047",
+   "subject": "Union Bank of India Account Statement - Feb 2026",
+   "body": "Dear Farhan,\nPlease find attached your Union Bank of India XX2448 statement for the period 28-Jan-2026 to 27-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-28",
+   "attachments": [
+    {
+     "filename": "eStatement_202602.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m048",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 603733164016. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-03-06",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m049",
+   "subject": "Paytm Payments Bank Account Statement - Mar 2026",
+   "body": "Dear Farhan,\nPlease find attached your Paytm Payments Bank XX7744 statement for the period 07-Feb-2026 to 06-Mar-2026. \n\n",
+   "date": "2026-03-07",
+   "attachments": [
+    {
+     "filename": "Paytm_Statement_Mar2026.pdf",
+     "protected": false,
+     "pdfText": "PAYTM PAYMENTS BANK\nSTATEMENT OF ACCOUNT\nAccount Name : FARHAN MENON\nFLAT 399, LAKESHORE APARTMENTS\n17TH CROSS, BANJARA HILLS\nPUNE - 496411\nCustomer ID : 34377996\nAccount Number : XX7744\nAccount Type : SAVINGS ACCOUNT\nIFSC : PAYT0190570\nStatement Period : 07-02-2026 to 06-03-2026\nOpening Balance : Rs.59,234.71\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n10-02-2026 POS/EASEMYTRIP 336478050 10,690.30 - 48,544.41\n13-02-2026 IMPS/CR 975546445 - 6,255.46 54,799.87\n14-02-2026 UPI/AIRTEL PREPAID 261826494 299.64 - 54,500.23\n14-02-2026 UPI/APOLLO PHARMACY 779465701 370.46 - 54,129.77\n14-02-2026 IMPS/CR 478290099 - 7,485.96 61,615.73\n15-02-2026 INTEREST 188116129 - 1,112.05 62,727.78\n17-02-2026 UPI/AMAZON PAY INDIA 343302467 6,339.02 - 56,388.76\n20-02-2026 POS/CROMA 832939549 2,156.83 - 54,231.93\n21-02-2026 POS/PVR INOX 783412713 830.96 - 53,400.97\n22-02-2026 UPI/CR 462316999 - 359.76 53,760.73\n24-02-2026 SALARY NEFT 648987886 - 314.57 54,075.30\nClosing Balance : Rs.54,075.30\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.251.56 credited to your Paytm Payments Bank A/c XX7744 on 16-Mar-2026 by INTEREST CREDIT. Ref 538446824560.\nThank you for banking with us.",
+   "date": "2026-03-16",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.7,918.90 has been transferred from your A/c *2448 to Mohan Landlord A/c XX2553 (IDFC FIRST Bank) via IMPS on 18-03-2026. Ref no 840738630091.",
+   "date": "2026-03-18",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m052",
+   "subject": "Union Bank of India Debit Card transaction alert",
+   "body": "Rs.12,281.98 withdrawn using your Union Bank of India Debit Card XX9063 at ATM MYNTRA on 23-03-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-23",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m053",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from XX7744 to Sita Devi A/c XX1338 on 23-Mar-2026. Rent for the month.",
+   "date": "2026-03-23",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Union Bank of India Account Statement - Mar 2026",
+   "body": "Dear Farhan,\nYour Union Bank of India XXXXXX2448 account statement for Mar 2026 is ready. Closing balance Rs.1,040.01.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-03-28",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m055",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Farhan,\nYour order #433-7728019-5137828 is confirmed. Total Rs.3,527.68. Estimated delivery in 2 days.",
+   "date": "2026-03-31",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m056",
+   "subject": "Paytm Payments Bank Account Statement - Apr 2026",
+   "body": "Dear Farhan,\nPlease find attached your Paytm Payments Bank XX7744 statement for the period 07-Mar-2026 to 06-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-07",
+   "attachments": [
+    {
+     "filename": "eStatement_202604.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c *7744 is debited for Rs.144.93 on 16-Apr-2026 - ECOM TATA POWER. Bal Rs.1,12,653.79. -Paytm Payments Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-16",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,500.00 transferred from XXXXXX7744 to Sita Devi A/c XX1338 on 23-Apr-2026. Rent for the month.",
+   "date": "2026-04-23",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Union Bank of India Account Statement - Apr 2026",
+   "body": "Dear Farhan,\nPlease find attached your Union Bank of India XX2448 statement for the period 28-Mar-2026 to 27-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-28",
+   "attachments": [
+    {
+     "filename": "eStatement_202604.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m060",
+   "subject": "Payment successful",
+   "body": "Hi Farhan,\nYou paid Rs.36,919.40 to Bandhan Bank Credit Card ending 5337 (of Tanvi Menon) on 29-Apr-2026. Ref 5261985481.",
+   "date": "2026-04-29",
+   "attachments": [],
+   "from": "CRED <noreply@cred.club>"
+  },
+  {
+   "id": "m061",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX8640 is debited for Rs.98.19 on 30-Apr-2026 - UPI INDIGO AIRLINES. Bal Rs.66,140.20. -Paytm Payments Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-30",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Your A/c XX8640 is debited for Rs.6,812.41 on 03-May-2026 - UPI PAYTM. Bal Rs.20,988.19. -Paytm Payments Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-03",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Paytm Payments Bank Account Statement - May 2026",
+   "body": "Dear Farhan,\nPlease find attached your Paytm Payments Bank *7744 statement for the period 07-Apr-2026 to 06-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-05-07",
+   "attachments": [
+    {
+     "filename": "eStatement_202605.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "OTP for your transaction",
+   "body": "167804 is the OTP for your transaction of Rs.9,714.67 at UBER INDIA. Valid for 10 minutes. Do not share.",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m065",
+   "subject": "Union Bank of India: debit alert",
+   "body": "INR debit alert: Rs.5,882.12 debited from account *2448 on 10-05-2026. Narration: POS/MAKEMYTRIP. Available balance Rs.3,622.85.\n\nOpt for e-statements and go green.",
+   "date": "2026-05-10",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m066",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 890026559286. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-05-11",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m067",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,500.00 transferred from xx7744 to Sita Devi A/c XX1338 on 23-May-2026. Rent for the month.",
+   "date": "2026-05-23",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Union Bank of India Account Statement - May 2026",
+   "body": "Dear Farhan,\nYour Union Bank of India XX2448 account statement for May 2026 is ready. Closing balance Rs.5,970.89.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m069",
+   "subject": "Union Bank of India Debit Card transaction alert",
+   "body": "Your Union Bank of India Debit Card XX9063 was used for Rs.433.20 at DOMINOS on 31-05-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-31",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m070",
+   "subject": "Paytm Payments Bank Account Statement - Jun 2026",
+   "body": "Dear Farhan,\nPlease find attached your Paytm Payments Bank XX7744 statement for the period 07-May-2026 to 06-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-07",
+   "attachments": [
+    {
+     "filename": "Paytm_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Paytm Payments Bank wallet: Rs.1,153.32 added",
+   "body": "Dear Farhan,\nRs.1,153.32 has been added to your Paytm Wallet wallet no. 8640 on 08-Jun-2026. Wallet balance: Rs.826.54.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2026-06-08",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Credit alert: Rs.10,674.89 has been credited to account XXXXXX7744 on 09-Jun-2026 (UPI). Avl bal Rs.1,75,262.17.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-09",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Paytm Payments Bank wallet: Rs.1,451.61 added",
+   "body": "Dear Farhan,\nRs.1,451.61 has been added to your Paytm Wallet wallet no. 8640 on 11-Jun-2026. Wallet balance: Rs.710.49.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2026-06-11",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Your A/c XX2448 is credited with Rs.38,568.38 on 11-06-2026 - IMPS. Bal Rs.2,416.41. -Union Bank of India\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-11",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m075",
+   "subject": "Union Bank of India Debit Card transaction alert",
+   "body": "Rs.90.58 withdrawn using your Union Bank of India Debit Card ending 9063 at ATM BESCOM on 11-06-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-11",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m076",
+   "subject": "Update your KYC",
+   "body": "Dear Farhan,\nAs per RBI guidelines please complete re-KYC for your Paytm Payments Bank relationship. Visit a branch or use the app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-18",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.6,225.77 credited to your Union Bank of India A/c *2448 on 20-06-2026 by UPI. Ref 325426481968.\nThank you for banking with us.",
+   "date": "2026-06-20",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m078",
+   "subject": "Union Bank of India Account Statement - Jun 2026",
+   "body": "Dear Farhan,\nPlease find attached your Union Bank of India XXXXXX2448 statement for the period 28-May-2026 to 27-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-28",
+   "attachments": [
+    {
+     "filename": "2448_27062026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m079",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Credit alert: Rs.6,411.76 has been credited to account XXXXXX2448 on 30-06-2026 (REFUND). Avl bal Rs.11,270.10.",
+   "date": "2026-06-30",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m080",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.6,933.82 has been debited from your Paytm Payments Bank A/c XXXXXX7744 on 02-Jul-2026 (UPI IRCTC). Avl bal Rs.3,227.56.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-02",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Union Bank of India Debit Card transaction alert",
+   "body": "Rs.6,555.06 withdrawn using your Union Bank of India Debit Card xx9063 at ATM DMART on 03-07-2026.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-03",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m082",
+   "subject": "OTP for your transaction",
+   "body": "611438 is the OTP for your transaction of Rs.1,843.19 at FLIPKART. Valid for 10 minutes. Do not share.",
+   "date": "2026-07-06",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m083",
+   "subject": "Paytm Payments Bank Account Statement - Jul 2026",
+   "body": "Dear Farhan,\nPlease find attached your Paytm Payments Bank XX7744 statement for the period 07-Jun-2026 to 06-Jul-2026. \n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-07",
+   "attachments": [
+    {
+     "filename": "eStatement_202607.pdf",
+     "protected": false,
+     "pdfText": "PAYTM PAYMENTS BANK\nSTATEMENT OF ACCOUNT\nAccount Name : FARHAN MENON\nFLAT 579, LAKESHORE APARTMENTS\n29TH CROSS, SECTOR 21\nBENGALURU - 691633\nCustomer ID : 87042242\nAccount Number : XXXXXX7744\nAccount Type : SAVINGS ACCOUNT\nIFSC : PAYT0463780\nStatement Period : 07-06-2026 to 06-07-2026\nOpening Balance : Rs.43,378.78\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n10-06-2026 INTEREST 407348671 - 101.96 43,480.74\n12-06-2026 IMPS/CR 789644391 - 3,325.61 46,806.35\n13-06-2026 UPI/CR 614623234 - 568.07 47,374.42\n15-06-2026 NEFT DR/BIGBASKET 863823566 596.17 - 46,778.25\n15-06-2026 NEFT DR/BLINKIT 521650482 379.73 - 46,398.52\n17-06-2026 POS/BPCL FUEL 996312765 7,963.26 - 38,435.26\n19-06-2026 POS/NETFLIX 238506270 263.89 - 38,171.37\n19-06-2026 UPI/CR 376104037 - 389.13 38,560.50\n20-06-2026 UPI/BOOKMYSHOW 744972711 17,848.66 - 20,711.84\n22-06-2026 POS/ZEPTO 484991245 166.88 - 20,544.96\n25-06-2026 NEFT DR/DOMINOS 862260240 584.83 - 19,960.13\n28-06-2026 IMPS/CR 436967169 - 4,669.08 24,629.21\nClosing Balance : Rs.24,629.21\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.3,036.21 debited from account XXXXXX8640 on 13-Jul-2026. Narration: NEFT/PVR INOX. Available balance Rs.32,735.05.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-13",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Paytm Payments Bank wallet statement - Jul 2026",
+   "body": "Your wallet statement is attached.",
+   "date": "2026-07-14",
+   "attachments": [
+    {
+     "filename": "Wallet_Statement_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "PAYTM PAYMENTS BANK\nWALLET STATEMENT\nWallet Holder : FARHAN MENON\nWallet ID : XXXXXX8640\nWallet Type : MINIMUM-KYC PREPAID WALLET\nPeriod : 14-06-2026 to 14-07-2026\nDate Description Credit Debit Balance\n14-06-2026 PAID TO UBER INDIA 226.05 - 410.20\n17-06-2026 CASHBACK 609.45 - 454.33\n20-06-2026 CASHBACK 376.45 - 357.19\n23-06-2026 ADD MONEY 49.30 - 776.33\n26-06-2026 ADD MONEY 254.68 - 656.66\n29-06-2026 CASHBACK 306.50 - 947.25\n02-07-2026 PAID TO NETFLIX 1,591.18 - 896.70"
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Paytm Payments Bank wallet: Rs.552.57 added",
+   "body": "Dear Farhan,\nRs.552.57 has been added to your Paytm Wallet ID ending 8640 on 19-Jul-2026. Wallet balance: Rs.2,696.80.\nWallet is a prepaid payment instrument; it is not a card or a bank account.",
+   "date": "2026-07-19",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Union Bank of India Account Statement - Jul 2026",
+   "body": "Dear Farhan,\nYour Union Bank of India *2448 account statement for Jul 2026 is ready. Closing balance Rs.533.88.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-28",
+   "attachments": [],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m088",
+   "subject": "Refer and earn",
+   "body": "Dear Farhan,\nUse your card on UPI and earn extra rewards.\n\n",
+   "date": "2026-07-29",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m089",
+   "subject": "Union Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.479.63 credited to your Union Bank of India A/c XX2448 on 02-08-2026 by REFUND. Ref 384653195770.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-02",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m090",
+   "subject": "Paytm Payments Bank Account Statement - Aug 2026",
+   "body": "Dear Farhan,\nPlease find attached your Paytm Payments Bank XX7744 statement for the period 07-Jul-2026 to 06-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-08-07",
+   "attachments": [
+    {
+     "filename": "eStatement_202608.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c xx2448 is debited for Rs.2,197.65 on 09-08-2026 - ECOM AIRTEL PREPAID. Bal Rs.40,552.30. -Union Bank of India\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-09",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m092",
+   "subject": "OTP for your transaction",
+   "body": "823123 is the OTP for your transaction of Rs.3,155.58 at AIRTEL PREPAID. Valid for 10 minutes. Do not share.",
+   "date": "2026-08-16",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m093",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.2,127.48 has been debited from your Paytm Payments Bank A/c *8640 on 22-Aug-2026 (NEFT AIRTEL PREPAID). Avl bal Rs.25,268.35.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.5,096.74 has been transferred from your A/c XXXXXX7744 to Dr. Rao Clinic A/c XX1699 (SBI Card) via IMPS on 23-Aug-2026. Ref no 123595382940.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX0739 has been updated on 03-May-2026. If not requested by you, call customer care.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Union Bank of India Account Statement - Aug 2026",
+   "body": "Dear Farhan,\nPlease find attached your Union Bank of India XXXXXX2448 statement for the period 28-Jul-2026 to 27-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-08-28",
+   "attachments": [
+    {
+     "filename": "2448_27082026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m097",
+   "subject": "Paytm Payments Bank Account Statement - Sep 2026",
+   "body": "Dear Farhan,\nPlease find attached your Paytm Payments Bank XXXXXX7744 statement for the period 07-Aug-2026 to 06-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-07",
+   "attachments": [
+    {
+     "filename": "eStatement_202609.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.15,122.22 debited from account XX8640 on 07-Sep-2026. Narration: ECOM/EASEMYTRIP. Available balance Rs.13,665.08.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-07",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Union Bank of India: debit alert",
+   "body": "INR debit alert: Rs.230.22 debited from account XXXXXX2448 on 11-09-2026. Narration: POS/IRCTC. Available balance Rs.1,90,550.43.",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m100",
+   "subject": "Paytm Payments Bank: credit alert on your account",
+   "body": "Credit alert: Rs.1,067.47 has been credited to account *8640 on 16-Sep-2026 (SALARY NEFT). Avl bal Rs.2,958.03.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-16",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.6,753.08 has been debited from your Paytm Payments Bank A/c XXXXXX7744 on 23-Sep-2026 (UPI BIGBASKET). Avl bal Rs.3,059.15.\n\nOpt for e-statements and go green.",
+   "date": "2026-09-23",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Union Bank of India Debit Card transaction alert",
+   "body": "Dear Customer,\nRs.479.29 spent on your Union Bank of India Debit Card ending 9063 at UBER INDIA on 26-09-2026 06:35:05. Avl bal Rs.2,615.86.\n\nOpt for e-statements and go green.",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m103",
+   "subject": "Union Bank of India Account Statement - Sep 2026",
+   "body": "Dear Farhan,\nPlease find attached your Union Bank of India XX2448 statement for the period 28-Aug-2026 to 27-Sep-2026. \n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-28",
+   "attachments": [
+    {
+     "filename": "Union_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "UNION BANK OF INDIA\nSTATEMENT OF ACCOUNT\nAccount Name : FARHAN MENON\nFLAT 795, SUNRISE APARTMENTS\n15TH CROSS, SECTOR 21\nJAIPUR - 556648\nAccount Number : XXXXXX2448\nAccount Type : SAVINGS ACCOUNT\nIFSC : UNIO0460763\nStatement Period : 28-08-2026 to 27-09-2026\nOpening Balance : Rs.76,507.14\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n31-08-2026 UPI/BATA INDIA 188195069 13,860.89 - 62,646.25\n02-09-2026 POS/BPCL FUEL 254808002 118.19 - 62,528.06\n05-09-2026 NEFT DR/EAZYDINER 313773934 394.12 - 62,133.94\n07-09-2026 NEFT DR/DOMINOS 609326034 206.17 - 61,927.77\n08-09-2026 IMPS/CR 809221072 - 469.41 62,397.18\n10-09-2026 INTEREST 669436238 - 126.92 62,524.10\n13-09-2026 UPI/RELIANCE DIGITAL 155848192 958.69 - 61,565.41\n15-09-2026 ATM WDL/IKEA 259088085 1,009.37 - 60,556.04\nClosing Balance : Rs.60,556.04\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m104",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.1,185.40 debited from account XX7744 on 30-Sep-2026. Narration: IMPS/BESCOM. Available balance Rs.4,364.92.",
+   "date": "2026-09-30",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.2,108.35 debited from account *7744 on 30-Sep-2026. Narration: UPI/BIG BAZAAR. Available balance Rs.3,992.07.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-09-30",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c *2448 is debited for Rs.405.35 on 30-09-2026 - POS IXIGO. Bal Rs.9,633.62. -Union Bank of India\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-30",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m107",
+   "subject": "Union Bank of India: debit alert",
+   "body": "Your A/c xx2448 is debited for Rs.3,264.39 on 06-10-2026 - NEFT TATA PLAY. Bal Rs.23,151.02. -Union Bank of India",
+   "date": "2026-10-06",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m108",
+   "subject": "Paytm Payments Bank Account Statement - Oct 2026",
+   "body": "Dear Farhan,\nPlease find attached your Paytm Payments Bank XX7744 statement for the period 07-Sep-2026 to 06-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-07",
+   "attachments": [
+    {
+     "filename": "Paytm_Acct_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Paytm Payments Bank <statements@paytmbank.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Update your KYC",
+   "body": "Dear Farhan,\nAs per RBI guidelines please complete re-KYC for your Union Bank of India relationship. Visit a branch or use the app.\n\nOpt for e-statements and go green.",
+   "date": "2026-10-11",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m110",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.100.19 debited from account XX8640 on 15-Oct-2026. Narration: NEFT/IRCTC. Available balance Rs.8,602.33.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-15",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Update your KYC",
+   "body": "Dear Farhan,\nAs per RBI guidelines please complete re-KYC for your Union Bank of India relationship. Visit a branch or use the app.\n\nOpt for e-statements and go green.",
+   "date": "2026-10-25",
+   "attachments": [],
+   "from": "Union Bank of India <ubi@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m112",
+   "subject": "Union Bank of India Account Statement - Oct 2026",
+   "body": "Dear Farhan,\nPlease find attached your Union Bank of India XX2448 statement for the period 28-Sep-2026 to 27-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-28",
+   "attachments": [
+    {
+     "filename": "eStatement_202610.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Union Bank of India <estatement@unionbankofindia.co.in>"
+  },
+  {
+   "id": "m113",
+   "subject": "Paytm Payments Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.90.28 has been debited from your Paytm Payments Bank A/c XXXXXX7744 on 28-Oct-2026 (IMPS BOOKMYSHOW). Avl bal Rs.2,929.75.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "Paytm Payments Bank <noreply@paytmbank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "paytmbank.com",
+    "last4": "7744",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "2448",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "9063",
+    "kind": "DEBIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "paytmbank.com",
+    "last4": "8640",
+    "why": "payments-bank wallet id, not a card or bank account"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "2553",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "1699",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "1338",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "3051",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "paytmbank.com",
+    "last4": "0739",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "9286",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "4016",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "paytmbank.com",
+    "last4": "2053",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "5337",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

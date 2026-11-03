@@ -1,0 +1,1864 @@
+{
+ "mailbox": "boi-bandhan-everyday-addon",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Bandhan Bank Account Statement - Nov 2024",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank XXXXXX6762 statement for the period 08-Oct-2024 to 07-Nov-2024. \n\n",
+   "date": "2024-11-08",
+   "attachments": [
+    {
+     "filename": "eStatement_202411.pdf",
+     "protected": false,
+     "pdfText": "BANDHAN BANK\nSTATEMENT OF ACCOUNT\nAccount Name : VIKRAM REDDY\nFLAT 575, SUNRISE APARTMENTS\n25TH CROSS, ADYAR\nPUNE - 608615\nAccount Number : XX6762\nAccount Type : SAVINGS ACCOUNT\nIFSC : BAND0886258\nStatement Period : 08-10-2024 to 07-11-2024\nOpening Balance : Rs.69,994.19\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n11-10-2024 UPI/CR 838856107 - 1,473.87 71,468.06\n12-10-2024 UPI/NYKAA 291538120 106.09 - 71,361.97\n12-10-2024 NEFT DR/HPCL PETROL 105875857 14,251.17 - 57,110.80\n12-10-2024 UPI/TATA PLAY 915406158 189.53 - 56,921.27\n15-10-2024 POS/SPOTIFY 586259694 2,764.28 - 54,156.99\n18-10-2024 SALARY NEFT 173752489 - 609.70 54,766.69\n18-10-2024 UPI/CR 821925677 - 557.92 55,324.61\n19-10-2024 INTEREST 389960167 - 298.08 55,622.69\n21-10-2024 ATM WDL/BOOKMYSHOW 953866273 18,168.22 - 37,454.47\n23-10-2024 ATM WDL/DECATHLON 532707911 1,293.35 - 36,161.12\n25-10-2024 INTEREST 874696874 - 2,578.06 38,739.18\n27-10-2024 UPI/CR 651721222 - 644.36 39,383.54\n29-10-2024 NEFT DR/PVR INOX 410635270 3,566.77 - 35,816.77\n29-10-2024 NEFT DR/MCDONALDS 237799791 17,814.09 - 18,002.68\nClosing Balance : Rs.18,002.68\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Alert: Bandhan Bank A/c xx6762 debited Rs.22,519.77 on 10-Nov-2024. Mode: POS. Details: BIG BAZAAR. Balance Rs.1,34,101.29.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-10",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Bank of India Account Statement - Nov 2024",
+   "body": "Dear Vikram,\nYour Bank of India xx3193 account statement for Nov 2024 is ready. Closing balance Rs.57,880.20.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-15",
+   "attachments": [],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m004",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Bandhan Bank Credit Card XX2583: purchase of Rs.211.95 at CROMA on 15-Nov-2024 22:16:35. Available limit Rs.45,494.67.",
+   "date": "2024-11-15",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Bank of India: debit alert",
+   "body": "Alert: Bank of India A/c *3193 debited Rs.134.99 on 16-11-2024. Mode: UPI. Details: ZOMATO. Balance Rs.83,018.25.",
+   "date": "2024-11-16",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m006",
+   "subject": "Bandhan Bank statement - Nov 2024",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank Everyday Credit Card ending 2583 statement for the period 20-Oct-2024 to 19-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-20",
+   "attachments": [
+    {
+     "filename": "2583_19112024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Payment received on Bandhan Bank Credit Card",
+   "body": "Payment of Rs.2,410.45 has been received towards your Bandhan Bank Credit Card XX2583 on 24-Nov-2024. Thank you for the payment.\n\nOpt for e-statements and go green.",
+   "date": "2024-11-24",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.245.38 spent on your Bandhan Bank Everyday Credit Card xx2583 at FLIPKART on 25-Nov-2024.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-11-25",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Bank of India: debit alert",
+   "body": "Rs.101.99 withdrawn from XX3193 on 26-11-2024 via IMPS to BPCL FUEL. Closing balance Rs.85,204.33.",
+   "date": "2024-11-26",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m010",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "INR debit alert: Rs.193.87 debited from account *6762 on 28-Nov-2024. Narration: IMPS/SODEXO. Available balance Rs.46,968.04.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-11-28",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Bank of India: credit alert",
+   "body": "Your A/c XX3193 is credited with Rs.4,206.50 on 29-11-2024 - SALARY NEFT. Bal Rs.1,08,796.38. -Bank of India\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-29",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m012",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Card alert | Rs.157.33 | CROMA | 04-Dec-2024 | Bandhan Bank Credit Card ending 2583\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-12-04",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Your A/c *6762 is credited with Rs.1,162.37 on 07-Dec-2024 - REFUND. Bal Rs.2,499.58. -Bandhan Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-12-07",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Bank of India: debit alert",
+   "body": "INR debit alert: Rs.26,522.18 debited from account XX3193 on 09-12-2024. Narration: IMPS/BATA INDIA. Available balance Rs.3,410.32.",
+   "date": "2024-12-09",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m015",
+   "subject": "Bank of India: debit alert",
+   "body": "Your A/c XX3193 is debited for Rs.207.33 on 15-12-2024 - IMPS EAZYDINER. Bal Rs.48,203.75. -Bank of India\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-12-15",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m016",
+   "subject": "Bank of India: debit alert",
+   "body": "Your A/c XXXXXX3193 is debited for Rs.33,171.24 on 16-12-2024 - POS NETFLIX. Bal Rs.4,519.03. -Bank of India",
+   "date": "2024-12-16",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m017",
+   "subject": "Payment received on Bandhan Bank Credit Card",
+   "body": "Payment confirmation: Rs.9,133.40 posted to Bandhan Bank Everyday Credit Card XX2583 on 17-Dec-2024.",
+   "date": "2024-12-17",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Bandhan Bank statement - Dec 2024",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank Everyday Credit Card xx2583 statement for the period 20-Nov-2024 to 19-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-12-20",
+   "attachments": [
+    {
+     "filename": "2583_19122024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.130.05 has been debited from your Bank of India A/c xx3193 on 21-12-2024 (ECOM URBAN COMPANY). Avl bal Rs.16,490.50.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-12-21",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m020",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.720.16 spent on your Bandhan Bank Credit Card xx2583 at BLINKIT on 21-Dec-2024.",
+   "date": "2024-12-21",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Bank of India: credit alert",
+   "body": "Deposit alert - Rs.5,694.95 received in account *3193 on 22-12-2024 (INTEREST CREDIT) Ref 536479141479.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-12-22",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m022",
+   "subject": "Payment received on Bandhan Bank Credit Card",
+   "body": "Payment of Rs.14,068.09 has been received towards your Bandhan Bank Everyday Credit Card XX2583 on 29-Dec-2024. Thank you for the payment.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-12-29",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "OTP for your transaction",
+   "body": "849680 is the OTP for your transaction of Rs.5,620.69 at MAKEMYTRIP. Valid for 10 minutes. Do not share.",
+   "date": "2024-12-29",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.25,824.76 has been transferred from your A/c *6762 to Ramesh Kumar A/c XX0379 (Bandhan Bank) via IMPS on 04-Jan-2025. Ref no 211280918639.",
+   "date": "2025-01-04",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Card alert | Rs.4,998.53 | BESCOM | 09-Jan-2025 | Bandhan Bank Credit Card xx2583\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-01-09",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "INR debit alert: Rs.80.30 debited from account *6762 on 10-Jan-2025. Narration: IMPS/BATA INDIA. Available balance Rs.14,413.68.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-10",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Bandhan Bank Credit Card ending 2583: purchase of Rs.174.52 at AMAZON PAY INDIA on 11-Jan-2025 15:07:27. Available limit Rs.4,717.14.",
+   "date": "2025-01-11",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "INR debit alert: Rs.502.12 debited from account XXXXXX6762 on 18-Jan-2025. Narration: POS/IRCTC. Available balance Rs.22,146.83.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-01-18",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "Bank of India: debit alert",
+   "body": "INR debit alert: Rs.19,435.91 debited from account XXXXXX3193 on 19-01-2025. Narration: UPI/ZEPTO. Available balance Rs.2,182.24.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-19",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m030",
+   "subject": "Bandhan Bank statement - Jan 2025",
+   "body": "Dear Vikram,\nYour Bandhan Bank Everyday Credit Card XX2583 statement for Jan 2025 is ready. Total amount due Rs.3,151.77, minimum amount due Rs.200.00, payable by 06-Feb-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-01-20",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Sita Devi (A/c XXXXXX4888, Bandhan Bank) has been added to your account XXXXXX3193. It will be active after 30 minutes.",
+   "date": "2025-01-23",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m032",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c XX6762 is debited for Rs.126.49 on 30-Jan-2025 - UPI EASEMYTRIP. Bal Rs.2,931.77. -Bandhan Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-01-30",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 583078893893. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-02-01",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Deposit alert - Rs.3,764.62 received in account *6762 on 04-Feb-2025 (SALARY NEFT) Ref 641151436098.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-02-04",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Rs.9,039.67 withdrawn from xx6762 on 05-Feb-2025 via UPI to RELIANCE DIGITAL. Closing balance Rs.9,539.31.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-02-05",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Vikram,\nYour order #366-4591448-6538196 is confirmed. Total Rs.7,966.69. Estimated delivery in 2 days.",
+   "date": "2025-02-05",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Bandhan Bank Account Statement - Feb 2025",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank XXXXXX6762 statement for the period 08-Jan-2025 to 07-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-02-08",
+   "attachments": [
+    {
+     "filename": "Bandhan_Statement_Feb2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Vikram,\nYour order #644-5143789-6175160 is confirmed. Total Rs.429.53. Estimated delivery in 2 days.",
+   "date": "2025-02-10",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m039",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c XXXXXX6762 is debited for Rs.24,454.55 on 12-Feb-2025 - ECOM BATA INDIA. Bal Rs.23,022.15. -Bandhan Bank",
+   "date": "2025-02-12",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.4,561.56 spent on your Bandhan Bank Everyday Credit Card XX2583 at AMAZON PAY INDIA on 13-Feb-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-02-13",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Bank of India Account Statement - Feb 2025",
+   "body": "Dear Vikram,\nYour Bank of India XX3193 account statement for Feb 2025 is ready. Closing balance Rs.1,369.84.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-02-15",
+   "attachments": [],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m042",
+   "subject": "Bandhan Bank statement - Feb 2025",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank Everyday Credit Card XX2583 statement for the period 20-Jan-2025 to 19-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-02-20",
+   "attachments": [
+    {
+     "filename": "Bandhan_CC_Feb2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Bandhan Bank: funds transferred",
+   "body": "Dear Customer,\nRs.2,690.09 has been transferred from your A/c xx6762 to Ganesh Maid Service A/c XX8611 (IDFC FIRST Bank) via IMPS on 21-Feb-2025. Ref no 644783239276.",
+   "date": "2025-02-21",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,000.00 transferred from xx3193 to Sita Devi A/c XX4888 on 23-02-2025. Rent for the month.",
+   "date": "2025-02-23",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m045",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Vikram,\nYour order #782-7087882-9734746 is confirmed. Total Rs.157.51. Estimated delivery in 2 days.",
+   "date": "2025-02-23",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "OTP for your transaction",
+   "body": "564140 is the OTP for your transaction of Rs.1,573.70 at IKEA. Valid for 10 minutes. Do not share.",
+   "date": "2025-03-17",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Bandhan Bank statement - Mar 2025",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank Everyday Credit Card ending 2583 statement for the period 20-Feb-2025 to 19-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-20",
+   "attachments": [
+    {
+     "filename": "Bandhan_Statement_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,000.00 transferred from XXXXXX3193 to Sita Devi A/c XX4888 on 23-03-2025. Rent for the month.",
+   "date": "2025-03-23",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m049",
+   "subject": "Bank of India: debit alert",
+   "body": "Alert: Bank of India A/c xx3193 debited Rs.711.33 on 29-03-2025. Mode: UPI. Details: APPLE SERVICES. Balance Rs.2,742.28.",
+   "date": "2025-03-29",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m050",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.351.38 spent on your Bandhan Bank Everyday Credit Card XX2583 at MEDPLUS on 03-Apr-2025.",
+   "date": "2025-04-03",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Bank of India: credit alert",
+   "body": "Credit alert: Rs.7,628.41 has been credited to account *3193 on 06-04-2025 (NEFT). Avl bal Rs.1,52,512.62.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-04-06",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m052",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer, transaction of Rs.894.22 at BATA INDIA on 06-Apr-2025 on Bandhan Bank Everyday Credit Card XX2583.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-04-06",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Credit alert: Rs.144.14 has been credited to account XX6762 on 11-Apr-2025 (UPI). Avl bal Rs.9,546.82.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-04-11",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Bandhan Bank statement - Apr 2025",
+   "body": "Dear Vikram,\nYour Bandhan Bank Everyday Credit Card XX2583 statement for Apr 2025 is ready. Total amount due Rs.627.04, minimum amount due Rs.200.00, payable by 07-May-2025.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-04-20",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,500.00 transferred from XX3193 to Sita Devi A/c XX4888 on 23-04-2025. Rent for the month.",
+   "date": "2025-04-23",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m056",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Alert: Bandhan Bank A/c XXXXXX6762 debited Rs.559.54 on 25-Apr-2025. Mode: ECOM. Details: BLINKIT. Balance Rs.64,031.48.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-04-25",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Card alert | Rs.539.20 | AIRTEL PREPAID | 07-May-2025 | Bandhan Bank Everyday Credit Card XX2583\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-05-07",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Bandhan Bank Account Statement - May 2025",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank XX6762 statement for the period 08-Apr-2025 to 07-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-05-08",
+   "attachments": [
+    {
+     "filename": "Bandhan_Acct_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "OTP for your transaction",
+   "body": "147201 is the OTP for your transaction of Rs.12,355.47 at BPCL FUEL. Valid for 10 minutes. Do not share.",
+   "date": "2025-05-09",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Card alert | Rs.622.73 | INDIAN OIL | 11-May-2025 | Bandhan Bank Credit Card XX2583\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-05-11",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Bank of India Account Statement - May 2025",
+   "body": "Dear Vikram,\nYour Bank of India xx3193 account statement for May 2025 is ready. Closing balance Rs.610.88.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-15",
+   "attachments": [],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m062",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Vikram,\nYour order #269-7901589-8065346 is confirmed. Total Rs.15,135.25. Estimated delivery in 2 days.",
+   "date": "2025-05-17",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m063",
+   "subject": "Bandhan Bank statement - May 2025",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank Everyday Credit Card XX2583 statement for the period 20-Apr-2025 to 19-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-05-20",
+   "attachments": [
+    {
+     "filename": "2583_19052025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Bandhan Bank: XXXXXX6762 credited with Rs.10,506.68 on 23-May-2025. Source: INTEREST CREDIT. Balance Rs.1,25,248.89.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-23",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Rs.1,719.08 withdrawn from XXXXXX6762 on 23-May-2025 via IMPS to IKEA. Closing balance Rs.8,771.39.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-05-23",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,500.00 transferred from XX3193 to Sita Devi A/c XX4888 on 23-05-2025. Rent for the month.",
+   "date": "2025-05-23",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m067",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Rs.13,870.92 withdrawn from XX6762 on 29-May-2025 via NEFT to SPOTIFY. Closing balance Rs.33,690.22.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-05-29",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.25,387.49 credited to your Bank of India A/c XXXXXX3193 on 30-05-2025 by SALARY NEFT. Ref 939681004604.\nThank you for banking with us.\n\nOpt for e-statements and go green.",
+   "date": "2025-05-30",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m069",
+   "subject": "Bank of India: debit alert",
+   "body": "Your A/c *3193 is debited for Rs.147.23 on 04-06-2025 - UPI TATA PLAY. Bal Rs.3,140.11. -Bank of India",
+   "date": "2025-06-04",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m070",
+   "subject": "Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.20,433.81 has been debited from your Bank of India A/c XX3193 on 08-06-2025 (NEFT AMAZON PAY INDIA). Avl bal Rs.41,252.07.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-08",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m071",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Dear Customer,\nRs.220.21 credited to your Bandhan Bank A/c XXXXXX6762 on 19-Jun-2025 by NEFT. Ref 293823032765.\nThank you for banking with us.",
+   "date": "2025-06-19",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Bandhan Bank statement - Jun 2025",
+   "body": "Hi Vikram,\nYour Bandhan Bank Everyday Credit Card ending 2583 e-statement for Jun 2025 is now available. Pay Rs.1,752.66 by 07-Jul-2025 to avoid late fees.",
+   "date": "2025-06-20",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Bandhan Bank: funds transferred",
+   "body": "Dear Customer,\nRs.39,842.60 has been transferred from your A/c XXXXXX6762 to Ramesh Kumar A/c XX0379 (Bandhan Bank) via IMPS on 23-Jun-2025. Ref no 785725719902.",
+   "date": "2025-06-23",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,000.00 transferred from XXXXXX3193 to Sita Devi A/c XX4888 on 23-06-2025. Rent for the month.",
+   "date": "2025-06-23",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m075",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Rs.95.80 withdrawn from xx6762 on 01-Jul-2025 via UPI to TATA POWER. Closing balance Rs.68,700.85.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-01",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "OTP for your transaction",
+   "body": "763064 is the OTP for your transaction of Rs.10,297.73 at BATA INDIA. Valid for 10 minutes. Do not share.",
+   "date": "2025-07-04",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Bank of India: debit alert",
+   "body": "INR debit alert: Rs.2,166.08 debited from account XX3193 on 07-07-2025. Narration: POS/INDIGO AIRLINES. Available balance Rs.1,07,112.33.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-07-07",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m078",
+   "subject": "Bank of India: debit alert",
+   "body": "INR debit alert: Rs.127.63 debited from account xx3193 on 16-07-2025. Narration: UPI/DECATHLON. Available balance Rs.7,564.17.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-16",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m079",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c XXXXXX6762 is debited for Rs.346.45 on 16-Jul-2025 - IMPS SWIGGY. Bal Rs.45,723.28. -Bandhan Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-16",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Alert: Bandhan Bank A/c XXXXXX6762 debited Rs.2,032.85 on 17-Jul-2025. Mode: ECOM. Details: FLIPKART. Balance Rs.1,35,290.46.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-17",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "INR debit alert: Rs.6,171.84 debited from account XX6762 on 17-Jul-2025. Narration: ECOM/LENSKART. Available balance Rs.21,633.54.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-17",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Payment received on Bandhan Bank Credit Card",
+   "body": "Payment confirmation: Rs.2,105.15 posted to Bandhan Bank Credit Card xx2583 on 19-Jul-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-19",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Bandhan Bank statement - Jul 2025",
+   "body": "Dear Vikram,\nYour Bandhan Bank Everyday Credit Card XX2583 statement for Jul 2025 is ready. Total amount due Rs.835.45, minimum amount due Rs.200.00, payable by 06-Aug-2025.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-07-20",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Deposit alert - Rs.3,837.04 received in account *6762 on 23-Jul-2025 (UPI) Ref 477394333872.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-23",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from xx3193 to Sita Devi A/c XX4888 on 23-07-2025. Rent for the month.",
+   "date": "2025-07-23",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m086",
+   "subject": "Bank of India: debit alert",
+   "body": "Your A/c xx3193 is debited for Rs.12,068.09 on 29-07-2025 - POS HPCL PETROL. Bal Rs.9,257.89. -Bank of India\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-07-29",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m087",
+   "subject": "Bank of India: credit alert",
+   "body": "Your A/c *3193 is credited with Rs.409.26 on 01-08-2025 - SALARY NEFT. Bal Rs.38,063.69. -Bank of India\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-01",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m088",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Vikram,\nYour order #681-9213897-1659937 is confirmed. Total Rs.6,566.81. Estimated delivery in 2 days.",
+   "date": "2025-08-03",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Update your KYC",
+   "body": "Dear Vikram,\nAs per RBI guidelines please complete re-KYC for your Bandhan Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-08-04",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Bandhan Bank Account Statement - Aug 2025",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank *6762 statement for the period 08-Jul-2025 to 07-Aug-2025. \n\n",
+   "date": "2025-08-08",
+   "attachments": [
+    {
+     "filename": "6762_07082025_stmt.pdf",
+     "protected": false,
+     "pdfText": "BANDHAN BANK\nSTATEMENT OF ACCOUNT\nAccount Name : VIKRAM REDDY\nFLAT 621, GREEN VALLEY APARTMENTS\n2TH CROSS, ADYAR\nAHMEDABAD - 455631\nAccount Number : XXXXXX6762\nAccount Type : SAVINGS ACCOUNT\nIFSC : BAND0900571\nStatement Period : 08-07-2025 to 07-08-2025\nOpening Balance : Rs.43,905.02\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n09-07-2025 UPI/APPLE SERVICES 173926647 3,534.16 - 40,370.86\n10-07-2025 UPI/NETFLIX 477286507 2,483.99 - 37,886.87\n11-07-2025 ATM WDL/BESCOM 616199570 5,419.41 - 32,467.46\n11-07-2025 NEFT DR/DMART 808704428 455.74 - 32,011.72\n12-07-2025 NEFT DR/FLIPKART 597025173 137.42 - 31,874.30\n14-07-2025 UPI/CR 967594250 - 478.77 32,353.07\n14-07-2025 NEFT DR/MCDONALDS 139935227 1,939.97 - 30,413.10\n16-07-2025 SALARY NEFT 721470610 - 918.65 31,331.75\n16-07-2025 IMPS/CR 369150458 - 8,269.06 39,600.81\n18-07-2025 IMPS/CR 700695066 - 152.43 39,753.24\n21-07-2025 UPI/CR 369108135 - 7,478.47 47,231.71\n22-07-2025 NEFT DR/IXIGO 822395973 592.35 - 46,639.36\n23-07-2025 UPI/TATA PLAY 603511975 4,962.96 - 41,676.40\nClosing Balance : Rs.41,676.40\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Payment received on Bandhan Bank Credit Card",
+   "body": "Payment confirmation: Rs.355.40 posted to Bandhan Bank Credit Card xx2583 on 12-Aug-2025.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-12",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Bank of India Account Statement - Aug 2025",
+   "body": "Dear Vikram,\nPlease find attached your Bank of India XXXXXX3193 statement for the period 15-Jul-2025 to 14-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-15",
+   "attachments": [
+    {
+     "filename": "Bank_Acct_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m093",
+   "subject": "Refer and earn",
+   "body": "Dear Vikram,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-08-18",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m094",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.4,292.54 spent on your Bandhan Bank Credit Card xx2583 at EAZYDINER on 19-Aug-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-19",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Bandhan Bank statement - Aug 2025",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank Everyday Credit Card XX2583 statement for the period 20-Jul-2025 to 19-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-08-20",
+   "attachments": [
+    {
+     "filename": "Bandhan_Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Payment received on Bandhan Bank Credit Card",
+   "body": "Payment confirmation: Rs.306.55 posted to Bandhan Bank Credit Card ending 2583 on 23-Aug-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-23",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Bank of India: debit alert",
+   "body": "Rs.12,518.07 withdrawn from xx3193 on 24-08-2025 via ECOM to APOLLO PHARMACY. Closing balance Rs.21,891.77.",
+   "date": "2025-08-24",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m098",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.38,154.18 has been transferred from your A/c *6762 to Ramesh Kumar A/c XX7621 (Punjab National Bank) via IMPS on 28-Aug-2025. Ref no 474789747931.",
+   "date": "2025-08-28",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Bank of India: debit alert",
+   "body": "Your A/c *3193 is debited for Rs.89.93 on 30-08-2025 - POS NETFLIX. Bal Rs.7,008.89. -Bank of India",
+   "date": "2025-08-30",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m100",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX7605 has been updated on 02-11-2025. If not requested by you, call customer care.",
+   "date": "2025-08-30",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m101",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Credit alert: Rs.101.18 has been credited to account xx6762 on 31-Aug-2025 (UPI). Avl bal Rs.14,601.32.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-31",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Dear Customer,\nRs.81.67 has been debited from your Bandhan Bank A/c XXXXXX6762 on 05-Sep-2025 (POS TATA POWER). Avl bal Rs.1,55,706.36.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-09-05",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Rs.15,292.86 withdrawn from XX6762 on 08-Sep-2025 via IMPS to JIO RECHARGE. Closing balance Rs.22,004.51.",
+   "date": "2025-09-08",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Card alert | Rs.102.99 | ZEPTO | 12-Sep-2025 | Bandhan Bank Everyday Credit Card ending 2583\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-12",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 986156988039. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-09-13",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m106",
+   "subject": "Bandhan Bank statement - Sep 2025",
+   "body": "Dear Vikram,\nYour Bandhan Bank Everyday Credit Card XX2583 statement for Sep 2025 is ready. Total amount due Rs.8,378.22, minimum amount due Rs.418.91, payable by 07-Oct-2025.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-20",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Bandhan Bank Everyday Credit Card XX2583: purchase of Rs.8,036.10 at HPCL PETROL on 02-Oct-2025 20:08:36. Available limit Rs.4,582.86.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-10-02",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Vikram,\nYour order #655-1646694-8775029 is confirmed. Total Rs.9,392.70. Estimated delivery in 2 days.",
+   "date": "2025-10-09",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.1,064.85 spent on your Bandhan Bank Credit Card ending 2583 at INDIAN OIL on 19-Oct-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-19",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Bandhan Bank statement - Oct 2025",
+   "body": "Dear Vikram,\nStatement generated for Bandhan Bank Everyday Credit Card xx2583: amount payable Rs.19,543.86, last date 06-Nov-2025. Sign in to download.",
+   "date": "2025-10-20",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.202.96 spent on your Bandhan Bank Everyday Credit Card xx2583 at BPCL FUEL on 24-Oct-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-24",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer, transaction of Rs.305.55 at UBER INDIA on 31-Oct-2025 on Bandhan Bank Credit Card ending 2583.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-31",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.2,021.48 credited to your Bank of India A/c XXXXXX3193 on 01-11-2025 by REFUND. Ref 443754913961.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-01",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m114",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Dear Customer,\nRs.13,884.98 has been debited from your Bandhan Bank A/c xx6762 on 04-Nov-2025 (NEFT INDIGO AIRLINES). Avl bal Rs.12,852.18.",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "Bandhan Bank Account Statement - Nov 2025",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank XXXXXX6762 statement for the period 08-Oct-2025 to 07-Nov-2025. \n\n",
+   "date": "2025-11-08",
+   "attachments": [
+    {
+     "filename": "6762_07112025_stmt.pdf",
+     "protected": false,
+     "pdfText": "BANDHAN BANK\nSTATEMENT OF ACCOUNT\nAccount Name : VIKRAM REDDY\nFLAT 644, SUNRISE APARTMENTS\n10TH CROSS, INDIRANAGAR\nGURUGRAM - 644317\nAccount Number : *6762\nAccount Type : SAVINGS ACCOUNT\nIFSC : BAND0107991\nStatement Period : 08-10-2025 to 07-11-2025\nOpening Balance : Rs.28,555.13\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n08-10-2025 ATM WDL/PVR INOX 954888650 1,892.34 - 26,662.79\n10-10-2025 NEFT DR/BOOKMYSHOW 304127230 874.62 - 25,788.17\n12-10-2025 POS/INDIAN OIL 984915893 9,151.55 - 16,636.62\n13-10-2025 INTEREST 453871879 - 3,278.01 19,914.63\n13-10-2025 INTEREST 221885812 - 7,216.14 27,130.77\n16-10-2025 ATM WDL/HPCL PETROL 921327417 8,852.53 - 18,278.24\n17-10-2025 SALARY NEFT 612751385 - 110.56 18,388.80\n19-10-2025 INTEREST 666969297 - 4,580.01 22,968.81\nClosing Balance : Rs.22,968.81\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Bank of India Account Statement - Nov 2025",
+   "body": "Dear Vikram,\nYour Bank of India XXXXXX3193 account statement for Nov 2025 is ready. Closing balance Rs.1,169.28.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-11-15",
+   "attachments": [],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m117",
+   "subject": "Bank of India: debit alert",
+   "body": "Your A/c *3193 is debited for Rs.259.40 on 15-11-2025 - UPI ZOMATO. Bal Rs.1,14,967.83. -Bank of India\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-15",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m118",
+   "subject": "Bandhan Bank statement - Nov 2025",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank Everyday Credit Card xx2583 statement for the period 20-Oct-2025 to 19-Nov-2025. Total amount due Rs.28,466.57, due 05-Dec-2025.\n\n",
+   "date": "2025-11-20",
+   "attachments": [
+    {
+     "filename": "2583_19112025_stmt.pdf",
+     "protected": false,
+     "pdfText": "Bandhan Bank Credit Card Statement\nVIKRAM REDDY\nFLAT 617, GREEN VALLEY APARTMENTS\n29TH CROSS, ADYAR\nKOCHI - 691700\nCard Name: Bandhan Bank Everyday Credit Card\nCredit Card Number: 467914XXXXXX2583\nBilling Period: 20/10/25 - 19/11/25\nStatement Date: 19/11/25\nPayment Summary\nTotal Amount Due: Rs.28,466.57\nMinimum Amount Due: Rs.1,423.33\nPayment Due Date: 05/12/25\nAccount Summary\nCredit Limit: Rs.1,25,000.00\nAvailable Credit Limit: Rs.1,08,878.21\nAvailable Cash Limit: Rs.25,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n21/10/25 NYKAA KOCHI 209.90 Dr\n25/10/25 BATA INDIA JAIPUR 127.84 Dr\n26/10/25 CROMA PUNE 3,688.03 Dr\n03/11/25 SODEXO GURUGRAM 1,419.18 Dr\n04/11/25 APOLLO PHARMACY PUNE 288.04 Dr\n10/11/25 IKEA KOLKATA 103.51 Dr\n11/11/25 ZOMATO MUMBAI 20,024.87 Dr\n14/11/25 STARBUCKS KOLKATA 973.13 Dr\n16/11/25 CROMA BENGALURU 372.56 Dr\n16/11/25 HPCL PETROL BENGALURU 1,259.51 Dr\n\nAdd-on Card Transactions\nISHITA REDDY - 4916 27XX XXXX 0527\n06/11/25 MCDONALDS MUMBAI 367.57\n15/11/25 HPCL PETROL HYDERABAD 3,099.41\n15/11/25 OLA CABS PUNE 6,996.49\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "Bank of India: debit alert",
+   "body": "Rs.153.62 withdrawn from XX3193 on 29-11-2025 via NEFT to DMART. Closing balance Rs.1,00,822.50.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-29",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m120",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Your A/c XX6762 is debited for Rs.14,029.44 on 30-Nov-2025 - POS AIRTEL PREPAID. Bal Rs.74,127.62. -Bandhan Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-30",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.28,385.78 has been transferred from your A/c XX6762 to Ramesh Kumar A/c XX0379 (Bandhan Bank) via IMPS on 30-Nov-2025. Ref no 805014233429.",
+   "date": "2025-11-30",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "OTP for your transaction",
+   "body": "699372 is the OTP for your transaction of Rs.3,423.21 at SPOTIFY. Valid for 10 minutes. Do not share.",
+   "date": "2025-11-30",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Bandhan Bank: XXXXXX6762 credited with Rs.107.55 on 04-Dec-2025. Source: SALARY NEFT. Balance Rs.2,805.56.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-12-04",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.5,327.43 spent on your Bandhan Bank Everyday Credit Card xx2583 at JIO RECHARGE on 13-Dec-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-13",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Bandhan Bank Credit Card XX2583: purchase of Rs.22,507.97 at APOLLO PHARMACY on 19-Dec-2025 14:56:24. Available limit Rs.4,756.27.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-12-19",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "Bandhan Bank statement - Dec 2025",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank Everyday Credit Card XX2583 statement for the period 20-Nov-2025 to 19-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-12-20",
+   "attachments": [
+    {
+     "filename": "eStatement_202512.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Bank of India: credit alert",
+   "body": "Credit alert: Rs.2,200.19 has been credited to account XX3193 on 25-12-2025 (UPI). Avl bal Rs.13,344.27.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m128",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Alert: Bandhan Bank A/c xx6762 debited Rs.84.27 on 28-Dec-2025. Mode: IMPS. Details: PHONEPE. Balance Rs.45,353.70.\n\nOpt for e-statements and go green.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Alert: Bandhan Bank A/c xx6762 debited Rs.122.99 on 31-Dec-2025. Mode: IMPS. Details: BIG BAZAAR. Balance Rs.3,834.14.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-31",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "Bank of India: credit alert",
+   "body": "Credit alert: Rs.238.44 has been credited to account XX3193 on 10-01-2026 (INTEREST CREDIT). Avl bal Rs.1,22,521.53.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-01-10",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m131",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer, transaction of Rs.289.61 at MYNTRA on 14-Jan-2026 on Bandhan Bank Credit Card xx2583.",
+   "date": "2026-01-14",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "Bandhan Bank statement - Jan 2026",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank Everyday Credit Card ending 2583 statement for the period 20-Dec-2025 to 19-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-01-20",
+   "attachments": [
+    {
+     "filename": "Bandhan_Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Rs.568.73 withdrawn from *6762 on 20-Jan-2026 via POS to DECATHLON. Closing balance Rs.38,263.61.\n\nOpt for e-statements and go green.",
+   "date": "2026-01-20",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Bandhan Bank Account Statement - Feb 2026",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank XXXXXX6762 statement for the period 08-Jan-2026 to 07-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-02-08",
+   "attachments": [
+    {
+     "filename": "Bandhan_Acct_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Bank of India Account Statement - Feb 2026",
+   "body": "Dear Vikram,\nPlease find attached your Bank of India XX3193 statement for the period 15-Jan-2026 to 14-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-15",
+   "attachments": [
+    {
+     "filename": "Bank_Acct_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m136",
+   "subject": "Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.6,067.88 has been debited from your Bank of India A/c XXXXXX3193 on 16-02-2026 (POS MEDPLUS). Avl bal Rs.11,931.56.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-02-16",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m137",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Bandhan Bank: XX6762 credited with Rs.602.57 on 16-Feb-2026. Source: UPI. Balance Rs.83,289.75.",
+   "date": "2026-02-16",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Card alert | Rs.2,893.75 | BESCOM | 18-Feb-2026 | Bandhan Bank Credit Card ending 2583",
+   "date": "2026-02-18",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "Bandhan Bank statement - Feb 2026",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank Everyday Credit Card XX2583 statement for the period 20-Jan-2026 to 19-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-20",
+   "attachments": [
+    {
+     "filename": "Bandhan_Statement_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "INR debit alert: Rs.109.82 debited from account xx6762 on 01-Mar-2026. Narration: POS/PVR INOX. Available balance Rs.22,884.48.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-01",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Vikram,\nPlease find attached the updated MITC for your Bandhan Bank credit cards.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-07",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "BANDHAN BANK CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Rs.484.13 withdrawn from *6762 on 13-Mar-2026 via ECOM to IXIGO. Closing balance Rs.53,518.25.\n\nOpt for e-statements and go green.",
+   "date": "2026-03-13",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.549.32 has been transferred from your A/c XXXXXX6762 to Ramesh Kumar A/c XX7621 (Punjab National Bank) via IMPS on 17-Mar-2026. Ref no 121728451697.",
+   "date": "2026-03-17",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Bandhan Bank statement - Mar 2026",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank Everyday Credit Card ending 2583 statement for the period 20-Feb-2026 to 19-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-03-20",
+   "attachments": [
+    {
+     "filename": "Bandhan_Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m145",
+   "subject": "Bank of India: credit alert",
+   "body": "Dear Customer,\nRs.191.88 credited to your Bank of India A/c XX3193 on 22-03-2026 by UPI. Ref 604257071700.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-22",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m146",
+   "subject": "Bank of India: credit alert",
+   "body": "Deposit alert - Rs.36,122.12 received in account *3193 on 24-03-2026 (INTEREST CREDIT) Ref 659763429742.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m147",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Your A/c *6762 is credited with Rs.30,025.86 on 26-Mar-2026 - IMPS. Bal Rs.1,10,067.78. -Bandhan Bank",
+   "date": "2026-03-26",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "Bank of India: debit alert",
+   "body": "Alert: Bank of India A/c XX3193 debited Rs.9,019.21 on 29-03-2026. Mode: POS. Details: BESCOM. Balance Rs.8,652.04.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-29",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m149",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.346.16 spent on your Bandhan Bank Credit Card XX2583 at PAYTM on 06-Apr-2026.",
+   "date": "2026-04-06",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Credit alert: Rs.147.87 has been credited to account xx6762 on 06-Apr-2026 (UPI). Avl bal Rs.18,070.12.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-06",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Bank of India: debit alert",
+   "body": "Rs.588.64 withdrawn from *3193 on 07-04-2026 via NEFT to CROMA. Closing balance Rs.3,306.29.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-07",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m152",
+   "subject": "Bandhan Bank festive offers",
+   "body": "Dear Vikram,\nGet up to 10% cashback on partner brands.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-07",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Alert: Bandhan Bank A/c XX6762 debited Rs.25,590.59 on 09-Apr-2026. Mode: POS. Details: STARBUCKS. Balance Rs.21,746.94.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-09",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Bandhan Bank Everyday Credit Card XX2583: purchase of Rs.19,001.25 at BIGBASKET on 13-Apr-2026 13:16:34. Available limit Rs.8,265.84.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-13",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "Update your KYC",
+   "body": "Dear Vikram,\nAs per RBI guidelines please complete re-KYC for your Bandhan Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2026-04-19",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "Bandhan Bank statement - Apr 2026",
+   "body": "Hi Vikram,\nYour Bandhan Bank Everyday Credit Card xx2583 e-statement for Apr 2026 is now available. Pay Rs.53,839.31 by 07-May-2026 to avoid late fees.",
+   "date": "2026-04-20",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.92.98 has been debited from your Bank of India A/c XX3193 on 24-04-2026 (IMPS APPLE SERVICES). Avl bal Rs.72,779.50.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-24",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m158",
+   "subject": "Bank of India: debit alert",
+   "body": "Alert: Bank of India A/c xx3193 debited Rs.15,763.77 on 25-04-2026. Mode: NEFT. Details: UBER INDIA. Balance Rs.67,822.72.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m159",
+   "subject": "Bank of India: debit alert",
+   "body": "Your A/c XXXXXX3193 is debited for Rs.17,706.48 on 02-05-2026 - POS BATA INDIA. Bal Rs.5,577.28. -Bank of India\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-02",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m160",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.18,556.54 has been transferred from your A/c *6762 to Ramesh Kumar A/c XX7621 (Punjab National Bank) via IMPS on 04-May-2026. Ref no 345324231222.",
+   "date": "2026-05-04",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "Bandhan Bank Account Statement - May 2026",
+   "body": "Dear Vikram,\nYour Bandhan Bank XXXXXX6762 account statement for May 2026 is ready. Closing balance Rs.2,031.04.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-08",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Deposit alert - Rs.114.95 received in account XX6762 on 08-May-2026 (INTEREST CREDIT) Ref 706163112445.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-08",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Bank of India: debit alert",
+   "body": "Alert: Bank of India A/c *3193 debited Rs.5,435.33 on 12-05-2026. Mode: ECOM. Details: NETFLIX. Balance Rs.3,135.32.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m164",
+   "subject": "Bill payment successful",
+   "body": "Dear Customer,\nCredit card bill payment of Rs.4,400.58 for Kotak Mahindra Bank Credit Card ending 6247 (cardholder: SNEHA REDDY) was successful from your A/c *3193 on 13-05-2026.",
+   "date": "2026-05-13",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m165",
+   "subject": "Bank of India Account Statement - May 2026",
+   "body": "Dear Vikram,\nYour Bank of India xx3193 account statement for May 2026 is ready. Closing balance Rs.12,117.50.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-15",
+   "attachments": [],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m166",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Dear Customer,\nRs.197.33 has been debited from your Bandhan Bank A/c *6762 on 18-May-2026 (ECOM MCDONALDS). Avl bal Rs.21,069.13.",
+   "date": "2026-05-18",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "Bandhan Bank statement - May 2026",
+   "body": "Dear Vikram,\nStatement generated for Bandhan Bank Everyday Credit Card ending 2583: amount payable Rs.3,331.58, last date 06-Jun-2026. Sign in to download.",
+   "date": "2026-05-20",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "Bank of India: debit alert",
+   "body": "Your A/c XXXXXX3193 is debited for Rs.619.75 on 27-05-2026 - POS CROMA. Bal Rs.1,51,985.42. -Bank of India\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m169",
+   "subject": "Bank of India: debit alert",
+   "body": "Rs.9,224.91 withdrawn from xx3193 on 28-05-2026 via NEFT to AIRTEL PREPAID. Closing balance Rs.1,68,100.13.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m170",
+   "subject": "Bank of India: debit alert",
+   "body": "Dear Customer,\nRs.10,026.48 has been debited from your Bank of India A/c XXXXXX3193 on 01-06-2026 (NEFT BIG BAZAAR). Avl bal Rs.2,511.90.",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m171",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.921.13 spent on your Bandhan Bank Everyday Credit Card XX2583 at INDIGO AIRLINES on 03-Jun-2026.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-03",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m172",
+   "subject": "Payment received on Bandhan Bank Credit Card",
+   "body": "Payment of Rs.12,119.67 has been received towards your Bandhan Bank Credit Card xx2583 on 04-Jun-2026. Thank you for the payment.",
+   "date": "2026-06-04",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer, transaction of Rs.12,444.16 at INDIAN OIL on 06-Jun-2026 on Bandhan Bank Everyday Credit Card XX2583.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-06",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m174",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "Alert: Bandhan Bank A/c xx6762 debited Rs.14,266.92 on 14-Jun-2026. Mode: POS. Details: TATA PLAY. Balance Rs.3,155.04.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-14",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "Bandhan Bank statement - Jun 2026",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank Everyday Credit Card ending 2583 statement for the period 20-May-2026 to 19-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-20",
+   "attachments": [
+    {
+     "filename": "Bandhan_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m176",
+   "subject": "Payment received on Bandhan Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.14,746.26 on 21-Jun-2026 for your Bandhan Bank Everyday Credit Card XX2583. Available credit limit has been updated.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-21",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.1,395.24 spent on your Bandhan Bank Everyday Credit Card ending 2583 at MYNTRA on 22-Jun-2026.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-22",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.143.80 spent on your Bandhan Bank Everyday Credit Card XX2583 at DECATHLON on 26-Jun-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-06-26",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m179",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer, transaction of Rs.2,299.94 at MCDONALDS on 28-Jun-2026 on Bandhan Bank Credit Card ending 2583.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "Bandhan Bank festive offers",
+   "body": "Dear Vikram,\nUse your card on UPI and earn extra rewards.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-07-12",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m181",
+   "subject": "Bank of India: debit alert",
+   "body": "INR debit alert: Rs.30,088.01 debited from account XX3193 on 16-07-2026. Narration: IMPS/MAKEMYTRIP. Available balance Rs.6,373.70.",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m182",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Card alert | Rs.16,821.05 | SODEXO | 16-Jul-2026 | Bandhan Bank Everyday Credit Card xx2583\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m183",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Vikram,\nYour order #106-3802389-7356120 is confirmed. Total Rs.626.96. Estimated delivery in 2 days.",
+   "date": "2026-07-19",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "Bandhan Bank statement - Jul 2026",
+   "body": "Hi Vikram,\nYour Bandhan Bank Everyday Credit Card XX2583 e-statement for Jul 2026 is now available. Pay Rs.899.06 by 06-Aug-2026 to avoid late fees.",
+   "date": "2026-07-20",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m185",
+   "subject": "Update your KYC",
+   "body": "Dear Vikram,\nAs per RBI guidelines please complete re-KYC for your Bandhan Bank relationship. Visit a branch or use the app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-21",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "Bandhan Bank Account Statement - Aug 2026",
+   "body": "Dear Vikram,\nYour Bandhan Bank *6762 account statement for Aug 2026 is ready. Closing balance Rs.13,590.07.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-08",
+   "attachments": [],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m187",
+   "subject": "Bandhan Bank: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 0746 has been successfully linked/verified for your Bandhan Bank relationship. If this was not you, contact us.",
+   "date": "2026-08-08",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m188",
+   "subject": "Bank of India Account Statement - Aug 2026",
+   "body": "Dear Vikram,\nPlease find attached your Bank of India xx3193 statement for the period 15-Jul-2026 to 14-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-15",
+   "attachments": [
+    {
+     "filename": "3193_14082026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bank of India <estatement@bankofindia.co.in>"
+  },
+  {
+   "id": "m189",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Credit alert: Rs.33,621.08 has been credited to account XX6762 on 16-Aug-2026 (INTEREST CREDIT). Avl bal Rs.76,628.28.",
+   "date": "2026-08-16",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m190",
+   "subject": "Bandhan Bank statement - Aug 2026",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank Everyday Credit Card xx2583 statement for the period 20-Jul-2026 to 19-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-20",
+   "attachments": [
+    {
+     "filename": "eStatement_202608.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "Bank of India: debit alert",
+   "body": "Alert: Bank of India A/c XX3193 debited Rs.151.89 on 23-08-2026. Mode: IMPS. Details: MYNTRA. Balance Rs.15,423.08.\n\nOpt for e-statements and go green.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m192",
+   "subject": "Bandhan Bank: funds transferred",
+   "body": "Dear Customer,\nRs.786.43 has been transferred from your A/c xx6762 to Ganesh Maid Service A/c XX8611 (IDFC FIRST Bank) via IMPS on 25-Aug-2026. Ref no 618239310929.",
+   "date": "2026-08-25",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m193",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Vikram,\nYour order #489-1199686-1984017 is confirmed. Total Rs.13,599.41. Estimated delivery in 2 days.",
+   "date": "2026-08-29",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m194",
+   "subject": "Payment received on Bandhan Bank Credit Card",
+   "body": "Payment of Rs.500.27 has been received towards your Bandhan Bank Credit Card ending 2583 on 02-Sep-2026. Thank you for the payment.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-02",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m195",
+   "subject": "Bandhan Bank: debit alert",
+   "body": "INR debit alert: Rs.3,791.87 debited from account XX6762 on 08-Sep-2026. Narration: UPI/SPOTIFY. Available balance Rs.1,96,668.53.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-09-08",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "Bank of India: credit alert",
+   "body": "Credit alert: Rs.6,264.39 has been credited to account XXXXXX3193 on 09-09-2026 (UPI). Avl bal Rs.38,263.08.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-09",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m197",
+   "subject": "Bank of India: credit alert",
+   "body": "Credit alert: Rs.1,504.97 has been credited to account XX3193 on 11-09-2026 (IMPS). Avl bal Rs.34,828.46.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "Bank of India <boi@bankofindia.co.in>"
+  },
+  {
+   "id": "m198",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer, transaction of Rs.232.38 at BATA INDIA on 15-Sep-2026 on Bandhan Bank Everyday Credit Card ending 2583.",
+   "date": "2026-09-15",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m199",
+   "subject": "Bandhan Bank statement - Sep 2026",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank Everyday Credit Card XX2583 statement for the period 20-Aug-2026 to 19-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-09-20",
+   "attachments": [
+    {
+     "filename": "Bandhan_CC_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  },
+  {
+   "id": "m200",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Card alert | Rs.1,572.30 | JIO RECHARGE | 21-Sep-2026 | Bandhan Bank Credit Card xx2583\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-09-21",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "OTP for your transaction",
+   "body": "974222 is the OTP for your transaction of Rs.919.07 at IKEA. Valid for 10 minutes. Do not share.",
+   "date": "2026-10-03",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "Bandhan Bank Credit Card alert",
+   "body": "Dear Customer,\nRs.6,328.73 spent on your Bandhan Bank Credit Card XX2583 at SWIGGY on 11-Oct-2026.",
+   "date": "2026-10-11",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m203",
+   "subject": "Bandhan Bank: credit alert",
+   "body": "Credit alert: Rs.257.66 has been credited to account XXXXXX6762 on 16-Oct-2026 (IMPS). Avl bal Rs.2,359.28.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "Bandhan Bank <alerts@bandhanbank.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "Bandhan Bank statement - Oct 2026",
+   "body": "Dear Vikram,\nPlease find attached your Bandhan Bank Everyday Credit Card xx2583 statement for the period 20-Sep-2026 to 19-Oct-2026. Total amount due Rs.28,909.60, due 05-Nov-2026.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-20",
+   "attachments": [
+    {
+     "filename": "Bandhan_CC_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "Bandhan Bank Credit Card Statement\nVIKRAM REDDY\nFLAT 783, ORCHID APARTMENTS\n23TH CROSS, ADYAR\nKOCHI - 590095\nCard Name: Bandhan Bank Everyday Credit Card\nCredit Card Number: 467914XXXXXX2583\nBilling Period: 20/09/26 - 19/10/26\nStatement Date: 19/10/26\nPayment Summary\nTotal Amount Due: Rs.28,909.60\nMinimum Amount Due: Rs.1,445.48\nPayment Due Date: 05/11/26\nAccount Summary\nCredit Limit: Rs.1,25,000.00\nAvailable Credit Limit: Rs.1,16,389.78\nAvailable Cash Limit: Rs.25,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n26/09/26 AMAZON PAY INDIA HYDERABAD 20,709.41 Dr\n09/10/26 ZOMATO KOLKATA 768.56 Dr\n10/10/26 BIGBASKET HYDERABAD 3,277.09 Dr\n11/10/26 BPCL FUEL HYDERABAD 781.13 Dr\n11/10/26 STARBUCKS KOCHI 211.62 Dr\n15/10/26 DMART BENGALURU 2,256.79 Dr\n15/10/26 RELIANCE DIGITAL CHENNAI 565.34 Dr\n18/10/26 DMART KOCHI 238.85 Dr\n19/10/26 ZOMATO PUNE 100.81 Dr\n\nAdd-on Card Transactions\nISHITA REDDY - 4916 27XX XXXX 0527\n25/09/26 GOOGLE PLAY KOLKATA 8,859.76\n27/09/26 NYKAA GURUGRAM 4,355.82\n30/09/26 EASEMYTRIP PUNE 6,527.99\n19/10/26 MEDPLUS MUMBAI 100.53\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Bandhan Bank <estatement@bandhanbank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "bankofindia.co.in",
+    "last4": "3193",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "2583",
+    "kind": "CREDIT_CARD",
+    "variant": "Everyday",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "0527",
+    "kind": "CREDIT_CARD",
+    "variant": "Everyday",
+    "lifecycle": "ADDON",
+    "lifecyclePartnerLast4": "2583",
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": "2583"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "6762",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "8611",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "pnbindia.in",
+    "last4": "7621",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "0379",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "4888",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "0746",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "bankofindia.co.in",
+    "last4": "7605",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "3893",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "bankofindia.co.in",
+    "last4": "8039",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "6247",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

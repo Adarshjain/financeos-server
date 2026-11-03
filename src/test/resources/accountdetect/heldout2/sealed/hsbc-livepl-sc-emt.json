@@ -1,0 +1,2087 @@
+{
+ "mailbox": "hsbc-livepl-sc-emt",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 5,555.53 spent on your HSBC Credit Card xx7118 at JIO RECHARGE on 07-Sep-2024 16:05:20.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-09-07",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m002",
+   "subject": "Update your KYC",
+   "body": "Dear Sneha,\nAs per RBI guidelines please complete re-KYC for your Standard Chartered relationship. Visit a branch or use the app.\n\nOpt for e-statements and go green.",
+   "date": "2024-09-10",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Standard Chartered Credit Card Statement - Sep 2024",
+   "body": "Dear Sneha,\nPlease find attached your Standard Chartered Ultimate Credit Card XX0461 statement for the period 11-Aug-2024 to 10-Sep-2024. Total amount due Rs.13,176.33, due 26-Sep-2024.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-09-11",
+   "attachments": [
+    {
+     "filename": "Standard_Statement_Sep2024.pdf",
+     "protected": false,
+     "pdfText": "STANDARD CHARTERED CREDIT CARD STATEMENT\nSTATEMENT SUMMARY\nSNEHA KHAN\nFLAT 200, SUNRISE APARTMENTS\n21TH CROSS, INDIRANAGAR\nBENGALURU - 500943\nCARD TYPE: Standard Chartered Ultimate Credit Card\nCREDIT CARD NO: 486412XXXXXX0461\nStatement Period : 11-Aug-2024 to 10-Sep-2024\nStatement Date : 10-Sep-2024\nPayment Due Date : 26-Sep-2024\nTotal Amount Due : Rs.13,176.33\nMinimum Amount Due : Rs.658.82\nCredit Limit (Including cash) : Rs.7,25,000.00\nAvailable Credit Limit (Including cash) : Rs.7,13,907.15\nSPENDS OVERVIEW\nDate SerNo. Transaction Details Reward Points Intl.# Amount (in Rs.)\n12-08-2024 5600106459 BLINKIT GURUGRAM 52 1,466.79\n22-08-2024 1966296522 OLA CABS CHENNAI 1 592.94\n25-08-2024 2130460085 FLIPKART JAIPUR 6 1,111.82\n27-08-2024 7584312045 BIGBASKET CHENNAI 16 2,678.59\n31-08-2024 5792124179 AMAZON PAY INDIA BENGALURU 60 134.29\n01-09-2024 5759207124 MYNTRA PUNE 6 6,894.38\n10-09-2024 4943714886 SPOTIFY JAIPUR 40 297.52\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Your HSBC Live+ Credit Card statement - Sep 2024",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card ending 3612 statement for the period 12-Aug-2024 to 11-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-09-12",
+   "attachments": [
+    {
+     "filename": "3612_11092024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m005",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 914.17 spent on your Standard Chartered Credit Card XX9465 at BIGBASKET on 13-Sep-2024 08:41:59.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-09-13",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Standard Chartered Credit Card Statement - Sep 2024",
+   "body": "Dear Sneha,\nYour EaseMyTrip Standard Chartered Credit Card ending 9465 statement for Sep 2024 is ready. Total amount due Rs.2,337.72, minimum amount due Rs.200.00, payable by 01-Oct-2024.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-09-14",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 215.26 spent on your Standard Chartered Credit Card XX0461 at EASEMYTRIP on 14-Sep-2024 22:01:48.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-09-14",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - Sep 2024",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Visa Platinum Credit Card XX7118 statement for the period 17-Aug-2024 to 16-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-09-17",
+   "attachments": [
+    {
+     "filename": "7118_16092024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m009",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 9,604.56 spent on your HSBC Live+ Credit Card xx3612 at RELIANCE DIGITAL on 07-Oct-2024 11:42:38.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-10-07",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m010",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 1,310.89 was spent on your HSBC Visa Platinum Credit Card xx7118 at FLIPKART on 08-Oct-2024.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-10-08",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m011",
+   "subject": "Standard Chartered Credit Card Statement - Oct 2024",
+   "body": "Dear Sneha,\nPlease find attached your Standard Chartered Ultimate Credit Card XX0461 statement for the period 11-Sep-2024 to 10-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-10-11",
+   "attachments": [
+    {
+     "filename": "0461_10102024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Your HSBC Live+ Credit Card statement - Oct 2024",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card xx3612 statement for the period 12-Sep-2024 to 11-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2024-10-12",
+   "attachments": [
+    {
+     "filename": "3612_11102024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m013",
+   "subject": "Standard Chartered Credit Card Statement - Oct 2024",
+   "body": "Dear Sneha,\nPlease find attached your EaseMyTrip Standard Chartered Credit Card ending 9465 statement for the period 14-Sep-2024 to 13-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-10-14",
+   "attachments": [
+    {
+     "filename": "Standard_CC_Oct2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - Oct 2024",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Visa Platinum Credit Card xx7118 statement for the period 17-Sep-2024 to 16-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-10-17",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Oct2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m015",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 3,148.82 was spent on your EaseMyTrip Standard Chartered Credit Card xx9465 at MYNTRA on 17-Oct-2024.",
+   "date": "2024-10-17",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Standard Chartered festive offers",
+   "body": "Dear Sneha,\nUse your card on UPI and earn extra rewards.\n\n",
+   "date": "2024-10-22",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Standard Chartered Credit Card Statement - Nov 2024",
+   "body": "Dear Sneha,\nPlease find attached your Standard Chartered Ultimate Credit Card XX0461 statement for the period 11-Oct-2024 to 10-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-11-11",
+   "attachments": [
+    {
+     "filename": "eStatement_202411.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Your HSBC Live+ Credit Card statement - Nov 2024",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card xx3612 statement for the period 12-Oct-2024 to 11-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-11-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202411.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m019",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sneha,\nYour order #249-1515497-7259861 is confirmed. Total Rs.289.33. Estimated delivery in 2 days.",
+   "date": "2024-11-14",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m020",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 1,424.69 was spent on your HSBC Live+ Credit Card XX3612 at EASEMYTRIP on 24-Nov-2024.",
+   "date": "2024-11-24",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m021",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 19,685.06 was spent on your Standard Chartered Credit Card xx9465 at BLINKIT on 25-Nov-2024.",
+   "date": "2024-11-25",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 4,498.21 was spent on your HSBC Live+ Credit Card XX3612 at MEDPLUS on 28-Nov-2024.",
+   "date": "2024-11-28",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m023",
+   "subject": "Payment received on your Standard Chartered Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 7,371.89 on 29-Nov-2024 for your Standard Chartered Credit Card ending 0461. Available credit limit has been updated.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-29",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 12,343.31 spent on your HSBC Credit Card XX3612 at BOOKMYSHOW on 03-Dec-2024 06:07:15.",
+   "date": "2024-12-03",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m025",
+   "subject": "Payment received on your Standard Chartered Credit Card",
+   "body": "Payment of INR 18,087.94 has been received towards your Standard Chartered Credit Card XX0461 on 04-Dec-2024. Thank you for the payment.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-12-04",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 326.62 spent on your Standard Chartered Credit Card xx9465 at UBER INDIA on 07-Dec-2024 13:38:08.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-12-07",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Standard Chartered Credit Card Statement - Dec 2024",
+   "body": "Dear Sneha,\nYour Standard Chartered Ultimate Credit Card XX0461 statement for Dec 2024 is ready. Total amount due Rs.6,266.67, minimum amount due Rs.313.33, payable by 28-Dec-2024.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-12-11",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Standard Chartered Credit Card Statement - Dec 2024",
+   "body": "Dear Sneha,\nPlease find attached your EaseMyTrip Standard Chartered Credit Card XX9465 statement for the period 14-Nov-2024 to 13-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-12-14",
+   "attachments": [
+    {
+     "filename": "9465_13122024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "Payment received on your Standard Chartered Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 3,894.85 on 15-Dec-2024 for your Standard Chartered Credit Card xx9465. Available credit limit has been updated.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-12-15",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - Dec 2024",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Visa Platinum Credit Card XX7118 statement for the period 17-Nov-2024 to 16-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-12-17",
+   "attachments": [
+    {
+     "filename": "eStatement_202412.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m031",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 464.19 spent on your Standard Chartered Credit Card xx0461 at NETFLIX on 17-Dec-2024 14:40:03.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-12-17",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 8,496.67 spent on your Standard Chartered Credit Card XX9465 at DMART on 23-Dec-2024 19:06:10.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-12-23",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 274.71 spent on your HSBC Visa Platinum Credit Card xx7118 at INDIGO AIRLINES on 27-Dec-2024 15:05:10.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-12-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m034",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 290.48 was spent on your HSBC Credit Card xx7118 at SODEXO on 01-Jan-2025.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-01-01",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m035",
+   "subject": "OTP for your transaction",
+   "body": "421458 is the OTP for your transaction of Rs.2,655.63 at BATA INDIA. Valid for 10 minutes. Do not share.",
+   "date": "2025-01-03",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m036",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 2,125.87 was spent on your HSBC Live+ Credit Card XX3612 at EASEMYTRIP on 05-Jan-2025.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-01-05",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m037",
+   "subject": "HSBC festive offers",
+   "body": "Dear Sneha,\nUse your card on UPI and earn extra rewards.\n\n",
+   "date": "2025-01-06",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m038",
+   "subject": "Standard Chartered Credit Card Statement - Jan 2025",
+   "body": "Dear Sneha,\nYour Standard Chartered Ultimate Credit Card XX0461 statement for Jan 2025 is ready. Total amount due Rs.496.36, minimum amount due Rs.200.00, payable by 28-Jan-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-01-11",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Standard Chartered Credit Card Statement - Jan 2025",
+   "body": "Dear Sneha,\nPlease find attached your EaseMyTrip Standard Chartered Credit Card ending 9465 statement for the period 14-Dec-2024 to 13-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-01-14",
+   "attachments": [
+    {
+     "filename": "eStatement_202501.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - Jan 2025",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Visa Platinum Credit Card XX7118 statement for the period 17-Dec-2024 to 16-Jan-2025. Total amount due Rs.41,124.35, due 03-Feb-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-01-17",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Jan2025.pdf",
+     "protected": false,
+     "pdfText": "HSBC Credit Card Statement\nSNEHA KHAN\nFLAT 332, ORCHID APARTMENTS\n6TH CROSS, ADYAR\nKOCHI - 628559\nCard Name: HSBC Visa Platinum Credit Card\nCredit Card Number: 483958XXXXXX7118\nStatement Period: 17/12/24 - 16/01/25\nStatement Date: 16/01/25\nPayment Summary\nTotal Amount Due: Rs.41,124.35\nMinimum Amount Due: Rs.2,056.22\nPayment Due Date: 03/02/25\nAccount Summary\nCredit Limit: Rs.2,40,000.00\nAvailable Credit Limit: Rs.2,19,597.94\nAvailable Cash Limit: Rs.48,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n17/12/24 MAKEMYTRIP KOLKATA 14,478.98 Dr\n17/12/24 RELIANCE DIGITAL AHMEDABAD 511.62 Dr\n26/12/24 INDIAN OIL JAIPUR 3,971.72 Dr\n04/01/25 NETFLIX CHENNAI 1,634.40 Dr\n10/01/25 BPCL FUEL BENGALURU 127.99 Dr\n10/01/25 STARBUCKS PUNE 20,149.47 Dr\n14/01/25 BOOKMYSHOW KOCHI 250.17 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m041",
+   "subject": "HSBC festive offers",
+   "body": "Dear Sneha,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-01-29",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m042",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 147.99 was spent on your HSBC Live+ Credit Card XX3612 at EASEMYTRIP on 05-Feb-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-02-05",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m043",
+   "subject": "Update your KYC",
+   "body": "Dear Sneha,\nAs per RBI guidelines please complete re-KYC for your Standard Chartered relationship. Visit a branch or use the app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-02-05",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 736.53 spent on your HSBC Live+ Credit Card ending 3612 at MCDONALDS on 08-Feb-2025 16:36:54.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-02-08",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m045",
+   "subject": "Standard Chartered Credit Card Statement - Feb 2025",
+   "body": "Dear Sneha,\nPlease find attached your Standard Chartered Ultimate Credit Card XX0461 statement for the period 11-Jan-2025 to 10-Feb-2025. Total amount due Rs.12,316.16, due 28-Feb-2025.\n\n",
+   "date": "2025-02-11",
+   "attachments": [
+    {
+     "filename": "0461_10022025_stmt.pdf",
+     "protected": false,
+     "pdfText": "STANDARD CHARTERED CREDIT CARD STATEMENT\nSTATEMENT SUMMARY\nSNEHA KHAN\nFLAT 463, ORCHID APARTMENTS\n15TH CROSS, ADYAR\nCHENNAI - 441327\nCARD TYPE: Standard Chartered Ultimate Credit Card\nCREDIT CARD NO: 486412XXXXXX0461\nStatement Period : 11-Jan-2025 to 10-Feb-2025\nStatement Date : 10-Feb-2025\nPayment Due Date : 28-Feb-2025\nTotal Amount Due : Rs.12,316.16\nMinimum Amount Due : Rs.615.81\nCredit Limit (Including cash) : Rs.7,25,000.00\nAvailable Credit Limit (Including cash) : Rs.7,16,709.92\nSPENDS OVERVIEW\nDate SerNo. Transaction Details Reward Points Intl.# Amount (in Rs.)\n11-01-2025 6155849067 EAZYDINER PUNE 17 830.09\n19-01-2025 2747329448 RELIANCE DIGITAL HYDERABAD 59 4,723.22\n21-01-2025 6380414214 URBAN COMPANY CHENNAI 22 1,117.43\n22-01-2025 9866099448 SWIGGY MUMBAI 15 1,436.00\n29-01-2025 9708048229 MYNTRA CHENNAI 40 91.81\n07-02-2025 2664180164 BIGBASKET BENGALURU 44 520.84\n07-02-2025 3796295587 GOOGLE PLAY MUMBAI 30 3,596.77\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Your HSBC Live+ Credit Card statement - Feb 2025",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card xx3612 statement for the period 12-Jan-2025 to 11-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-02-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Feb2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m047",
+   "subject": "Standard Chartered Credit Card Statement - Feb 2025",
+   "body": "Dear Sneha,\nPlease find attached your EaseMyTrip Standard Chartered Credit Card ending 9465 statement for the period 14-Jan-2025 to 13-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-02-14",
+   "attachments": [
+    {
+     "filename": "Standard_CC_Feb2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Update your KYC",
+   "body": "Dear Sneha,\nAs per RBI guidelines please complete re-KYC for your HSBC relationship. Visit a branch or use the app.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-02-16",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m049",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - Feb 2025",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Visa Platinum Credit Card ending 7118 statement for the period 17-Jan-2025 to 16-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-02-17",
+   "attachments": [
+    {
+     "filename": "7118_16022025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m050",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 193.83 spent on your HSBC Credit Card xx3612 at ZEPTO on 19-Feb-2025 09:15:19.",
+   "date": "2025-02-19",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m051",
+   "subject": "OTP for your transaction",
+   "body": "310217 is the OTP for your transaction of Rs.132.46 at MYNTRA. Valid for 10 minutes. Do not share.",
+   "date": "2025-02-23",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m052",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 19,394.04 was spent on your Standard Chartered Ultimate Credit Card XX0461 at EASEMYTRIP on 24-Feb-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-02-24",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 124.38 spent on your EaseMyTrip Standard Chartered Credit Card XX9465 at BLINKIT on 03-Mar-2025 04:11:44.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-03-03",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 608.41 was spent on your EaseMyTrip Standard Chartered Credit Card XX9465 at EASEMYTRIP on 05-Mar-2025.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-03-05",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 554.30 was spent on your Standard Chartered Credit Card xx0461 at NETFLIX on 07-Mar-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-07",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Your HSBC Live+ Credit Card statement - Mar 2025",
+   "body": "Dear Sneha,\nYour HSBC Live+ Credit Card xx3612 statement for Mar 2025 is ready. Total amount due Rs.1,853.57, minimum amount due Rs.200.00, payable by 29-Mar-2025.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-03-12",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m057",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 15,620.85 spent on your HSBC Live+ Credit Card xx3612 at MAKEMYTRIP on 13-Mar-2025 10:50:50.",
+   "date": "2025-03-13",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m058",
+   "subject": "Standard Chartered Credit Card Statement - Mar 2025",
+   "body": "Dear Sneha,\nPlease find attached your EaseMyTrip Standard Chartered Credit Card XX9465 statement for the period 14-Feb-2025 to 13-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-14",
+   "attachments": [
+    {
+     "filename": "Standard_Statement_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 88.09 spent on your HSBC Credit Card XX3612 at ZOMATO on 14-Mar-2025 14:06:36.",
+   "date": "2025-03-14",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m060",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 563610305301. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-03-15",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m061",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - Mar 2025",
+   "body": "Dear Sneha,\nYour HSBC Visa Platinum Credit Card XX7118 statement for Mar 2025 is ready. Total amount due Rs.20,603.93, minimum amount due Rs.1,030.20, payable by 03-Apr-2025.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-17",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m062",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 10,060.36 on 24-Mar-2025 for your HSBC Credit Card ending 7118. Available credit limit has been updated.",
+   "date": "2025-03-24",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m063",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 2,407.51 spent on your Standard Chartered Credit Card ending 0461 at DECATHLON on 28-Mar-2025 20:37:49.\n\nOpt for e-statements and go green.",
+   "date": "2025-03-28",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "HSBC festive offers",
+   "body": "Dear Sneha,\nGet up to 10% cashback on partner brands.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-03-30",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m065",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 14,803.08 spent on your EaseMyTrip Standard Chartered Credit Card XX9465 at RELIANCE DIGITAL on 05-Apr-2025 23:45:01.\n\nOpt for e-statements and go green.",
+   "date": "2025-04-05",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 320.39 spent on your EaseMyTrip Standard Chartered Credit Card xx9465 at MYNTRA on 11-Apr-2025 15:07:50.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-04-11",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Your HSBC Live+ Credit Card statement - Apr 2025",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card ending 3612 statement for the period 12-Mar-2025 to 11-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-04-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Apr2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m068",
+   "subject": "Standard Chartered Credit Card Statement - Apr 2025",
+   "body": "Dear Sneha,\nYour EaseMyTrip Standard Chartered Credit Card XX9465 statement for Apr 2025 is ready. Total amount due Rs.437.69, minimum amount due Rs.200.00, payable by 01-May-2025.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-04-14",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "OTP for your transaction",
+   "body": "339275 is the OTP for your transaction of Rs.10,396.79 at LENSKART. Valid for 10 minutes. Do not share.",
+   "date": "2025-04-16",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - Apr 2025",
+   "body": "Dear Sneha,\nYour HSBC Visa Platinum Credit Card XX7118 statement for Apr 2025 is ready. Total amount due Rs.24,722.04, minimum amount due Rs.1,236.10, payable by 04-May-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-04-17",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m071",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 4,009.29 was spent on your HSBC Credit Card xx3612 at EASEMYTRIP on 23-Apr-2025.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-04-23",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m072",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 24,531.30 spent on your HSBC Credit Card ending 7118 at PHONEPE on 25-Apr-2025 10:55:31.",
+   "date": "2025-04-25",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m073",
+   "subject": "OTP for your transaction",
+   "body": "498646 is the OTP for your transaction of Rs.13,005.30 at BIGBASKET. Valid for 10 minutes. Do not share.",
+   "date": "2025-04-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m074",
+   "subject": "Standard Chartered Credit Card Statement - May 2025",
+   "body": "Dear Sneha,\nYour EaseMyTrip Standard Chartered Credit Card XX9465 statement for May 2025 is ready. Total amount due Rs.30,921.79, minimum amount due Rs.1,546.09, payable by 31-May-2025.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-05-14",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - May 2025",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Visa Platinum Credit Card XX7118 statement for the period 17-Apr-2025 to 16-May-2025. Total amount due Rs.42,012.08, due 31-May-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-05-17",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_May2025.pdf",
+     "protected": false,
+     "pdfText": "HSBC Credit Card Statement\nSNEHA KHAN\nFLAT 806, LAKESHORE APARTMENTS\n20TH CROSS, ADYAR\nGURUGRAM - 598225\nCard Name: HSBC Visa Platinum Credit Card\nCredit Card Number: 483958XXXXXX7118\nStatement Period: 17/04/25 - 16/05/25\nStatement Date: 16/05/25\nPayment Summary\nTotal Amount Due: Rs.42,012.08\nMinimum Amount Due: Rs.2,100.60\nPayment Due Date: 31/05/25\nAccount Summary\nCredit Limit: Rs.2,40,000.00\nAvailable Credit Limit: Rs.1,97,989.50\nAvailable Cash Limit: Rs.48,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n17/04/25 ZOMATO AHMEDABAD 131.98 Dr\n18/04/25 MAKEMYTRIP AHMEDABAD 268.59 Dr\n22/04/25 BESCOM GURUGRAM 493.72 Dr\n25/04/25 SWIGGY KOLKATA 599.55 Dr\n04/05/25 URBAN COMPANY PUNE 11,383.23 Dr\n05/05/25 BESCOM HYDERABAD 368.89 Dr\n05/05/25 STARBUCKS KOLKATA 1,022.56 Dr\n09/05/25 URBAN COMPANY AHMEDABAD 777.98 Dr\n10/05/25 BESCOM KOLKATA 11,155.14 Dr\n11/05/25 RELIANCE DIGITAL KOLKATA 867.10 Dr\n15/05/25 SODEXO HYDERABAD 14,943.34 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m076",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 15,101.43 spent on your HSBC Credit Card XX7118 at IXIGO on 18-May-2025 13:43:05.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-05-18",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m077",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 164.02 on 24-May-2025 for your HSBC Credit Card XX7118. Available credit limit has been updated.",
+   "date": "2025-05-24",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m078",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 6,279.83 spent on your Standard Chartered Ultimate Credit Card ending 0461 at IKEA on 31-May-2025 15:22:32.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-05-31",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 3,016.55 spent on your Standard Chartered Ultimate Credit Card XX0461 at APPLE SERVICES on 05-Jun-2025 08:56:23.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-05",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 362.25 spent on your Standard Chartered Ultimate Credit Card XX0461 at EASEMYTRIP on 11-Jun-2025 17:33:13.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-06-11",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Your HSBC Live+ Credit Card statement - Jun 2025",
+   "body": "Dear Sneha,\nYour HSBC Live+ Credit Card ending 3612 statement for Jun 2025 is ready. Total amount due Rs.7,239.46, minimum amount due Rs.361.97, payable by 29-Jun-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-06-12",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m082",
+   "subject": "Standard Chartered Credit Card Statement - Jun 2025",
+   "body": "Dear Sneha,\nPlease find attached your EaseMyTrip Standard Chartered Credit Card XX9465 statement for the period 14-May-2025 to 13-Jun-2025. Total amount due Rs.30,178.85, due 30-Jun-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-06-14",
+   "attachments": [
+    {
+     "filename": "Standard_CC_Jun2025.pdf",
+     "protected": false,
+     "pdfText": "STANDARD CHARTERED CREDIT CARD STATEMENT\nSTATEMENT SUMMARY\nSNEHA KHAN\nFLAT 162, GREEN VALLEY APARTMENTS\n13TH CROSS, BANJARA HILLS\nKOCHI - 490328\nCARD TYPE: EaseMyTrip Standard Chartered Credit Card\nCREDIT CARD NO: 478515XXXXXX9465\nStatement Period : 14-May-2025 to 13-Jun-2025\nStatement Date : 13-Jun-2025\nPayment Due Date : 30-Jun-2025\nTotal Amount Due : Rs.30,178.85\nMinimum Amount Due : Rs.1,508.94\nCredit Limit (Including cash) : Rs.2,25,000.00\nAvailable Credit Limit (Including cash) : Rs.2,16,829.85\nSPENDS OVERVIEW\nDate SerNo. Transaction Details Reward Points Intl.# Amount (in Rs.)\n14-05-2025 4587805706 FLIPKART JAIPUR 50 9,875.89\n16-05-2025 4711598628 DOMINOS HYDERABAD 51 235.56\n17-05-2025 3142082816 EASEMYTRIP BENGALURU 42 16,323.55\n21-05-2025 3174250545 INDIAN OIL HYDERABAD 38 240.29\n31-05-2025 2461687016 DMART AHMEDABAD 45 3,172.07\n31-05-2025 3897599914 URBAN COMPANY AHMEDABAD 7 331.49\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - Jun 2025",
+   "body": "Dear Sneha,\nYour HSBC Visa Platinum Credit Card xx7118 statement for Jun 2025 is ready. Total amount due Rs.2,223.79, minimum amount due Rs.200.00, payable by 04-Jul-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-06-17",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m084",
+   "subject": "HSBC: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 0827 has been successfully linked/verified for your HSBC relationship. If this was not you, contact us.",
+   "date": "2025-06-20",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m085",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 5,473.72 spent on your Standard Chartered Credit Card XX0461 at TATA POWER on 28-Jun-2025 20:09:42.\n\nOpt for e-statements and go green.",
+   "date": "2025-06-28",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,231.55 spent on your Standard Chartered Ultimate Credit Card XX0461 at INDIGO AIRLINES on 09-Jul-2025 15:21:29.",
+   "date": "2025-07-09",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 20,154.13 spent on your HSBC Visa Platinum Credit Card XX7118 at PVR INOX on 10-Jul-2025 16:53:28.",
+   "date": "2025-07-10",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m088",
+   "subject": "Standard Chartered Credit Card Statement - Jul 2025",
+   "body": "Dear Sneha,\nYour Standard Chartered Ultimate Credit Card XX0461 statement for Jul 2025 is ready. Total amount due Rs.36,399.13, minimum amount due Rs.1,819.96, payable by 28-Jul-2025.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-11",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Your HSBC Live+ Credit Card statement - Jul 2025",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card ending 3612 statement for the period 12-Jun-2025 to 11-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-07-12",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m090",
+   "subject": "Standard Chartered Credit Card Statement - Jul 2025",
+   "body": "Dear Sneha,\nPlease find attached your EaseMyTrip Standard Chartered Credit Card XX9465 statement for the period 14-Jun-2025 to 13-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-07-14",
+   "attachments": [
+    {
+     "filename": "eStatement_202507.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 3,586.89 was spent on your HSBC Visa Platinum Credit Card ending 7118 at MEDPLUS on 14-Jul-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-14",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m092",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 16,705.19 was spent on your HSBC Credit Card ending 7118 at RELIANCE DIGITAL on 15-Jul-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-15",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m093",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - Jul 2025",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Visa Platinum Credit Card ending 7118 statement for the period 17-Jun-2025 to 16-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-07-17",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m094",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 90.91 spent on your EaseMyTrip Standard Chartered Credit Card ending 9465 at EAZYDINER on 31-Jul-2025 05:27:20.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-07-31",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Payment received on your Standard Chartered Credit Card",
+   "body": "Payment of INR 9,454.24 has been received towards your Standard Chartered Credit Card XX0461 on 31-Jul-2025. Thank you for the payment.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-07-31",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Payment received on your Standard Chartered Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 6,228.84 on 01-Aug-2025 for your Standard Chartered Ultimate Credit Card xx0461. Available credit limit has been updated.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-01",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Payment successful",
+   "body": "Hi Sneha,\nYou paid Rs.4,866.88 to SBI Card Credit Card ending 7753 (of Yash Khan) on 03-Aug-2025. Ref 8239764545.",
+   "date": "2025-08-03",
+   "attachments": [],
+   "from": "CRED <noreply@cred.club>"
+  },
+  {
+   "id": "m098",
+   "subject": "Standard Chartered Credit Card Statement - Aug 2025",
+   "body": "Dear Sneha,\nYour Standard Chartered Ultimate Credit Card XX0461 statement for Aug 2025 is ready. Total amount due Rs.593.39, minimum amount due Rs.200.00, payable by 28-Aug-2025.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-08-11",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Your HSBC Live+ Credit Card statement - Aug 2025",
+   "body": "Dear Sneha,\nYour HSBC Live+ Credit Card ending 3612 statement for Aug 2025 is ready. Total amount due Rs.2,000.08, minimum amount due Rs.200.00, payable by 29-Aug-2025.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-12",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m100",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 15,163.67 was spent on your HSBC Credit Card xx7118 at SODEXO on 12-Aug-2025.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-08-12",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m101",
+   "subject": "Standard Chartered Credit Card Statement - Aug 2025",
+   "body": "Dear Sneha,\nPlease find attached your EaseMyTrip Standard Chartered Credit Card ending 9465 statement for the period 14-Jul-2025 to 13-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-14",
+   "attachments": [
+    {
+     "filename": "9465_13082025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - Aug 2025",
+   "body": "Dear Sneha,\nYour HSBC Visa Platinum Credit Card XX7118 statement for Aug 2025 is ready. Total amount due Rs.3,128.07, minimum amount due Rs.200.00, payable by 03-Sep-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-08-17",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m103",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 2,174.22 spent on your Standard Chartered Credit Card xx9465 at STARBUCKS on 19-Aug-2025 03:06:07.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-19",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Update your KYC",
+   "body": "Dear Sneha,\nAs per RBI guidelines please complete re-KYC for your HSBC relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-08-22",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m105",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 1,387.25 was spent on your HSBC Credit Card xx3612 at SODEXO on 23-Aug-2025.",
+   "date": "2025-08-23",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m106",
+   "subject": "Your HSBC Credit Card has been replaced",
+   "body": "Dear Sneha Khan,\nYour HSBC Visa Platinum Credit Card XX7118 has been blocked and replaced. A new card ending 3286 has been dispatched to your address on record. Please use the new card xx3286 from now on. Your old card ending 7118 can no longer be used.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-08-24",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m107",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 4,381.28 spent on your HSBC Credit Card xx3612 at HPCL PETROL on 25-Aug-2025 11:46:49.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-08-25",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m108",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sneha,\nYour order #456-6766405-1376917 is confirmed. Total Rs.4,242.48. Estimated delivery in 2 days.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 15,533.07 was spent on your HSBC Live+ Credit Card xx3612 at EASEMYTRIP on 03-Sep-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-03",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m110",
+   "subject": "Standard Chartered Credit Card Statement - Sep 2025",
+   "body": "Dear Sneha,\nYour Standard Chartered Ultimate Credit Card XX0461 statement for Sep 2025 is ready. Total amount due Rs.1,692.30, minimum amount due Rs.200.00, payable by 28-Sep-2025.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-09-11",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Your HSBC Live+ Credit Card statement - Sep 2025",
+   "body": "Dear Sneha,\nYour HSBC Live+ Credit Card XX3612 statement for Sep 2025 is ready. Total amount due Rs.12,090.98, minimum amount due Rs.604.55, payable by 29-Sep-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-09-12",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m112",
+   "subject": "Standard Chartered Credit Card Statement - Sep 2025",
+   "body": "Dear Sneha,\nPlease find attached your EaseMyTrip Standard Chartered Credit Card XX9465 statement for the period 14-Aug-2025 to 13-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-09-14",
+   "attachments": [
+    {
+     "filename": "Standard_CC_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 148.24 was spent on your HSBC Credit Card ending 3286 at EASEMYTRIP on 20-Sep-2025.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-20",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m114",
+   "subject": "OTP for your transaction",
+   "body": "428115 is the OTP for your transaction of Rs.946.74 at DOMINOS. Valid for 10 minutes. Do not share.",
+   "date": "2025-09-20",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m115",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 407.82 was spent on your EaseMyTrip Standard Chartered Credit Card XX9465 at PHONEPE on 04-Oct-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-04",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Sneha,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-07",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m117",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Sneha,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-10",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "Standard Chartered Credit Card Statement - Oct 2025",
+   "body": "Dear Sneha,\nPlease find attached your Standard Chartered Ultimate Credit Card XX0461 statement for the period 11-Sep-2025 to 10-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-10-11",
+   "attachments": [
+    {
+     "filename": "0461_10102025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "Your HSBC Live+ Credit Card statement - Oct 2025",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card XX3612 statement for the period 12-Sep-2025 to 11-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "3612_11102025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m120",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Sneha,\nPlease find attached the updated MITC for your HSBC credit cards.\n\n",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "HSBC CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m121",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 3,877.34 was spent on your Standard Chartered Credit Card XX9465 at URBAN COMPANY on 21-Oct-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-21",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 103.30 was spent on your EaseMyTrip Standard Chartered Credit Card XX9465 at SWIGGY on 23-Oct-2025.",
+   "date": "2025-10-23",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 10,771.64 was spent on your HSBC Credit Card xx3286 at EASEMYTRIP on 31-Oct-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-31",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m124",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 13,596.19 spent on your HSBC Live+ Credit Card XX3612 at FLIPKART on 08-Nov-2025 08:45:39.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-08",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m125",
+   "subject": "Your HSBC Live+ Credit Card statement - Nov 2025",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card xx3612 statement for the period 12-Oct-2025 to 11-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "3612_11112025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m126",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - Nov 2025",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Visa Platinum Credit Card XX3286 statement for the period 13-Oct-2025 to 12-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-13",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m127",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,413.32 spent on your HSBC Live+ Credit Card XX3612 at APPLE SERVICES on 29-Nov-2025 16:52:59.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-11-29",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m128",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 537.62 spent on your EaseMyTrip Standard Chartered Credit Card xx9465 at ZOMATO on 08-Dec-2025 11:01:01.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-08",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 2,937.96 spent on your Standard Chartered Ultimate Credit Card xx0461 at DECATHLON on 08-Dec-2025 14:44:45.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-12-08",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "Standard Chartered Credit Card Statement - Dec 2025",
+   "body": "Dear Sneha,\nPlease find attached your Standard Chartered Ultimate Credit Card xx0461 statement for the period 11-Nov-2025 to 10-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-11",
+   "attachments": [
+    {
+     "filename": "eStatement_202512.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - Dec 2025",
+   "body": "Dear Sneha,\nYour HSBC Visa Platinum Credit Card xx3286 statement for Dec 2025 is ready. Total amount due Rs.774.39, minimum amount due Rs.200.00, payable by 30-Dec-2025.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-13",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m132",
+   "subject": "Standard Chartered Credit Card Statement - Dec 2025",
+   "body": "Dear Sneha,\nPlease find attached your EaseMyTrip Standard Chartered Credit Card xx9465 statement for the period 14-Nov-2025 to 13-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-12-14",
+   "attachments": [
+    {
+     "filename": "Standard_CC_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Payment of INR 19,427.78 has been received towards your HSBC Visa Platinum Credit Card ending 3286 on 15-Dec-2025. Thank you for the payment.\n\nOpt for e-statements and go green.",
+   "date": "2025-12-15",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m134",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 12,662.27 was spent on your HSBC Visa Platinum Credit Card XX3286 at SODEXO on 22-Dec-2025.",
+   "date": "2025-12-22",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m135",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 10,600.78 was spent on your HSBC Credit Card xx3286 at ZEPTO on 22-Dec-2025.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-12-22",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m136",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 10,423.35 was spent on your Standard Chartered Credit Card xx9465 at AMAZON PAY INDIA on 24-Dec-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-24",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 3,731.86 was spent on your Standard Chartered Credit Card ending 0461 at BIGBASKET on 24-Dec-2025.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-12-24",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Standard Chartered Credit Card Statement - Jan 2026",
+   "body": "Dear Sneha,\nPlease find attached your Standard Chartered Ultimate Credit Card XX0461 statement for the period 11-Dec-2025 to 10-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-01-11",
+   "attachments": [
+    {
+     "filename": "0461_10012026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "Your HSBC Live+ Credit Card statement - Jan 2026",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card XX3612 statement for the period 12-Dec-2025 to 11-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m140",
+   "subject": "Standard Chartered Credit Card Statement - Jan 2026",
+   "body": "Dear Sneha,\nPlease find attached your EaseMyTrip Standard Chartered Credit Card XX9465 statement for the period 14-Dec-2025 to 13-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-14",
+   "attachments": [
+    {
+     "filename": "eStatement_202601.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 908.94 spent on your HSBC Live+ Credit Card xx3612 at EASEMYTRIP on 23-Jan-2026 14:24:15.",
+   "date": "2026-01-23",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m142",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Payment of INR 6,117.85 has been received towards your HSBC Credit Card XX3286 on 24-Jan-2026. Thank you for the payment.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-24",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m143",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 5,890.82 spent on your Standard Chartered Credit Card XX9465 at MCDONALDS on 27-Jan-2026 07:03:04.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 17,011.49 was spent on your Standard Chartered Credit Card XX9465 at PAYTM on 29-Jan-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-29",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m145",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 7,306.18 was spent on your Standard Chartered Ultimate Credit Card ending 0461 at ZEPTO on 30-Jan-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-01-30",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "Standard Chartered Credit Card Statement - Feb 2026",
+   "body": "Dear Sneha,\nPlease find attached your Standard Chartered Ultimate Credit Card xx0461 statement for the period 11-Jan-2026 to 10-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-11",
+   "attachments": [
+    {
+     "filename": "eStatement_202602.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "Your HSBC Live+ Credit Card statement - Feb 2026",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card XX3612 statement for the period 12-Jan-2026 to 11-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "3612_11022026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m148",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - Feb 2026",
+   "body": "Dear Sneha,\nYour HSBC Visa Platinum Credit Card XX3286 statement for Feb 2026 is ready. Total amount due Rs.821.13, minimum amount due Rs.200.00, payable by 02-Mar-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-02-13",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m149",
+   "subject": "Standard Chartered Credit Card Statement - Feb 2026",
+   "body": "Dear Sneha,\nPlease find attached your EaseMyTrip Standard Chartered Credit Card ending 9465 statement for the period 14-Jan-2026 to 13-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-02-14",
+   "attachments": [
+    {
+     "filename": "eStatement_202602.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,636.00 spent on your HSBC Live+ Credit Card XX3612 at EAZYDINER on 20-Feb-2026 12:34:25.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-20",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m151",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 4,444.56 was spent on your HSBC Visa Platinum Credit Card xx3286 at EASEMYTRIP on 23-Feb-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-23",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m152",
+   "subject": "Standard Chartered Credit Card Statement - Mar 2026",
+   "body": "Dear Sneha,\nYour Standard Chartered Ultimate Credit Card XX0461 statement for Mar 2026 is ready. Total amount due Rs.489.46, minimum amount due Rs.200.00, payable by 28-Mar-2026.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-11",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "Your HSBC Live+ Credit Card statement - Mar 2026",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card xx3612 statement for the period 12-Feb-2026 to 11-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202603.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m154",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - Mar 2026",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Visa Platinum Credit Card XX3286 statement for the period 13-Feb-2026 to 12-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-03-13",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m155",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 530.62 was spent on your HSBC Live+ Credit Card XX3612 at EASEMYTRIP on 13-Mar-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-13",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m156",
+   "subject": "Standard Chartered Credit Card Statement - Mar 2026",
+   "body": "Dear Sneha,\nYour EaseMyTrip Standard Chartered Credit Card xx9465 statement for Mar 2026 is ready. Total amount due Rs.34,052.67, minimum amount due Rs.1,702.63, payable by 31-Mar-2026.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-14",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sneha,\nYour order #485-7052654-1975230 is confirmed. Total Rs.271.30. Estimated delivery in 2 days.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX5878 has been updated on 02-Oct-2025. If not requested by you, call customer care.",
+   "date": "2026-03-30",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m159",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 277.71 was spent on your HSBC Visa Platinum Credit Card XX3286 at SWIGGY on 31-Mar-2026.",
+   "date": "2026-03-31",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m160",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 1,882.87 was spent on your HSBC Live+ Credit Card XX3612 at DOMINOS on 03-Apr-2026.",
+   "date": "2026-04-03",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m161",
+   "subject": "Standard Chartered Credit Card Statement - Apr 2026",
+   "body": "Dear Sneha,\nYour Standard Chartered Ultimate Credit Card ending 0461 statement for Apr 2026 is ready. Total amount due Rs.34,731.36, minimum amount due Rs.1,736.57, payable by 28-Apr-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-04-11",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "Your HSBC Live+ Credit Card statement - Apr 2026",
+   "body": "Dear Sneha,\nYour HSBC Live+ Credit Card xx3612 statement for Apr 2026 is ready. Total amount due Rs.1,696.68, minimum amount due Rs.200.00, payable by 29-Apr-2026.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-12",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m163",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 3,872.32 on 19-Apr-2026 for your HSBC Live+ Credit Card XX3612. Available credit limit has been updated.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-19",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m164",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 326.81 was spent on your Standard Chartered Ultimate Credit Card XX0461 at GOOGLE PLAY on 19-Apr-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-19",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 385.96 was spent on your EaseMyTrip Standard Chartered Credit Card XX9465 at ZEPTO on 21-Apr-2026.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-21",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 13,375.21 was spent on your Standard Chartered Credit Card XX9465 at IXIGO on 24-Apr-2026.",
+   "date": "2026-04-24",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,299.81 spent on your HSBC Visa Platinum Credit Card XX3286 at JIO RECHARGE on 03-May-2026 04:15:51.",
+   "date": "2026-05-03",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m168",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 3,270.35 was spent on your Standard Chartered Credit Card XX0461 at PAYTM on 05-May-2026.",
+   "date": "2026-05-05",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sneha,\nYour order #917-8084398-8592860 is confirmed. Total Rs.4,309.61. Estimated delivery in 2 days.",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "Standard Chartered Credit Card Statement - May 2026",
+   "body": "Dear Sneha,\nYour Standard Chartered Ultimate Credit Card XX0461 statement for May 2026 is ready. Total amount due Rs.40,855.90, minimum amount due Rs.2,042.80, payable by 28-May-2026.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-11",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "Your HSBC Live+ Credit Card statement - May 2026",
+   "body": "Dear Sneha,\nYour HSBC Live+ Credit Card XX3612 statement for May 2026 is ready. Total amount due Rs.2,459.05, minimum amount due Rs.200.00, payable by 29-May-2026.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m172",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - May 2026",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Visa Platinum Credit Card ending 3286 statement for the period 13-Apr-2026 to 12-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-13",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m173",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Payment of INR 291.54 has been received towards your HSBC Live+ Credit Card xx3612 on 13-May-2026. Thank you for the payment.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-05-13",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m174",
+   "subject": "Standard Chartered Credit Card Statement - May 2026",
+   "body": "Dear Sneha,\nYour EaseMyTrip Standard Chartered Credit Card ending 9465 statement for May 2026 is ready. Total amount due Rs.404.06, minimum amount due Rs.200.00, payable by 31-May-2026.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-14",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 271.54 spent on your HSBC Live+ Credit Card ending 3612 at BESCOM on 15-May-2026 07:55:02.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-05-15",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m176",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 15,796.18 spent on your EaseMyTrip Standard Chartered Credit Card ending 9465 at SWIGGY on 17-May-2026 10:42:54.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-17",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 20,608.56 spent on your Standard Chartered Credit Card xx0461 at BIGBASKET on 22-May-2026 22:34:13.\n\nOpt for e-statements and go green.",
+   "date": "2026-05-22",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "OTP for your transaction",
+   "body": "471144 is the OTP for your transaction of Rs.668.51 at ZEPTO. Valid for 10 minutes. Do not share.",
+   "date": "2026-05-29",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m179",
+   "subject": "Standard Chartered Credit Card Statement - Jun 2026",
+   "body": "Dear Sneha,\nYour Standard Chartered Ultimate Credit Card xx0461 statement for Jun 2026 is ready. Total amount due Rs.492.68, minimum amount due Rs.200.00, payable by 28-Jun-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-06-11",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "Your HSBC Live+ Credit Card statement - Jun 2026",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card XX3612 statement for the period 12-May-2026 to 11-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "3612_11062026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m181",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - Jun 2026",
+   "body": "Dear Sneha,\nYour HSBC Visa Platinum Credit Card ending 3286 statement for Jun 2026 is ready. Total amount due Rs.5,685.85, minimum amount due Rs.284.29, payable by 30-Jun-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-06-13",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m182",
+   "subject": "Standard Chartered Credit Card Statement - Jun 2026",
+   "body": "Dear Sneha,\nPlease find attached your EaseMyTrip Standard Chartered Credit Card XX9465 statement for the period 14-May-2026 to 13-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-06-14",
+   "attachments": [
+    {
+     "filename": "9465_13062026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m183",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 7,559.45 was spent on your HSBC Credit Card xx3286 at BOOKMYSHOW on 18-Jun-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-18",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m184",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 515.40 spent on your Standard Chartered Credit Card XX0461 at EASEMYTRIP on 21-Jun-2026 09:32:20.",
+   "date": "2026-06-21",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m185",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,933.91 spent on your HSBC Credit Card XX3612 at UBER INDIA on 23-Jun-2026 08:15:20.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-23",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m186",
+   "subject": "Payment received on your Standard Chartered Credit Card",
+   "body": "Payment of INR 1,308.34 has been received towards your EaseMyTrip Standard Chartered Credit Card XX9465 on 30-Jun-2026. Thank you for the payment.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-30",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m187",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 2,885.11 spent on your Standard Chartered Ultimate Credit Card ending 0461 at EASEMYTRIP on 30-Jun-2026 12:30:08.",
+   "date": "2026-06-30",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m188",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sneha,\nYour order #690-3527258-2545731 is confirmed. Total Rs.376.84. Estimated delivery in 2 days.",
+   "date": "2026-07-03",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m189",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,023.30 spent on your EaseMyTrip Standard Chartered Credit Card xx9465 at MAKEMYTRIP on 08-Jul-2026 01:35:15.",
+   "date": "2026-07-08",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m190",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - Jul 2026",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Visa Platinum Credit Card XX3286 statement for the period 13-Jun-2026 to 12-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-13",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m191",
+   "subject": "Standard Chartered Credit Card Statement - Jul 2026",
+   "body": "Dear Sneha,\nYour EaseMyTrip Standard Chartered Credit Card ending 9465 statement for Jul 2026 is ready. Total amount due Rs.2,268.61, minimum amount due Rs.200.00, payable by 31-Jul-2026.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-07-14",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 323.40 was spent on your HSBC Credit Card xx3612 at BLINKIT on 18-Jul-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-07-18",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m193",
+   "subject": "OTP for your transaction",
+   "body": "627385 is the OTP for your transaction of Rs.1,532.56 at GOOGLE PLAY. Valid for 10 minutes. Do not share.",
+   "date": "2026-07-24",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m194",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 173.93 spent on your HSBC Live+ Credit Card xx3612 at EASEMYTRIP on 08-Aug-2026 08:47:26.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-08",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m195",
+   "subject": "Your HSBC Live+ Credit Card statement - Aug 2026",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Live+ Credit Card XX3612 statement for the period 12-Jul-2026 to 11-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m196",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - Aug 2026",
+   "body": "Dear Sneha,\nYour HSBC Visa Platinum Credit Card xx3286 statement for Aug 2026 is ready. Total amount due Rs.661.93, minimum amount due Rs.200.00, payable by 30-Aug-2026.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-13",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m197",
+   "subject": "Standard Chartered Credit Card Statement - Aug 2026",
+   "body": "Dear Sneha,\nPlease find attached your EaseMyTrip Standard Chartered Credit Card ending 9465 statement for the period 14-Jul-2026 to 13-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-14",
+   "attachments": [
+    {
+     "filename": "Standard_Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m198",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 129.95 was spent on your HSBC Credit Card XX3286 at OLA CABS on 15-Aug-2026.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-15",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m199",
+   "subject": "Payment received on your Standard Chartered Credit Card",
+   "body": "Payment of INR 10,564.81 has been received towards your EaseMyTrip Standard Chartered Credit Card XX9465 on 23-Aug-2026. Thank you for the payment.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m200",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 898.21 spent on your Standard Chartered Credit Card xx0461 at EASEMYTRIP on 23-Aug-2026 19:44:58.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "Payment received on your Standard Chartered Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 6,618.72 on 27-Aug-2026 for your Standard Chartered Ultimate Credit Card ending 0461. Available credit limit has been updated.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,891.74 spent on your HSBC Credit Card xx3612 at BLINKIT on 30-Aug-2026 12:07:56.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-30",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m203",
+   "subject": "Standard Chartered Credit Card Statement - Sep 2026",
+   "body": "Dear Sneha,\nYour Standard Chartered Ultimate Credit Card XX0461 statement for Sep 2026 is ready. Total amount due Rs.17,667.24, minimum amount due Rs.883.36, payable by 28-Sep-2026.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "Your HSBC Live+ Credit Card statement - Sep 2026",
+   "body": "Dear Sneha,\nYour HSBC Live+ Credit Card xx3612 statement for Sep 2026 is ready. Total amount due Rs.4,476.89, minimum amount due Rs.223.84, payable by 29-Sep-2026.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-09-12",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m205",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - Sep 2026",
+   "body": "Dear Sneha,\nPlease find attached your HSBC Visa Platinum Credit Card XX3286 statement for the period 13-Aug-2026 to 12-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-09-13",
+   "attachments": [
+    {
+     "filename": "3286_12092026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m206",
+   "subject": "Standard Chartered Credit Card Statement - Sep 2026",
+   "body": "Dear Sneha,\nPlease find attached your EaseMyTrip Standard Chartered Credit Card xx9465 statement for the period 14-Aug-2026 to 13-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-09-14",
+   "attachments": [
+    {
+     "filename": "eStatement_202609.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m207",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,584.09 spent on your HSBC Credit Card XX3286 at IRCTC on 18-Sep-2026 11:28:43.",
+   "date": "2026-09-18",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m208",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,394.24 spent on your Standard Chartered Ultimate Credit Card XX0461 at NYKAA on 18-Sep-2026 19:55:37.",
+   "date": "2026-09-18",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m209",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,784.15 spent on your HSBC Credit Card xx3286 at EASEMYTRIP on 29-Sep-2026 03:22:52.\n\nOpt for e-statements and go green.",
+   "date": "2026-09-29",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m210",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 1,568.41 was spent on your Standard Chartered Ultimate Credit Card XX0461 at BPCL FUEL on 07-Oct-2026.",
+   "date": "2026-10-07",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m211",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 17,414.13 was spent on your Standard Chartered Credit Card XX9465 at SODEXO on 09-Oct-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-09",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m212",
+   "subject": "OTP for your transaction",
+   "body": "241704 is the OTP for your transaction of Rs.7,136.40 at ZOMATO. Valid for 10 minutes. Do not share.",
+   "date": "2026-10-09",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m213",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Payment of INR 7,739.72 has been received towards your HSBC Visa Platinum Credit Card xx3286 on 11-Oct-2026. Thank you for the payment.\n\nOpt for e-statements and go green.",
+   "date": "2026-10-11",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m214",
+   "subject": "Your HSBC Live+ Credit Card statement - Oct 2026",
+   "body": "Dear Sneha,\nYour HSBC Live+ Credit Card XX3612 statement for Oct 2026 is ready. Total amount due Rs.1,551.70, minimum amount due Rs.200.00, payable by 29-Oct-2026.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-12",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m215",
+   "subject": "Your HSBC Visa Platinum Credit Card statement - Oct 2026",
+   "body": "Dear Sneha,\nYour HSBC Visa Platinum Credit Card xx3286 statement for Oct 2026 is ready. Total amount due Rs.28,986.63, minimum amount due Rs.1,449.33, payable by 30-Oct-2026.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-13",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m216",
+   "subject": "Standard Chartered Credit Card Statement - Oct 2026",
+   "body": "Dear Sneha,\nPlease find attached your EaseMyTrip Standard Chartered Credit Card ending 9465 statement for the period 14-Sep-2026 to 13-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-14",
+   "attachments": [
+    {
+     "filename": "Standard_Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Standard Chartered <statements@sc.com>"
+  },
+  {
+   "id": "m217",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 357.04 was spent on your Standard Chartered Ultimate Credit Card xx0461 at EASEMYTRIP on 14-Oct-2026.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-14",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  },
+  {
+   "id": "m218",
+   "subject": "Standard Chartered Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 195.94 was spent on your Standard Chartered Credit Card xx9465 at DECATHLON on 23-Oct-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-23",
+   "attachments": [],
+   "from": "Standard Chartered <alerts@sc.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "3612",
+    "kind": "CREDIT_CARD",
+    "variant": "Live+",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "7118",
+    "kind": "CREDIT_CARD",
+    "variant": "Visa Platinum",
+    "lifecycle": "REPLACED",
+    "lifecyclePartnerLast4": "3286",
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "3286",
+    "kind": "CREDIT_CARD",
+    "variant": "Visa Platinum",
+    "lifecycle": "REPLACEMENT",
+    "lifecyclePartnerLast4": "7118",
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "sc.com",
+    "last4": "9465",
+    "kind": "CREDIT_CARD",
+    "variant": "EaseMyTrip",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "sc.com",
+    "last4": "0461",
+    "kind": "CREDIT_CARD",
+    "variant": "Ultimate",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "5-10L",
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "0827",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "5878",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "5301",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "7753",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

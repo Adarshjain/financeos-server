@@ -1,0 +1,3720 @@
+{
+ "mailbox": "mega-mixed-same4",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "IDFC FIRST Bank Account Statement - Nov 2023",
+   "body": "Dear Lakshmi,\nYour IDFC FIRST Bank XXXXXX1087 account statement for Nov 2023 is ready. Closing balance Rs.2,740.97.\nLogin to view and download your e-statement.\n\n",
+   "date": "2023-11-11",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Your SBI Card PRIME Monthly Statement - Nov 2023",
+   "body": "Dear Lakshmi,\nYour SBI Card PRIME XXXX XXXX XXXX 4455 statement for Nov 2023 is ready. Total amount due Rs.5,668.22, minimum amount due Rs.283.41, payable by 29-Nov-2023.\nLogin to view and download your e-statement.\n\n",
+   "date": "2023-11-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-Oct-2023 to 14-Nov-2023",
+   "body": "Dear Lakshmi,\nYour ICICI Bank Sapphiro Credit Card xx4455 statement for Nov 2023 is ready. Total amount due Rs.2,692.55, minimum amount due Rs.200.00, payable by 02-Dec-2023.\nLogin to view and download your e-statement.\n\n",
+   "date": "2023-11-15",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "City Union Bank Account Statement - Nov 2023",
+   "body": "Dear Lakshmi,\nPlease find attached your City Union Bank XXXXXX9813 statement for the period 17-Oct-2023 to 16-Nov-2023.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2023-11-17",
+   "attachments": [
+    {
+     "filename": "eStatement_202311.pdf",
+     "protected": true
+    }
+   ],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.233.28 spent on your SBI Card PRIME XXXX XXXX XXXX 4455 at SPOTIFY on 17/11/23. Your available limit is Rs.91,893.88.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2023-11-17",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Equitas Small Finance Bank Account Statement - Nov 2023",
+   "body": "Dear Lakshmi,\nYour Equitas Small Finance Bank XXXXXX7050 account statement for Nov 2023 is ready. Closing balance Rs.35,594.65.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2023-11-19",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Sapphiro Credit Card XX4455 has been used for a transaction of INR 111.61 on 20-Nov-2023 at 08:20:20. Info: BLINKIT.\nIf you did not do this, please call customer care.\n\nOpt for e-statements and go green.",
+   "date": "2023-11-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5200",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX5200 for INR 256.31 at NETFLIX on 21-Nov-2023 13:40:27. Available limit: INR 68,266.87.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2023-11-21",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Nov 2023",
+   "body": "Dear Lakshmi,\nYour Axis Bank Select Credit Card XX5200 statement for Nov 2023 is ready. Total amount due Rs.15,968.12, minimum amount due Rs.798.41, payable by 10/12/23.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2023-11-23",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Your HDFC Bank Regalia Credit Card Statement - Nov 2023",
+   "body": "Dear Lakshmi,\nPlease find attached your HDFC Bank Regalia Credit Card ending 4093 statement for the period 25 Oct, 2023 to 24 Nov, 2023. Total amount due Rs.51,380.84, due 10 Dec, 2023.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2023-11-25",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Nov2023.pdf",
+     "protected": false,
+     "pdfText": "HDFC Bank Credit Cards\nStatement for HDFC Bank Regalia Credit Card\nLAKSHMI REDDY\nFLAT 766, ORCHID APARTMENTS\n7TH CROSS, ADYAR\nHYDERABAD - 494521\nCredit Card No: 4746 67XX XXXX 4093\nStatement Date: 24 Nov, 2023\nBilling Period: 25 Oct, 2023 - 24 Nov, 2023\nPayment Due Date Total Dues Minimum Amount Due\n10 Dec, 2023 Rs.51,380.84 Rs.2,569.04\nCredit Limit Available Credit Limit Available Cash Limit\nRs.2,00,000.00 Rs.1,59,671.18 Rs.40,000.00\nDomestic Transactions\nDate Transaction Description Amount (in Rs.)\n26/10/23 GOOGLE PLAY KOCHI 5,029.05\n29/10/23 NYKAA PUNE 5,363.21\n30/10/23 RELIANCE DIGITAL HYDERABAD 7,285.89\n04/11/23 AIRTEL PREPAID HYDERABAD 1,816.33\n08/11/23 MEDPLUS AHMEDABAD 149.83\n08/11/23 STARBUCKS KOCHI 116.63\n12/11/23 DECATHLON CHENNAI 192.10\n12/11/23 MEDPLUS JAIPUR 1,317.22\n15/11/23 STARBUCKS JAIPUR 935.05\n23/11/23 DMART BENGALURU 15,794.93\n23/11/23 IKEA AHMEDABAD 13,380.60\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m011",
+   "subject": "Update your KYC",
+   "body": "Dear Lakshmi,\nAs per RBI guidelines please complete re-KYC for your IDFC FIRST Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2023-12-01",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.417.33 spent on SBI Card PRIME XXXX XXXX XXXX 4455 at RELIANCE DIGITAL on 03/12/23.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2023-12-03",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.6,502.25 debited from account XXXXXX7050 on 03-Dec-2023. Narration: NEFT/MEDPLUS. Available balance Rs.89,438.07.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2023-12-03",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Your A/c XX9813 is debited for Rs.350.85 on 10-Dec-2023 - NEFT URBAN COMPANY. Bal Rs.4,176.98. -City Union Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2023-12-10",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Your HSBC Cashback Credit Card statement - Dec 2023",
+   "body": "Dear Lakshmi,\nPlease find attached your HSBC Cashback Credit Card XX5005 statement for the period 12-Nov-2023 to 11-Dec-2023.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2023-12-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Dec2023.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m016",
+   "subject": "IDFC FIRST Bank: Credit alert",
+   "body": "Dear Customer,\nINR 225.46 credited to your IDFC FIRST Bank A/c *1087 on 14-Dec-2023 by SALARY NEFT. Ref 176625289210.\nThank you for banking with us.",
+   "date": "2023-12-14",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 727.28 on 18-Dec-2023 for your Axis Bank Credit Card xx5200. Available credit limit has been updated.",
+   "date": "2023-12-18",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "City Union Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.188.48 credited to your City Union Bank A/c XX9813 on 20-Dec-2023 by NEFT. Ref 578993982168.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2023-12-20",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Earn more with your card",
+   "body": "Dear Lakshmi,\nUpgrade your savings with a fixed deposit @ 7.25% p.a.\n\nOpt for e-statements and go green.",
+   "date": "2023-12-22",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Your HDFC Bank Regalia Credit Card Statement - Dec 2023",
+   "body": "Dear Lakshmi,\nPlease find attached your HDFC Bank Regalia Credit Card ending 4093 statement for the period 25 Nov, 2023 to 24 Dec, 2023.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2023-12-25",
+   "attachments": [
+    {
+     "filename": "4093_24122023_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m021",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.1,908.69 credited to your Equitas Small Finance Bank A/c *7050 on 27-Dec-2023 by INTEREST CREDIT. Ref 189757450101.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2023-12-27",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.320.78 has been debited from your City Union Bank A/c *9813 on 28-Dec-2023 (UPI PVR INOX). Avl bal Rs.9,892.13.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2023-12-28",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Refer and earn",
+   "body": "Dear Lakshmi,\nGet up to 10% cashback on partner brands.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2023-12-28",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m024",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.5,580.32 spent on your SBI Card PRIME XXXX XXXX XXXX 4455 at BLINKIT on 31/12/23. Your available limit is Rs.23,188.25.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2023-12-31",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5200",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Select Credit Card no. XX5200 for INR 4,222.07 at AMAZON PAY INDIA on 10-Jan-2024 00:34:34. Available limit: INR 4,512.73.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-01-10",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "IDFC FIRST Bank Account Statement - Jan 2024",
+   "body": "Dear Lakshmi,\nPlease find attached your IDFC FIRST Bank XX1087 statement for the period 11-Dec-2023 to 10-Jan-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-01-11",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Jan2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.4,714.29 debited from account XXXXXX9813 on 12-Jan-2024. Narration: NEFT/AMAZON PAY INDIA. Available balance Rs.8,656.45.\n\nOpt for e-statements and go green.",
+   "date": "2024-01-12",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 2,704.17 was spent on your HSBC Credit Card XX5005 at STARBUCKS on 16-Jan-2024.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-01-16",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m029",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.259.64 spent on SBI Card Credit Card XXXX XXXX XXXX 4455 at IRCTC on 17/01/24.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-01-17",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.464.54 spent on your SBI Card Credit Card XXXX XXXX XXXX 4455 at RELIANCE DIGITAL on 19/01/24. Your available limit is Rs.12,745.94.\nContact 1860 180 1290 if this transaction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-01-19",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Jan 2024",
+   "body": "Dear Lakshmi,\nPlease find attached your Axis Bank Select Credit Card xx5200 statement for the period 23/12/23 to 22/01/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-01-23",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Jan2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.793.18 spent on SBI Card Credit Card XXXX XXXX XXXX 4455 at AIRTEL PREPAID on 23/01/24.",
+   "date": "2024-01-23",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Equitas Small Finance Bank: funds transferred",
+   "body": "Dear Customer,\nRs.927.84 has been transferred from your A/c XXXXXX7050 to Sunil Plumber A/c XX5444 (IDBI Bank) via IMPS on 25-Jan-2024. Ref no 652162256013.",
+   "date": "2024-01-25",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.15,344.91 debited from account XX9813 on 30-Jan-2024. Narration: IMPS/IRCTC. Available balance Rs.21,248.05.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-01-30",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.8,594.94 has been debited from your Equitas Small Finance Bank A/c XXXXXX7050 on 01-Feb-2024 (NEFT BATA INDIA). Avl bal Rs.6,472.83.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-02-01",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 21,445.79 spent on your HSBC Credit Card XX5005 at DMART on 06-Feb-2024 07:47:49.",
+   "date": "2024-02-06",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m037",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-Jan-2024 to 14-Feb-2024",
+   "body": "Dear Lakshmi,\nYour ICICI Bank Sapphiro Credit Card XX4455 statement for Feb 2024 is ready. Total amount due Rs.16,735.23, minimum amount due Rs.836.76, payable by 03-Mar-2024.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2024-02-15",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "City Union Bank Account Statement - Feb 2024",
+   "body": "Dear Lakshmi,\nYour City Union Bank XX9813 account statement for Feb 2024 is ready. Closing balance Rs.2,829.93.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-02-17",
+   "attachments": [],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Feb 2024",
+   "body": "Dear Lakshmi,\nYour Axis Bank Select Credit Card ending 5200 statement for Feb 2024 is ready. Total amount due Rs.5,024.85, minimum amount due Rs.251.24, payable by 11/03/24.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-02-23",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 153.00 spent on your HSBC Credit Card XX5005 at PAYTM on 25-Feb-2024 23:06:37.",
+   "date": "2024-02-25",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m041",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Lakshmi,\nYour order #458-4932200-9831101 is confirmed. Total Rs.313.75. Estimated delivery in 2 days.",
+   "date": "2024-03-01",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m042",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Regalia Credit Card ending 4093 for Rs.3,360.37 at AIRTEL PREPAID on 10-03-2024 at 07:07:57.\nAvailable limit: Rs.11,797.39. If you did not make this transaction, please call 1800 258 6161.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-03-10",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m043",
+   "subject": "IDFC FIRST Bank Account Statement - Mar 2024",
+   "body": "Dear Lakshmi,\nYour IDFC FIRST Bank XXXXXX1087 account statement for Mar 2024 is ready. Closing balance Rs.3,807.66.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-03-11",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Your SBI Card PRIME Monthly Statement - Mar 2024",
+   "body": "Dear Lakshmi,\nYour SBI Card PRIME XXXX XXXX XXXX 4455 statement for Mar 2024 is ready. Total amount due Rs.37,117.41, minimum amount due Rs.1,855.87, payable by 29-Mar-2024.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-03-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Your HSBC Cashback Credit Card statement - Mar 2024",
+   "body": "Dear Lakshmi,\nYour HSBC Cashback Credit Card xx5005 statement for Mar 2024 is ready. Total amount due Rs.39,154.39, minimum amount due Rs.1,957.72, payable by 29-Mar-2024.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-03-12",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m046",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-Feb-2024 to 14-Mar-2024",
+   "body": "Dear Lakshmi,\nYour ICICI Bank Sapphiro Credit Card ending 4455 statement for Mar 2024 is ready. Total amount due Rs.6,826.76, minimum amount due Rs.341.34, payable by 01-Apr-2024.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-03-15",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Equitas Small Finance Bank Account Statement - Mar 2024",
+   "body": "Dear Lakshmi,\nPlease find attached your Equitas Small Finance Bank XXXXXX7050 statement for the period 19-Feb-2024 to 18-Mar-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2024-03-19",
+   "attachments": [
+    {
+     "filename": "Equitas_Statement_Mar2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.210.21 is debited from your HDFC Bank Credit Card ending 4093 towards NYKAA on 22-03-2024. Not you? Call us immediately.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-03-22",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m049",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Mar 2024",
+   "body": "Dear Lakshmi,\nPlease find attached your Axis Bank Select Credit Card xx5200 statement for the period 23/02/24 to 22/03/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-03-23",
+   "attachments": [
+    {
+     "filename": "5200_22032024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 19,824.47 was spent on your HSBC Cashback Credit Card XX5005 at IKEA on 23-Mar-2024.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-03-23",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m051",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card xx4455 has been used for a transaction of INR 1,669.77 on 03-Apr-2024 at 05:13:03. Info: DECATHLON.\nIf you did not do this, please call customer care.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-04-03",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Regalia Credit Card ending 4093 for Rs.11,779.19 at BOOKMYSHOW on 11-04-2024 at 05:13:18.\nAvailable limit: Rs.43,452.53. If you did not make this transaction, please call 1800 258 6161.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-04-11",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m053",
+   "subject": "Your SBI Card PRIME Monthly Statement - Apr 2024",
+   "body": "Dear Lakshmi,\nYour SBI Card PRIME XXXX XXXX XXXX 4455 statement for Apr 2024 is ready. Total amount due Rs.1,258.12, minimum amount due Rs.200.00, payable by 29-Apr-2024.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-04-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Your HSBC Cashback Credit Card statement - Apr 2024",
+   "body": "Dear Lakshmi,\nYour HSBC Cashback Credit Card XX5005 statement for Apr 2024 is ready. Total amount due Rs.3,507.60, minimum amount due Rs.200.00, payable by 29-Apr-2024.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-04-12",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m055",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Your A/c XX9813 is debited for Rs.490.84 on 15-Apr-2024 - POS JIO RECHARGE. Bal Rs.25,610.37. -City Union Bank\n\nOpt for e-statements and go green.",
+   "date": "2024-04-15",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Apr 2024",
+   "body": "Dear Lakshmi,\nPlease find attached your Axis Bank Select Credit Card XX5200 statement for the period 23/03/24 to 22/04/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-04-23",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Apr2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Your HDFC Bank Regalia Credit Card Statement - Apr 2024",
+   "body": "Dear Lakshmi,\nPlease find attached your HDFC Bank Regalia Credit Card ending 4093 statement for the period 25 Mar, 2024 to 24 Apr, 2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-04-25",
+   "attachments": [
+    {
+     "filename": "eStatement_202404.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m058",
+   "subject": "OTP for your transaction",
+   "body": "375246 is the OTP for your transaction of Rs.610.66 at BLINKIT. Valid for 10 minutes. Do not share.",
+   "date": "2024-04-26",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m059",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Your A/c *9813 is debited for Rs.7,308.07 on 28-Apr-2024 - POS SPOTIFY. Bal Rs.3,911.65. -City Union Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-04-28",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "IDFC FIRST Bank: Debit alert",
+   "body": "INR debit alert: INR 2,853.45 debited from account xx1087 on 03-May-2024. Narration: ECOM/UBER INDIA. Available balance INR 77,099.21.",
+   "date": "2024-05-03",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Payment Received - SBI Card",
+   "body": "Payment of Rs.11,301.15 has been received towards your SBI Card PRIME XXXX XXXX XXXX 4455 on 05/05/24. Thank you for the payment.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-05-05",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "City Union Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.886.12 credited to your City Union Bank A/c *9813 on 10-May-2024 by REFUND. Ref 691040004112.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-05-10",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "IDFC FIRST Bank Account Statement - May 2024",
+   "body": "Dear Lakshmi,\nYour IDFC FIRST Bank *1087 account statement for May 2024 is ready. Closing balance Rs.1,107.17.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-05-11",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Your SBI Card PRIME Monthly Statement - May 2024",
+   "body": "Dear Lakshmi,\nPlease find attached your SBI Card PRIME XXXX XXXX XXXX 4455 statement for the period 12-Apr-2024 to 11-May-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-05-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_May2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Your HSBC Cashback Credit Card statement - May 2024",
+   "body": "Dear Lakshmi,\nYour HSBC Cashback Credit Card XX5005 statement for May 2024 is ready. Total amount due Rs.1,777.01, minimum amount due Rs.200.00, payable by 29-May-2024.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-05-12",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m066",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Sunil Plumber (A/c XXXXXX5993, YES BANK) has been added to your account XXXXXX9813. It will be active after 30 minutes.",
+   "date": "2024-05-13",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-Apr-2024 to 14-May-2024",
+   "body": "Dear Lakshmi,\nYour ICICI Bank Sapphiro Credit Card XX4455 statement for May 2024 is ready. Total amount due Rs.52,920.88, minimum amount due Rs.2,646.04, payable by 01-Jun-2024.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-05-15",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.22,220.50 has been transferred from your A/c *7050 to Sunil Plumber A/c XX5444 (IDBI Bank) via IMPS on 16-May-2024. Ref no 997179261721.",
+   "date": "2024-05-16",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "City Union Bank Account Statement - May 2024",
+   "body": "Dear Lakshmi,\nYour City Union Bank xx9813 account statement for May 2024 is ready. Closing balance Rs.1,684.46.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2024-05-17",
+   "attachments": [],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 163.87 done on your ICICI Bank Credit Card xx4455 at DECATHLON on 20-May-2024. Available credit limit is INR 3,336.91.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-05-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5200",
+   "body": "Spent INR 12,710.04 on your Axis Bank Credit Card XX5200 at AIRTEL PREPAID, 24-May-2024. Avl Lmt INR 15,539.80. SMS BLOCK to 5676782 if not you.\n\nOpt for e-statements and go green.",
+   "date": "2024-05-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Your HDFC Bank Regalia Credit Card Statement - May 2024",
+   "body": "Dear Lakshmi,\nYour HDFC Bank Regalia Credit Card ending 4093 statement for May 2024 is ready. Total amount due Rs.476.37, minimum amount due Rs.200.00, payable by 11 Jun, 2024.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-05-25",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m073",
+   "subject": "OTP for your transaction",
+   "body": "215066 is the OTP for your transaction of Rs.2,496.47 at BATA INDIA. Valid for 10 minutes. Do not share.",
+   "date": "2024-05-28",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Your A/c xx7050 is debited for Rs.139.88 on 29-May-2024 - ECOM GOOGLE PLAY. Bal Rs.21,134.62. -Equitas Small Finance Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-05-29",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "City Union Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.34,565.78 credited to your City Union Bank A/c XX9813 on 02-Jun-2024 by SALARY NEFT. Ref 715182693553.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-06-02",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.255.29 has been debited from your Equitas Small Finance Bank A/c xx7050 on 04-Jun-2024 (IMPS MYNTRA). Avl bal Rs.24,278.05.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-06-04",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5200",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Select Credit Card no. XX5200 for INR 1,515.97 at GOOGLE PLAY on 07-Jun-2024 19:54:25. Available limit: INR 23,823.96.\n\nOpt for e-statements and go green.",
+   "date": "2024-06-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "City Union Bank: credit alert on your account",
+   "body": "Your A/c XXXXXX9813 is credited with Rs.929.60 on 08-Jun-2024 - NEFT. Bal Rs.2,931.04. -City Union Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-06-08",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.719.91 spent on SBI Card Credit Card XXXX XXXX XXXX 4455 at FLIPKART on 10/06/24.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-06-10",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 173.78 was spent on your HSBC Cashback Credit Card xx5005 at BESCOM on 10-Jun-2024.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-06-10",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m081",
+   "subject": "Your SBI Card PRIME Monthly Statement - Jun 2024",
+   "body": "Dear Lakshmi,\nPlease find attached your SBI Card PRIME XXXX XXXX XXXX 4455 statement for the period 12-May-2024 to 11-Jun-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-06-12",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Jun2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Your HSBC Cashback Credit Card statement - Jun 2024",
+   "body": "Dear Lakshmi,\nPlease find attached your HSBC Cashback Credit Card XX5005 statement for the period 12-May-2024 to 11-Jun-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-06-12",
+   "attachments": [
+    {
+     "filename": "HSBC_CC_Jun2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m083",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Your A/c xx7050 is credited with Rs.39,002.36 on 12-Jun-2024 - REFUND. Bal Rs.2,605.27. -Equitas Small Finance Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-06-12",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,000.00 transferred from *9813 to Sunil Plumber A/c XX5993 on 13-Jun-2024. Rent for the month.",
+   "date": "2024-06-13",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Payment received on your ICICI Bank Credit Card",
+   "body": "Payment of INR 1,341.50 has been received towards your ICICI Bank Sapphiro Credit Card XX4455 on 16-Jun-2024. Thank you for the payment.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-06-16",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "IDFC FIRST Bank: Credit alert",
+   "body": "Your A/c XX1087 is credited with INR 2,038.98 on 18-Jun-2024 - NEFT. Bal INR 36,339.30. -IDFC FIRST Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-06-18",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Payment of INR 805.79 has been received towards your HSBC Cashback Credit Card xx5005 on 01-Jul-2024. Thank you for the payment.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-07-01",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m088",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5200",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX5200 for INR 112.95 at JIO RECHARGE on 06-Jul-2024 03:31:14. Available limit: INR 38,561.64.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-07-06",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "OTP for your transaction",
+   "body": "873786 is the OTP for your transaction of Rs.10,795.90 at NYKAA. Valid for 10 minutes. Do not share.",
+   "date": "2024-07-06",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.977.08 spent on SBI Card PRIME XXXX XXXX XXXX 4455 at AIRTEL PREPAID on 10/07/24.\n\nOpt for e-statements and go green.",
+   "date": "2024-07-10",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "IDFC FIRST Bank Account Statement - Jul 2024",
+   "body": "Dear Lakshmi,\nPlease find attached your IDFC FIRST Bank XX1087 statement for the period 11-Jun-2024 to 10-Jul-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-07-11",
+   "attachments": [
+    {
+     "filename": "eStatement_202407.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Your SBI Card PRIME Monthly Statement - Jul 2024",
+   "body": "Dear Lakshmi,\nPlease find attached your SBI Card PRIME XXXX XXXX XXXX 4455 statement for the period 12-Jun-2024 to 11-Jul-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-07-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202407.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "Your HSBC Cashback Credit Card statement - Jul 2024",
+   "body": "Dear Lakshmi,\nYour HSBC Cashback Credit Card xx5005 statement for Jul 2024 is ready. Total amount due Rs.3,043.79, minimum amount due Rs.200.00, payable by 29-Jul-2024.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-07-12",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m094",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.21,500.00 transferred from XX9813 to Sunil Plumber A/c XX5993 on 13-Jul-2024. Rent for the month.",
+   "date": "2024-07-13",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 15,715.65 done on your ICICI Bank Sapphiro Credit Card xx4455 at APPLE SERVICES on 14-Jul-2024. Available credit limit is INR 61,935.82.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-07-14",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.9,841.09 spent on your SBI Card Credit Card XXXX XXXX XXXX 4455 at DMART on 14/07/24. Your available limit is Rs.1,38,134.42.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2024-07-14",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-Jun-2024 to 14-Jul-2024",
+   "body": "Dear Lakshmi,\nPlease find attached your ICICI Bank Sapphiro Credit Card XX4455 statement for the period 15-Jun-2024 to 14-Jul-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2024-07-15",
+   "attachments": [
+    {
+     "filename": "eStatement_202407.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Equitas Small Finance Bank Account Statement - Jul 2024",
+   "body": "Dear Lakshmi,\nYour Equitas Small Finance Bank XXXXXX7050 account statement for Jul 2024 is ready. Closing balance Rs.1,618.17.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-07-19",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 3,704.20 was spent on your HSBC Credit Card xx5005 at IRCTC on 20-Jul-2024.",
+   "date": "2024-07-20",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m100",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Your A/c XX9813 is debited for Rs.1,509.44 on 21-Jul-2024 - UPI EAZYDINER. Bal Rs.54,181.15. -City Union Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-07-21",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Jul 2024",
+   "body": "Dear Lakshmi,\nPlease find attached your Axis Bank Select Credit Card xx5200 statement for the period 23/06/24 to 22/07/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-07-23",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Jul2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.3,697.20 has been debited from your Equitas Small Finance Bank A/c XX7050 on 03-Aug-2024 (POS DECATHLON). Avl bal Rs.67,407.00.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-08-03",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Regalia Credit Card ending 4093 for Rs.8,596.45 at SPOTIFY on 05-08-2024 at 05:15:52.\nAvailable limit: Rs.25,580.15. If you did not make this transaction, please call 1800 258 6161.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-08-05",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m104",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.168.06 credited to your Equitas Small Finance Bank A/c XX7050 on 07-Aug-2024 by NEFT. Ref 317369908585.\nThank you for banking with us.",
+   "date": "2024-08-07",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.3,447.51 spent on your SBI Card PRIME XXXX XXXX XXXX 4455 at BLINKIT on 08/08/24. Your available limit is Rs.62,607.92.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2024-08-08",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,500.00 transferred from XXXXXX9813 to Sunil Plumber A/c XX5993 on 13-Aug-2024. Rent for the month.",
+   "date": "2024-08-13",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "IDFC FIRST Bank: Debit alert",
+   "body": "INR debit alert: INR 5,841.05 debited from account XXXXXX1087 on 15-Aug-2024. Narration: NEFT/MEDPLUS. Available balance INR 10,299.27.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-08-15",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "City Union Bank Account Statement - Aug 2024",
+   "body": "Dear Lakshmi,\nPlease find attached your City Union Bank XXXXXX9813 statement for the period 17-Jul-2024 to 16-Aug-2024. \n\nDownload our mobile app for instant alerts.",
+   "date": "2024-08-17",
+   "attachments": [
+    {
+     "filename": "9813_16082024_stmt.pdf",
+     "protected": false,
+     "pdfText": "CITY UNION BANK\nSTATEMENT OF ACCOUNT\nAccount Name : LAKSHMI REDDY\nFLAT 823, ORCHID APARTMENTS\n17TH CROSS, BANJARA HILLS\nGURUGRAM - 405221\nCustomer ID : 87929090\nAccount Number : xx9813\nAccount Type : SAVINGS ACCOUNT\nIFSC : CUBX0927524\nStatement Period : 17-07-2024 to 16-08-2024\nOpening Balance : Rs.72,042.88\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n17-07-2024 ATM WDL/ZOMATO 407259778 244.17 - 71,798.71\n19-07-2024 POS/FLIPKART 325233737 1,721.38 - 70,077.33\n20-07-2024 NEFT DR/MYNTRA 460615721 8,992.30 - 61,085.03\n20-07-2024 UPI/CR 774289673 - 8,767.92 69,852.95\n20-07-2024 ATM WDL/LENSKART 422303468 158.20 - 69,694.75\n21-07-2024 UPI/IXIGO 929310134 611.08 - 69,083.67\n23-07-2024 UPI/INDIGO AIRLINES 158118121 3,457.97 - 65,625.70\n23-07-2024 UPI/AMAZON PAY INDIA 721263385 888.11 - 64,737.59\nClosing Balance : Rs.64,737.59\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "IDFC FIRST Bank: Debit alert",
+   "body": "Dear Customer,\nINR 849.31 has been debited from your IDFC FIRST Bank A/c xx1087 on 19-Aug-2024 (NEFT ZOMATO). Avl bal INR 1,18,724.08.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-08-19",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5200",
+   "body": "Spent INR 2,200.94 on your Axis Bank Credit Card XX5200 at STARBUCKS, 22-Aug-2024. Avl Lmt INR 72,046.40. SMS BLOCK to 5676782 if not you.",
+   "date": "2024-08-22",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Aug 2024",
+   "body": "Dear Lakshmi,\nYour Axis Bank Select Credit Card XX5200 statement for Aug 2024 is ready. Total amount due Rs.4,585.34, minimum amount due Rs.229.27, payable by 09/09/24.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-08-23",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Your HDFC Bank Regalia Credit Card Statement - Aug 2024",
+   "body": "Dear Lakshmi,\nYour HDFC Bank Regalia Credit Card ending 4093 statement for Aug 2024 is ready. Total amount due Rs.1,939.93, minimum amount due Rs.200.00, payable by 11 Sep, 2024.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-08-25",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m113",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 3,760.97 done on your ICICI Bank Credit Card XX4455 at ZEPTO on 29-Aug-2024. Available credit limit is INR 1,55,517.58.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-08-29",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "HSBC festive offers",
+   "body": "Dear Lakshmi,\nGet up to 10% cashback on partner brands.\n\n",
+   "date": "2024-09-01",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m115",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Your A/c XX7050 is credited with Rs.12,392.63 on 02-Sep-2024 - REFUND. Bal Rs.1,85,403.92. -Equitas Small Finance Bank",
+   "date": "2024-09-02",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "IDFC FIRST Bank Account Statement - Sep 2024",
+   "body": "Dear Lakshmi,\nPlease find attached your IDFC FIRST Bank XXXXXX1087 statement for the period 11-Aug-2024 to 10-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-09-11",
+   "attachments": [
+    {
+     "filename": "1087_10092024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from xx9813 to Sunil Plumber A/c XX5993 on 13-Sep-2024. Rent for the month.",
+   "date": "2024-09-13",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-Aug-2024 to 14-Sep-2024",
+   "body": "Dear Lakshmi,\nPlease find attached your ICICI Bank Sapphiro Credit Card ending 4455 statement for the period 15-Aug-2024 to 14-Sep-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-09-15",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Sep2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Sep 2024",
+   "body": "Dear Lakshmi,\nYour Axis Bank Select Credit Card XX5200 statement for Sep 2024 is ready. Total amount due Rs.3,223.86, minimum amount due Rs.200.00, payable by 10/10/24.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2024-09-23",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5200",
+   "body": "Spent INR 9,811.59 on your Axis Bank Select Credit Card XX5200 at APOLLO PHARMACY, 23-Sep-2024. Avl Lmt INR 11,675.72. SMS BLOCK to 5676782 if not you.",
+   "date": "2024-09-23",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "Your HDFC Bank Regalia Credit Card Statement - Sep 2024",
+   "body": "Dear Lakshmi,\nPlease find attached your HDFC Bank Regalia Credit Card ending 4093 statement for the period 25 Aug, 2024 to 24 Sep, 2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-09-25",
+   "attachments": [
+    {
+     "filename": "eStatement_202409.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m122",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX9813 is debited for Rs.117.61 on 25-Sep-2024 - IMPS ZOMATO. Bal Rs.8,088.78. -City Union Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-09-25",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx5200",
+   "body": "Spent INR 6,219.80 on your Axis Bank Credit Card xx5200 at PAYTM, 04-Oct-2024. Avl Lmt INR 8,452.35. SMS BLOCK to 5676782 if not you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-10-04",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "IDFC FIRST Bank: Debit alert",
+   "body": "Dear Customer,\nINR 159.63 has been debited from your IDFC FIRST Bank A/c xx1087 on 04-Oct-2024 (IMPS UBER INDIA). Avl bal INR 29,749.17.\n\nOpt for e-statements and go green.",
+   "date": "2024-10-04",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.259.55 has been debited from your City Union Bank A/c *9813 on 04-Oct-2024 (IMPS BOOKMYSHOW). Avl bal Rs.2,472.36.",
+   "date": "2024-10-04",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.550.23 has been debited from your Equitas Small Finance Bank A/c xx7050 on 06-Oct-2024 (UPI UBER INDIA). Avl bal Rs.2,628.47.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-10-06",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.4,211.25 debited from account XX7050 on 07-Oct-2024. Narration: POS/MCDONALDS. Available balance Rs.51,034.08.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-10-07",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 1,224.90 on 11-Oct-2024 for your Axis Bank Credit Card XX5200. Available credit limit has been updated.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-10-11",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Your HSBC Cashback Credit Card statement - Oct 2024",
+   "body": "Dear Lakshmi,\nPlease find attached your HSBC Cashback Credit Card XX5005 statement for the period 12-Sep-2024 to 11-Oct-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-10-12",
+   "attachments": [
+    {
+     "filename": "5005_11102024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m130",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.7,673.89 has been debited from your City Union Bank A/c XX9813 on 13-Oct-2024 (NEFT SPOTIFY). Avl bal Rs.1,44,154.49.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-10-13",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Oct 2024",
+   "body": "Dear Lakshmi,\nPlease find attached your Axis Bank Select Credit Card XX5200 statement for the period 23/09/24 to 22/10/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2024-10-23",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Oct2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "Your HDFC Bank Regalia Credit Card Statement - Oct 2024",
+   "body": "Dear Lakshmi,\nPlease find attached your HDFC Bank Regalia Credit Card ending 4093 statement for the period 25 Sep, 2024 to 24 Oct, 2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-10-25",
+   "attachments": [
+    {
+     "filename": "4093_24102024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m133",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 200.55 done on your ICICI Bank Credit Card xx4455 at MYNTRA on 07-Nov-2024. Available credit limit is INR 95,549.71.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-11-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "IDFC FIRST Bank Account Statement - Nov 2024",
+   "body": "Dear Lakshmi,\nYour IDFC FIRST Bank XXXXXX1087 account statement for Nov 2024 is ready. Closing balance Rs.17,464.50.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-11-11",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 5200",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. ending 5200 for INR 9,701.74 at IRCTC on 11-Nov-2024 11:59:12. Available limit: INR 40,483.95.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-11-11",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "Your SBI Card PRIME Monthly Statement - Nov 2024",
+   "body": "Dear Lakshmi,\nYour SBI Card PRIME XXXX XXXX XXXX 4455 statement for Nov 2024 is ready. Total amount due Rs.7,467.02, minimum amount due Rs.373.35, payable by 29-Nov-2024.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-11-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "Your HSBC Cashback Credit Card statement - Nov 2024",
+   "body": "Dear Lakshmi,\nPlease find attached your HSBC Cashback Credit Card XX5005 statement for the period 12-Oct-2024 to 11-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-12",
+   "attachments": [
+    {
+     "filename": "5005_11112024_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m138",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-Oct-2024 to 14-Nov-2024",
+   "body": "Dear Lakshmi,\nPlease find attached your ICICI Bank Sapphiro Credit Card XX4455 statement for the period 15-Oct-2024 to 14-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-15",
+   "attachments": [
+    {
+     "filename": "eStatement_202411.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5200",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Select Credit Card no. XX5200 for INR 1,625.02 at PVR INOX on 17-Nov-2024 10:47:05. Available limit: INR 1,62,181.04.",
+   "date": "2024-11-17",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 197.70 was spent on your HSBC Credit Card XX5005 at STARBUCKS on 17-Nov-2024.",
+   "date": "2024-11-17",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m141",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 144.29 was spent on your HSBC Credit Card XX5005 at BPCL FUEL on 17-Nov-2024.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-11-17",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m142",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX9170 has been updated on 03-May-2025. If not requested by you, call customer care.",
+   "date": "2024-11-19",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Nov 2024",
+   "body": "Dear Lakshmi,\nPlease find attached your Axis Bank Select Credit Card xx5200 statement for the period 23/10/24 to 22/11/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-11-23",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Nov2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Your HDFC Bank Regalia Credit Card Statement - Nov 2024",
+   "body": "Dear Lakshmi,\nYour HDFC Bank Regalia Credit Card ending 4093 statement for Nov 2024 is ready. Total amount due Rs.7,283.44, minimum amount due Rs.364.17, payable by 12 Dec, 2024.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-11-25",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m145",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 579.04 on 29-Nov-2024 for your HSBC Cashback Credit Card XX5005. Available credit limit has been updated.",
+   "date": "2024-11-29",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m146",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.434.49 spent on your SBI Card Credit Card XXXX XXXX XXXX 4455 at STARBUCKS on 06/12/24. Your available limit is Rs.1,97,163.40.\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-12-06",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.2,316.51 spent on SBI Card Credit Card XXXX XXXX XXXX 4455 at BATA INDIA on 08/12/24.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-12-08",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "Your HSBC Cashback Credit Card statement - Dec 2024",
+   "body": "Dear Lakshmi,\nYour HSBC Cashback Credit Card ending 5005 statement for Dec 2024 is ready. Total amount due Rs.1,556.38, minimum amount due Rs.200.00, payable by 29-Dec-2024.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-12-12",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m149",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-Nov-2024 to 14-Dec-2024",
+   "body": "Dear Lakshmi,\nYour ICICI Bank Sapphiro Credit Card ending 4455 statement for Dec 2024 is ready. Total amount due Rs.58,807.38, minimum amount due Rs.2,940.37, payable by 01-Jan-2025.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-12-15",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Dec 2024",
+   "body": "Dear Lakshmi,\nYour Axis Bank Select Credit Card ending 5200 statement for Dec 2024 is ready. Total amount due Rs.34,501.87, minimum amount due Rs.1,725.09, payable by 09/01/25.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-12-23",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.6,438.59 is debited from your HDFC Bank Credit Card ending 4093 towards BESCOM on 23-12-2024. Not you? Call us immediately.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-12-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m152",
+   "subject": "OTP for your transaction",
+   "body": "291252 is the OTP for your transaction of Rs.7,575.55 at IRCTC. Valid for 10 minutes. Do not share.",
+   "date": "2024-12-23",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "OTP for your transaction",
+   "body": "281798 is the OTP for your transaction of Rs.1,230.96 at PVR INOX. Valid for 10 minutes. Do not share.",
+   "date": "2024-12-23",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "Your HDFC Bank Regalia Credit Card Statement - Dec 2024",
+   "body": "Dear Lakshmi,\nYour HDFC Bank Regalia Credit Card ending 4093 statement for Dec 2024 is ready. Total amount due Rs.8,971.88, minimum amount due Rs.448.59, payable by 11 Jan, 2025.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-12-25",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m155",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card xx4455 has been used for a transaction of INR 6,141.26 on 25-Dec-2024 at 19:47:33. Info: ZOMATO.\nIf you did not do this, please call customer care.\n\nOpt for e-statements and go green.",
+   "date": "2024-12-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.1,022.78 debited from account XX7050 on 25-Dec-2024. Narration: POS/PHONEPE. Available balance Rs.61,124.05.\n\nOpt for e-statements and go green.",
+   "date": "2024-12-25",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "Equitas Small Finance Bank: funds transferred",
+   "body": "Dear Customer,\nRs.17,340.92 has been transferred from your A/c xx7050 to Sunil Plumber A/c XX5444 (IDBI Bank) via IMPS on 28-Dec-2024. Ref no 456383449236.",
+   "date": "2024-12-28",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "IDFC FIRST Bank: Debit alert",
+   "body": "Your A/c XX1087 is debited for INR 462.67 on 29-Dec-2024 - UPI FLIPKART. Bal INR 40,926.53. -IDFC FIRST Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-12-29",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "IDFC FIRST Bank: Debit alert",
+   "body": "Dear Customer,\nINR 619.81 has been debited from your IDFC FIRST Bank A/c *1087 on 30-Dec-2024 (NEFT RELIANCE DIGITAL). Avl bal INR 3,401.66.\n\nOpt for e-statements and go green.",
+   "date": "2024-12-30",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "City Union Bank: funds transferred",
+   "body": "Dear Customer,\nRs.25,051.58 has been transferred from your A/c *9813 to Lata Tutor A/c XX5832 (IDFC FIRST Bank) via IMPS on 04-Jan-2025. Ref no 151665119359.",
+   "date": "2025-01-04",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX4455 has been used for a transaction of INR 7,329.56 on 10-Jan-2025 at 12:58:56. Info: NYKAA.\nIf you did not do this, please call customer care.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Lakshmi,\nUpgrade your savings with a fixed deposit @ 7.25% p.a.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-01-11",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Your HSBC Cashback Credit Card statement - Jan 2025",
+   "body": "Dear Lakshmi,\nYour HSBC Cashback Credit Card XX5005 statement for Jan 2025 is ready. Total amount due Rs.3,269.48, minimum amount due Rs.200.00, payable by 29-Jan-2025.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-01-12",
+   "attachments": [],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m164",
+   "subject": "Update: your HDFC Bank Credit Card has a new name",
+   "body": "Dear Lakshmi Reddy,\nYour HDFC Bank Regalia Credit Card ending 4093 is now the HDFC Bank Regalia Gold Credit Card. Your card number, limit and dues are unchanged; the card continues to work as before. New benefits are effective from 14-01-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-01-14",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m165",
+   "subject": "Equitas Small Finance Bank Account Statement - Jan 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your Equitas Small Finance Bank XXXXXX7050 statement for the period 19-Dec-2024 to 18-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-19",
+   "attachments": [
+    {
+     "filename": "Equitas_Statement_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Jan 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your Axis Bank Select Credit Card XX5200 statement for the period 23/12/24 to 22/01/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-23",
+   "attachments": [
+    {
+     "filename": "5200_22012025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "Equitas Small Finance Bank festive offers",
+   "body": "Dear Lakshmi,\nConvert big spends to EMI at low interest.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-01-27",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.8,218.56 has been transferred from your A/c XX1087 to Dr. Rao Clinic A/c XX4726 (ICICI Bank) via IMPS on 28-Jan-2025. Ref no 746518996476.",
+   "date": "2025-01-28",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.159.37 is debited from your HDFC Bank Credit Card ending 4093 towards SODEXO on 30-01-2025. Not you? Call us immediately.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-30",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m170",
+   "subject": "Your HSBC Cashback Credit Card statement - Feb 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your HSBC Cashback Credit Card ending 5005 statement for the period 12-Jan-2025 to 11-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-02-12",
+   "attachments": [
+    {
+     "filename": "5005_11022025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m171",
+   "subject": "Your SBI Card PRIME Monthly Statement - Feb 2025",
+   "body": "Dear Lakshmi,\nYour SBI Card PRIME XXXX XXXX XXXX 4455 statement for Feb 2025 is ready. Total amount due Rs.47,177.53, minimum amount due Rs.2,358.88, payable by 01-Mar-2025.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-02-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m172",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-Jan-2025 to 14-Feb-2025",
+   "body": "Dear Lakshmi,\nPlease find attached your ICICI Bank Sapphiro Credit Card xx4455 statement for the period 15-Jan-2025 to 14-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-02-15",
+   "attachments": [
+    {
+     "filename": "eStatement_202502.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 112.95 spent on your HSBC Credit Card ending 5005 at HPCL PETROL on 16-Feb-2025 10:15:20.",
+   "date": "2025-02-16",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m174",
+   "subject": "Payment Received - SBI Card",
+   "body": "Payment of Rs.144.71 has been received towards your SBI Card Credit Card XXXX XXXX XXXX 4455 on 20/02/25. Thank you for the payment.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-02-20",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Lakshmi,\nYour order #966-6306897-6169188 is confirmed. Total Rs.2,424.56. Estimated delivery in 2 days.",
+   "date": "2025-02-21",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m176",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Feb 2025",
+   "body": "Dear Lakshmi,\nYour Axis Bank Select Credit Card XX5200 statement for Feb 2025 is ready. Total amount due Rs.1,916.63, minimum amount due Rs.200.00, payable by 12/03/25.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-02-23",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.4,254.36 has been debited from your Equitas Small Finance Bank A/c XX7050 on 03-Mar-2025 (ECOM MEDPLUS). Avl bal Rs.11,910.52.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-03",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Regalia Gold Credit Card ending 4093 for Rs.84.66 at EASEMYTRIP on 07-03-2025 at 00:06:37.\nAvailable limit: Rs.67,080.28. If you did not make this transaction, please call 1800 258 6161.",
+   "date": "2025-03-07",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m179",
+   "subject": "Earn more with your card",
+   "body": "Dear Lakshmi,\nConvert big spends to EMI at low interest.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-03-07",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "IDFC FIRST Bank: Debit alert",
+   "body": "Dear Customer,\nINR 2,778.82 has been debited from your IDFC FIRST Bank A/c xx1087 on 08-Mar-2025 (ECOM MCDONALDS). Avl bal INR 7,435.36.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-03-08",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m181",
+   "subject": "Bill payment successful",
+   "body": "Dear Customer,\nCredit card bill payment of Rs.6,099.59 for IDFC FIRST Bank Credit Card ending 9357 (cardholder: DIVYA REDDY) was successful from your A/c XXXXXX1087 on 08-Mar-2025.",
+   "date": "2025-03-08",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "IDFC FIRST Bank Account Statement - Mar 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your IDFC FIRST Bank xx1087 statement for the period 11-Feb-2025 to 10-Mar-2025. \n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-03-11",
+   "attachments": [
+    {
+     "filename": "IDFC_Acct_Mar2025.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK\nSTATEMENT OF ACCOUNT\nAccount Name : LAKSHMI REDDY\nFLAT 762, LAKESHORE APARTMENTS\n15TH CROSS, KOTHRUD\nKOLKATA - 572440\nAccount Number : *1087\nAccount Type : SAVINGS ACCOUNT\nIFSC : IDFC0449039\nStatement Period : 11-02-2025 to 10-03-2025\nOpening Balance : Rs.33,335.07\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n11-02-2025 NEFT DR/BATA INDIA 662630805 1,205.87 - 32,129.20\n12-02-2025 ATM WDL/DECATHLON 412188791 306.58 - 31,822.62\n13-02-2025 INTEREST 957020544 - 12,415.07 44,237.69\n16-02-2025 NEFT DR/PAYTM 368258167 7,439.34 - 36,798.35\n16-02-2025 NEFT DR/BOOKMYSHOW 200689927 447.23 - 36,351.12\n18-02-2025 UPI/CR 747479873 - 5,482.51 41,833.63\n18-02-2025 POS/NETFLIX 880072906 167.60 - 41,666.03\n18-02-2025 INTEREST 982588223 - 382.28 42,048.31\n21-02-2025 UPI/NETFLIX 983452287 1,679.52 - 40,368.79\n24-02-2025 NEFT DR/BOOKMYSHOW 687399058 2,263.34 - 38,105.45\n26-02-2025 UPI/EASEMYTRIP 867190552 3,668.68 - 34,436.77\nClosing Balance : Rs.34,436.77\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m183",
+   "subject": "Your HSBC Cashback Credit Card statement - Mar 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your HSBC Cashback Credit Card XX5005 statement for the period 12-Feb-2025 to 11-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-03-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m184",
+   "subject": "Payment received on your HSBC Credit Card",
+   "body": "Payment of INR 2,961.27 has been received towards your HSBC Credit Card XX5005 on 12-Mar-2025. Thank you for the payment.",
+   "date": "2025-03-12",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m185",
+   "subject": "Earn more with your card",
+   "body": "Dear Lakshmi,\nUse your card on UPI and earn extra rewards.\n\n",
+   "date": "2025-03-12",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m186",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-Feb-2025 to 14-Mar-2025",
+   "body": "Dear Lakshmi,\nYour ICICI Bank Sapphiro Credit Card XX4455 statement for Mar 2025 is ready. Total amount due Rs.37,129.60, minimum amount due Rs.1,856.48, payable by 01-Apr-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-03-15",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m187",
+   "subject": "IDFC FIRST Bank: Debit alert",
+   "body": "INR debit alert: INR 123.77 debited from account xx1087 on 18-Mar-2025. Narration: POS/EASEMYTRIP. Available balance INR 6,310.97.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-18",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m188",
+   "subject": "Equitas Small Finance Bank Account Statement - Mar 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your Equitas Small Finance Bank xx7050 statement for the period 19-Feb-2025 to 18-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-03-19",
+   "attachments": [
+    {
+     "filename": "eStatement_202503.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m189",
+   "subject": "Payment received - Kotak Credit Card",
+   "body": "Payment of Rs.302.00 has been received towards your Kotak Mahindra Bank Credit Card ending 1356 on 19-Mar-2025. Thank you for the payment.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-03-19",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m190",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Dear Customer,\nRs.521.83 has been debited from your City Union Bank A/c xx9813 on 20-Mar-2025 (NEFT AIRTEL PREPAID). Avl bal Rs.2,143.12.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-03-20",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Mar 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your Axis Bank Select Credit Card XX5200 statement for the period 23/02/25 to 22/03/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-03-23",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card ending 4455 has been used for a transaction of INR 1,728.01 on 26-Mar-2025 at 06:29:32. Info: MCDONALDS.\nIf you did not do this, please call customer care.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m193",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.15,739.05 spent on your SBI Card Credit Card XXXX XXXX XXXX 4455 at BLINKIT on 26/03/25. Your available limit is Rs.8,392.15.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-03-26",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m194",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 718.53 was spent on your HSBC Credit Card ending 5005 at DOMINOS on 27-Mar-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-03-27",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m195",
+   "subject": "IDFC FIRST Bank: Credit alert",
+   "body": "Credit alert: INR 599.39 has been credited to account XXXXXX1087 on 30-Mar-2025 (SALARY NEFT). Avl bal INR 2,806.46.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-03-30",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 199.88 done on your ICICI Bank Credit Card XX4455 at NETFLIX on 03-Apr-2025. Available credit limit is INR 16,382.44.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-04-03",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m197",
+   "subject": "OTP for your transaction",
+   "body": "756014 is the OTP for your transaction of Rs.148.44 at NYKAA. Valid for 10 minutes. Do not share.",
+   "date": "2025-04-04",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m198",
+   "subject": "Your SBI Card PRIME Monthly Statement - Apr 2025",
+   "body": "Dear Lakshmi,\nYour SBI Card PRIME XXXX XXXX XXXX 4455 statement for Apr 2025 is ready. Total amount due Rs.34,255.05, minimum amount due Rs.1,712.75, payable by 29-Apr-2025.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m199",
+   "subject": "IDFC FIRST Bank: Debit alert",
+   "body": "Dear Customer,\nINR 18,509.52 has been debited from your IDFC FIRST Bank A/c xx1087 on 13-Apr-2025 (NEFT JIO RECHARGE). Avl bal INR 14,215.40.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-13",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m200",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-Mar-2025 to 14-Apr-2025",
+   "body": "Dear Lakshmi,\nPlease find attached your ICICI Bank Sapphiro Credit Card ending 4455 statement for the period 15-Mar-2025 to 14-Apr-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-04-15",
+   "attachments": [
+    {
+     "filename": "eStatement_202504.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5200",
+   "body": "Spent INR 205.30 on your Axis Bank Credit Card XX5200 at HPCL PETROL, 19-Apr-2025. Avl Lmt INR 82,129.99. SMS BLOCK to 5676782 if not you.\n\nOpt for e-statements and go green.",
+   "date": "2025-04-19",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 2,302.80 spent on your HSBC Cashback Credit Card xx5005 at GOOGLE PLAY on 21-Apr-2025 03:06:09.",
+   "date": "2025-04-21",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m203",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Lakshmi,\nConvert big spends to EMI at low interest.\n\n",
+   "date": "2025-04-22",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "Your credit limit has been increased",
+   "body": "Dear Lakshmi Reddy,\nGood news! The credit limit on your HDFC Bank Regalia Gold Credit Card ending 4093 has been enhanced to Rs.4,00,000.00 with effect from 03-05-2025.\n\n",
+   "date": "2025-05-03",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m205",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5200",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX5200 for INR 226.51 at PAYTM on 04-May-2025 11:54:53. Available limit: INR 16,625.01.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-05-04",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m206",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.293.41 is debited from your HDFC Bank Credit Card ending 4093 towards IRCTC on 06-05-2025. Not you? Call us immediately.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-05-06",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m207",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 306.65 on 07-May-2025 for your Axis Bank Credit Card xx5200. Available credit limit has been updated.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m208",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 233.22 on 08-May-2025 for your Axis Bank Credit Card XX5200. Available credit limit has been updated.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-08",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m209",
+   "subject": "IDFC FIRST Bank Account Statement - May 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your IDFC FIRST Bank XX1087 statement for the period 11-Apr-2025 to 10-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-05-11",
+   "attachments": [
+    {
+     "filename": "IDFC_Acct_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m210",
+   "subject": "Your HSBC Cashback Credit Card statement - May 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your HSBC Cashback Credit Card ending 5005 statement for the period 12-Apr-2025 to 11-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-12",
+   "attachments": [
+    {
+     "filename": "5005_11052025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m211",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-Apr-2025 to 14-May-2025",
+   "body": "Dear Lakshmi,\nYour ICICI Bank Sapphiro Credit Card xx4455 statement for May 2025 is ready. Total amount due Rs.12,552.52, minimum amount due Rs.627.63, payable by 01-Jun-2025.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-05-15",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m212",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 4093 for Rs.507.89 at APPLE SERVICES on 15-05-2025 at 01:48:25.\nAvailable limit: Rs.8,008.64. If you did not make this transaction, please call 1800 258 6161.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-05-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m213",
+   "subject": "Equitas Small Finance Bank Account Statement - May 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your Equitas Small Finance Bank *7050 statement for the period 19-Apr-2025 to 18-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-05-19",
+   "attachments": [
+    {
+     "filename": "Equitas_Statement_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m214",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Your A/c XX9813 is debited for Rs.4,711.82 on 20-May-2025 - ECOM INDIAN OIL. Bal Rs.10,918.60. -City Union Bank\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-20",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m215",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,967.07 spent on your HSBC Credit Card xx5005 at DMART on 20-May-2025 00:33:10.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-20",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m216",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - May 2025",
+   "body": "Dear Lakshmi,\nYour Axis Bank Select Credit Card XX5200 statement for May 2025 is ready. Total amount due Rs.1,300.00, minimum amount due Rs.200.00, payable by 09/06/25.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-05-23",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m217",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 760112946407. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-05-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m218",
+   "subject": "Your HDFC Bank Regalia Gold Credit Card Statement - May 2025",
+   "body": "Dear Lakshmi,\nYour HDFC Bank Regalia Gold Credit Card ending 4093 statement for May 2025 is ready. Total amount due Rs.23,465.31, minimum amount due Rs.1,173.27, payable by 11 Jun, 2025.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-05-25",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m219",
+   "subject": "Payment received on your ICICI Bank Credit Card",
+   "body": "Payment of INR 317.81 has been received towards your ICICI Bank Sapphiro Credit Card XX4455 on 26-May-2025. Thank you for the payment.",
+   "date": "2025-05-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m220",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5200",
+   "body": "Spent INR 1,866.16 on your Axis Bank Credit Card XX5200 at MEDPLUS, 30-May-2025. Avl Lmt INR 21,654.28. SMS BLOCK to 5676782 if not you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-05-30",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m221",
+   "subject": "Your HSBC Cashback Credit Card statement - Jun 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your HSBC Cashback Credit Card XX5005 statement for the period 12-May-2025 to 11-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-06-12",
+   "attachments": [
+    {
+     "filename": "5005_11062025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m222",
+   "subject": "Your SBI Card PRIME Monthly Statement - Jun 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your SBI Card PRIME XXXX XXXX XXXX 4455 statement for the period 12-May-2025 to 11-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-06-12",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Jun2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m223",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.103.94 debited from account XXXXXX9813 on 14-Jun-2025. Narration: NEFT/IRCTC. Available balance Rs.2,545.57.",
+   "date": "2025-06-14",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m224",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-May-2025 to 14-Jun-2025",
+   "body": "Dear Lakshmi,\nPlease find attached your ICICI Bank Sapphiro Credit Card XX4455 statement for the period 15-May-2025 to 14-Jun-2025. Total amount due Rs.45,271.77, due 29-Jun-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-15",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Jun2025.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK CREDIT CARD STATEMENT\nSTATEMENT SUMMARY\nLAKSHMI REDDY\nFLAT 845, SUNRISE APARTMENTS\n7TH CROSS, KOTHRUD\nKOCHI - 439822\nCARD TYPE: ICICI Bank Sapphiro Credit Card\nCREDIT CARD NO: 453726XXXXXX4455\nStatement Period : 15-May-2025 to 14-Jun-2025\nStatement Date : 14-Jun-2025\nPayment Due Date : 29-Jun-2025\nTotal Amount due : Rs.45,271.77\nMinimum Amount due : Rs.2,263.59\nCredit Limit (Including cash) : Rs.6,35,000.00\nAvailable Credit Limit (Including cash) : Rs.6,16,154.39\nSPENDS OVERVIEW\nDate SerNo. Transaction Details Reward Points Intl.# Amount (in Rs.)\n15-05-2025 4323992195 DOMINOS MUMBAI 22 336.29\n18-05-2025 6522415996 SWIGGY HYDERABAD 30 12,523.40\n20-05-2025 1423021012 MCDONALDS KOLKATA 20 752.65\n02-06-2025 8214111471 IXIGO HYDERABAD 10 5,803.01\n02-06-2025 8715253455 NYKAA JAIPUR 4 109.14\n06-06-2025 3237316407 BIG BAZAAR BENGALURU 24 17,392.48\n06-06-2025 7555463070 DMART GURUGRAM 56 4,912.52\n06-06-2025 1878339122 MCDONALDS JAIPUR 45 202.61\n13-06-2025 1638320478 SPOTIFY PUNE 2 3,138.40\n14-06-2025 8142006598 DECATHLON BENGALURU 53 101.27\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m225",
+   "subject": "Transaction alert on your Kotak Credit Card",
+   "body": "Alert: Rs.7,425.97 charged to Kotak Mahindra Bank Credit Card XX1356 - NYKAA - 17-Jun-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-06-17",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m226",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.434.51 debited from account XX7050 on 18-Jun-2025. Narration: IMPS/MCDONALDS. Available balance Rs.19,453.88.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-06-18",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m227",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.178.64 spent on your SBI Card PRIME XXXX XXXX XXXX 4455 at TATA PLAY on 21/06/25. Your available limit is Rs.28,560.93.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-06-21",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m228",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Sapphiro Credit Card xx4455 has been used for a transaction of INR 1,873.38 on 23-Jun-2025 at 12:56:13. Info: NETFLIX.\nIf you did not do this, please call customer care.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-06-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m229",
+   "subject": "Your HDFC Bank Regalia Gold Credit Card Statement - Jun 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your HDFC Bank Regalia Gold Credit Card ending 4093 statement for the period 25 May, 2025 to 24 Jun, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-06-25",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Jun2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m230",
+   "subject": "Update your KYC",
+   "body": "Dear Lakshmi,\nAs per RBI guidelines please complete re-KYC for your HSBC relationship. Visit a branch or use the app.\n\nOpt for e-statements and go green.",
+   "date": "2025-06-25",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m231",
+   "subject": "IDFC FIRST Bank: Debit alert",
+   "body": "INR debit alert: INR 16,121.00 debited from account *1087 on 30-Jun-2025. Narration: POS/MEDPLUS. Available balance INR 6,784.71.",
+   "date": "2025-06-30",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m232",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,302.87 spent on your SBI Card Credit Card XXXX XXXX XXXX 4455 at AIRTEL PREPAID on 01/07/25. Your available limit is Rs.65,964.54.\nContact 1860 180 1290 if this transaction was not done by you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-07-01",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m233",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Your A/c xx7050 is debited for Rs.1,148.74 on 05-Jul-2025 - IMPS IXIGO. Bal Rs.4,650.11. -Equitas Small Finance Bank",
+   "date": "2025-07-05",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m234",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Cardmember,\nINR 5,221.75 was spent on your HSBC Credit Card ending 5005 at DECATHLON on 07-Jul-2025.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-07-07",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m235",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX4455 has been used for a transaction of INR 957.59 on 08-Jul-2025 at 11:21:04. Info: TATA PLAY.\nIf you did not do this, please call customer care.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-07-08",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m236",
+   "subject": "IDFC FIRST Bank Account Statement - Jul 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your IDFC FIRST Bank *1087 statement for the period 11-Jun-2025 to 10-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-11",
+   "attachments": [
+    {
+     "filename": "eStatement_202507.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m237",
+   "subject": "Your HSBC Cashback Credit Card statement - Jul 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your HSBC Cashback Credit Card XX5005 statement for the period 12-Jun-2025 to 11-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-07-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202507.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m238",
+   "subject": "Your SBI Card PRIME Monthly Statement - Jul 2025",
+   "body": "Dear Lakshmi,\nYour SBI Card PRIME XXXX XXXX XXXX 4455 statement for Jul 2025 is ready. Total amount due Rs.14,806.52, minimum amount due Rs.740.33, payable by 29-Jul-2025.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m239",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-Jun-2025 to 14-Jul-2025",
+   "body": "Dear Lakshmi,\nYour ICICI Bank Sapphiro Credit Card ending 4455 statement for Jul 2025 is ready. Total amount due Rs.10,902.97, minimum amount due Rs.545.15, payable by 01-Aug-2025.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-07-15",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m240",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Your A/c xx7050 is credited with Rs.257.06 on 20-Jul-2025 - SALARY NEFT. Bal Rs.31,545.66. -Equitas Small Finance Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-20",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m241",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX9813 is debited for Rs.12,291.03 on 22-Jul-2025 - UPI TATA POWER. Bal Rs.3,410.13. -City Union Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-22",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m242",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.12,825.96 has been transferred from your A/c *7050 to Ganesh Maid Service A/c XX0040 (HDFC Bank) via IMPS on 22-Jul-2025. Ref no 913951551384.",
+   "date": "2025-07-22",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m243",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.758.98 has been transferred from your A/c XX1087 to Dr. Rao Clinic A/c XX4726 (ICICI Bank) via IMPS on 27-Jul-2025. Ref no 744479871474.",
+   "date": "2025-07-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m244",
+   "subject": "OTP for your transaction",
+   "body": "114642 is the OTP for your transaction of Rs.13,067.19 at ZEPTO. Valid for 10 minutes. Do not share.",
+   "date": "2025-08-04",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m245",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Lakshmi,\nConvert big spends to EMI at low interest.\n\n",
+   "date": "2025-08-10",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m246",
+   "subject": "Your HSBC Cashback Credit Card statement - Aug 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your HSBC Cashback Credit Card XX5005 statement for the period 12-Jul-2025 to 11-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "HSBC_Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m247",
+   "subject": "Your SBI Card PRIME Monthly Statement - Aug 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your SBI Card PRIME XXXX XXXX XXXX 4455 statement for the period 12-Jul-2025 to 11-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m248",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-Jul-2025 to 14-Aug-2025",
+   "body": "Dear Lakshmi,\nPlease find attached your ICICI Bank Sapphiro Credit Card XX4455 statement for the period 15-Jul-2025 to 14-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-08-15",
+   "attachments": [
+    {
+     "filename": "eStatement_202508.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m249",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.2,548.97 is debited from your HDFC Bank Credit Card ending 4093 towards BOOKMYSHOW on 15-08-2025. Not you? Call us immediately.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m250",
+   "subject": "City Union Bank Account Statement - Aug 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your City Union Bank XX9813 statement for the period 17-Jul-2025 to 16-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2025-08-17",
+   "attachments": [
+    {
+     "filename": "9813_16082025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m251",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.25,060.20 has been transferred from your A/c *7050 to Ganesh Maid Service A/c XX0040 (HDFC Bank) via IMPS on 19-Aug-2025. Ref no 677131578434.",
+   "date": "2025-08-19",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m252",
+   "subject": "Axis Bank festive offers",
+   "body": "Dear Lakshmi,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-21",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m253",
+   "subject": "Your HDFC Bank Regalia Gold Credit Card Statement - Aug 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your HDFC Bank Regalia Gold Credit Card ending 4093 statement for the period 25 Jul, 2025 to 24 Aug, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-08-25",
+   "attachments": [
+    {
+     "filename": "eStatement_202508.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m254",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Lakshmi,\nYour order #678-3572196-7380281 is confirmed. Total Rs.6,075.61. Estimated delivery in 2 days.",
+   "date": "2025-09-01",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m255",
+   "subject": "IDFC FIRST Bank: Debit alert",
+   "body": "INR debit alert: INR 291.65 debited from account XX1087 on 04-Sep-2025. Narration: IMPS/RELIANCE DIGITAL. Available balance INR 5,867.81.",
+   "date": "2025-09-04",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m256",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Sapphiro Credit Card XX4455 has been used for a transaction of INR 250.62 on 07-Sep-2025 at 21:18:24. Info: APPLE SERVICES.\nIf you did not do this, please call customer care.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-09-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m257",
+   "subject": "Update your KYC",
+   "body": "Dear Lakshmi,\nAs per RBI guidelines please complete re-KYC for your Axis Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-09-11",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m258",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX9813 is debited for Rs.104.05 on 13-Sep-2025 - UPI EASEMYTRIP. Bal Rs.18,222.83. -City Union Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-09-13",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m259",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5200",
+   "body": "Spent INR 122.20 on your Axis Bank Select Credit Card XX5200 at MCDONALDS, 15-Sep-2025. Avl Lmt INR 96,908.65. SMS BLOCK to 5676782 if not you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-15",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m260",
+   "subject": "Payment received on your HDFC Bank Credit Card",
+   "body": "Payment of Rs.520.58 has been received towards your HDFC Bank Regalia Gold Credit Card ending 4093 on 17-09-2025. Thank you for the payment.\n\nOpt for e-statements and go green.",
+   "date": "2025-09-17",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m261",
+   "subject": "Equitas Small Finance Bank Account Statement - Sep 2025",
+   "body": "Dear Lakshmi,\nYour Equitas Small Finance Bank *7050 account statement for Sep 2025 is ready. Closing balance Rs.24,122.53.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-09-19",
+   "attachments": [],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m262",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Sep 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your Axis Bank Select Credit Card ending 5200 statement for the period 23/08/25 to 22/09/25. Total amount due Rs.41,487.08, due 12/10/25.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-23",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Sep2025.pdf",
+     "protected": false,
+     "pdfText": "Axis Bank Credit Card Statement\nLAKSHMI REDDY\nFLAT 171, SUNRISE APARTMENTS\n18TH CROSS, SECTOR 21\nAHMEDABAD - 407834\nCard Name: Axis Bank Select Credit Card\nCredit Card Number: 411203XXXXXX5200\nStatement Period: 23/08/25 - 22/09/25\nStatement Generation Date: 22/09/25\nPayment Summary\nTotal Payment Due: Rs.41,487.08\nMinimum Payment Due: Rs.2,074.35\nPayment Due Date: 12/10/25\nAccount Summary\nCredit Limit: Rs.5,75,000.00\nAvailable Credit Limit: Rs.5,43,004.76\nAvailable Cash Limit: Rs.1,15,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n23/08/25 DECATHLON KOLKATA 389.33 Dr\n23/08/25 JIO RECHARGE HYDERABAD 813.77 Dr\n31/08/25 MEDPLUS GURUGRAM 12,921.88 Dr\n03/09/25 UBER INDIA KOLKATA 126.67 Dr\n09/09/25 BATA INDIA HYDERABAD 270.16 Dr\n09/09/25 OLA CABS CHENNAI 12,157.63 Dr\n10/09/25 PHONEPE BENGALURU 174.63 Dr\n11/09/25 GOOGLE PLAY PUNE 782.47 Dr\n12/09/25 FLIPKART PUNE 2,622.50 Dr\n15/09/25 RELIANCE DIGITAL PUNE 10,706.77 Dr\n20/09/25 STARBUCKS MUMBAI 521.27 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m263",
+   "subject": "Your HDFC Bank Regalia Gold Credit Card Statement - Sep 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your HDFC Bank Regalia Gold Credit Card ending 4093 statement for the period 25 Aug, 2025 to 24 Sep, 2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-09-25",
+   "attachments": [
+    {
+     "filename": "4093_24092025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m264",
+   "subject": "Refer and earn",
+   "body": "Dear Lakshmi,\nUse your card on UPI and earn extra rewards.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-30",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m265",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.237.20 spent on SBI Card PRIME XXXX XXXX XXXX 4455 at AMAZON PAY INDIA on 03/10/25.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-03",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m266",
+   "subject": "Kotak Mahindra Bank: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 1226 has been successfully linked/verified for your Kotak Mahindra Bank relationship. If this was not you, contact us.",
+   "date": "2025-10-13",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m267",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Your A/c *9813 is debited for Rs.1,438.23 on 18-Oct-2025 - IMPS PAYTM. Bal Rs.8,600.35. -City Union Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-18",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m268",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX9813 is debited for Rs.663.95 on 22-Oct-2025 - IMPS MCDONALDS. Bal Rs.1,07,429.67. -City Union Bank",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m269",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Oct 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your Axis Bank Select Credit Card ending 5200 statement for the period 23/09/25 to 22/10/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-10-23",
+   "attachments": [
+    {
+     "filename": "eStatement_202510.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m270",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Sapphiro Credit Card ending 4455 has been used for a transaction of INR 5,568.91 on 23-Oct-2025 at 06:08:53. Info: EAZYDINER.\nIf you did not do this, please call customer care.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-10-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m271",
+   "subject": "Your HDFC Bank Regalia Gold Credit Card Statement - Oct 2025",
+   "body": "Dear Lakshmi,\nYour HDFC Bank Regalia Gold Credit Card ending 4093 statement for Oct 2025 is ready. Total amount due Rs.803.46, minimum amount due Rs.200.00, payable by 11 Nov, 2025.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-10-25",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m272",
+   "subject": "City Union Bank: credit alert on your account",
+   "body": "Your A/c XXXXXX9813 is credited with Rs.27,471.54 on 27-Oct-2025 - UPI. Bal Rs.33,032.82. -City Union Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m273",
+   "subject": "IDFC FIRST Bank: Debit alert",
+   "body": "Your A/c XXXXXX1087 is debited for INR 514.97 on 28-Oct-2025 - NEFT LENSKART. Bal INR 8,317.25. -IDFC FIRST Bank\n\nOpt for e-statements and go green.",
+   "date": "2025-10-28",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m274",
+   "subject": "OTP for your transaction",
+   "body": "869770 is the OTP for your transaction of Rs.254.98 at DMART. Valid for 10 minutes. Do not share.",
+   "date": "2025-10-31",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m275",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx5200",
+   "body": "Spent INR 3,195.91 on your Axis Bank Select Credit Card xx5200 at UBER INDIA, 03-Nov-2025. Avl Lmt INR 1,09,806.57. SMS BLOCK to 5676782 if not you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-03",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m276",
+   "subject": "IDFC FIRST Bank: Credit alert",
+   "body": "Credit alert: INR 432.45 has been credited to account xx1087 on 05-Nov-2025 (NEFT). Avl bal INR 3,796.43.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-05",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m277",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.2,021.99 is debited from your HDFC Bank Credit Card ending 4093 towards IXIGO on 08-11-2025. Not you? Call us immediately.",
+   "date": "2025-11-08",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m278",
+   "subject": "IDFC FIRST Bank: Debit alert",
+   "body": "INR debit alert: INR 10,602.26 debited from account XX1087 on 09-Nov-2025. Narration: ECOM/APOLLO PHARMACY. Available balance INR 4,630.41.",
+   "date": "2025-11-09",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m279",
+   "subject": "HSBC Credit Card transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 20,119.98 spent on your HSBC Credit Card ending 5005 at AIRTEL PREPAID on 11-Nov-2025 08:50:42.",
+   "date": "2025-11-11",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m280",
+   "subject": "Your SBI Card PRIME Monthly Statement - Nov 2025",
+   "body": "Dear Lakshmi,\nYour SBI Card PRIME XXXX XXXX XXXX 4455 statement for Nov 2025 is ready. Total amount due Rs.639.18, minimum amount due Rs.200.00, payable by 29-Nov-2025.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m281",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5200",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Select Credit Card no. XX5200 for INR 5,120.61 at PHONEPE on 12-Nov-2025 01:40:53. Available limit: INR 14,737.13.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-12",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m282",
+   "subject": "City Union Bank Account Statement - Nov 2025",
+   "body": "Dear Lakshmi,\nYour City Union Bank XX9813 account statement for Nov 2025 is ready. Closing balance Rs.14,300.14.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-17",
+   "attachments": [],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m283",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.338.69 is debited from your HDFC Bank Credit Card ending 4093 towards INDIAN OIL on 18-11-2025. Not you? Call us immediately.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m284",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Nov 2025",
+   "body": "Dear Lakshmi,\nYour Axis Bank Select Credit Card ending 5200 statement for Nov 2025 is ready. Total amount due Rs.2,305.21, minimum amount due Rs.200.00, payable by 10/12/25.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-11-23",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m285",
+   "subject": "IDFC FIRST Bank: Debit alert",
+   "body": "INR debit alert: INR 303.41 debited from account XX1087 on 04-Dec-2025. Narration: POS/BESCOM. Available balance INR 44,402.07.\n\nOpt for e-statements and go green.",
+   "date": "2025-12-04",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m286",
+   "subject": "Your HSBC Cashback Credit Card statement - Dec 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your HSBC Cashback Credit Card ending 5005 statement for the period 08-Nov-2025 to 07-Dec-2025. Total amount due Rs.42,143.30, due 22-Dec-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-08",
+   "attachments": [
+    {
+     "filename": "eStatement_202512.pdf",
+     "protected": false,
+     "pdfText": "HSBC Credit Card Statement\nLAKSHMI REDDY\nFLAT 768, SUNRISE APARTMENTS\n19TH CROSS, KOTHRUD\nKOCHI - 593652\nCard Name: HSBC Cashback Credit Card\nCredit Card Number: 491034XXXXXX5005\nStatement Period: 08/11/25 - 07/12/25\nStatement Date: 07/12/25\nPayment Summary\nTotal Amount Due: Rs.42,143.30\nMinimum Amount Due: Rs.2,107.17\nPayment Due Date: 22/12/25\nAccount Summary\nCredit Limit: Rs.1,35,000.00\nAvailable Credit Limit: Rs.1,19,055.65\nAvailable Cash Limit: Rs.27,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n08/11/25 AMAZON PAY INDIA PUNE 204.47 Dr\n08/11/25 NYKAA AHMEDABAD 3,934.44 Dr\n14/11/25 SWIGGY HYDERABAD 1,792.85 Dr\n16/11/25 APOLLO PHARMACY JAIPUR 12,738.43 Dr\n20/11/25 CROMA BENGALURU 501.73 Dr\n26/11/25 AMAZON PAY INDIA JAIPUR 13,934.74 Dr\n30/11/25 BESCOM MUMBAI 7,831.97 Dr\n01/12/25 MCDONALDS BENGALURU 337.41 Dr\n05/12/25 OLA CABS GURUGRAM 867.26 Dr\n\nCard Status: CLOSED as on 07-Dec-2025\nYour HSBC Cashback Credit Card has been closed. Closing balance Rs.0.00. No further statements will be generated.\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "HSBC India <creditcardstatement@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m287",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Your A/c *9813 is debited for Rs.2,521.33 on 08-Dec-2025 - NEFT AMAZON PAY INDIA. Bal Rs.2,472.66. -City Union Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-08",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m288",
+   "subject": "Your SBI Card PRIME Monthly Statement - Dec 2025",
+   "body": "Dear Lakshmi,\nPlease find attached your SBI Card PRIME XXXX XXXX XXXX 4455 statement for the period 12-Nov-2025 to 11-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "4455_11122025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m289",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-Nov-2025 to 14-Dec-2025",
+   "body": "Dear Lakshmi,\nYour ICICI Bank Sapphiro Credit Card XX4455 statement for Dec 2025 is ready. Total amount due Rs.1,274.09, minimum amount due Rs.200.00, payable by 01-Jan-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-12-15",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m290",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card xx4455 has been used for a transaction of INR 201.18 on 15-Dec-2025 at 10:14:31. Info: FLIPKART.\nIf you did not do this, please call customer care.",
+   "date": "2025-12-15",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m291",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Lakshmi,\nUse your card on UPI and earn extra rewards.\n\n",
+   "date": "2025-12-20",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m292",
+   "subject": "IDFC FIRST Bank: Debit alert",
+   "body": "Dear Customer,\nINR 2,718.07 has been debited from your IDFC FIRST Bank A/c *1087 on 21-Dec-2025 (POS IRCTC). Avl bal INR 31,241.75.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-21",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m293",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.2,211.66 spent on SBI Card Credit Card XXXX XXXX XXXX 4455 at INDIGO AIRLINES on 29/12/25.",
+   "date": "2025-12-29",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m294",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Your A/c *7050 is debited for Rs.2,666.69 on 10-Jan-2026 - UPI DOMINOS. Bal Rs.14,738.94. -Equitas Small Finance Bank",
+   "date": "2026-01-10",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m295",
+   "subject": "IDFC FIRST Bank Account Statement - Jan 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your IDFC FIRST Bank XXXXXX1087 statement for the period 11-Dec-2025 to 10-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-11",
+   "attachments": [
+    {
+     "filename": "IDFC_Acct_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m296",
+   "subject": "Your SBI Card PRIME Monthly Statement - Jan 2026",
+   "body": "Dear Lakshmi,\nYour SBI Card PRIME XXXX XXXX XXXX 4455 statement for Jan 2026 is ready. Total amount due Rs.3,986.60, minimum amount due Rs.200.00, payable by 29-Jan-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-01-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m297",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-Dec-2025 to 14-Jan-2026",
+   "body": "Dear Lakshmi,\nPlease find attached your ICICI Bank Sapphiro Credit Card XX4455 statement for the period 15-Dec-2025 to 14-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-01-15",
+   "attachments": [
+    {
+     "filename": "ICICI_CC_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m298",
+   "subject": "Equitas Small Finance Bank Account Statement - Jan 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your Equitas Small Finance Bank *7050 statement for the period 19-Dec-2025 to 18-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-01-19",
+   "attachments": [
+    {
+     "filename": "Equitas_Acct_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m299",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Sapphiro Credit Card ending 4455 has been used for a transaction of INR 301.33 on 22-Jan-2026 at 02:44:05. Info: BLINKIT.\nIf you did not do this, please call customer care.",
+   "date": "2026-01-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m300",
+   "subject": "Your SBI Card PRIME Monthly Statement - Feb 2026",
+   "body": "Dear Lakshmi,\nYour SBI Card PRIME XXXX XXXX XXXX 4455 statement for Feb 2026 is ready. Total amount due Rs.5,708.79, minimum amount due Rs.285.44, payable by 01-Mar-2026.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m301",
+   "subject": "City Union Bank Account Statement - Feb 2026",
+   "body": "Dear Lakshmi,\nYour City Union Bank *9813 account statement for Feb 2026 is ready. Closing balance Rs.2,852.61.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-02-17",
+   "attachments": [],
+   "from": "City Union Bank <estatement@cityunionbank.com>"
+  },
+  {
+   "id": "m302",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 19,323.45 on 17-Feb-2026 for your Axis Bank Credit Card xx5200. Available credit limit has been updated.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-17",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m303",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Feb 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your Axis Bank Select Credit Card ending 5200 statement for the period 23/01/26 to 22/02/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-23",
+   "attachments": [
+    {
+     "filename": "eStatement_202602.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m304",
+   "subject": "Your HDFC Bank Regalia Gold Credit Card Statement - Feb 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your HDFC Bank Regalia Gold Credit Card ending 4093 statement for the period 25 Jan, 2026 to 24 Feb, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-25",
+   "attachments": [
+    {
+     "filename": "HDFC_CC_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m305",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Regalia Gold Credit Card ending 4093 for Rs.2,725.46 at ZEPTO on 27-02-2026 at 20:39:01.\nAvailable limit: Rs.42,672.24. If you did not make this transaction, please call 1800 258 6161.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m306",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.6,012.21 spent on your SBI Card PRIME XXXX XXXX XXXX 4455 at SODEXO on 27/02/26. Your available limit is Rs.23,969.15.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m307",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 553295751224. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m308",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.4,147.26 spent on your SBI Card Credit Card XXXX XXXX XXXX 4455 at TATA PLAY on 06/03/26. Your available limit is Rs.8,274.40.\nContact 1860 180 1290 if this transaction was not done by you.\n\nOpt for e-statements and go green.",
+   "date": "2026-03-06",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m309",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 4093 for Rs.352.73 at IXIGO on 08-03-2026 at 23:32:57.\nAvailable limit: Rs.2,410.64. If you did not make this transaction, please call 1800 258 6161.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-03-08",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m310",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 4093 for Rs.293.61 at UBER INDIA on 09-03-2026 at 08:25:07.\nAvailable limit: Rs.23,341.69. If you did not make this transaction, please call 1800 258 6161.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-09",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m311",
+   "subject": "IDFC FIRST Bank Account Statement - Mar 2026",
+   "body": "Dear Lakshmi,\nYour IDFC FIRST Bank XXXXXX1087 account statement for Mar 2026 is ready. Closing balance Rs.2,417.19.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-03-11",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m312",
+   "subject": "Your SBI Card PRIME Monthly Statement - Mar 2026",
+   "body": "Dear Lakshmi,\nYour SBI Card PRIME XXXX XXXX XXXX 4455 statement for Mar 2026 is ready. Total amount due Rs.3,717.20, minimum amount due Rs.200.00, payable by 29-Mar-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-03-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m313",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 1,853.74 done on your ICICI Bank Credit Card ending 4455 at APOLLO PHARMACY on 13-Mar-2026. Available credit limit is INR 57,189.12.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-03-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m314",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-Feb-2026 to 14-Mar-2026",
+   "body": "Dear Lakshmi,\nYour ICICI Bank Sapphiro Credit Card XX4455 statement for Mar 2026 is ready. Total amount due Rs.16,762.98, minimum amount due Rs.838.15, payable by 01-Apr-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-03-15",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m315",
+   "subject": "Equitas Small Finance Bank Account Statement - Mar 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your Equitas Small Finance Bank xx7050 statement for the period 19-Feb-2026 to 18-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-03-19",
+   "attachments": [
+    {
+     "filename": "Equitas_Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m316",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Mar 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your Axis Bank Select Credit Card xx5200 statement for the period 23/02/26 to 22/03/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-23",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m317",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.4,068.67 debited from account *7050 on 26-Mar-2026. Narration: NEFT/DOMINOS. Available balance Rs.36,712.54.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-03-26",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m318",
+   "subject": "OTP for your transaction",
+   "body": "718993 is the OTP for your transaction of Rs.15,232.20 at LENSKART. Valid for 10 minutes. Do not share.",
+   "date": "2026-03-29",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m319",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.3,931.95 is debited from your HDFC Bank Regalia Gold Credit Card ending 4093 towards MEDPLUS on 31-03-2026. Not you? Call us immediately.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-31",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m320",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5200",
+   "body": "Spent INR 534.85 on your Axis Bank Select Credit Card XX5200 at INDIGO AIRLINES, 02-Apr-2026. Avl Lmt INR 60,490.49. SMS BLOCK to 5676782 if not you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-02",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m321",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Your A/c xx7050 is debited for Rs.1,012.44 on 05-Apr-2026 - UPI BLINKIT. Bal Rs.2,499.97. -Equitas Small Finance Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-05",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m322",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX4455 has been used for a transaction of INR 1,841.80 on 06-Apr-2026 at 11:34:06. Info: URBAN COMPANY.\nIf you did not do this, please call customer care.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m323",
+   "subject": "Your SBI Card PRIME Monthly Statement - Apr 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your SBI Card PRIME XXXX XXXX XXXX 4455 statement for the period 12-Mar-2026 to 11-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "SBI_CC_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m324",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-Mar-2026 to 14-Apr-2026",
+   "body": "Dear Lakshmi,\nYour ICICI Bank Sapphiro Credit Card XX4455 statement for Apr 2026 is ready. Total amount due Rs.483.81, minimum amount due Rs.200.00, payable by 02-May-2026.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-15",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m325",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.187.38 is debited from your HDFC Bank Credit Card ending 4093 towards BLINKIT on 15-04-2026. Not you? Call us immediately.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-15",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m326",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Apr 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your Axis Bank Select Credit Card XX5200 statement for the period 23/03/26 to 22/04/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-23",
+   "attachments": [
+    {
+     "filename": "eStatement_202604.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m327",
+   "subject": "Your HDFC Bank Regalia Gold Credit Card Statement - Apr 2026",
+   "body": "Dear Lakshmi,\nYour HDFC Bank Regalia Gold Credit Card ending 4093 statement for Apr 2026 is ready. Total amount due Rs.711.36, minimum amount due Rs.200.00, payable by 12 May, 2026.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m328",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.80.59 spent on your SBI Card Credit Card XXXX XXXX XXXX 4455 at BATA INDIA on 26/04/26. Your available limit is Rs.5,195.99.\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m329",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Lakshmi,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m330",
+   "subject": "Your SBI Card PRIME Monthly Statement - May 2026",
+   "body": "Dear Lakshmi,\nYour SBI Card PRIME XXXX XXXX XXXX 4455 statement for May 2026 is ready. Total amount due Rs.25,301.48, minimum amount due Rs.1,265.07, payable by 29-May-2026.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m331",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Lakshmi,\nGet up to 10% cashback on partner brands.\n\n",
+   "date": "2026-05-14",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m332",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.4,182.21 spent on your SBI Card PRIME XXXX XXXX XXXX 4455 at BPCL FUEL on 18/05/26. Your available limit is Rs.24,640.42.\nContact 1860 180 1290 if this transaction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-18",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m333",
+   "subject": "Equitas Small Finance Bank Account Statement - May 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your Equitas Small Finance Bank *7050 statement for the period 19-Apr-2026 to 18-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-19",
+   "attachments": [
+    {
+     "filename": "Equitas_Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m334",
+   "subject": "Update your KYC",
+   "body": "Dear Lakshmi,\nAs per RBI guidelines please complete re-KYC for your Kotak Mahindra Bank relationship. Visit a branch or use the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-24",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m335",
+   "subject": "Your HDFC Bank Regalia Gold Credit Card Statement - May 2026",
+   "body": "Dear Lakshmi,\nYour HDFC Bank Regalia Gold Credit Card ending 4093 statement for May 2026 is ready. Total amount due Rs.931.96, minimum amount due Rs.200.00, payable by 11 Jun, 2026.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m336",
+   "subject": "OTP for your transaction",
+   "body": "419017 is the OTP for your transaction of Rs.261.12 at JIO RECHARGE. Valid for 10 minutes. Do not share.",
+   "date": "2026-05-31",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m337",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Lakshmi,\nYour order #699-7616804-1942578 is confirmed. Total Rs.200.96. Estimated delivery in 2 days.",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m338",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.1,793.70 is debited from your HDFC Bank Regalia Gold Credit Card ending 4093 towards ZOMATO on 04-06-2026. Not you? Call us immediately.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-04",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m339",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.183.06 is debited from your HDFC Bank Regalia Gold Credit Card ending 4093 towards MAKEMYTRIP on 07-06-2026. Not you? Call us immediately.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-07",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m340",
+   "subject": "IDFC FIRST Bank: Debit alert",
+   "body": "INR debit alert: INR 1,070.14 debited from account *1087 on 10-Jun-2026. Narration: UPI/CROMA. Available balance INR 87,838.45.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-10",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m341",
+   "subject": "Your SBI Card PRIME Monthly Statement - Jun 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your SBI Card PRIME XXXX XXXX XXXX 4455 statement for the period 12-May-2026 to 11-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "4455_11062026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m342",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Lakshmi,\nYour order #783-6814063-2705791 is confirmed. Total Rs.445.10. Estimated delivery in 2 days.",
+   "date": "2026-06-12",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m343",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-May-2026 to 14-Jun-2026",
+   "body": "Dear Lakshmi,\nPlease find attached your ICICI Bank Sapphiro Credit Card xx4455 statement for the period 15-May-2026 to 14-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-06-15",
+   "attachments": [
+    {
+     "filename": "eStatement_202606.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m344",
+   "subject": "IDFC FIRST Bank: Credit alert",
+   "body": "Your A/c XX1087 is credited with INR 151.81 on 16-Jun-2026 - NEFT. Bal INR 14,521.81. -IDFC FIRST Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-16",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m345",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nTransaction of INR 574.21 done on your ICICI Bank Sapphiro Credit Card XX4455 at MEDPLUS on 19-Jun-2026. Available credit limit is INR 2,172.05.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-19",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m346",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Jun 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your Axis Bank Select Credit Card ending 5200 statement for the period 23/05/26 to 22/06/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-23",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m347",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Regalia Gold Credit Card ending 4093 for Rs.13,827.39 at GOOGLE PLAY on 23-06-2026 at 21:24:53.\nAvailable limit: Rs.8,968.61. If you did not make this transaction, please call 1800 258 6161.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-23",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m348",
+   "subject": "Your HDFC Bank Regalia Gold Credit Card Statement - Jun 2026",
+   "body": "Dear Lakshmi,\nYour HDFC Bank Regalia Gold Credit Card ending 4093 statement for Jun 2026 is ready. Total amount due Rs.6,034.79, minimum amount due Rs.301.74, payable by 12 Jul, 2026.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m349",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Lakshmi,\nPlease find attached the updated MITC for your Axis Bank credit cards.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-29",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m350",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Lakshmi,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-06-30",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m351",
+   "subject": "OTP for your transaction",
+   "body": "979882 is the OTP for your transaction of Rs.994.79 at EAZYDINER. Valid for 10 minutes. Do not share.",
+   "date": "2026-07-10",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m352",
+   "subject": "IDFC FIRST Bank Account Statement - Jul 2026",
+   "body": "Dear Lakshmi,\nYour IDFC FIRST Bank *1087 account statement for Jul 2026 is ready. Closing balance Rs.10,776.98.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-07-11",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m353",
+   "subject": "Your SBI Card PRIME Monthly Statement - Jul 2026",
+   "body": "Dear Lakshmi,\nYour SBI Card PRIME XXXX XXXX XXXX 4455 statement for Jul 2026 is ready. Total amount due Rs.2,455.84, minimum amount due Rs.200.00, payable by 29-Jul-2026.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-07-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m354",
+   "subject": "IDFC FIRST Bank: Debit alert",
+   "body": "Dear Customer,\nINR 2,203.27 has been debited from your IDFC FIRST Bank A/c XXXXXX1087 on 16-Jul-2026 (NEFT BOOKMYSHOW). Avl bal INR 24,330.87.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m355",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "Your A/c *7050 is debited for Rs.21,203.95 on 16-Jul-2026 - UPI BOOKMYSHOW. Bal Rs.58,434.24. -Equitas Small Finance Bank",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m356",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.91.91 is debited from your HDFC Bank Regalia Gold Credit Card ending 4093 towards AIRTEL PREPAID on 19-07-2026. Not you? Call us immediately.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-07-19",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m357",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.162.56 debited from account XX7050 on 20-Jul-2026. Narration: POS/AMAZON PAY INDIA. Available balance Rs.5,213.28.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-20",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m358",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nRs.2,662.22 is debited from your HDFC Bank Credit Card ending 4093 towards EAZYDINER on 21-07-2026. Not you? Call us immediately.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-07-21",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m359",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Jul 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your Axis Bank Select Credit Card XX5200 statement for the period 23/06/26 to 22/07/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-07-23",
+   "attachments": [
+    {
+     "filename": "5200_22072026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m360",
+   "subject": "Your HDFC Bank Regalia Gold Credit Card Statement - Jul 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your HDFC Bank Regalia Gold Credit Card ending 4093 statement for the period 25 Jun, 2026 to 24 Jul, 2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-07-25",
+   "attachments": [
+    {
+     "filename": "HDFC_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m361",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.14,186.56 credited to your Equitas Small Finance Bank A/c xx7050 on 01-Aug-2026 by NEFT. Ref 407707935626.\nThank you for banking with us.\n\nOpt for e-statements and go green.",
+   "date": "2026-08-01",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m362",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Lakshmi,\nUse your card on UPI and earn extra rewards.\n\n",
+   "date": "2026-08-08",
+   "attachments": [],
+   "from": "Kotak Bank <BankSMS@kotak.com>"
+  },
+  {
+   "id": "m363",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Your A/c *9813 is debited for Rs.23,840.91 on 10-Aug-2026 - ECOM HPCL PETROL. Bal Rs.17,341.49. -City Union Bank\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-10",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m364",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-Jul-2026 to 14-Aug-2026",
+   "body": "Dear Lakshmi,\nYour ICICI Bank Sapphiro Credit Card XX4455 statement for Aug 2026 is ready. Total amount due Rs.3,894.06, minimum amount due Rs.200.00, payable by 01-Sep-2026.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-15",
+   "attachments": [],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m365",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.687.76 has been transferred from your A/c XXXXXX7050 to Ganesh Maid Service A/c XX0040 (HDFC Bank) via IMPS on 15-Aug-2026. Ref no 231183719507.",
+   "date": "2026-08-15",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m366",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Aug 2026",
+   "body": "Dear Lakshmi,\nYour Axis Bank Select Credit Card XX5200 statement for Aug 2026 is ready. Total amount due Rs.2,973.49, minimum amount due Rs.200.00, payable by 09/09/26.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m367",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card ending 4455 has been used for a transaction of INR 3,202.72 on 23-Aug-2026 at 05:35:48. Info: TATA PLAY.\nIf you did not do this, please call customer care.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m368",
+   "subject": "Payment received on your ICICI Bank Credit Card",
+   "body": "Payment of INR 703.93 has been received towards your ICICI Bank Sapphiro Credit Card ending 4455 on 23-Aug-2026. Thank you for the payment.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m369",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Transaction Alert: Rs.5,046.32 spent on SBI Card Credit Card XXXX XXXX XXXX 4455 at IKEA on 25/08/26.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-25",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m370",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Credit alert: Rs.7,670.46 has been credited to account XXXXXX7050 on 27-Aug-2026 (SALARY NEFT). Avl bal Rs.4,842.59.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m371",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Regalia Gold Credit Card ending 4093 for Rs.1,083.57 at APPLE SERVICES on 29-08-2026 at 04:27:07.\nAvailable limit: Rs.18,475.51. If you did not make this transaction, please call 1800 258 6161.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-29",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m372",
+   "subject": "IDFC FIRST Bank: Debit alert",
+   "body": "Dear Customer,\nINR 1,374.21 has been debited from your IDFC FIRST Bank A/c XXXXXX1087 on 29-Aug-2026 (IMPS STARBUCKS). Avl bal INR 72,796.35.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-29",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m373",
+   "subject": "Equitas Small Finance Bank: credit alert on your account",
+   "body": "Dear Customer,\nRs.452.87 credited to your Equitas Small Finance Bank A/c xx7050 on 29-Aug-2026 by REFUND. Ref 951292328309.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-08-29",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m374",
+   "subject": "IDFC FIRST Bank: Credit alert",
+   "body": "Dear Customer,\nINR 10,632.23 credited to your IDFC FIRST Bank A/c XX1087 on 06-Sep-2026 by SALARY NEFT. Ref 928430041360.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-06",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m375",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Lakshmi,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-09-07",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m376",
+   "subject": "Earn more with your card",
+   "body": "Dear Lakshmi,\nGet up to 10% cashback on partner brands.\n\nOpt for e-statements and go green.",
+   "date": "2026-09-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m377",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5200",
+   "body": "Spent INR 1,592.32 on your Axis Bank Credit Card XX5200 at EAZYDINER, 08-Sep-2026. Avl Lmt INR 21,730.46. SMS BLOCK to 5676782 if not you.",
+   "date": "2026-09-08",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m378",
+   "subject": "IDFC FIRST Bank Account Statement - Sep 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your IDFC FIRST Bank *1087 statement for the period 11-Aug-2026 to 10-Sep-2026. \n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-09-11",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK\nSTATEMENT OF ACCOUNT\nAccount Name : LAKSHMI REDDY\nFLAT 496, SUNRISE APARTMENTS\n12TH CROSS, KOTHRUD\nBENGALURU - 423467\nAccount Number : *1087\nAccount Type : SAVINGS ACCOUNT\nIFSC : IDFC0262037\nStatement Period : 11-08-2026 to 10-09-2026\nOpening Balance : Rs.73,733.79\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n11-08-2026 UPI/CR 944049780 - 830.31 74,564.10\n14-08-2026 UPI/TATA PLAY 822503681 355.33 - 74,208.77\n14-08-2026 IMPS/CR 417141084 - 839.84 75,048.61\n15-08-2026 ATM WDL/DECATHLON 385125599 2,562.54 - 72,486.07\n18-08-2026 NEFT DR/BATA INDIA 419609735 231.44 - 72,254.63\n20-08-2026 ATM WDL/FLIPKART 836819651 369.88 - 71,884.75\n22-08-2026 UPI/INDIGO AIRLINES 836829906 337.39 - 71,547.36\n22-08-2026 ATM WDL/PAYTM 516569091 13,130.42 - 58,416.94\n25-08-2026 NEFT DR/INDIGO AIRLINES 661496393 120.36 - 58,296.58\n26-08-2026 UPI/JIO RECHARGE 257361416 710.65 - 57,585.93\n26-08-2026 ATM WDL/BATA INDIA 198266738 297.28 - 57,288.65\n28-08-2026 POS/LENSKART 910556311 19,530.37 - 37,758.28\n30-08-2026 NEFT DR/SPOTIFY 859438576 227.55 - 37,530.73\nClosing Balance : Rs.37,530.73\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "IDFC FIRST Bank <estatement@idfcfirstbank.com>"
+  },
+  {
+   "id": "m379",
+   "subject": "Your SBI Card PRIME Monthly Statement - Sep 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your SBI Card PRIME XXXX XXXX XXXX 4455 statement for the period 12-Aug-2026 to 11-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "4455_11092026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m380",
+   "subject": "Equitas Small Finance Bank Account Statement - Sep 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your Equitas Small Finance Bank XXXXXX7050 statement for the period 19-Aug-2026 to 18-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-09-19",
+   "attachments": [
+    {
+     "filename": "Equitas_Statement_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Equitas SFB <estatement@equitasbank.com>"
+  },
+  {
+   "id": "m381",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx5200",
+   "body": "Spent INR 1,551.57 on your Axis Bank Select Credit Card xx5200 at IXIGO, 19-Sep-2026. Avl Lmt INR 17,690.85. SMS BLOCK to 5676782 if not you.",
+   "date": "2026-09-19",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m382",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Sep 2026",
+   "body": "Dear Lakshmi,\nYour Axis Bank Select Credit Card xx5200 statement for Sep 2026 is ready. Total amount due Rs.524.93, minimum amount due Rs.200.00, payable by 10/10/26.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-23",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m383",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card ending 4455 has been used for a transaction of INR 9,783.93 on 24-Sep-2026 at 23:38:58. Info: DECATHLON.\nIf you did not do this, please call customer care.",
+   "date": "2026-09-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m384",
+   "subject": "IDFC FIRST Bank: Debit alert",
+   "body": "Your A/c XXXXXX1087 is debited for INR 1,918.09 on 25-Sep-2026 - UPI BLINKIT. Bal INR 7,947.08. -IDFC FIRST Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <noreply@idfcfirstbank.com>"
+  },
+  {
+   "id": "m385",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,653.93 spent on your SBI Card PRIME XXXX XXXX XXXX 4455 at BPCL FUEL on 29/09/26. Your available limit is Rs.14,571.62.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-09-29",
+   "attachments": [],
+   "from": "SBI Card <Transaction.alerts@sbicard.com>"
+  },
+  {
+   "id": "m386",
+   "subject": "Equitas Small Finance Bank: debit alert on your account",
+   "body": "INR debit alert: Rs.16,729.19 debited from account *7050 on 09-Oct-2026. Narration: IMPS/AIRTEL PREPAID. Available balance Rs.82,992.80.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-09",
+   "attachments": [],
+   "from": "Equitas SFB <alerts@equitasbank.com>"
+  },
+  {
+   "id": "m387",
+   "subject": "Payment received on your ICICI Bank Credit Card",
+   "body": "Payment of INR 1,878.87 has been received towards your ICICI Bank Sapphiro Credit Card XX4455 on 11-Oct-2026. Thank you for the payment.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-10-11",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m388",
+   "subject": "Your SBI Card PRIME Monthly Statement - Oct 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your SBI Card PRIME XXXX XXXX XXXX 4455 statement for the period 12-Sep-2026 to 11-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "4455_11102026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m389",
+   "subject": "City Union Bank: debit alert on your account",
+   "body": "Your A/c XX9813 is debited for Rs.3,537.25 on 12-Oct-2026 - IMPS IKEA. Bal Rs.7,538.41. -City Union Bank",
+   "date": "2026-10-12",
+   "attachments": [],
+   "from": "City Union Bank <alerts@cityunionbank.com>"
+  },
+  {
+   "id": "m390",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Lakshmi,\nConvert big spends to EMI at low interest.\n\n",
+   "date": "2026-10-12",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m391",
+   "subject": "ICICI Bank Credit Card Statement for the period 15-Sep-2026 to 14-Oct-2026",
+   "body": "Dear Lakshmi,\nPlease find attached your ICICI Bank Sapphiro Credit Card ending 4455 statement for the period 15-Sep-2026 to 14-Oct-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-10-15",
+   "attachments": [
+    {
+     "filename": "eStatement_202610.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank <statement@icicibank.com>"
+  },
+  {
+   "id": "m392",
+   "subject": "Alert : Update on your HDFC Bank Credit Card",
+   "body": "Dear Card Member,\nThank you for using your HDFC Bank Credit Card ending 4093 for Rs.364.63 at BESCOM on 16-10-2026 at 16:39:15.\nAvailable limit: Rs.37,801.91. If you did not make this transaction, please call 1800 258 6161.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "HDFC Bank InstaAlerts <alerts@hdfcbank.net>"
+  },
+  {
+   "id": "m393",
+   "subject": "Axis Bank Credit Card Statement ending 5200 - Oct 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your Axis Bank Select Credit Card XX5200 statement for the period 23/09/26 to 22/10/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-23",
+   "attachments": [
+    {
+     "filename": "eStatement_202610.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m394",
+   "subject": "Your HDFC Bank Regalia Gold Credit Card Statement - Oct 2026",
+   "body": "Dear Lakshmi,\nPlease find attached your HDFC Bank Regalia Gold Credit Card ending 4093 statement for the period 25 Sep, 2026 to 24 Oct, 2026. Total amount due Rs.51,766.41, due 13 Nov, 2026.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-10-25",
+   "attachments": [
+    {
+     "filename": "4093_24102026_stmt.pdf",
+     "protected": false,
+     "pdfText": "HDFC Bank Credit Cards\nStatement for HDFC Bank Regalia Gold Credit Card\nLAKSHMI REDDY\nFLAT 353, SUNRISE APARTMENTS\n26TH CROSS, ADYAR\nJAIPUR - 549905\nCredit Card No: 4746 67XX XXXX 4093\nStatement Date: 24 Oct, 2026\nBilling Period: 25 Sep, 2026 - 24 Oct, 2026\nPayment Due Date Total Dues Minimum Amount Due\n13 Nov, 2026 Rs.51,766.41 Rs.2,588.32\nCredit Limit Available Credit Limit Available Cash Limit\nRs.4,00,000.00 Rs.3,70,730.51 Rs.80,000.00\nDomestic Transactions\nDate Transaction Description Amount (in Rs.)\n25/09/26 DMART PUNE 95.73\n26/09/26 LENSKART AHMEDABAD 139.12\n27/09/26 DMART BENGALURU 5,687.35\n27/09/26 URBAN COMPANY MUMBAI 11,816.11\n28/09/26 EAZYDINER JAIPUR 125.21\n28/09/26 EAZYDINER KOCHI 21,064.28\n02/10/26 HPCL PETROL GURUGRAM 3,939.39\n09/10/26 UBER INDIA CHENNAI 481.21\n10/10/26 CROMA HYDERABAD 167.93\n12/10/26 JIO RECHARGE JAIPUR 8,013.31\n14/10/26 PAYTM JAIPUR 93.89\n22/10/26 STARBUCKS KOLKATA 142.88\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "HDFC Bank <emailstatements.cards@hdfcbank.net>"
+  },
+  {
+   "id": "m395",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 5200",
+   "body": "Spent INR 990.05 on your Axis Bank Select Credit Card ending 5200 at SODEXO, 29-Oct-2026. Avl Lmt INR 12,224.14. SMS BLOCK to 5676782 if not you.",
+   "date": "2026-10-29",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "4093",
+    "kind": "CREDIT_CARD",
+    "variant": "Regalia Gold",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "3-5L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "4455",
+    "kind": "CREDIT_CARD",
+    "variant": "Sapphiro",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "5-10L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "4455",
+    "kind": "CREDIT_CARD",
+    "variant": "Prime",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "5200",
+    "kind": "CREDIT_CARD",
+    "variant": "Select",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "5-10L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "1356",
+    "kind": "CREDIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "WEAK",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "1087",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "equitasbank.com",
+    "last4": "7050",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "cityunionbank.com",
+    "last4": "9813",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "5005",
+    "kind": "CREDIT_CARD",
+    "variant": "Cashback",
+    "lifecycle": "CLOSED",
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "5832",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "4726",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "0040",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "idbi.co.in",
+    "last4": "5444",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "yesbank.in",
+    "last4": "5993",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "1226",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "9170",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "6407",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "equitasbank.com",
+    "last4": "1224",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "9357",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

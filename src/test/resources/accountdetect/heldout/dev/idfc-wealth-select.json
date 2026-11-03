@@ -1,0 +1,1624 @@
+{
+ "mailbox": "idfc-wealth-select",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 3,665.12 was done on your IDFC FIRST Bank Credit Card xx1234 at ZOMATO on 01 Jun 2025. Available limit is INR 1,94,331.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-06-01",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 651.70 was done on your IDFC FIRST Bank Credit Card ending 1234 at RELIANCE SMART on 04 Jun 2025. Available limit is INR 2,74,154.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nT&C apply. Visit www.idfcfirstbank.com for more details.",
+   "date": "2025-06-04",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 750.08 was done on your IDFC FIRST Bank Credit Card XX4010 at OLA CABS on 10 Jun 2025. Available limit is INR 3,37,743.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-10",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Your IDFC FIRST Bank First Wealth Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank First Wealth Credit Card ending 4010 for Jun 2025 is ready. Total due Rs.9,529.78, pay by 30 Jun 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-12",
+   "attachments": [
+    {
+     "filename": "4010_12062025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Your IDFC FIRST Bank Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank Credit Card no. XXXXXXXXXXXX1234 for Jun 2025 is ready. Total due Rs.2,360.99, pay by 30 Jun 2025.\nView it in the app or NetBanking under Cards.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Jun2025.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK - CREDIT CARD STATEMENT\nName: DIVYA KULKARNI\nCredit Card Number: XXXX XXXX XXXX 1234\nStatement Date: 12/06/2025\nStatement Period: 13/05/2025 - 12/06/2025\nPayment Due Date: 30/06/2025\nTotal Amount Due: Rs. 2,360.99\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 90,180.00\n\nDate        Transaction Details                        Amount (Rs.)\n23/05/2025  DMART HYDERABAD   8,753.43 Dr\n31/05/2025  NETFLIX.COM CHENNAI   3,018.11 Dr\n23/05/2025  WESTSIDE KOCHI   480.12 Dr\n08/06/2025  BIGBASKET PUNE   4,025.10 Dr\n29/05/2025  WESTSIDE GURGAON   808.88 Dr\n03/06/2025  PAYMENT RECEIVED - THANK YOU   1,416.59 Cr\n\nReward Points Summary: Opening 5429  Earned 268  Closing 7140\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4003977562907  IFSC IDFC0000401"
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 22,965.55 was done on your IDFC FIRST Bank Credit Card ending 1234 at APOLLO PHARMACY on 19 Jun 2025. Available limit is INR 2,21,827.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-19",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,360.99 on 24-06-2025 towards your IDFC FIRST Bank Credit Card xx1234. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. IDFC FIRST Bank will never ask for these.",
+   "date": "2025-06-24",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.9,529.78 due on 30 June for card ending 4010. Ignore if already paid. Kripya samay par bhugtan karein.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-06-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 735.79 was done on your IDFC FIRST Bank Credit Card ending 1234 at BIGBASKET on 28 Jun 2025. Available limit is INR 2,59,366.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-06-28",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Your Swiggy order receipt",
+   "body": "नमस्ते,\nOrder #2342 delivered. Paid via UPI. Rate your meal!\nT&C apply.",
+   "date": "2025-07-06",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m011",
+   "subject": "Your IDFC FIRST Bank First Wealth Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,<br>\nThe statement of your IDFC FIRST Bank First Wealth Credit Card ending 4010 for Jul 2025 is ready. Total due Rs.271.17, pay by 30 Jul 2025.<br>\nView it in the app or NetBanking under Cards.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Jul2025.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK - CREDIT CARD STATEMENT\nName: DIVYA KULKARNI\nCredit Card Number: XXXX XXXX XXXX 4010\nStatement Date: 12/07/2025\nStatement Period: 12/06/2025 - 12/07/2025\nPayment Due Date: 30/07/2025\nTotal Amount Due: Rs. 271.17\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 47,077.00\n\nDate        Transaction Details                        Amount (Rs.)\n15/06/2025  BLINKIT HYDERABAD   670.81 Dr\n16/06/2025  BPCL FUEL CHENNAI   1,019.60 Dr\n09/07/2025  BLINKIT BANGALORE   623.18 Dr\n09/07/2025  IRCTC KOCHI   24,771.49 Dr\n18/06/2025  BATA INDIA GURGAON   198.16 Dr\n03/07/2025  PAYMENT RECEIVED - THANK YOU   162.70 Cr\nPay via HDFC Bank NetBanking (Bill Pay > Credit Cards > add this card), or ICICI Bank iConnect / Axis Bank. Last payment received through HDFC Bank A/c ending 6132.\n\nReward Points Summary: Opening 1052  Earned 523  Closing 1818\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Your IDFC FIRST Bank Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank Credit Card ending 1234 for Jul 2025 is ready. Total due Rs.4,415.50, pay by 30 Jul 2025.\nView it in the app or NetBanking under Cards.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Jul2025.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK - CREDIT CARD STATEMENT\nName: DIVYA KULKARNI\nCard No: 4249 78XX XXXX 1234\nStatement Date: 12/07/2025\nStatement Period: 12/06/2025 - 12/07/2025\nPayment Due Date: 30/07/2025\nTotal Amount Due: Rs. 4,415.50\nMinimum Amount Due: Rs. 220.78\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,69,206.00\n\nDate        Transaction Details                        Amount (Rs.)\n27/06/2025  WESTSIDE MUMBAI   2,025.68 Dr\n03/07/2025  DMART CHENNAI   26,518.21 Dr\n02/07/2025  IRCTC KOCHI   31,848.43 Dr\n09/07/2025  RELIANCE SMART GURGAON   2,826.92 Dr\n13/06/2025  CROMA HYDERABAD   1,407.22 Dr\n26/06/2025  IRCTC KOCHI   1,555.92 Dr\n03/07/2025  PAYMENT RECEIVED - THANK YOU   2,649.30 Cr\n\nReward Points Summary: Opening 3007  Earned 715  Closing 1591\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4003977562907  IFSC IDFC0000702"
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transction of INR 27,341.12 was done on your IDFC FIRST Bank Credit Card ending 4010 at MEDPLUS on 13 Jul 2025. Available limit is INR 3,63,620.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.",
+   "date": "2025-07-13",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,<br>\nA transaction of INR 39,801.35 was done on your IDFC FIRST Bank Credit Card ending 4010 at BIGBASKET on 13 Jul 2025. Available limit is INR 1,45,643.00.<br>\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nThis is a system generated email. Please do not reply to this message.\nT&C apply. Visit www.idfcfirstbank.com for more details.",
+   "date": "2025-07-13",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,<br>\nA transaction of INR 557.49 was done on your IDFC FIRST Bank Credit Card ending 1234 at ZOMATO on 22 Jul 2025. Available limit is INR 42,415.00.<br>\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-07-22",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.271.17 on 23-07-2025 towards your IDFC FIRST Bank Credit Card no. XXXXXXXXXXXX4010. Thank you.\n\nT&C apply. Visit www.idfcfirstbank.com for more details.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-07-23",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "OTP for online transaction",
+   "body": "411852 is the One Time Password (OTP) for your online transaction of INR 14,839.53 at NETFLIX.COM. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-07-24",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.271.17 due on 30 July for card XX4010. Ignore if already paid. Kripya samay par bhugtan karein.\n\nT&C apply. Visit www.idfcfirstbank.com for more details.",
+   "date": "2025-07-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.4,415.50 due on 30 July for card ending 1234. Ignore if already paid. Kripya samay par bhugtan karein.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-07-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.4,415.50 on 27-07-2025 towards your IDFC FIRST Bank Credit Card ending 1234. Thank you.\n\nT&C apply. Visit www.idfcfirstbank.com for more details.",
+   "date": "2025-07-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transction of INR 587.07 was done on your IDFC FIRST Bank Credit Card no. XXXXXXXXXXXX1234 at BIGBASKET on 01 Aug 2025. Available limit is INR 2,31,864.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.",
+   "date": "2025-08-01",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Divya Kulkarni,\nPlease find attached the updated MITC and Terms & Conditions applicable to your IDFC FIRST Bank First Wealth Credit Card. These are effective from the next billing cycle.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-09",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank at its discretion. The Cardholder shall not exceed the credit limit.\n3. Billing: An account statement is generated monthly and sent to the registered email address. The Cardholder should review the account statement and report discrepancies within 60 days.\n4. Interest: Finance charges apply on revolving balances up to 3.6% per month. 5. Payment: Minimum amount due must be paid on or before the due date. 6. Lost card: report immediately. 7. Grievance redressal and Ombudsman details are available on the website."
+    },
+    {
+     "filename": "Credit_Card_Terms_and_Conditions.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST Bank Credit Card Cardmember Agreement\nThis agreement governs the use of the card. The credit limit may be increased or reduced with notice. The monthly account statement is deemed accepted unless disputed. Card is the property of the Bank. Applicable law: India. Arbitration at Mumbai. Authorised signatory. For queries contact the customer care number printed on your account statement."
+    }
+   ],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 1,579.93 was done on your IDFC FIRST Bank Credit Card ending 1234 at MEDPLUS on 09 Aug 2025. Available limit is INR 1,15,387.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nNever share your OTP, PIN, CVV or password with anyone. IDFC FIRST Bank will never ask for these.",
+   "date": "2025-08-09",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Your IDFC FIRST Bank Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statment of your IDFC FIRST Bank Credit Card ending 1234 for Aug 2025 is ready. Total due Rs.2,19,501.90, pay by 30 Aug 2025.\nView it in the app or NetBanking under Cards.\n\nT&C apply. Visit www.idfcfirstbank.com for more details.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Aug2025.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK - CREDIT CARD STATEMENT\nName: DIVYA KULKARNI\nCard No: 4137 21XX XXXX 1234\nStatement Date: 12/08/2025\nStatement Period: 13/07/2025 - 12/08/2025\nPayment Due Date: 30/08/2025\nTotal Amount Due: Rs. 2,19,501.90\nMinimum Amount Due: Rs. 10,975.10\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,87,621.00\n\nDate        Transaction Details                        Amount (Rs.)\n23/07/2025  WESTSIDE PUNE   25,061.46 Dr\n07/08/2025  SHELL PETROL GURGAON   17,254.31 Dr\n08/08/2025  IRCTC KOCHI   2,177.86 Dr\n23/07/2025  LENSKART MUMBAI   36,116.67 Dr\n17/07/2025  RELIANCE SMART KOCHI   300.81 Dr\n16/07/2025  BOOKMYSHOW MUMBAI   39,883.10 Dr\n09/08/2025  DECATHLON MUMBAI   1,490.46 Dr\n24/07/2025  BIGBASKET PUNE   125.78 Dr\n06/08/2025  BOOKMYSHOW MUMBAI   3,113.70 Dr\n03/08/2025  PAYMENT RECEIVED - THANK YOU   1,31,701.14 Cr\n\nReward Points Summary: Opening 1490  Earned 653  Closing 4567\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4003977562907  IFSC IDFC0000259"
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 1,805.36 was done on your IDFC FIRST Bank Credit Card ending 1234 at DMART on 13 Aug 2025. Available limit is INR 20,997.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nT&C apply. Visit www.idfcfirstbank.com for more details.",
+   "date": "2025-08-13",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 10,058.37 was done on your IDFC FIRST Bank Credit Card XX4010 at LICIOUS on 20 Aug 2025. Available limit is INR 31,776.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-08-20",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Payment reminder: IDFC FIRST Bank Credit Card ending 1234",
+   "body": "Dear Customer,\nThis is a reminder that Rs.2,19,501.90 (minimum Rs.10,975.10) is due on 30-Aug-2025 on your IDFC FIRST Bank Credit Card ending 1234. Pay on time to avoid late payment charges.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transction of INR 849.61 was done on your IDFC FIRST Bank Credit Card XXXX XXXX XXXX 1234 at UBER INDIA on 01 Sep 2025. Available limit is INR 2,56,671.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-09-01",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 12,160.25 was done on your IDFC FIRST Bank Credit Card ending 4010 at ZEPTO on 04 Sep 2025. Available limit is INR 62,009.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-04",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Your IDFC FIRST Bank Credit Card statement is ready",
+   "body": "नमस्ते,\nDear Divya Kulkarni,\nThe statment of your IDFC FIRST Bank Credit Card ending 1234 for Sep 2025 is ready. Total due Rs.12,176.87, pay by 30 Sep 2025.\nView it in the app or NetBanking under Cards.\n\nNever share your OTP, PIN, CVV or password with anyone. IDFC FIRST Bank will never ask for these.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Sep2025.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK - CREDIT CARD STATEMENT\nName: DIVYA KULKARNI\nCredit Card Number: XXXX XXXX XXXX 1234\nStatement Date: 12/09/2025\nStatement Period: 13/08/2025 - 12/09/2025\nPayment Due Date: 30/09/2025\nTotal Amount Due: Rs. 12,176.87\nMinimum Amount Due: Rs. 608.84\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,14,263.00\n\nDate        Transaction Details                        Amount (Rs.)\n31/08/2025  LICIOUS PUNE   659.14 Dr\n28/08/2025  CAFE COFFEE DAY PUNE   919.04 Dr\n01/09/2025  GOOGLE PLAY BANGALORE   7,906.88 Dr\n08/09/2025  BPCL FUEL PUNE   4,101.52 Dr\n03/09/2025  TATA 1MG HYDERABAD   157.66 Dr\n22/08/2025  GOOGLE PLAY GURGAON   2,650.82 Dr\n03/09/2025  PAYMENT RECEIVED - THANK YOU   7,306.12 Cr\n\nReward Points Summary: Opening 1005  Earned 680  Closing 1547\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4003977562907  IFSC IDFC0000110"
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 896.76 was done on your IDFC FIRST Bank Credit Card ending 1234 at AMAZON PAY INDIA on 17 Sep 2025. Available limit is INR 2,15,783.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.",
+   "date": "2025-09-17",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 673.80 was done on your IDFC FIRST Bank Credit Card ending 4010 at INDIGO AIRLINES on 20 Sep 2025. Available limit is INR 37,120.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-09-20",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "नमस्ते,\nDear Divya Kulkarni,\nA transaction of INR 252.90 was done on your IDFC FIRST Bank Credit Card no. XXXXXXXXXXXX1234 at AIRBNB on 20 Sep 2025. Available limit is INR 2,85,618.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nNever share your OTP, PIN, CVV or password with anyone. IDFC FIRST Bank will never ask for these.",
+   "date": "2025-09-20",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 3499 reward points on your IDFC FIRST Bank Credit Card ending 1234. Redeem them on the rewards portal before they expire.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "OTP for online transaction",
+   "body": "919619 is the One Time Password (OTP) for your online transaction of INR 4,047.40 at PVR INOX. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nT&C apply. Visit www.idfcfirstbank.com for more details.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-09-26",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.12,176.87 due on 30 September for card ending 1234. Ignore if already paid. Kripya samay par bhugtan karein.<br>\n<br>\nBank is not liable for any delay in delivery of email due to technical reasons.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.12,176.87 on 27-09-2025 towards your IDFC FIRST Bank Credit Card XX1234. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,<br>\nA transaction of INR 6,213.77 was done on your IDFC FIRST Bank Credit Card ending 4010 at THIRD WAVE COFFEE on 02 Oct 2025. Available limit is INR 2,29,776.00.<br>\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-02",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Pre-approved Personal Loan for you",
+   "body": "Get Rs.7,00,000 at 11% p.a. Instant approval. Offer ID BF1714\nT&C apply.",
+   "date": "2025-10-08",
+   "attachments": [],
+   "from": "Bajaj Finserv <offers@bajajfinserv.in>"
+  },
+  {
+   "id": "m040",
+   "subject": "Your IDFC FIRST Bank Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank Credit Card ending 1234 for Oct 2025 is ready. Total due Rs.2,14,339.02, pay by 30 Oct 2025.\nView it in the app or NetBanking under Cards.\n\nT&C apply. Visit www.idfcfirstbank.com for more details.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Oct2025.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK - CREDIT CARD STATEMENT\nName: DIVYA KULKARNI\nCard No: 4895 83XX XXXX 1234\nStatement Date: 12/10/2025\nStatement Period: 12/09/2025 - 12/10/2025\nPayment Due Date: 30/10/2025\nTotal Amount Due: Rs. 2,14,339.02\nMinimum Amount Due: Rs. 10,716.95\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,93,479.00\n\nDate        Transaction Details                        Amount (Rs.)\n19/09/2025  GOOGLE PLAY PUNE   3,787.61 Dr\n06/10/2025  THIRD WAVE COFFEE KOCHI   5,888.13 Dr\n22/09/2025  OLA CABS PUNE   2,421.90 Dr\n14/09/2025  WESTSIDE KOCHI   13,773.47 Dr\n03/10/2025  PAYMENT RECEIVED - THANK YOU   1,28,603.41 Cr\n\nReward Points Summary: Opening 3941  Earned 158  Closing 3618\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 2,878.39 was done on your IDFC FIRST Bank Credit Card xx4010 at HOTSTAR on 14 Oct 2025. Available limit is INR 3,85,695.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-10-14",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 587.42 was done on your IDFC FIRST Bank Credit Card ending 4010 at HOTSTAR on 22 Oct 2025. Available limit is INR 3,01,661.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear&nbsp;Divya&nbsp;Kulkarni,\nA&nbsp;transaction of INR 8,922.60 was done on your IDFC FIRST Bank Credit Card ending 1234 at DMART on 25 Oct 2025. Available limit is INR 3,27,026.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.",
+   "date": "2025-10-25",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Payment reminder: IDFC FIRST Bank Credit Card XXXX XXXX XXXX 1234",
+   "body": "Dear&nbsp;Customer,\nThis&nbsp;is&nbsp;a reminder that Rs.2,14,339.02 (minimum Rs.10,716.95) is due on 30-Oct-2025 on your IDFC FIRST Bank Credit Card XXXX XXXX XXXX 1234. Pay on time to avoid late payment charges.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 40,253.86 was done on your IDFC FIRST Bank Credit Card ending 4010 at INDIGO AIRLINES on 01 Nov 2025. Available limit is INR 2,68,761.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nT&C apply. Visit www.idfcfirstbank.com for more details.",
+   "date": "2025-11-01",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 2,385.14 was done on your IDFC FIRST Bank Credit Card ending 4010 at OLA CABS on 07 Nov 2025. Available limit is INR 95,583.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.",
+   "date": "2025-11-07",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 553.02 was done on your IDFC FIRST Bank Credit Card ending 4010 at BLINKIT on 11 Nov 2025. Available limit is INR 1,72,437.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nT&C apply. Visit www.idfcfirstbank.com for more details.\nT&C apply. Visit www.idfcfirstbank.com for more details.",
+   "date": "2025-11-11",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear&nbsp;Divya&nbsp;Kulkarni,\nA&nbsp;transaction of INR 2,372.59 was done on your IDFC FIRST Bank Credit Card ending 1234 at HOTSTAR on 11 Nov 2025. Available limit is INR 99,889.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nNever share your OTP, PIN, CVV or password with anyone. IDFC FIRST Bank will never ask for these.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-11-11",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Your IDFC FIRST Bank Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank Credit Card ending 1234 for Nov 2025 is ready. Total due Rs.1,928.84, pay by 30 Nov 2025.\nView it in the app or NetBanking under Cards.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nNever share your OTP, PIN, CVV or password with anyone. IDFC FIRST Bank will never ask for these.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK - CREDIT CARD STATEMENT\nName: DIVYA KULKARNI\nCard No: 4791 52XX XXXX 1234\nStatement Date: 12/11/2025\nStatement Period: 13/10/2025 - 12/11/2025\nPayment Due Date: 30/11/2025\nTotal Amount Due: Rs. 1,928.84\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 59,426.00\n\nDate        Transaction Details                        Amount (Rs.)\n21/10/2025  REDBUS BANGALORE   132.23 Dr\n16/10/2025  BLINKIT CHENNAI   3,125.90 Dr\n02/11/2025  INDIGO AIRLINES PUNE   2,185.62 Dr\n30/10/2025  BIGBASKET CHENNAI   8,309.61 Dr\n03/11/2025  PAYMENT RECEIVED - THANK YOU   1,157.30 Cr\n\nReward Points Summary: Opening 8250  Earned 859  Closing 4533\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4003977562907  IFSC IDFC0000493"
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 15,131.80 was done on your IDFC FIRST Bank Credit Card ending 1234 at IRCTC on 19 Nov 2025. Available limit is INR 3,52,077.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-11-19",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 536.19 was done on your IDFC FIRST Bank Credit Card ending 4010 at ZOMATO on 23 Nov 2025. Available limit is INR 3,90,768.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-23",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.1,928.84 due on 30 November for card no. XXXXXXXXXXXX1234. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transction of INR 2,359.00 was done on your IDFC FIRST Bank Credit Card ending 4010 at CROMA on 01 Dec 2025. Available limit is INR 1,25,564.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-01",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 35,567.18 was done on your IDFC FIRST Bank Credit Card ending 1234 at IRCTC on 10 Dec 2025. Available limit is INR 2,84,339.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-12-10",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Your IDFC FIRST Bank First Wealth Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank First Wealth Credit Card ending 4010 for Dec 2025 is ready. Total due Rs.17,265.90, pay by 30 Dec 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nT&C apply. Visit www.idfcfirstbank.com for more details.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Your IDFC FIRST Bank Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank Credit Card ending 1234 for Dec 2025 is ready. Total due Rs.68,094.97, pay by 30 Dec 2025.\nView it in the app or NetBanking under Cards.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Dec2025.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK - CREDIT CARD STATEMENT\nName: DIVYA KULKARNI\nCard No: 4841 77XX XXXX 1234\nStatement Date: 12/12/2025\nStatement Period: 12/11/2025 - 12/12/2025\nPayment Due Date: 30/12/2025\nTotal Amount Due: Rs. 68,094.97\nMinimum Amount Due: Rs. 3,404.75\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 99,699.00\n\nDate        Transaction Details                        Amount (Rs.)\n06/12/2025  LICIOUS MUMBAI   345.51 Dr\n20/11/2025  THIRD WAVE COFFEE KOCHI   1,230.81 Dr\n27/11/2025  BLINKIT KOCHI   38,893.92 Dr\n08/12/2025  DECATHLON KOCHI   791.53 Dr\n13/11/2025  SPOTIFY BANGALORE   3,137.37 Dr\n17/11/2025  TATA 1MG PUNE   1,144.13 Dr\n14/11/2025  REDBUS KOCHI   31,581.70 Dr\n15/11/2025  OLA CABS MUMBAI   366.36 Dr\n03/12/2025  PAYMENT RECEIVED - THANK YOU   40,856.98 Cr\n\nReward Points Summary: Opening 8929  Earned 449  Closing 3566\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 1,340.68 was done on your IDFC FIRST Bank Credit Card ending 4010 at PVR INOX on 14 Dec 2025. Available limit is INR 2,03,542.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-12-14",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transction of INR 37,483.06 was done on your IDFC FIRST Bank Credit Card ending 1234 at BPCL FUEL on 14 Dec 2025. Available limit is INR 3,74,799.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-14",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear&nbsp;Divya&nbsp;Kulkarni,\nA&nbsp;transaction of INR 105.58 was done on your IDFC FIRST Bank Credit Card ending 4010 at STARBUCKS on 18 Dec 2025. Available limit is INR 1,85,011.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-12-18",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transction of INR 1,865.11 was done on your IDFC FIRST Bank Credit Card ending 1234 at REDBUS on 19 Dec 2025. Available limit is INR 1,55,879.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nT&C apply. Visit www.idfcfirstbank.com for more details.\nNever share your OTP, PIN, CVV or password with anyone. IDFC FIRST Bank will never ask for these.",
+   "date": "2025-12-19",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.17,265.90 on 23-12-2025 towards your IDFC FIRST Bank Credit Card ending 4010. Thank you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-12-23",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 3,178.46 was done on your IDFC FIRST Bank Credit Card ending 1234 at UBER INDIA on 23 Dec 2025. Available limit is INR 2,46,714.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-23",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.68,094.97 due on 30 December for card ending 1234. Ignore if already paid. Kripya samay par bhugtan karein.\n\nT&C apply. Visit www.idfcfirstbank.com for more details.\nT&C apply. Visit www.idfcfirstbank.com for more details.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 955.67 was done on your IDFC FIRST Bank Credit Card ending 1234 at AIRBNB on 04 Jan 2026. Available limit is INR 2,22,179.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-04",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 765.99 was done on your IDFC FIRST Bank Credit Card xx4010 at MEDPLUS on 08 Jan 2026. Available limit is INR 72,400.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-01-08",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Your IDFC FIRST Bank First Wealth Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank First Wealth Credit Card XXXX XXXX XXXX 4010 for Jan 2026 is ready. Total due Rs.1,38,921.18, pay by 30 Jan 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nNever share your OTP, PIN, CVV or password with anyone. IDFC FIRST Bank will never ask for these.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Your IDFC FIRST Bank Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank Credit Card ending 1234 for Jan 2026 is ready. Total due Rs.90,888.06, pay by 30 Jan 2026.\nView it in the app or NetBanking under Cards.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Jan2026.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK - CREDIT CARD STATEMENT\nName: DIVYA KULKARNI\nCard No: 4427 24XX XXXX 1234\nStatement Date: 12/01/2026\nStatement Period: 13/12/2025 - 12/01/2026\nPayment Due Date: 30/01/2026\nTotal Amount Due: Rs. 90,888.06\nMinimum Amount Due: Rs. 4,544.40\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,36,524.00\n\nDate        Transaction Details                        Amount (Rs.)\n10/01/2026  THIRD WAVE COFFEE GURGAON   317.53 Dr\n29/12/2025  APOLLO PHARMACY CHENNAI   3,030.27 Dr\n18/12/2025  SPOTIFY BANGALORE   1,422.72 Dr\n20/12/2025  WESTSIDE KOCHI   1,062.80 Dr\n08/01/2026  RELIANCE SMART GURGAON   2,589.41 Dr\n13/12/2025  BIGBASKET MUMBAI   7,090.90 Dr\n16/12/2025  BATA INDIA HYDERABAD   28,798.49 Dr\n03/01/2026  PAYMENT RECEIVED - THANK YOU   54,532.84 Cr\n\nReward Points Summary: Opening 8914  Earned 370  Closing 2166\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4003977562907  IFSC IDFC0000258"
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear&nbsp;Divya&nbsp;Kulkarni,<br>\nA&nbsp;transaction of INR 702.79 was done on your IDFC FIRST Bank Credit Card ending 1234 at UBER INDIA on 14 Jan 2026. Available limit is INR 3,27,020.00.<br>\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nT&C apply. Visit www.idfcfirstbank.com for more details.",
+   "date": "2026-01-14",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 3,474.12 was done on your IDFC FIRST Bank Credit Card ending 1234 at STARBUCKS on 16 Jan 2026. Available limit is INR 2,91,528.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-16",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "KYC update: Aadhaar verification",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;Aadhaar&nbsp;(XXXX XXXX 1391) has been successfully verified for e-KYC. PAN status: linked. No further action needed.",
+   "date": "2026-01-16",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Your Swiggy order receipt",
+   "body": "Order #4792 delivered. Paid via UPI. Rate your meal!\nT&C apply.",
+   "date": "2026-01-18",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m072",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "नमस्ते,\nDear Divya Kulkarni,\nA transaction of INR 3,088.31 was done on your IDFC FIRST Bank Credit Card ending 4010 at RELIANCE SMART on 20 Jan 2026. Available limit is INR 3,87,132.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-01-20",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 435.86 was done on your IDFC FIRST Bank Credit Card **1234 at RELIANCE SMART on 22 Jan 2026. Available limit is INR 3,91,275.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-01-22",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;received your payment of Rs.1,38,921.18 on 23-01-2026 towards your IDFC FIRST Bank Credit Card no. XXXXXXXXXXXX4010. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-23",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Mobile number updated",
+   "body": "Your mobile number XXXXXX7901 has been updated in our records. If not requested by you, visit the nearest branch.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-25",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.90,888.06 on 26-01-2026 towards your IDFC FIRST Bank Credit Card ending 1234. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-01-26",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.1,38,921.18 due on 30 January for card ending 4010. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 389.20 was done on your IDFC FIRST Bank Credit Card ending 4010 at LICIOUS on 08 Feb 2026. Available limit is INR 1,51,043.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-08",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear&nbsp;Divya&nbsp;Kulkarni,\nA&nbsp;transaction of INR 3,717.02 was done on your IDFC FIRST Bank Credit Card ending 4010 at RELIANCE SMART on 10 Feb 2026. Available limit is INR 1,63,110.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.",
+   "date": "2026-02-10",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Your IDFC FIRST Bank Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank Credit Card ending 1234 for Feb 2026 is ready. Total due Rs.1,04,023.57, pay by 02 Mar 2026.\nView it in the app or NetBanking under Cards.\n\nNever share your OTP, PIN, CVV or password with anyone. IDFC FIRST Bank will never ask for these.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK - CREDIT CARD STATEMENT\nName: DIVYA KULKARNI\nCredit Card Number: XXXX XXXX XXXX 1234\nStatement Date: 12/02/2026\nStatement Period: 13/01/2026 - 12/02/2026\nPayment Due Date: 02/03/2026\nTotal Amount Due: Rs. 1,04,023.57\nMinimum Amount Due: Rs. 5,201.18\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,52,814.00\n\nDate        Transaction Details                        Amount (Rs.)\n21/01/2026  NETFLIX.COM CHENNAI   586.52 Dr\n09/02/2026  NETFLIX.COM MUMBAI   8,963.28 Dr\n06/02/2026  ZEPTO HYDERABAD   7,409.84 Dr\n31/01/2026  RELIANCE SMART PUNE   9,078.33 Dr\n06/02/2026  MAKEMYTRIP HYDERABAD   137.76 Dr\n09/02/2026  OLA CABS PUNE   2,218.26 Dr\n16/01/2026  DMART GURGAON   453.86 Dr\n26/01/2026  MEDPLUS GURGAON   16,526.76 Dr\n31/01/2026  REDBUS BANGALORE   688.61 Dr\n03/02/2026  PAYMENT RECEIVED - THANK YOU   62,414.14 Cr\n\nReward Points Summary: Opening 4563  Earned 361  Closing 1564\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "नमस्ते,\nDear&nbsp;Divya&nbsp;Kulkarni,<br>\nA&nbsp;transaction of INR 1,492.41 was done on your IDFC FIRST Bank Credit Card ending 1234 at PVR INOX on 16 Feb 2026. Available limit is INR 1,31,750.00.<br>\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-16",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.1,04,023.57 on 23-02-2026 towards your IDFC FIRST Bank Credit Card XX1234. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-23",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 6579 reward points on your IDFC FIRST Bank Credit Card ending 1234. Redeem them on the rewards portal before they expire.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-02-25",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.1,04,023.57 due on 02 March for card XX1234. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Pre-approved Personal Loan for you",
+   "body": "Get Rs.7,00,000 at 11% p.a. Instant approval. Offer ID BF6282\nT&C apply.",
+   "date": "2026-02-28",
+   "attachments": [],
+   "from": "Bajaj Finserv <offers@bajajfinserv.in>"
+  },
+  {
+   "id": "m086",
+   "subject": "E-mandate cancelled",
+   "body": "Dear Customer,<br>\nThe e-mandate for NETFLIX.COM registered on your IDFC FIRST Bank card ending 4010 has been cancelled as requested. No further auto-debits will happen. Your card remains active.",
+   "date": "2026-03-09",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 33,973.82 was done on your IDFC FIRST Bank Credit Card ending 1234 at THIRD WAVE COFFEE on 10 Mar 2026. Available limit is INR 2,13,204.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.",
+   "date": "2026-03-10",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "Your IDFC FIRST Bank First Wealth Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank First Wealth Credit Card ending 4010 for Mar 2026 is ready. Total due Rs.12,322.86, pay by 30 Mar 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Your IDFC FIRST Bank Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank Credit Card ending 1234 for Mar 2026 is ready. Total due Rs.227.78, pay by 30 Mar 2026.\nView it in the app or NetBanking under Cards.\n\nNever share your OTP, PIN, CVV or password with anyone. IDFC FIRST Bank will never ask for these.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Mar2026.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK - CREDIT CARD STATEMENT\nName: DIVYA KULKARNI\nCard No: 4868 85XX XXXX 1234\nStatement Date: 12/03/2026\nStatement Period: 10/02/2026 - 12/03/2026\nPayment Due Date: 30/03/2026\nTotal Amount Due: Rs. 227.78\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 62,521.00\n\nDate        Transaction Details                        Amount (Rs.)\n24/02/2026  DMART KOCHI   1,269.76 Dr\n09/03/2026  WESTSIDE HYDERABAD   456.49 Dr\n13/02/2026  IRCTC BANGALORE   20,375.13 Dr\n09/03/2026  CAFE COFFEE DAY BANGALORE   26,349.99 Dr\n03/03/2026  PAYMENT RECEIVED - THANK YOU   136.67 Cr\n\nReward Points Summary: Opening 1601  Earned 843  Closing 1725\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4003977562907  IFSC IDFC0000408"
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 2,006.29 was done on your IDFC FIRST Bank Credit Card ending 4010 at SHELL PETROL on 25 Mar 2026. Available limit is INR 1,74,806.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-25",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.12,322.86 on 25-03-2026 towards your IDFC FIRST Bank Credit Card ending 4010. Thank you.",
+   "date": "2026-03-25",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Pay your bills and earn on Regalia Gold Credit Card",
+   "body": "Apply now for Regalia Gold, Millennia or Swiggy HDFC Bank Credit Card. Pre-approved. Offer code 8446\nT&C apply.",
+   "date": "2026-04-08",
+   "attachments": [],
+   "from": "HDFC Bank <offers@hdfcbank.net>"
+  },
+  {
+   "id": "m093",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 149.82 was done on your IDFC FIRST Bank Credit Card ending 4010 at CROMA on 09 Apr 2026. Available limit is INR 2,16,348.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nT&C apply. Visit www.idfcfirstbank.com for more details.",
+   "date": "2026-04-09",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear&nbsp;Divya&nbsp;Kulkarni,\nA&nbsp;transaction of INR 451.62 was done on your IDFC FIRST Bank Credit Card xx1234 at TATA 1MG on 09 Apr 2026. Available limit is INR 1,44,405.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nThis is a system generated email. Please do not reply to this message.\nT&C apply. Visit www.idfcfirstbank.com for more details.",
+   "date": "2026-04-09",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,<br>\nA transaction of INR 3,260.70 was done on your IDFC FIRST Bank Credit Card ending 1234 at DMART on 09 Apr 2026. Available limit is INR 66,774.00.<br>\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nNever share your OTP, PIN, CVV or password with anyone. IDFC FIRST Bank will never ask for these.\nT&C apply. Visit www.idfcfirstbank.com for more details.",
+   "date": "2026-04-09",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Your IDFC FIRST Bank First Wealth Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statment of your IDFC FIRST Bank First Wealth Credit Card ending 4010 for Apr 2026 is ready. Total due Rs.615.39, pay by 30 Apr 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Your IDFC FIRST Bank Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank Credit Card xx1234 for Apr 2026 is ready. Total due Rs.3,882.34, pay by 30 Apr 2026.\nView it in the app or NetBanking under Cards.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Apr2026.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK - CREDIT CARD STATEMENT\nName: DIVYA KULKARNI\nCard No: 4802 26XX XXXX 1234\nStatement Date: 12/04/2026\nStatement Period: 13/03/2026 - 12/04/2026\nPayment Due Date: 30/04/2026\nTotal Amount Due: Rs. 3,882.34\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 76,510.00\n\nDate        Transaction Details                        Amount (Rs.)\n10/04/2026  DMART GURGAON   18,473.42 Dr\n30/03/2026  URBAN COMPANY MUMBAI   2,955.49 Dr\n06/04/2026  SPOTIFY GURGAON   13,849.15 Dr\n29/03/2026  UBER INDIA KOCHI   3,223.25 Dr\n10/04/2026  CAFE COFFEE DAY HYDERABAD   1,490.97 Dr\n22/03/2026  CROMA HYDERABAD   1,931.96 Dr\n03/04/2026  PAYMENT RECEIVED - THANK YOU   2,329.40 Cr\n\nReward Points Summary: Opening 1472  Earned 79  Closing 1000\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 6,406.64 was done on your IDFC FIRST Bank Credit Card ending 4010 at CROMA on 14 Apr 2026. Available limit is INR 1,47,981.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-04-14",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Your EMI request has been cancelled",
+   "body": "Your request to convert transction of Rs.9,381.39 on card ending 4010 to EMI has been cancelled. The transaction stays on your regular bill.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-04-14",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear&nbsp;Divya&nbsp;Kulkarni,<br>\nA&nbsp;transaction of INR 28,286.85 was done on your IDFC FIRST Bank Credit Card ending 1234 at CROMA on 19 Apr 2026. Available limit is INR 2,26,935.00.<br>\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-04-19",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transction of INR 1,750.20 was done on your IDFC FIRST Bank Credit Card ending 1234 at LICIOUS on 21 Apr 2026. Available limit is INR 31,769.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.",
+   "date": "2026-04-21",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;received your payment of Rs.3,882.34 on 22-04-2026 towards your IDFC FIRST Bank Credit Card ending 1234. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-22",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 2,107.30 was done on your IDFC FIRST Bank Credit Card ending 4010 at DECATHLON on 25 Apr 2026. Available limit is INR 50,640.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.615.39 due on 30 April for card XXXX XXXX XXXX 4010. Ignore if already paid. Kripya samay par bhugtan karein.\n\nThis is a system generated email. Please do not reply to this message.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.615.39 on 27-04-2026 towards your IDFC FIRST Bank Credit Card no. XXXXXXXXXXXX4010. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "नमस्ते,\nDear Divya Kulkarni,\nA transction of INR 6,180.48 was done on your IDFC FIRST Bank Credit Card ending 4010 at INDIGO AIRLINES on 07 May 2026. Available limit is INR 3,46,599.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-05-07",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,<br>\nA transaction of INR 1,474.91 was done on your IDFC FIRST Bank Credit Card XXXX XXXX XXXX 4010 at NETFLIX.COM on 12 May 2026. Available limit is INR 2,51,044.00.<br>\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nT&C apply. Visit www.idfcfirstbank.com for more details.",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "Your IDFC FIRST Bank First Wealth Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank First Wealth Credit Card ending 4010 for May 2026 is ready. Total due Rs.29,431.19, pay by 30 May 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "4010_12052026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Your IDFC FIRST Bank Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank Credit Card ending 1234 for May 2026 is ready. Total due Rs.4,130.61, pay by 30 May 2026.\nView it in the app or NetBanking under Cards.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK - CREDIT CARD STATEMENT\nName: DIVYA KULKARNI\nCredit Card Number: XXXX XXXX XXXX 1234\nStatement Date: 12/05/2026\nStatement Period: 12/04/2026 - 12/05/2026\nPayment Due Date: 30/05/2026\nTotal Amount Due: Rs. 4,130.61\nMinimum Amount Due: Rs. 206.53\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 44,297.00\n\nDate        Transaction Details                        Amount (Rs.)\n12/04/2026  THIRD WAVE COFFEE CHENNAI   784.37 Dr\n25/04/2026  BOOKMYSHOW GURGAON   3,336.18 Dr\n13/04/2026  APOLLO PHARMACY BANGALORE   29,020.48 Dr\n17/04/2026  URBAN COMPANY PUNE   32,921.63 Dr\n21/04/2026  NETFLIX.COM HYDERABAD   1,956.11 Dr\n25/04/2026  BPCL FUEL HYDERABAD   7,521.66 Dr\n30/04/2026  APOLLO PHARMACY MUMBAI   3,789.54 Dr\n03/05/2026  PAYMENT RECEIVED - THANK YOU   2,478.37 Cr\n\nReward Points Summary: Opening 5530  Earned 668  Closing 6473\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4003977562907  IFSC IDFC0000950"
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 4,820.85 was done on your IDFC FIRST Bank Credit Card ending 1234 at IRCTC on 18 May 2026. Available limit is INR 2,97,658.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-18",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "OTP for online transaction",
+   "body": "853673 is the One Time Password (OTP) for your online transaction of INR 5,981.14 at AMAZON PAY INDIA. Valid for 5 minutes. Do not share with anyone, including bank staff.",
+   "date": "2026-05-19",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 2,904.67 was done on your IDFC FIRST Bank Credit Card ending 4010 at DECATHLON on 20 May 2026. Available limit is INR 2,87,345.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.",
+   "date": "2026-05-20",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Your contract note",
+   "body": "Contract note for trades done today is attached. Client ID ZR3762\nT&C apply.",
+   "date": "2026-05-22",
+   "attachments": [],
+   "from": "Zerodha <noreply@zerodha.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transction of INR 3,557.30 was done on your IDFC FIRST Bank Credit Card no. XXXXXXXXXXXX4010 at AMAZON PAY INDIA on 23 May 2026. Available limit is INR 73,618.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-23",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 266.87 was done on your IDFC FIRST Bank Credit Card ending 1234 at BATA INDIA on 23 May 2026. Available limit is INR 1,27,288.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.",
+   "date": "2026-05-23",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Secure your family with term insurance",
+   "body": "Plans from Rs 500/month. Policy no. will be shared post issuance. Quote ref 8960\nT&C apply.",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "Tata AIA Life <news@tataaia.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi&nbsp;Divya,&nbsp;a&nbsp;gentle nudge: Rs.29,431.19 due on 30 May for card **4010. Ignore if already paid. Kripya samay par bhugtan karein.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "Payment reminder: IDFC FIRST Bank Credit Card ending 1234",
+   "body": "Dear Customer,\nThis is a reminder that Rs.4,130.61 (minimum Rs.206.53) is due on 30-May-2026 on your IDFC FIRST Bank Credit Card ending 1234. Pay on time to avoid late payment charges.\n\nNever share your OTP, PIN, CVV or password with anyone. IDFC FIRST Bank will never ask for these.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 22,839.70 was done on your IDFC FIRST Bank Credit Card ending 1234 at BATA INDIA on 28 May 2026. Available limit is INR 35,669.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 2,671.18 was done on your IDFC FIRST Bank Credit Card ending 1234 at ZOMATO on 04 Jun 2026. Available limit is INR 2,13,975.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nNever share your OTP, PIN, CVV or password with anyone. IDFC FIRST Bank will never ask for these.",
+   "date": "2026-06-04",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "Your IDFC FIRST Bank First Wealth Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,<br>\nThe statement of your IDFC FIRST Bank First Wealth Credit Card ending 4010 for Jun 2026 is ready. Total due Rs.1,785.91, pay by 30 Jun 2026.<br>\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Your IDFC FIRST Bank Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank Credit Card ending 1234 for Jun 2026 is ready. Total due Rs.2,012.71, pay by 30 Jun 2026.\nView it in the app or NetBanking under Cards.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK - CREDIT CARD STATEMENT\nName: DIVYA KULKARNI\nCard No: 4597 51XX XXXX 1234\nStatement Date: 12/06/2026\nStatement Period: 13/05/2026 - 12/06/2026\nPayment Due Date: 30/06/2026\nTotal Amount Due: Rs. 2,012.71\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,12,158.00\n\nDate        Transaction Details                        Amount (Rs.)\n03/06/2026  STARBUCKS BANGALORE   1,784.90 Dr\n06/06/2026  NETFLIX.COM HYDERABAD   494.17 Dr\n19/05/2026  ZOMATO PUNE   4,379.05 Dr\n07/06/2026  APOLLO PHARMACY PUNE   1,730.05 Dr\n13/05/2026  SHELL PETROL BANGALORE   472.06 Dr\n17/05/2026  BPCL FUEL BANGALORE   34,048.46 Dr\n06/06/2026  AIRBNB KOCHI   2,932.13 Dr\n13/05/2026  APOLLO PHARMACY MUMBAI   5,826.56 Dr\n10/06/2026  URBAN COMPANY CHENNAI   19,682.89 Dr\n03/06/2026  PAYMENT RECEIVED - THANK YOU   1,207.63 Cr\n\nReward Points Summary: Opening 5439  Earned 577  Closing 8888\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4003977562907  IFSC IDFC0000527"
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 258.52 was done on your IDFC FIRST Bank Credit Card xx4010 at HOTSTAR on 16 Jun 2026. Available limit is INR 3,33,407.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-06-16",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 4,756.21 was done on your IDFC FIRST Bank Credit Card ending 4010 at BLINKIT on 18 Jun 2026. Available limit is INR 1,84,748.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-06-18",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,012.71 on 22-06-2026 towards your IDFC FIRST Bank Credit Card ending 1234. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. IDFC FIRST Bank will never ask for these.",
+   "date": "2026-06-22",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 2,263.58 was done on your IDFC FIRST Bank Credit Card ending 4010 at BATA INDIA on 25 Jun 2026. Available limit is INR 3,78,867.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Payment reminder: IDFC FIRST Bank Credit Card ending 4010",
+   "body": "Dear Customer,\nThis is a reminder that Rs.1,785.91 (minimum Rs.200.00) is due on 30-Jun-2026 on your IDFC FIRST Bank Credit Card ending 4010. Pay on time to avoid late payment charges.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Payment reminder: IDFC FIRST Bank Credit Card no. XXXXXXXXXXXX1234",
+   "body": "Dear&nbsp;Customer,\nThis&nbsp;is&nbsp;a reminder that Rs.2,012.71 (minimum Rs.200.00) is due on 30-Jun-2026 on your IDFC FIRST Bank Credit Card no. XXXXXXXXXXXX1234. Pay on time to avoid late payment charges.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transction of INR 693.65 was done on your IDFC FIRST Bank Credit Card ending 1234 at SPOTIFY on 02 Jul 2026. Available limit is INR 3,55,610.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nT&C apply. Visit www.idfcfirstbank.com for more details.",
+   "date": "2026-07-02",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 1,319.68 was done on your IDFC FIRST Bank Credit Card ending 4010 at BLINKIT on 04 Jul 2026. Available limit is INR 2,41,939.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-07-04",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Your IDFC FIRST Bank First Wealth Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank First Wealth Credit Card ending 4010 for Jul 2026 is ready. Total due Rs.29,754.13, pay by 30 Jul 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "4010_12072026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "Your IDFC FIRST Bank Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank Credit Card XX1234 for Jul 2026 is ready. Total due Rs.1,384.75, pay by 30 Jul 2026.\nView it in the app or NetBanking under Cards.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK - CREDIT CARD STATEMENT\nName: DIVYA KULKARNI\nCredit Card Number: XXXX XXXX XXXX 1234\nStatement Date: 12/07/2026\nStatement Period: 12/06/2026 - 12/07/2026\nPayment Due Date: 30/07/2026\nTotal Amount Due: Rs. 1,384.75\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 74,427.00\n\nDate        Transaction Details                        Amount (Rs.)\n05/07/2026  ZEPTO PUNE   6,370.94 Dr\n06/07/2026  APOLLO PHARMACY BANGALORE   2,794.12 Dr\n06/07/2026  ZEPTO PUNE   7,629.71 Dr\n06/07/2026  GOOGLE PLAY GURGAON   4,811.71 Dr\n03/07/2026  PAYMENT RECEIVED - THANK YOU   830.85 Cr\n\nReward Points Summary: Opening 8836  Earned 684  Closing 3718\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 15,073.67 was done on your IDFC FIRST Bank Credit Card ending 4010 at DECATHLON on 16 Jul 2026. Available limit is INR 1,80,054.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 2,936.91 was done on your IDFC FIRST Bank Credit Card XXXX XXXX XXXX 4010 at UBER INDIA on 16 Jul 2026. Available limit is INR 1,30,426.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,<br>\nA transaction of INR 8,645.69 was done on your IDFC FIRST Bank Credit Card ending 1234 at MEDPLUS on 24 Jul 2026. Available limit is INR 2,19,400.00.<br>\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.",
+   "date": "2026-07-24",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,384.75 on 24-07-2026 towards your IDFC FIRST Bank Credit Card ending 1234. Thank you.",
+   "date": "2026-07-24",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "Your reward points summary",
+   "body": "नमस्ते,\nDear Customer,\nYou have 6927 reward points on your IDFC FIRST Bank First Wealth Credit Card **4010. Redeem them on the rewards portal before they expire.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-25",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 4562 reward points on your IDFC FIRST Bank Credit Card ending 1234. Redeem them on the rewards portal before they expire.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-07-25",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.29,754.13 on 27-07-2026 towards your IDFC FIRST Bank Credit Card no. XXXXXXXXXXXX4010. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "Payment reminder: IDFC FIRST Bank Credit Card XX1234",
+   "body": "Dear Customer,\nThis is a reminder that Rs.1,384.75 (minimum Rs.200.00) is due on 30-Jul-2026 on your IDFC FIRST Bank Credit Card XX1234. Pay on time to avoid late payment charges.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "OTP for online transaction",
+   "body": "680551 is the One Time Password (OTP) for your online transaction of INR 6,126.51 at STARBUCKS. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-04",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transction of INR 519.08 was done on your IDFC FIRST Bank Credit Card ending 4010 at BIGBASKET on 06 Aug 2026. Available limit is INR 3,61,444.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-06",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 116.95 was done on your IDFC FIRST Bank Credit Card **1234 at BPCL FUEL on 07 Aug 2026. Available limit is INR 1,28,163.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.",
+   "date": "2026-08-07",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 3,123.09 was done on your IDFC FIRST Bank Credit Card ending 1234 at BPCL FUEL on 07 Aug 2026. Available limit is INR 3,14,034.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-07",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m145",
+   "subject": "Your IDFC FIRST Bank First Wealth Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,<br>\nThe statement of your IDFC FIRST Bank First Wealth Credit Card xx4010 for Aug 2026 is ready. Total due Rs.28,261.73, pay by 30 Aug 2026.<br>\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "Your IDFC FIRST Bank Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank Credit Card ending 1234 for Aug 2026 is ready. Total due Rs.12,884.92, pay by 30 Aug 2026.\nView it in the app or NetBanking under Cards.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK - CREDIT CARD STATEMENT\nName: DIVYA KULKARNI\nCredit Card Number: XXXX XXXX XXXX 1234\nStatement Date: 12/08/2026\nStatement Period: 13/07/2026 - 12/08/2026\nPayment Due Date: 30/08/2026\nTotal Amount Due: Rs. 12,884.92\nMinimum Amount Due: Rs. 644.25\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,74,353.00\n\nDate        Transaction Details                        Amount (Rs.)\n22/07/2026  THIRD WAVE COFFEE HYDERABAD   1,091.54 Dr\n23/07/2026  PVR INOX HYDERABAD   3,195.60 Dr\n02/08/2026  SHELL PETROL BANGALORE   586.40 Dr\n08/08/2026  OLA CABS CHENNAI   34,978.21 Dr\n28/07/2026  SHELL PETROL MUMBAI   538.38 Dr\n31/07/2026  BATA INDIA HYDERABAD   653.94 Dr\n03/08/2026  PAYMENT RECEIVED - THANK YOU   7,730.95 Cr\n\nReward Points Summary: Opening 8072  Earned 833  Closing 1681\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 4003977562907  IFSC IDFC0000393"
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 31,205.32 was done on your IDFC FIRST Bank Credit Card ending 1234 at OLA CABS on 14 Aug 2026. Available limit is INR 3,55,295.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.",
+   "date": "2026-08-14",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transaction of Rs.9,227.21 on card XXXX XXXX XXXX 4010 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transaction of Rs.11,498.24 on card **1234 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.12,884.92 on 25-08-2026 towards your IDFC FIRST Bank Credit Card ending 1234. Thank you.",
+   "date": "2026-08-25",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.28,261.73 due on 30 August for card xx4010. Ignore if already paid. Kripya samay par bhugtan karein.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.28,261.73 on 28-08-2026 towards your IDFC FIRST Bank Credit Card ending 4010. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nT&C apply. Visit www.idfcfirstbank.com for more details.",
+   "date": "2026-08-28",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 2,518.28 was done on your IDFC FIRST Bank Credit Card XX1234 at BATA INDIA on 02 Sep 2026. Available limit is INR 1,54,179.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.",
+   "date": "2026-09-02",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card ending 4010 has been processed. Tenure 6 months. First EMI will appear on your next statement.\n\nT&C apply. Visit www.idfcfirstbank.com for more details.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card ending 1234 has been processed. Tenure 12 months. First EMI will appear on your next statement.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 37,392.04 was done on your IDFC FIRST Bank Credit Card ending 1234 at INDIGO AIRLINES on 07 Sep 2026. Available limit is INR 3,81,484.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nT&C apply. Visit www.idfcfirstbank.com for more details.",
+   "date": "2026-09-07",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "Your IDFC FIRST Bank First Wealth Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank First Wealth Credit Card ending 4010 for Sep 2026 is ready. Total due Rs.29,606.79, pay by 30 Sep 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "Your IDFC FIRST Bank Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank Credit Card ending 1234 for Sep 2026 is ready. Total due Rs.12,580.03, pay by 30 Sep 2026.\nView it in the app or NetBanking under Cards.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK - CREDIT CARD STATEMENT\nName: DIVYA KULKARNI\nCard No: 4662 37XX XXXX 1234\nStatement Date: 12/09/2026\nStatement Period: 13/08/2026 - 12/09/2026\nPayment Due Date: 30/09/2026\nTotal Amount Due: Rs. 12,580.03\nMinimum Amount Due: Rs. 629.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,15,490.00\n\nDate        Transaction Details                        Amount (Rs.)\n28/08/2026  PVR INOX BANGALORE   597.14 Dr\n27/08/2026  LICIOUS HYDERABAD   3,845.33 Dr\n23/08/2026  REDBUS CHENNAI   3,304.11 Dr\n22/08/2026  LENSKART HYDERABAD   7,160.11 Dr\n17/08/2026  BOOKMYSHOW KOCHI   288.56 Dr\n22/08/2026  INDIGO AIRLINES MUMBAI   389.36 Dr\n03/09/2026  PAYMENT RECEIVED - THANK YOU   7,548.02 Cr\n\nReward Points Summary: Opening 5504  Earned 638  Closing 6804\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 2,901.14 was done on your IDFC FIRST Bank Credit Card XX4010 at CROMA on 14 Sep 2026. Available limit is INR 48,030.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.",
+   "date": "2026-09-14",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,<br>\nA transaction of INR 2,460.34 was done on your IDFC FIRST Bank Credit Card ending 1234 at BPCL FUEL on 15 Sep 2026. Available limit is INR 96,000.00.<br>\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nThis is a system generated email. Please do not reply to this message.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-09-15",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your IDFC FIRST Bank First Wealth Credit Card ending 4010 has been increased to Rs.4,50,000.00 effective 17-09-2026.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your IDFC FIRST Bank Credit Card XX1234 has been increased to Rs.2,00,000.00 effective 17-09-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,<br>\nA transaction of INR 816.41 was done on your IDFC FIRST Bank Credit Card no. XXXXXXXXXXXX1234 at DECATHLON on 24 Sep 2026. Available limit is INR 1,09,755.00.<br>\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.",
+   "date": "2026-09-24",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.12,580.03 on 25-09-2026 towards your IDFC FIRST Bank Credit Card ending 1234. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. IDFC FIRST Bank will never ask for these.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.29,606.79 on 26-09-2026 towards your IDFC FIRST Bank Credit Card xx4010. Thank you.",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.29,606.79 due on 30 September for card ending 4010. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,\nA transaction of INR 758.19 was done on your IDFC FIRST Bank Credit Card ending 1234 at AMAZON PAY INDIA on 06 Oct 2026. Available limit is INR 3,61,618.00.\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-10-06",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "Your IDFC FIRST Bank First Wealth Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank First Wealth Credit Card no. XXXXXXXXXXXX4010 for Oct 2026 is ready. Total due Rs.2,032.10, pay by 30 Oct 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nNever share your OTP, PIN, CVV or password with anyone. IDFC FIRST Bank will never ask for these.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Your IDFC FIRST Bank Credit Card statement is ready",
+   "body": "Dear Divya Kulkarni,\nThe statement of your IDFC FIRST Bank Credit Card XX1234 for Oct 2026 is ready. Total due Rs.5,824.74, pay by 30 Oct 2026.\nView it in the app or NetBanking under Cards.\n\nT&C apply. Visit www.idfcfirstbank.com for more details.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "IDFC_Statement_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "IDFC FIRST BANK - CREDIT CARD STATEMENT\nName: DIVYA KULKARNI\nCredit Card Number: XXXX XXXX XXXX 1234\nStatement Date: 12/10/2026\nStatement Period: 12/09/2026 - 12/10/2026\nPayment Due Date: 30/10/2026\nTotal Amount Due: Rs. 5,824.74\nMinimum Amount Due: Rs. 291.24\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 41,593.00\n\nDate        Transaction Details                        Amount (Rs.)\n29/09/2026  UBER INDIA HYDERABAD   5,093.25 Dr\n26/09/2026  PVR INOX PUNE   35,196.00 Dr\n14/09/2026  GOOGLE PLAY KOCHI   23,154.80 Dr\n30/09/2026  GOOGLE PLAY CHENNAI   944.40 Dr\n30/09/2026  INDIGO AIRLINES MUMBAI   3,755.86 Dr\n05/10/2026  SHELL PETROL MUMBAI   1,638.48 Dr\n25/09/2026  AIRBNB GURGAON   3,247.95 Dr\n04/10/2026  IRCTC MUMBAI   4,881.05 Dr\n05/10/2026  TATA 1MG CHENNAI   230.23 Dr\n03/10/2026  PAYMENT RECEIVED - THANK YOU   3,494.84 Cr\n\nReward Points Summary: Opening 4161  Earned 147  Closing 3802\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "IDFC FIRST Bank <creditcardstatements@idfcfirstbank.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "Transaction Alert - IDFC FIRST Bank Credit Card",
+   "body": "Dear Divya Kulkarni,<br>\nA transction of INR 428.34 was done on your IDFC FIRST Bank Credit Card ending 4010 at DMART on 16 Oct 2026. Available limit is INR 3,26,275.00.<br>\nSwitch off / on international, online and contactless usage in the FIRSTmoney app.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "Transaction cancelled / refund initiated",
+   "body": "Dear Customer,<br>\nYour transaction at IRCTC for Rs.2,925.94 has been cancelled by the merchant. A refund will be credited to your card ending 4010 in 5-7 working days.<br>\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m172",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.5,824.74 on 23-10-2026 towards your IDFC FIRST Bank Credit Card ending 1234. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-23",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "OTP for online transaction",
+   "body": "935122 is the One Time Password (OTP) for your online transaction of INR 638.00 at INDIGO AIRLINES. Valid for 5 minutes. Do not share with anyone, including bank staff.",
+   "date": "2026-10-24",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m174",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,032.10 on 25-10-2026 towards your IDFC FIRST Bank Credit Card ending 4010. Thank you.",
+   "date": "2026-10-25",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <alerts@idfcfirstbank.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Divya, a gentle nudge: Rs.5,824.74 due on 30 October for card ending 1234. Ignore if already paid. Kripya samay par bhugtan karein.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "IDFC FIRST Bank <customercare@idfcfirstbank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "4010",
+    "kind": "CREDIT_CARD",
+    "variant": "First Wealth",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "1234",
+    "kind": "CREDIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "6132",
+    "why": "payer account named in other bank card statement (pay via HDFC NetBanking)"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "2907",
+    "why": "bank own beneficiary account in statement payment instructions"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "1391",
+    "why": "masked Aadhaar number"
+   },
+   {
+    "issuerDomain": "idfcfirstbank.com",
+    "last4": "7901",
+    "why": "masked mobile number"
+   }
+  ]
+ }
+}

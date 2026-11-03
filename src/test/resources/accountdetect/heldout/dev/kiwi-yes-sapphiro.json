@@ -1,0 +1,1466 @@
+{
+ "mailbox": "kiwi-yes-sapphiro",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 8,623.78 has been charged on your YES BANK Credit Card ending 6633 at OLA CABS on 07-Nov-2025 18:27:06. Available limit INR 85,217.00.\nFor disputes call 1800 1200.\n\nT&C apply. Visit www.yesbank.in for more details.",
+   "date": "2025-11-07",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m002",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 470.21 has been charged on your YES BANK Credit Card ending 6633 at LICIOUS on 12-Nov-2025 19:37:22. Available limit INR 1,19,298.00.\nFor disputes call 1800 1200.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-11-12",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m003",
+   "subject": "YES BANK Kiwi Credit Card Statement - Nov 2025",
+   "body": "Dear Customer,\nYour YES BANK Kiwi Credit Card ending 6633 Statement for the period 13/10/2025 to 12/11/2025 is attached.\nTotal Amount Due: Rs. 2,186.67\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/11/2025\nPay via NetBanking, UPI or auto-debit.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "YES_Statement_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "YES BANK - CREDIT CARD STATEMENT\nName: HARSH MEHTA\nCard No: 4557 65XX XXXX 6633\nStatement Date: 12/11/2025\nStatement Period: 13/10/2025 - 12/11/2025\nPayment Due Date: 30/11/2025\nTotal Amount Due: Rs. 2,186.67\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,35,943.00\n\nDate        Transaction Details                        Amount (Rs.)\n08/11/2025  GOOGLE PLAY PUNE   18,942.07 Dr\n13/10/2025  SPOTIFY BANGALORE   437.66 Dr\n15/10/2025  MAKEMYTRIP HYDERABAD   2,080.61 Dr\n19/10/2025  NETFLIX.COM HYDERABAD   5,325.83 Dr\n03/11/2025  PAYMENT RECEIVED - THANK YOU   1,312.00 Cr\n\nReward Points Summary: Opening 6043  Earned 556  Closing 8629\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "YES BANK Cards <ccstatements@yesbank.in>"
+  },
+  {
+   "id": "m004",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Harsh Mehta,\nThe statement of your ICICI Bank Sapphiro Credit Card XX2026 for Nov 2025 is ready. Total due Rs.4,735.23, pay by 30 Nov 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.4,735.23 on 22-11-2025 towards your ICICI Bank Credit Card XXXX XXXX XXXX 2026. Thank you.",
+   "date": "2025-11-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 592.39 on Nov 24, 2025 at 08:54:27. Info: BATA INDIA.\nThe Available Credit Limit on your card is INR 2,42,962.00 and Total Credit Limit is INR 2,72,962.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.2,186.67 on 25-11-2025 towards your YES BANK Credit Card no. XXXXXXXXXXXX6633. Thank you.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m008",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Harsh, a gentle nudge: Rs.2,186.67 due on 30 November for card no. XXXXXXXXXXXX6633. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "YES BANK <customercare@yesbank.in>"
+  },
+  {
+   "id": "m009",
+   "subject": "Payment reminder: ICICI Bank Credit Card XX2026",
+   "body": "Dear Customer,\nThis is a reminder that Rs.4,735.23 (minimum Rs.236.76) is due on 30-Nov-2025 on your ICICI Bank Credit Card XX2026. Pay on time to avoid late payment charges.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 6,607.81 has been charged on your YES BANK Credit Card ending 6633 at DMART on 03-Dec-2025 04:17:05. Available limit INR 68,690.00.\nFor disputes call 1800 1200.\n\nT&C apply. Visit www.yesbank.in for more details.",
+   "date": "2025-12-03",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m011",
+   "subject": "OTP for online transaction",
+   "body": "533965 is the One Time Password (OTP) for your online transaction of INR 3,794.43 at BIGBASKET. Valid for 5 minutes. Do not share with anyone, including bank staff.",
+   "date": "2025-12-03",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m012",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;40,000.73&nbsp;has been charged on your YES BANK Credit Card ending 6633 at MEDPLUS on 05-Dec-2025 16:00:08. Available limit INR 92,915.00.\nFor disputes call 1800 1200.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m013",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 126.95 on Dec 06, 2025 at 18:39:14. Info: HOTSTAR.\nThe Available Credit Limit on your card is INR 3,61,582.00 and Total Credit Limit is INR 3,91,582.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 8,932.01 on Dec 06, 2025 at 19:14:44. Info: APOLLO PHARMACY.\nThe Available Credit Limit on your card is INR 3,62,830.00 and Total Credit Limit is INR 3,92,830.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.",
+   "date": "2025-12-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "YES BANK Kiwi Credit Card Statement - Dec 2025",
+   "body": "Dear Customer,\nYour YES BANK Kiwi Credit Card ending 6633 Statement for the period 12/11/2025 to 12/12/2025 is attached.\nTotal Amount Due: Rs. 2,183.74\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/12/2025\nPay via NetBanking, UPI or auto-debit.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "YES_Statement_Dec2025.pdf",
+     "protected": false,
+     "pdfText": "YES BANK - CREDIT CARD STATEMENT\nName: HARSH MEHTA\nCredit Card Number: XXXX XXXX XXXX 6633\nStatement Date: 12/12/2025\nStatement Period: 12/11/2025 - 12/12/2025\nPayment Due Date: 30/12/2025\nTotal Amount Due: Rs. 2,183.74\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 42,195.00\n\nDate        Transaction Details                        Amount (Rs.)\n14/11/2025  SPOTIFY BANGALORE   2,799.22 Dr\n24/11/2025  MEDPLUS GURGAON   3,454.60 Dr\n17/11/2025  IRCTC GURGAON   2,630.14 Dr\n24/11/2025  BOOKMYSHOW KOCHI   22,697.53 Dr\n04/12/2025  DECATHLON MUMBAI   4,159.75 Dr\n03/12/2025  PAYMENT RECEIVED - THANK YOU   1,310.24 Cr\nPay via HDFC Bank NetBanking (Bill Pay > Credit Cards > add this card), or ICICI Bank iConnect / Axis Bank. Last payment received through HDFC Bank A/c ending 3897.\n\nReward Points Summary: Opening 2749  Earned 483  Closing 1138\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 6193275269378  IFSC YES 0000536"
+    }
+   ],
+   "from": "YES BANK Cards <ccstatements@yesbank.in>"
+  },
+  {
+   "id": "m016",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Harsh Mehta,\nThe statement of your ICICI Bank Sapphiro Credit Card XX2026 for Dec 2025 is ready. Total due Rs.1,100.36, pay by 30 Dec 2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;354.43&nbsp;has been charged on your YES BANK Credit Card no. XXXXXXXXXXXX6633 at ZOMATO on 20-Dec-2025 22:07:18. Available limit INR 1,71,740.00.\nFor disputes call 1800 1200.",
+   "date": "2025-12-20",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m018",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 5,222.57 on Dec 20, 2025 at 10:19:25. Info: STARBUCKS.\nThe Available Credit Limit on your card is INR 32,294.00 and Total Credit Limit is INR 62,294.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-12-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 3,469.06 on Dec 20, 2025 at 04:12:06. Info: WESTSIDE.\nThe Available Credit Limit on your card is INR 1,87,694.00 and Total Credit Limit is INR 2,17,694.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Payment reminder: YES BANK Credit Card ending 6633",
+   "body": "Dear Customer,\nThis is a reminder that Rs.2,183.74 (minimum Rs.200.00) is due on 30-Dec-2025 on your YES BANK Credit Card ending 6633. Pay on time to avoid late payment charges.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "YES BANK <customercare@yesbank.in>"
+  },
+  {
+   "id": "m021",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;received your payment of Rs.1,100.36 on 27-12-2025 towards your ICICI Bank Credit Card XX2026. Thank you.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 1,283.32 has been charged on your YES BANK Credit Card **6633 at CAFE COFFEE DAY on 28-Dec-2025 10:30:03. Available limit INR 2,08,598.00.\nFor disputes call 1800 1200.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m023",
+   "subject": "OTP for online transaction",
+   "body": "692835&nbsp;is&nbsp;the&nbsp;One Time Password (OTP) for your online transaction of INR 2,417.66 at BLINKIT. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nNever share your OTP, PIN, CVV or password with anyone. HSBC will never ask for these.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m024",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,183.74 on 29-12-2025 towards your YES BANK Credit Card ending 6633. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-29",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m025",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 854.30 has been charged on your YES BANK Credit Card ending 6633 at UBER INDIA on 03-Jan-2026 03:55:41. Available limit INR 2,88,941.00.\nFor disputes call 1800 1200.",
+   "date": "2026-01-03",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m026",
+   "subject": "YES BANK Kiwi Credit Card Statement - Jan 2026",
+   "body": "Dear Customer,\nYour YES BANK Kiwi Credit Card ending 6633 Statement for the period 13/12/2025 to 12/01/2026 is attached.\nTotal Amount Due: Rs. 14,230.53\nMinimum Amount Due: Rs. 711.53\nPayment Due Date: 30/01/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "YES_Statement_Jan2026.pdf",
+     "protected": false,
+     "pdfText": "YES BANK - CREDIT CARD STATEMENT\nName: HARSH MEHTA\nCredit Card Number: XXXX XXXX XXXX 6633\nCard Type: Kiwi\nStatement Date: 12/01/2026\nStatement Period: 13/12/2025 - 12/01/2026\nPayment Due Date: 30/01/2026\nTotal Amount Due: Rs. 14,230.53\nMinimum Amount Due: Rs. 711.53\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 92,745.00\n\nDate        Transaction Details                        Amount (Rs.)\n26/12/2025  GOOGLE PLAY MUMBAI   624.80 Dr\n17/12/2025  BLINKIT GURGAON   740.58 Dr\n25/12/2025  URBAN COMPANY GURGAON   343.42 Dr\n14/12/2025  CAFE COFFEE DAY CHENNAI   557.76 Dr\n30/12/2025  NETFLIX.COM GURGAON   36,021.44 Dr\n08/01/2026  MEDPLUS PUNE   39,868.49 Dr\n30/12/2025  CAFE COFFEE DAY CHENNAI   1,698.09 Dr\n27/12/2025  PVR INOX HYDERABAD   4,078.63 Dr\n18/12/2025  JIO PREPAID MUMBAI   4,169.05 Dr\n03/01/2026  PAYMENT RECEIVED - THANK YOU   8,538.32 Cr\n\nReward Points Summary: Opening 345  Earned 765  Closing 1750\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 6193275269378  IFSC YES 0000900"
+    }
+   ],
+   "from": "YES BANK Cards <ccstatements@yesbank.in>"
+  },
+  {
+   "id": "m027",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Harsh Mehta,\nThe statement of your ICICI Bank Sapphiro Credit Card xx2026 for Jan 2026 is ready. Total due Rs.9,494.06, pay by 30 Jan 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "2026_12012026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 196.94 has been charged on your YES BANK Credit Card ending 6633 at THIRD WAVE COFFEE on 14-Jan-2026 08:01:24. Available limit INR 45,380.00.\nFor disputes call 1800 1200.",
+   "date": "2026-01-14",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m029",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "नमस्ते,\nDear&nbsp;Customer,\nYour&nbsp;ICICI&nbsp;Bank Credit Card no. XXXXXXXXXXXX2026 has been used for a transction of INR 841.36 on Jan 15, 2026 at 23:32:21. Info: LICIOUS.\nThe Available Credit Limit on your card is INR 1,29,711.00 and Total Credit Limit is INR 1,59,711.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-01-15",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 37,819.46 has been charged on your YES BANK Credit Card ending 6633 at PVR INOX on 16-Jan-2026 17:17:22. Available limit INR 2,43,936.00.\nFor disputes call 1800 1200.",
+   "date": "2026-01-16",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m031",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card xx2026 has been used for a transaction of INR 6,867.65 on Jan 17, 2026 at 15:25:21. Info: SPOTIFY.\nThe Available Credit Limit on your card is INR 1,92,472.00 and Total Credit Limit is INR 2,22,472.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.",
+   "date": "2026-01-17",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.9,494.06 on 28-01-2026 towards your ICICI Bank Credit Card XX2026. Thank you.",
+   "date": "2026-01-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 14,099.62 on Feb 02, 2026 at 15:35:04. Info: DECATHLON.\nThe Available Credit Limit on your card is INR 27,092.00 and Total Credit Limit is INR 57,092.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.",
+   "date": "2026-02-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 3,400.77 has been charged on your YES BANK Credit Card ending 6633 at BPCL FUEL on 07-Feb-2026 06:48:42. Available limit INR 60,880.00.\nFor disputes call 1800 1200.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-02-07",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m035",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,<br>\nINR 10,007.00 has been charged on your YES BANK Credit Card ending 6633 at URBAN COMPANY on 07-Feb-2026 12:52:11. Available limit INR 3,56,364.00.<br>\nFor disputes call 1800 1200.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-07",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m036",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 647.30 on Feb 07, 2026 at 01:44:43. Info: RELIANCE SMART.\nThe Available Credit Limit on your card is INR 2,81,448.00 and Total Credit Limit is INR 3,11,448.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-02-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 321.76 on Feb 10, 2026 at 05:29:39. Info: BOOKMYSHOW.\nThe Available Credit Limit on your card is INR 3,15,270.00 and Total Credit Limit is INR 3,45,270.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.",
+   "date": "2026-02-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 10,454.72 on Feb 11, 2026 at 04:14:40. Info: THIRD WAVE COFFEE.\nThe Available Credit Limit on your card is INR 62,555.00 and Total Credit Limit is INR 92,555.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.",
+   "date": "2026-02-11",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "YES BANK Kiwi Credit Card Statement - Feb 2026",
+   "body": "Dear Customer,\nYour YES BANK Kiwi Credit Card ending 6633 Statement for the period 13/01/2026 to 12/02/2026 is attached.\nTotal Amount Due: Rs. 11,664.25\nMinimum Amount Due: Rs. 583.21\nPayment Due Date: 02/03/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "YES_Statement_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "YES BANK - CREDIT CARD STATEMENT\nName: HARSH MEHTA\nCredit Card Number: XXXX XXXX XXXX 6633\nStatement Date: 12/02/2026\nStatement Period: 13/01/2026 - 12/02/2026\nPayment Due Date: 02/03/2026\nTotal Amount Due: Rs. 11,664.25\nMinimum Amount Due: Rs. 583.21\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,62,015.00\n\nDate        Transaction Details                        Amount (Rs.)\n14/01/2026  INDIGO AIRLINES HYDERABAD   1,348.92 Dr\n03/02/2026  HOTSTAR BANGALORE   1,348.77 Dr\n26/01/2026  APOLLO PHARMACY PUNE   389.08 Dr\n07/02/2026  OLA CABS BANGALORE   3,297.71 Dr\n30/01/2026  BPCL FUEL CHENNAI   625.84 Dr\n14/01/2026  CROMA GURGAON   2,357.69 Dr\n09/02/2026  REDBUS MUMBAI   14,218.05 Dr\n03/02/2026  BATA INDIA PUNE   1,625.96 Dr\n23/01/2026  BOOKMYSHOW MUMBAI   5,003.23 Dr\n03/02/2026  PAYMENT RECEIVED - THANK YOU   6,998.55 Cr\n\nReward Points Summary: Opening 4607  Earned 359  Closing 3685\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "YES BANK Cards <ccstatements@yesbank.in>"
+  },
+  {
+   "id": "m040",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Harsh Mehta,\nThe statement of your ICICI Bank Sapphiro Credit Card XX2026 for Feb 2026 is ready. Total due Rs.71,439.22, pay by 02 Mar 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "2026_12022026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,<br>\nINR 1,852.73 has been charged on your YES BANK Credit Card XX6633 at APOLLO PHARMACY on 13-Feb-2026 10:08:40. Available limit INR 3,57,434.00.<br>\nFor disputes call 1800 1200.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-13",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m042",
+   "subject": "Pre-approved limit enhancement",
+   "body": "Dear Harsh Mehta,\nYou are eligible for a limit enhancement on your card **8143. Click to accept the offer. Offer valid till 31 Dec.\n\nT&C apply. Visit www.hsbc.co.in for more details.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-02-14",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m043",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 2,980.97 has been charged on your YES BANK Credit Card **6633 at ZOMATO on 19-Feb-2026 00:07:44. Available limit INR 3,44,759.00.\nFor disputes call 1800 1200.\n\nNever share your OTP, PIN, CVV or password with anyone. YES BANK will never ask for these.",
+   "date": "2026-02-19",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m044",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.71,439.22 on 22-02-2026 towards your ICICI Bank Credit Card XX2026. Thank you.",
+   "date": "2026-02-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "KYC update: Aadhaar verification",
+   "body": "Dear Customer,\nYour Aadhaar (XXXX XXXX 4483) has been successfully verified for e-KYC. PAN status: linked. No further action needed.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-02-23",
+   "attachments": [],
+   "from": "YES BANK <customercare@yesbank.in>"
+  },
+  {
+   "id": "m046",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.11,664.25 on 24-02-2026 towards your YES BANK Credit Card **6633. Thank you.",
+   "date": "2026-02-24",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m047",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 6924 reward points on your YES BANK Kiwi Credit Card ending 6633. Redeem them on the rewards portal before they expire.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-02-25",
+   "attachments": [],
+   "from": "YES BANK <customercare@yesbank.in>"
+  },
+  {
+   "id": "m048",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 493 reward points on your ICICI Bank Sapphiro Credit Card XX2026. Redeem them on the rewards portal before they expire.",
+   "date": "2026-02-25",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Harsh, a gentle nudge: Rs.71,439.22 due on 02 March for card XX2026. Ignore if already paid. Kripya samay par bhugtan karein.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 313.34 has been charged on your YES BANK Credit Card ending 6633 at RELIANCE SMART on 01-Mar-2026 02:48:38. Available limit INR 3,03,960.00.\nFor disputes call 1800 1200.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-03-01",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m051",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 1,697.41 has been charged on your YES BANK Credit Card xx6633 at THIRD WAVE COFFEE on 06-Mar-2026 12:42:08. Available limit INR 2,57,166.00.\nFor disputes call 1800 1200.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-03-06",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m052",
+   "subject": "YES BANK Kiwi Credit Card Statement - Mar 2026",
+   "body": "Dear Customer,\nYour YES BANK Kiwi Credit Card ending 6633 Statement for the period 10/02/2026 to 12/03/2026 is attached.\nTotal Amount Due: Rs. 1,483.22\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/03/2026\nPay via NetBanking, UPI or auto-debit.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nT&C apply. Visit www.yesbank.in for more details.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "YES_Statement_Mar2026.pdf",
+     "protected": false,
+     "pdfText": "YES BANK - CREDIT CARD STATEMENT\nName: HARSH MEHTA\nCredit Card Number: XXXX XXXX XXXX 6633\nStatement Date: 12/03/2026\nStatement Period: 10/02/2026 - 12/03/2026\nPayment Due Date: 30/03/2026\nTotal Amount Due: Rs. 1,483.22\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,10,074.00\n\nDate        Transaction Details                        Amount (Rs.)\n21/02/2026  ZEPTO PUNE   1,272.05 Dr\n17/02/2026  CROMA PUNE   7,373.72 Dr\n11/02/2026  BOOKMYSHOW KOCHI   30,323.15 Dr\n12/02/2026  TATA 1MG BANGALORE   3,233.08 Dr\n13/02/2026  LICIOUS KOCHI   2,522.86 Dr\n05/03/2026  APOLLO PHARMACY BANGALORE   16,966.88 Dr\n25/02/2026  MEDPLUS BANGALORE   1,956.65 Dr\n03/03/2026  PAYMENT RECEIVED - THANK YOU   889.93 Cr\n\nReward Points Summary: Opening 1030  Earned 670  Closing 4709\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 6193275269378  IFSC YES 0000497"
+    }
+   ],
+   "from": "YES BANK Cards <ccstatements@yesbank.in>"
+  },
+  {
+   "id": "m053",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Harsh Mehta,\nThe statement of your ICICI Bank Sapphiro Credit Card XXXX XXXX XXXX 2026 for Mar 2026 is ready. Total due Rs.444.68, pay by 30 Mar 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,<br>\nINR 1,168.82 has been charged on your YES BANK Credit Card ending 6633 at ZOMATO on 13-Mar-2026 09:41:34. Available limit INR 3,92,333.00.<br>\nFor disputes call 1800 1200.",
+   "date": "2026-03-13",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m055",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 307.92 on Mar 17, 2026 at 01:13:51. Info: CROMA.\nThe Available Credit Limit on your card is INR 1,64,323.00 and Total Credit Limit is INR 1,94,323.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-03-17",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 2,983.51 on Mar 20, 2026 at 04:42:17. Info: ZOMATO.<br>\nThe Available Credit Limit on your card is INR 3,53,733.00 and Total Credit Limit is INR 3,83,733.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.",
+   "date": "2026-03-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 449.51 on Mar 23, 2026 at 14:28:22. Info: GOOGLE PLAY.\nThe Available Credit Limit on your card is INR 2,13,457.00 and Total Credit Limit is INR 2,43,457.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-03-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 3,228.08 has been charged on your YES BANK Credit Card XXXX XXXX XXXX 6633 at AMAZON PAY INDIA on 24-Mar-2026 11:21:53. Available limit INR 3,34,686.00.\nFor disputes call 1800 1200.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m059",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 2,019.40 has been charged on your YES BANK Credit Card no. XXXXXXXXXXXX6633 at NETFLIX.COM on 27-Mar-2026 13:56:40. Available limit INR 2,81,068.00.\nFor disputes call 1800 1200.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m060",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Harsh, a gentle nudge: Rs.1,483.22 due on 30 March for card xx6633. Ignore if already paid. Kripya samay par bhugtan karein.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "YES BANK <customercare@yesbank.in>"
+  },
+  {
+   "id": "m061",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.444.68 on 27-03-2026 towards your ICICI Bank Credit Card XX2026. Thank you.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card **2026 has been used for a transaction of INR 32,731.04 on Apr 02, 2026 at 21:49:38. Info: BLINKIT.\nThe Available Credit Limit on your card is INR 1,97,946.00 and Total Credit Limit is INR 2,27,946.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-04-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 550.19 has been charged on your YES BANK Credit Card **6633 at BATA INDIA on 04-Apr-2026 11:54:28. Available limit INR 3,86,660.00.\nFor disputes call 1800 1200.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-04",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m064",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 4,908.97 has been charged on your YES BANK Credit Card ending 6633 at BIGBASKET on 04-Apr-2026 08:18:04. Available limit INR 3,61,260.00.\nFor disputes call 1800 1200.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-04",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m065",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 8,376.66 has been charged on your YES BANK Credit Card ending 6633 at APOLLO PHARMACY on 07-Apr-2026 04:20:34. Available limit INR 2,63,343.00.\nFor disputes call 1800 1200.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-04-07",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m066",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 2,167.13 has been charged on your YES BANK Credit Card ending 6633 at CAFE COFFEE DAY on 11-Apr-2026 03:06:10. Available limit INR 2,22,314.00.\nFor disputes call 1800 1200.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-04-11",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m067",
+   "subject": "YES BANK Kiwi Credit Card Statement - Apr 2026",
+   "body": "Dear Customer,<br>\nYour YES BANK Kiwi Credit Card ending 6633 Statement for the period 13/03/2026 to 12/04/2026 is attached.<br>\nTotal Amount Due: Rs. 9,680.93\nMinimum Amount Due: Rs. 484.05\nPayment Due Date: 30/04/2026\nPay via NetBanking, UPI or auto-debit.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "YES_Statement_Apr2026.pdf",
+     "protected": false,
+     "pdfText": "YES BANK - CREDIT CARD STATEMENT\nName: HARSH MEHTA\nCard No: 4269 73XX XXXX 6633\nCard Type: Kiwi\nStatement Date: 12/04/2026\nStatement Period: 13/03/2026 - 12/04/2026\nPayment Due Date: 30/04/2026\nTotal Amount Due: Rs. 9,680.93\nMinimum Amount Due: Rs. 484.05\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 59,631.00\n\nDate        Transaction Details                        Amount (Rs.)\n26/03/2026  SPOTIFY CHENNAI   32,238.11 Dr\n25/03/2026  TATA 1MG HYDERABAD   695.57 Dr\n09/04/2026  AIRBNB BANGALORE   402.11 Dr\n19/03/2026  CROMA KOCHI   9,616.87 Dr\n26/03/2026  STARBUCKS CHENNAI   1,024.37 Dr\n03/04/2026  PAYMENT RECEIVED - THANK YOU   5,808.56 Cr\n\nReward Points Summary: Opening 6349  Earned 456  Closing 6639\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 6193275269378  IFSC YES 0000395"
+    }
+   ],
+   "from": "YES BANK Cards <ccstatements@yesbank.in>"
+  },
+  {
+   "id": "m068",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "नमस्ते,\nDear Harsh Mehta,\nThe statement of your ICICI Bank Sapphiro Credit Card XX2026 for Apr 2026 is ready. Total due Rs.7,581.92, pay by 30 Apr 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;ICICI&nbsp;Bank Credit Card XX2026 has been used for a transaction of INR 7,885.99 on Apr 23, 2026 at 20:38:00. Info: LICIOUS.\nThe Available Credit Limit on your card is INR 71,968.00 and Total Credit Limit is INR 1,01,968.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.",
+   "date": "2026-04-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2026 has been used for a transction of INR 7,467.59 on Apr 24, 2026 at 20:35:37. Info: SHELL PETROL.\nThe Available Credit Limit on your card is INR 70,530.00 and Total Credit Limit is INR 1,00,530.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.",
+   "date": "2026-04-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.9,680.93 on 28-04-2026 towards your YES BANK Credit Card ending 6633. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-28",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m072",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;ICICI&nbsp;Bank Credit Card no. XXXXXXXXXXXX2026 has been used for a transaction of INR 2,166.15 on Apr 28, 2026 at 17:28:13. Info: INDIGO AIRLINES.\nThe Available Credit Limit on your card is INR 2,14,769.00 and Total Credit Limit is INR 2,44,769.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-04-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 405.64 has been charged on your YES BANK Credit Card ending 6633 at SPOTIFY on 02-May-2026 02:52:33. Available limit INR 3,70,814.00.\nFor disputes call 1800 1200.",
+   "date": "2026-05-02",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m074",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2026 has been used for a transction of INR 528.20 on May 03, 2026 at 20:46:48. Info: INDIGO AIRLINES.\nThe Available Credit Limit on your card is INR 36,310.00 and Total Credit Limit is INR 66,310.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-05-03",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,<br>\nINR 33,916.89 has been charged on your YES BANK Credit Card ending 6633 at NETFLIX.COM on 04-May-2026 14:30:26. Available limit INR 72,265.00.<br>\nFor disputes call 1800 1200.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-05-04",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m076",
+   "subject": "E-mandate cancelled",
+   "body": "Dear Customer,\nThe e-mandate for NETFLIX.COM registered on your YES BANK card ending 6633 has been cancelled as requested. No further auto-debits will happen. Your card remains active.",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "YES BANK <customercare@yesbank.in>"
+  },
+  {
+   "id": "m077",
+   "subject": "YES BANK Kiwi Credit Card Statement - May 2026",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;YES&nbsp;BANK Kiwi Credit Card **6633 Statement for the period 12/04/2026 to 12/05/2026 is attached.\nTotal Amount Due: Rs. 9,378.38\nMinimum Amount Due: Rs. 468.92\nPayment Due Date: 30/05/2026\nPay via NetBanking, UPI or auto-debit.\n\nT&C apply. Visit www.yesbank.in for more details.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "YES_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "YES BANK - CREDIT CARD STATEMENT\nName: HARSH MEHTA\nCard No: 4211 92XX XXXX 6633\nStatement Date: 12/05/2026\nStatement Period: 12/04/2026 - 12/05/2026\nPayment Due Date: 30/05/2026\nTotal Amount Due: Rs. 9,378.38\nMinimum Amount Due: Rs. 468.92\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,56,319.00\n\nDate        Transaction Details                        Amount (Rs.)\n12/04/2026  DMART HYDERABAD   585.54 Dr\n13/04/2026  SPOTIFY GURGAON   8,244.99 Dr\n18/04/2026  WESTSIDE CHENNAI   661.04 Dr\n23/04/2026  URBAN COMPANY GURGAON   448.29 Dr\n09/05/2026  LENSKART GURGAON   458.49 Dr\n06/05/2026  HOTSTAR PUNE   4,830.28 Dr\n09/05/2026  OLA CABS PUNE   6,094.55 Dr\n22/04/2026  LENSKART MUMBAI   26,614.87 Dr\n02/05/2026  AMAZON PAY INDIA KOCHI   3,075.30 Dr\n03/05/2026  PAYMENT RECEIVED - THANK YOU   5,627.03 Cr\n\nReward Points Summary: Opening 6565  Earned 596  Closing 5227\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "YES BANK Cards <ccstatements@yesbank.in>"
+  },
+  {
+   "id": "m078",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Harsh Mehta,\nThe statement of your ICICI Bank Sapphiro Credit Card XX2026 for May 2026 is ready. Total due Rs.1,383.51, pay by 30 May 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 3,974.20 has been charged on your YES BANK Credit Card ending 6633 at APOLLO PHARMACY on 20-May-2026 01:51:23. Available limit INR 1,77,844.00.\nFor disputes call 1800 1200.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-20",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m080",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,<br>\nINR 22,065.24 has been charged on your YES BANK Credit Card ending 6633 at SHELL PETROL on 23-May-2026 03:41:22. Available limit INR 2,50,207.00.<br>\nFor disputes call 1800 1200.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-23",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m081",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 1,959.30 has been charged on your YES BANK Credit Card ending 6633 at LICIOUS on 25-May-2026 17:01:24. Available limit INR 1,94,350.00.\nFor disputes call 1800 1200.",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m082",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi&nbsp;Harsh,&nbsp;a&nbsp;gentle nudge: Rs.9,378.38 due on 30 May for card ending 6633. Ignore if already paid. Kripya samay par bhugtan karein.<br>\n<br>\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "YES BANK <customercare@yesbank.in>"
+  },
+  {
+   "id": "m083",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Harsh, a gentle nudge: Rs.1,383.51 due on 30 May for card XX2026. Ignore if already paid. Kripya samay par bhugtan karein.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XXXX XXXX XXXX 2026 has been used for a transaction of INR 8,381.99 on May 28, 2026 at 17:08:04. Info: MAKEMYTRIP.\nThe Available Credit Limit on your card is INR 82,104.00 and Total Credit Limit is INR 1,12,104.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "नमस्ते,\nDear Customer,<br>\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 1,331.66 on May 28, 2026 at 21:43:03. Info: THIRD WAVE COFFEE.<br>\nThe Available Credit Limit on your card is INR 3,95,251.00 and Total Credit Limit is INR 4,25,251.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,383.51 on 28-05-2026 towards your ICICI Bank Credit Card XX2026. Thank you.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 515.87 has been charged on your YES BANK Credit Card ending 6633 at RELIANCE SMART on 12-Jun-2026 12:00:10. Available limit INR 2,65,977.00.\nFor disputes call 1800 1200.\n\nT&C apply. Visit www.yesbank.in for more details.",
+   "date": "2026-06-12",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m088",
+   "subject": "YES BANK Kiwi Credit Card Statement - Jun 2026",
+   "body": "Dear Customer,\nYour YES BANK Kiwi Credit Card ending 6633 Statement for the period 13/05/2026 to 12/06/2026 is attached.\nTotal Amount Due: Rs. 10,866.61\nMinimum Amount Due: Rs. 543.33\nPayment Due Date: 30/06/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "YES_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "YES BANK - CREDIT CARD STATEMENT\nName: HARSH MEHTA\nCard No: 4190 18XX XXXX 6633\nStatement Date: 12/06/2026\nStatement Period: 13/05/2026 - 12/06/2026\nPayment Due Date: 30/06/2026\nTotal Amount Due: Rs. 10,866.61\nMinimum Amount Due: Rs. 543.33\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,92,263.00\n\nDate        Transaction Details                        Amount (Rs.)\n22/05/2026  MEDPLUS GURGAON   1,209.76 Dr\n21/05/2026  STARBUCKS HYDERABAD   767.80 Dr\n29/05/2026  TATA 1MG MUMBAI   13,336.06 Dr\n24/05/2026  NETFLIX.COM HYDERABAD   9,179.12 Dr\n10/06/2026  THIRD WAVE COFFEE CHENNAI   22,187.30 Dr\n24/05/2026  CROMA CHENNAI   18,839.96 Dr\n03/06/2026  PAYMENT RECEIVED - THANK YOU   6,519.97 Cr\n\nReward Points Summary: Opening 327  Earned 768  Closing 3813\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "YES BANK Cards <ccstatements@yesbank.in>"
+  },
+  {
+   "id": "m089",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Harsh Mehta,\nThe statement of your ICICI Bank Sapphiro Credit Card XX2026 for Jun 2026 is ready. Total due Rs.84,323.56, pay by 30 Jun 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "2026_12062026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 144.69 on Jun 13, 2026 at 15:32:14. Info: DMART.\nThe Available Credit Limit on your card is INR 3,71,454.00 and Total Credit Limit is INR 4,01,454.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.",
+   "date": "2026-06-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Your EMI request has been cancelled",
+   "body": "Your request to convert transction of Rs.14,090.58 on card ending 6633 to EMI has been cancelled. The transaction stays on your regular bill.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-14",
+   "attachments": [],
+   "from": "YES BANK <customercare@yesbank.in>"
+  },
+  {
+   "id": "m092",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 30,448.91 has been charged on your YES BANK Credit Card ending 6633 at STARBUCKS on 17-Jun-2026 04:18:53. Available limit INR 2,50,645.00.\nFor disputes call 1800 1200.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-06-17",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m093",
+   "subject": "Pre-approved Personal Loan for you",
+   "body": "नमस्ते,\nGet Rs.7,00,000 at 11% p.a. Instant approval. Offer ID BF5313<br>\nT&C apply.",
+   "date": "2026-06-20",
+   "attachments": [],
+   "from": "Bajaj Finserv <offers@bajajfinserv.in>"
+  },
+  {
+   "id": "m094",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card no. XXXXXXXXXXXX2026 has been used for a transaction of INR 90.53 on Jun 23, 2026 at 09:39:20. Info: DECATHLON.\nThe Available Credit Limit on your card is INR 1,11,369.00 and Total Credit Limit is INR 1,41,369.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.",
+   "date": "2026-06-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Magnus, Atlas and Flipkart Axis Bank cards: lifetime free offers",
+   "body": "Choose from ACE, Magnus, Atlas, Reserve, Airtel Axis Bank cards. Offer reference 1651\nT&C apply.",
+   "date": "2026-06-23",
+   "attachments": [],
+   "from": "Axis Bank <offers@axisbank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 2,142.78 has been charged on your YES BANK Credit Card **6633 at BLINKIT on 27-Jun-2026 18:00:58. Available limit INR 2,37,268.00.\nFor disputes call 1800 1200.\n\nT&C apply. Visit www.yesbank.in for more details.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m097",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Harsh, a gentle nudge: Rs.10,866.61 due on 30 June for card ending 6633. Ignore if already paid. Kripya samay par bhugtan karein.<br>\n<br>\nEarn up to 5X reward points on partner brands this festive season! Know more.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "YES BANK <customercare@yesbank.in>"
+  },
+  {
+   "id": "m098",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Harsh, a gentle nudge: Rs.84,323.56 due on 30 June for card XX2026. Ignore if already paid. Kripya samay par bhugtan karein.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.84,323.56 on 27-06-2026 towards your ICICI Bank Credit Card XX2026. Thank you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 362.54 has been charged on your YES BANK Credit Card ending 6633 at STARBUCKS on 28-Jun-2026 10:04:06. Available limit INR 1,44,705.00.\nFor disputes call 1800 1200.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nNever share your OTP, PIN, CVV or password with anyone. YES BANK will never ask for these.",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m101",
+   "subject": "OTP for online transaction",
+   "body": "394940 is the One Time Password (OTP) for your online transaction of INR 2,756.58 at AMAZON PAY INDIA. Valid for 5 minutes. Do not share with anyone, including bank staff.",
+   "date": "2026-07-06",
+   "attachments": [],
+   "from": "HSBC India <hsbc@mail.hsbc.co.in>"
+  },
+  {
+   "id": "m102",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,<br>\nINR 19,443.30 has been charged on your YES BANK Credit Card ending 6633 at ZEPTO on 07-Jul-2026 11:56:17. Available limit INR 2,19,078.00.<br>\nFor disputes call 1800 1200.",
+   "date": "2026-07-07",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m103",
+   "subject": "YES BANK Kiwi Credit Card Statement - Jul 2026",
+   "body": "Dear Customer,\nYour YES BANK Kiwi Credit Card ending 6633 Statement for the period 12/06/2026 to 12/07/2026 is attached.\nTotal Amount Due: Rs. 2,23,874.91\nMinimum Amount Due: Rs. 11,193.75\nPayment Due Date: 30/07/2026\nPay via NetBanking, UPI or auto-debit.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "YES_Statement_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "YES BANK - CREDIT CARD STATEMENT\nName: HARSH MEHTA\nCard No: 4891 92XX XXXX 6633\nStatement Date: 12/07/2026\nStatement Period: 12/06/2026 - 12/07/2026\nPayment Due Date: 30/07/2026\nTotal Amount Due: Rs. 2,23,874.91\nMinimum Amount Due: Rs. 11,193.75\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,54,839.00\n\nDate        Transaction Details                        Amount (Rs.)\n19/06/2026  REDBUS PUNE   16,388.75 Dr\n07/07/2026  TATA 1MG KOCHI   2,878.94 Dr\n13/06/2026  HOTSTAR BANGALORE   2,943.67 Dr\n29/06/2026  PVR INOX HYDERABAD   1,204.36 Dr\n10/07/2026  ZEPTO HYDERABAD   1,145.24 Dr\n03/07/2026  PAYMENT RECEIVED - THANK YOU   1,34,324.95 Cr\n\nReward Points Summary: Opening 153  Earned 83  Closing 6340\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 6193275269378  IFSC YES 0000878"
+    }
+   ],
+   "from": "YES BANK Cards <ccstatements@yesbank.in>"
+  },
+  {
+   "id": "m104",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Harsh Mehta,\nThe statement of your ICICI Bank Sapphiro Credit Card XX2026 for Jul 2026 is ready. Total due Rs.2,614.36, pay by 30 Jul 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Your contract note",
+   "body": "Contract note for trades done today is attached. Client ID ZR8617\nT&C apply.",
+   "date": "2026-07-17",
+   "attachments": [],
+   "from": "Zerodha <noreply@zerodha.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;7,075.08&nbsp;has been charged on your YES BANK Credit Card XX6633 at JIO PREPAID on 19-Jul-2026 20:30:45. Available limit INR 2,61,407.00.\nFor disputes call 1800 1200.\n\nNever share your OTP, PIN, CVV or password with anyone. YES BANK will never ask for these.",
+   "date": "2026-07-19",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m107",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,23,874.91 on 22-07-2026 towards your YES BANK Credit Card XX6633. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-22",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m108",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XXXX XXXX XXXX 2026 has been used for a transction of INR 684.21 on Jul 23, 2026 at 06:07:01. Info: GOOGLE PLAY.\nThe Available Credit Limit on your card is INR 1,51,602.00 and Total Credit Limit is INR 1,81,602.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 9703 reward points on your YES BANK Kiwi Credit Card ending 6633. Redeem them on the rewards portal before they expire.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-25",
+   "attachments": [],
+   "from": "YES BANK <customercare@yesbank.in>"
+  },
+  {
+   "id": "m110",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 6594 reward points on your ICICI Bank Sapphiro Credit Card XX2026. Redeem them on the rewards portal before they expire.",
+   "date": "2026-07-25",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,614.36 on 26-07-2026 towards your ICICI Bank Credit Card XX2026. Thank you.",
+   "date": "2026-07-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi&nbsp;Harsh,&nbsp;a&nbsp;gentle nudge: Rs.2,23,874.91 due on 30 July for card no. XXXXXXXXXXXX6633. Ignore if already paid. Kripya samay par bhugtan karein.\n\nNever share your OTP, PIN, CVV or password with anyone. YES BANK will never ask for these.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "YES BANK <customercare@yesbank.in>"
+  },
+  {
+   "id": "m113",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 6,735.52 has been charged on your YES BANK Credit Card ending 6633 at INDIGO AIRLINES on 01-Aug-2026 00:06:29. Available limit INR 1,69,803.00.\nFor disputes call 1800 1200.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-01",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m114",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 2,578.01 on Aug 03, 2026 at 05:08:53. Info: PVR INOX.\nThe Available Credit Limit on your card is INR 2,41,757.00 and Total Credit Limit is INR 2,71,757.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.",
+   "date": "2026-08-03",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card no. XXXXXXXXXXXX2026 has been used for a transaction of INR 479.77 on Aug 05, 2026 at 12:22:43. Info: OLA CABS.\nThe Available Credit Limit on your card is INR 2,31,240.00 and Total Credit Limit is INR 2,61,240.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 374.87 has been charged on your YES BANK Credit Card ending 6633 at ZEPTO on 10-Aug-2026 14:57:26. Available limit INR 1,84,793.00.\nFor disputes call 1800 1200.\n\nThis is a system generated email. Please do not reply to this message.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-10",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m117",
+   "subject": "YES BANK Kiwi Credit Card Statement - Aug 2026",
+   "body": "Dear Customer,\nYour YES BANK Kiwi Credit Card XX6633 Statement for the period 13/07/2026 to 12/08/2026 is attached.\nTotal Amount Due: Rs. 2,773.46\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/08/2026\nPay via NetBanking, UPI or auto-debit.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "YES_Statement_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "YES BANK - CREDIT CARD STATEMENT\nName: HARSH MEHTA\nCredit Card Number: XXXX XXXX XXXX 6633\nCard Type: Kiwi\nStatement Date: 12/08/2026\nStatement Period: 13/07/2026 - 12/08/2026\nPayment Due Date: 30/08/2026\nTotal Amount Due: Rs. 2,773.46\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 59,412.00\n\nDate        Transaction Details                        Amount (Rs.)\n29/07/2026  MEDPLUS BANGALORE   11,881.67 Dr\n05/08/2026  NETFLIX.COM GURGAON   376.68 Dr\n10/08/2026  BOOKMYSHOW CHENNAI   272.78 Dr\n16/07/2026  SHELL PETROL PUNE   674.95 Dr\n05/08/2026  AMAZON PAY INDIA CHENNAI   29,896.11 Dr\n19/07/2026  RELIANCE SMART HYDERABAD   8,165.82 Dr\n26/07/2026  THIRD WAVE COFFEE GURGAON   2,744.53 Dr\n06/08/2026  INDIGO AIRLINES KOCHI   2,287.69 Dr\n31/07/2026  ZOMATO CHENNAI   595.64 Dr\n03/08/2026  PAYMENT RECEIVED - THANK YOU   1,664.08 Cr\n\nReward Points Summary: Opening 2628  Earned 787  Closing 631\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "YES BANK Cards <ccstatements@yesbank.in>"
+  },
+  {
+   "id": "m118",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Harsh Mehta,<br>\nThe statement of your ICICI Bank Sapphiro Credit Card xx2026 for Aug 2026 is ready. Total due Rs.718.73, pay by 30 Aug 2026.<br>\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "2026_12082026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "Your order has been shipped",
+   "body": "Order 402-1562-1100 shipped. Pay on delivery Rs 1,299.\nT&C apply.",
+   "date": "2026-08-16",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m120",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 3,436.88 has been charged on your YES BANK Credit Card ending 6633 at HOTSTAR on 20-Aug-2026 23:02:17. Available limit INR 2,88,654.00.\nFor disputes call 1800 1200.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-20",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m121",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 2,426.69 has been charged on your YES BANK Credit Card ending 6633 at PVR INOX on 20-Aug-2026 07:46:26. Available limit INR 2,02,904.00.\nFor disputes call 1800 1200.",
+   "date": "2026-08-20",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m122",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transaction of Rs.8,477.90 on card ending 6633 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "YES BANK <customercare@yesbank.in>"
+  },
+  {
+   "id": "m123",
+   "subject": "Convert to EMI",
+   "body": "Dear&nbsp;Customer,<br>\nYour&nbsp;transaction&nbsp;of Rs.8,514.44 on card ending 2026 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.<br>\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.2,773.46 on 23-08-2026 towards your YES BANK Credit Card ending 6633. Thank you.<br>\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m125",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 3,226.46 on Aug 23, 2026 at 18:05:36. Info: BATA INDIA.\nThe Available Credit Limit on your card is INR 77,316.00 and Total Credit Limit is INR 1,07,316.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "Payment reminder: YES BANK Credit Card ending 6633",
+   "body": "नमस्ते,\nDear Customer,\nThis is a reminder that Rs.2,773.46 (minimum Rs.200.00) is due on 30-Aug-2026 on your YES BANK Credit Card ending 6633. Pay on time to avoid late payment charges.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "YES BANK <customercare@yesbank.in>"
+  },
+  {
+   "id": "m127",
+   "subject": "Payment reminder: ICICI Bank Credit Card xx2026",
+   "body": "Dear Customer,\nThis is a reminder that Rs.718.73 (minimum Rs.200.00) is due on 30-Aug-2026 on your ICICI Bank Credit Card xx2026. Pay on time to avoid late payment charges.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card ending 6633 has been processed. Tenure 9 months. First EMI will appear on your next statement.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "YES BANK <customercare@yesbank.in>"
+  },
+  {
+   "id": "m129",
+   "subject": "EMI conversion successful",
+   "body": "Your&nbsp;request&nbsp;for&nbsp;EMI conversion on card XX2026 has been processed. Tenure 9 months. First EMI will appear on your next statement.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 1,748.81 on Sep 06, 2026 at 22:11:09. Info: DECATHLON.<br>\nThe Available Credit Limit on your card is INR 3,85,043.00 and Total Credit Limit is INR 4,15,043.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-09-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Your contract note",
+   "body": "Contract note for trades done today is attached. Client ID ZR1576\nT&C apply.",
+   "date": "2026-09-07",
+   "attachments": [],
+   "from": "Zerodha <noreply@zerodha.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "YES BANK Kiwi Credit Card Statement - Sep 2026",
+   "body": "Dear Customer,\nYour YES BANK Kiwi Credit Card no. XXXXXXXXXXXX6633 Statement for the period 13/08/2026 to 12/09/2026 is attached.\nTotal Amount Due: Rs. 12,928.03\nMinimum Amount Due: Rs. 646.40\nPayment Due Date: 30/09/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "YES_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "YES BANK - CREDIT CARD STATEMENT\nName: HARSH MEHTA\nCard No: 4668 12XX XXXX 6633\nCard Type: Kiwi\nStatement Date: 12/09/2026\nStatement Period: 13/08/2026 - 12/09/2026\nPayment Due Date: 30/09/2026\nTotal Amount Due: Rs. 12,928.03\nMinimum Amount Due: Rs. 646.40\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,00,517.00\n\nDate        Transaction Details                        Amount (Rs.)\n27/08/2026  ZEPTO CHENNAI   4,752.94 Dr\n01/09/2026  MAKEMYTRIP PUNE   1,071.97 Dr\n10/09/2026  TATA 1MG BANGALORE   8,842.13 Dr\n20/08/2026  MEDPLUS CHENNAI   1,387.56 Dr\n28/08/2026  IRCTC HYDERABAD   26,702.81 Dr\n20/08/2026  CROMA MUMBAI   1,680.10 Dr\n03/09/2026  PAYMENT RECEIVED - THANK YOU   7,756.82 Cr\n\nReward Points Summary: Opening 230  Earned 392  Closing 1452\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "YES BANK Cards <ccstatements@yesbank.in>"
+  },
+  {
+   "id": "m133",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Harsh Mehta,\nThe statement of your ICICI Bank Sapphiro Credit Card XX2026 for Sep 2026 is ready. Total due Rs.11,013.84, pay by 30 Sep 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "2026_12092026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 399.05 has been charged on your YES BANK Credit Card ending 6633 at BLINKIT on 15-Sep-2026 07:49:14. Available limit INR 3,29,546.00.\nFor disputes call 1800 1200.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-15",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m135",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 700.95 has been charged on your YES BANK Credit Card ending 6633 at REDBUS on 16-Sep-2026 10:38:03. Available limit INR 1,73,524.00.\nFor disputes call 1800 1200.\n\nThis is a system generated email. Please do not reply to this message.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-16",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m136",
+   "subject": "Credit limit change on your card",
+   "body": "नमस्ते,\nDear Customer,\nBased on your profile, the credit limit on your YES BANK Kiwi Credit Card ending 6633 has been increased to Rs.3,00,000.00 effective 17-09-2026.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "YES BANK <customercare@yesbank.in>"
+  },
+  {
+   "id": "m137",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your ICICI Bank Sapphiro Credit Card XX2026 has been increased to Rs.3,00,000.00 effective 17-09-2026.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;390.99&nbsp;has been charged on your YES BANK Credit Card ending 6633 at BATA INDIA on 18-Sep-2026 02:15:43. Available limit INR 40,066.00.\nFor disputes call 1800 1200.",
+   "date": "2026-09-18",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m139",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.12,928.03 on 22-09-2026 towards your YES BANK Credit Card ending 6633. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-09-22",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m140",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 24,016.29 on Sep 23, 2026 at 14:08:10. Info: NETFLIX.COM.\nThe Available Credit Limit on your card is INR 2,51,775.00 and Total Credit Limit is INR 2,81,775.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-09-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 21,467.41 has been charged on your YES BANK Credit Card xx6633 at AIRBNB on 24-Sep-2026 05:36:16. Available limit INR 2,67,721.00.\nFor disputes call 1800 1200.\n\nT&C apply. Visit www.yesbank.in for more details.",
+   "date": "2026-09-24",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m142",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.11,013.84 on 25-09-2026 towards your ICICI Bank Credit Card no. XXXXXXXXXXXX2026. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "Payment reminder: YES BANK Credit Card XXXX XXXX XXXX 6633",
+   "body": "Dear Customer,\nThis is a reminder that Rs.12,928.03 (minimum Rs.646.40) is due on 30-Sep-2026 on your YES BANK Credit Card XXXX XXXX XXXX 6633. Pay on time to avoid late payment charges.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "YES BANK <customercare@yesbank.in>"
+  },
+  {
+   "id": "m144",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Harsh, a gentle nudge: Rs.11,013.84 due on 30 September for card XX2026. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m145",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 879.39 has been charged on your YES BANK Credit Card no. XXXXXXXXXXXX6633 at CROMA on 02-Oct-2026 12:28:06. Available limit INR 3,81,906.00.\nFor disputes call 1800 1200.",
+   "date": "2026-10-02",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m146",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 383.64 has been charged on your YES BANK Credit Card ending 6633 at IRCTC on 07-Oct-2026 02:29:37. Available limit INR 67,977.00.\nFor disputes call 1800 1200.",
+   "date": "2026-10-07",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m147",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 844.32 has been charged on your YES BANK Credit Card ending 6633 at CAFE COFFEE DAY on 10-Oct-2026 01:27:58. Available limit INR 3,32,771.00.\nFor disputes call 1800 1200.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-10-10",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m148",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "नमस्ते,\nDear Customer,\nINR 225.77 has been charged on your YES BANK Credit Card no. XXXXXXXXXXXX6633 at MAKEMYTRIP on 10-Oct-2026 13:46:52. Available limit INR 1,25,073.00.\nFor disputes call 1800 1200.",
+   "date": "2026-10-10",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m149",
+   "subject": "YES BANK Kiwi Credit Card Statement - Oct 2026",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;YES&nbsp;BANK Kiwi Credit Card ending 6633 Statement for the period 12/09/2026 to 12/10/2026 is attached.\nTotal Amount Due: Rs. 28,552.79\nMinimum Amount Due: Rs. 1,427.64\nPayment Due Date: 30/10/2026\nPay via NetBanking, UPI or auto-debit.\n\nT&C apply. Visit www.yesbank.in for more details.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "YES_Statement_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "YES BANK - CREDIT CARD STATEMENT\nName: HARSH MEHTA\nCredit Card Number: XXXX XXXX XXXX 6633\nStatement Date: 12/10/2026\nStatement Period: 12/09/2026 - 12/10/2026\nPayment Due Date: 30/10/2026\nTotal Amount Due: Rs. 28,552.79\nMinimum Amount Due: Rs. 1,427.64\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 70,037.00\n\nDate        Transaction Details                        Amount (Rs.)\n14/09/2026  URBAN COMPANY MUMBAI   579.46 Dr\n21/09/2026  REDBUS PUNE   95.35 Dr\n24/09/2026  ZEPTO HYDERABAD   1,883.21 Dr\n17/09/2026  SHELL PETROL HYDERABAD   38,267.72 Dr\n18/09/2026  MAKEMYTRIP MUMBAI   5,732.63 Dr\n03/10/2026  PAYMENT RECEIVED - THANK YOU   17,131.67 Cr\n\nReward Points Summary: Opening 8721  Earned 65  Closing 724\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 6193275269378  IFSC YES 0000754"
+    }
+   ],
+   "from": "YES BANK Cards <ccstatements@yesbank.in>"
+  },
+  {
+   "id": "m150",
+   "subject": "Your ICICI Bank Sapphiro Credit Card statement is ready",
+   "body": "Dear Harsh Mehta,\nThe statement of your ICICI Bank Sapphiro Credit Card XX2026 for Oct 2026 is ready. Total due Rs.83,820.74, pay by 30 Oct 2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nView it in the app or NetBanking under Cards.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "नमस्ते,\nDear Customer,\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 9,766.59 on Oct 13, 2026 at 11:51:49. Info: BIGBASKET.\nThe Available Credit Limit on your card is INR 3,70,019.00 and Total Credit Limit is INR 4,00,019.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.",
+   "date": "2026-10-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 620.44 on Oct 18, 2026 at 04:14:36. Info: UBER INDIA.\nThe Available Credit Limit on your card is INR 1,96,772.00 and Total Credit Limit is INR 2,26,772.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-10-18",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Credit Card no. XXXXXXXXXXXX2026 has been used for a transction of INR 2,834.30 on Oct 19, 2026 at 19:17:48. Info: RELIANCE SMART.<br>\nThe Available Credit Limit on your card is INR 1,99,005.00 and Total Credit Limit is INR 2,29,005.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "Transaction cancelled / refund initiated",
+   "body": "नमस्ते,\nDear Customer,\nYour transaction at BOOKMYSHOW for Rs.1,733.00 has been cancelled by the merchant. A refund will be credited to your card ending 6633 in 5-7 working days.",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m155",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.28,552.79 on 22-10-2026 towards your YES BANK Credit Card ending 6633. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  },
+  {
+   "id": "m156",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.83,820.74 on 22-10-2026 towards your ICICI Bank Credit Card XX2026. Thank you.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX2026 has been used for a transaction of INR 283.51 on Oct 24, 2026 at 21:45:59. Info: ZOMATO.\nThe Available Credit Limit on your card is INR 2,60,512.00 and Total Credit Limit is INR 2,90,512.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 2026 to 9215676766.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-10-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "Payment reminder: YES BANK Credit Card ending 6633",
+   "body": "Dear Customer,\nThis is a reminder that Rs.28,552.79 (minimum Rs.1,427.64) is due on 30-Oct-2026 on your YES BANK Credit Card ending 6633. Pay on time to avoid late payment charges.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "YES BANK <customercare@yesbank.in>"
+  },
+  {
+   "id": "m159",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Harsh, a gentle nudge: Rs.83,820.74 due on 30 October for card XX2026. Ignore if already paid. Kripya samay par bhugtan karein.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "Transaction alert on your YES BANK Credit Card",
+   "body": "Dear Customer,\nINR 36,509.09 has been charged on your YES BANK Credit Card XXXX XXXX XXXX 6633 at DECATHLON on 28-Oct-2026 23:11:01. Available limit INR 3,65,888.00.\nFor disputes call 1800 1200.",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "YES BANK <alerts@yesbank.in>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "yesbank.in",
+    "last4": "6633",
+    "kind": "CREDIT_CARD",
+    "variant": "Kiwi",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "2026",
+    "kind": "CREDIT_CARD",
+    "variant": "Sapphiro",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "hsbc.co.in",
+    "last4": "8143",
+    "kind": "CREDIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "WEAK"
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "3897",
+    "why": "payer account named in other bank card statement (pay via HDFC NetBanking)"
+   },
+   {
+    "issuerDomain": "yesbank.in",
+    "last4": "9378",
+    "why": "bank own beneficiary account in statement payment instructions"
+   },
+   {
+    "issuerDomain": "yesbank.in",
+    "last4": "4483",
+    "why": "masked Aadhaar number"
+   }
+  ]
+ }
+}

@@ -1,0 +1,2167 @@
+{
+ "mailbox": "axis-flipkart-airtel-ace",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx9566",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. xx9566 for INR 322.89 at NYKAA on 09-Nov-2024 17:08:48. Available limit: INR 3,789.47.",
+   "date": "2024-11-09",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Nov 2024",
+   "body": "Dear Meera,\nPlease find attached your Axis Bank ACE Credit Card ending 2478 statement for the period 12/10/24 to 11/11/24. Total amount due Rs.19,654.45, due 26/11/24.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-11-12",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Nov2024.pdf",
+     "protected": false,
+     "pdfText": "Axis Bank Credit Card Statement\nMEERA PILLAI\nFLAT 215, ORCHID APARTMENTS\n29TH CROSS, BANJARA HILLS\nJAIPUR - 668798\nCard Name: Axis Bank ACE Credit Card\nCredit Card Number: 433433XXXXXX2478\nStatement Period: 12/10/24 - 11/11/24\nStatement Generation Date: 11/11/24\nPayment Summary\nTotal Payment Due: Rs.19,654.45\nMinimum Payment Due: Rs.982.72\nPayment Due Date: 26/11/24\nAccount Summary\nCredit Limit: Rs.80,000.00\nAvailable Credit Limit: Rs.65,623.45\nAvailable Cash Limit: Rs.16,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n22/10/24 BIGBASKET CHENNAI 2,669.83 Dr\n25/10/24 TATA POWER BENGALURU 160.57 Dr\n30/10/24 PVR INOX JAIPUR 313.87 Dr\n30/10/24 UBER INDIA JAIPUR 265.57 Dr\n02/11/24 TATA PLAY KOLKATA 13,840.67 Dr\n02/11/24 URBAN COMPANY KOLKATA 326.71 Dr\n11/11/24 NETFLIX MUMBAI 2,077.23 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Nov 2024",
+   "body": "Dear Meera,\nYour Airtel Axis Bank Credit Card XX5363 statement for Nov 2024 is ready. Total amount due Rs.946.19, minimum amount due Rs.200.00, payable by 01/12/24.\nLogin to view and download your e-statement.\n\n",
+   "date": "2024-11-14",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Axis Bank Account Statement - Nov 2024",
+   "body": "Dear Meera,\nYour Axis Bank xx7368 account statement for Nov 2024 is ready. Closing balance Rs.7,148.83.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-11-19",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Update your KYC",
+   "body": "Dear Meera,\nAs per RBI guidelines please complete re-KYC for your Axis Bank relationship. Visit a branch or use the app.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-11-19",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Nov 2024",
+   "body": "Dear Meera,\nYour Flipkart Axis Bank Credit Card XX9566 statement for Nov 2024 is ready. Total amount due Rs.3,130.29, minimum amount due Rs.200.00, payable by 12/12/24.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-11-25",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 9566",
+   "body": "Spent INR 115.87 on your Flipkart Axis Bank Credit Card ending 9566 at INDIGO AIRLINES, 25-Nov-2024. Avl Lmt INR 2,015.74. SMS BLOCK to 5676782 if not you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-11-25",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 7,863.29 has been received towards your Axis Bank Credit Card xx9566 on 27-Nov-2024. Thank you for the payment.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-11-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9566",
+   "body": "Spent INR 185.12 on your Axis Bank Credit Card XX9566 at CROMA, 03-Dec-2024. Avl Lmt INR 74,680.47. SMS BLOCK to 5676782 if not you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-12-03",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Credit alert: Axis Bank A/c",
+   "body": "Credit alert: INR 12,331.30 has been credited to account *7368 on 11-Dec-2024 (UPI). Avl bal INR 2,665.83.",
+   "date": "2024-12-11",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Dec 2024",
+   "body": "Dear Meera,\nYour Axis Bank ACE Credit Card XX2478 statement for Dec 2024 is ready. Total amount due Rs.3,056.00, minimum amount due Rs.200.00, payable by 29/12/24.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-12-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX2478",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX2478 for INR 295.03 at MEDPLUS on 13-Dec-2024 23:00:17. Available limit: INR 30,649.05.",
+   "date": "2024-12-13",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Dec 2024",
+   "body": "Dear Meera,\nPlease find attached your Airtel Axis Bank Credit Card XX5363 statement for the period 14/11/24 to 13/12/24.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-12-14",
+   "attachments": [
+    {
+     "filename": "eStatement_202412.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 2478",
+   "body": "Spent INR 19,526.99 on your Axis Bank Credit Card ending 2478 at FLIPKART, 30-Dec-2024. Avl Lmt INR 2,160.57. SMS BLOCK to 5676782 if not you.",
+   "date": "2024-12-30",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx9566",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. xx9566 for INR 12,907.37 at NETFLIX on 31-Dec-2024 11:27:04. Available limit: INR 7,296.16.\n\nDownload our mobile app for instant alerts.",
+   "date": "2024-12-31",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx2478",
+   "body": "Dear Customer,\nThank you for using your Axis Bank ACE Credit Card no. xx2478 for INR 1,274.56 at ZEPTO on 01-Jan-2025 07:55:47. Available limit: INR 85,002.43.",
+   "date": "2025-01-01",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Debit alert: Axis Bank A/c",
+   "body": "Your A/c XX7368 is debited for INR 32,086.82 on 02-Jan-2025 - ECOM PVR INOX. Bal INR 14,862.00. -Axis Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-01-02",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5363",
+   "body": "Spent INR 2,697.42 on your Airtel Axis Bank Credit Card XX5363 at BATA INDIA, 05-Jan-2025. Avl Lmt INR 11,318.06. SMS BLOCK to 5676782 if not you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-01-05",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 2478",
+   "body": "Spent INR 18,134.22 on your Axis Bank ACE Credit Card ending 2478 at HPCL PETROL, 06-Jan-2025. Avl Lmt INR 4,222.40. SMS BLOCK to 5676782 if not you.\n\nOpt for e-statements and go green.",
+   "date": "2025-01-06",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 648912485545. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-01-08",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Debit alert: Axis Bank A/c",
+   "body": "Dear Customer,\nINR 1,754.64 has been debited from your Axis Bank A/c XXXXXX7368 on 09-Jan-2025 (POS AIRTEL PREPAID). Avl bal INR 15,330.22.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-01-09",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Jan 2025",
+   "body": "Dear Meera,\nPlease find attached your Axis Bank ACE Credit Card XX2478 statement for the period 12/12/24 to 11/01/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-01-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202501.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Jan 2025",
+   "body": "Dear Meera,\nPlease find attached your Airtel Axis Bank Credit Card XX5363 statement for the period 14/12/24 to 13/01/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-01-14",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx2478",
+   "body": "Spent INR 398.11 on your Axis Bank Credit Card xx2478 at BATA INDIA, 14-Jan-2025. Avl Lmt INR 29,668.33. SMS BLOCK to 5676782 if not you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-01-14",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Axis Bank Account Statement - Jan 2025",
+   "body": "Dear Meera,\nPlease find attached your Axis Bank xx7368 statement for the period 19/12/24 to 18/01/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-01-19",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx5363",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. xx5363 for INR 1,075.34 at SODEXO on 22-Jan-2025 00:52:11. Available limit: INR 6,978.21.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-01-22",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Credit alert: Axis Bank A/c",
+   "body": "Credit alert: INR 165.55 has been credited to account XX7368 on 22-Jan-2025 (IMPS). Avl bal INR 20,644.14.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-01-22",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Jan 2025",
+   "body": "Dear Meera,\nPlease find attached your Flipkart Axis Bank Credit Card XX9566 statement for the period 25/12/24 to 24/01/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-01-25",
+   "attachments": [
+    {
+     "filename": "eStatement_202501.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Anil Traders (A/c XXXXXX6034, YES BANK) has been added to your account *7368. It will be active after 30 minutes.",
+   "date": "2025-01-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 2478",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. ending 2478 for INR 192.09 at PVR INOX on 28-Jan-2025 14:28:51. Available limit: INR 2,550.82.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-01-28",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "OTP for your transaction",
+   "body": "515797 is the OTP for your transaction of Rs.1,505.87 at HPCL PETROL. Valid for 10 minutes. Do not share.",
+   "date": "2025-02-06",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Feb 2025",
+   "body": "Dear Meera,\nYour Axis Bank ACE Credit Card XX2478 statement for Feb 2025 is ready. Total amount due Rs.2,847.17, minimum amount due Rs.200.00, payable by 01/03/25.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-02-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Feb 2025",
+   "body": "Dear Meera,\nYour Airtel Axis Bank Credit Card XX5363 statement for Feb 2025 is ready. Total amount due Rs.1,532.44, minimum amount due Rs.200.00, payable by 03/03/25.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-02-14",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Debit alert: Axis Bank A/c",
+   "body": "INR debit alert: INR 197.82 debited from account *7368 on 18-Feb-2025. Narration: ECOM/DECATHLON. Available balance INR 59,072.22.",
+   "date": "2025-02-18",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Feb 2025",
+   "body": "Dear Meera,\nYour Flipkart Axis Bank Credit Card ending 9566 statement for Feb 2025 is ready. Total amount due Rs.606.27, minimum amount due Rs.200.00, payable by 14/03/25.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-02-25",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,000.00 transferred from xx7368 to Anil Traders A/c XX6034 on 27-Feb-2025. Rent for the month.",
+   "date": "2025-02-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Mar 2025",
+   "body": "Dear Meera,\nPlease find attached your Axis Bank ACE Credit Card ending 2478 statement for the period 12/02/25 to 11/03/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-03-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202503.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Mar 2025",
+   "body": "Dear Meera,\nPlease find attached your Airtel Axis Bank Credit Card xx5363 statement for the period 14/02/25 to 13/03/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-03-14",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Axis Bank Account Statement - Mar 2025",
+   "body": "Dear Meera,\nYour Axis Bank xx7368 account statement for Mar 2025 is ready. Closing balance Rs.1,030.18.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-03-19",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Mar 2025",
+   "body": "Dear Meera,\nPlease find attached your Flipkart Axis Bank Credit Card XX9566 statement for the period 25/02/25 to 24/03/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-03-25",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Mar2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from XX7368 to Anil Traders A/c XX6034 on 27-Mar-2025. Rent for the month.",
+   "date": "2025-03-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 9566",
+   "body": "Spent INR 5,665.36 on your Flipkart Axis Bank Credit Card ending 9566 at HPCL PETROL, 31-Mar-2025. Avl Lmt INR 24,234.93. SMS BLOCK to 5676782 if not you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-03-31",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "OTP for your transaction",
+   "body": "742565 is the OTP for your transaction of Rs.3,531.40 at AMAZON PAY INDIA. Valid for 10 minutes. Do not share.",
+   "date": "2025-04-01",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Debit alert: Axis Bank A/c",
+   "body": "Dear Customer,\nINR 274.23 has been debited from your Axis Bank A/c *7368 on 03-Apr-2025 (IMPS BIGBASKET). Avl bal INR 1,06,394.88.",
+   "date": "2025-04-03",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 9566",
+   "body": "Dear Customer,\nThank you for using your Flipkart Axis Bank Credit Card no. ending 9566 for INR 9,756.08 at SPOTIFY on 04-Apr-2025 13:35:37. Available limit: INR 6,228.43.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-04-04",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Meera,\nYour order #157-8461222-3379973 is confirmed. Total Rs.5,912.09. Estimated delivery in 2 days.",
+   "date": "2025-04-04",
+   "attachments": [],
+   "from": "Zomato <noreply@zomato.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5363",
+   "body": "Dear Customer,\nThank you for using your Airtel Axis Bank Credit Card no. XX5363 for INR 1,593.84 at BESCOM on 06-Apr-2025 22:25:22. Available limit: INR 43,957.83.\n\nOpt for e-statements and go green.",
+   "date": "2025-04-06",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Apr 2025",
+   "body": "Dear Meera,\nYour Axis Bank ACE Credit Card ending 2478 statement for Apr 2025 is ready. Total amount due Rs.11,499.84, minimum amount due Rs.574.99, payable by 29/04/25.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-04-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Update your KYC",
+   "body": "Dear Meera,\nAs per RBI guidelines please complete re-KYC for your Axis Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-04-12",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX2478",
+   "body": "Spent INR 7,200.72 on your Axis Bank Credit Card XX2478 at INDIGO AIRLINES, 13-Apr-2025. Avl Lmt INR 13,525.35. SMS BLOCK to 5676782 if not you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-04-13",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Apr 2025",
+   "body": "Dear Meera,\nYour Airtel Axis Bank Credit Card ending 5363 statement for Apr 2025 is ready. Total amount due Rs.12,552.14, minimum amount due Rs.627.61, payable by 01/05/25.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-04-14",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5363",
+   "body": "Dear Customer,\nThank you for using your Airtel Axis Bank Credit Card no. XX5363 for INR 24,078.50 at PHONEPE on 16-Apr-2025 15:11:07. Available limit: INR 23,047.63.",
+   "date": "2025-04-16",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Axis Bank: funds transferred",
+   "body": "Dear Customer,\nRs.2,474.19 has been transferred from your A/c xx7368 to Anil Traders A/c XX5722 (SBI Card) via IMPS on 16-Apr-2025. Ref no 260933491449.",
+   "date": "2025-04-16",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 4,331.91 has been received towards your Airtel Axis Bank Credit Card xx5363 on 17-Apr-2025. Thank you for the payment.\n\nOpt for e-statements and go green.",
+   "date": "2025-04-17",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Debit alert: Axis Bank A/c",
+   "body": "Your A/c xx7368 is debited for INR 11,396.66 on 18-Apr-2025 - UPI RELIANCE DIGITAL. Bal INR 20,553.31. -Axis Bank\n\nOpt for e-statements and go green.",
+   "date": "2025-04-18",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Apr 2025",
+   "body": "Dear Meera,\nPlease find attached your Flipkart Axis Bank Credit Card XX9566 statement for the period 25/03/25 to 24/04/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-04-25",
+   "attachments": [
+    {
+     "filename": "9566_24042025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.20,000.00 transferred from *7368 to Anil Traders A/c XX6034 on 27-Apr-2025. Rent for the month.",
+   "date": "2025-04-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Debit alert: Axis Bank A/c",
+   "body": "Your A/c XXXXXX7368 is debited for INR 488.09 on 08-May-2025 - NEFT APOLLO PHARMACY. Bal INR 51,373.66. -Axis Bank",
+   "date": "2025-05-08",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - May 2025",
+   "body": "Dear Meera,\nYour Axis Bank ACE Credit Card XX2478 statement for May 2025 is ready. Total amount due Rs.1,555.19, minimum amount due Rs.200.00, payable by 29/05/25.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Axis Bank: funds transferred",
+   "body": "Dear Customer,\nRs.7,463.82 has been transferred from your A/c XX7368 to Mohan Landlord A/c XX0903 (Bank of India) via IMPS on 12-May-2025. Ref no 683771555041.",
+   "date": "2025-05-12",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - May 2025",
+   "body": "Dear Meera,\nPlease find attached your Airtel Axis Bank Credit Card xx5363 statement for the period 14/04/25 to 13/05/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-05-14",
+   "attachments": [
+    {
+     "filename": "eStatement_202505.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5363",
+   "body": "Dear Customer,\nThank you for using your Airtel Axis Bank Credit Card no. XX5363 for INR 594.03 at OLA CABS on 16-May-2025 16:14:41. Available limit: INR 37,156.87.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-16",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Axis Bank Account Statement - May 2025",
+   "body": "Dear Meera,\nYour Axis Bank xx7368 account statement for May 2025 is ready. Closing balance Rs.1,052.88.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-05-19",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "OTP for your transaction",
+   "body": "469958 is the OTP for your transaction of Rs.240.22 at DMART. Valid for 10 minutes. Do not share.",
+   "date": "2025-05-23",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - May 2025",
+   "body": "Dear Meera,\nPlease find attached your Flipkart Axis Bank Credit Card xx9566 statement for the period 25/04/25 to 24/05/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-05-25",
+   "attachments": [
+    {
+     "filename": "Axis_CC_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx9566",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. xx9566 for INR 1,091.64 at PAYTM on 25-May-2025 00:58:14. Available limit: INR 49,911.94.\n\nOpt for e-statements and go green.",
+   "date": "2025-05-25",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9566",
+   "body": "Dear Customer,\nThank you for using your Flipkart Axis Bank Credit Card no. XX9566 for INR 5,456.21 at DMART on 29-May-2025 03:08:17. Available limit: INR 2,756.98.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-05-29",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 5363",
+   "body": "Spent INR 1,194.82 on your Axis Bank Credit Card ending 5363 at JIO RECHARGE, 02-Jun-2025. Avl Lmt INR 28,412.86. SMS BLOCK to 5676782 if not you.",
+   "date": "2025-06-02",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Axis Bank: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 1883 has been successfully linked/verified for your Axis Bank relationship. If this was not you, contact us.",
+   "date": "2025-06-05",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Jun 2025",
+   "body": "Dear Meera,\nPlease find attached your Axis Bank ACE Credit Card XX2478 statement for the period 12/05/25 to 11/06/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-06-12",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Jun2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Jun 2025",
+   "body": "Dear Meera,\nYour Airtel Axis Bank Credit Card XX5363 statement for Jun 2025 is ready. Total amount due Rs.833.85, minimum amount due Rs.200.00, payable by 01/07/25.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-14",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Credit alert: Axis Bank A/c",
+   "body": "Dear Customer,\nINR 10,268.00 credited to your Axis Bank A/c XXXXXX7368 on 16-Jun-2025 by NEFT. Ref 704944214920.\nThank you for banking with us.\n\nOpt for e-statements and go green.",
+   "date": "2025-06-16",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX2478",
+   "body": "Dear Customer,\nThank you for using your Axis Bank ACE Credit Card no. XX2478 for INR 405.48 at AIRTEL PREPAID on 23-Jun-2025 19:31:22. Available limit: INR 6,821.08.\n\nOpt for e-statements and go green.",
+   "date": "2025-06-23",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Jun 2025",
+   "body": "Dear Meera,\nYour Flipkart Axis Bank Credit Card XX9566 statement for Jun 2025 is ready. Total amount due Rs.3,414.81, minimum amount due Rs.200.00, payable by 12/07/25.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-06-25",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Debit alert: Axis Bank A/c",
+   "body": "Dear Customer,\nINR 2,977.95 has been debited from your Axis Bank A/c *7368 on 29-Jun-2025 (ECOM AIRTEL PREPAID). Avl bal INR 85,466.31.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-06-29",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9566",
+   "body": "Spent INR 19,343.53 on your Flipkart Axis Bank Credit Card XX9566 at JIO RECHARGE, 01-Jul-2025. Avl Lmt INR 45,965.47. SMS BLOCK to 5676782 if not you.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-07-01",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Earn more with your card",
+   "body": "Dear Meera,\nConvert big spends to EMI at low interest.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-02",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx9566",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. xx9566 for INR 2,272.49 at MEDPLUS on 09-Jul-2025 09:06:18. Available limit: INR 3,752.56.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-09",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Jul 2025",
+   "body": "Dear Meera,\nYour Axis Bank ACE Credit Card xx2478 statement for Jul 2025 is ready. Total amount due Rs.43,262.97, minimum amount due Rs.2,163.15, payable by 29/07/25.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-07-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx5363",
+   "body": "Spent INR 5,720.45 on your Axis Bank Credit Card xx5363 at DOMINOS, 13-Jul-2025. Avl Lmt INR 10,692.13. SMS BLOCK to 5676782 if not you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-13",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Jul 2025",
+   "body": "Dear Meera,\nPlease find attached your Airtel Axis Bank Credit Card xx5363 statement for the period 14/06/25 to 13/07/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-14",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Axis Bank Account Statement - Jul 2025",
+   "body": "Dear Meera,\nPlease find attached your Axis Bank *7368 statement for the period 19/06/25 to 18/07/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-07-19",
+   "attachments": [
+    {
+     "filename": "eStatement_202507.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx9566",
+   "body": "Spent INR 225.03 on your Axis Bank Credit Card xx9566 at AIRTEL PREPAID, 24-Jul-2025. Avl Lmt INR 14,303.84. SMS BLOCK to 5676782 if not you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-24",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Jul 2025",
+   "body": "Dear Meera,\nPlease find attached your Flipkart Axis Bank Credit Card ending 9566 statement for the period 25/06/25 to 24/07/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-25",
+   "attachments": [
+    {
+     "filename": "9566_24072025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Debit alert: Axis Bank A/c",
+   "body": "Your A/c *7368 is debited for INR 2,594.30 on 29-Jul-2025 - UPI AMAZON PAY INDIA. Bal INR 15,169.62. -Axis Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-07-29",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "OTP for your transaction",
+   "body": "863501 is the OTP for your transaction of Rs.352.82 at DECATHLON. Valid for 10 minutes. Do not share.",
+   "date": "2025-07-29",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 5363",
+   "body": "Dear Customer,\nThank you for using your Airtel Axis Bank Credit Card no. ending 5363 for INR 828.63 at OLA CABS on 02-Aug-2025 14:33:05. Available limit: INR 12,094.92.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-08-02",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Meera,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-08",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Aug 2025",
+   "body": "Dear Meera,\nYour Axis Bank ACE Credit Card XX2478 statement for Aug 2025 is ready. Total amount due Rs.24,841.09, minimum amount due Rs.1,242.05, payable by 29/08/25.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 1,213.80 on 12-Aug-2025 for your Axis Bank Credit Card xx2478. Available credit limit has been updated.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-12",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx2478",
+   "body": "Spent INR 521.69 on your Axis Bank Credit Card xx2478 at PVR INOX, 13-Aug-2025. Avl Lmt INR 6,912.80. SMS BLOCK to 5676782 if not you.",
+   "date": "2025-08-13",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Aug 2025",
+   "body": "Dear Meera,\nYour Airtel Axis Bank Credit Card ending 5363 statement for Aug 2025 is ready. Total amount due Rs.45,206.73, minimum amount due Rs.2,260.34, payable by 31/08/25.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-08-14",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 1,463.18 on 16-Aug-2025 for your Airtel Axis Bank Credit Card XX5363. Available credit limit has been updated.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-08-16",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5363",
+   "body": "Dear Customer,\nThank you for using your Airtel Axis Bank Credit Card no. XX5363 for INR 5,419.44 at JIO RECHARGE on 20-Aug-2025 17:15:47. Available limit: INR 4,945.77.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-20",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Aug 2025",
+   "body": "Dear Meera,\nPlease find attached your Flipkart Axis Bank Credit Card ending 9566 statement for the period 25/07/25 to 24/08/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-08-25",
+   "attachments": [
+    {
+     "filename": "9566_24082025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX2478",
+   "body": "Spent INR 13,802.18 on your Axis Bank ACE Credit Card XX2478 at BESCOM, 25-Aug-2025. Avl Lmt INR 6,606.01. SMS BLOCK to 5676782 if not you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-25",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Debit alert: Axis Bank A/c",
+   "body": "Your A/c *7368 is debited for INR 7,905.34 on 25-Aug-2025 - UPI INDIGO AIRLINES. Bal INR 98,696.80. -Axis Bank",
+   "date": "2025-08-25",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5363",
+   "body": "Spent INR 2,804.50 on your Airtel Axis Bank Credit Card XX5363 at DECATHLON, 27-Aug-2025. Avl Lmt INR 5,699.45. SMS BLOCK to 5676782 if not you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 2478",
+   "body": "Spent INR 3,231.07 on your Axis Bank Credit Card ending 2478 at URBAN COMPANY, 27-Aug-2025. Avl Lmt INR 38,458.66. SMS BLOCK to 5676782 if not you.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx5363",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. xx5363 for INR 115.93 at DMART on 31-Aug-2025 09:13:56. Available limit: INR 1,15,426.47.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-31",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5363",
+   "body": "Spent INR 94.59 on your Airtel Axis Bank Credit Card XX5363 at TATA PLAY, 04-Sep-2025. Avl Lmt INR 30,686.68. SMS BLOCK to 5676782 if not you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-04",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Credit alert: Axis Bank A/c",
+   "body": "Your A/c XXXXXX7368 is credited with INR 16,909.73 on 06-Sep-2025 - SALARY NEFT. Bal INR 4,949.03. -Axis Bank",
+   "date": "2025-09-06",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "OTP for your transaction",
+   "body": "934695 is the OTP for your transaction of Rs.1,747.56 at BIG BAZAAR. Valid for 10 minutes. Do not share.",
+   "date": "2025-09-11",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Sep 2025",
+   "body": "Dear Meera,\nYour Axis Bank ACE Credit Card xx2478 statement for Sep 2025 is ready. Total amount due Rs.1,277.31, minimum amount due Rs.200.00, payable by 29/09/25.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Sep 2025",
+   "body": "Dear Meera,\nYour Airtel Axis Bank Credit Card XX5363 statement for Sep 2025 is ready. Total amount due Rs.30,100.65, minimum amount due Rs.1,505.03, payable by 01/10/25.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-09-14",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "Axis Bank Account Statement - Sep 2025",
+   "body": "Dear Meera,\nPlease find attached your Axis Bank XX7368 statement for the period 19/08/25 to 18/09/25. \n\n",
+   "date": "2025-09-19",
+   "attachments": [
+    {
+     "filename": "Axis_Acct_Sep2025.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK\nSTATEMENT OF ACCOUNT\nAccount Name : MEERA PILLAI\nFLAT 781, LAKESHORE APARTMENTS\n13TH CROSS, ADYAR\nKOLKATA - 652401\nAccount Number : XXXXXX7368\nAccount Type : SAVINGS ACCOUNT\nIFSC : AXIS0365550\nStatement Period : 19-08-2025 to 18-09-2025\nOpening Balance : Rs.63,968.52\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n21-08-2025 POS/MAKEMYTRIP 883123034 11,183.56 - 52,784.96\n21-08-2025 UPI/CR 772488921 - 3,848.18 56,633.14\n24-08-2025 SALARY NEFT 749750571 - 17,200.70 73,833.84\n27-08-2025 ATM WDL/EAZYDINER 205676245 980.06 - 72,853.78\n27-08-2025 NEFT DR/UBER INDIA 845247208 1,114.58 - 71,739.20\n30-08-2025 UPI/CR 290336805 - 3,958.85 75,698.05\n31-08-2025 NEFT DR/EAZYDINER 506456825 112.73 - 75,585.32\n31-08-2025 UPI/CR 662378896 - 14,310.31 89,895.63\n03-09-2025 POS/SPOTIFY 585615479 734.67 - 89,160.96\n03-09-2025 NEFT DR/MYNTRA 970213891 8,938.48 - 80,222.48\n05-09-2025 UPI/UBER INDIA 836857104 634.94 - 79,587.54\n08-09-2025 NEFT DR/EASEMYTRIP 231541801 3,990.63 - 75,596.91\n10-09-2025 ATM WDL/URBAN COMPANY 265055979 9,714.81 - 65,882.10\nClosing Balance : Rs.65,882.10\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "Debit alert: Axis Bank A/c",
+   "body": "Dear Customer,\nINR 95.33 has been debited from your Axis Bank A/c XXXXXX7368 on 19-Sep-2025 (NEFT AIRTEL PREPAID). Avl bal INR 14,655.71.",
+   "date": "2025-09-19",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Sep 2025",
+   "body": "Dear Meera,\nPlease find attached your Flipkart Axis Bank Credit Card xx9566 statement for the period 25/08/25 to 24/09/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-25",
+   "attachments": [
+    {
+     "filename": "eStatement_202509.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 2478",
+   "body": "Spent INR 293.17 on your Axis Bank Credit Card ending 2478 at ZEPTO, 27-Sep-2025. Avl Lmt INR 10,976.73. SMS BLOCK to 5676782 if not you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Meera,\nPlease find attached the updated MITC for your Axis Bank credit cards.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-03",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx9566",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. xx9566 for INR 127.09 at DOMINOS on 06-Oct-2025 18:59:08. Available limit: INR 49,870.83.",
+   "date": "2025-10-06",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Oct 2025",
+   "body": "Dear Meera,\nYour Axis Bank ACE Credit Card xx2478 statement for Oct 2025 is ready. Total amount due Rs.21,562.94, minimum amount due Rs.1,078.15, payable by 29/10/25.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-10-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Oct 2025",
+   "body": "Dear Meera,\nPlease find attached your Airtel Axis Bank Credit Card XX5363 statement for the period 14/09/25 to 13/10/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-14",
+   "attachments": [
+    {
+     "filename": "eStatement_202510.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Oct 2025",
+   "body": "Dear Meera,\nYour Flipkart Axis Bank Credit Card ending 9566 statement for Oct 2025 is ready. Total amount due Rs.2,757.52, minimum amount due Rs.200.00, payable by 11/11/25.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-10-25",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx2478",
+   "body": "Spent INR 2,831.58 on your Axis Bank Credit Card xx2478 at PHONEPE, 09-Nov-2025. Avl Lmt INR 2,922.16. SMS BLOCK to 5676782 if not you.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-09",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 133.80 on 10-Nov-2025 for your Flipkart Axis Bank Credit Card xx9566. Available credit limit has been updated.",
+   "date": "2025-11-10",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Nov 2025",
+   "body": "Dear Meera,\nPlease find attached your Axis Bank ACE Credit Card xx2478 statement for the period 12/10/25 to 11/11/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202511.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Nov 2025",
+   "body": "Dear Meera,\nYour Airtel Axis Bank Credit Card XX5363 statement for Nov 2025 is ready. Total amount due Rs.33,908.62, minimum amount due Rs.1,695.43, payable by 01/12/25.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-14",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 2478",
+   "body": "Dear Customer,\nThank you for using your Axis Bank ACE Credit Card no. ending 2478 for INR 224.10 at FLIPKART on 15-Nov-2025 08:49:45. Available limit: INR 69,074.37.",
+   "date": "2025-11-15",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Axis Bank Account Statement - Nov 2025",
+   "body": "Dear Meera,\nYour Axis Bank XXXXXX7368 account statement for Nov 2025 is ready. Closing balance Rs.567.51.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-11-19",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Nov 2025",
+   "body": "Dear Meera,\nPlease find attached your Flipkart Axis Bank Credit Card ending 9566 statement for the period 25/10/25 to 24/11/25.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-11-25",
+   "attachments": [
+    {
+     "filename": "9566_24112025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Your credit limit has been increased",
+   "body": "Dear Meera Pillai,\nGood news! The credit limit on your Axis Bank ACE Credit Card ending 2478 has been enhanced to Rs.1,60,000.00 with effect from 08-Dec-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-08",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Dec 2025",
+   "body": "Dear Meera,\nYour Axis Bank ACE Credit Card xx2478 statement for Dec 2025 is ready. Total amount due Rs.20,848.02, minimum amount due Rs.1,042.40, payable by 29/12/25.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-12-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "OTP for your transaction",
+   "body": "266274 is the OTP for your transaction of Rs.14,481.97 at AMAZON PAY INDIA. Valid for 10 minutes. Do not share.",
+   "date": "2025-12-15",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Dec 2025",
+   "body": "Dear Meera,\nYour Flipkart Axis Bank Credit Card ending 9566 statement for Dec 2025 is ready. Total amount due Rs.23,401.01, minimum amount due Rs.1,170.05, payable by 11/01/26.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "Debit alert: Axis Bank A/c",
+   "body": "INR debit alert: INR 13,574.38 debited from account XX7368 on 27-Dec-2025. Narration: UPI/FLIPKART. Available balance INR 43,477.99.\n\nOpt for e-statements and go green.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX2000 has been updated on 02-Nov-2025. If not requested by you, call customer care.",
+   "date": "2026-01-05",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9566",
+   "body": "Spent INR 364.22 on your Flipkart Axis Bank Credit Card XX9566 at BATA INDIA, 07-Jan-2026. Avl Lmt INR 33,617.82. SMS BLOCK to 5676782 if not you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-01-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Jan 2026",
+   "body": "Dear Meera,\nYour Axis Bank ACE Credit Card ending 2478 statement for Jan 2026 is ready. Total amount due Rs.498.39, minimum amount due Rs.200.00, payable by 29/01/26.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-01-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx5363",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. xx5363 for INR 253.10 at DOMINOS on 13-Jan-2026 11:03:17. Available limit: INR 19,463.28.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-01-13",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Jan 2026",
+   "body": "Dear Meera,\nPlease find attached your Airtel Axis Bank Credit Card XX5363 statement for the period 14/12/25 to 13/01/26. Total amount due Rs.42,347.41, due 29/01/26.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-14",
+   "attachments": [
+    {
+     "filename": "5363_13012026_stmt.pdf",
+     "protected": false,
+     "pdfText": "Axis Bank Credit Card Statement\nMEERA PILLAI\nFLAT 484, SUNRISE APARTMENTS\n7TH CROSS, INDIRANAGAR\nKOCHI - 637742\nCard Name: Airtel Axis Bank Credit Card\nCredit Card Number: 561717XXXXXX5363\nStatement Period: 14/12/25 - 13/01/26\nStatement Generation Date: 13/01/26\nPayment Summary\nTotal Payment Due: Rs.42,347.41\nMinimum Payment Due: Rs.2,117.37\nPayment Due Date: 29/01/26\nAccount Summary\nCredit Limit: Rs.2,55,000.00\nAvailable Credit Limit: Rs.2,15,847.69\nAvailable Cash Limit: Rs.51,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n17/12/25 FLIPKART KOLKATA 96.39 Dr\n18/12/25 CROMA CHENNAI 3,296.46 Dr\n20/12/25 SODEXO KOCHI 138.73 Dr\n21/12/25 BESCOM CHENNAI 854.90 Dr\n21/12/25 SPOTIFY BENGALURU 1,786.31 Dr\n22/12/25 SWIGGY HYDERABAD 751.99 Dr\n31/12/25 CROMA GURUGRAM 2,591.91 Dr\n01/01/26 HPCL PETROL KOLKATA 5,620.76 Dr\n10/01/26 ZOMATO CHENNAI 16,324.73 Dr\n13/01/26 BIG BAZAAR GURUGRAM 334.20 Dr\n13/01/26 FLIPKART JAIPUR 1,893.56 Dr\n13/01/26 PHONEPE AHMEDABAD 8,657.47 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "Axis Bank Account Statement - Jan 2026",
+   "body": "Dear Meera,\nYour Axis Bank XXXXXX7368 account statement for Jan 2026 is ready. Closing balance Rs.1,212.38.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-19",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Axis Bank festive offers",
+   "body": "Dear Meera,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-01-21",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Jan 2026",
+   "body": "Dear Meera,\nPlease find attached your Flipkart Axis Bank Credit Card ending 9566 statement for the period 25/12/25 to 24/01/26. Total amount due Rs.36,375.31, due 12/02/26.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-01-25",
+   "attachments": [
+    {
+     "filename": "9566_24012026_stmt.pdf",
+     "protected": false,
+     "pdfText": "Axis Bank Credit Card Statement\nMEERA PILLAI\nFLAT 566, GREEN VALLEY APARTMENTS\n3TH CROSS, ADYAR\nKOCHI - 672316\nCard Name: Flipkart Axis Bank Credit Card\nCredit Card Number: 532675XXXXXX9566\nStatement Period: 25/12/25 - 24/01/26\nStatement Generation Date: 24/01/26\nPayment Summary\nTotal Payment Due: Rs.36,375.31\nMinimum Payment Due: Rs.1,818.77\nPayment Due Date: 12/02/26\nAccount Summary\nCredit Limit: Rs.2,50,000.00\nAvailable Credit Limit: Rs.2,40,010.39\nAvailable Cash Limit: Rs.50,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n25/12/25 MAKEMYTRIP HYDERABAD 162.92 Dr\n27/12/25 CROMA JAIPUR 18,184.56 Dr\n30/12/25 HPCL PETROL KOLKATA 104.20 Dr\n01/01/26 SODEXO AHMEDABAD 98.03 Dr\n03/01/26 URBAN COMPANY GURUGRAM 2,958.18 Dr\n04/01/26 MAKEMYTRIP GURUGRAM 4,637.68 Dr\n06/01/26 APPLE SERVICES PUNE 3,066.43 Dr\n08/01/26 INDIAN OIL AHMEDABAD 2,009.12 Dr\n08/01/26 MAKEMYTRIP KOCHI 646.51 Dr\n15/01/26 CROMA BENGALURU 3,797.47 Dr\n17/01/26 BPCL FUEL KOCHI 338.29 Dr\n17/01/26 NYKAA JAIPUR 371.92 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9566",
+   "body": "Spent INR 1,010.28 on your Axis Bank Credit Card XX9566 at DECATHLON, 04-Feb-2026. Avl Lmt INR 2,077.70. SMS BLOCK to 5676782 if not you.\n\nOpt for e-statements and go green.",
+   "date": "2026-02-04",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX2478",
+   "body": "Dear Customer,\nThank you for using your Axis Bank ACE Credit Card no. XX2478 for INR 1,135.62 at FLIPKART on 04-Feb-2026 10:24:41. Available limit: INR 3,487.00.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-04",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "Update your KYC",
+   "body": "Dear Meera,\nAs per RBI guidelines please complete re-KYC for your Axis Bank relationship. Visit a branch or use the app.\n\nOpt for e-statements and go green.",
+   "date": "2026-02-09",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Feb 2026",
+   "body": "Dear Meera,\nPlease find attached your Axis Bank ACE Credit Card XX2478 statement for the period 12/01/26 to 11/02/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Feb 2026",
+   "body": "Dear Meera,\nYour Airtel Axis Bank Credit Card XX5363 statement for Feb 2026 is ready. Total amount due Rs.674.61, minimum amount due Rs.200.00, payable by 03/03/26.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-14",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9566",
+   "body": "Dear Customer,\nThank you for using your Flipkart Axis Bank Credit Card no. XX9566 for INR 13,871.97 at NYKAA on 16-Feb-2026 13:28:49. Available limit: INR 2,132.67.\n\nOpt for e-statements and go green.",
+   "date": "2026-02-16",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "Credit alert: Axis Bank A/c",
+   "body": "Credit alert: INR 1,576.14 has been credited to account XX7368 on 16-Feb-2026 (IMPS). Avl bal INR 4,099.58.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-16",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9566",
+   "body": "Spent INR 766.34 on your Axis Bank Credit Card XX9566 at BESCOM, 18-Feb-2026. Avl Lmt INR 16,907.24. SMS BLOCK to 5676782 if not you.",
+   "date": "2026-02-18",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5363",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX5363 for INR 7,126.13 at PHONEPE on 22-Feb-2026 22:14:49. Available limit: INR 50,066.76.",
+   "date": "2026-02-22",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Feb 2026",
+   "body": "Dear Meera,\nPlease find attached your Flipkart Axis Bank Credit Card xx9566 statement for the period 25/01/26 to 24/02/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-02-25",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m145",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.1,645.76 has been transferred from your A/c xx7368 to Mohan Landlord A/c XX0903 (Bank of India) via IMPS on 03-Mar-2026. Ref no 848145466478.",
+   "date": "2026-03-03",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "Refer and earn",
+   "body": "Dear Meera,\nGet up to 10% cashback on partner brands.\n\n",
+   "date": "2026-03-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "Update your KYC",
+   "body": "Dear Meera,\nAs per RBI guidelines please complete re-KYC for your Axis Bank relationship. Visit a branch or use the app.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-09",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Mar 2026",
+   "body": "Dear Meera,\nYour Axis Bank ACE Credit Card XX2478 statement for Mar 2026 is ready. Total amount due Rs.7,692.09, minimum amount due Rs.384.60, payable by 29/03/26.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-03-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Meera,\nUse your card on UPI and earn extra rewards.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-03-12",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Mar 2026",
+   "body": "Dear Meera,\nPlease find attached your Airtel Axis Bank Credit Card ending 5363 statement for the period 14/02/26 to 13/03/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-14",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Axis Bank Account Statement - Mar 2026",
+   "body": "Dear Meera,\nPlease find attached your Axis Bank XX7368 statement for the period 19/02/26 to 18/03/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-19",
+   "attachments": [
+    {
+     "filename": "7368_18032026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Mar 2026",
+   "body": "Dear Meera,\nPlease find attached your Flipkart Axis Bank Credit Card xx9566 statement for the period 25/02/26 to 24/03/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-03-25",
+   "attachments": [
+    {
+     "filename": "eStatement_202603.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx5363",
+   "body": "Spent INR 374.81 on your Axis Bank Credit Card xx5363 at BIGBASKET, 27-Mar-2026. Avl Lmt INR 92,641.66. SMS BLOCK to 5676782 if not you.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5363",
+   "body": "Spent INR 119.29 on your Airtel Axis Bank Credit Card XX5363 at MYNTRA, 29-Mar-2026. Avl Lmt INR 17,491.72. SMS BLOCK to 5676782 if not you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-03-29",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5363",
+   "body": "Spent INR 1,401.87 on your Axis Bank Credit Card XX5363 at TATA PLAY, 02-Apr-2026. Avl Lmt INR 2,684.85. SMS BLOCK to 5676782 if not you.",
+   "date": "2026-04-02",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "OTP for your transaction",
+   "body": "591587 is the OTP for your transaction of Rs.1,083.71 at TATA PLAY. Valid for 10 minutes. Do not share.",
+   "date": "2026-04-03",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "Credit alert: Axis Bank A/c",
+   "body": "Credit alert: INR 7,207.27 has been credited to account XX7368 on 11-Apr-2026 (SALARY NEFT). Avl bal INR 60,235.07.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-04-11",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Apr 2026",
+   "body": "Dear Meera,\nPlease find attached your Axis Bank ACE Credit Card xx2478 statement for the period 12/03/26 to 11/04/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "2478_11042026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Apr 2026",
+   "body": "Dear Meera,\nPlease find attached your Airtel Axis Bank Credit Card xx5363 statement for the period 14/03/26 to 13/04/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-04-14",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9566",
+   "body": "Spent INR 1,119.05 on your Axis Bank Credit Card XX9566 at CROMA, 23-Apr-2026. Avl Lmt INR 37,286.20. SMS BLOCK to 5676782 if not you.",
+   "date": "2026-04-23",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9566",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX9566 for INR 5,685.13 at GOOGLE PLAY on 23-Apr-2026 06:06:01. Available limit: INR 45,298.91.",
+   "date": "2026-04-23",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Apr 2026",
+   "body": "Dear Meera,\nYour Flipkart Axis Bank Credit Card xx9566 statement for Apr 2026 is ready. Total amount due Rs.26,342.79, minimum amount due Rs.1,317.14, payable by 12/05/26.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 7,906.35 has been received towards your Axis Bank ACE Credit Card ending 2478 on 25-Apr-2026. Thank you for the payment.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "OTP for your transaction",
+   "body": "138717 is the OTP for your transaction of Rs.244.18 at PVR INOX. Valid for 10 minutes. Do not share.",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Meera,\nYour order #948-5954001-7752638 is confirmed. Total Rs.426.27. Estimated delivery in 2 days.",
+   "date": "2026-04-30",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 2478",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. ending 2478 for INR 3,974.30 at ZEPTO on 08-May-2026 09:29:03. Available limit: INR 59,968.44.",
+   "date": "2026-05-08",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.637.34 has been transferred from your A/c *7368 to Anil Traders A/c XX5722 (SBI Card) via IMPS on 08-May-2026. Ref no 670011370153.",
+   "date": "2026-05-08",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 2478",
+   "body": "Spent INR 7,437.09 on your Axis Bank Credit Card ending 2478 at BESCOM, 09-May-2026. Avl Lmt INR 8,614.65. SMS BLOCK to 5676782 if not you.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - May 2026",
+   "body": "Dear Meera,\nYour Axis Bank ACE Credit Card XX2478 statement for May 2026 is ready. Total amount due Rs.893.83, minimum amount due Rs.200.00, payable by 29/05/26.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - May 2026",
+   "body": "Dear Meera,\nPlease find attached your Airtel Axis Bank Credit Card xx5363 statement for the period 14/04/26 to 13/05/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-05-14",
+   "attachments": [
+    {
+     "filename": "5363_13052026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 9566",
+   "body": "Spent INR 1,010.78 on your Flipkart Axis Bank Credit Card ending 9566 at RELIANCE DIGITAL, 15-May-2026. Avl Lmt INR 1,25,227.37. SMS BLOCK to 5676782 if not you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-15",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m172",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5363",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX5363 for INR 946.03 at RELIANCE DIGITAL on 18-May-2026 10:04:37. Available limit: INR 3,656.48.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-18",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "Axis Bank Account Statement - May 2026",
+   "body": "Dear Meera,\nPlease find attached your Axis Bank XX7368 statement for the period 19/04/26 to 18/05/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-05-19",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m174",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5363",
+   "body": "Spent INR 612.97 on your Airtel Axis Bank Credit Card XX5363 at UBER INDIA, 20-May-2026. Avl Lmt INR 2,008.48. SMS BLOCK to 5676782 if not you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-20",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - May 2026",
+   "body": "Dear Meera,\nYour Flipkart Axis Bank Credit Card xx9566 statement for May 2026 is ready. Total amount due Rs.722.59, minimum amount due Rs.200.00, payable by 11/06/26.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m176",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9566",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX9566 for INR 106.69 at BIGBASKET on 26-May-2026 17:10:44. Available limit: INR 1,25,034.04.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9566",
+   "body": "Dear Customer,\nThank you for using your Flipkart Axis Bank Credit Card no. XX9566 for INR 11,297.27 at BIGBASKET on 28-May-2026 07:35:19. Available limit: INR 1,88,495.38.",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9566",
+   "body": "Spent INR 1,584.00 on your Flipkart Axis Bank Credit Card XX9566 at GOOGLE PLAY, 03-Jun-2026. Avl Lmt INR 53,528.50. SMS BLOCK to 5676782 if not you.",
+   "date": "2026-06-03",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m179",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Jun 2026",
+   "body": "Dear Meera,\nPlease find attached your Axis Bank ACE Credit Card xx2478 statement for the period 12/05/26 to 11/06/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202606.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Jun 2026",
+   "body": "Dear Meera,\nYour Airtel Axis Bank Credit Card xx5363 statement for Jun 2026 is ready. Total amount due Rs.1,222.19, minimum amount due Rs.200.00, payable by 01/07/26.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-06-14",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m181",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 5363",
+   "body": "Spent INR 4,319.50 on your Axis Bank Credit Card ending 5363 at SWIGGY, 20-Jun-2026. Avl Lmt INR 38,484.90. SMS BLOCK to 5676782 if not you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-20",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Jun 2026",
+   "body": "Dear Meera,\nYour Flipkart Axis Bank Credit Card XX9566 statement for Jun 2026 is ready. Total amount due Rs.22,077.15, minimum amount due Rs.1,103.86, payable by 12/07/26.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m183",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX2478",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX2478 for INR 357.59 at FLIPKART on 29-Jun-2026 15:25:50. Available limit: INR 11,712.16.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-29",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "Earn more with your card",
+   "body": "Dear Meera,\nUse your card on UPI and earn extra rewards.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-02",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m185",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx2478",
+   "body": "Spent INR 17,560.84 on your Axis Bank ACE Credit Card xx2478 at BLINKIT, 03-Jul-2026. Avl Lmt INR 2,591.16. SMS BLOCK to 5676782 if not you.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-03",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "Bill payment successful",
+   "body": "Dear Customer,\nCredit card bill payment of Rs.18,477.24 for Kotak Mahindra Bank Credit Card ending 0572 (cardholder: HARSH PILLAI) was successful from your A/c XXXXXX7368 on 04-Jul-2026.",
+   "date": "2026-07-04",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m187",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 12,167.11 on 08-Jul-2026 for your Flipkart Axis Bank Credit Card xx9566. Available credit limit has been updated.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-08",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m188",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 2478",
+   "body": "Spent INR 459.46 on your Axis Bank Credit Card ending 2478 at AIRTEL PREPAID, 11-Jul-2026. Avl Lmt INR 11,080.03. SMS BLOCK to 5676782 if not you.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-07-11",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m189",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Jul 2026",
+   "body": "Dear Meera,\nPlease find attached your Axis Bank ACE Credit Card xx2478 statement for the period 12/06/26 to 11/07/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m190",
+   "subject": "Debit alert: Axis Bank A/c",
+   "body": "Your A/c *7368 is debited for INR 12,068.95 on 12-Jul-2026 - ECOM APOLLO PHARMACY. Bal INR 4,322.10. -Axis Bank\n\nOpt for e-statements and go green.",
+   "date": "2026-07-12",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Jul 2026",
+   "body": "Dear Meera,\nPlease find attached your Airtel Axis Bank Credit Card ending 5363 statement for the period 14/06/26 to 13/07/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-14",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5363",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX5363 for INR 282.08 at SWIGGY on 14-Jul-2026 17:23:29. Available limit: INR 18,571.35.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-07-14",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m193",
+   "subject": "Axis Bank Account Statement - Jul 2026",
+   "body": "Dear Meera,\nYour Axis Bank XX7368 account statement for Jul 2026 is ready. Closing balance Rs.1,792.91.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-07-19",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m194",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.609.63 has been transferred from your A/c XXXXXX7368 to Mohan Landlord A/c XX0903 (Bank of India) via IMPS on 21-Jul-2026. Ref no 763837546961.",
+   "date": "2026-07-21",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m195",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5363",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX5363 for INR 157.45 at IRCTC on 23-Jul-2026 06:35:23. Available limit: INR 11,417.72.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Jul 2026",
+   "body": "Dear Meera,\nPlease find attached your Flipkart Axis Bank Credit Card ending 9566 statement for the period 25/06/26 to 24/07/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-25",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m197",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 708786594444. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2026-07-31",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m198",
+   "subject": "Credit alert: Axis Bank A/c",
+   "body": "Your A/c XX7368 is credited with INR 876.64 on 07-Aug-2026 - SALARY NEFT. Bal INR 1,36,044.90. -Axis Bank",
+   "date": "2026-08-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m199",
+   "subject": "Credit alert: Axis Bank A/c",
+   "body": "Your A/c XXXXXX7368 is credited with INR 479.53 on 08-Aug-2026 - UPI. Bal INR 13,184.78. -Axis Bank",
+   "date": "2026-08-08",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m200",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Aug 2026",
+   "body": "Dear Meera,\nPlease find attached your Axis Bank ACE Credit Card ending 2478 statement for the period 12/07/26 to 11/08/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "2478_11082026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Aug 2026",
+   "body": "Dear Meera,\nPlease find attached your Airtel Axis Bank Credit Card xx5363 statement for the period 14/07/26 to 13/08/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-08-14",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX5363",
+   "body": "Spent INR 3,490.64 on your Axis Bank Credit Card XX5363 at IXIGO, 15-Aug-2026. Avl Lmt INR 4,609.26. SMS BLOCK to 5676782 if not you.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-15",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m203",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Aug 2026",
+   "body": "Dear Meera,\nPlease find attached your Flipkart Axis Bank Credit Card XX9566 statement for the period 25/07/26 to 24/08/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-08-25",
+   "attachments": [
+    {
+     "filename": "eStatement_202608.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "Debit alert: Axis Bank A/c",
+   "body": "Your A/c XX7368 is debited for INR 226.70 on 25-Aug-2026 - UPI SWIGGY. Bal INR 10,526.79. -Axis Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-25",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m205",
+   "subject": "Debit alert: Axis Bank A/c",
+   "body": "Dear Customer,\nINR 1,998.42 has been debited from your Axis Bank A/c *7368 on 28-Aug-2026 (POS MYNTRA). Avl bal INR 3,355.86.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-28",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m206",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9566",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XX9566 for INR 289.97 at INDIGO AIRLINES on 30-Aug-2026 04:44:58. Available limit: INR 7,474.36.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-30",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m207",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx2478",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. xx2478 for INR 13,066.35 at INDIAN OIL on 31-Aug-2026 10:55:45. Available limit: INR 62,491.42.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-31",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m208",
+   "subject": "Payment received on your Axis Bank Credit Card",
+   "body": "Payment of INR 339.97 has been received towards your Airtel Axis Bank Credit Card XX5363 on 03-Sep-2026. Thank you for the payment.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-03",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m209",
+   "subject": "Debit alert: Axis Bank A/c",
+   "body": "Dear Customer,\nINR 25,554.25 has been debited from your Axis Bank A/c *7368 on 06-Sep-2026 (IMPS AIRTEL PREPAID). Avl bal INR 1,15,169.32.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-09-06",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m210",
+   "subject": "IMPS transfer successful",
+   "body": "Dear Customer,\nRs.5,922.46 has been transferred from your A/c XX7368 to Anil Traders A/c XX5722 (SBI Card) via IMPS on 06-Sep-2026. Ref no 261344751390.",
+   "date": "2026-09-06",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m211",
+   "subject": "Credit alert: Axis Bank A/c",
+   "body": "Credit alert: INR 1,363.76 has been credited to account *7368 on 08-Sep-2026 (UPI). Avl bal INR 2,589.09.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-08",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m212",
+   "subject": "Transaction alert on Axis Bank Credit Card no. ending 2478",
+   "body": "Dear Customer,\nThank you for using your Axis Bank ACE Credit Card no. ending 2478 for INR 495.67 at FLIPKART on 09-Sep-2026 06:56:42. Available limit: INR 4,622.08.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-09",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m213",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx2478",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. xx2478 for INR 334.07 at SWIGGY on 11-Sep-2026 10:57:19. Available limit: INR 28,762.79.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m214",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Sep 2026",
+   "body": "Dear Meera,\nPlease find attached your Axis Bank ACE Credit Card XX2478 statement for the period 12/08/26 to 11/09/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202609.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m215",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Sep 2026",
+   "body": "Dear Meera,\nYour Airtel Axis Bank Credit Card XX5363 statement for Sep 2026 is ready. Total amount due Rs.910.52, minimum amount due Rs.200.00, payable by 01/10/26.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-14",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m216",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Meera,\nYour order #687-4461115-9384101 is confirmed. Total Rs.2,698.89. Estimated delivery in 2 days.",
+   "date": "2026-09-18",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m217",
+   "subject": "Axis Bank Account Statement - Sep 2026",
+   "body": "Dear Meera,\nYour Axis Bank XX7368 account statement for Sep 2026 is ready. Closing balance Rs.5,523.76.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-09-19",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m218",
+   "subject": "Debit alert: Axis Bank A/c",
+   "body": "Your A/c XX7368 is debited for INR 1,184.95 on 19-Sep-2026 - NEFT BLINKIT. Bal INR 4,515.48. -Axis Bank\n\nOpt for e-statements and go green.",
+   "date": "2026-09-19",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m219",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Sep 2026",
+   "body": "Dear Meera,\nYour Flipkart Axis Bank Credit Card ending 9566 statement for Sep 2026 is ready. Total amount due Rs.725.30, minimum amount due Rs.200.00, payable by 12/10/26.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m220",
+   "subject": "Debit alert: Axis Bank A/c",
+   "body": "INR debit alert: INR 10,863.91 debited from account XX7368 on 27-Sep-2026. Narration: IMPS/SWIGGY. Available balance INR 64,412.05.\n\nOpt for e-statements and go green.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m221",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX9566",
+   "body": "Spent INR 546.01 on your Flipkart Axis Bank Credit Card XX9566 at UBER INDIA, 28-Sep-2026. Avl Lmt INR 3,596.83. SMS BLOCK to 5676782 if not you.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-28",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m222",
+   "subject": "Credit alert: Axis Bank A/c",
+   "body": "Dear Customer,\nINR 3,351.12 credited to your Axis Bank A/c *7368 on 07-Oct-2026 by IMPS. Ref 138128214702.\nThank you for banking with us.",
+   "date": "2026-10-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m223",
+   "subject": "Earn more with your card",
+   "body": "Dear Meera,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\n",
+   "date": "2026-10-07",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m224",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX2478",
+   "body": "Spent INR 721.57 on your Axis Bank Credit Card XX2478 at FLIPKART, 11-Oct-2026. Avl Lmt INR 2,290.78. SMS BLOCK to 5676782 if not you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-11",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m225",
+   "subject": "Axis Bank Credit Card Statement ending 2478 - Oct 2026",
+   "body": "Dear Meera,\nPlease find attached your Axis Bank ACE Credit Card XX2478 statement for the period 12/09/26 to 11/10/26. Total amount due Rs.42,221.15, due 27/10/26.\n\n",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "eStatement_202610.pdf",
+     "protected": false,
+     "pdfText": "Axis Bank Credit Card Statement\nMEERA PILLAI\nFLAT 532, ORCHID APARTMENTS\n4TH CROSS, SECTOR 21\nKOCHI - 667970\nCard Name: Axis Bank ACE Credit Card\nCredit Card Number: 433433XXXXXX2478\nStatement Period: 12/09/26 - 11/10/26\nStatement Generation Date: 11/10/26\nPayment Summary\nTotal Payment Due: Rs.42,221.15\nMinimum Payment Due: Rs.2,111.06\nPayment Due Date: 27/10/26\nAccount Summary\nCredit Limit: Rs.1,60,000.00\nAvailable Credit Limit: Rs.1,38,687.32\nAvailable Cash Limit: Rs.32,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n19/09/26 OLA CABS HYDERABAD 6,550.56 Dr\n25/09/26 BESCOM AHMEDABAD 19,729.40 Dr\n25/09/26 NETFLIX KOLKATA 12,897.76 Dr\n28/09/26 STARBUCKS KOCHI 352.19 Dr\n28/09/26 URBAN COMPANY GURUGRAM 1,466.55 Dr\n04/10/26 BPCL FUEL HYDERABAD 458.58 Dr\n05/10/26 MEDPLUS MUMBAI 766.11 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m226",
+   "subject": "Axis Bank Credit Card Statement ending 5363 - Oct 2026",
+   "body": "Dear Meera,\nPlease find attached your Airtel Axis Bank Credit Card ending 5363 statement for the period 14/09/26 to 13/10/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2026-10-14",
+   "attachments": [
+    {
+     "filename": "Axis_Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m227",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XX2478",
+   "body": "Dear Customer,\nThank you for using your Axis Bank ACE Credit Card no. XX2478 for INR 99.57 at RELIANCE DIGITAL on 18-Oct-2026 07:08:10. Available limit: INR 18,963.31.\n\nOpt for e-statements and go green.",
+   "date": "2026-10-18",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m228",
+   "subject": "Transaction alert on Axis Bank Credit Card no. xx5363",
+   "body": "Dear Customer,\nThank you for using your Airtel Axis Bank Credit Card no. xx5363 for INR 6,080.12 at BIG BAZAAR on 21-Oct-2026 14:31:45. Available limit: INR 27,867.54.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-21",
+   "attachments": [],
+   "from": "Axis Bank <alerts@axisbank.com>"
+  },
+  {
+   "id": "m229",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Meera,\nYour order #185-3950257-7860181 is confirmed. Total Rs.5,734.15. Estimated delivery in 2 days.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "Amazon <order-update@amazon.in>"
+  },
+  {
+   "id": "m230",
+   "subject": "Axis Bank Credit Card Statement ending 9566 - Oct 2026",
+   "body": "Dear Meera,\nPlease find attached your Flipkart Axis Bank Credit Card XX9566 statement for the period 25/09/26 to 24/10/26.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-25",
+   "attachments": [
+    {
+     "filename": "Axis_CC_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "9566",
+    "kind": "CREDIT_CARD",
+    "variant": "Flipkart",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "5363",
+    "kind": "CREDIT_CARD",
+    "variant": "Airtel",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "2478",
+    "kind": "CREDIT_CARD",
+    "variant": "Ace",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "1-3L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "7368",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "bankofindia.co.in",
+    "last4": "0903",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "5722",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "yesbank.in",
+    "last4": "6034",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "1883",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "2000",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "5545",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "4444",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "0572",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

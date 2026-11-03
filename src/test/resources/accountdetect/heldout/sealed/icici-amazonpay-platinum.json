@@ -1,0 +1,2429 @@
+{
+ "mailbox": "icici-amazonpay-platinum",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Credit alert: ICICI Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX4476 on 01-04-2025 by SALARY NEFT. Ref 1015739337.\nThank you for banking with us.",
+   "date": "2025-04-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Your account statement for April 2025",
+   "body": "Dear Customer,<br>\nYour e-statement for A/c XX4476 for Apr 2025 is attached. The PDF is protected; password is your Customer ID.<br>\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2025-04-03",
+   "attachments": [
+    {
+     "filename": "Statement_Apr2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card ending 9051 has been used for a transaction of INR 686.40 on Apr 07, 2025 at 14:01:27. Info: BATA INDIA.\nThe Available Credit Limit on your card is INR 3,11,269.00 and Total Credit Limit is INR 3,41,269.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-04-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 1,066.95 on 07-Apr-25 to VPA paytm.s1@paytm (UPI Ref No. 564640387019).\nCall 18002662 for dispute/ to report.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-04-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 491.96 on Apr 10, 2025 at 16:44:56. Info: STARBUCKS.\nThe Available Credit Limit on your card is INR 3,35,208.00 and Total Credit Limit is INR 3,65,208.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-04-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Your ICICI Bank Amazon Pay Credit Card statement is ready",
+   "body": "Dear&nbsp;Rohit&nbsp;Gupta,\nThe&nbsp;statement of your ICICI Bank Amazon Pay Credit Card XX9051 for Apr 2025 is ready. Total due Rs.4,839.87, pay by 30 Apr 2025.\nView it in the app or NetBanking under Cards.",
+   "date": "2025-04-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Apr2025.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: ROHIT GUPTA\nCard No: 4349 94XX XXXX 9051\nStatement Date: 12/04/2025\nStatement Period: 13/03/2025 - 12/04/2025\nPayment Due Date: 30/04/2025\nTotal Amount Due: Rs. 4,839.87\nMinimum Amount Due: Rs. 241.99\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 38,255.00\n\nDate        Transaction Details                        Amount (Rs.)\n13/03/2025  BOOKMYSHOW CHENNAI   7,906.83 Dr\n14/03/2025  REDBUS PUNE   5,715.55 Dr\n24/03/2025  GOOGLE PLAY CHENNAI   3,060.15 Dr\n20/03/2025  SHELL PETROL CHENNAI   1,486.44 Dr\n01/04/2025  URBAN COMPANY HYDERABAD   390.10 Dr\n13/03/2025  NETFLIX.COM KOCHI   13,376.99 Dr\n15/03/2025  LENSKART CHENNAI   1,469.87 Dr\n03/04/2025  PAYMENT RECEIVED - THANK YOU   2,903.92 Cr\n\nReward Points Summary: Opening 2226  Earned 848  Closing 4793\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 2,562.70 on 12-Apr-25 to VPA bigbasket@paytm (UPI Ref No. 389351891267).\nCall 18002662 for dispute/ to report.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-12",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour ICICI Bank Platinum Debit Card **6623 was used for Rs.500.00 at APOLLO PHARMACY on 12-Apr-2025.",
+   "date": "2025-04-12",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "OTP for online transaction",
+   "body": "779156 is the One Time Password (OTP) for your online transaction of INR 165.79 at LENSKART. Valid for 5 minutes. Do not share with anyone, including bank staff.",
+   "date": "2025-04-17",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.4,839.87 on 26-04-2025 towards your ICICI Bank Credit Card xx9051. Thank you.",
+   "date": "2025-04-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Rohit, a gentle nudge: Rs.4,839.87 due on 30 April for card no. XXXXXXXXXXXX9051. Ignore if already paid. Kripya samay par bhugtan karein.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-04-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Credit alert: ICICI Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX4476 on 01-05-2025 by SALARY NEFT. Ref 6803294877.\nThank you for banking with us.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-05-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear&nbsp;Customer,\nBeneficiary&nbsp;Sunita&nbsp;Mehta (A/c no. XXXXXXXX5798, Canara Bank) has been added to your account XX4476 on 02-05-2025. It will be active after a cooling period of 30 minutes.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-05-02",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Your account statement for May 2025",
+   "body": "Dear&nbsp;Customer,<br>\nYour&nbsp;e-statment&nbsp;for A/c XX4476 for May 2025 is attached. The PDF is protected; password is your Customer ID.<br>\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2025-05-03",
+   "attachments": [
+    {
+     "filename": "Statement_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.2,000.00 withdrawn using your ICICI Bank Platinum Debit Card XX6623 at ATM KOCHI on 04-05-2025.",
+   "date": "2025-05-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 33,651.77 on 09-May-25 to VPA bigbasket@okhdfcbank (UPI Ref No. 706590103260).\nCall 18002662 for dispute/ to report.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-05-09",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Your ICICI Bank Amazon Pay Credit Card statement is ready",
+   "body": "Dear Rohit Gupta,<br>\nThe statement of your ICICI Bank Amazon Pay Credit Card XX9051 for May 2025 is ready. Total due Rs.1,727.78, pay by 30 May 2025.<br>\nView it in the app or NetBanking under Cards.",
+   "date": "2025-05-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_May2025.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: ROHIT GUPTA\nCard No: 4122 81XX XXXX 9051\nStatement Date: 12/05/2025\nStatement Period: 12/04/2025 - 12/05/2025\nPayment Due Date: 30/05/2025\nTotal Amount Due: Rs. 1,727.78\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 48,225.00\n\nDate        Transaction Details                        Amount (Rs.)\n03/05/2025  MAKEMYTRIP CHENNAI   37,793.20 Dr\n20/04/2025  CROMA KOCHI   249.74 Dr\n22/04/2025  BATA INDIA GURGAON   26,167.95 Dr\n21/04/2025  AIRBNB MUMBAI   7,244.49 Dr\n03/05/2025  PAYMENT RECEIVED - THANK YOU   1,036.67 Cr\n\nReward Points Summary: Opening 4950  Earned 763  Closing 4393\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2921740148252  IFSC ICIC0000149"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 616.03 on 12-May-25 to VPA paytm.s1@ybl (UPI Ref No. 912125440454).\nCall 18002662 for dispute/ to report.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2025-05-12",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 7,500.00 on 16-May-25 to Kamla Gupta A/c no. XXXXXXXX2951 (State Bank of India), NEFT Ref 529758965007.\nCall 18002662 for dispute/ to report.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2025-05-16",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "KYC update: Aadhaar verification",
+   "body": "Dear Customer,\nYour Aadhaar (XXXX XXXX 7224) has been successfully verified for e-KYC. PAN status: linked. No further action needed.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-05-18",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear&nbsp;Customer,<br>\nYour&nbsp;ICICI&nbsp;Bank Credit Card XX9051 has been used for a transaction of INR 497.37 on May 24, 2025 at 09:37:11. Info: INDIGO AIRLINES.<br>\nThe Available Credit Limit on your card is INR 2,83,721.00 and Total Credit Limit is INR 3,13,721.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.",
+   "date": "2025-05-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,727.78 on 28-05-2025 towards your ICICI Bank Credit Card **9051. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-05-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "नमस्ते,\nDear Customer,\nICICI Bank Acct XX4476 debited with Rs 17,145.61 on 01-Jun-25 to VPA paytm.s1@okhdfcbank (UPI Ref No. 769693157263).\nCall 18002662 for dispute/ to report.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Credit alert: ICICI Bank",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;72,500.00&nbsp;credited to your A/c XX4476 on 01-06-2025 by SALARY NEFT. Ref 4147052473.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Your account statement for June 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c XX4476 for Jun 2025 is attached. The PDF is protected; password is your Customer ID.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2025-06-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jun2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Standing Instruction executed. Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 22,500.00 on 05-Jun-25 to Sunita Mehta A/c no. XXXXXXXX5798 (Canara Bank), SI Ref 435470039144.\nCall 18002662 for dispute/ to report.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2025-06-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 2,919.99 on Jun 06, 2025 at 05:08:26. Info: ZEPTO.\nThe Available Credit Limit on your card is INR 3,06,447.00 and Total Credit Limit is INR 3,36,447.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-06-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 337.21 on 08-Jun-25 to VPA zomato@ybl (UPI Ref No. 214684671735).\nCall 18002662 for dispute/ to report.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-06-08",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "Your ICICI Bank Amazon Pay Credit Card statement is ready",
+   "body": "Dear Rohit Gupta,\nThe statement of your ICICI Bank Amazon Pay Credit Card no. XXXXXXXXXXXX9051 for Jun 2025 is ready. Total due Rs.8,931.14, pay by 30 Jun 2025.\nView it in the app or NetBanking under Cards.",
+   "date": "2025-06-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Jun2025.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: ROHIT GUPTA\nCredit Card Number: XXXX XXXX XXXX 9051\nStatement Date: 12/06/2025\nStatement Period: 13/05/2025 - 12/06/2025\nPayment Due Date: 30/06/2025\nTotal Amount Due: Rs. 8,931.14\nMinimum Amount Due: Rs. 446.56\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 78,032.00\n\nDate        Transaction Details                        Amount (Rs.)\n27/05/2025  MAKEMYTRIP HYDERABAD   689.44 Dr\n23/05/2025  STARBUCKS PUNE   8,124.71 Dr\n04/06/2025  RELIANCE SMART CHENNAI   705.61 Dr\n06/06/2025  CAFE COFFEE DAY GURGAON   6,715.42 Dr\n27/05/2025  BLINKIT KOCHI   2,612.58 Dr\n03/06/2025  PAYMENT RECEIVED - THANK YOU   5,358.68 Cr\n\nReward Points Summary: Opening 2782  Earned 830  Closing 5823\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,<br>\nICICI Bank Acct XX4476 debited with Rs 28,922.11 on 20-Jun-25 to VPA paytm.s1@okaxis (UPI Ref No. 553498191449).<br>\nCall 18002662 for dispute/ to report.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-06-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;received your payment of Rs.8,931.14 on 22-06-2025 towards your ICICI Bank Credit Card xx9051. Thank you.",
+   "date": "2025-06-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Platinum Debit Card XX6623 was used for Rs.5,000.00 at CAFE COFFEE DAY on 22-Jun-2025.<br>\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-06-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 6,005.43 on Jun 27, 2025 at 22:03:05. Info: BATA INDIA.\nThe Available Credit Limit on your card is INR 28,208.00 and Total Credit Limit is INR 58,208.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-06-27",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Rohit, a gentle nudge: Rs.8,931.14 due on 30 June for card XX9051. Ignore if already paid. Kripya samay par bhugtan karein.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-06-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;ICICI&nbsp;Bank Credit Card XX9051 has been used for a transction of INR 1,418.66 on Jun 28, 2025 at 21:47:06. Info: APOLLO PHARMACY.\nThe Available Credit Limit on your card is INR 3,35,022.00 and Total Credit Limit is INR 3,65,022.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-06-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Credit alert: ICICI Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX4476 on 01-07-2025 by SALARY NEFT. Ref 8660765897.\nThank you for banking with us.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Your account statement for July 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c XX4476 for Jul 2025 is attached. The PDF is protected; password is your Customer ID.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.2,770.61 withdrawn using your ICICI Bank Platinum Debit Card XX6623 at ATM BANGALORE on 05-07-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-07-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Standing instruction executed",
+   "body": "Standing Instruction executed. Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 22,500.00 on 05-Jul-25 to Sunita Mehta A/c no. XXXXXXXX5798 (Canara Bank), SI Ref 725014518111.\nCall 18002662 for dispute/ to report.",
+   "date": "2025-07-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear&nbsp;Customer,\nICICI&nbsp;Bank&nbsp;Acct XX4476 debited with Rs 1,136.46 on 09-Jul-25 to VPA zomato@okaxis (UPI Ref No. 195755524379).\nCall 18002662 for dispute/ to report.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-07-09",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 889.67 on Jul 10, 2025 at 06:38:09. Info: BIGBASKET.\nThe Available Credit Limit on your card is INR 3,28,559.00 and Total Credit Limit is INR 3,58,559.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-07-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 7,073.09 on 10-Jul-25 to VPA zomato@okhdfcbank (UPI Ref No. 878638327775).\nCall 18002662 for dispute/ to report.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-07-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Your ICICI Bank Amazon Pay Credit Card statement is ready",
+   "body": "Dear Rohit Gupta,\nThe statement of your ICICI Bank Amazon Pay Credit Card no. XXXXXXXXXXXX9051 for Jul 2025 is ready. Total due Rs.9,759.33, pay by 30 Jul 2025.\nView it in the app or NetBanking under Cards.",
+   "date": "2025-07-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Jul2025.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: ROHIT GUPTA\nCard No: 4573 78XX XXXX 9051\nStatement Date: 12/07/2025\nStatement Period: 12/06/2025 - 12/07/2025\nPayment Due Date: 30/07/2025\nTotal Amount Due: Rs. 9,759.33\nMinimum Amount Due: Rs. 487.97\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,73,155.00\n\nDate        Transaction Details                        Amount (Rs.)\n29/06/2025  MAKEMYTRIP GURGAON   384.16 Dr\n06/07/2025  CAFE COFFEE DAY KOCHI   266.16 Dr\n22/06/2025  HOTSTAR PUNE   7,553.47 Dr\n05/07/2025  GOOGLE PLAY GURGAON   9,274.88 Dr\n19/06/2025  TATA 1MG KOCHI   712.76 Dr\n02/07/2025  CROMA PUNE   1,256.18 Dr\n30/06/2025  STARBUCKS HYDERABAD   2,912.37 Dr\n03/07/2025  PAYMENT RECEIVED - THANK YOU   5,855.60 Cr\n\nReward Points Summary: Opening 6841  Earned 633  Closing 3591\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2921740148252  IFSC ICIC0000160"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XXXX XXXX XXXX 9051 has been used for a transaction of INR 805.72 on Jul 13, 2025 at 14:19:45. Info: DECATHLON.\nThe Available Credit Limit on your card is INR 1,92,004.00 and Total Credit Limit is INR 2,22,004.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 5,000.00 on 16-Jul-25 to Kamla Gupta A/c no. XXXXXXXX2951 (State Bank of India), NEFT Ref 802575176927.\nCall 18002662 for dispute/ to report.",
+   "date": "2025-07-16",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour ICICI Bank Platinum Debit Card XXXX XXXX XXXX 6623 was used for Rs.3,230.42 at SHELL PETROL on 20-Jul-2025.",
+   "date": "2025-07-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.9,759.33 on 23-07-2025 towards your ICICI Bank Credit Card XX9051. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-07-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear&nbsp;Customer,\nICICI&nbsp;Bank&nbsp;Acct XX4476 debited with Rs 189.45 on 24-Jul-25 to VPA zomato@okhdfcbank (UPI Ref No. 262546352668).\nCall 18002662 for dispute/ to report.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 38,172.38 on 24-Jul-25 to VPA q351955537@okhdfcbank (UPI Ref No. 120944122498).\nCall 18002662 for dispute/ to report.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 2703 reward points on your ICICI Bank Amazon Pay Credit Card XX9051. Redeem them on the rewards portal before they expire.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-07-25",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Payment reminder: ICICI Bank Credit Card XX9051",
+   "body": "Dear Customer,\nThis is a reminder that Rs.9,759.33 (minimum Rs.487.97) is due on 30-Jul-2025 on your ICICI Bank Credit Card XX9051. Pay on time to avoid late payment charges.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-07-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 3,927.73 on 01-Aug-25 to VPA zomato@icici (UPI Ref No. 937742733587).\nCall 18002662 for dispute/ to report.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Credit alert: ICICI Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX4476 on 01-08-2025 by SALARY NEFT. Ref 2302232982.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2025-08-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Your account statement for August 2025",
+   "body": "नमस्ते,\nDear Customer,\nYour e-statment for A/c XX4476 for Aug 2025 is attached. The PDF is protected; password is your Customer ID.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-03",
+   "attachments": [
+    {
+     "filename": "Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Standing instruction executed",
+   "body": "Standing Instruction executed. Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 22,500.00 on 05-Aug-25 to Sunita Mehta A/c no. XXXXXXXX5798 (Canara Bank), SI Ref 383755021458.\nCall 18002662 for dispute/ to report.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2025-08-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour ICICI Bank Platinum Debit Card XX6623 was used for Rs.500.00 at INDIGO AIRLINES on 10-Aug-2025.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-08-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Your ICICI Bank Amazon Pay Credit Card statement is ready",
+   "body": "Dear Rohit Gupta,\nThe statement of your ICICI Bank Amazon Pay Credit Card XX9051 for Aug 2025 is ready. Total due Rs.13,435.47, pay by 30 Aug 2025.\nView it in the app or NetBanking under Cards.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Aug2025.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: ROHIT GUPTA\nCard No: 4653 33XX XXXX 9051\nCard Type: Amazon Pay\nStatement Date: 12/08/2025\nStatement Period: 13/07/2025 - 12/08/2025\nPayment Due Date: 30/08/2025\nTotal Amount Due: Rs. 13,435.47\nMinimum Amount Due: Rs. 671.77\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 29,676.00\n\nDate        Transaction Details                        Amount (Rs.)\n26/07/2025  SPOTIFY CHENNAI   3,685.93 Dr\n03/08/2025  BATA INDIA BANGALORE   3,269.74 Dr\n05/08/2025  STARBUCKS HYDERABAD   2,446.34 Dr\n01/08/2025  DECATHLON CHENNAI   3,863.54 Dr\n09/08/2025  THIRD WAVE COFFEE MUMBAI   99.89 Dr\n09/08/2025  MAKEMYTRIP HYDERABAD   6,081.01 Dr\n26/07/2025  UBER INDIA MUMBAI   2,915.66 Dr\n24/07/2025  BIGBASKET PUNE   965.69 Dr\n16/07/2025  APOLLO PHARMACY GURGAON   216.01 Dr\n03/08/2025  PAYMENT RECEIVED - THANK YOU   8,061.28 Cr\n\nReward Points Summary: Opening 3454  Earned 151  Closing 4549\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2921740148252  IFSC ICIC0000525"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 2,633.35 on 12-Aug-25 to VPA bigbasket@okhdfcbank (UPI Ref No. 110998649681).\nCall 18002662 for dispute/ to report.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-12",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 249.29 on 13-Aug-25 to VPA irctcweb@icici (UPI Ref No. 993360497851).\nCall 18002662 for dispute/ to report.",
+   "date": "2025-08-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 2,464.53 on Aug 16, 2025 at 14:16:34. Info: WESTSIDE.\nThe Available Credit Limit on your card is INR 2,59,572.00 and Total Credit Limit is INR 2,89,572.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-08-16",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 5,305.08 on 17-Aug-25 to VPA paytm.s1@ybl (UPI Ref No. 696685666820).\nCall 18002662 for dispute/ to report.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2025-08-17",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 866.87 on 20-Aug-25 to VPA paytm.s1@paytm (UPI Ref No. 670245820716).\nCall 18002662 for dispute/ to report.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-08-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Secure your family with term insurance",
+   "body": "Plans from Rs 500/month. Policy no. will be shared post issuance. Quote ref 9893<br>\nT&C apply.",
+   "date": "2025-08-20",
+   "attachments": [],
+   "from": "Tata AIA Life <news@tataaia.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 7,846.53 on 23-Aug-25 to Rohit Chopra A/c no. XXXXXXXX1709 (Punjab National Bank), NEFT Ref 347582873799.\nCall 18002662 for dispute/ to report.\n\nThis is a system generated email. Please do not reply to this message.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-08-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Rohit, a gentle nudge: Rs.13,435.47 due on 30 August for card XX9051. Ignore if already paid. Kripya samay par bhugtan karein.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.13,435.47 on 27-08-2025 towards your ICICI Bank Credit Card XX9051. Thank you.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour ICICI Bank Platinum Debit Card XX6623 was used for Rs.5,000.00 at UBER INDIA on 28-Aug-2025.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-08-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Credit alert: ICICI Bank",
+   "body": "Dear Customer,\nINR 65,000.00 credited to your A/c XX4476 on 01-09-2025 by SALARY NEFT. Ref 1434549859.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 583.26 on Sep 03, 2025 at 13:05:06. Info: AIRBNB.\nThe Available Credit Limit on your card is INR 3,38,373.00 and Total Credit Limit is INR 3,68,373.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-09-03",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Your account statement for September 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c XX4476 for Sep 2025 is attached. The PDF is protected; password is your Customer ID.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-03",
+   "attachments": [
+    {
+     "filename": "Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Standing instruction executed",
+   "body": "Standing Instruction executed. Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 22,500.00 on 05-Sep-25 to Sunita Mehta A/c no. XXXXXXXX5798 (Canara Bank), SI Ref 713523321136.\nCall 18002662 for dispute/ to report.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-09-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 11,530.61 on Sep 07, 2025 at 19:20:04. Info: LENSKART.\nThe Available Credit Limit on your card is INR 3,95,422.00 and Total Credit Limit is INR 4,25,422.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-09-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 156.09 on Sep 08, 2025 at 10:03:26. Info: DECATHLON.\nThe Available Credit Limit on your card is INR 1,33,719.00 and Total Credit Limit is INR 1,63,719.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-09-08",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Your ICICI Bank Amazon Pay Credit Card statement is ready",
+   "body": "नमस्ते,\nDear Rohit Gupta,\nThe statement of your ICICI Bank Amazon Pay Credit Card XX9051 for Sep 2025 is ready. Total due Rs.59,718.92, pay by 30 Sep 2025.\nView it in the app or NetBanking under Cards.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Sep2025.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: ROHIT GUPTA\nCard No: 4342 97XX XXXX 9051\nStatement Date: 12/09/2025\nStatement Period: 13/08/2025 - 12/09/2025\nPayment Due Date: 30/09/2025\nTotal Amount Due: Rs. 59,718.92\nMinimum Amount Due: Rs. 2,985.95\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,58,839.00\n\nDate        Transaction Details                        Amount (Rs.)\n18/08/2025  OLA CABS PUNE   28,353.13 Dr\n13/08/2025  ZOMATO CHENNAI   4,791.93 Dr\n09/09/2025  NETFLIX.COM BANGALORE   8,718.78 Dr\n02/09/2025  STARBUCKS BANGALORE   360.83 Dr\n02/09/2025  BATA INDIA MUMBAI   1,544.97 Dr\n14/08/2025  ZEPTO KOCHI   1,045.36 Dr\n03/09/2025  PAYMENT RECEIVED - THANK YOU   35,831.35 Cr\n\nReward Points Summary: Opening 6433  Earned 597  Closing 6859\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour ICICI Bank Platinum Debit Card XX6623 was used for Rs.500.00 at AMAZON PAY INDIA on 20-Sep-2025.",
+   "date": "2025-09-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "OTP for online transaction",
+   "body": "713304 is the One Time Password (OTP) for your online transaction of INR 417.38 at DMART. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.59,718.92 on 25-09-2025 towards your ICICI Bank Credit Card XX9051. Thank you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 4,641.16 on 25-Sep-25 to VPA bigbasket@icici (UPI Ref No. 900869856134).\nCall 18002662 for dispute/ to report.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 7,500.00 on 26-Sep-25 to Kamla Gupta A/c no. XXXXXXXX2951 (State Bank of India), IMPS Ref 431581050802.\nCall 18002662 for dispute/ to report.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2025-09-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Your Swiggy order receipt",
+   "body": "Order #1428 delivered. Paid via UPI. Rate your meal!<br>\nT&C apply.",
+   "date": "2025-09-26",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m081",
+   "subject": "Payment reminder: ICICI Bank Credit Card XX9051",
+   "body": "Dear Customer,\nThis is a reminder that Rs.59,718.92 (minimum Rs.2,985.95) is due on 30-Sep-2025 on your ICICI Bank Credit Card XX9051. Pay on time to avoid late payment charges.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 2,054.46 on 28-Sep-25 to VPA merchant@icici (UPI Ref No. 974460356009).\nCall 18002662 for dispute/ to report.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-09-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Credit alert: ICICI Bank",
+   "body": "Dear Customer,\nINR 65,000.00 credited to your A/c XX4476 on 01-10-2025 by SALARY NEFT. Ref 5707939132.\nThank you for banking with us.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-10-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Your account statement for October 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c XX4476 for Oct 2025 is attached. The PDF is protected; password is your Customer ID.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-03",
+   "attachments": [
+    {
+     "filename": "Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Standing Instruction executed. Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 22,500.00 on 05-Oct-25 to Sunita Mehta A/c no. XXXXXXXX5798 (Canara Bank), SI Ref 247614927187.\nCall 18002662 for dispute/ to report.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 7,866.73 on Oct 08, 2025 at 15:19:56. Info: REDBUS.\nThe Available Credit Limit on your card is INR 3,41,777.00 and Total Credit Limit is INR 3,71,777.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.",
+   "date": "2025-10-08",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 4,577.74 on 10-Oct-25 to VPA paytm.s1@icici (UPI Ref No. 890637989470).\nCall 18002662 for dispute/ to report.",
+   "date": "2025-10-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 2,362.15 on 11-Oct-25 to VPA merchant@ybl (UPI Ref No. 842524608936).\nCall 18002662 for dispute/ to report.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-10-11",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Your ICICI Bank Amazon Pay Credit Card statement is ready",
+   "body": "Dear Rohit Gupta,\nThe statement of your ICICI Bank Amazon Pay Credit Card XX9051 for Oct 2025 is ready. Total due Rs.38,406.97, pay by 30 Oct 2025.\nView it in the app or NetBanking under Cards.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Oct2025.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: ROHIT GUPTA\nCredit Card Number: XXXX XXXX XXXX 9051\nStatement Date: 12/10/2025\nStatement Period: 12/09/2025 - 12/10/2025\nPayment Due Date: 30/10/2025\nTotal Amount Due: Rs. 38,406.97\nMinimum Amount Due: Rs. 1,920.35\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 66,494.00\n\nDate        Transaction Details                        Amount (Rs.)\n12/09/2025  APOLLO PHARMACY GURGAON   23,472.06 Dr\n23/09/2025  IRCTC MUMBAI   16,846.27 Dr\n09/10/2025  AMAZON PAY INDIA HYDERABAD   18,487.46 Dr\n27/09/2025  NETFLIX.COM KOCHI   30,127.36 Dr\n17/09/2025  MAKEMYTRIP PUNE   41,854.98 Dr\n17/09/2025  RELIANCE SMART MUMBAI   33,770.45 Dr\n05/10/2025  BATA INDIA KOCHI   18,716.73 Dr\n03/10/2025  PAYMENT RECEIVED - THANK YOU   23,044.18 Cr\n\nReward Points Summary: Opening 3379  Earned 881  Closing 1664\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2921740148252  IFSC ICIC0000801"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "नमस्ते,\nDear Customer,\nICICI Bank Acct XX4476 debited with Rs 8,214.91 on 15-Oct-25 to VPA swiggy@okaxis (UPI Ref No. 365032787891).\nCall 18002662 for dispute/ to report.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-10-15",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 505.24 on 20-Oct-25 to VPA paytm.s1@ybl (UPI Ref No. 184607417892).\nCall 18002662 for dispute/ to report.",
+   "date": "2025-10-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.17,256.92 withdrawn using your ICICI Bank Platinum Debit Card xx6623 at ATM PUNE on 25-10-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card xx9051 has been used for a transaction of INR 35,127.33 on Oct 26, 2025 at 06:41:03. Info: DECATHLON.\nThe Available Credit Limit on your card is INR 3,12,053.00 and Total Credit Limit is INR 3,42,053.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.38,406.97 on 26-10-2025 towards your ICICI Bank Credit Card XX9051. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Credit alert: ICICI Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX4476 on 01-11-2025 by SALARY NEFT. Ref 1928938841.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 2,841.90 on 02-Nov-25 to VPA irctcweb@icici (UPI Ref No. 510222635201).\nCall 18002662 for dispute/ to report.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-11-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Your account statement for November 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c XX4476 for Nov 2025 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2025-11-03",
+   "attachments": [
+    {
+     "filename": "Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 569.62 on Nov 04, 2025 at 05:46:35. Info: CROMA.\nThe Available Credit Limit on your card is INR 1,71,194.00 and Total Credit Limit is INR 2,01,194.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.",
+   "date": "2025-11-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Standing instruction executed",
+   "body": "Standing Instruction executed. Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 22,500.00 on 05-Nov-25 to Sunita Mehta A/c no. XXXXXXXX5798 (Canara Bank), SI Ref 801510184667.\nCall 18002662 for dispute/ to report.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2025-11-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 26,858.45 on Nov 06, 2025 at 03:00:55. Info: WESTSIDE.\nThe Available Credit Limit on your card is INR 2,21,359.00 and Total Credit Limit is INR 2,51,359.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nT&C apply. Visit www.icicibank.com for more details.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-11-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 3,140.27 on Nov 11, 2025 at 00:05:59. Info: PVR INOX.\nThe Available Credit Limit on your card is INR 1,86,031.00 and Total Credit Limit is INR 2,16,031.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.",
+   "date": "2025-11-11",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 10,000.00 on 11-Nov-25 to Kamla Gupta A/c no. XXXXXXXX2951 (State Bank of India), IMPS Ref 396247710005.\nCall 18002662 for dispute/ to report.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-11-11",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Your ICICI Bank Amazon Pay Credit Card statement is ready",
+   "body": "Dear&nbsp;Rohit&nbsp;Gupta,\nThe&nbsp;statement of your ICICI Bank Amazon Pay Credit Card XX9051 for Nov 2025 is ready. Total due Rs.93,347.19, pay by 30 Nov 2025.\nView it in the app or NetBanking under Cards.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: ROHIT GUPTA\nCredit Card Number: XXXX XXXX XXXX 9051\nStatement Date: 12/11/2025\nStatement Period: 13/10/2025 - 12/11/2025\nPayment Due Date: 30/11/2025\nTotal Amount Due: Rs. 93,347.19\nMinimum Amount Due: Rs. 4,667.36\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 40,272.00\n\nDate        Transaction Details                        Amount (Rs.)\n03/11/2025  CAFE COFFEE DAY HYDERABAD   1,568.02 Dr\n29/10/2025  OLA CABS KOCHI   36,604.74 Dr\n25/10/2025  STARBUCKS BANGALORE   7,628.68 Dr\n21/10/2025  MAKEMYTRIP MUMBAI   664.76 Dr\n03/11/2025  PAYMENT RECEIVED - THANK YOU   56,008.31 Cr\n\nReward Points Summary: Opening 2410  Earned 297  Closing 1335\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2921740148252  IFSC ICIC0000242"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 772.02 on 17-Nov-25 to VPA paytm.s1@ybl (UPI Ref No. 376883623092).\nCall 18002662 for dispute/ to report.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2025-11-17",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Your contract note",
+   "body": "Contract note for trades done today is attached. Client ID ZR6707\nT&C apply.",
+   "date": "2025-11-17",
+   "attachments": [],
+   "from": "Zerodha <noreply@zerodha.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour ICICI Bank Platinum Debit Card XX6623 was used for Rs.500.00 at SPOTIFY on 19-Nov-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-19",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "Credit alert: ICICI Bank",
+   "body": "Dear Customer,\nINR 65,000.00 credited to your A/c XX4476 on 01-12-2025 by SALARY NEFT. Ref 1696370560.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "Your account statement for December 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c XX4476 for Dec 2025 is attached. The PDF is protected; password is your Customer ID.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-03",
+   "attachments": [
+    {
+     "filename": "Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 35,958.48 on Dec 04, 2025 at 09:06:14. Info: SHELL PETROL.<br>\nThe Available Credit Limit on your card is INR 3,15,176.00 and Total Credit Limit is INR 3,45,176.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card no. XXXXXXXXXXXX9051 has been used for a transaction of INR 552.65 on Dec 04, 2025 at 09:06:35. Info: AMAZON.\nThe Available Credit Limit on your card is INR 2,51,445.00 and Total Credit Limit is INR 2,81,445.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2025-12-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Standing instruction executed",
+   "body": "Standing Instruction executed. Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 22,500.00 on 05-Dec-25 to Sunita Mehta A/c no. XXXXXXXX5798 (Canara Bank), SI Ref 787501655470.\nCall 18002662 for dispute/ to report.",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 3,891.90 on 06-Dec-25 to VPA q110710832@paytm (UPI Ref No. 907851729372).\nCall 18002662 for dispute/ to report.",
+   "date": "2025-12-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Platinum Debit Card no. XXXXXXXXXXXX6623 was used for Rs.2,708.62 at JIO PREPAID on 07-Dec-2025.<br>\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2025-12-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 5,753.61 on 09-Dec-25 to VPA q924221108@okhdfcbank (UPI Ref No. 151242631138).\nCall 18002662 for dispute/ to report.",
+   "date": "2025-12-09",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 1,795.88 on Dec 11, 2025 at 04:14:47. Info: URBAN COMPANY.\nThe Available Credit Limit on your card is INR 1,04,978.00 and Total Credit Limit is INR 1,34,978.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-11",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "We have received your request",
+   "body": "Dear Customer,\nYour service request is registered. Reference No. SR202613716261. We will resolve it within 3 working days.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-11",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Your ICICI Bank Amazon Pay Credit Card statement is ready",
+   "body": "Dear Rohit Gupta,\nThe statement of your ICICI Bank Amazon Pay Credit Card XX9051 for Dec 2025 is ready. Total due Rs.29,409.26, pay by 30 Dec 2025.\nView it in the app or NetBanking under Cards.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Dec2025.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: ROHIT GUPTA\nCredit Card Number: XXXX XXXX XXXX 9051\nCard Type: Amazon Pay\nStatement Date: 12/12/2025\nStatement Period: 12/11/2025 - 12/12/2025\nPayment Due Date: 30/12/2025\nTotal Amount Due: Rs. 29,409.26\nMinimum Amount Due: Rs. 1,470.46\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 76,195.00\n\nDate        Transaction Details                        Amount (Rs.)\n21/11/2025  UBER INDIA GURGAON   730.36 Dr\n20/11/2025  RELIANCE SMART PUNE   27,521.22 Dr\n05/12/2025  RELIANCE SMART BANGALORE   18,913.65 Dr\n13/11/2025  DECATHLON PUNE   5,118.22 Dr\n03/12/2025  PAYMENT RECEIVED - THANK YOU   17,645.56 Cr\n\nReward Points Summary: Opening 7906  Earned 291  Closing 4390\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2921740148252  IFSC ICIC0000339"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;ICICI&nbsp;Bank Credit Card XX9051 has been used for a transaction of INR 243.58 on Dec 19, 2025 at 16:25:05. Info: BOOKMYSHOW.\nThe Available Credit Limit on your card is INR 3,81,493.00 and Total Credit Limit is INR 4,11,493.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-19",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 5,978.97 on 21-Dec-25 to VPA zomato@icici (UPI Ref No. 290538367870).\nCall 18002662 for dispute/ to report.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-12-21",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.29,409.26 on 25-12-2025 towards your ICICI Bank Credit Card XXXX XXXX XXXX 9051. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,<br>\nYou have 1033 reward points on your ICICI Bank Amazon Pay Credit Card XX9051. Redeem them on the rewards portal before they expire.<br>\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Credit alert: ICICI Bank",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;65,000.00&nbsp;credited to your A/c XX4476 on 01-01-2026 by SALARY NEFT. Ref 9212137463.\nThank you for banking with us.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "Your account statement for January 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c **4476 for Jan 2026 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2026-01-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transction of INR 564.78 on Jan 05, 2026 at 09:20:35. Info: NETFLIX.COM.\nThe Available Credit Limit on your card is INR 2,16,755.00 and Total Credit Limit is INR 2,46,755.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-01-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Standing Instruction executed. Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 22,500.00 on 05-Jan-26 to Sunita Mehta A/c no. XXXXXXXX5798 (Canara Bank), SI Ref 817401093057.\nCall 18002662 for dispute/ to report.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-01-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transction of INR 2,756.49 on Jan 08, 2026 at 19:09:19. Info: GOOGLE PLAY.\nThe Available Credit Limit on your card is INR 1,05,792.00 and Total Credit Limit is INR 1,35,792.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-01-08",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Debit card transaction alert",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;ICICI&nbsp;Bank Platinum Debit Card ending 6623 was used for Rs.3,000.00 at LENSKART on 09-Jan-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-01-09",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Your ICICI Bank Amazon Pay Credit Card statement is ready",
+   "body": "Dear Rohit Gupta,\nThe statement of your ICICI Bank Amazon Pay Credit Card XX9051 for Jan 2026 is ready. Total due Rs.4,319.67, pay by 30 Jan 2026.\nView it in the app or NetBanking under Cards.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Jan2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: ROHIT GUPTA\nCard No: 4957 24XX XXXX 9051\nStatement Date: 12/01/2026\nStatement Period: 13/12/2025 - 12/01/2026\nPayment Due Date: 30/01/2026\nTotal Amount Due: Rs. 4,319.67\nMinimum Amount Due: Rs. 215.98\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,07,468.00\n\nDate        Transaction Details                        Amount (Rs.)\n14/12/2025  AIRBNB KOCHI   9,653.27 Dr\n27/12/2025  STARBUCKS PUNE   334.04 Dr\n10/01/2026  AMAZON PAY INDIA HYDERABAD   174.72 Dr\n15/12/2025  LICIOUS CHENNAI   3,302.76 Dr\n02/01/2026  SHELL PETROL HYDERABAD   3,313.88 Dr\n03/01/2026  PAYMENT RECEIVED - THANK YOU   2,591.80 Cr\n\nReward Points Summary: Opening 2776  Earned 759  Closing 6147\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2921740148252  IFSC ICIC0000387"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Pre-approved Personal Loan for you",
+   "body": "Get Rs.7,00,000 at 11% p.a. Instant approval. Offer ID BF1673\nT&C apply.",
+   "date": "2026-01-13",
+   "attachments": [],
+   "from": "Bajaj Finserv <offers@bajajfinserv.in>"
+  },
+  {
+   "id": "m130",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear&nbsp;Customer,\nICICI&nbsp;Bank&nbsp;Acct XX4476 debited with Rs 5,079.00 on 19-Jan-26 to VPA swiggy@paytm (UPI Ref No. 634820032988).\nCall 18002662 for dispute/ to report.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-19",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "OTP for online transaction",
+   "body": "933667&nbsp;is&nbsp;the&nbsp;One Time Password (OTP) for your online transaction of INR 20,277.01 at APOLLO PHARMACY. Valid for 5 minutes. Do not share with anyone, including bank staff.",
+   "date": "2026-01-19",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 461.93 on Jan 21, 2026 at 22:55:23. Info: MAKEMYTRIP.\nThe Available Credit Limit on your card is INR 3,89,202.00 and Total Credit Limit is INR 4,19,202.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-21",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card xx9051 has been used for a transaction of INR 34,823.47 on Jan 23, 2026 at 07:06:19. Info: LICIOUS.\nThe Available Credit Limit on your card is INR 2,67,935.00 and Total Credit Limit is INR 2,97,935.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-01-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 757.37 on 23-Jan-26 to VPA merchant@paytm (UPI Ref No. 264556710128).\nCall 18002662 for dispute/ to report.",
+   "date": "2026-01-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 5,000.00 on 26-Jan-26 to Kamla Gupta A/c no. XXXXXXXX2951 (State Bank of India), IMPS Ref 846222241992.\nCall 18002662 for dispute/ to report.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-01-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 873.09 on 28-Jan-26 to VPA paytm.s1@okaxis (UPI Ref No. 395938711035).\nCall 18002662 for dispute/ to report.",
+   "date": "2026-01-28",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.4,319.67 on 29-01-2026 towards your ICICI Bank Credit Card XX9051. Thank you.",
+   "date": "2026-01-29",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Credit alert: ICICI Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX4476 on 01-02-2026 by SALARY NEFT. Ref 3008206285.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "Your account statement for February 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XX4476 for Feb 2026 is attached. The PDF is protected; password is your Customer ID.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-02-03",
+   "attachments": [
+    {
+     "filename": "Statement_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Standing Instruction executed. Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 22,500.00 on 05-Feb-26 to Sunita Mehta A/c no. XXXXXXXX5798 (Canara Bank), SI Ref 812883164376.\nCall 18002662 for dispute/ to report.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 344.26 on 06-Feb-26 to VPA swiggy@icici (UPI Ref No. 944351143724).\nCall 18002662 for dispute/ to report.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-02-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 533.12 on 09-Feb-26 to VPA merchant@paytm (UPI Ref No. 837114165623).\nCall 18002662 for dispute/ to report.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-09",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "Your ICICI Bank Amazon Pay Credit Card statement is ready",
+   "body": "Dear Rohit Gupta,\nThe statement of your ICICI Bank Amazon Pay Credit Card **9051 for Feb 2026 is ready. Total due Rs.830.04, pay by 02 Mar 2026.\nView it in the app or NetBanking under Cards.\n\nT&C apply. Visit www.icicibank.com for more details.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: ROHIT GUPTA\nCard No: 4736 84XX XXXX 9051\nCard Type: Amazon Pay\nStatement Date: 12/02/2026\nStatement Period: 13/01/2026 - 12/02/2026\nPayment Due Date: 02/03/2026\nTotal Amount Due: Rs. 830.04\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,35,240.00\n\nDate        Transaction Details                        Amount (Rs.)\n14/01/2026  LICIOUS KOCHI   8,754.00 Dr\n19/01/2026  BOOKMYSHOW CHENNAI   35,815.19 Dr\n17/01/2026  HOTSTAR MUMBAI   5,752.37 Dr\n17/01/2026  INDIGO AIRLINES HYDERABAD   2,290.10 Dr\n02/02/2026  DECATHLON PUNE   598.57 Dr\n21/01/2026  THIRD WAVE COFFEE CHENNAI   3,183.34 Dr\n03/02/2026  PAYMENT RECEIVED - THANK YOU   498.02 Cr\n\nReward Points Summary: Opening 5162  Earned 431  Closing 6822\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2921740148252  IFSC ICIC0000184"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 7,015.11 on 12-Feb-26 to VPA q388150941@ybl (UPI Ref No. 653833752365).\nCall 18002662 for dispute/ to report.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-02-12",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m145",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour ICICI Bank Platinum Debit Card XX6623 was used for Rs.15,317.76 at BPCL FUEL on 12-Feb-2026.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-02-12",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card xx9051 has been used for a transaction of INR 205.23 on Feb 22, 2026 at 09:05:55. Info: GOOGLE PLAY.\nThe Available Credit Limit on your card is INR 3,42,375.00 and Total Credit Limit is INR 3,72,375.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-02-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 12,670.56 on 25-Feb-26 to VPA swiggy@okhdfcbank (UPI Ref No. 342673385708).\nCall 18002662 for dispute/ to report.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-02-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "Credit alert: ICICI Bank",
+   "body": "Dear&nbsp;Customer,<br>\nINR&nbsp;65,000.00&nbsp;credited to your A/c XX4476 on 01-03-2026 by SALARY NEFT. Ref 8856083229.<br>\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-03-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "Your account statement for March 2026",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;e-statment&nbsp;for A/c XX4476 for Mar 2026 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2026-03-03",
+   "attachments": [
+    {
+     "filename": "Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 38,303.34 on Mar 04, 2026 at 18:49:35. Info: WESTSIDE.\nThe Available Credit Limit on your card is INR 80,577.00 and Total Credit Limit is INR 1,10,577.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.",
+   "date": "2026-03-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Standing instruction executed",
+   "body": "Standing Instruction executed. Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 22,500.00 on 05-Mar-26 to Sunita Mehta A/c no. XXXXXXXX5798 (Canara Bank), SI Ref 126302216243.\nCall 18002662 for dispute/ to report.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-03-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 3,210.21 on Mar 07, 2026 at 14:35:55. Info: ZOMATO.\nThe Available Credit Limit on your card is INR 2,50,259.00 and Total Credit Limit is INR 2,80,259.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.",
+   "date": "2026-03-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XXXX XXXX XXXX 9051 has been used for a transaction of INR 7,991.45 on Mar 12, 2026 at 03:11:44. Info: MEDPLUS.\nThe Available Credit Limit on your card is INR 1,98,838.00 and Total Credit Limit is INR 2,28,838.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-03-12",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "Your ICICI Bank Amazon Pay Credit Card statement is ready",
+   "body": "Dear Rohit Gupta,\nThe statement of your ICICI Bank Amazon Pay Credit Card no. XXXXXXXXXXXX9051 for Mar 2026 is ready. Total due Rs.4,611.03, pay by 30 Mar 2026.\nView it in the app or NetBanking under Cards.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Mar2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: ROHIT GUPTA\nCard No: 4139 60XX XXXX 9051\nCard Type: Amazon Pay\nStatement Date: 12/03/2026\nStatement Period: 10/02/2026 - 12/03/2026\nPayment Due Date: 30/03/2026\nTotal Amount Due: Rs. 4,611.03\nMinimum Amount Due: Rs. 230.55\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 40,041.00\n\nDate        Transaction Details                        Amount (Rs.)\n23/02/2026  GOOGLE PLAY GURGAON   7,090.72 Dr\n18/02/2026  HOTSTAR CHENNAI   522.70 Dr\n23/02/2026  STARBUCKS PUNE   1,386.37 Dr\n13/02/2026  INDIGO AIRLINES CHENNAI   1,412.77 Dr\n10/03/2026  BPCL FUEL GURGAON   1,948.06 Dr\n22/02/2026  SPOTIFY CHENNAI   31,066.48 Dr\n13/02/2026  LENSKART KOCHI   325.43 Dr\n26/02/2026  MEDPLUS KOCHI   881.00 Dr\n14/02/2026  DMART HYDERABAD   4,946.18 Dr\n03/03/2026  PAYMENT RECEIVED - THANK YOU   2,766.62 Cr\n\nReward Points Summary: Opening 5583  Earned 502  Closing 4590\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2921740148252  IFSC ICIC0000353"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.2,000.00 withdrawn using your ICICI Bank Platinum Debit Card **6623 at ATM PUNE on 13-03-2026.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-03-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 14,124.13 on 15-Mar-26 to VPA swiggy@ybl (UPI Ref No. 898188188740).\nCall 18002662 for dispute/ to report.",
+   "date": "2026-03-15",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 10,000.00 on 17-Mar-26 to Kamla Gupta A/c no. XXXXXXXX2951 (State Bank of India), NEFT Ref 174197985126.\nCall 18002662 for dispute/ to report.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-17",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 1,555.89 on Mar 25, 2026 at 18:35:29. Info: HOTSTAR.\nThe Available Credit Limit on your card is INR 90,913.00 and Total Credit Limit is INR 1,20,913.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-03-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.4,611.03 on 25-03-2026 towards your ICICI Bank Credit Card XX9051. Thank you.",
+   "date": "2026-03-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 1,865.40 on 26-Mar-26 to VPA bigbasket@icici (UPI Ref No. 916265154748).\nCall 18002662 for dispute/ to report.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-03-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "Payment reminder: ICICI Bank Credit Card XX9051",
+   "body": "Dear Customer,\nThis is a reminder that Rs.4,611.03 (minimum Rs.230.55) is due on 30-Mar-2026 on your ICICI Bank Credit Card XX9051. Pay on time to avoid late payment charges.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "Credit alert: ICICI Bank",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;1,05,000.00&nbsp;credited to your A/c XX4476 on 01-04-2026 by SALARY NEFT. Ref 7924908755.\nThank you for banking with us.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-04-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "नमस्ते,\nDear Customer,\nICICI Bank Acct XX4476 debited with Rs 195.23 on 02-Apr-26 to VPA zomato@icici (UPI Ref No. 192382031142).\nCall 18002662 for dispute/ to report.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "Your account statement for April 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XX4476 for Apr 2026 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2026-04-03",
+   "attachments": [
+    {
+     "filename": "Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Standing Instruction executed. Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 22,500.00 on 05-Apr-26 to Sunita Mehta A/c no. XXXXXXXX5798 (Canara Bank), SI Ref 599471045280.\nCall 18002662 for dispute/ to report.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-04-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "OTP for online transaction",
+   "body": "312764 is the One Time Password (OTP) for your online transaction of INR 658.28 at CAFE COFFEE DAY. Valid for 5 minutes. Do not share with anyone, including bank staff.",
+   "date": "2026-04-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transction of INR 366.51 on Apr 09, 2026 at 16:46:38. Info: BLINKIT.\nThe Available Credit Limit on your card is INR 3,02,348.00 and Total Credit Limit is INR 3,32,348.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.",
+   "date": "2026-04-09",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "ATM withdrawal alert",
+   "body": "नमस्ते,\nDear Customer,\nRs.3,000.00 withdrawn using your ICICI Bank Platinum Debit Card XX6623 at ATM BANGALORE on 10-04-2026.",
+   "date": "2026-04-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Your ICICI Bank Amazon Pay Credit Card statement is ready",
+   "body": "Dear Rohit Gupta,\nThe statement of your ICICI Bank Amazon Pay Credit Card XX9051 for Apr 2026 is ready. Total due Rs.1,57,989.04, pay by 30 Apr 2026.\nView it in the app or NetBanking under Cards.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Apr2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: ROHIT GUPTA\nCard No: 4652 65XX XXXX 9051\nStatement Date: 12/04/2026\nStatement Period: 13/03/2026 - 12/04/2026\nPayment Due Date: 30/04/2026\nTotal Amount Due: Rs. 1,57,989.04\nMinimum Amount Due: Rs. 7,899.45\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,67,716.00\n\nDate        Transaction Details                        Amount (Rs.)\n08/04/2026  URBAN COMPANY PUNE   1,238.38 Dr\n24/03/2026  UBER INDIA PUNE   1,948.02 Dr\n18/03/2026  OLA CABS GURGAON   2,162.27 Dr\n21/03/2026  ZEPTO BANGALORE   224.66 Dr\n24/03/2026  DECATHLON BANGALORE   10,960.96 Dr\n20/03/2026  ZEPTO GURGAON   1,841.52 Dr\n03/04/2026  PAYMENT RECEIVED - THANK YOU   94,793.42 Cr\n\nReward Points Summary: Opening 982  Earned 497  Closing 2915\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2921740148252  IFSC ICIC0000576"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "Magnus, Atlas and Flipkart Axis Bank cards: lifetime free offers",
+   "body": "Choose from ACE, Magnus, Atlas, Reserve, Airtel Axis Bank cards. Offer reference 2759\nT&C apply.",
+   "date": "2026-04-19",
+   "attachments": [],
+   "from": "Axis Bank <offers@axisbank.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 40,763.98 on 22-Apr-26 to VPA bigbasket@okaxis (UPI Ref No. 448539720929).\nCall 18002662 for dispute/ to report.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-04-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m172",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Rohit, a gentle nudge: Rs.1,57,989.04 due on 30 April for card XX9051. Ignore if already paid. Kripya samay par bhugtan karein.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "Credit alert: ICICI Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX4476 on 01-05-2026 by SALARY NEFT. Ref 8417451848.\nThank you for banking with us.",
+   "date": "2026-05-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m174",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 23,291.42 on 03-May-26 to VPA paytm.s1@ybl (UPI Ref No. 357305076312).\nCall 18002662 for dispute/ to report.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-05-03",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "Your account statement for May 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c no. XXXXXXXXXXXX4476 for May 2026 is attached. The PDF is protected; password is your Customer ID.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-05-03",
+   "attachments": [
+    {
+     "filename": "Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m176",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Standing Instruction executed. Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 22,500.00 on 05-May-26 to Sunita Mehta A/c no. XXXXXXXX5798 (Canara Bank), SI Ref 685417413831.\nCall 18002662 for dispute/ to report.",
+   "date": "2026-05-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "नमस्ते,\nDear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 847.77 on May 06, 2026 at 22:40:41. Info: AMAZON.\nThe Available Credit Limit on your card is INR 3,07,740.00 and Total Credit Limit is INR 3,37,740.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.",
+   "date": "2026-05-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 537.62 on May 07, 2026 at 01:24:29. Info: LICIOUS.\nThe Available Credit Limit on your card is INR 69,417.00 and Total Credit Limit is INR 99,417.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m179",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 40,156.54 on 08-May-26 to VPA paytm.s1@paytm (UPI Ref No. 705149652087).\nCall 18002662 for dispute/ to report.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-05-08",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour ICICI Bank Platinum Debit Card xx6623 was used for Rs.5,273.41 at CROMA on 11-May-2026.",
+   "date": "2026-05-11",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m181",
+   "subject": "Your ICICI Bank Amazon Pay Credit Card statement is ready",
+   "body": "Dear Rohit Gupta,<br>\nThe statement of your ICICI Bank Amazon Pay Credit Card ending 9051 for May 2026 is ready. Total due Rs.1,513.73, pay by 30 May 2026.<br>\nView it in the app or NetBanking under Cards.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: ROHIT GUPTA\nCard No: 4470 76XX XXXX 9051\nCard Type: Amazon Pay\nStatement Date: 12/05/2026\nStatement Period: 12/04/2026 - 12/05/2026\nPayment Due Date: 30/05/2026\nTotal Amount Due: Rs. 1,513.73\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 88,199.00\n\nDate        Transaction Details                        Amount (Rs.)\n10/05/2026  AMAZON PAY INDIA GURGAON   21,757.65 Dr\n25/04/2026  BLINKIT GURGAON   196.63 Dr\n20/04/2026  RELIANCE SMART PUNE   1,944.64 Dr\n15/04/2026  UBER INDIA MUMBAI   7,015.03 Dr\n15/04/2026  DECATHLON BANGALORE   403.36 Dr\n24/04/2026  IRCTC BANGALORE   2,744.01 Dr\n30/04/2026  ZEPTO KOCHI   709.65 Dr\n07/05/2026  GOOGLE PLAY GURGAON   2,041.92 Dr\n22/04/2026  URBAN COMPANY KOCHI   9,200.49 Dr\n03/05/2026  PAYMENT RECEIVED - THANK YOU   908.24 Cr\n\nReward Points Summary: Opening 6511  Earned 579  Closing 6749\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2921740148252  IFSC ICIC0000717"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 7,647.39 on May 14, 2026 at 13:05:36. Info: INDIGO AIRLINES.\nThe Available Credit Limit on your card is INR 1,61,189.00 and Total Credit Limit is INR 1,91,189.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-05-14",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m183",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 2,089.82 on 16-May-26 to VPA q624163368@ybl (UPI Ref No. 515202679003).\nCall 18002662 for dispute/ to report.",
+   "date": "2026-05-16",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,<br>\nYour ICICI Bank Platinum Debit Card XX6623 was used for Rs.6,701.15 at LENSKART on 18-May-2026.",
+   "date": "2026-05-18",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m185",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 15,000.00 on 20-May-26 to Kamla Gupta A/c no. XXXXXXXX2951 (State Bank of India), NEFT Ref 465474059197.\nCall 18002662 for dispute/ to report.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 884.20 on 21-May-26 to VPA merchant@icici (UPI Ref No. 116622554208).\nCall 18002662 for dispute/ to report.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-05-21",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m187",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;received your payment of Rs.1,513.73 on 23-05-2026 towards your ICICI Bank Credit Card XX9051. Thank you.",
+   "date": "2026-05-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m188",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 9234 reward points on your ICICI Bank Amazon Pay Credit Card XX9051. Redeem them on the rewards portal before they expire.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m189",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "नमस्ते,\nDear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 6,101.53 on May 26, 2026 at 08:07:19. Info: OLA CABS.\nThe Available Credit Limit on your card is INR 3,75,012.00 and Total Credit Limit is INR 4,05,012.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m190",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Rohit, a gentle nudge: Rs.1,513.73 due on 30 May for card XX9051. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear&nbsp;Customer,\nICICI&nbsp;Bank&nbsp;Acct XX4476 debited with Rs 6,504.99 on 01-Jun-26 to VPA paytm.s1@okhdfcbank (UPI Ref No. 716937899273).\nCall 18002662 for dispute/ to report.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "Credit alert: ICICI Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX4476 on 01-06-2026 by SALARY NEFT. Ref 9487705569.\nThank you for banking with us.\n\nT&C apply. Visit www.icicibank.com for more details.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m193",
+   "subject": "Your account statement for June 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XX4476 for Jun 2026 is attached. The PDF is protected; password is your Customer ID.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m194",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour ICICI Bank Platinum Debit Card XX6623 was used for Rs.5,000.00 at AIRBNB on 04-Jun-2026.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-06-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m195",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card xx9051 has been used for a transction of INR 2,452.86 on Jun 05, 2026 at 23:06:26. Info: CAFE COFFEE DAY.\nThe Available Credit Limit on your card is INR 36,846.00 and Total Credit Limit is INR 66,846.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 5,840.52 on 05-Jun-26 to VPA merchant@okaxis (UPI Ref No. 973762196708).\nCall 18002662 for dispute/ to report.\n\nThis is a system generated email. Please do not reply to this message.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m197",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Standing Instruction executed. Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 22,500.00 on 05-Jun-26 to Sunita Mehta A/c no. XXXXXXXX5798 (Canara Bank), SI Ref 571575953802.\nCall 18002662 for dispute/ to report.",
+   "date": "2026-06-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m198",
+   "subject": "Your ICICI Bank Amazon Pay Credit Card statement is ready",
+   "body": "Dear Rohit Gupta,\nThe statement of your ICICI Bank Amazon Pay Credit Card XX9051 for Jun 2026 is ready. Total due Rs.5,683.34, pay by 30 Jun 2026.\nView it in the app or NetBanking under Cards.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: ROHIT GUPTA\nCard No: 4121 57XX XXXX 9051\nCard Type: Amazon Pay\nStatement Date: 12/06/2026\nStatement Period: 13/05/2026 - 12/06/2026\nPayment Due Date: 30/06/2026\nTotal Amount Due: Rs. 5,683.34\nMinimum Amount Due: Rs. 284.17\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 90,009.00\n\nDate        Transaction Details                        Amount (Rs.)\n04/06/2026  CROMA PUNE   2,302.07 Dr\n06/06/2026  NETFLIX.COM KOCHI   718.21 Dr\n20/05/2026  IRCTC KOCHI   2,034.55 Dr\n03/06/2026  CROMA BANGALORE   695.88 Dr\n08/06/2026  JIO PREPAID MUMBAI   2,113.03 Dr\n19/05/2026  AMAZON PAY INDIA MUMBAI   966.59 Dr\n31/05/2026  CAFE COFFEE DAY CHENNAI   37,916.27 Dr\n13/05/2026  BPCL FUEL PUNE   400.51 Dr\n29/05/2026  ZEPTO CHENNAI   5,286.98 Dr\n03/06/2026  PAYMENT RECEIVED - THANK YOU   3,410.00 Cr\n\nReward Points Summary: Opening 8820  Earned 154  Closing 2626\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2921740148252  IFSC ICIC0000955"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m199",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 36,018.35 on 14-Jun-26 to VPA paytm.s1@okaxis (UPI Ref No. 500139303315).\nCall 18002662 for dispute/ to report.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-06-14",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m200",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 8,447.83 on 24-Jun-26 to VPA zomato@ybl (UPI Ref No. 835544755753).\nCall 18002662 for dispute/ to report.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card **9051 has been used for a transaction of INR 6,682.11 on Jun 25, 2026 at 06:27:10. Info: APOLLO PHARMACY.\nThe Available Credit Limit on your card is INR 3,73,232.00 and Total Credit Limit is INR 4,03,232.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 16,090.04 on Jun 25, 2026 at 05:07:16. Info: GOOGLE PLAY.\nThe Available Credit Limit on your card is INR 1,13,445.00 and Total Credit Limit is INR 1,43,445.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m203",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 32,836.80 on 25-Jun-26 to VPA merchant@icici (UPI Ref No. 572942887648).\nCall 18002662 for dispute/ to report.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 5,082.85 on Jun 27, 2026 at 12:23:26. Info: THIRD WAVE COFFEE.\nThe Available Credit Limit on your card is INR 22,316.00 and Total Credit Limit is INR 52,316.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m205",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.5,683.34 on 27-06-2026 towards your ICICI Bank Credit Card XX9051. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m206",
+   "subject": "Credit alert: ICICI Bank",
+   "body": "नमस्ते,\nDear Customer,<br>\nINR 72,500.00 credited to your A/c XX4476 on 01-07-2026 by SALARY NEFT. Ref 9310812819.<br>\nThank you for banking with us.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-07-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m207",
+   "subject": "Your account statement for July 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XX4476 for Jul 2026 is attached. The PDF is protected; password is your Customer ID.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-07-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m208",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;ICICI&nbsp;Bank Credit Card XXXX XXXX XXXX 9051 has been used for a transaction of INR 4,048.28 on Jul 05, 2026 at 09:23:53. Info: JIO PREPAID.\nThe Available Credit Limit on your card is INR 2,25,197.00 and Total Credit Limit is INR 2,55,197.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-07-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m209",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour ICICI Bank Platinum Debit Card **6623 was used for Rs.500.00 at BPCL FUEL on 05-Jul-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m210",
+   "subject": "Standing instruction executed",
+   "body": "Standing Instruction executed. Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 22,500.00 on 05-Jul-26 to Sunita Mehta A/c no. XXXXXXXX5798 (Canara Bank), SI Ref 562985672918.\nCall 18002662 for dispute/ to report.",
+   "date": "2026-07-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m211",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 564.06 on Jul 06, 2026 at 15:33:40. Info: PVR INOX.\nThe Available Credit Limit on your card is INR 1,51,625.00 and Total Credit Limit is INR 1,81,625.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.",
+   "date": "2026-07-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m212",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 2,973.55 on 06-Jul-26 to VPA swiggy@ybl (UPI Ref No. 144351870075).\nCall 18002662 for dispute/ to report.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-07-06",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m213",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 1,460.52 on 07-Jul-26 to VPA merchant@icici (UPI Ref No. 948463952842).\nCall 18002662 for dispute/ to report.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-07-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m214",
+   "subject": "Your ICICI Bank Amazon Pay Credit Card statement is ready",
+   "body": "Dear Rohit Gupta,\nThe statement of your ICICI Bank Amazon Pay Credit Card XX9051 for Jul 2026 is ready. Total due Rs.17,667.73, pay by 30 Jul 2026.\nView it in the app or NetBanking under Cards.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: ROHIT GUPTA\nCard No: 4508 78XX XXXX 9051\nCard Type: Amazon Pay\nStatement Date: 12/07/2026\nStatement Period: 12/06/2026 - 12/07/2026\nPayment Due Date: 30/07/2026\nTotal Amount Due: Rs. 17,667.73\nMinimum Amount Due: Rs. 883.39\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 90,510.00\n\nDate        Transaction Details                        Amount (Rs.)\n12/06/2026  MAKEMYTRIP PUNE   2,523.76 Dr\n27/06/2026  HOTSTAR CHENNAI   759.50 Dr\n09/07/2026  BATA INDIA KOCHI   2,192.58 Dr\n22/06/2026  HOTSTAR CHENNAI   1,476.70 Dr\n04/07/2026  ZEPTO KOCHI   838.23 Dr\n06/07/2026  HOTSTAR GURGAON   20,903.71 Dr\n01/07/2026  PVR INOX MUMBAI   11,257.51 Dr\n03/07/2026  PAYMENT RECEIVED - THANK YOU   10,600.64 Cr\n\nReward Points Summary: Opening 6441  Earned 533  Closing 4826\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m215",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "नमस्ते,\nDear Customer,\nICICI Bank Acct XX4476 debited with Rs 2,654.64 on 13-Jul-26 to VPA q638700090@paytm (UPI Ref No. 214618713980).\nCall 18002662 for dispute/ to report.\n\nT&C apply. Visit www.icicibank.com for more details.\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-07-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m216",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.500.00 withdrawn using your ICICI Bank Platinum Debit Card XX6623 at ATM PUNE on 23-07-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m217",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.17,667.73 on 24-07-2026 towards your ICICI Bank Credit Card XX9051. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-07-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m218",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 5,000.00 on 24-Jul-26 to Kamla Gupta A/c no. XXXXXXXX2951 (State Bank of India), NEFT Ref 405422668970.\nCall 18002662 for dispute/ to report.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-07-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m219",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card no. XXXXXXXXXXXX9051 has been used for a transaction of INR 260.20 on Jul 27, 2026 at 23:35:31. Info: ZEPTO.\nThe Available Credit Limit on your card is INR 2,04,273.00 and Total Credit Limit is INR 2,34,273.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m220",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Rohit, a gentle nudge: Rs.17,667.73 due on 30 July for card XX9051. Ignore if already paid. Kripya samay par bhugtan karein.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m221",
+   "subject": "Credit alert: ICICI Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX4476 on 01-08-2026 by SALARY NEFT. Ref 5431441199.\nThank you for banking with us.",
+   "date": "2026-08-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m222",
+   "subject": "Your account statement for August 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XX4476 for Aug 2026 is attached. The PDF is protected; password is your Customer ID.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-03",
+   "attachments": [
+    {
+     "filename": "Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m223",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "नमस्ते,\nDear Customer,\nICICI Bank Acct XX4476 debited with Rs 769.73 on 04-Aug-26 to VPA merchant@okhdfcbank (UPI Ref No. 467177056552).\nCall 18002662 for dispute/ to report.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-08-04",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m224",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Standing Instruction executed. Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 22,500.00 on 05-Aug-26 to Sunita Mehta A/c no. XXXXXXXX5798 (Canara Bank), SI Ref 665785061081.\nCall 18002662 for dispute/ to report.",
+   "date": "2026-08-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m225",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 31,483.05 on 10-Aug-26 to VPA paytm.s1@okaxis (UPI Ref No. 269268518565).\nCall 18002662 for dispute/ to report.",
+   "date": "2026-08-10",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m226",
+   "subject": "Your ICICI Bank Amazon Pay Credit Card statement is ready",
+   "body": "Dear Rohit Gupta,\nThe statement of your ICICI Bank Amazon Pay Credit Card XX9051 for Aug 2026 is ready. Total due Rs.1,55,942.95, pay by 30 Aug 2026.\nView it in the app or NetBanking under Cards.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: ROHIT GUPTA\nCard No: 4513 64XX XXXX 9051\nCard Type: Amazon Pay\nStatement Date: 12/08/2026\nStatement Period: 13/07/2026 - 12/08/2026\nPayment Due Date: 30/08/2026\nTotal Amount Due: Rs. 1,55,942.95\nMinimum Amount Due: Rs. 7,797.15\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 30,213.00\n\nDate        Transaction Details                        Amount (Rs.)\n18/07/2026  JIO PREPAID KOCHI   1,844.71 Dr\n05/08/2026  AIRBNB BANGALORE   6,227.86 Dr\n03/08/2026  ZOMATO KOCHI   8,842.53 Dr\n20/07/2026  IRCTC GURGAON   164.26 Dr\n03/08/2026  PAYMENT RECEIVED - THANK YOU   93,565.77 Cr\n\nReward Points Summary: Opening 5368  Earned 487  Closing 1825\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m227",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 1,146.35 on Aug 18, 2026 at 12:22:23. Info: IRCTC.\nThe Available Credit Limit on your card is INR 33,870.00 and Total Credit Limit is INR 63,870.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-18",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m228",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 1,759.91 on 19-Aug-26 to VPA bigbasket@icici (UPI Ref No. 855877916134).\nCall 18002662 for dispute/ to report.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-08-19",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m229",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.1,55,942.95 on 22-08-2026 towards your ICICI Bank Credit Card XX9051. Thank you.<br>\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m230",
+   "subject": "Convert to EMI",
+   "body": "नमस्ते,\nDear&nbsp;Customer,\nYour&nbsp;transaction&nbsp;of Rs.10,716.15 on card XX9051 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m231",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.7,608.66 withdrawn using your ICICI Bank Platinum Debit Card XX6623 at ATM MUMBAI on 25-08-2026.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-08-25",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m232",
+   "subject": "Debit card transaction alert",
+   "body": "Dear Customer,\nYour ICICI Bank Platinum Debit Card XX6623 was used for Rs.7,881.93 at CAFE COFFEE DAY on 26-Aug-2026.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-08-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m233",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;ICICI&nbsp;Bank Credit Card xx9051 has been used for a transaction of INR 789.12 on Sep 01, 2026 at 01:23:56. Info: STARBUCKS.\nThe Available Credit Limit on your card is INR 1,34,538.00 and Total Credit Limit is INR 1,64,538.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m234",
+   "subject": "Credit alert: ICICI Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX4476 on 01-09-2026 by SALARY NEFT. Ref 4813446675.\nThank you for banking with us.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m235",
+   "subject": "Your account statement for September 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XX4476 for Sep 2026 is attached. The PDF is protected; password is your Customer ID.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-09-03",
+   "attachments": [
+    {
+     "filename": "Statement_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m236",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card XX9051 has been processed. Tenure 12 months. First EMI will appear on your next statement.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m237",
+   "subject": "Standing instruction executed",
+   "body": "Standing Instruction executed. Dear Customer,<br>\nICICI Bank Acct XX4476 debited with Rs 22,500.00 on 05-Sep-26 to Sunita Mehta A/c no. XXXXXXXX5798 (Canara Bank), SI Ref 650785890073.<br>\nCall 18002662 for dispute/ to report.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m238",
+   "subject": "ATM withdrawal alert",
+   "body": "नमस्ते,\nDear Customer,<br>\nRs.10,000.00 withdrawn using your ICICI Bank Platinum Debit Card XX6623 at ATM BANGALORE on 07-09-2026.<br>\n\nThis is a system generated email. Please do not reply to this message.\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-09-07",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m239",
+   "subject": "Credit card bill payment successful",
+   "body": "Dear Customer,\nRs.1,440.37 paid from your A/c XX4476 to SBI Card Credit Card ending 9103 (beneficiary: Harsh Banerjee) on 11-09-2026.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m240",
+   "subject": "Your ICICI Bank Amazon Pay Credit Card statement is ready",
+   "body": "Dear Rohit Gupta,\nThe statement of your ICICI Bank Amazon Pay Credit Card **9051 for Sep 2026 is ready. Total due Rs.43,865.18, pay by 30 Sep 2026.\nView it in the app or NetBanking under Cards.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: ROHIT GUPTA\nCard No: 4294 35XX XXXX 9051\nStatement Date: 12/09/2026\nStatement Period: 13/08/2026 - 12/09/2026\nPayment Due Date: 30/09/2026\nTotal Amount Due: Rs. 43,865.18\nMinimum Amount Due: Rs. 2,193.26\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,40,647.00\n\nDate        Transaction Details                        Amount (Rs.)\n18/08/2026  OLA CABS HYDERABAD   6,225.40 Dr\n27/08/2026  URBAN COMPANY CHENNAI   209.33 Dr\n25/08/2026  AMAZON PAY INDIA GURGAON   2,267.18 Dr\n20/08/2026  THIRD WAVE COFFEE GURGAON   692.83 Dr\n03/09/2026  PAYMENT RECEIVED - THANK YOU   26,319.11 Cr\n\nReward Points Summary: Opening 356  Earned 384  Closing 3354\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m241",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transction of INR 41,766.77 on Sep 13, 2026 at 17:32:17. Info: BIGBASKET.\nThe Available Credit Limit on your card is INR 2,12,490.00 and Total Credit Limit is INR 2,42,490.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.",
+   "date": "2026-09-13",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m242",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 28,918.03 on 15-Sep-26 to VPA irctcweb@ybl (UPI Ref No. 798130796100).\nCall 18002662 for dispute/ to report.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-15",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m243",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 10,000.00 on 15-Sep-26 to Kamla Gupta A/c no. XXXXXXXX2951 (State Bank of India), NEFT Ref 971922685386.\nCall 18002662 for dispute/ to report.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-15",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m244",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 36,452.99 on 16-Sep-26 to Rohit Iyer A/c no. XXXXXXXX4929 (Punjab National Bank), NEFT Ref 439270576988.\nCall 18002662 for dispute/ to report.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-09-16",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m245",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your ICICI Bank Amazon Pay Credit Card XX9051 has been increased to Rs.4,50,000.00 effective 17-09-2026.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m246",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;ICICI&nbsp;Bank Credit Card **9051 has been used for a transaction of INR 222.75 on Sep 18, 2026 at 11:56:49. Info: NETFLIX.COM.\nThe Available Credit Limit on your card is INR 1,19,054.00 and Total Credit Limit is INR 1,49,054.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nThis is a system generated email. Please do not reply to this message.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-18",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m247",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "नमस्ते,\nDear&nbsp;Customer,\nICICI&nbsp;Bank&nbsp;Acct XX4476 debited with Rs 7,507.53 on 20-Sep-26 to VPA q508990189@ybl (UPI Ref No. 369911676043).\nCall 18002662 for dispute/ to report.",
+   "date": "2026-09-20",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m248",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.43,865.18 on 24-09-2026 towards your ICICI Bank Credit Card XX9051. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-09-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m249",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.3,463.31 withdrawn using your ICICI Bank Platinum Debit Card xx6623 at ATM GURGAON on 24-09-2026.",
+   "date": "2026-09-24",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m250",
+   "subject": "Payment reminder: ICICI Bank Credit Card xx9051",
+   "body": "नमस्ते,\nDear Customer,\nThis is a reminder that Rs.43,865.18 (minimum Rs.2,193.26) is due on 30-Sep-2026 on your ICICI Bank Credit Card xx9051. Pay on time to avoid late payment charges.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m251",
+   "subject": "Credit alert: ICICI Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX4476 on 01-10-2026 by SALARY NEFT. Ref 7120920231.\nThank you for banking with us.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-10-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m252",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 573.57 on 02-Oct-26 to VPA zomato@paytm (UPI Ref No. 147093839203).\nCall 18002662 for dispute/ to report.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-10-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m253",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,<br>\nICICI Bank Acct XX4476 debited with Rs 3,132.39 on 02-Oct-26 to Harsh Iyer A/c no. XXXXXXXX6073 (State Bank of India), NEFT Ref 274101408366.<br>\nCall 18002662 for dispute/ to report.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-10-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m254",
+   "subject": "Your account statement for October 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XX4476 for Oct 2026 is attached. The PDF is protected; password is your Customer ID.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-10-03",
+   "attachments": [
+    {
+     "filename": "Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m255",
+   "subject": "Standing instruction executed",
+   "body": "Standing Instruction executed. Dear Customer,<br>\nICICI Bank Acct XX4476 debited with Rs 22,500.00 on 05-Oct-26 to Sunita Mehta A/c no. XXXXXXXX5798 (Canara Bank), SI Ref 196351348480.<br>\nCall 18002662 for dispute/ to report.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-10-05",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m256",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.16,276.73 withdrawn using your ICICI Bank Platinum Debit Card XX6623 at ATM GURGAON on 11-10-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.",
+   "date": "2026-10-11",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m257",
+   "subject": "Your ICICI Bank Amazon Pay Credit Card statement is ready",
+   "body": "Dear Rohit Gupta,\nThe statement of your ICICI Bank Amazon Pay Credit Card XXXX XXXX XXXX 9051 for Oct 2026 is ready. Total due Rs.1,827.09, pay by 30 Oct 2026.\nView it in the app or NetBanking under Cards.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "ICICI_Statement_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "ICICI BANK - CREDIT CARD STATEMENT\nName: ROHIT GUPTA\nCredit Card Number: XXXX XXXX XXXX 9051\nStatement Date: 12/10/2026\nStatement Period: 12/09/2026 - 12/10/2026\nPayment Due Date: 30/10/2026\nTotal Amount Due: Rs. 1,827.09\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,64,997.00\n\nDate        Transaction Details                        Amount (Rs.)\n02/10/2026  URBAN COMPANY PUNE   337.71 Dr\n29/09/2026  BATA INDIA KOCHI   1,544.18 Dr\n03/10/2026  CAFE COFFEE DAY PUNE   2,064.78 Dr\n12/09/2026  UBER INDIA KOCHI   4,631.04 Dr\n26/09/2026  NETFLIX.COM BANGALORE   127.25 Dr\n25/09/2026  LICIOUS HYDERABAD   115.77 Dr\n25/09/2026  STARBUCKS PUNE   1,753.11 Dr\n03/10/2026  PAYMENT RECEIVED - THANK YOU   1,096.25 Cr\n\nReward Points Summary: Opening 3472  Earned 638  Closing 6252\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 2921740148252  IFSC ICIC0000748"
+    }
+   ],
+   "from": "ICICI Bank Credit Cards <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m258",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 2,204.06 on 16-Oct-26 to VPA merchant@okaxis (UPI Ref No. 747582214237).\nCall 18002662 for dispute/ to report.",
+   "date": "2026-10-16",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m259",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card no. XXXXXXXXXXXX9051 has been used for a transaction of INR 8,592.26 on Oct 18, 2026 at 13:53:46. Info: AMAZON PAY INDIA.\nThe Available Credit Limit on your card is INR 1,03,223.00 and Total Credit Limit is INR 1,33,223.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nNever share your OTP, PIN, CVV or password with anyone. ICICI Bank will never ask for these.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-10-18",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m260",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear&nbsp;Customer,\nICICI&nbsp;Bank&nbsp;Acct XX4476 debited with Rs 35,714.81 on 22-Oct-26 to VPA merchant@paytm (UPI Ref No. 200975107683).\nCall 18002662 for dispute/ to report.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m261",
+   "subject": "Your reward points summary",
+   "body": "Dear&nbsp;Customer,\nYou&nbsp;have&nbsp;3724 reward points on your ICICI Bank Amazon Pay Credit Card XX9051. Redeem them on the rewards portal before they expire.",
+   "date": "2026-10-25",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m262",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.1,827.09 on 26-10-2026 towards your ICICI Bank Credit Card XX9051. Thank you.",
+   "date": "2026-10-26",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m263",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Rohit, a gentle nudge: Rs.1,827.09 due on 30 October for card XX9051. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "ICICI Bank <customercare@icicibank.com>"
+  },
+  {
+   "id": "m264",
+   "subject": "ATM withdrawal alert",
+   "body": "Dear Customer,\nRs.220.82 withdrawn using your ICICI Bank Platinum Debit Card XX6623 at ATM HYDERABAD on 27-10-2026.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m265",
+   "subject": "Debit alert on your ICICI Bank account",
+   "body": "Dear Customer,\nICICI Bank Acct XX4476 debited with Rs 1,735.47 on 01-Nov-26 to VPA bigbasket@okaxis (UPI Ref No. 986226213718).\nCall 18002662 for dispute/ to report.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-11-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m266",
+   "subject": "Credit alert: ICICI Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX4476 on 01-11-2026 by SALARY NEFT. Ref 7187373979.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-11-01",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  },
+  {
+   "id": "m267",
+   "subject": "Transaction alert for your ICICI Bank Credit Card",
+   "body": "Dear Customer,\nYour ICICI Bank Credit Card XX9051 has been used for a transaction of INR 8,082.29 on Nov 02, 2026 at 08:28:17. Info: THIRD WAVE COFFEE.\nThe Available Credit Limit on your card is INR 3,06,344.00 and Total Credit Limit is INR 3,36,344.00.\nIn case of suspicious transaction, call 1860 120 7777 or SMS BLOCK 9051 to 9215676766.\n\nT&C apply. Visit www.icicibank.com for more details.",
+   "date": "2026-11-02",
+   "attachments": [],
+   "from": "ICICI Bank <credit_cards@icicibank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "9051",
+    "kind": "CREDIT_CARD",
+    "variant": "Amazon Pay",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "4476",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "6623",
+    "kind": "DEBIT_CARD",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "8252",
+    "why": "bank own beneficiary account in statement payment instructions"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "5798",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "sbi.co.in",
+    "last4": "2951",
+    "why": "family member account receiving repeated transfers"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "6261",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "7224",
+    "why": "masked Aadhaar number"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "9103",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   },
+   {
+    "issuerDomain": "sbi.co.in",
+    "last4": "6073",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "pnb.co.in",
+    "last4": "4929",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "pnb.co.in",
+    "last4": "1709",
+    "why": "UPI/IMPS payee account"
+   }
+  ]
+ }
+}

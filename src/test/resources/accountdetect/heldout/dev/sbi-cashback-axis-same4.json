@@ -1,0 +1,2725 @@
+{
+ "mailbox": "sbi-cashback-axis-same4",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,<br>\nThank you for using your Axis Bank Credit Card XX3350 for INR 25,950.39 at INDIGO AIRLINES on 02-08-25 15:31:51 IST.<br>\nAvailable limit INR 77,074.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-02",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Transaction alert on Axis Bank Credit Card xx3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card xx3350 for INR 2,265.29 at DECATHLON on 02-08-25 07:47:34 IST.\nAvailable limit INR 2,00,659.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2025-08-02",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Payment Successful",
+   "body": "Paid Rs.2,265.29 to DECATHLON on 02 Aug 2025. Payment mode: Axis Bank Credit Card ending 3350. Txn ID T6422969222658772197.",
+   "date": "2025-08-02",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 7,543.32 at IRCTC on 02-08-25 08:56:28 IST.\nAvailable limit INR 2,43,395.00. If this was not you, SMS BLOCK 3350 to 5676782.",
+   "date": "2025-08-02",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "OTP for online transaction",
+   "body": "436854 is the One Time Password (OTP) for your online transaction of INR 3,494.04 at THIRD WAVE COFFEE. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-05",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "नमस्ते,\nDear Cardholder,\nRs.3,489.87 spent on your SBI Credit Card ending 6027 at BIGBASKET on 06/08/25. Your availble limit is Rs.2,49,077.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-08-06",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Cashback SBI Credit Card Monthly Statement - Aug 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 3350. Statement date: 12-Aug-2025. Total amount due Rs.27,442.27; minimum Rs.1,372.11; due 30-Aug-2025.\nSBI/BOB style auto pay available on request.\n\nT&C apply. Visit www.sbicard.com for more details.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Aug2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCredit Card Number: XXXX XXXX XXXX 3350\nCard Type: Cashback SBI\nStatement Date: 12/08/2025\nStatement Period: 13/07/2025 - 12/08/2025\nPayment Due Date: 30/08/2025\nTotal Amount Due: Rs. 27,442.27\nMinimum Amount Due: Rs. 1,372.11\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,87,524.00\n\nDate        Transaction Details                        Amount (Rs.)\n18/07/2025  BLINKIT HYDERABAD   7,425.38 Dr\n29/07/2025  BPCL FUEL HYDERABAD   578.84 Dr\n24/07/2025  PVR INOX BANGALORE   826.35 Dr\n18/07/2025  IRCTC CHENNAI   6,436.62 Dr\n08/08/2025  PVR INOX HYDERABAD   8,983.31 Dr\n21/07/2025  IRCTC CHENNAI   3,025.22 Dr\n03/08/2025  PAYMENT RECEIVED - THANK YOU   16,465.36 Cr\n\nReward Points Summary: Opening 8235  Earned 623  Closing 8965\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "SBI Card SimplyCLICK Credit Card Monthly Statement - Aug 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment XXXX XXXX XXXX 6027. Statement date: 12-Aug-2025. Total amount due Rs.69,034.55; minimum Rs.3,451.73; due 30-Aug-2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "6027_12082025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Axis Bank Atlas Credit Card Statement - Aug 2025",
+   "body": "Dear Customer,\nYour Axis Bank Atlas Credit Card XX3350 Statement for the period 13/07/2025 to 12/08/2025 is attached.\nTotal Amount Due: Rs. 40,354.07\nMinimum Amount Due: Rs. 2,017.70\nPayment Due Date: 30/08/2025\nPay via NetBanking, UPI or auto-debit.\n\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Aug2025.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCard No: 4458 12XX XXXX 3350\nStatement Date: 12/08/2025\nStatement Period: 13/07/2025 - 12/08/2025\nPayment Due Date: 30/08/2025\nTotal Amount Due: Rs. 40,354.07\nMinimum Amount Due: Rs. 2,017.70\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 33,354.00\n\nDate        Transaction Details                        Amount (Rs.)\n18/07/2025  MAKEMYTRIP KOCHI   30,935.28 Dr\n26/07/2025  APOLLO PHARMACY MUMBAI   794.04 Dr\n25/07/2025  LICIOUS KOCHI   2,399.17 Dr\n13/07/2025  AIRBNB KOCHI   19,054.53 Dr\n29/07/2025  SHELL PETROL PUNE   2,751.60 Dr\n13/07/2025  IRCTC MUMBAI   2,623.59 Dr\n27/07/2025  HOTSTAR BANGALORE   8,653.81 Dr\n23/07/2025  REDBUS MUMBAI   286.19 Dr\n19/07/2025  LENSKART PUNE   120.20 Dr\n03/08/2025  PAYMENT RECEIVED - THANK YOU   24,212.44 Cr\n\nReward Points Summary: Opening 4572  Earned 73  Closing 6179\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.9,989.59 spent on your SBI Credit Card no. XXXXXXXXXXXX3350 at JIO PREPAID on 20/08/25. Your available limit is Rs.2,06,776.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-08-20",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.629.61 spent on your SBI Credit Card ending 3350 at MAKEMYTRIP on 21/08/25. Your available limit is Rs.35,714.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-08-21",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 37,773.65 at LENSKART on 22-08-25 10:13:56 IST.\nAvailable limit INR 1,91,624.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-08-22",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.40,354.07 on 22-08-2025 towards your Axis Bank Credit Card XX3350. Thank you.",
+   "date": "2025-08-22",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.8,594.59 spent on your SBI Credit Card ending 3350 at JIO PREPAID on 26/08/25. Your available limit is Rs.3,08,202.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Payment reminder: SBI Card Credit Card ending 3350",
+   "body": "Dear Customer,\nThis is a reminder that Rs.27,442.27 (minimum Rs.1,372.11) is due on 30-Aug-2025 on your SBI Card Credit Card ending 3350. Pay on time to avoid late payment charges.\n\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Payment reminder: Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThis is a reminder that Rs.40,354.07 (minimum Rs.2,017.70) is due on 30-Aug-2025 on your Axis Bank Credit Card XX3350. Pay on time to avoid late payment charges.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.27,442.27 on 29-08-2025 towards your SBI Card Credit Card ending 3350. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-29",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 566.00 at ZEPTO on 01-09-25 15:46:35 IST.\nAvailable limit INR 2,03,399.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-09-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,186.94 spent on your SBI Credit Card ending 3350 at HOTSTAR on 02/09/25. Your available limit is Rs.2,23,603.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-09-02",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,336.26 spent on your SBI Credit Card ending 3350 at RELIANCE SMART on 09/09/25. Your available limit is Rs.1,04,168.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-09-09",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,<br>\nThank you for using your Axis Bank Credit Card XX3350 for INR 844.06 at AIRBNB on 11-09-25 07:35:28 IST.<br>\nAvailable limit INR 3,32,543.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-11",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Payment Successful",
+   "body": "Paid Rs.844.06 to AIRBNB on 11 Sep 2025. Payment mode: Axis Bank Credit Card XX3350. Txn ID T5499081394655033414.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-11",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear&nbsp;Cardholder,\nRs.3,396.31&nbsp;spent&nbsp;on your SBI Credit Card ending 3350 at AIRBNB on 12/09/25. Your available limit is Rs.3,77,347.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Cashback SBI Credit Card Monthly Statement - Sep 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement XX3350. Statement date: 12-Sep-2025. Total amount due Rs.10,579.99; minimum Rs.529.00; due 30-Sep-2025.\nSBI/BOB style auto pay available on request.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Sep2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCard No: 4970 57XX XXXX 3350\nStatement Date: 12/09/2025\nStatement Period: 13/08/2025 - 12/09/2025\nPayment Due Date: 30/09/2025\nTotal Amount Due: Rs. 10,579.99\nMinimum Amount Due: Rs. 529.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,27,264.00\n\nDate        Transaction Details                        Amount (Rs.)\n17/08/2025  WESTSIDE GURGAON   18,896.12 Dr\n08/09/2025  DECATHLON MUMBAI   554.08 Dr\n13/08/2025  BPCL FUEL PUNE   155.34 Dr\n19/08/2025  CAFE COFFEE DAY MUMBAI   370.49 Dr\n02/09/2025  UBER INDIA HYDERABAD   495.55 Dr\n20/08/2025  LENSKART GURGAON   2,128.21 Dr\n03/09/2025  PAYMENT RECEIVED - THANK YOU   6,347.99 Cr\nPay via HDFC Bank NetBanking (Bill Pay > Credit Cards > add this card), or ICICI Bank iConnect / Axis Bank. Last payment received through HDFC Bank A/c ending 1832.\n\nReward Points Summary: Opening 8695  Earned 767  Closing 7499\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 1054651427477  IFSC SBI 0000251"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,283.47 spent on your SBI Credit Card ending 6027 at REDBUS on 12/09/25. Your available limit is Rs.1,01,071.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-09-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "SBI Card SimplyCLICK Credit Card Monthly Statement - Sep 2025",
+   "body": "नमस्ते,\nDear Cardholder,\nPlease find enclosed your monthly statement ending 6027. Statement date: 12-Sep-2025. Total amount due Rs.1,788.09; minimum Rs.200.00; due 30-Sep-2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Axis Bank Atlas Credit Card Statement - Sep 2025",
+   "body": "Dear Customer,\nYour Axis Bank Atlas Credit Card XX3350 Statement for the period 13/08/2025 to 12/09/2025 is attached.\nTotal Amount Due: Rs. 1,535.02\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/09/2025\nPay via NetBanking, UPI or auto-debit.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Sep2025.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCard No: 4716 31XX XXXX 3350\nCard Type: Atlas\nStatement Date: 12/09/2025\nStatement Period: 13/08/2025 - 12/09/2025\nPayment Due Date: 30/09/2025\nTotal Amount Due: Rs. 1,535.02\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 26,097.00\n\nDate        Transaction Details                        Amount (Rs.)\n26/08/2025  IRCTC BANGALORE   1,094.69 Dr\n05/09/2025  JIO PREPAID MUMBAI   34,585.53 Dr\n19/08/2025  CROMA GURGAON   22,280.86 Dr\n05/09/2025  BIGBASKET KOCHI   5,272.16 Dr\n15/08/2025  SHELL PETROL HYDERABAD   95.29 Dr\n21/08/2025  STARBUCKS GURGAON   13,174.82 Dr\n06/09/2025  STARBUCKS GURGAON   31,864.80 Dr\n03/09/2025  BOOKMYSHOW HYDERABAD   3,088.76 Dr\n29/08/2025  TATA 1MG KOCHI   4,896.50 Dr\n03/09/2025  PAYMENT RECEIVED - THANK YOU   921.01 Cr\n\nReward Points Summary: Opening 6088  Earned 371  Closing 8616\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 3,082.56 at ZOMATO on 16-09-25 05:12:00 IST.\nAvailable limit INR 3,10,048.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2025-09-16",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "नमस्ते,\nDear Cardholder,<br>\nRs.5,680.68 spent on your SBI Credit Card XX6027 at CAFE COFFEE DAY on 22/09/25. Your available limit is Rs.2,58,788.00.<br>\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-09-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,788.09 on 22-09-2025 towards your SBI Card Credit Card ending 6027. Thank you.\n\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2025-09-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 2,264.53 at REDBUS on 22-09-25 11:43:45 IST.\nAvailable limit INR 3,69,372.00. If this was not you, SMS BLOCK 3350 to 5676782.",
+   "date": "2025-09-22",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Payment Successful",
+   "body": "नमस्ते,\nPaid Rs.2,264.53 to REDBUS on 22 Sep 2025. Payment mode: Axis Bank Credit Card no. XXXXXXXXXXXX3350. Txn ID T7172457955138866554.\n\nThis is a system generated email. Please do not reply to this message.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-22",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,535.02 on 25-09-2025 towards your Axis Bank Credit Card XX3350. Thank you.\n\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.511.12 spent on your SBI Credit Card XX3350 at STARBUCKS on 27/09/25. Your available limit is Rs.2,99,891.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Payment reminder: SBI Card Credit Card ending 6027",
+   "body": "नमस्ते,\nDear Customer,\nThis is a reminder that Rs.1,788.09 (minimum Rs.200.00) is due on 30-Sep-2025 on your SBI Card Credit Card ending 6027. Pay on time to avoid late payment charges.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.10,579.99 on 28-09-2025 towards your SBI Card Credit Card xx3350. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-09-28",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Pre-approved Personal Loan for you",
+   "body": "Get Rs.7,00,000 at 11% p.a. Instant approval. Offer ID BF4222\nT&C apply.",
+   "date": "2025-10-04",
+   "attachments": [],
+   "from": "Bajaj Finserv <offers@bajajfinserv.in>"
+  },
+  {
+   "id": "m038",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Suresh Reddy,\nPlease find attached the updated MITC and Terms & Conditions applicable to your SBI Card SimplyCLICK Credit Card. These are effective from the next billing cycle.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-10-09",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank at its discretion. The Cardholder shall not exceed the credit limit.\n3. Billing: An account statement is generated monthly and sent to the registered email address. The Cardholder should review the account statement and report discrepancies within 60 days.\n4. Interest: Finance charges apply on revolving balances up to 3.6% per month. 5. Payment: Minimum amount due must be paid on or before the due date. 6. Lost card: report immediately. 7. Grievance redressal and Ombudsman details are available on the website."
+    },
+    {
+     "filename": "Credit_Card_Terms_and_Conditions.pdf",
+     "protected": false,
+     "pdfText": "SBI Card Credit Card Cardmember Agreement\nThis agreement governs the use of the card. The credit limit may be increased or reduced with notice. The monthly account statement is deemed accepted unless disputed. Card is the property of the Bank. Applicable law: India. Arbitration at Mumbai. Authorised signatory. For queries contact the customer care number printed on your account statement."
+    }
+   ],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.6,722.55 spent on your SBI Credit Card xx3350 at STARBUCKS on 10/10/25. Your available limit is Rs.64,289.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2025-10-10",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.847.70 spent on your SBI Credit Card ending 6027 at JIO PREPAID on 11/10/25. Your available limit is Rs.1,85,284.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-11",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Cashback SBI Credit Card Monthly Statement - Oct 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 3350. Statement date: 12-Oct-2025. Total amount due Rs.79,124.42; minimum Rs.3,956.22; due 30-Oct-2025.\nSBI/BOB style auto pay available on request.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Oct2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCard No: 4589 52XX XXXX 3350\nCard Type: Cashback SBI\nStatement Date: 12/10/2025\nStatement Period: 12/09/2025 - 12/10/2025\nPayment Due Date: 30/10/2025\nTotal Amount Due: Rs. 79,124.42\nMinimum Amount Due: Rs. 3,956.22\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 43,132.00\n\nDate        Transaction Details                        Amount (Rs.)\n15/09/2025  TATA 1MG CHENNAI   3,245.04 Dr\n19/09/2025  URBAN COMPANY BANGALORE   3,855.09 Dr\n05/10/2025  DECATHLON MUMBAI   209.85 Dr\n07/10/2025  CAFE COFFEE DAY KOCHI   10,704.66 Dr\n07/10/2025  ZOMATO CHENNAI   1,388.59 Dr\n24/09/2025  NETFLIX.COM KOCHI   864.97 Dr\n29/09/2025  LICIOUS HYDERABAD   757.42 Dr\n12/09/2025  STARBUCKS CHENNAI   1,173.39 Dr\n05/10/2025  WESTSIDE CHENNAI   20,956.12 Dr\n03/10/2025  PAYMENT RECEIVED - THANK YOU   47,474.65 Cr\n\nReward Points Summary: Opening 1033  Earned 450  Closing 7100\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 1054651427477  IFSC SBI 0000139"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "SBI Card SimplyCLICK Credit Card Monthly Statement - Oct 2025",
+   "body": "नमस्ते,\nDear Cardholder,\nPlease find enclosed your monthly statment xx6027. Statement date: 12-Oct-2025. Total amount due Rs.1,46,630.52; minimum Rs.7,331.53; due 30-Oct-2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "Axis Bank Atlas Credit Card Statement - Oct 2025",
+   "body": "Dear Customer,\nYour Axis Bank Atlas Credit Card XX3350 Statement for the period 12/09/2025 to 12/10/2025 is attached.\nTotal Amount Due: Rs. 13,641.65\nMinimum Amount Due: Rs. 682.08\nPayment Due Date: 30/10/2025\nPay via NetBanking, UPI or auto-debit.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Oct2025.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCard No: 4135 34XX XXXX 3350\nStatement Date: 12/10/2025\nStatement Period: 12/09/2025 - 12/10/2025\nPayment Due Date: 30/10/2025\nTotal Amount Due: Rs. 13,641.65\nMinimum Amount Due: Rs. 682.08\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,75,552.00\n\nDate        Transaction Details                        Amount (Rs.)\n12/09/2025  UBER INDIA PUNE   2,839.13 Dr\n21/09/2025  TATA 1MG GURGAON   35,268.36 Dr\n26/09/2025  AIRBNB PUNE   755.44 Dr\n22/09/2025  URBAN COMPANY BANGALORE   5,250.58 Dr\n03/10/2025  PAYMENT RECEIVED - THANK YOU   8,184.99 Cr\n\nReward Points Summary: Opening 4223  Earned 685  Closing 5404\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.21,565.52 spent on your SBI Credit Card ending 3350 at OLA CABS on 14/10/25. Your available limit is Rs.61,902.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-10-14",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m045",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear&nbsp;Customer,\nThank&nbsp;you&nbsp;for using your Axis Bank Credit Card XX3350 for INR 31,168.58 at ZEPTO on 14-10-25 09:52:34 IST.\nAvailable limit INR 1,63,430.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-10-14",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Payment Successful",
+   "body": "Paid Rs.31,168.58 to ZEPTO on 14 Oct 2025. Payment mode: Axis Bank Credit Card XX3350. Txn ID T5521303356061453851.\n\nT&C apply. Visit www.bank.in for more details.",
+   "date": "2025-10-14",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,312.62 spent on your SBI Credit Card ending 3350 at HOTSTAR on 18/10/25. Your available limit is Rs.1,84,306.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-10-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear&nbsp;Cardholder,\nRs.39,521.22&nbsp;spent&nbsp;on your SBI Credit Card ending 3350 at SWIGGY on 19/10/25. Your available limit is Rs.85,319.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-10-19",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 376.69 at RELIANCE SMART on 19-10-25 12:16:38 IST.\nAvailable limit INR 2,81,813.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-10-19",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,<br>\nRs.657.45 spent on your SBI Credit Card ending 3350 at BLINKIT on 23/10/25. Your available limit is Rs.2,93,143.00.<br>\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-10-23",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 2,262.94 at OLA CABS on 23-10-25 11:03:41 IST.\nAvailable limit INR 1,21,450.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-10-23",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Payment Successful",
+   "body": "Paid Rs.2,262.94 to OLA CABS on 23 Oct 2025. Payment mode: Axis Bank Credit Card XX3350. Txn ID T6830407464802282839.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-10-23",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.13,641.65 on 26-10-2025 towards your Axis Bank Credit Card XX3350. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-26",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Payment reminder: SBI Card Credit Card ending 3350",
+   "body": "Dear Customer,\nThis is a reminder that Rs.79,124.42 (minimum Rs.3,956.22) is due on 30-Oct-2025 on your SBI Card Credit Card ending 3350. Pay on time to avoid late payment charges.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Payment reminder: SBI Card Credit Card ending 6027",
+   "body": "Dear Customer,<br>\nThis is a reminder that Rs.1,46,630.52 (minimum Rs.7,331.53) is due on 30-Oct-2025 on your SBI Card Credit Card ending 6027. Pay on time to avoid late payment charges.<br>\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Transaction alert on Axis Bank Credit Card **3350",
+   "body": "Dear&nbsp;Customer,\nThank&nbsp;you&nbsp;for using your Axis Bank Credit Card **3350 for INR 1,246.17 at APOLLO PHARMACY on 27-10-25 10:41:14 IST.\nAvailable limit INR 59,749.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.79,124.42 on 29-10-2025 towards your SBI Card Credit Card ending 3350. Thank you.\n\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2025-10-29",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.309.61 spent on your SBI Credit Card ending 3350 at ZEPTO on 01/11/25. Your available limit is Rs.3,44,588.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-11-01",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,<br>\nRs.1,462.09 spent on your SBI Credit Card no. XXXXXXXXXXXX6027 at URBAN COMPANY on 02/11/25. Your available limit is Rs.3,51,993.00.<br>\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-11-02",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XXXXXXXXXXXX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XXXXXXXXXXXX3350 for INR 750.92 at LENSKART on 02-11-25 12:59:41 IST.\nAvailable limit INR 3,17,625.00. If this was not you, SMS BLOCK 3350 to 5676782.",
+   "date": "2025-11-02",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear&nbsp;Cardholder,\nRs.769.75&nbsp;spent&nbsp;on your SBI Credit Card ending 3350 at BPCL FUEL on 06/11/25. Your available limit is Rs.1,08,910.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-11-06",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,<br>\nRs.23,901.59 spent on your SBI Credit Card ending 6027 at BOOKMYSHOW on 06/11/25. Your available limit is Rs.1,25,444.00.<br>\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-11-06",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.672.59 spent on your SBI Credit Card ending 3350 at IRCTC on 08/11/25. Your available limit is Rs.2,20,189.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-08",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Cashback SBI Credit Card Monthly Statement - Nov 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 3350. Statement date: 12-Nov-2025. Total amount due Rs.3,225.24; minimum Rs.200.00; due 30-Nov-2025.\nSBI/BOB style auto pay available on request.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCredit Card Number: XXXX XXXX XXXX 3350\nCard Type: Cashback SBI\nStatement Date: 12/11/2025\nStatement Period: 13/10/2025 - 12/11/2025\nPayment Due Date: 30/11/2025\nTotal Amount Due: Rs. 3,225.24\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 41,558.00\n\nDate        Transaction Details                        Amount (Rs.)\n19/10/2025  PVR INOX BANGALORE   15,814.49 Dr\n22/10/2025  BLINKIT KOCHI   249.92 Dr\n15/10/2025  OLA CABS CHENNAI   879.42 Dr\n28/10/2025  OLA CABS BANGALORE   6,516.97 Dr\n28/10/2025  ZOMATO HYDERABAD   32,474.66 Dr\n13/10/2025  CAFE COFFEE DAY BANGALORE   3,958.80 Dr\n06/11/2025  SHELL PETROL BANGALORE   4,840.00 Dr\n18/10/2025  UBER INDIA BANGALORE   8,146.42 Dr\n03/11/2025  PAYMENT RECEIVED - THANK YOU   1,935.14 Cr\n\nReward Points Summary: Opening 289  Earned 64  Closing 3620\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "SBI Card SimplyCLICK Credit Card Monthly Statement - Nov 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 6027. Statement date: 12-Nov-2025. Total amount due Rs.7,398.79; minimum Rs.369.94; due 30-Nov-2025.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "Axis Bank Atlas Credit Card Statement - Nov 2025",
+   "body": "Dear Customer,\nYour Axis Bank Atlas Credit Card no. XXXXXXXXXXXX3350 Statement for the period 13/10/2025 to 12/11/2025 is attached.\nTotal Amount Due: Rs. 2,790.93\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/11/2025\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCard No: 4522 23XX XXXX 3350\nStatement Date: 12/11/2025\nStatement Period: 13/10/2025 - 12/11/2025\nPayment Due Date: 30/11/2025\nTotal Amount Due: Rs. 2,790.93\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,27,978.00\n\nDate        Transaction Details                        Amount (Rs.)\n25/10/2025  BATA INDIA HYDERABAD   2,882.14 Dr\n19/10/2025  BIGBASKET HYDERABAD   24,172.27 Dr\n08/11/2025  LENSKART BANGALORE   5,255.33 Dr\n22/10/2025  ZEPTO HYDERABAD   1,180.70 Dr\n03/11/2025  PAYMENT RECEIVED - THANK YOU   1,674.56 Cr\n\nReward Points Summary: Opening 500  Earned 748  Closing 3011\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 9419173091517  IFSC AXIS0000185"
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Your contract note",
+   "body": "Contract note for trades done today is attached. Client ID ZR2919\nT&C apply.",
+   "date": "2025-11-13",
+   "attachments": [],
+   "from": "Zerodha <noreply@zerodha.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.5,752.97 spent on your SBI Credit Card ending 3350 at STARBUCKS on 15/11/25. Your available limit is Rs.3,89,760.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-15",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.257.35 spent on your SBI Credit Card ending 6027 at IRCTC on 15/11/25. Your available limit is Rs.1,32,374.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-11-15",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,133.39 spent on your SBI Credit Card ending 6027 at BOOKMYSHOW on 16/11/25. Your available limit is Rs.26,566.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-11-16",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 8,000.40 at WESTSIDE on 20-11-25 19:21:19 IST.\nAvailable limit INR 3,71,051.00. If this was not you, SMS BLOCK 3350 to 5676782.",
+   "date": "2025-11-20",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Payment Successful",
+   "body": "Paid Rs.8,000.40 to WESTSIDE on 20 Nov 2025. Payment mode: Axis Bank Credit Card XX3350. Txn ID T7074583021237527809.",
+   "date": "2025-11-20",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.7,398.79 on 23-11-2025 towards your SBI Card Credit Card ending 6027. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-23",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.3,225.24 on 24-11-2025 towards your SBI Card Credit Card **3350. Thank you.<br>\n\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2025-11-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.2,790.93 on 24-11-2025 towards your Axis Bank Credit Card XX3350. Thank you.<br>\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-24",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 3067 reward points on your Cashback SBI Credit Card ending 3350. Redeem them on the rewards portal before they expire.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,<br>\nYou have 1436 reward points on your SBI Card SimplyCLICK Credit Card ending 6027. Redeem them on the rewards portal before they expire.<br>\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 19,674.89 at LICIOUS on 25-11-25 14:56:13 IST.\nAvailable limit INR 67,644.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 4073 reward points on your Axis Bank Atlas Credit Card XX3350. Redeem them on the rewards portal before they expire.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,638.99 spent on your SBI Credit Card ending 3350 at BIGBASKET on 27/11/25. Your available limit is Rs.29,044.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Suresh, a gentle nudge: Rs.7,398.79 due on 30 November for card ending 6027. Ignore if already paid. Kripya samay par bhugtan karein.<br>\n<br>\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Payment reminder: Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThis is a reminder that Rs.2,790.93 (minimum Rs.200.00) is due on 30-Nov-2025 on your Axis Bank Credit Card XX3350. Pay on time to avoid late payment charges.\n\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XXXXXXXXXXXX3350",
+   "body": "नमस्ते,\nDear Customer,\nThank you for using your Axis Bank Credit Card no. XXXXXXXXXXXX3350 for INR 621.64 at SPOTIFY on 28-11-25 15:14:36 IST.\nAvailable limit INR 47,472.00. If this was not you, SMS BLOCK 3350 to 5676782.",
+   "date": "2025-11-28",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,155.01 spent on your SBI Credit Card ending 3350 at PVR INOX on 01/12/25. Your available limit is Rs.3,97,715.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-12-01",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 760.31 at WESTSIDE on 02-12-25 21:36:21 IST.\nAvailable limit INR 1,25,547.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-12-02",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "OTP for online transaction",
+   "body": "108258 is the One Time Password (OTP) for your online transaction of INR 206.54 at AMAZON PAY INDIA. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-02",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,<br>\nThank you for using your Axis Bank Credit Card XX3350 for INR 385.76 at IRCTC on 10-12-25 20:38:56 IST.<br>\nAvailable limit INR 50,112.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-12-10",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "Cashback SBI Credit Card Monthly Statement - Dec 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement XXXX XXXX XXXX 3350. Statement date: 12-Dec-2025. Total amount due Rs.10,885.87; minimum Rs.544.29; due 30-Dec-2025.\nSBI/BOB style auto pay available on request.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Dec2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCard No: 4559 99XX XXXX 3350\nCard Type: Cashback SBI\nStatement Date: 12/12/2025\nStatement Period: 12/11/2025 - 12/12/2025\nPayment Due Date: 30/12/2025\nTotal Amount Due: Rs. 10,885.87\nMinimum Amount Due: Rs. 544.29\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 94,601.00\n\nDate        Transaction Details                        Amount (Rs.)\n08/12/2025  TATA 1MG BANGALORE   3,697.26 Dr\n08/12/2025  BOOKMYSHOW MUMBAI   2,175.77 Dr\n21/11/2025  MEDPLUS MUMBAI   20,660.84 Dr\n15/11/2025  ZOMATO PUNE   873.01 Dr\n12/11/2025  DMART CHENNAI   3,486.23 Dr\n04/12/2025  PVR INOX MUMBAI   20,647.98 Dr\n08/12/2025  UBER INDIA CHENNAI   502.92 Dr\n03/12/2025  PAYMENT RECEIVED - THANK YOU   6,531.52 Cr\n\nReward Points Summary: Opening 1943  Earned 541  Closing 1696\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "SBI Card SimplyCLICK Credit Card Monthly Statement - Dec 2025",
+   "body": "Dear Cardholder,<br>\nPlease find enclosed your monthly statement ending 6027. Statement date: 12-Dec-2025. Total amount due Rs.57,021.53; minimum Rs.2,851.08; due 30-Dec-2025.<br>\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nThis is a system generated email. Please do not reply to this message.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Axis Bank Atlas Credit Card Statement - Dec 2025",
+   "body": "Dear Customer,\nYour Axis Bank Atlas Credit Card XX3350 Statement for the period 12/11/2025 to 12/12/2025 is attached.\nTotal Amount Due: Rs. 12,026.57\nMinimum Amount Due: Rs. 601.33\nPayment Due Date: 30/12/2025\nPay via NetBanking, UPI or auto-debit.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Dec2025.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCard No: 4589 17XX XXXX 3350\nStatement Date: 12/12/2025\nStatement Period: 12/11/2025 - 12/12/2025\nPayment Due Date: 30/12/2025\nTotal Amount Due: Rs. 12,026.57\nMinimum Amount Due: Rs. 601.33\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,67,305.00\n\nDate        Transaction Details                        Amount (Rs.)\n12/11/2025  DMART GURGAON   34,108.06 Dr\n06/12/2025  CAFE COFFEE DAY KOCHI   398.95 Dr\n02/12/2025  RELIANCE SMART HYDERABAD   826.79 Dr\n30/11/2025  STARBUCKS KOCHI   23,092.22 Dr\n17/11/2025  DECATHLON CHENNAI   152.32 Dr\n27/11/2025  AMAZON PAY INDIA MUMBAI   319.39 Dr\n08/12/2025  REDBUS BANGALORE   1,205.00 Dr\n24/11/2025  BIGBASKET BANGALORE   5,762.32 Dr\n03/12/2025  PAYMENT RECEIVED - THANK YOU   7,215.94 Cr\n\nReward Points Summary: Opening 4709  Earned 51  Closing 2200\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.825.32 spent on your SBI Credit Card ending 6027 at AMAZON PAY INDIA on 13/12/25. Your available limit is Rs.3,20,062.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2025-12-13",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,<br>\nRs.536.29 spent on your SBI Credit Card ending 6027 at OLA CABS on 18/12/25. Your available limit is Rs.3,41,063.00.<br>\nContact 1860 180 1290 if this transaction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,336.60 spent on your SBI Credit Card ending 6027 at SPOTIFY on 20/12/25. Your available limit is Rs.3,93,813.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-20",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.32,758.34 spent on your SBI Credit Card ending 6027 at MEDPLUS on 21/12/25. Your available limit is Rs.54,532.00.\nContact 1860 180 1290 if this transction was not done by you.",
+   "date": "2025-12-21",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,<br>\nRs.4,373.42 spent on your SBI Credit Card XXXX XXXX XXXX 3350 at LENSKART on 22/12/25. Your available limit is Rs.3,82,058.00.<br>\nContact 1860 180 1290 if this transaction was not done by you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.12,026.57 on 23-12-2025 towards your Axis Bank Credit Card XXXX XXXX XXXX 3350. Thank you.",
+   "date": "2025-12-23",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "Transaction alert on Axis Bank Credit Card XXXX XXXX XXXX 3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XXXX XXXX XXXX 3350 for INR 2,225.77 at BIGBASKET on 24-12-25 22:13:13 IST.\nAvailable limit INR 79,410.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-24",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.57,021.53 on 25-12-2025 towards your SBI Card Credit Card ending 6027. Thank you.",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Suresh, a gentle nudge: Rs.57,021.53 due on 30 December for card ending 6027. Ignore if already paid. Kripya samay par bhugtan karein.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "Payment reminder: Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThis is a reminder that Rs.12,026.57 (minimum Rs.601.33) is due on 30-Dec-2025 on your Axis Bank Credit Card XX3350. Pay on time to avoid late payment charges.\n\nT&C apply. Visit www.axisbank.com for more details.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 34,652.09 at AMAZON PAY INDIA on 01-01-26 20:13:47 IST.\nAvailable limit INR 3,69,869.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-01-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Payment Successful",
+   "body": "Paid Rs.34,652.09 to AMAZON PAY INDIA on 01 Jan 2026. Payment mode: Axis Bank Credit Card no. XXXXXXXXXXXX3350. Txn ID T3433063313282328376.\n\nT&C apply. Visit www.bank.in for more details.",
+   "date": "2026-01-01",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "OTP for online transaction",
+   "body": "नमस्ते,\n521508&nbsp;is&nbsp;the&nbsp;One Time Password (OTP) for your online transaction of INR 2,036.89 at GOOGLE PLAY. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-02",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear&nbsp;Customer,\nThank&nbsp;you&nbsp;for using your Axis Bank Credit Card XX3350 for INR 2,534.15 at OLA CABS on 06-01-26 17:55:02 IST.\nAvailable limit INR 2,85,965.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-01-06",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear&nbsp;Cardholder,\nRs.545.14&nbsp;spent&nbsp;on your SBI Credit Card xx3350 at HOTSTAR on 07/01/26. Your available limit is Rs.3,44,410.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-07",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,854.51 spent on your SBI Credit Card XXXX XXXX XXXX 3350 at BIGBASKET on 08/01/26. Your available limit is Rs.3,05,971.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-01-08",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,434.62 spent on your SBI Credit Card ending 6027 at TATA 1MG on 10/01/26. Your available limit is Rs.3,96,281.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-10",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "Cashback SBI Credit Card Monthly Statement - Jan 2026",
+   "body": "नमस्ते,\nDear Cardholder,\nPlease find enclosed your monthly statement ending 3350. Statement date: 12-Jan-2026. Total amount due Rs.24,664.51; minimum Rs.1,233.23; due 30-Jan-2026.\nSBI/BOB style auto pay available on request.\n\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jan2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCredit Card Number: XXXX XXXX XXXX 3350\nStatement Date: 12/01/2026\nStatement Period: 13/12/2025 - 12/01/2026\nPayment Due Date: 30/01/2026\nTotal Amount Due: Rs. 24,664.51\nMinimum Amount Due: Rs. 1,233.23\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 65,667.00\n\nDate        Transaction Details                        Amount (Rs.)\n25/12/2025  JIO PREPAID PUNE   7,342.30 Dr\n20/12/2025  THIRD WAVE COFFEE KOCHI   2,991.17 Dr\n02/01/2026  PVR INOX KOCHI   5,696.76 Dr\n29/12/2025  MEDPLUS MUMBAI   23,626.97 Dr\n17/12/2025  JIO PREPAID GURGAON   5,681.44 Dr\n08/01/2026  NETFLIX.COM MUMBAI   2,274.69 Dr\n03/01/2026  PAYMENT RECEIVED - THANK YOU   14,798.71 Cr\n\nReward Points Summary: Opening 6853  Earned 211  Closing 7523\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "SBI Card SimplyCLICK Credit Card Monthly Statement - Jan 2026",
+   "body": "Dear Cardholder,<br>\nPlease find enclosed your monthly statement ending 6027. Statement date: 12-Jan-2026. Total amount due Rs.1,47,762.98; minimum Rs.7,388.15; due 30-Jan-2026.<br>\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Axis Bank Atlas Credit Card Statement - Jan 2026",
+   "body": "Dear Customer,\nYour Axis Bank Atlas Credit Card XX3350 Statement for the period 13/12/2025 to 12/01/2026 is attached.\nTotal Amount Due: Rs. 9,418.70\nMinimum Amount Due: Rs. 470.94\nPayment Due Date: 30/01/2026\nPay via NetBanking, UPI or auto-debit.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Jan2026.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCard No: 4570 28XX XXXX 3350\nStatement Date: 12/01/2026\nStatement Period: 13/12/2025 - 12/01/2026\nPayment Due Date: 30/01/2026\nTotal Amount Due: Rs. 9,418.70\nMinimum Amount Due: Rs. 470.94\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,84,035.00\n\nDate        Transaction Details                        Amount (Rs.)\n16/12/2025  SHELL PETROL KOCHI   2,917.99 Dr\n03/01/2026  IRCTC CHENNAI   596.33 Dr\n14/12/2025  OLA CABS GURGAON   605.71 Dr\n05/01/2026  INDIGO AIRLINES PUNE   9,064.11 Dr\n31/12/2025  ZEPTO PUNE   4,920.69 Dr\n23/12/2025  STARBUCKS GURGAON   6,514.61 Dr\n03/01/2026  PAYMENT RECEIVED - THANK YOU   5,651.22 Cr\n\nReward Points Summary: Opening 7500  Earned 129  Closing 3754\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.616.13 spent on your SBI Credit Card ending 3350 at SWIGGY on 13/01/26. Your available limit is Rs.1,80,001.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-13",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.106.16 spent on your SBI Credit Card ending 3350 at BATA INDIA on 18/01/26. Your availble limit is Rs.1,74,673.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-01-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,639.47 spent on your SBI Credit Card ending 6027 at MAKEMYTRIP on 20/01/26. Your available limit is Rs.3,40,464.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-01-20",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.783.68 spent on your SBI Credit Card ending 3350 at LENSKART on 24/01/26. Your available limit is Rs.3,01,941.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-01-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.24,664.51 on 25-01-2026 towards your SBI Card Credit Card ending 3350. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-25",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.486.19 spent on your SBI Credit Card ending 6027 at BLINKIT on 26/01/26. Your available limit is Rs.3,84,981.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-01-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,<br>\nWe have received your payment of Rs.1,47,762.98 on 26-01-2026 towards your SBI Card Credit Card ending 6027. Thank you.<br>\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-01-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi&nbsp;Suresh,&nbsp;a&nbsp;gentle nudge: Rs.24,664.51 due on 30 January for card ending 3350. Ignore if already paid. Kripya samay par bhugtan karein.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Suresh, a gentle nudge: Rs.1,47,762.98 due on 30 January for card no. XXXXXXXXXXXX6027. Ignore if already paid. Kripya samay par bhugtan karein.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "नमस्ते,\nHi Suresh, a gentle nudge: Rs.9,418.70 due on 30 January for card XX3350. Ignore if already paid. Kripya samay par bhugtan karein.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.9,418.70 on 27-01-2026 towards your Axis Bank Credit Card XX3350. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "नमस्ते,\nDear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 3,036.00 at REDBUS on 01-02-26 15:58:03 IST.\nAvailable limit INR 1,34,085.00. If this was not you, SMS BLOCK 3350 to 5676782.",
+   "date": "2026-02-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 31,942.99 at CROMA on 03-02-26 21:53:55 IST.\nAvailable limit INR 3,03,460.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-03",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,277.53 spent on your SBI Credit Card ending 3350 at LENSKART on 07/02/26. Your available limit is Rs.80,281.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nT&C apply. Visit www.sbicard.com for more details.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-07",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "Secure your family with term insurance",
+   "body": "Plans from Rs 500/month. Policy no. will be shared post issuance. Quote ref 9933\nT&C apply.",
+   "date": "2026-02-08",
+   "attachments": [],
+   "from": "Tata AIA Life <news@tataaia.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,564.11 spent on your SBI Credit Card ending 6027 at BPCL FUEL on 11/02/26. Your available limit is Rs.2,18,404.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-11",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Cashback SBI Credit Card Monthly Statement - Feb 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 3350. Statement date: 12-Feb-2026. Total amount due Rs.35,510.28; minimum Rs.1,775.51; due 02-Mar-2026.\nSBI/BOB style auto pay available on request.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCard No: 4818 21XX XXXX 3350\nStatement Date: 12/02/2026\nStatement Period: 13/01/2026 - 12/02/2026\nPayment Due Date: 02/03/2026\nTotal Amount Due: Rs. 35,510.28\nMinimum Amount Due: Rs. 1,775.51\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,08,780.00\n\nDate        Transaction Details                        Amount (Rs.)\n19/01/2026  REDBUS PUNE   2,044.33 Dr\n28/01/2026  AMAZON PAY INDIA GURGAON   1,865.92 Dr\n19/01/2026  MEDPLUS HYDERABAD   3,353.04 Dr\n06/02/2026  URBAN COMPANY GURGAON   794.98 Dr\n24/01/2026  AIRBNB MUMBAI   828.88 Dr\n20/01/2026  JIO PREPAID MUMBAI   6,648.34 Dr\n29/01/2026  BIGBASKET PUNE   1,315.25 Dr\n10/02/2026  ZOMATO PUNE   505.48 Dr\n03/02/2026  PAYMENT RECEIVED - THANK YOU   21,306.17 Cr\n\nReward Points Summary: Opening 2121  Earned 336  Closing 3919\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "SBI Card SimplyCLICK Credit Card Monthly Statement - Feb 2026",
+   "body": "Dear Cardholder,<br>\nPlease find enclosed your monthly statement ending 6027. Statement date: 12-Feb-2026. Total amount due Rs.1,250.09; minimum Rs.200.00; due 02-Mar-2026.<br>\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Axis Bank Atlas Credit Card Statement - Feb 2026",
+   "body": "Dear Customer,\nYour Axis Bank Atlas Credit Card ending 3350 Statement for the period 13/01/2026 to 12/02/2026 is attached.\nTotal Amount Due: Rs. 2,377.95\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 02/03/2026\nPay via NetBanking, UPI or auto-debit.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCredit Card Number: XXXX XXXX XXXX 3350\nCard Type: Atlas\nStatement Date: 12/02/2026\nStatement Period: 13/01/2026 - 12/02/2026\nPayment Due Date: 02/03/2026\nTotal Amount Due: Rs. 2,377.95\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 40,339.00\n\nDate        Transaction Details                        Amount (Rs.)\n16/01/2026  CROMA PUNE   35,432.84 Dr\n03/02/2026  SPOTIFY PUNE   12,777.47 Dr\n07/02/2026  TATA 1MG MUMBAI   1,180.37 Dr\n07/02/2026  MAKEMYTRIP BANGALORE   16,718.39 Dr\n22/01/2026  ZEPTO BANGALORE   111.45 Dr\n17/01/2026  TATA 1MG CHENNAI   3,190.84 Dr\n14/01/2026  DECATHLON PUNE   569.21 Dr\n16/01/2026  BATA INDIA PUNE   720.57 Dr\n03/02/2026  PAYMENT RECEIVED - THANK YOU   1,426.77 Cr\n\nReward Points Summary: Opening 7539  Earned 724  Closing 6259\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 9419173091517  IFSC AXIS0000675"
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "नमस्ते,\nDear Cardholder,\nRs.186.74 spent on your SBI Credit Card xx3350 at BIGBASKET on 16/02/26. Your available limit is Rs.2,59,548.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-16",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.3,348.08 spent on your SBI Credit Card ending 3350 at OLA CABS on 18/02/26. Your available limit is Rs.1,32,591.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-02-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.35,510.28 on 22-02-2026 towards your SBI Card Credit Card XX3350. Thank you.",
+   "date": "2026-02-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Transaction alert on Axis Bank Credit Card **3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card **3350 for INR 33,632.09 at INDIGO AIRLINES on 23-02-26 07:08:17 IST.\nAvailable limit INR 26,474.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-23",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Payment Successful",
+   "body": "Paid Rs.33,632.09 to INDIGO AIRLINES on 23 Feb 2026. Payment mode: Axis Bank Credit Card XX3350. Txn ID T6346295531134728111.",
+   "date": "2026-02-23",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.344.70 spent on your SBI Credit Card ending 3350 at DECATHLON on 25/02/26. Your available limit is Rs.3,89,500.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-02-25",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.771.86 spent on your SBI Credit Card no. XXXXXXXXXXXX6027 at HOTSTAR on 26/02/26. Your available limit is Rs.35,732.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-02-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 1,441.53 at LICIOUS on 26-02-26 16:31:49 IST.\nAvailable limit INR 1,77,887.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2026-02-26",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Payment reminder: SBI Card Credit Card ending 3350",
+   "body": "Dear Customer,\nThis is a reminder that Rs.35,510.28 (minimum Rs.1,775.51) is due on 02-Mar-2026 on your SBI Card Credit Card ending 3350. Pay on time to avoid late payment charges.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Suresh, a gentle nudge: Rs.1,250.09 due on 02 March for card ending 6027. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.1,250.09 on 27-02-2026 towards your SBI Card Credit Card XX6027. Thank you.\n\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,377.95 on 28-02-2026 towards your Axis Bank Credit Card XX3350. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-02-28",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "Cashback SBI Credit Card Monthly Statement - Mar 2026",
+   "body": "नमस्ते,\nDear Cardholder,\nPlease find enclosed your monthly statement XXXX XXXX XXXX 3350. Statement date: 12-Mar-2026. Total amount due Rs.59,233.86; minimum Rs.2,961.69; due 30-Mar-2026.\nSBI/BOB style auto pay available on request.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Mar2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCard No: 4192 69XX XXXX 3350\nCard Type: Cashback SBI\nStatement Date: 12/03/2026\nStatement Period: 10/02/2026 - 12/03/2026\nPayment Due Date: 30/03/2026\nTotal Amount Due: Rs. 59,233.86\nMinimum Amount Due: Rs. 2,961.69\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,73,255.00\n\nDate        Transaction Details                        Amount (Rs.)\n22/02/2026  LENSKART GURGAON   22,022.79 Dr\n03/03/2026  BATA INDIA BANGALORE   2,987.82 Dr\n01/03/2026  IRCTC PUNE   655.84 Dr\n11/02/2026  CROMA MUMBAI   410.60 Dr\n16/02/2026  ZEPTO CHENNAI   759.31 Dr\n04/03/2026  NETFLIX.COM MUMBAI   1,717.39 Dr\n03/03/2026  PAYMENT RECEIVED - THANK YOU   35,540.32 Cr\n\nReward Points Summary: Opening 3785  Earned 258  Closing 7544\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 1054651427477  IFSC SBI 0000968"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "SBI Card SimplyCLICK Credit Card Monthly Statement - Mar 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 6027. Statement date: 12-Mar-2026. Total amount due Rs.17,417.49; minimum Rs.870.87; due 30-Mar-2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Axis Bank Atlas Credit Card Statement - Mar 2026",
+   "body": "Dear Customer,<br>\nYour Axis Bank Atlas Credit Card XX3350 Statement for the period 10/02/2026 to 12/03/2026 is attached.<br>\nTotal Amount Due: Rs. 2,772.12\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/03/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Mar2026.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCard No: 4720 58XX XXXX 3350\nCard Type: Atlas\nStatement Date: 12/03/2026\nStatement Period: 10/02/2026 - 12/03/2026\nPayment Due Date: 30/03/2026\nTotal Amount Due: Rs. 2,772.12\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 90,597.00\n\nDate        Transaction Details                        Amount (Rs.)\n15/02/2026  BIGBASKET KOCHI   40,465.18 Dr\n07/03/2026  AMAZON PAY INDIA MUMBAI   21,459.61 Dr\n15/02/2026  SPOTIFY KOCHI   178.40 Dr\n16/02/2026  TATA 1MG PUNE   20,840.94 Dr\n11/02/2026  CROMA MUMBAI   136.03 Dr\n20/02/2026  ZEPTO PUNE   2,974.30 Dr\n03/03/2026  PAYMENT RECEIVED - THANK YOU   1,663.27 Cr\n\nReward Points Summary: Opening 3516  Earned 87  Closing 2745\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m145",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,186.34 spent on your SBI Credit Card ending 6027 at APOLLO PHARMACY on 15/03/26. Your availble limit is Rs.2,07,529.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-03-15",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,451.61 spent on your SBI Credit Card ending 3350 at AMAZON PAY INDIA on 16/03/26. Your available limit is Rs.43,398.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-03-16",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 5,777.47 at STARBUCKS on 17-03-26 14:42:05 IST.\nAvailable limit INR 2,00,015.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-03-17",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "Payment Successful",
+   "body": "Paid Rs.5,777.47 to STARBUCKS on 17 Mar 2026. Payment mode: Axis Bank Credit Card XX3350. Txn ID T1478816190707524307.",
+   "date": "2026-03-17",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XXXXXXXXXXXX3350",
+   "body": "Dear Customer,<br>\nThank you for using your Axis Bank Credit Card no. XXXXXXXXXXXX3350 for INR 750.65 at LENSKART on 22-03-26 17:57:15 IST.<br>\nAvailable limit INR 1,64,471.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-22",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Payment Successful",
+   "body": "Paid Rs.750.65 to LENSKART on 22 Mar 2026. Payment mode: Axis Bank Credit Card XX3350. Txn ID T7226094810465239902.\n\nT&C apply. Visit www.bank.in for more details.",
+   "date": "2026-03-22",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,109.28 spent on your SBI Credit Card ending 3350 at THIRD WAVE COFFEE on 24/03/26. Your available limit is Rs.60,968.00.\nContact 1860 180 1290 if this transction was not done by you.",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.38,060.25 spent on your SBI Credit Card ending 6027 at BOOKMYSHOW on 24/03/26. Your available limit is Rs.2,95,272.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.2,772.12 on 26-03-2026 towards your Axis Bank Credit Card XX3350. Thank you.",
+   "date": "2026-03-26",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "Payment reminder: SBI Card Credit Card no. XXXXXXXXXXXX3350",
+   "body": "Dear Customer,\nThis is a reminder that Rs.59,233.86 (minimum Rs.2,961.69) is due on 30-Mar-2026 on your SBI Card Credit Card no. XXXXXXXXXXXX3350. Pay on time to avoid late payment charges.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "Payment reminder: Axis Bank Credit Card **3350",
+   "body": "Dear&nbsp;Customer,<br>\nThis&nbsp;is&nbsp;a reminder that Rs.2,772.12 (minimum Rs.200.00) is due on 30-Mar-2026 on your Axis Bank Credit Card **3350. Pay on time to avoid late payment charges.<br>\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.59,233.86 on 29-03-2026 towards your SBI Card Credit Card ending 3350. Thank you.",
+   "date": "2026-03-29",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.17,417.49 on 29-03-2026 towards your SBI Card Credit Card ending 6027. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-03-29",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "E-mandate cancelled",
+   "body": "Dear Customer,<br>\nThe e-mandate for NETFLIX.COM registered on your SBI Card card ending 3350 has been cancelled as requested. No further auto-debits will happen. Your card remains active.",
+   "date": "2026-04-09",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "Transaction alert on Axis Bank Credit Card ending 3350",
+   "body": "नमस्ते,\nDear Customer,\nThank you for using your Axis Bank Credit Card ending 3350 for INR 326.38 at REDBUS on 10-04-26 06:21:28 IST.\nAvailable limit INR 1,01,521.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2026-04-10",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "Payment Successful",
+   "body": "Paid Rs.326.38 to REDBUS on 10 Apr 2026. Payment mode: Axis Bank Credit Card ending 3350. Txn ID T1936719515120325796.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-10",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 6,592.03 at CROMA on 10-04-26 00:13:36 IST.\nAvailable limit INR 2,30,660.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2026-04-10",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "Cashback SBI Credit Card Monthly Statement - Apr 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment no. XXXXXXXXXXXX3350. Statement date: 12-Apr-2026. Total amount due Rs.3,431.11; minimum Rs.200.00; due 30-Apr-2026.\nSBI/BOB style auto pay available on request.\n\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Apr2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCredit Card Number: XXXX XXXX XXXX 3350\nStatement Date: 12/04/2026\nStatement Period: 13/03/2026 - 12/04/2026\nPayment Due Date: 30/04/2026\nTotal Amount Due: Rs. 3,431.11\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 75,252.00\n\nDate        Transaction Details                        Amount (Rs.)\n29/03/2026  BOOKMYSHOW MUMBAI   269.10 Dr\n30/03/2026  CROMA PUNE   395.11 Dr\n17/03/2026  SPOTIFY PUNE   2,218.30 Dr\n20/03/2026  TATA 1MG CHENNAI   269.09 Dr\n06/04/2026  BLINKIT CHENNAI   1,487.37 Dr\n03/04/2026  PAYMENT RECEIVED - THANK YOU   2,058.67 Cr\n\nReward Points Summary: Opening 7566  Earned 417  Closing 6509\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 1054651427477  IFSC SBI 0000381"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "SBI Card SimplyCLICK Credit Card Monthly Statement - Apr 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 6027. Statement date: 12-Apr-2026. Total amount due Rs.7,482.34; minimum Rs.374.12; due 30-Apr-2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "Axis Bank Atlas Credit Card Statement - Apr 2026",
+   "body": "Dear Customer,\nYour Axis Bank Atlas Credit Card XX3350 Statement for the period 13/03/2026 to 12/04/2026 is attached.\nTotal Amount Due: Rs. 7,653.38\nMinimum Amount Due: Rs. 382.67\nPayment Due Date: 30/04/2026\nPay via NetBanking, UPI or auto-debit.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Apr2026.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCredit Card Number: XXXX XXXX XXXX 3350\nCard Type: Atlas\nStatement Date: 12/04/2026\nStatement Period: 13/03/2026 - 12/04/2026\nPayment Due Date: 30/04/2026\nTotal Amount Due: Rs. 7,653.38\nMinimum Amount Due: Rs. 382.67\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 58,476.00\n\nDate        Transaction Details                        Amount (Rs.)\n10/04/2026  OLA CABS CHENNAI   8,097.96 Dr\n15/03/2026  THIRD WAVE COFFEE BANGALORE   321.03 Dr\n20/03/2026  OLA CABS BANGALORE   41,805.57 Dr\n21/03/2026  AIRBNB GURGAON   1,811.93 Dr\n17/03/2026  CAFE COFFEE DAY CHENNAI   7,788.04 Dr\n21/03/2026  OLA CABS PUNE   1,788.27 Dr\n29/03/2026  THIRD WAVE COFFEE HYDERABAD   636.78 Dr\n04/04/2026  BPCL FUEL HYDERABAD   6,052.77 Dr\n19/03/2026  AMAZON PAY INDIA HYDERABAD   2,189.60 Dr\n03/04/2026  PAYMENT RECEIVED - THANK YOU   4,592.03 Cr\n\nReward Points Summary: Opening 7172  Earned 831  Closing 2547\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,<br>\nThank you for using your Axis Bank Credit Card XX3350 for INR 307.13 at ZOMATO on 13-04-26 00:49:54 IST.<br>\nAvailable limit INR 1,88,550.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-04-13",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.32,619.89 spent on your SBI Credit Card ending 3350 at BPCL FUEL on 17/04/26. Your available limit is Rs.51,787.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-04-17",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear&nbsp;Cardholder,\nRs.29,060.35&nbsp;spent&nbsp;on your SBI Credit Card XXXX XXXX XXXX 3350 at AMAZON on 19/04/26. Your available limit is Rs.2,59,385.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-04-19",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.6,941.86 spent on your SBI Credit Card **3350 at SPOTIFY on 19/04/26. Your available limit is Rs.2,91,623.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-19",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.395.57 spent on your SBI Credit Card no. XXXXXXXXXXXX6027 at GOOGLE PLAY on 19/04/26. Your available limit is Rs.1,32,728.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-04-19",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 165.35 at AMAZON PAY INDIA on 20-04-26 22:21:00 IST.\nAvailable limit INR 3,50,672.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-20",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "Payment Successful",
+   "body": "Paid&nbsp;Rs.165.35&nbsp;to&nbsp;AMAZON PAY INDIA on 20 Apr 2026. Payment mode: Axis Bank Credit Card XX3350. Txn ID T6745633000132478339.<br>\n<br>\nT&C apply. Visit www.bank.in for more details.",
+   "date": "2026-04-20",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m172",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.4,648.09 spent on your SBI Credit Card XX6027 at LENSKART on 23/04/26. Your available limit is Rs.72,444.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-04-23",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.7,482.34 on 24-04-2026 towards your SBI Card Credit Card ending 6027. Thank you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-04-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m174",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.7,653.38 on 24-04-2026 towards your Axis Bank Credit Card XX3350. Thank you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2026-04-24",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 6878 reward points on your Cashback SBI Credit Card ending 3350. Redeem them on the rewards portal before they expire.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m176",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 9647 reward points on your SBI Card SimplyCLICK Credit Card ending 6027. Redeem them on the rewards portal before they expire.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "Your reward points summary",
+   "body": "नमस्ते,\nDear Customer,<br>\nYou have 10181 reward points on your Axis Bank Atlas Credit Card XX3350. Redeem them on the rewards portal before they expire.<br>\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.23,753.11 spent on your SBI Credit Card ending 3350 at AMAZON on 26/04/26. Your available limit is Rs.3,38,067.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m179",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.3,431.11 on 27-04-2026 towards your SBI Card Credit Card ending 3350. Thank you.<br>\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "Payment reminder: SBI Card Credit Card ending 6027",
+   "body": "Dear Customer,\nThis is a reminder that Rs.7,482.34 (minimum Rs.374.12) is due on 30-Apr-2026 on your SBI Card Credit Card ending 6027. Pay on time to avoid late payment charges.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m181",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.314.21 spent on your SBI Credit Card XX6027 at REDBUS on 28/04/26. Your available limit is Rs.76,294.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-04-28",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.17,403.65 spent on your SBI Credit Card ending 3350 at APOLLO PHARMACY on 06/05/26. Your available limit is Rs.1,72,994.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-05-06",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m183",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.13,524.34 spent on your SBI Credit Card ending 6027 at UBER INDIA on 07/05/26. Your available limit is Rs.3,76,683.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-07",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 106.98 at STARBUCKS on 08-05-26 17:28:24 IST.\nAvailable limit INR 3,54,583.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-05-08",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m185",
+   "subject": "Payment Successful",
+   "body": "Paid Rs.106.98 to STARBUCKS on 08 May 2026. Payment mode: Axis Bank Credit Card XX3350. Txn ID T7797386471106869259.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-05-08",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,960.07 spent on your SBI Credit Card ending 6027 at ZOMATO on 11/05/26. Your available limit is Rs.2,55,742.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-05-11",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m187",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.448.32 spent on your SBI Credit Card XXXX XXXX XXXX 3350 at LICIOUS on 12/05/26. Your available limit is Rs.1,76,896.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m188",
+   "subject": "Cashback SBI Credit Card Monthly Statement - May 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement XXXX XXXX XXXX 3350. Statement date: 12-May-2026. Total amount due Rs.1,27,664.12; minimum Rs.6,383.21; due 30-May-2026.\nSBI/BOB style auto pay available on request.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCredit Card Number: XXXX XXXX XXXX 3350\nCard Type: Cashback SBI\nStatement Date: 12/05/2026\nStatement Period: 12/04/2026 - 12/05/2026\nPayment Due Date: 30/05/2026\nTotal Amount Due: Rs. 1,27,664.12\nMinimum Amount Due: Rs. 6,383.21\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,89,411.00\n\nDate        Transaction Details                        Amount (Rs.)\n14/04/2026  DECATHLON KOCHI   6,388.56 Dr\n22/04/2026  CROMA CHENNAI   690.76 Dr\n06/05/2026  CROMA CHENNAI   30,467.36 Dr\n18/04/2026  OLA CABS BANGALORE   3,418.00 Dr\n26/04/2026  UBER INDIA CHENNAI   437.00 Dr\n03/05/2026  PAYMENT RECEIVED - THANK YOU   76,598.47 Cr\n\nReward Points Summary: Opening 8306  Earned 211  Closing 3603\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m189",
+   "subject": "SBI Card SimplyCLICK Credit Card Monthly Statement - May 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment ending 6027. Statement date: 12-May-2026. Total amount due Rs.667.22; minimum Rs.200.00; due 30-May-2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m190",
+   "subject": "Axis Bank Atlas Credit Card Statement - May 2026",
+   "body": "Dear Customer,\nYour Axis Bank Atlas Credit Card XX3350 Statement for the period 12/04/2026 to 12/05/2026 is attached.\nTotal Amount Due: Rs. 11,122.38\nMinimum Amount Due: Rs. 556.12\nPayment Due Date: 30/05/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCard No: 4533 59XX XXXX 3350\nCard Type: Atlas\nStatement Date: 12/05/2026\nStatement Period: 12/04/2026 - 12/05/2026\nPayment Due Date: 30/05/2026\nTotal Amount Due: Rs. 11,122.38\nMinimum Amount Due: Rs. 556.12\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 43,501.00\n\nDate        Transaction Details                        Amount (Rs.)\n25/04/2026  LENSKART PUNE   4,112.11 Dr\n20/04/2026  STARBUCKS PUNE   5,333.70 Dr\n10/05/2026  SPOTIFY CHENNAI   38,323.17 Dr\n29/04/2026  BLINKIT CHENNAI   3,406.17 Dr\n27/04/2026  AMAZON PAY INDIA CHENNAI   19,985.37 Dr\n13/04/2026  BLINKIT HYDERABAD   1,193.89 Dr\n18/04/2026  INDIGO AIRLINES MUMBAI   9,262.96 Dr\n05/05/2026  UBER INDIA KOCHI   30,116.61 Dr\n28/04/2026  PVR INOX GURGAON   3,110.28 Dr\n03/05/2026  PAYMENT RECEIVED - THANK YOU   6,673.43 Cr\n\nReward Points Summary: Opening 8647  Earned 614  Closing 3815\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "Your EMI request has been cancelled",
+   "body": "Your request to convert transaction of Rs.17,428.70 on card ending 3350 to EMI has been cancelled. The transaction stays on your regular bill.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-14",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.348.96 spent on your SBI Credit Card XX6027 at NETFLIX.COM on 18/05/26. Your available limit is Rs.3,99,778.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-05-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m193",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.8,567.02 spent on your SBI Credit Card ending 6027 at BPCL FUEL on 19/05/26. Your available limit is Rs.3,02,670.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-05-19",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m194",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.6,985.60 spent on your SBI Credit Card ending 3350 at SPOTIFY on 24/05/26. Your available limit is Rs.2,67,461.00.\nContact 1860 180 1290 if this transction was not done by you.",
+   "date": "2026-05-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m195",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.5,497.48 spent on your SBI Credit Card ending 3350 at CAFE COFFEE DAY on 27/05/26. Your availble limit is Rs.21,557.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Suresh, a gentle nudge: Rs.1,27,664.12 due on 30 May for card XX3350. Ignore if already paid. Kripya samay par bhugtan karein.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m197",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,27,664.12 on 27-05-2026 towards your SBI Card Credit Card ending 3350. Thank you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m198",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.11,122.38 on 28-05-2026 towards your Axis Bank Credit Card XX3350. Thank you.",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m199",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.667.22 on 29-05-2026 towards your SBI Card Credit Card ending 6027. Thank you.\n\nThis is a system generated email. Please do not reply to this message.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-29",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m200",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.171.09 spent on your SBI Credit Card ending 3350 at URBAN COMPANY on 03/06/26. Your available limit is Rs.1,54,757.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-06-03",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "Mobile number updated",
+   "body": "Your mobile number XXXXXX4899 has been updated in our records. If not requested by you, visit the nearest branch.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-06-05",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.2,269.71 spent on your SBI Credit Card ending 3350 at SPOTIFY on 06/06/26. Your available limit is Rs.2,05,933.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nT&C apply. Visit www.sbicard.com for more details.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-06-06",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m203",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.41,014.64 spent on your SBI Credit Card XX6027 at STARBUCKS on 09/06/26. Your available limit is Rs.1,76,342.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-06-09",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "Cashback SBI Credit Card Monthly Statement - Jun 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 3350. Statement date: 12-Jun-2026. Total amount due Rs.92,598.31; minimum Rs.4,629.92; due 30-Jun-2026.\nSBI/BOB style auto pay available on request.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCredit Card Number: XXXX XXXX XXXX 3350\nStatement Date: 12/06/2026\nStatement Period: 13/05/2026 - 12/06/2026\nPayment Due Date: 30/06/2026\nTotal Amount Due: Rs. 92,598.31\nMinimum Amount Due: Rs. 4,629.92\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,96,948.00\n\nDate        Transaction Details                        Amount (Rs.)\n19/05/2026  GOOGLE PLAY GURGAON   435.09 Dr\n30/05/2026  TATA 1MG GURGAON   6,970.83 Dr\n18/05/2026  THIRD WAVE COFFEE MUMBAI   2,014.35 Dr\n02/06/2026  SHELL PETROL BANGALORE   6,070.20 Dr\n05/06/2026  APOLLO PHARMACY CHENNAI   677.95 Dr\n26/05/2026  ZEPTO MUMBAI   7,540.41 Dr\n17/05/2026  CAFE COFFEE DAY MUMBAI   6,695.98 Dr\n03/06/2026  PAYMENT RECEIVED - THANK YOU   55,558.99 Cr\n\nReward Points Summary: Opening 5705  Earned 732  Closing 6027\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m205",
+   "subject": "SBI Card SimplyCLICK Credit Card Monthly Statement - Jun 2026",
+   "body": "Dear Cardholder,<br>\nPlease find enclosed your monthly statement ending 6027. Statement date: 12-Jun-2026. Total amount due Rs.71,719.86; minimum Rs.3,585.99; due 30-Jun-2026.<br>\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "6027_12062026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m206",
+   "subject": "Axis Bank Atlas Credit Card Statement - Jun 2026",
+   "body": "Dear Customer,<br>\nYour Axis Bank Atlas Credit Card **3350 Statement for the period 13/05/2026 to 12/06/2026 is attached.<br>\nTotal Amount Due: Rs. 4,246.61\nMinimum Amount Due: Rs. 212.33\nPayment Due Date: 30/06/2026\nPay via NetBanking, UPI or auto-debit.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCard No: 4878 18XX XXXX 3350\nStatement Date: 12/06/2026\nStatement Period: 13/05/2026 - 12/06/2026\nPayment Due Date: 30/06/2026\nTotal Amount Due: Rs. 4,246.61\nMinimum Amount Due: Rs. 212.33\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,06,064.00\n\nDate        Transaction Details                        Amount (Rs.)\n31/05/2026  JIO PREPAID MUMBAI   3,165.23 Dr\n15/05/2026  GOOGLE PLAY PUNE   4,185.96 Dr\n24/05/2026  DMART KOCHI   2,294.03 Dr\n09/06/2026  MEDPLUS PUNE   699.02 Dr\n23/05/2026  LENSKART BANGALORE   768.15 Dr\n31/05/2026  THIRD WAVE COFFEE CHENNAI   2,766.74 Dr\n03/06/2026  PAYMENT RECEIVED - THANK YOU   2,547.97 Cr\n\nReward Points Summary: Opening 6307  Earned 636  Closing 898\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m207",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "नमस्ते,\nDear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 2,991.48 at OLA CABS on 13-06-26 16:49:43 IST.\nAvailable limit INR 2,15,980.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-06-13",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m208",
+   "subject": "Payment Successful",
+   "body": "Paid Rs.2,991.48 to OLA CABS on 13 Jun 2026. Payment mode: Axis Bank Credit Card XX3350. Txn ID T5253551279802275446.",
+   "date": "2026-06-13",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m209",
+   "subject": "OTP for online transaction",
+   "body": "364626 is the One Time Password (OTP) for your online transction of INR 3,090.94 at BOOKMYSHOW. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-06-15",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m210",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.36,176.93 spent on your SBI Credit Card ending 6027 at STARBUCKS on 17/06/26. Your available limit is Rs.2,49,691.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-06-17",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m211",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,<br>\nThank you for using your Axis Bank Credit Card XX3350 for INR 10,848.86 at NETFLIX.COM on 20-06-26 02:46:38 IST.<br>\nAvailable limit INR 3,54,149.00. If this was not you, SMS BLOCK 3350 to 5676782.",
+   "date": "2026-06-20",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m212",
+   "subject": "Payment Successful",
+   "body": "Paid Rs.10,848.86 to NETFLIX.COM on 20 Jun 2026. Payment mode: Axis Bank Credit Card XX3350. Txn ID T3000474413483224322.",
+   "date": "2026-06-20",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m213",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Suresh, a gentle nudge: Rs.92,598.31 due on 30 June for card ending 3350. Ignore if already paid. Kripya samay par bhugtan karein.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m214",
+   "subject": "Payment reminder: SBI Card Credit Card xx6027",
+   "body": "Dear Customer,\nThis is a reminder that Rs.71,719.86 (minimum Rs.3,585.99) is due on 30-Jun-2026 on your SBI Card Credit Card xx6027. Pay on time to avoid late payment charges.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m215",
+   "subject": "Payment reminder: Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThis is a reminder that Rs.4,246.61 (minimum Rs.212.33) is due on 30-Jun-2026 on your Axis Bank Credit Card XX3350. Pay on time to avoid late payment charges.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m216",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 2,933.18 at MEDPLUS on 01-07-26 17:40:38 IST.\nAvailable limit INR 1,03,086.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m217",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear&nbsp;Cardholder,\nRs.2,425.87&nbsp;spent&nbsp;on your SBI Credit Card XX6027 at OLA CABS on 05/07/26. Your available limit is Rs.1,32,587.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-07-05",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m218",
+   "subject": "Cashback SBI Credit Card Monthly Statement - Jul 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 3350. Statement date: 12-Jul-2026. Total amount due Rs.45,787.37; minimum Rs.2,289.37; due 30-Jul-2026.\nSBI/BOB style auto pay available on request.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCredit Card Number: XXXX XXXX XXXX 3350\nCard Type: Cashback SBI\nStatement Date: 12/07/2026\nStatement Period: 12/06/2026 - 12/07/2026\nPayment Due Date: 30/07/2026\nTotal Amount Due: Rs. 45,787.37\nMinimum Amount Due: Rs. 2,289.37\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 31,161.00\n\nDate        Transaction Details                        Amount (Rs.)\n27/06/2026  ZEPTO HYDERABAD   9,952.89 Dr\n05/07/2026  SPOTIFY BANGALORE   7,258.90 Dr\n21/06/2026  PVR INOX BANGALORE   16,870.53 Dr\n16/06/2026  HOTSTAR PUNE   232.28 Dr\n03/07/2026  PAYMENT RECEIVED - THANK YOU   27,472.42 Cr\n\nReward Points Summary: Opening 711  Earned 731  Closing 5848\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m219",
+   "subject": "SBI Card SimplyCLICK Credit Card Monthly Statement - Jul 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 6027. Statement date: 12-Jul-2026. Total amount due Rs.2,797.61; minimum Rs.200.00; due 30-Jul-2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "6027_12072026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m220",
+   "subject": "Axis Bank Atlas Credit Card Statement - Jul 2026",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;Axis&nbsp;Bank Atlas Credit Card xx3350 Statement for the period 12/06/2026 to 12/07/2026 is attached.\nTotal Amount Due: Rs. 55,560.76\nMinimum Amount Due: Rs. 2,778.04\nPayment Due Date: 30/07/2026\nPay via NetBanking, UPI or auto-debit.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCredit Card Number: XXXX XXXX XXXX 3350\nCard Type: Atlas\nStatement Date: 12/07/2026\nStatement Period: 12/06/2026 - 12/07/2026\nPayment Due Date: 30/07/2026\nTotal Amount Due: Rs. 55,560.76\nMinimum Amount Due: Rs. 2,778.04\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,85,901.00\n\nDate        Transaction Details                        Amount (Rs.)\n07/07/2026  GOOGLE PLAY BANGALORE   687.83 Dr\n29/06/2026  INDIGO AIRLINES KOCHI   18,864.63 Dr\n15/06/2026  BLINKIT HYDERABAD   25,503.81 Dr\n13/06/2026  AMAZON PAY INDIA GURGAON   1,607.99 Dr\n03/07/2026  PAYMENT RECEIVED - THANK YOU   33,336.46 Cr\n\nReward Points Summary: Opening 292  Earned 882  Closing 8784\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 9419173091517  IFSC AXIS0000202"
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m221",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.7,024.21 spent on your SBI Credit Card XXXX XXXX XXXX 3350 at CROMA on 16/07/26. Your available limit is Rs.2,46,654.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m222",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.212.60 spent on your SBI Credit Card ending 3350 at BOOKMYSHOW on 19/07/26. Your available limit is Rs.75,855.00.\nContact 1860 180 1290 if this transction was not done by you.",
+   "date": "2026-07-19",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m223",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "नमस्ते,\nDear Cardholder,\nRs.17,394.05 spent on your SBI Credit Card ending 6027 at CAFE COFFEE DAY on 23/07/26. Your available limit is Rs.3,51,453.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m224",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.2,797.61 on 23-07-2026 towards your SBI Card Credit Card ending 6027. Thank you.<br>\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-07-23",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m225",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 430.45 at BPCL FUEL on 26-07-26 01:59:48 IST.\nAvailable limit INR 29,902.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-07-26",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m226",
+   "subject": "Payment Successful",
+   "body": "Paid Rs.430.45 to BPCL FUEL on 26 Jul 2026. Payment mode: Axis Bank Credit Card XX3350. Txn ID T6974154051230495790.\n\nT&C apply. Visit www.bank.in for more details.",
+   "date": "2026-07-26",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m227",
+   "subject": "Payment reminder: SBI Card Credit Card ending 3350",
+   "body": "Dear Customer,\nThis is a reminder that Rs.45,787.37 (minimum Rs.2,289.37) is due on 30-Jul-2026 on your SBI Card Credit Card ending 3350. Pay on time to avoid late payment charges.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m228",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.45,787.37 on 27-07-2026 towards your SBI Card Credit Card ending 3350. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m229",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi&nbsp;Suresh,&nbsp;a&nbsp;gentle nudge: Rs.2,797.61 due on 30 July for card **6027. Ignore if already paid. Kripya samay par bhugtan karein.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m230",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Suresh, a gentle nudge: Rs.55,560.76 due on 30 July for card XX3350. Ignore if already paid. Kripya samay par bhugtan karein.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m231",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.40,732.07 spent on your SBI Credit Card ending 3350 at GOOGLE PLAY on 28/07/26. Your available limit is Rs.24,820.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-28",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m232",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.302.78 spent on your SBI Credit Card ending 6027 at RELIANCE SMART on 28/07/26. Your available limit is Rs.2,66,334.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-07-28",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m233",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.455.68 spent on your SBI Credit Card ending 6027 at REDBUS on 01/08/26. Your available limit is Rs.1,78,045.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-08-01",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m234",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.29,097.95 spent on your SBI Credit Card ending 3350 at INDIGO AIRLINES on 02/08/26. Your available limit is Rs.3,68,756.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-08-02",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m235",
+   "subject": "Your Swiggy order receipt",
+   "body": "Order #5407 delivered. Paid via UPI. Rate your meal!<br>\nT&C apply.",
+   "date": "2026-08-02",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m236",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.435.69 spent on your SBI Credit Card ending 6027 at MAKEMYTRIP on 04/08/26. Your available limit is Rs.1,19,728.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-04",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m237",
+   "subject": "Pay your bills and earn on Regalia Gold Credit Card",
+   "body": "Apply now for Regalia Gold, Millennia or Swiggy HDFC Bank Credit Card. Pre-approved. Offer code 7911\nT&C apply.",
+   "date": "2026-08-04",
+   "attachments": [],
+   "from": "HDFC Bank <offers@hdfcbank.net>"
+  },
+  {
+   "id": "m238",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.802.05 spent on your SBI Credit Card ending 6027 at MAKEMYTRIP on 10/08/26. Your available limit is Rs.1,43,098.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-10",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m239",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.754.54 spent on your SBI Credit Card **3350 at DECATHLON on 12/08/26. Your available limit is Rs.2,52,784.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m240",
+   "subject": "Cashback SBI Credit Card Monthly Statement - Aug 2026",
+   "body": "Dear&nbsp;Cardholder,\nPlease&nbsp;find&nbsp;enclosed your monthly statement ending 3350. Statement date: 12-Aug-2026. Total amount due Rs.1,202.29; minimum Rs.200.00; due 30-Aug-2026.\nSBI/BOB style auto pay available on request.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCredit Card Number: XXXX XXXX XXXX 3350\nCard Type: Cashback SBI\nStatement Date: 12/08/2026\nStatement Period: 13/07/2026 - 12/08/2026\nPayment Due Date: 30/08/2026\nTotal Amount Due: Rs. 1,202.29\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 66,246.00\n\nDate        Transaction Details                        Amount (Rs.)\n10/08/2026  WESTSIDE GURGAON   241.52 Dr\n02/08/2026  DMART MUMBAI   33,863.38 Dr\n16/07/2026  OLA CABS KOCHI   5,103.02 Dr\n06/08/2026  CROMA HYDERABAD   6,980.63 Dr\n27/07/2026  PVR INOX GURGAON   2,597.35 Dr\n27/07/2026  LICIOUS HYDERABAD   454.14 Dr\n17/07/2026  BLINKIT PUNE   8,067.09 Dr\n23/07/2026  SHELL PETROL BANGALORE   613.35 Dr\n23/07/2026  SPOTIFY KOCHI   260.34 Dr\n03/08/2026  PAYMENT RECEIVED - THANK YOU   721.37 Cr\n\nReward Points Summary: Opening 4855  Earned 373  Closing 3247\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 1054651427477  IFSC SBI 0000894"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m241",
+   "subject": "SBI Card SimplyCLICK Credit Card Monthly Statement - Aug 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment ending 6027. Statement date: 12-Aug-2026. Total amount due Rs.1,225.96; minimum Rs.200.00; due 30-Aug-2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "6027_12082026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m242",
+   "subject": "Axis Bank Atlas Credit Card Statement - Aug 2026",
+   "body": "Dear Customer,<br>\nYour Axis Bank Atlas Credit Card XX3350 Statement for the period 13/07/2026 to 12/08/2026 is attached.<br>\nTotal Amount Due: Rs. 3,464.65\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/08/2026\nPay via NetBanking, UPI or auto-debit.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCredit Card Number: XXXX XXXX XXXX 3350\nCard Type: Atlas\nStatement Date: 12/08/2026\nStatement Period: 13/07/2026 - 12/08/2026\nPayment Due Date: 30/08/2026\nTotal Amount Due: Rs. 3,464.65\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 76,577.00\n\nDate        Transaction Details                        Amount (Rs.)\n09/08/2026  REDBUS PUNE   8,593.18 Dr\n19/07/2026  GOOGLE PLAY BANGALORE   16,144.47 Dr\n09/08/2026  IRCTC HYDERABAD   650.14 Dr\n05/08/2026  OLA CABS GURGAON   248.73 Dr\n03/08/2026  PAYMENT RECEIVED - THANK YOU   2,078.79 Cr\n\nReward Points Summary: Opening 8231  Earned 262  Closing 1536\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 9419173091517  IFSC AXIS0000115"
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m243",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 2,200.42 at WESTSIDE on 13-08-26 11:37:11 IST.\nAvailable limit INR 1,51,291.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-08-13",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m244",
+   "subject": "Payment Successful",
+   "body": "नमस्ते,\nPaid Rs.2,200.42 to WESTSIDE on 13 Aug 2026. Payment mode: Axis Bank Credit Card XX3350. Txn ID T9052449890546475897.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-08-13",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m245",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.8,801.77 spent on your SBI Credit Card ending 3350 at CROMA on 21/08/26. Your available limit is Rs.87,240.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-08-21",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m246",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,391.61 spent on your SBI Credit Card ending 3350 at CROMA on 22/08/26. Your available limit is Rs.1,30,990.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m247",
+   "subject": "Convert to EMI",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;transaction&nbsp;of Rs.8,287.58 on card no. XXXXXXXXXXXX3350 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m248",
+   "subject": "Convert to EMI",
+   "body": "नमस्ते,\nDear Customer,\nYour transaction of Rs.40,203.85 on card ending 6027 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m249",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transaction of Rs.9,063.88 on card ending 3350 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m250",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.8,849.09 spent on your SBI Credit Card ending 6027 at ZOMATO on 25/08/26. Your available limit is Rs.1,97,637.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-08-25",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m251",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.3,464.65 on 25-08-2026 towards your Axis Bank Credit Card XX3350. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-25",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m252",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "नमस्ते,\nHi Suresh, a gentle nudge: Rs.1,202.29 due on 30 August for card ending 3350. Ignore if already paid. Kripya samay par bhugtan karein.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m253",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi&nbsp;Suresh,&nbsp;a&nbsp;gentle nudge: Rs.3,464.65 due on 30 August for card XX3350. Ignore if already paid. Kripya samay par bhugtan karein.<br>\n<br>\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m254",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,202.29 on 29-08-2026 towards your SBI Card Credit Card ending 3350. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-08-29",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m255",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.3,185.11 spent on your SBI Credit Card XX3350 at HOTSTAR on 02/09/26. Your available limit is Rs.3,83,679.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-09-02",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m256",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,946.35 spent on your SBI Credit Card xx3350 at NETFLIX.COM on 05/09/26. Your available limit is Rs.3,26,486.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m257",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card ending 3350 has been processed. Tenure 12 months. First EMI will appear on your next statement.<br>\n<br>\nEarn up to 5X reward points on partner brands this festive season! Know more.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m258",
+   "subject": "EMI conversion successful",
+   "body": "Your&nbsp;request&nbsp;for&nbsp;EMI conversion on card ending 6027 has been processed. Tenure 9 months. First EMI will appear on your next statement.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m259",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card XX3350 has been processed. Tenure 9 months. First EMI will appear on your next statement.<br>\n<br>\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m260",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,488.40 spent on your SBI Credit Card ending 3350 at MAKEMYTRIP on 10/09/26. Your available limit is Rs.3,79,299.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-09-10",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m261",
+   "subject": "Cashback SBI Credit Card Monthly Statement - Sep 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement XX3350. Statement date: 12-Sep-2026. Total amount due Rs.937.44; minimum Rs.200.00; due 30-Sep-2026.\nSBI/BOB style auto pay available on request.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCredit Card Number: XXXX XXXX XXXX 3350\nStatement Date: 12/09/2026\nStatement Period: 13/08/2026 - 12/09/2026\nPayment Due Date: 30/09/2026\nTotal Amount Due: Rs. 937.44\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 88,694.00\n\nDate        Transaction Details                        Amount (Rs.)\n14/08/2026  HOTSTAR BANGALORE   521.23 Dr\n25/08/2026  IRCTC BANGALORE   726.43 Dr\n10/09/2026  APOLLO PHARMACY BANGALORE   654.14 Dr\n14/08/2026  MEDPLUS GURGAON   7,831.14 Dr\n01/09/2026  UBER INDIA MUMBAI   4,785.11 Dr\n07/09/2026  THIRD WAVE COFFEE KOCHI   3,403.12 Dr\n04/09/2026  BLINKIT KOCHI   8,596.04 Dr\n24/08/2026  JIO PREPAID GURGAON   5,037.73 Dr\n03/09/2026  PAYMENT RECEIVED - THANK YOU   562.46 Cr\n\nReward Points Summary: Opening 2905  Earned 406  Closing 7355\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m262",
+   "subject": "SBI Card SimplyCLICK Credit Card Monthly Statement - Sep 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 6027. Statement date: 12-Sep-2026. Total amount due Rs.3,000.31; minimum Rs.200.00; due 30-Sep-2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m263",
+   "subject": "Axis Bank Atlas Credit Card Statement - Sep 2026",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;Axis&nbsp;Bank Atlas Credit Card XX3350 Statement for the period 13/08/2026 to 12/09/2026 is attached.\nTotal Amount Due: Rs. 3,138.01\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/09/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCard No: 4928 99XX XXXX 3350\nCard Type: Atlas\nStatement Date: 12/09/2026\nStatement Period: 13/08/2026 - 12/09/2026\nPayment Due Date: 30/09/2026\nTotal Amount Due: Rs. 3,138.01\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 1,92,909.00\n\nDate        Transaction Details                        Amount (Rs.)\n08/09/2026  WESTSIDE HYDERABAD   618.12 Dr\n21/08/2026  IRCTC BANGALORE   8,726.07 Dr\n21/08/2026  LICIOUS MUMBAI   367.75 Dr\n26/08/2026  ZEPTO PUNE   5,757.84 Dr\n03/09/2026  REDBUS BANGALORE   3,279.78 Dr\n22/08/2026  AMAZON PAY INDIA MUMBAI   3,605.17 Dr\n03/09/2026  ZEPTO CHENNAI   1,728.32 Dr\n31/08/2026  DMART CHENNAI   1,012.23 Dr\n03/09/2026  PAYMENT RECEIVED - THANK YOU   1,882.81 Cr\n\nReward Points Summary: Opening 7013  Earned 613  Closing 8926\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 9419173091517  IFSC AXIS0000555"
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m264",
+   "subject": "Pay your bills and earn on Regalia Gold Credit Card",
+   "body": "Apply now for Regalia Gold, Millennia or Swiggy HDFC Bank Credit Card. Pre-approved. Offer code 9078\nT&C apply.",
+   "date": "2026-09-13",
+   "attachments": [],
+   "from": "HDFC Bank <offers@hdfcbank.net>"
+  },
+  {
+   "id": "m265",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.240.97 spent on your SBI Credit Card ending 3350 at MAKEMYTRIP on 14/09/26. Your available limit is Rs.3,27,410.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-09-14",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m266",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your Cashback SBI Credit Card ending 3350 has been increased to Rs.2,00,000.00 effective 17-09-2026.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m267",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.14,326.48 spent on your SBI Credit Card ending 6027 at DECATHLON on 17/09/26. Your available limit is Rs.3,76,016.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m268",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your SBI Card SimplyCLICK Credit Card **6027 has been increased to Rs.3,00,000.00 effective 17-09-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m269",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear&nbsp;Customer,\nThank&nbsp;you&nbsp;for using your Axis Bank Credit Card XX3350 for INR 2,173.84 at CROMA on 17-09-26 11:16:24 IST.\nAvailable limit INR 37,947.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m270",
+   "subject": "Credit limit change on your card",
+   "body": "Dear&nbsp;Customer,\nBased&nbsp;on&nbsp;your profile, the credit limit on your Axis Bank Atlas Credit Card xx3350 has been increased to Rs.3,00,000.00 effective 17-09-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m271",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.937.44 on 22-09-2026 towards your SBI Card Credit Card no. XXXXXXXXXXXX3350. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m272",
+   "subject": "Your reward points summary",
+   "body": "Dear&nbsp;Customer,\nYou&nbsp;have&nbsp;793 reward points on your Cashback SBI Credit Card ending 3350. Redeem them on the rewards portal before they expire.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m273",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 8739 reward points on your SBI Card SimplyCLICK Credit Card ending 6027. Redeem them on the rewards portal before they expire.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m274",
+   "subject": "Transaction alert on Axis Bank Credit Card **3350",
+   "body": "नमस्ते,\nDear Customer,\nThank you for using your Axis Bank Credit Card **3350 for INR 4,410.05 at GOOGLE PLAY on 25-09-26 05:17:25 IST.\nAvailable limit INR 3,00,975.00. If this was not you, SMS BLOCK 3350 to 5676782.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m275",
+   "subject": "Payment Successful",
+   "body": "Paid Rs.4,410.05 to GOOGLE PLAY on 25 Sep 2026. Payment mode: Axis Bank Credit Card XX3350. Txn ID T1705111929549140858.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m276",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 4156 reward points on your Axis Bank Atlas Credit Card XX3350. Redeem them on the rewards portal before they expire.\n\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2026-09-25",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m277",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;recieved your payment of Rs.3,138.01 on 26-09-2026 towards your Axis Bank Credit Card XX3350. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2026-09-26",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m278",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.745.97 spent on your SBI Credit Card ending 3350 at PVR INOX on 28/09/26. Your available limit is Rs.1,07,929.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-28",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m279",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.3,000.31 on 29-09-2026 towards your SBI Card Credit Card ending 6027. Thank you.",
+   "date": "2026-09-29",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m280",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 27,871.59 at ZEPTO on 07-10-26 08:30:23 IST.\nAvailable limit INR 98,476.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-10-07",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m281",
+   "subject": "Payment Successful",
+   "body": "Paid Rs.27,871.59 to ZEPTO on 07 Oct 2026. Payment mode: Axis Bank Credit Card XX3350. Txn ID T3427388069873486496.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-07",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m282",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 609.41 at JIO PREPAID on 09-10-26 04:29:46 IST.\nAvailable limit INR 2,43,712.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-09",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m283",
+   "subject": "Payment Successful",
+   "body": "Paid Rs.609.41 to JIO PREPAID on 09 Oct 2026. Payment mode: Axis Bank Credit Card **3350. Txn ID T4563404591648796563.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-10-09",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m284",
+   "subject": "Cashback SBI Credit Card Monthly Statement - Oct 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 3350. Statement date: 12-Oct-2026. Total amount due Rs.6,048.50; minimum Rs.302.43; due 30-Oct-2026.\nSBI/BOB style auto pay available on request.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCard No: 4561 49XX XXXX 3350\nCard Type: Cashback SBI\nStatement Date: 12/10/2026\nStatement Period: 12/09/2026 - 12/10/2026\nPayment Due Date: 30/10/2026\nTotal Amount Due: Rs. 6,048.50\nMinimum Amount Due: Rs. 302.43\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 43,394.00\n\nDate        Transaction Details                        Amount (Rs.)\n13/09/2026  APOLLO PHARMACY GURGAON   37,037.11 Dr\n02/10/2026  BATA INDIA GURGAON   664.23 Dr\n23/09/2026  APOLLO PHARMACY CHENNAI   831.78 Dr\n30/09/2026  DMART PUNE   39,816.81 Dr\n02/10/2026  TATA 1MG GURGAON   1,053.19 Dr\n14/09/2026  LICIOUS GURGAON   3,271.63 Dr\n12/09/2026  LENSKART MUMBAI   2,244.24 Dr\n03/10/2026  PAYMENT RECEIVED - THANK YOU   3,629.10 Cr\n\nReward Points Summary: Opening 5947  Earned 493  Closing 1480\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m285",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.10,351.45 spent on your SBI Credit Card ending 6027 at WESTSIDE on 12/10/26. Your available limit is Rs.2,46,768.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m286",
+   "subject": "SBI Card SimplyCLICK Credit Card Monthly Statement - Oct 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment ending 6027. Statement date: 12-Oct-2026. Total amount due Rs.19,767.78; minimum Rs.988.39; due 30-Oct-2026.\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nSBI/BOB style auto pay available on request.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "6027_12102026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m287",
+   "subject": "Axis Bank Atlas Credit Card Statement - Oct 2026",
+   "body": "Dear Customer,\nYour Axis Bank Atlas Credit Card XX3350 Statement for the period 12/09/2026 to 12/10/2026 is attached.\nTotal Amount Due: Rs. 82,261.74\nMinimum Amount Due: Rs. 4,113.09\nPayment Due Date: 30/10/2026\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "AXIS BANK - CREDIT CARD STATEMENT\nName: SURESH REDDY\nCard No: 4120 72XX XXXX 3350\nCard Type: Atlas\nStatement Date: 12/10/2026\nStatement Period: 12/09/2026 - 12/10/2026\nPayment Due Date: 30/10/2026\nTotal Amount Due: Rs. 82,261.74\nMinimum Amount Due: Rs. 4,113.09\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,89,808.00\n\nDate        Transaction Details                        Amount (Rs.)\n28/09/2026  INDIGO AIRLINES MUMBAI   8,223.64 Dr\n19/09/2026  HOTSTAR CHENNAI   6,695.89 Dr\n28/09/2026  BOOKMYSHOW MUMBAI   29,497.86 Dr\n02/10/2026  BIGBASKET PUNE   1,673.04 Dr\n16/09/2026  SPOTIFY PUNE   1,043.45 Dr\n18/09/2026  WESTSIDE HYDERABAD   2,796.78 Dr\n08/10/2026  BPCL FUEL KOCHI   19,144.91 Dr\n03/10/2026  PAYMENT RECEIVED - THANK YOU   49,357.04 Cr\n\nReward Points Summary: Opening 1550  Earned 338  Closing 8007\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 9419173091517  IFSC AXIS0000490"
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m288",
+   "subject": "Transaction cancelled / refund initiated",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;transaction&nbsp;at BOOKMYSHOW for Rs.770.00 has been cancelled by the merchant. A refund will be credited to your card XXXX XXXX XXXX 3350 in 5-7 working days.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m289",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.30,373.61 spent on your SBI Credit Card ending 3350 at TATA 1MG on 21/10/26. Your available limit is Rs.3,50,413.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2026-10-21",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m290",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.7,465.65 spent on your SBI Credit Card ending 3350 at REDBUS on 22/10/26. Your available limit is Rs.1,45,708.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m291",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,516.95 spent on your SBI Credit Card ending 6027 at CAFE COFFEE DAY on 22/10/26. Your available limit is Rs.2,32,473.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m292",
+   "subject": "Transaction alert on Axis Bank Credit Card no. XXXXXXXXXXXX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card no. XXXXXXXXXXXX3350 for INR 8,782.97 at CROMA on 22-10-26 09:37:55 IST.\nAvailable limit INR 92,202.00. If this was not you, SMS BLOCK 3350 to 5676782.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m293",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.82,261.74 on 22-10-2026 towards your Axis Bank Credit Card XX3350. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m294",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.6,048.50 on 24-10-2026 towards your SBI Card Credit Card ending 3350. Thank you.",
+   "date": "2026-10-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m295",
+   "subject": "Transaction alert on Axis Bank Credit Card XX3350",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX3350 for INR 2,180.24 at BLINKIT on 24-10-26 01:16:38 IST.\nAvailable limit INR 3,67,193.00. If this was not you, SMS BLOCK 3350 to 5676782.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-24",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m296",
+   "subject": "Payment Successful",
+   "body": "Paid Rs.2,180.24 to BLINKIT on 24 Oct 2026. Payment mode: Axis Bank Credit Card no. XXXXXXXXXXXX3350. Txn ID T1442745554533966962.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-10-24",
+   "attachments": [],
+   "from": "PhonePe <noreply@phonepe.com>"
+  },
+  {
+   "id": "m297",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear&nbsp;Cardholder,\nRs.17,077.82&nbsp;spent&nbsp;on your SBI Credit Card ending 3350 at JIO PREPAID on 26/10/26. Your available limit is Rs.27,905.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-10-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m298",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.19,767.78 on 28-10-2026 towards your SBI Card Credit Card **6027. Thank you.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-10-28",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m299",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.41,198.76 spent on your SBI Credit Card ending 3350 at AMAZON on 01/11/26. Your available limit is Rs.47,141.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-11-01",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m300",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.283.87 spent on your SBI Credit Card XXXX XXXX XXXX 6027 at LENSKART on 01/11/26. Your available limit is Rs.2,60,894.00.\nContact 1860 180 1290 if this transction was not done by you.",
+   "date": "2026-11-01",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "3350",
+    "kind": "CREDIT_CARD",
+    "variant": "Cashback",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "6027",
+    "kind": "CREDIT_CARD",
+    "variant": "SimplyCLICK",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "3350",
+    "kind": "CREDIT_CARD",
+    "variant": "Atlas",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "1832",
+    "why": "payer account named in other bank card statement (pay via HDFC NetBanking)"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "7477",
+    "why": "bank own beneficiary account in statement payment instructions"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "1517",
+    "why": "bank own beneficiary account in statement payment instructions"
+   },
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "4899",
+    "why": "masked mobile number"
+   }
+  ]
+ }
+}

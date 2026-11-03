@@ -1,0 +1,2131 @@
+{
+ "mailbox": "au-zenith-vetta-numonly",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Your AU Credit Card statement - Nov 2024",
+   "body": "Dear Sanjay,\nPlease find attached your AU Zenith+ Credit Card statement for the period 08-Oct-2024 to 07-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nOpt for e-statements and go green.",
+   "date": "2024-11-08",
+   "attachments": [
+    {
+     "filename": "AU_CC_Nov2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m002",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 1,561.51 debited from account XX1251 on 13-Nov-2024. Narration: UPI/INDIGO AIRLINES. Available balance INR 47,130.22.\n\nOpt for e-statements and go green.",
+   "date": "2024-11-13",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m003",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Transaction alert: INR 549.86 spent at STARBUCKS on 14-Nov-2024 using your AU Zenith+ Credit Card.\n\n",
+   "date": "2024-11-14",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m004",
+   "subject": "Your AU Credit Card statement - Nov 2024",
+   "body": "Dear Sanjay,\nPlease find attached your AU Vetta Credit Card xx6878 statement for the period 18-Oct-2024 to 17-Nov-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2024-11-18",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Nov2024.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m005",
+   "subject": "AU Small Finance Bank Account Statement - Nov 2024",
+   "body": "Dear Sanjay,\nPlease find attached your AU Small Finance Bank xx1660 statement for the period 20-Oct-2024 to 19-Nov-2024. \n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2024-11-20",
+   "attachments": [
+    {
+     "filename": "1660_19112024_stmt.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK\nSTATEMENT OF ACCOUNT\nAccount Name : SANJAY SHARMA\nFLAT 356, ORCHID APARTMENTS\n28TH CROSS, BANJARA HILLS\nBENGALURU - 594498\nAccount Number : *1660\nAccount Type : CURRENT ACCOUNT\nIFSC : AUXX0756758\nStatement Period : 20-10-2024 to 19-11-2024\nOpening Balance : Rs.83,356.93\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n22-10-2024 POS/BPCL FUEL 896770701 4,490.78 - 78,866.15\n25-10-2024 POS/SWIGGY 604461561 503.22 - 78,362.93\n27-10-2024 ATM WDL/AMAZON PAY INDIA 388095874 106.34 - 78,256.59\n30-10-2024 SALARY NEFT 764601744 - 6,369.11 84,625.70\n30-10-2024 UPI/TATA POWER 788473433 141.48 - 84,484.22\n30-10-2024 NEFT DR/MAKEMYTRIP 803034661 11,863.40 - 72,620.82\n31-10-2024 NEFT DR/APPLE SERVICES 990035834 2,394.14 - 70,226.68\n01-11-2024 POS/MEDPLUS 629343694 135.21 - 70,091.47\n02-11-2024 ATM WDL/BIGBASKET 465332634 16,922.13 - 53,169.34\n02-11-2024 IMPS/CR 328141454 - 2,722.13 55,891.47\n05-11-2024 ATM WDL/MEDPLUS 808757211 191.61 - 55,699.86\n07-11-2024 ATM WDL/DMART 706347139 1,698.52 - 54,001.34\n07-11-2024 IMPS/CR 643140706 - 214.42 54,215.76\n07-11-2024 SALARY NEFT 135527846 - 13,345.61 67,561.37\nClosing Balance : Rs.67,561.37\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m006",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,657.70 spent on your AU Small Finance Bank Credit Card xx6878 at PVR INOX on 22-Nov-2024 21:05:05.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2024-11-22",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m007",
+   "subject": "AU Small Finance Bank Account Statement - Nov 2024",
+   "body": "Dear Sanjay,\nYour AU Small Finance Bank XX1251 account statement for Nov 2024 is ready. Closing balance Rs.3,702.81.\nLogin to view and download your e-statement.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2024-11-23",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m008",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Dear Customer,\nINR 2,095.39 has been debited from your AU Small Finance Bank A/c XXXXXX1251 on 04-Dec-2024 (POS EAZYDINER). Avl bal INR 3,699.75.",
+   "date": "2024-12-04",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m009",
+   "subject": "Your AU Credit Card statement - Dec 2024",
+   "body": "Dear Sanjay,\nPlease find attached your AU Zenith+ Credit Card statement for the period 08-Nov-2024 to 07-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2024-12-08",
+   "attachments": [
+    {
+     "filename": "eStatement_202412.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m010",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Dear Customer,\nINR 2,114.21 has been debited from your AU Small Finance Bank A/c XXXXXX1251 on 08-Dec-2024 (UPI IKEA). Avl bal INR 2,128.22.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-12-08",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m011",
+   "subject": "Payment received on your AU Credit Card",
+   "body": "Payment of INR 3,140.43 has been received towards your AU Zenith+ Credit Card on 14-Dec-2024. Thank you.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2024-12-14",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m012",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Transaction alert: INR 7,235.55 spent at MAKEMYTRIP on 15-Dec-2024 using your AU Zenith+ Credit Card.\n\n",
+   "date": "2024-12-15",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m013",
+   "subject": "AU Bank: credit alert on your account",
+   "body": "Your A/c *1251 is credited with INR 154.38 on 15-Dec-2024 - SALARY NEFT. Bal INR 24,861.10. -AU Small Finance Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-12-15",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m014",
+   "subject": "Your AU Credit Card statement - Dec 2024",
+   "body": "Dear Sanjay,\nPlease find attached your AU Vetta Credit Card XX6878 statement for the period 18-Nov-2024 to 17-Dec-2024.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-12-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202412.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m015",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Dear Customer,\nINR 16,805.15 has been debited from your AU Small Finance Bank A/c xx1660 on 22-Dec-2024 (POS DECATHLON). Avl bal INR 2,231.79.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2024-12-22",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m016",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Your A/c XX1251 is debited for INR 350.92 on 24-Dec-2024 - POS LENSKART. Bal INR 14,421.20. -AU Small Finance Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2024-12-24",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m017",
+   "subject": "AU Bank: credit alert on your account",
+   "body": "Credit alert: INR 83.08 has been credited to account *1660 on 26-Dec-2024 (NEFT). Avl bal INR 7,214.34.",
+   "date": "2024-12-26",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m018",
+   "subject": "OTP for your transaction",
+   "body": "596787 is the OTP for your transaction of Rs.2,125.02 at BIGBASKET. Valid for 10 minutes. Do not share.",
+   "date": "2024-12-30",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m019",
+   "subject": "Your AU Credit Card statement - Jan 2025",
+   "body": "Dear Sanjay,\nPlease find attached your AU Zenith+ Credit Card statement for the period 08-Dec-2024 to 07-Jan-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-01-08",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Jan2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m020",
+   "subject": "Your service request has been registered",
+   "body": "Dear Customer,\nWe have registered your request. Your service request reference number is 273137945916. Please quote it in future correspondence. We will resolve it within 3 working days.",
+   "date": "2025-01-11",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m021",
+   "subject": "Beneficiary added successfully",
+   "body": "Dear Customer,\nBeneficiary Ramesh Kumar (A/c XXXXXX8463, Kotak Mahindra Bank) has been added to your account XX1251. It will be active after 30 minutes.",
+   "date": "2025-01-14",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m022",
+   "subject": "Payment received on your AU Credit Card",
+   "body": "Payment of INR 10,341.28 has been received towards your AU Zenith+ Credit Card on 15-Jan-2025. Thank you.\n\nOpt for e-statements and go green.",
+   "date": "2025-01-15",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m023",
+   "subject": "Your AU Credit Card statement - Jan 2025",
+   "body": "Dear Sanjay,\nYour AU Vetta Credit Card XX6878 statement for Jan 2025 is ready. Total amount due Rs.1,470.26, minimum amount due Rs.200.00, payable by 04-Feb-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-01-18",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m024",
+   "subject": "AU Small Finance Bank Account Statement - Jan 2025",
+   "body": "Dear Sanjay,\nYour AU Small Finance Bank XXXXXX1660 account statement for Jan 2025 is ready. Closing balance Rs.573.63.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-01-20",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m025",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Dear Customer,\nINR 252.25 has been debited from your AU Small Finance Bank A/c XXXXXX1251 on 20-Jan-2025 (IMPS MAKEMYTRIP). Avl bal INR 20,772.88.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-01-20",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m026",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nINR 126.81 spent on your AU Zenith+ Credit Card at INDIAN OIL on 24-Jan-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-01-24",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m027",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 18,701.91 was spent on your AU Small Finance Bank Credit Card XX6878 at BIGBASKET on 07-Feb-2025.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-02-07",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m028",
+   "subject": "Your AU Credit Card statement - Feb 2025",
+   "body": "Dear Sanjay,\nYour AU Zenith+ Credit Card statement for Feb 2025 is ready. Total amount due Rs.11,773.63, minimum amount due Rs.588.68, payable by 25-Feb-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-02-08",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m029",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 19,958.23 was spent on your AU Small Finance Bank Credit Card XX6878 at URBAN COMPANY on 10-Feb-2025.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-02-10",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m030",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,500.00 transferred from xx1251 to Ramesh Kumar A/c XX8463 on 14-Feb-2025. Rent for the month.",
+   "date": "2025-02-14",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m031",
+   "subject": "Your AU Credit Card statement - Feb 2025",
+   "body": "Dear Sanjay,\nYour AU Vetta Credit Card xx6878 statement for Feb 2025 is ready. Total amount due Rs.981.46, minimum amount due Rs.200.00, payable by 07-Mar-2025.\nLogin to view and download your e-statement.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-02-18",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m032",
+   "subject": "AU Small Finance Bank Account Statement - Feb 2025",
+   "body": "Dear Sanjay,\nPlease find attached your AU Small Finance Bank *1251 statement for the period 23-Jan-2025 to 22-Feb-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-02-23",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Feb2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m033",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 2,956.99 was spent on your AU Small Finance Bank Credit Card XX6878 at BPCL FUEL on 23-Feb-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-02-23",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m034",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nINR 236.68 spent on your AU Zenith+ Credit Card at SWIGGY on 24-Feb-2025.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-02-24",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m035",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Transaction alert: INR 176.75 spent at DECATHLON on 02-Mar-2025 using your AU Zenith+ Credit Card.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-03-02",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m036",
+   "subject": "AU Bank: credit alert on your account",
+   "body": "Dear Customer,\nINR 322.86 credited to your AU Small Finance Bank A/c *1660 on 03-Mar-2025 by NEFT. Ref 428851806408.\nThank you for banking with us.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-03-03",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m037",
+   "subject": "Payment received on your AU Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 5,920.22 on 06-Mar-2025 for your AU Vetta Credit Card XX6878. Available credit limit has been updated.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-03-06",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m038",
+   "subject": "Your AU Credit Card statement - Mar 2025",
+   "body": "Dear Sanjay,\nYour AU Zenith+ Credit Card statement for Mar 2025 is ready. Total amount due Rs.416.67, minimum amount due Rs.200.00, payable by 25-Mar-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-03-08",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m039",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Transaction alert: INR 492.67 spent at BATA INDIA on 10-Mar-2025 using your AU Zenith+ Credit Card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-03-10",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m040",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,000.00 transferred from xx1251 to Ramesh Kumar A/c XX8463 on 14-Mar-2025. Rent for the month.",
+   "date": "2025-03-14",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m041",
+   "subject": "Your AU Credit Card statement - Mar 2025",
+   "body": "Dear Sanjay,\nYour AU Vetta Credit Card XX6878 statement for Mar 2025 is ready. Total amount due Rs.1,174.21, minimum amount due Rs.200.00, payable by 04-Apr-2025.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-03-18",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m042",
+   "subject": "AU Small Finance Bank Account Statement - Mar 2025",
+   "body": "Dear Sanjay,\nPlease find attached your AU Small Finance Bank *1660 statement for the period 20-Feb-2025 to 19-Mar-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-03-20",
+   "attachments": [
+    {
+     "filename": "1660_19032025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m043",
+   "subject": "Update your KYC",
+   "body": "Dear Sanjay,\nAs per RBI guidelines please complete re-KYC for your AU Small Finance Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-03-26",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m044",
+   "subject": "AU Bank: credit alert on your account",
+   "body": "Credit alert: INR 6,076.78 has been credited to account XX1251 on 02-Apr-2025 (INTEREST CREDIT). Avl bal INR 6,253.59.",
+   "date": "2025-04-02",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m045",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sanjay,\nYour order #227-3566052-3028464 is confirmed. Total Rs.8,102.39. Estimated delivery in 2 days.",
+   "date": "2025-04-06",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m046",
+   "subject": "Your AU Credit Card statement - Apr 2025",
+   "body": "Dear Sanjay,\nYour AU Zenith+ Credit Card statement for Apr 2025 is ready. Total amount due Rs.1,668.35, minimum amount due Rs.200.00, payable by 25-Apr-2025.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-04-08",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m047",
+   "subject": "Update your KYC",
+   "body": "Dear Sanjay,\nAs per RBI guidelines please complete re-KYC for your AU Small Finance Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-04-10",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m048",
+   "subject": "Bill payment successful",
+   "body": "Dear Customer,\nCredit card bill payment of Rs.30,700.02 for IDBI Bank Credit Card ending 6846 (cardholder: PRIYA SHARMA) was successful from your A/c xx1251 on 11-Apr-2025.",
+   "date": "2025-04-11",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m049",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.19,000.00 transferred from xx1251 to Ramesh Kumar A/c XX8463 on 14-Apr-2025. Rent for the month.",
+   "date": "2025-04-14",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m050",
+   "subject": "AU Small Finance Bank festive offers",
+   "body": "Dear Sanjay,\nUpgrade your savings with a fixed deposit @ 7.25% p.a.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-04-15",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m051",
+   "subject": "Your AU Credit Card statement - Apr 2025",
+   "body": "Dear Sanjay,\nYour AU Vetta Credit Card xx6878 statement for Apr 2025 is ready. Total amount due Rs.443.55, minimum amount due Rs.200.00, payable by 05-May-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-04-18",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m052",
+   "subject": "Update your KYC",
+   "body": "Dear Sanjay,\nAs per RBI guidelines please complete re-KYC for your AU Small Finance Bank relationship. Visit a branch or use the app.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-04-19",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m053",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 9,544.19 debited from account XX1251 on 24-Apr-2025. Narration: UPI/ZOMATO. Available balance INR 6,855.61.",
+   "date": "2025-04-24",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m054",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Dear Customer,\nINR 144.43 has been debited from your AU Small Finance Bank A/c XX1660 on 25-Apr-2025 (ECOM INDIGO AIRLINES). Avl bal INR 4,693.36.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-04-25",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m055",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Transaction alert: INR 159.76 spent at CROMA on 27-Apr-2025 using your AU Zenith+ Credit Card.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-04-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m056",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 20,015.31 was spent on your AU Vetta Credit Card XX6878 at INDIAN OIL on 29-Apr-2025.",
+   "date": "2025-04-29",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m057",
+   "subject": "AU Bank: credit alert on your account",
+   "body": "Your A/c xx1660 is credited with INR 7,868.79 on 05-May-2025 - NEFT. Bal INR 5,633.75. -AU Small Finance Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-05-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m058",
+   "subject": "Your AU Credit Card statement - May 2025",
+   "body": "Dear Sanjay,\nYour AU Zenith+ Credit Card statement for May 2025 is ready. Total amount due Rs.40,926.75, minimum amount due Rs.2,046.34, payable by 25-May-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-05-08",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m059",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.22,000.00 transferred from *1251 to Ramesh Kumar A/c XX8463 on 14-May-2025. Rent for the month.",
+   "date": "2025-05-14",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m060",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 361.52 debited from account *1251 on 17-May-2025. Narration: UPI/TATA POWER. Available balance INR 66,424.46.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-05-17",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m061",
+   "subject": "Your AU Credit Card statement - May 2025",
+   "body": "Dear Sanjay,\nPlease find attached your AU Vetta Credit Card xx6878 statement for the period 18-Apr-2025 to 17-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-05-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202505.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m062",
+   "subject": "AU Small Finance Bank Account Statement - May 2025",
+   "body": "Dear Sanjay,\nPlease find attached your AU Small Finance Bank xx1660 statement for the period 20-Apr-2025 to 19-May-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-05-20",
+   "attachments": [
+    {
+     "filename": "AU_Statement_May2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m063",
+   "subject": "AU Small Finance Bank Account Statement - May 2025",
+   "body": "Dear Sanjay,\nPlease find attached your AU Small Finance Bank XX1251 statement for the period 23-Apr-2025 to 22-May-2025. \n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-05-23",
+   "attachments": [
+    {
+     "filename": "AU_Acct_May2025.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK\nSTATEMENT OF ACCOUNT\nAccount Name : SANJAY SHARMA\nFLAT 506, SUNRISE APARTMENTS\n29TH CROSS, ADYAR\nGURUGRAM - 440516\nAccount Number : XX1251\nAccount Type : SAVINGS ACCOUNT\nIFSC : AUXX0143723\nStatement Period : 23-04-2025 to 22-05-2025\nOpening Balance : Rs.47,098.71\nDate Particulars Chq/Ref No Withdrawals Deposits Balance\n24-04-2025 UPI/URBAN COMPANY 683795937 5,563.61 - 41,535.10\n25-04-2025 INTEREST 102859525 - 19,505.33 61,040.43\n27-04-2025 INTEREST 475709294 - 164.53 61,204.96\n30-04-2025 NEFT DR/APOLLO PHARMACY 691683351 2,078.87 - 59,126.09\n01-05-2025 UPI/CR 338236244 - 3,860.79 62,986.88\n02-05-2025 IMPS/CR 104302163 - 289.58 63,276.46\n02-05-2025 UPI/CR 349004931 - 1,455.86 64,732.32\n03-05-2025 IMPS/CR 927710705 - 12,528.03 77,260.35\n03-05-2025 IMPS/CR 916878959 - 946.21 78,206.56\n05-05-2025 POS/TATA POWER 627769862 852.79 - 77,353.77\n08-05-2025 SALARY NEFT 188227863 - 16,700.48 94,054.25\nClosing Balance : Rs.94,054.25\nThis is a computer generated statement and does not require signature."
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m064",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nINR 292.49 spent on your AU Zenith+ Credit Card at OLA CABS on 30-May-2025.\n\nOpt for e-statements and go green.",
+   "date": "2025-05-30",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m065",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Your A/c XX1251 is debited for INR 22,044.48 on 02-Jun-2025 - POS BPCL FUEL. Bal INR 37,866.95. -AU Small Finance Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-06-02",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m066",
+   "subject": "AU Small Finance Bank festive offers",
+   "body": "Dear Sanjay,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\n",
+   "date": "2025-06-04",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m067",
+   "subject": "Your AU Credit Card statement - Jun 2025",
+   "body": "Dear Sanjay,\nPlease find attached your AU Zenith+ Credit Card statement for the period 08-May-2025 to 07-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-06-08",
+   "attachments": [
+    {
+     "filename": "eStatement_202506.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m068",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sanjay,\nYour order #988-4463915-6264892 is confirmed. Total Rs.359.29. Estimated delivery in 2 days.",
+   "date": "2025-06-12",
+   "attachments": [],
+   "from": "Swiggy <noreply@swiggy.in>"
+  },
+  {
+   "id": "m069",
+   "subject": "Standing instruction executed",
+   "body": "Dear Customer,\nStanding instruction executed: Rs.18,000.00 transferred from XX1251 to Ramesh Kumar A/c XX8463 on 14-Jun-2025. Rent for the month.",
+   "date": "2025-06-14",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m070",
+   "subject": "Important: updated Most Important Terms and Conditions",
+   "body": "Dear Sanjay,\nPlease find attached the updated MITC for your AU Small Finance Bank credit cards.\n\n",
+   "date": "2025-06-17",
+   "attachments": [
+    {
+     "filename": "MITC.pdf",
+     "protected": false,
+     "pdfText": "AU SMALL FINANCE BANK CREDIT CARD - MOST IMPORTANT TERMS AND CONDITIONS (MITC)\n1. Fees and charges: Annual fee, joining fee, late payment charges as per schedule of charges.\n2. Credit limit: The credit limit assigned to the Cardholder is communicated at the time of card issuance and may be revised by the Bank. 3. Interest: Finance charges apply on revolving balances up to 3.6% per month. Grievance redressal and Ombudsman details are on the website. Helpline 1800 266 4332."
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m071",
+   "subject": "Your AU Credit Card statement - Jun 2025",
+   "body": "Dear Sanjay,\nPlease find attached your AU Vetta Credit Card xx6878 statement for the period 18-May-2025 to 17-Jun-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-06-18",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Jun2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m072",
+   "subject": "Payment received on your AU Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 6,206.89 on 21-Jun-2025 for your AU Vetta Credit Card XX6878. Available credit limit has been updated.\n\nOpt for e-statements and go green.",
+   "date": "2025-06-21",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m073",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Transaction alert: INR 1,945.60 spent at EAZYDINER on 29-Jun-2025 using your AU Zenith+ Credit Card.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-06-29",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m074",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 1,102.65 was spent on your AU Small Finance Bank Credit Card ending 6878 at MYNTRA on 29-Jun-2025.\n\nOpt for e-statements and go green.",
+   "date": "2025-06-29",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m075",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nINR 15,397.18 spent on your AU Zenith+ Credit Card at IRCTC on 30-Jun-2025.\n\n",
+   "date": "2025-06-30",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m076",
+   "subject": "Payment received on your AU Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 86.58 on 05-Jul-2025 for your AU Vetta Credit Card XX6878. Available credit limit has been updated.",
+   "date": "2025-07-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m077",
+   "subject": "Your order has been confirmed",
+   "body": "Hi Sanjay,\nYour order #855-6417936-7918769 is confirmed. Total Rs.13,094.39. Estimated delivery in 2 days.",
+   "date": "2025-07-05",
+   "attachments": [],
+   "from": "Uber <uber.india@uber.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 256.73 was spent on your AU Vetta Credit Card ending 6878 at SPOTIFY on 07-Jul-2025.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-07",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m079",
+   "subject": "Your AU Credit Card statement - Jul 2025",
+   "body": "Dear Sanjay,\nPlease find attached your AU Zenith+ Credit Card statement for the period 08-Jun-2025 to 07-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-07-08",
+   "attachments": [
+    {
+     "filename": "AU_CC_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m080",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 33,947.27 debited from account *1660 on 13-Jul-2025. Narration: POS/PHONEPE. Available balance INR 6,294.64.",
+   "date": "2025-07-13",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m081",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Your A/c XX1660 is debited for INR 259.88 on 16-Jul-2025 - UPI ZEPTO. Bal INR 1,16,630.62. -AU Small Finance Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-16",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m082",
+   "subject": "Your AU Credit Card statement - Jul 2025",
+   "body": "Dear Sanjay,\nPlease find attached your AU Vetta Credit Card xx6878 statement for the period 18-Jun-2025 to 17-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-07-18",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m083",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nINR 318.80 spent on your AU Zenith+ Credit Card at AMAZON PAY INDIA on 19-Jul-2025.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-07-19",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m084",
+   "subject": "AU Small Finance Bank Account Statement - Jul 2025",
+   "body": "Dear Sanjay,\nPlease find attached your AU Small Finance Bank xx1660 statement for the period 20-Jun-2025 to 19-Jul-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-07-20",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m085",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.29,427.99 has been transferred from your A/c XXXXXX1251 to Sunil Plumber A/c XX8024 (Union Bank of India) via IMPS on 22-Jul-2025. Ref no 356313316428.",
+   "date": "2025-07-22",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m086",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 32,734.79 debited from account XX1251 on 23-Jul-2025. Narration: ECOM/PHONEPE. Available balance INR 10,747.10.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-07-23",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m087",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 1,496.37 spent on your AU Vetta Credit Card ending 6878 at ZOMATO on 26-Jul-2025 15:00:13.",
+   "date": "2025-07-26",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m088",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Your A/c *1660 is debited for INR 3,645.99 on 05-Aug-2025 - POS NYKAA. Bal INR 18,292.66. -AU Small Finance Bank",
+   "date": "2025-08-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m089",
+   "subject": "Your AU Credit Card statement - Aug 2025",
+   "body": "Dear Sanjay,\nYour AU Zenith+ Credit Card statement for Aug 2025 is ready. Total amount due Rs.8,536.33, minimum amount due Rs.426.82, payable by 25-Aug-2025.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-08",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m090",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 6,872.28 debited from account XX1660 on 08-Aug-2025. Narration: IMPS/BPCL FUEL. Available balance INR 10,453.95.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-08-08",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m091",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nINR 155.76 spent on your AU Zenith+ Credit Card at GOOGLE PLAY on 12-Aug-2025.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-08-12",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m092",
+   "subject": "Your AU Credit Card statement - Aug 2025",
+   "body": "Dear Sanjay,\nPlease find attached your AU Vetta Credit Card XX6878 statement for the period 18-Jul-2025 to 17-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2025-08-18",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m093",
+   "subject": "AU Bank: credit alert on your account",
+   "body": "Your A/c XX1251 is credited with INR 414.53 on 18-Aug-2025 - IMPS. Bal INR 3,807.49. -AU Small Finance Bank",
+   "date": "2025-08-18",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m094",
+   "subject": "Payment received on your AU Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 1,194.63 on 20-Aug-2025 for your AU Vetta Credit Card XX6878. Available credit limit has been updated.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-08-20",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m095",
+   "subject": "OTP for your transaction",
+   "body": "898071 is the OTP for your transaction of Rs.338.88 at BLINKIT. Valid for 10 minutes. Do not share.",
+   "date": "2025-08-22",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m096",
+   "subject": "AU Small Finance Bank Account Statement - Aug 2025",
+   "body": "Dear Sanjay,\nPlease find attached your AU Small Finance Bank xx1251 statement for the period 23-Jul-2025 to 22-Aug-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-23",
+   "attachments": [
+    {
+     "filename": "eStatement_202508.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m097",
+   "subject": "Update your KYC",
+   "body": "Dear Sanjay,\nAs per RBI guidelines please complete re-KYC for your AU Small Finance Bank relationship. Visit a branch or use the app.\n\n",
+   "date": "2025-08-25",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m098",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 10,274.67 spent on your AU Small Finance Bank Credit Card XX6878 at ZEPTO on 26-Aug-2025 16:37:04.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-26",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m099",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 1,682.80 debited from account XXXXXX1660 on 27-Aug-2025. Narration: NEFT/MAKEMYTRIP. Available balance INR 91,082.71.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m100",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 160.52 was spent on your AU Small Finance Bank Credit Card XX6878 at CROMA on 31-Aug-2025.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-08-31",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m101",
+   "subject": "Your AU Credit Card statement - Sep 2025",
+   "body": "Dear Sanjay,\nYour AU Zenith+ Credit Card statement for Sep 2025 is ready. Total amount due Rs.50,788.13, minimum amount due Rs.2,539.41, payable by 25-Sep-2025.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2025-09-08",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m102",
+   "subject": "Your AU Credit Card statement - Sep 2025",
+   "body": "Dear Sanjay,\nYour AU Vetta Credit Card XX6878 statement for Sep 2025 is ready. Total amount due Rs.55,094.85, minimum amount due Rs.2,754.74, payable by 05-Oct-2025.\nLogin to view and download your e-statement.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-09-18",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m103",
+   "subject": "AU Small Finance Bank Account Statement - Sep 2025",
+   "body": "Dear Sanjay,\nPlease find attached your AU Small Finance Bank *1660 statement for the period 20-Aug-2025 to 19-Sep-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-20",
+   "attachments": [
+    {
+     "filename": "eStatement_202509.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m104",
+   "subject": "AU Bank: credit alert on your account",
+   "body": "Credit alert: INR 3,801.11 has been credited to account XX1660 on 21-Sep-2025 (REFUND). Avl bal INR 2,766.08.",
+   "date": "2025-09-21",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m105",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX1660 is debited for INR 688.96 on 24-Sep-2025 - UPI NETFLIX. Bal INR 10,837.70. -AU Small Finance Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-24",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m106",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Your A/c xx1660 is debited for INR 763.52 on 26-Sep-2025 - IMPS BATA INDIA. Bal INR 8,401.13. -AU Small Finance Bank\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-09-26",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m107",
+   "subject": "AU Bank: credit alert on your account",
+   "body": "Dear Customer,\nINR 576.41 credited to your AU Small Finance Bank A/c XXXXXX1660 on 27-Sep-2025 by UPI. Ref 121701162529.\nThank you for banking with us.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m108",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 795.12 debited from account xx1660 on 02-Oct-2025. Narration: ECOM/INDIGO AIRLINES. Available balance INR 30,306.05.",
+   "date": "2025-10-02",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m109",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Dear Customer,\nINR 2,086.74 has been debited from your AU Small Finance Bank A/c XX1660 on 05-Oct-2025 (IMPS ZEPTO). Avl bal INR 24,905.30.",
+   "date": "2025-10-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m110",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nINR 229.64 spent on your AU Zenith+ Credit Card at SPOTIFY on 06-Oct-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-06",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m111",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 344.30 was spent on your AU Vetta Credit Card ending 6878 at IRCTC on 06-Oct-2025.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2025-10-06",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m112",
+   "subject": "Your AU Credit Card statement - Oct 2025",
+   "body": "Dear Sanjay,\nYour AU Zenith+ Credit Card statement for Oct 2025 is ready. Total amount due Rs.2,602.54, minimum amount due Rs.200.00, payable by 25-Oct-2025.\nLogin to view and download your e-statement.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-08",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m113",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 137.25 spent on your AU Vetta Credit Card XX6878 at BOOKMYSHOW on 15-Oct-2025 16:07:19.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-10-15",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m114",
+   "subject": "Your AU Credit Card statement - Oct 2025",
+   "body": "Dear Sanjay,\nPlease find attached your AU Vetta Credit Card XX6878 statement for the period 18-Sep-2025 to 17-Oct-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-10-18",
+   "attachments": [
+    {
+     "filename": "6878_17102025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m115",
+   "subject": "Debit alert: fund transfer",
+   "body": "Dear Customer,\nRs.3,829.07 has been transferred from your A/c xx1251 to Anil Traders A/c XX1583 (Bandhan Bank) via IMPS on 18-Oct-2025. Ref no 899226288899.",
+   "date": "2025-10-18",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m116",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 9,497.07 spent on your AU Vetta Credit Card XX6878 at TATA PLAY on 22-Oct-2025 21:21:23.\n\nDownload our mobile app for instant alerts.",
+   "date": "2025-10-22",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m117",
+   "subject": "Payment received on your AU Credit Card",
+   "body": "Payment of INR 650.70 has been received towards your AU Small Finance Bank Credit Card ending 6878 on 23-Oct-2025. Thank you for the payment.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-10-23",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m118",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 32,222.24 debited from account XXXXXX1251 on 24-Oct-2025. Narration: ECOM/ZOMATO. Available balance INR 8,711.26.",
+   "date": "2025-10-24",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m119",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 5,755.31 debited from account *1251 on 28-Oct-2025. Narration: ECOM/IXIGO. Available balance INR 13,663.21.",
+   "date": "2025-10-28",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m120",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Your A/c xx1660 is debited for INR 386.35 on 30-Oct-2025 - UPI SODEXO. Bal INR 19,620.49. -AU Small Finance Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-30",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m121",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 8,578.37 spent on your AU Small Finance Bank Credit Card XX6878 at APOLLO PHARMACY on 31-Oct-2025 15:05:34.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-10-31",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m122",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 15,771.50 debited from account XXXXXX1251 on 31-Oct-2025. Narration: NEFT/DOMINOS. Available balance INR 1,69,336.62.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-10-31",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m123",
+   "subject": "AU Small Finance Bank: Aadhaar linked",
+   "body": "Dear Customer,\nYour Aadhaar number XXXX XXXX 1147 has been successfully linked/verified for your AU Small Finance Bank relationship. If this was not you, contact us.",
+   "date": "2025-11-01",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m124",
+   "subject": "Payment received on your AU Credit Card",
+   "body": "Payment of INR 7,651.46 has been received towards your AU Zenith+ Credit Card on 03-Nov-2025. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-03",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m125",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 9,754.08 was spent on your AU Vetta Credit Card xx6878 at GOOGLE PLAY on 06-Nov-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-06",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m126",
+   "subject": "Your AU Credit Card statement - Nov 2025",
+   "body": "Dear Sanjay,\nPlease find attached your AU Zenith+ Credit Card statement for the period 08-Oct-2025 to 07-Nov-2025. Total amount due Rs.22,142.11, due 22-Nov-2025.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2025-11-08",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "AU Small Finance Bank Credit Card Statement\nSANJAY SHARMA\nFLAT 426, ORCHID APARTMENTS\n19TH CROSS, INDIRANAGAR\nCHENNAI - 448804\nCard Name: AU Zenith+ Credit Card\nCredit Card Number: 494121XXXXXX2773\nBilling Cycle: 08/10/25 - 07/11/25\nStatement Date: 07/11/25\nPayment Summary\nTotal Amount Due: Rs.22,142.11\nMinimum Amount Due: Rs.1,107.11\nPayment Due Date: 22/11/25\nAccount Summary\nCredit Limit: Rs.6,55,000.00\nAvailable Credit Limit: Rs.6,49,196.18\nAvailable Cash Limit: Rs.1,31,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n14/10/25 BLINKIT HYDERABAD 466.71 Dr\n15/10/25 DMART AHMEDABAD 8,209.69 Dr\n24/10/25 BIG BAZAAR CHENNAI 4,156.77 Dr\n01/11/25 JIO RECHARGE MUMBAI 4,929.41 Dr\n04/11/25 EAZYDINER GURUGRAM 493.63 Dr\n07/11/25 BESCOM KOCHI 3,885.90 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m127",
+   "subject": "Your AU Credit Card statement - Nov 2025",
+   "body": "Dear Sanjay,\nYour AU Vetta Credit Card xx6878 statement for Nov 2025 is ready. Total amount due Rs.5,180.42, minimum amount due Rs.259.02, payable by 05-Dec-2025.\nLogin to view and download your e-statement.\n\n",
+   "date": "2025-11-18",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m128",
+   "subject": "AU Small Finance Bank Account Statement - Nov 2025",
+   "body": "Dear Sanjay,\nPlease find attached your AU Small Finance Bank *1660 statement for the period 20-Oct-2025 to 19-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2025-11-20",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m129",
+   "subject": "AU Small Finance Bank Account Statement - Nov 2025",
+   "body": "Dear Sanjay,\nPlease find attached your AU Small Finance Bank *1251 statement for the period 23-Oct-2025 to 22-Nov-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2025-11-23",
+   "attachments": [
+    {
+     "filename": "1251_22112025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m130",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nINR 9,389.28 spent on your AU Zenith+ Credit Card at MYNTRA on 06-Dec-2025.\n\nOpt for e-statements and go green.",
+   "date": "2025-12-06",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m131",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nINR 318.77 spent on your AU Zenith+ Credit Card at BOOKMYSHOW on 07-Dec-2025.\n\n",
+   "date": "2025-12-07",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m132",
+   "subject": "Your AU Credit Card statement - Dec 2025",
+   "body": "Dear Sanjay,\nYour AU Zenith+ Credit Card statement for Dec 2025 is ready. Total amount due Rs.7,170.19, minimum amount due Rs.358.51, payable by 25-Dec-2025.\nLogin to view and download your e-statement.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-08",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m133",
+   "subject": "AU Bank: credit alert on your account",
+   "body": "Dear Customer,\nINR 303.09 credited to your AU Small Finance Bank A/c xx1251 on 17-Dec-2025 by INTEREST CREDIT. Ref 130524486973.\nThank you for banking with us.\n\nOpt for e-statements and go green.",
+   "date": "2025-12-17",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m134",
+   "subject": "Your AU Credit Card statement - Dec 2025",
+   "body": "Dear Sanjay,\nPlease find attached your AU Vetta Credit Card ending 6878 statement for the period 18-Nov-2025 to 17-Dec-2025.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-18",
+   "attachments": [
+    {
+     "filename": "AU_CC_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m135",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Dear Customer,\nINR 168.90 has been debited from your AU Small Finance Bank A/c xx1660 on 20-Dec-2025 (UPI EASEMYTRIP). Avl bal INR 44,921.16.",
+   "date": "2025-12-20",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m136",
+   "subject": "AU Bank: credit alert on your account",
+   "body": "Dear Customer,\nINR 86.10 credited to your AU Small Finance Bank A/c xx1251 on 22-Dec-2025 by REFUND. Ref 805374501211.\nThank you for banking with us.\n\nOpt for e-statements and go green.",
+   "date": "2025-12-22",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m137",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Dear Customer,\nINR 8,949.32 has been debited from your AU Small Finance Bank A/c XX1660 on 31-Dec-2025 (NEFT APPLE SERVICES). Avl bal INR 28,524.51.\n\nOpt for e-statements and go green.",
+   "date": "2025-12-31",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m138",
+   "subject": "Your AU Credit Card statement - Jan 2026",
+   "body": "Dear Sanjay,\nYour AU Zenith+ Credit Card statement for Jan 2026 is ready. Total amount due Rs.2,725.79, minimum amount due Rs.200.00, payable by 25-Jan-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-01-08",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m139",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Transaction alert: INR 537.50 spent at SODEXO on 10-Jan-2026 using your AU Zenith+ Credit Card.\n\n",
+   "date": "2026-01-10",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m140",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 11,394.78 debited from account *1660 on 17-Jan-2026. Narration: IMPS/JIO RECHARGE. Available balance INR 26,100.38.\n\nOpt for e-statements and go green.",
+   "date": "2026-01-17",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m141",
+   "subject": "Your AU Credit Card statement - Jan 2026",
+   "body": "Dear Sanjay,\nPlease find attached your AU Vetta Credit Card XX6878 statement for the period 18-Dec-2025 to 17-Jan-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-01-18",
+   "attachments": [
+    {
+     "filename": "AU_CC_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m142",
+   "subject": "AU Small Finance Bank Account Statement - Jan 2026",
+   "body": "Dear Sanjay,\nYour AU Small Finance Bank xx1660 account statement for Jan 2026 is ready. Closing balance Rs.56,020.01.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-01-20",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m143",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Sanjay,\nUse your card on UPI and earn extra rewards.\n\n",
+   "date": "2026-01-22",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m144",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Dear Customer,\nINR 684.42 has been debited from your AU Small Finance Bank A/c XX1251 on 29-Jan-2026 (NEFT URBAN COMPANY). Avl bal INR 18,577.76.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-01-29",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m145",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nINR 2,944.19 spent on your AU Zenith+ Credit Card at TATA POWER on 05-Feb-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-02-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m146",
+   "subject": "Your AU Credit Card statement - Feb 2026",
+   "body": "Dear Sanjay,\nPlease find attached your AU Zenith+ Credit Card statement for the period 08-Jan-2026 to 07-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-08",
+   "attachments": [
+    {
+     "filename": "AU_CC_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m147",
+   "subject": "Your AU Credit Card statement - Feb 2026",
+   "body": "Dear Sanjay,\nYour AU Vetta Credit Card ending 6878 statement for Feb 2026 is ready. Total amount due Rs.11,740.08, minimum amount due Rs.587.00, payable by 07-Mar-2026.\nLogin to view and download your e-statement.\n\nOpt for e-statements and go green.",
+   "date": "2026-02-18",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m148",
+   "subject": "AU Small Finance Bank Account Statement - Feb 2026",
+   "body": "Dear Sanjay,\nPlease find attached your AU Small Finance Bank XX1251 statement for the period 23-Jan-2026 to 22-Feb-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-02-23",
+   "attachments": [
+    {
+     "filename": "eStatement_202602.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m149",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 19,374.11 debited from account xx1660 on 24-Feb-2026. Narration: NEFT/SWIGGY. Available balance INR 10,782.36.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-02-24",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m150",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nINR 2,273.65 spent on your AU Zenith+ Credit Card at IRCTC on 28-Feb-2026.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-02-28",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m151",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Transaction alert: INR 1,670.14 spent at EASEMYTRIP on 04-Mar-2026 using your AU Zenith+ Credit Card.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-04",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m152",
+   "subject": "Mobile number updated",
+   "body": "Dear Customer,\nYour registered mobile number XXXXXX6386 has been updated on 02-Nov-2025. If not requested by you, call customer care.",
+   "date": "2026-03-05",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m153",
+   "subject": "Your AU Credit Card statement - Mar 2026",
+   "body": "Dear Sanjay,\nYour AU Zenith+ Credit Card statement for Mar 2026 is ready. Total amount due Rs.8,013.72, minimum amount due Rs.400.69, payable by 25-Mar-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-03-08",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m154",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 791.57 debited from account XX1660 on 09-Mar-2026. Narration: NEFT/PHONEPE. Available balance INR 12,198.76.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-09",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m155",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Sanjay,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-14",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m156",
+   "subject": "Your AU Credit Card statement - Mar 2026",
+   "body": "Dear Sanjay,\nPlease find attached your AU Vetta Credit Card xx6878 statement for the period 18-Feb-2026 to 17-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-03-18",
+   "attachments": [
+    {
+     "filename": "eStatement_202603.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m157",
+   "subject": "AU Small Finance Bank Account Statement - Mar 2026",
+   "body": "Dear Sanjay,\nPlease find attached your AU Small Finance Bank XXXXXX1660 statement for the period 20-Feb-2026 to 19-Mar-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-03-20",
+   "attachments": [
+    {
+     "filename": "AU_Acct_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m158",
+   "subject": "AU Small Finance Bank festive offers",
+   "body": "Dear Sanjay,\nConvert big spends to EMI at low interest.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-20",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m159",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 86.28 debited from account XXXXXX1660 on 29-Mar-2026. Narration: POS/RELIANCE DIGITAL. Available balance INR 4,693.96.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-03-29",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m160",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Transaction alert: INR 228.38 spent at BIGBASKET on 31-Mar-2026 using your AU Zenith+ Credit Card.\n\n",
+   "date": "2026-03-31",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m161",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Dear Customer,\nINR 2,075.12 has been debited from your AU Small Finance Bank A/c XX1251 on 03-Apr-2026 (IMPS AIRTEL PREPAID). Avl bal INR 97,561.25.\n\nOpt for e-statements and go green.",
+   "date": "2026-04-03",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m162",
+   "subject": "Your AU Credit Card statement - Apr 2026",
+   "body": "Dear Sanjay,\nPlease find attached your AU Zenith+ Credit Card statement for the period 08-Mar-2026 to 07-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-08",
+   "attachments": [
+    {
+     "filename": "AU_CC_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m163",
+   "subject": "OTP for your transaction",
+   "body": "999705 is the OTP for your transaction of Rs.13,167.63 at NYKAA. Valid for 10 minutes. Do not share.",
+   "date": "2026-04-08",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m164",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Sanjay,\nConvert big spends to EMI at low interest.\n\n",
+   "date": "2026-04-09",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m165",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 544.92 was spent on your AU Vetta Credit Card ending 6878 at SWIGGY on 16-Apr-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-16",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m166",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX1251 is debited for INR 611.36 on 16-Apr-2026 - IMPS MYNTRA. Bal INR 1,29,743.90. -AU Small Finance Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-04-16",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m167",
+   "subject": "Your AU Credit Card statement - Apr 2026",
+   "body": "Dear Sanjay,\nPlease find attached your AU Vetta Credit Card XX6878 statement for the period 18-Mar-2026 to 17-Apr-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-04-18",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m168",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 9,807.12 spent on your AU Vetta Credit Card xx6878 at BIG BAZAAR on 20-Apr-2026 01:54:25.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-20",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m169",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX1660 is debited for INR 6,810.21 on 20-Apr-2026 - IMPS BOOKMYSHOW. Bal INR 7,419.14. -AU Small Finance Bank\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-04-20",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m170",
+   "subject": "Payment received on your AU Credit Card",
+   "body": "Payment of INR 20,727.10 has been received towards your AU Vetta Credit Card XX6878 on 26-Apr-2026. Thank you for the payment.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-26",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m171",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nINR 208.79 spent on your AU Zenith+ Credit Card at OLA CABS on 07-May-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-07",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m172",
+   "subject": "Your AU Credit Card statement - May 2026",
+   "body": "Dear Sanjay,\nYour AU Zenith+ Credit Card statement for May 2026 is ready. Total amount due Rs.21,470.61, minimum amount due Rs.1,073.53, payable by 25-May-2026.\nLogin to view and download your e-statement.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-08",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m173",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 435.08 debited from account xx1251 on 09-May-2026. Narration: IMPS/PVR INOX. Available balance INR 54,946.10.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-05-09",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m174",
+   "subject": "AU Bank: credit alert on your account",
+   "body": "Dear Customer,\nINR 15,023.52 credited to your AU Small Finance Bank A/c XXXXXX1251 on 11-May-2026 by REFUND. Ref 575535059316.\nThank you for banking with us.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-05-11",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m175",
+   "subject": "AU Bank: credit alert on your account",
+   "body": "Dear Customer,\nINR 28,648.20 credited to your AU Small Finance Bank A/c XXXXXX1251 on 13-May-2026 by NEFT. Ref 775289179448.\nThank you for banking with us.",
+   "date": "2026-05-13",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m176",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 229.04 debited from account *1251 on 16-May-2026. Narration: NEFT/NYKAA. Available balance INR 70,505.19.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-05-16",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m177",
+   "subject": "Your AU Credit Card statement - May 2026",
+   "body": "Dear Sanjay,\nPlease find attached your AU Vetta Credit Card xx6878 statement for the period 18-Apr-2026 to 17-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-18",
+   "attachments": [
+    {
+     "filename": "6878_17052026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m178",
+   "subject": "AU Small Finance Bank Account Statement - May 2026",
+   "body": "Dear Sanjay,\nPlease find attached your AU Small Finance Bank XXXXXX1660 statement for the period 20-Apr-2026 to 19-May-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-05-20",
+   "attachments": [
+    {
+     "filename": "1660_19052026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m179",
+   "subject": "AU Small Finance Bank Account Statement - May 2026",
+   "body": "Dear Sanjay,\nYour AU Small Finance Bank XXXXXX1251 account statement for May 2026 is ready. Closing balance Rs.1,234.21.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-05-23",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m180",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nINR 8,985.21 spent on your AU Zenith+ Credit Card at BIGBASKET on 23-May-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-05-23",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m181",
+   "subject": "Pre-approved personal loan",
+   "body": "Dear Sanjay,\nGet up to 10% cashback on partner brands.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-23",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m182",
+   "subject": "AU Bank: credit alert on your account",
+   "body": "Dear Customer,\nINR 384.35 credited to your AU Small Finance Bank A/c XXXXXX1251 on 28-May-2026 by INTEREST CREDIT. Ref 936112521264.\nThank you for banking with us.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-05-28",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m183",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Dear Customer,\nINR 1,566.16 has been debited from your AU Small Finance Bank A/c xx1660 on 04-Jun-2026 (NEFT SODEXO). Avl bal INR 59,913.27.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-04",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m184",
+   "subject": "Your AU Credit Card statement - Jun 2026",
+   "body": "Dear Sanjay,\nPlease find attached your AU Zenith+ Credit Card statement for the period 08-May-2026 to 07-Jun-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-08",
+   "attachments": [
+    {
+     "filename": "eStatement_202606.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m185",
+   "subject": "Payment received on your AU Credit Card",
+   "body": "Payment of INR 1,631.93 has been received towards your AU Zenith+ Credit Card on 09-Jun-2026. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-09",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m186",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 9,451.31 spent on your AU Vetta Credit Card ending 6878 at AIRTEL PREPAID on 14-Jun-2026 07:48:37.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-14",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m187",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 287.99 debited from account *1660 on 16-Jun-2026. Narration: NEFT/BESCOM. Available balance INR 1,03,891.06.",
+   "date": "2026-06-16",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m188",
+   "subject": "Your AU Credit Card statement - Jun 2026",
+   "body": "Dear Sanjay,\nYour AU Vetta Credit Card XX6878 statement for Jun 2026 is ready. Total amount due Rs.433.36, minimum amount due Rs.200.00, payable by 05-Jul-2026.\nLogin to view and download your e-statement.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-18",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m189",
+   "subject": "Payment received on your AU Credit Card",
+   "body": "Payment of INR 198.54 has been received towards your AU Zenith+ Credit Card on 21-Jun-2026. Thank you.\n\nOpt for e-statements and go green.",
+   "date": "2026-06-21",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m190",
+   "subject": "Payment received on your AU Credit Card",
+   "body": "Payment of INR 1,332.06 has been received towards your AU Small Finance Bank Credit Card XX6878 on 26-Jun-2026. Thank you for the payment.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-26",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m191",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 282.45 spent on your AU Vetta Credit Card xx6878 at IRCTC on 28-Jun-2026 03:40:34.",
+   "date": "2026-06-28",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m192",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Sanjay,\nConvert big spends to EMI at low interest.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-06-30",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m193",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Your A/c xx1251 is debited for INR 34,498.12 on 07-Jul-2026 - UPI DMART. Bal INR 10,664.24. -AU Small Finance Bank",
+   "date": "2026-07-07",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m194",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Dear Customer,\nINR 3,687.85 has been debited from your AU Small Finance Bank A/c XX1660 on 07-Jul-2026 (IMPS GOOGLE PLAY). Avl bal INR 3,796.11.",
+   "date": "2026-07-07",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m195",
+   "subject": "Your AU Credit Card statement - Jul 2026",
+   "body": "Dear Sanjay,\nPlease find attached your AU Zenith+ Credit Card statement for the period 08-Jun-2026 to 07-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-07-08",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m196",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Dear Customer,\nINR 2,659.34 has been debited from your AU Small Finance Bank A/c *1660 on 12-Jul-2026 (IMPS UBER INDIA). Avl bal INR 4,184.03.",
+   "date": "2026-07-12",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m197",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 5,015.52 was spent on your AU Vetta Credit Card XX6878 at JIO RECHARGE on 14-Jul-2026.",
+   "date": "2026-07-14",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m198",
+   "subject": "Your AU Credit Card statement - Jul 2026",
+   "body": "Dear Sanjay,\nPlease find attached your AU Vetta Credit Card xx6878 statement for the period 18-Jun-2026 to 17-Jul-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-07-18",
+   "attachments": [
+    {
+     "filename": "AU_CC_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m199",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Your A/c xx1251 is debited for INR 8,022.53 on 18-Jul-2026 - ECOM BLINKIT. Bal INR 1,33,643.29. -AU Small Finance Bank",
+   "date": "2026-07-18",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m200",
+   "subject": "AU Small Finance Bank Account Statement - Jul 2026",
+   "body": "Dear Sanjay,\nYour AU Small Finance Bank xx1660 account statement for Jul 2026 is ready. Closing balance Rs.6,466.08.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-07-20",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m201",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Your A/c *1251 is debited for INR 112.95 on 22-Jul-2026 - POS CROMA. Bal INR 12,381.67. -AU Small Finance Bank\n\nOpt for e-statements and go green.",
+   "date": "2026-07-22",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m202",
+   "subject": "Refer and earn",
+   "body": "Dear Sanjay,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\n",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m203",
+   "subject": "Payment received on your AU Credit Card",
+   "body": "Dear Customer,\nWe have received your payment of INR 2,417.91 on 28-Jul-2026 for your AU Vetta Credit Card XX6878. Available credit limit has been updated.\n\nOpt for e-statements and go green.",
+   "date": "2026-07-28",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m204",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 10,709.60 was spent on your AU Small Finance Bank Credit Card XX6878 at DECATHLON on 02-Aug-2026.\n\nRegister for UPI on your card to pay at any merchant.",
+   "date": "2026-08-02",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m205",
+   "subject": "Exclusive offer for you",
+   "body": "Dear Sanjay,\nUpgrade your savings with a fixed deposit @ 7.25% p.a.\n\n",
+   "date": "2026-08-04",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m206",
+   "subject": "Your AU Credit Card statement - Aug 2026",
+   "body": "Dear Sanjay,\nPlease find attached your AU Zenith+ Credit Card statement for the period 08-Jul-2026 to 07-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-08-08",
+   "attachments": [
+    {
+     "filename": "AU_Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m207",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nTransaction alert: INR 235.62 spent on your AU Vetta Credit Card xx6878 at SPOTIFY on 08-Aug-2026 23:47:51.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-08-08",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m208",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Cardmember,\nINR 24,147.02 was spent on your AU Vetta Credit Card ending 6878 at AMAZON PAY INDIA on 10-Aug-2026.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-10",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m209",
+   "subject": "Your AU Credit Card statement - Aug 2026",
+   "body": "Dear Sanjay,\nPlease find attached your AU Vetta Credit Card xx6878 statement for the period 18-Jul-2026 to 17-Aug-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-08-18",
+   "attachments": [
+    {
+     "filename": "AU_CC_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m210",
+   "subject": "AU Small Finance Bank Account Statement - Aug 2026",
+   "body": "Dear Sanjay,\nYour AU Small Finance Bank XXXXXX1251 account statement for Aug 2026 is ready. Closing balance Rs.7,183.10.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m211",
+   "subject": "OTP for your transaction",
+   "body": "289479 is the OTP for your transaction of Rs.122.07 at CROMA. Valid for 10 minutes. Do not share.",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m212",
+   "subject": "Your AU Credit Card statement - Sep 2026",
+   "body": "Dear Sanjay,\nYour AU Zenith+ Credit Card statement for Sep 2026 is ready. Total amount due Rs.3,701.25, minimum amount due Rs.200.00, payable by 25-Sep-2026.\nLogin to view and download your e-statement.\n\nT&C apply. Credit subject to bank's approval.",
+   "date": "2026-09-08",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m213",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Your A/c xx1251 is debited for INR 2,086.85 on 14-Sep-2026 - NEFT RELIANCE DIGITAL. Bal INR 6,331.54. -AU Small Finance Bank\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-09-14",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m214",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nINR 2,574.88 spent on your AU Zenith+ Credit Card at TATA POWER on 15-Sep-2026.\n\n",
+   "date": "2026-09-15",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m215",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Your A/c xx1251 is debited for INR 19,293.99 on 16-Sep-2026 - NEFT URBAN COMPANY. Bal INR 1,06,164.49. -AU Small Finance Bank\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-09-16",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m216",
+   "subject": "Your AU Credit Card statement - Sep 2026",
+   "body": "Dear Sanjay,\nPlease find attached your AU Vetta Credit Card xx6878 statement for the period 18-Aug-2026 to 17-Sep-2026. Total amount due Rs.32,360.20, due 05-Oct-2026.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-18",
+   "attachments": [
+    {
+     "filename": "AU_CC_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "AU Small Finance Bank Credit Card Statement\nSANJAY SHARMA\nFLAT 168, ORCHID APARTMENTS\n24TH CROSS, INDIRANAGAR\nCHENNAI - 633706\nCard Name: AU Vetta Credit Card\nCredit Card Number: 452341XXXXXX6878\nBilling Cycle: 18/08/26 - 17/09/26\nStatement Date: 17/09/26\nPayment Summary\nTotal Amount Due: Rs.32,360.20\nMinimum Amount Due: Rs.1,618.01\nPayment Due Date: 05/10/26\nAccount Summary\nCredit Limit: Rs.3,55,000.00\nAvailable Credit Limit: Rs.3,36,998.64\nAvailable Cash Limit: Rs.71,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n22/08/26 NYKAA KOLKATA 304.51 Dr\n22/08/26 RELIANCE DIGITAL GURUGRAM 136.81 Dr\n22/08/26 ZOMATO KOLKATA 256.78 Dr\n26/08/26 PVR INOX MUMBAI 184.47 Dr\n09/09/26 MEDPLUS BENGALURU 8,726.98 Dr\n10/09/26 INDIGO AIRLINES PUNE 198.01 Dr\n13/09/26 RELIANCE DIGITAL BENGALURU 17,499.61 Dr\n16/09/26 BIG BAZAAR CHENNAI 5,053.03 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m217",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 246.01 debited from account xx1660 on 18-Sep-2026. Narration: NEFT/FLIPKART. Available balance INR 73,907.06.",
+   "date": "2026-09-18",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m218",
+   "subject": "AU Small Finance Bank Account Statement - Sep 2026",
+   "body": "Dear Sanjay,\nPlease find attached your AU Small Finance Bank XX1660 statement for the period 20-Aug-2026 to 19-Sep-2026.\nThe attachment is password protected: use the first four letters of your name in capitals followed by your date of birth (DDMM).\n\n",
+   "date": "2026-09-20",
+   "attachments": [
+    {
+     "filename": "AU_Acct_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m219",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Transaction alert: INR 180.66 spent at ZEPTO on 20-Sep-2026 using your AU Zenith+ Credit Card.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-09-20",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m220",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "Your A/c XXXXXX1660 is debited for INR 150.59 on 28-Sep-2026 - IMPS MYNTRA. Bal INR 1,69,855.93. -AU Small Finance Bank",
+   "date": "2026-09-28",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m221",
+   "subject": "OTP for your transaction",
+   "body": "470694 is the OTP for your transaction of Rs.436.35 at NETFLIX. Valid for 10 minutes. Do not share.",
+   "date": "2026-10-01",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m222",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 1,403.13 debited from account *1660 on 06-Oct-2026. Narration: ECOM/AMAZON PAY INDIA. Available balance INR 4,268.05.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-06",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m223",
+   "subject": "Your AU Credit Card statement - Oct 2026",
+   "body": "Dear Sanjay,\nPlease find attached your AU Zenith+ Credit Card statement for the period 08-Sep-2026 to 07-Oct-2026. Total amount due Rs.27,633.66, due 26-Oct-2026.\n\n",
+   "date": "2026-10-08",
+   "attachments": [
+    {
+     "filename": "eStatement_202610.pdf",
+     "protected": false,
+     "pdfText": "AU Small Finance Bank Credit Card Statement\nSANJAY SHARMA\nFLAT 340, GREEN VALLEY APARTMENTS\n17TH CROSS, KOTHRUD\nPUNE - 611638\nCard Name: AU Zenith+ Credit Card\nCredit Card Number: 494121XXXXXX2773\nBilling Cycle: 08/09/26 - 07/10/26\nStatement Date: 07/10/26\nPayment Summary\nTotal Amount Due: Rs.27,633.66\nMinimum Amount Due: Rs.1,381.68\nPayment Due Date: 26/10/26\nAccount Summary\nCredit Limit: Rs.6,55,000.00\nAvailable Credit Limit: Rs.6,30,141.54\nAvailable Cash Limit: Rs.1,31,000.00\nDate Transaction Details Amount (Rs.) Dr/Cr\n11/09/26 EASEMYTRIP MUMBAI 4,063.25 Dr\n15/09/26 ZOMATO AHMEDABAD 2,971.75 Dr\n17/09/26 APOLLO PHARMACY BENGALURU 412.05 Dr\n21/09/26 NYKAA KOCHI 1,908.01 Dr\n25/09/26 BIGBASKET BENGALURU 347.05 Dr\n25/09/26 BLINKIT MUMBAI 1,112.22 Dr\n26/09/26 URBAN COMPANY PUNE 2,255.75 Dr\n28/09/26 BPCL FUEL HYDERABAD 2,017.76 Dr\n30/09/26 INDIGO AIRLINES BENGALURU 6,058.63 Dr\n02/10/26 AMAZON PAY INDIA CHENNAI 1,904.96 Dr\n02/10/26 UBER INDIA KOCHI 4,582.23 Dr\n\nReward Points Summary: Opening 1,204  Earned 640  Redeemed 0  Closing 1,844\nImportant: Please pay the Total Amount Due on or before the due date to avoid late payment charges."
+    }
+   ],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m224",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nINR 9,905.35 spent on your AU Zenith+ Credit Card at OLA CABS on 11-Oct-2026.\n\nNever share your OTP, PIN, CVV or password with anyone. The Bank never asks for them.",
+   "date": "2026-10-11",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m225",
+   "subject": "Your AU Credit Card statement - Oct 2026",
+   "body": "Dear Sanjay,\nYour AU Vetta Credit Card XX6878 statement for Oct 2026 is ready. Total amount due Rs.1,045.97, minimum amount due Rs.200.00, payable by 04-Nov-2026.\nLogin to view and download your e-statement.\n\n",
+   "date": "2026-10-18",
+   "attachments": [],
+   "from": "AU Small Finance Bank <creditcards@aubank.in>"
+  },
+  {
+   "id": "m226",
+   "subject": "Earn more with your card",
+   "body": "Dear Sanjay,\nYou are pre-approved for a personal loan up to Rs.5,00,000.\n\n",
+   "date": "2026-10-18",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m227",
+   "subject": "AU Small Finance Bank Credit Card: transaction alert",
+   "body": "Dear Customer,\nINR 432.88 spent on your AU Zenith+ Credit Card at PVR INOX on 22-Oct-2026.\n\nDownload our mobile app for instant alerts.",
+   "date": "2026-10-22",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  },
+  {
+   "id": "m228",
+   "subject": "AU Bank: debit alert on your account",
+   "body": "INR debit alert: INR 1,255.84 debited from account *1251 on 26-Oct-2026. Narration: POS/MYNTRA. Available balance INR 42,943.53.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Offer valid till 31st Dec.",
+   "date": "2026-10-26",
+   "attachments": [],
+   "from": "AU Small Finance Bank <alerts@aubank.in>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "aubank.in",
+    "last4": "2773",
+    "kind": "CREDIT_CARD",
+    "variant": "Zenith",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "5-10L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "aubank.in",
+    "last4": "6878",
+    "kind": "CREDIT_CARD",
+    "variant": "Vetta",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": "3-5L",
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "aubank.in",
+    "last4": "1251",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   },
+   {
+    "issuerDomain": "aubank.in",
+    "last4": "1660",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG",
+    "limitBucket": null,
+    "addonOf": null
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "unionbankofindia.co.in",
+    "last4": "8024",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "bandhanbank.com",
+    "last4": "1583",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "kotak.com",
+    "last4": "8463",
+    "why": "landlord rent account (SI executed + beneficiary added)"
+   },
+   {
+    "issuerDomain": "aubank.in",
+    "last4": "1147",
+    "why": "Aadhaar digits"
+   },
+   {
+    "issuerDomain": "aubank.in",
+    "last4": "6386",
+    "why": "registered mobile number"
+   },
+   {
+    "issuerDomain": "aubank.in",
+    "last4": "5916",
+    "why": "service request / reference number"
+   },
+   {
+    "issuerDomain": "idbi.co.in",
+    "last4": "6846",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   }
+  ]
+ }
+}

@@ -1,0 +1,430 @@
+# Card product catalogue for the account detector, per issuer id (ids as in BankDirectory). Current and legacy
+# (discontinued, renamed, migrated) products, including co-brands.
+#
+# Key = the canonical name: the short marketed name with no issuer words, no "Bank" and no "Credit Card"
+# ("Swiggy HDFC Bank Credit Card" -> Swiggy, "Amazon Pay ICICI Bank" -> Amazon Pay, "IDFC FIRST Wealth" -> First Wealth, "Kotak 811" -> 811).
+# Value = aliases: other spellings seen in mail and statements. Issuer words, "bank", "credit" and "card" are
+# stripped before matching, case and punctuation are ignored, and a trailing network word (Visa, Mastercard, RuPay,
+# Amex, Diners) or "Metal"/"Edition" is tried off, so none of those need listing.
+# A name made only of generic tier words (Platinum, Gold, Select, ...) is matched only right after the issuer's
+# name and is never reported above LOW: on its own it does not identify a product.
+# A phrase that is not in this catalogue is kept as printed and capped at LOW.
+# Long form: Name: {aliases: [..], renamedFrom: [old names], renamedTo: Current, tierProduct: true}. Old and new
+# names of a renamed product are one product, reported by its current name. tierProduct marks a tier-word name that
+# this issuer sells as a product (Amex Gold); it counts only from a "<Issuer> <Name> Card" phrase or a statement.
+
+hdfc:
+  Infinia: [infinia metal, infinia metal edition, infinia reserve]
+  Diners Club Black: [diners black, diners club black metal, dcb metal, diners club black metal edition]
+  Diners Club Privilege: [diners privilege]
+  Diners ClubMiles: [diners club miles, dinersclub miles, clubmiles]
+  Diners Club Rewardz: [diners rewardz, dinersclub rewardz]
+  Diners Club Premium: [diners premium]
+  Diners Club International: [diners international]
+  Regalia Gold: []
+  Regalia: [regalia first]      # legacy
+  Millennia: []
+  MoneyBack+: {aliases: [moneyback plus, money back plus, money back+], renamedFrom: [MoneyBack, money back]}   # MoneyBack migrated
+  Freedom: []
+  Swiggy: []
+  Tata Neu Infinity: [tataneu infinity, neu infinity]
+  Tata Neu Plus: [tataneu plus, neu plus]
+  Marriott Bonvoy: [marriott]
+  IRCTC: []
+  IndianOil: [indian oil]
+  Shoppers Stop: []
+  Shoppers Stop Black: []
+  Pixel: []
+  Pixel Play: []
+  Pixel Go: []
+  Biz Black: [business black]
+  Biz Power: [business power]
+  Biz Grow: [business grow]
+  Biz First: [business first]
+  Business Regalia: [business regalia first]
+  Business MoneyBack: [business money back]
+  Business Freedom: []
+  Times: [times platinum, times titanium]     # legacy
+  Bharat: [bharat cashback]
+  Solitaire: []
+  Superia: [doctors superia, doctor s superia]   # legacy
+  Doctor's Regalia: [doctors regalia, doctor s regalia]
+  Teacher's Platinum: [teachers platinum, teacher s platinum]
+  All Miles: [allmiles]                    # legacy
+  JetPrivilege: [jet privilege, jetprivilege signature, jetprivilege world]   # legacy
+  6E Rewards: [indigo 6e rewards, 6e rewards indigo]
+  6E Rewards XL: [indigo 6e rewards xl, 6e rewards xl indigo]
+  Harley-Davidson Diners Club: [harley davidson diners club, harley davidson]
+  PhonePe Ultimo: []
+  PhonePe UNO: []
+  Paytm: [paytm select, paytm mobile, paytm digital]
+  UPI RuPay: []
+  Platinum Edge: []                         # legacy
+  Platinum: []
+  Titanium: []
+  Gold: []
+
+icici:
+  Amazon Pay: []
+  Sapphiro: []
+  Rubyx: []
+  Coral: [coral contactless]
+  Emeralde: []
+  Emeralde Private: [emeralde private metal]
+  Times Black: []
+  MakeMyTrip: [makemytrip signature, makemytrip platinum, mmt]
+  HPCL Super Saver: [hpcl supersaver]
+  HPCL Coral: []
+  Manchester United: [manchester united platinum, manchester united signature]
+  Chennai Super Kings: [csk]
+  Adani One: [adani one signature, adani one platinum]
+  Parakram: [parakram select]
+  Instant Platinum: []
+  Expressions: []
+  Emirates Skywards: [emirates skywards sapphiro, emirates skywards rubyx]
+  MINE: [icici mine]
+  Ferrari: [ferrari signature, ferrari platinum]   # legacy
+  Jet Airways: [jet airways rubyx, jet airways sapphiro, jet airways coral]   # legacy
+  Unifare: []                               # legacy
+  Platinum: []
+
+axis:
+  Magnus: []
+  Magnus for Burgundy: [burgundy magnus]
+  Burgundy Private: []
+  Atlas: []
+  Ace: []
+  Flipkart: []
+  Airtel: []
+  Select: []
+  Neo: []
+  Horizon: []
+  Reserve: []
+  Privilege: []
+  Olympus: []
+  Primus: []
+  MyZone: [my zone]
+  Samsung Infinite: [samsung visa infinite]
+  Samsung Signature: [samsung visa signature]
+  IndianOil: [indian oil]
+  IndianOil Premium: [indian oil premium]
+  Vistara: [vistara platinum]               # legacy
+  Vistara Signature: []                     # legacy
+  Vistara Infinite: []                      # legacy
+  Buzz: []                                  # legacy
+  Pride: [pride platinum, pride signature]  # legacy
+  Freecharge: []
+  Freecharge Plus: []
+  Shoppers Stop: []
+  Miles & More: [miles and more, miles more world, miles & more world select]
+  SpiceJet Voyage: [spicejet voyage black]
+  LIC Signature: []
+  LIC Platinum: []
+  Fibe: []
+  Supermoney: [super money]
+  Kiwi: []
+  Rewards: [citi rewards]                   # ex-Citi, migrated to Axis
+  PremierMiles: [citi premiermiles, premier miles, citi premier miles]   # ex-Citi
+  Prestige: [citi prestige]                 # ex-Citi
+  Cashback: [citi cashback]                 # ex-Citi
+  IndianOil Citi: [indianoil citi, indian oil citi]   # ex-Citi
+  Platinum: []
+  Titanium: []
+
+citi:                                       # legacy issuer; cards migrated to Axis
+  Prestige: []
+  PremierMiles: [premier miles]
+  Rewards: []
+  Cashback: []
+  IndianOil: [indianoil citi, indian oil citi, indian oil]
+  Corporate: []
+
+sbi:
+  SimplyCLICK: [simply click]
+  SimplySAVE: [simply save, simplysave upi]
+  Elite: []
+  Prime: []
+  Aurum: []
+  Pulse: []
+  Cashback: [cashback sbi]
+  Miles: []
+  Miles Elite: []
+  Miles Prime: []
+  BPCL: []
+  BPCL Octane: []
+  IRCTC: [irctc platinum]
+  IRCTC Premier: []
+  Club Vistara: []
+  Club Vistara Prime: []
+  Air India Signature: []
+  Air India Platinum: []
+  Etihad Guest: [etihad guest premier]
+  Yatra: []
+  Apollo: []
+  Reliance: []
+  Reliance Prime: []
+  Paytm: [paytm select]
+  Ola Money: []                             # legacy
+  Lifestyle Home Centre: [lifestyle home centre select, lifestyle home centre prime]
+  Max: [max select, max prime]
+  Spar: [spar select, spar prime]
+  Fbb STYLEUP: [fbb styleup, fbb style up]
+  Doctor's: [doctors, doctor s]
+  Shaurya: [shaurya select]
+  Unnati: []
+  Tata: [tata platinum, tata titan]         # legacy
+  Titan: []
+  Platinum: []
+  Gold: []
+
+kotak:
+  League Platinum: []
+  Zen Signature: [zen]
+  White: []
+  White Reserve: []
+  Myntra: []
+  "811": {aliases: [811 dreamdifferent], renamedFrom: [811 Dream Different, dream different]}
+  Royale Signature: []
+  Mojo Platinum: [mojo]
+  Essentia Platinum: [essentia]
+  PVR Platinum: [pvr]
+  PVR Gold: []
+  IndiGo Ka-ching: [indigo kaching, indigo ka ching]
+  Air+: [air plus]
+  Delight Platinum: [delight]
+  Cashback+: [cashback plus]
+  Privy League Signature: [privy league]
+  Solitaire: []
+  UPI RuPay: []
+  Platinum: []
+  Gold: []
+
+"yes":
+  Marquee: []
+  Reserv: []
+  Elite+: [elite plus]
+  Prosperity Edge: []
+  Prosperity Rewards Plus: [prosperity rewards+]
+  Prosperity Cashback Plus: [prosperity cashback+]
+  Prosperity Rewards: []
+  Prosperity Cashback: []
+  Prosperity Business: []
+  Kiwi: []
+  PaisaSave: [paisabazaar paisasave, paisabazaar]
+  Select: []
+  Ace: []
+  First Preferred: []
+  First Exclusive: []
+  First Business: []
+  Wellness: []
+  Wellness Plus: [wellness+]
+  BYOC: [build your own card]
+  Klick: []
+  POP-Club: [pop club]
+  Finbooks: []
+  Platinum: []
+
+idfc_first:
+  First Wealth: [wealth]
+  First Select: [select]
+  First Classic: [classic]
+  Millennia: []
+  Ashva: []
+  Mayura: []
+  Power: [hpcl power]
+  Power+: [hpcl power+, power plus, hpcl power plus]
+  WOW: []
+  Private: []
+  Swyp: []
+  Earn: [first earn]
+  Club Vistara: []                          # legacy
+  LIC Classic: []
+  LIC Select: []
+  Hello Cashback: []
+  Gaj: []
+
+hsbc:
+  Premier: []
+  Live+: {aliases: [live plus], renamedFrom: [Cashback]}   # HSBC Cashback relaunched as Live+
+  TravelOne: [travel one]
+  Visa Platinum: []
+  Platinum: []
+  Smart Value: []                           # legacy
+  Visa Signature: []
+
+sc:
+  Ultimate: []
+  Smart: []
+  EaseMyTrip: [ease my trip]
+  Rewards: []
+  Platinum Rewards: []
+  Super Value Titanium: []
+  Manhattan: [manhattan platinum]           # legacy
+  DigiSmart: [digi smart]
+  Priority Visa Infinite: []
+  Emirates World: []                        # legacy
+  Platinum: []
+
+dbs:
+  Vantage: []
+  Spark: []
+
+amex:
+  Platinum Travel: []
+  SmartEarn: [smart earn]
+  Platinum Reserve: {tierProduct: true}
+  Platinum Charge: []
+  Membership Rewards: [mrcc]
+  Gold: {aliases: [gold charge], tierProduct: true}
+  Jet Airways Platinum: []                  # legacy
+  Platinum: {tierProduct: true}
+
+federal:
+  Scapia: []
+  Celesta: []
+  Signet: []
+  Imperio: []
+  OneCard: [one card]
+  Wave: []
+
+bank_of_baroda:
+  Eterna: []
+  Premier: []
+  Select: []
+  Easy: []
+  Prime: []
+  Snapdeal: []                              # legacy
+  IRCTC: []
+  Tiara: []
+  OneCard: [one card]
+  Varunah: [varunah premium, varunah plus]
+  HPCL Energie: [energie]
+  Yoddha: []
+  Empower: []
+  ICAI Exclusive: []
+  Swavalamban: []
+
+au:
+  LIT: []
+  Altura: []
+  Altura Plus: [altura+]
+  Zenith: []
+  Zenith+: [zenith plus]
+  Vetta: []
+  Ixigo: [ixigo au]
+  SwipeUp: [swipe up]
+  Royale: []
+  Xcite: [xcite ultra, xcite advanced]      # legacy
+  Instapay: []
+  NOMO: []
+  Spont: []
+
+indusind:
+  Legend: []
+  Pinnacle: [pinnacle world]
+  Tiger: []
+  EazyDiner: [eazy diner, eazydiner signature, eazydiner platinum]
+  Iconia: []
+  Celesta: []
+  Nexxt: []
+  Pioneer Heritage: []
+  Pioneer Legacy: []
+  Avios: [avios visa infinite]
+  Samman: [samman rupay]
+  Platinum Aura Edge: [aura edge]
+  Aura: []
+  Crest: []
+  Indulge: []
+  Jewel: []
+  Solitaire: []
+  Duo: []
+  Club Vistara Explorer: [club vistara]
+  Signature: []
+  Platinum: []
+
+rbl:
+  Shoprite: []                              # legacy
+  Platinum Maxima: []
+  Platinum Maxima Plus: []
+  Platinum Delight: []
+  Titanium Delight: []
+  World Safari: []
+  Icon: []
+  Popcorn: []
+  Edition: []
+  Play: []
+  Zomato Edition: [zomato]                  # legacy
+  Bajaj Finserv SuperCard: [bajaj finserv, bajaj finserv rbl, supercard, bajaj finserv super card]
+  IndianOil XTRA: [indianoil xtra, indian oil xtra]
+  Paisabazaar Duet: [duet]
+  Monthly Treat: []
+  Cookies: []
+  Insignia: []
+  Fun+: [fun plus]
+  Platinum: []
+
+slice:
+  Super: [super card, slice super card]
+
+jupiter:
+  Edge: [edge csb, edge federal, edge rupay, edge visa]
+
+sbm:
+  Kiwi: []
+  Uni: []
+  Step Up: [stepup, paisabazaar step up]
+  Platinum: []
+
+uni:
+  Pay 1/3rd: [uni pay 1/3rd, pay 1 3, uni pay 1 3rd]
+  GoldX: [uni goldx, gold x]
+  Nx Wave: [uni nx wave]
+
+idbi:
+  Euphoria: [euphoria world]
+  Winnings: [winnings rupay]
+  Aspire: [aspire platinum]
+  Imperium Platinum: [imperium]
+  Royale Signature: [royale]
+
+union_bank:
+  Uni Carbon: [unicarbon]
+  Signature: []
+  Platinum: []
+  Select: []
+
+pnb:
+  Rakshak: [rakshak rupay select]
+  Wave: []
+  Select: []
+  Platinum: []
+
+canara:
+  Platinum: []
+  Select: []
+
+indian_bank:
+  Bharat: []
+  Platinum: []
+
+csb:
+  Edge: [edge csb]
+
+south_indian:
+  OneCard: [one card]
+
+karnataka:
+  Platinum: []
+
+equitas:
+  Ixigo: []
+  Platinum: []
+  Classic: []
+
+deutsche:
+  Platinum: []
+  Gold: []
+
+barclays:
+  Prime: []
+  Platinum: []

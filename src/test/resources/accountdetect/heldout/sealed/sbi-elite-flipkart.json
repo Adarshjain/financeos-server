@@ -1,0 +1,2328 @@
+{
+ "mailbox": "sbi-elite-flipkart",
+ "today": "2026-11-03",
+ "mails": [
+  {
+   "id": "m001",
+   "subject": "Credit alert: Axis Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX7348 on 01-07-2025 by SALARY NEFT. Ref 3036208307.\nThank you for banking with us.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-07-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m002",
+   "subject": "Your account statement for July 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c XX7348 for Jul 2025 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2025-07-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jul2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m003",
+   "subject": "Transaction alert on Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX1999 for INR 1,510.93 at BIGBASKET on 09-07-25 03:19:33 IST.\nAvailable limit INR 2,53,315.00. If this was not you, SMS BLOCK 1999 to 5676782.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-07-09",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m004",
+   "subject": "SBI Card Elite Credit Card Monthly Statement - Jul 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 5532. Statement date: 12-Jul-2025. Total amount due Rs.15,027.50; minimum Rs.751.38; due 30-Jul-2025.\nSBI/BOB style auto pay available on request.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-07-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jul2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: PRIYA JOSHI\nCard No: 4803 24XX XXXX 5532\nCard Type: Elite\nStatement Date: 12/07/2025\nStatement Period: 12/06/2025 - 12/07/2025\nPayment Due Date: 30/07/2025\nTotal Amount Due: Rs. 15,027.50\nMinimum Amount Due: Rs. 751.38\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 36,599.00\n\nDate        Transaction Details                        Amount (Rs.)\n14/06/2025  INDIGO AIRLINES KOCHI   484.31 Dr\n03/07/2025  SHELL PETROL CHENNAI   5,717.04 Dr\n27/06/2025  IRCTC MUMBAI   1,513.34 Dr\n12/06/2025  AIRBNB HYDERABAD   1,309.06 Dr\n27/06/2025  SPOTIFY MUMBAI   8,442.01 Dr\n03/07/2025  PAYMENT RECEIVED - THANK YOU   9,016.50 Cr\n\nReward Points Summary: Opening 7015  Earned 569  Closing 7158\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 7364737490121  IFSC SBI 0000877"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m005",
+   "subject": "Flipkart Axis Bank Credit Card Statement - Jul 2025",
+   "body": "Dear Customer,\nYour Flipkart Axis Bank Credit Card XX1999 Statement for the period 12/06/2025 to 12/07/2025 is attached.\nTotal Amount Due: Rs. 1,66,398.50\nMinimum Amount Due: Rs. 8,319.93\nPayment Due Date: 30/07/2025\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2025-07-12",
+   "attachments": [
+    {
+     "filename": "1999_12072025_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m006",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "नमस्ते,\nDear Customer,\nINR 7,226.18 was debited from your A/c no. XX7348 on 13-07-2025 to VPA irctcweb@ybl (UPI Ref No. 281150225898).\nAxis Bank\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-07-13",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m007",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 748.64 was debited from your A/c no. XX7348 on 20-07-2025 to VPA irctcweb@okaxis (UPI Ref No. 420147020380).\nAxis Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-07-20",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m008",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,<br>\nRs.1,197.54 spent on your SBI Credit Card ending 5532 at CAFE COFFEE DAY on 22/07/25. Your available limit is Rs.1,69,128.00.<br>\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-07-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m009",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.1,66,398.50 on 22-07-2025 towards your Axis Bank Credit Card XX1999. Thank you.",
+   "date": "2025-07-22",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m010",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.5,261.41 spent on your SBI Credit Card ending 5532 at TATA 1MG on 27/07/25. Your available limit is Rs.3,72,802.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-07-27",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m011",
+   "subject": "Payment reminder: SBI Card Credit Card ending 5532",
+   "body": "Dear Customer,\nThis is a reminder that Rs.15,027.50 (minimum Rs.751.38) is due on 30-Jul-2025 on your SBI Card Credit Card ending 5532. Pay on time to avoid late payment charges.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-07-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m012",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 35,999.37 was debited from your A/c no. XX7348 on 27-07-2025 to VPA swiggy@okhdfcbank (UPI Ref No. 330092663870).\nAxis Bank\n\nThis is a system generated email. Please do not reply to this message.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-07-27",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m013",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.15,027.50 on 29-07-2025 towards your SBI Card Credit Card XXXX XXXX XXXX 5532. Thank you.",
+   "date": "2025-07-29",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m014",
+   "subject": "Credit alert: Axis Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX7348 on 01-08-2025 by SALARY NEFT. Ref 2633609746.\nThank you for banking with us.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-08-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m015",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 2,417.12 was debited from your A/c no. XX7348 on 03-08-2025 to VPA q684691794@okhdfcbank (UPI Ref No. 871787550148).\nAxis Bank\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-08-03",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m016",
+   "subject": "Your account statement for August 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c XX7348 for Aug 2025 is attached. The PDF is protected; password is your Customer ID.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-08-03",
+   "attachments": [
+    {
+     "filename": "Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m017",
+   "subject": "SBI Card Elite Credit Card Monthly Statement - Aug 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 5532. Statement date: 12-Aug-2025. Total amount due Rs.812.39; minimum Rs.200.00; due 30-Aug-2025.\nSBI/BOB style auto pay available on request.\n\nT&C apply. Visit www.sbicard.com for more details.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Aug2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: PRIYA JOSHI\nCard No: 4116 10XX XXXX 5532\nCard Type: Elite\nStatement Date: 12/08/2025\nStatement Period: 13/07/2025 - 12/08/2025\nPayment Due Date: 30/08/2025\nTotal Amount Due: Rs. 812.39\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,05,673.00\n\nDate        Transaction Details                        Amount (Rs.)\n17/07/2025  PVR INOX MUMBAI   364.70 Dr\n29/07/2025  DECATHLON KOCHI   9,814.85 Dr\n30/07/2025  WESTSIDE CHENNAI   2,661.65 Dr\n23/07/2025  BOOKMYSHOW PUNE   35,171.38 Dr\n27/07/2025  SHELL PETROL GURGAON   2,619.46 Dr\n25/07/2025  ZOMATO PUNE   40,053.63 Dr\n23/07/2025  STARBUCKS KOCHI   3,026.77 Dr\n07/08/2025  SHELL PETROL GURGAON   548.28 Dr\n03/08/2025  PAYMENT RECEIVED - THANK YOU   487.43 Cr\nPay via HDFC Bank NetBanking (Bill Pay > Credit Cards > add this card), or ICICI Bank iConnect / Axis Bank. Last payment received through HDFC Bank A/c ending 8045.\n\nReward Points Summary: Opening 4752  Earned 338  Closing 6802\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m018",
+   "subject": "Flipkart Axis Bank Credit Card Statement - Aug 2025",
+   "body": "Dear Customer,\nYour Flipkart Axis Bank Credit Card XXXX XXXX XXXX 1999 Statement for the period 13/07/2025 to 12/08/2025 is attached.\nTotal Amount Due: Rs. 10,139.86\nMinimum Amount Due: Rs. 506.99\nPayment Due Date: 30/08/2025\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nT&C apply. Visit www.axisbank.com for more details.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-08-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Aug2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m019",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.3,485.84 spent on your SBI Credit Card XX5532 at AMAZON PAY INDIA on 22/08/25. Your available limit is Rs.2,59,593.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-08-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m020",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.812.39 on 24-08-2025 towards your SBI Card Credit Card XX5532. Thank you.",
+   "date": "2025-08-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m021",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 1,371.71 was debited from your A/c no. XX7348 on 26-08-2025 to VPA paytm.s1@okhdfcbank (UPI Ref No. 732258975147).\nAxis Bank",
+   "date": "2025-08-26",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m022",
+   "subject": "Payment reminder: Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,<br>\nThis is a reminder that Rs.10,139.86 (minimum Rs.506.99) is due on 30-Aug-2025 on your Axis Bank Credit Card XX1999. Pay on time to avoid late payment charges.<br>\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-08-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m023",
+   "subject": "Transaction alert on Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,<br>\nThank you for using your Axis Bank Credit Card XX1999 for INR 1,401.16 at UBER INDIA on 28-08-25 20:56:25 IST.<br>\nAvailable limit INR 2,36,390.00. If this was not you, SMS BLOCK 1999 to 5676782.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-08-28",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m024",
+   "subject": "Credit alert: Axis Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX7348 on 01-09-2025 by SALARY NEFT. Ref 4084778305.\nThank you for banking with us.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2025-09-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m025",
+   "subject": "Your account statement for September 2025",
+   "body": "नमस्ते,\nDear Customer,\nYour e-statement for A/c XX7348 for Sep 2025 is attached. The PDF is protected; password is your Customer ID.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-03",
+   "attachments": [
+    {
+     "filename": "Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m026",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 106.03 was debited from your A/c no. XX7348 on 05-09-2025 to VPA q141248573@okhdfcbank (UPI Ref No. 530777791635).\nAxis Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-09-05",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m027",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,<br>\nINR 6,355.38 was debited from your A/c no. XX7348 on 06-09-2025 to VPA zomato@okhdfcbank (UPI Ref No. 454824177584).<br>\nAxis Bank\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-09-06",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m028",
+   "subject": "OTP for online transaction",
+   "body": "580961&nbsp;is&nbsp;the&nbsp;One Time Password (OTP) for your online transction of INR 34,708.51 at BATA INDIA. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-09-11",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m029",
+   "subject": "SBI Card Elite Credit Card Monthly Statement - Sep 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 5532. Statement date: 12-Sep-2025. Total amount due Rs.10,261.18; minimum Rs.513.06; due 30-Sep-2025.\nSBI/BOB style auto pay available on request.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Sep2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: PRIYA JOSHI\nCredit Card Number: XXXX XXXX XXXX 5532\nStatement Date: 12/09/2025\nStatement Period: 13/08/2025 - 12/09/2025\nPayment Due Date: 30/09/2025\nTotal Amount Due: Rs. 10,261.18\nMinimum Amount Due: Rs. 513.06\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,90,384.00\n\nDate        Transaction Details                        Amount (Rs.)\n24/08/2025  ZOMATO PUNE   5,119.14 Dr\n14/08/2025  BLINKIT GURGAON   4,463.81 Dr\n07/09/2025  JIO PREPAID PUNE   287.07 Dr\n21/08/2025  BATA INDIA PUNE   1,681.31 Dr\n04/09/2025  OLA CABS BANGALORE   7,416.45 Dr\n22/08/2025  LENSKART HYDERABAD   5,735.50 Dr\n03/09/2025  PAYMENT RECEIVED - THANK YOU   6,156.71 Cr\n\nReward Points Summary: Opening 3099  Earned 203  Closing 8591\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m030",
+   "subject": "Flipkart Axis Bank Credit Card Statement - Sep 2025",
+   "body": "Dear Customer,\nYour Flipkart Axis Bank Credit Card XX1999 Statement for the period 13/08/2025 to 12/09/2025 is attached.\nTotal Amount Due: Rs. 26,620.35\nMinimum Amount Due: Rs. 1,331.02\nPayment Due Date: 30/09/2025\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-09-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Sep2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m031",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.8,324.11 spent on your SBI Credit Card ending 5532 at CAFE COFFEE DAY on 18/09/25. Your available limit is Rs.1,78,994.00.\nContact 1860 180 1290 if this transction was not done by you.",
+   "date": "2025-09-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m032",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.10,261.18 on 22-09-2025 towards your SBI Card Credit Card xx5532. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-09-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m033",
+   "subject": "Transaction alert on Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX1999 for INR 15,422.52 at AIRBNB on 22-09-25 06:06:59 IST.\nAvailable limit INR 1,94,050.00. If this was not you, SMS BLOCK 1999 to 5676782.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-09-22",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m034",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.168.51 spent on your SBI Credit Card ending 5532 at STARBUCKS on 25/09/25. Your available limit is Rs.2,51,844.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-09-25",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m035",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.26,620.35 on 26-09-2025 towards your Axis Bank Credit Card XX1999. Thank you.",
+   "date": "2025-09-26",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m036",
+   "subject": "Payment reminder: Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,\nThis is a reminder that Rs.26,620.35 (minimum Rs.1,331.02) is due on 30-Sep-2025 on your Axis Bank Credit Card XX1999. Pay on time to avoid late payment charges.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-09-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m037",
+   "subject": "Credit alert: Axis Bank",
+   "body": "Dear Customer,\nINR 65,000.00 credited to your A/c XX7348 on 01-10-2025 by SALARY NEFT. Ref 9926813745.\nThank you for banking with us.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-10-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m038",
+   "subject": "Your account statement for October 2025",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;e-statement&nbsp;for A/c XX7348 for Oct 2025 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2025-10-03",
+   "attachments": [
+    {
+     "filename": "Statement_Oct2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m039",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 2,898.10 was debited from your A/c no. XX7348 on 04-10-2025 to VPA q561870940@ybl (UPI Ref No. 203372000549).\nAxis Bank\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2025-10-04",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m040",
+   "subject": "Secure your family with term insurance",
+   "body": "Plans from Rs 500/month. Policy no. will be shared post issuance. Quote ref 4820<br>\nT&C apply.",
+   "date": "2025-10-04",
+   "attachments": [],
+   "from": "Tata AIA Life <news@tataaia.com>"
+  },
+  {
+   "id": "m041",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.230.69 spent on your SBI Credit Card ending 5532 at TATA 1MG on 06/10/25. Your available limit is Rs.2,29,748.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2025-10-06",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m042",
+   "subject": "Transaction alert on Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX1999 for INR 30,160.76 at HOTSTAR on 09-10-25 21:32:05 IST.\nAvailable limit INR 3,52,063.00. If this was not you, SMS BLOCK 1999 to 5676782.",
+   "date": "2025-10-09",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m043",
+   "subject": "SBI Card Elite Credit Card Monthly Statement - Oct 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 5532. Statement date: 12-Oct-2025. Total amount due Rs.342.91; minimum Rs.200.00; due 30-Oct-2025.\nSBI/BOB style auto pay availble on request.",
+   "date": "2025-10-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Oct2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: PRIYA JOSHI\nCredit Card Number: XXXX XXXX XXXX 5532\nStatement Date: 12/10/2025\nStatement Period: 12/09/2025 - 12/10/2025\nPayment Due Date: 30/10/2025\nTotal Amount Due: Rs. 342.91\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 51,013.00\n\nDate        Transaction Details                        Amount (Rs.)\n23/09/2025  BLINKIT BANGALORE   724.26 Dr\n12/09/2025  CAFE COFFEE DAY GURGAON   1,119.23 Dr\n28/09/2025  INDIGO AIRLINES GURGAON   1,187.25 Dr\n12/09/2025  THIRD WAVE COFFEE KOCHI   41,194.26 Dr\n20/09/2025  GOOGLE PLAY HYDERABAD   33,778.27 Dr\n24/09/2025  APOLLO PHARMACY HYDERABAD   6,763.92 Dr\n22/09/2025  SHELL PETROL PUNE   683.65 Dr\n10/10/2025  BOOKMYSHOW KOCHI   1,290.71 Dr\n19/09/2025  THIRD WAVE COFFEE HYDERABAD   5,331.72 Dr\n03/10/2025  PAYMENT RECEIVED - THANK YOU   205.75 Cr\n\nReward Points Summary: Opening 4914  Earned 897  Closing 4193\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m044",
+   "subject": "Pre-approved Personal Loan for you",
+   "body": "Get Rs.7,00,000 at 11% p.a. Instant approval. Offer ID BF5512\nT&C apply.",
+   "date": "2025-10-13",
+   "attachments": [],
+   "from": "Bajaj Finserv <offers@bajajfinserv.in>"
+  },
+  {
+   "id": "m045",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 2,995.24 was debited from your A/c no. XX7348 on 14-10-2025 to VPA bigbasket@paytm (UPI Ref No. 618754869175).\nAxis Bank\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-10-14",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m046",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 853.27 was debited from your A/c no. XX7348 on 16-10-2025 to VPA bigbasket@okhdfcbank (UPI Ref No. 292916992455).\nAxis Bank\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2025-10-16",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m047",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.4,040.93 spent on your SBI Credit Card ending 5532 at MYNTRA on 20/10/25. Your available limit is Rs.1,19,547.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-10-20",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m048",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 21,237.45 was debited from your A/c no. XX7348 on 20-10-2025 to VPA bigbasket@icici (UPI Ref No. 892597203549).\nAxis Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-10-20",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m049",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.342.91 on 24-10-2025 towards your SBI Card Credit Card **5532. Thank you.",
+   "date": "2025-10-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m050",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 11121 reward points on your SBI Card Elite Credit Card ending 5532. Redeem them on the rewards portal before they expire.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-10-25",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m051",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,955.35 spent on your SBI Credit Card ending 5532 at URBAN COMPANY on 27/10/25. Your available limit is Rs.1,49,839.00.\nContact 1860 180 1290 if this transction was not done by you.",
+   "date": "2025-10-27",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m052",
+   "subject": "Transaction alert on Axis Bank Credit Card XXXX XXXX XXXX 1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XXXX XXXX XXXX 1999 for INR 312.95 at CAFE COFFEE DAY on 01-11-25 12:23:06 IST.\nAvailable limit INR 63,043.00. If this was not you, SMS BLOCK 1999 to 5676782.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m053",
+   "subject": "Credit alert: Axis Bank",
+   "body": "Dear Customer,\nINR 65,000.00 credited to your A/c XX7348 on 01-11-2025 by SALARY NEFT. Ref 3684014736.\nThank you for banking with us.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m054",
+   "subject": "Your account statement for November 2025",
+   "body": "Dear Customer,<br>\nYour e-statement for A/c **7348 for Nov 2025 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2025-11-03",
+   "attachments": [
+    {
+     "filename": "Statement_Nov2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m055",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,<br>\nRs.2,585.29 spent on your SBI Credit Card ending 5532 at REDBUS on 09/11/25. Your available limit is Rs.1,55,160.00.<br>\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-11-09",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m056",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 2,133.40 was debited from your A/c no. XX7348 on 10-11-2025 to VPA q708260013@okhdfcbank (UPI Ref No. 541503496330).\nAxis Bank\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2025-11-10",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m057",
+   "subject": "Transaction alert on Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX1999 for INR 7,502.64 at STARBUCKS on 11-11-25 18:22:11 IST.\nAvailable limit INR 1,87,771.00. If this was not you, SMS BLOCK 1999 to 5676782.",
+   "date": "2025-11-11",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m058",
+   "subject": "SBI Card Elite Credit Card Monthly Statement - Nov 2025",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 5532. Statement date: 12-Nov-2025. Total amount due Rs.29,173.84; minimum Rs.1,458.69; due 30-Nov-2025.\nSBI/BOB style auto pay available on request.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-11-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Nov2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: PRIYA JOSHI\nCard No: 4896 69XX XXXX 5532\nCard Type: Elite\nStatement Date: 12/11/2025\nStatement Period: 13/10/2025 - 12/11/2025\nPayment Due Date: 30/11/2025\nTotal Amount Due: Rs. 29,173.84\nMinimum Amount Due: Rs. 1,458.69\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,66,992.00\n\nDate        Transaction Details                        Amount (Rs.)\n09/11/2025  ZEPTO HYDERABAD   2,650.54 Dr\n10/11/2025  CAFE COFFEE DAY PUNE   1,952.37 Dr\n24/10/2025  AIRBNB HYDERABAD   360.29 Dr\n15/10/2025  PVR INOX MUMBAI   4,009.71 Dr\n07/11/2025  URBAN COMPANY BANGALORE   860.59 Dr\n19/10/2025  ZEPTO PUNE   9,088.10 Dr\n06/11/2025  NETFLIX.COM MUMBAI   2,201.58 Dr\n03/11/2025  PAYMENT RECEIVED - THANK YOU   17,504.30 Cr\n\nReward Points Summary: Opening 2790  Earned 806  Closing 7510\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m059",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.4,837.02 spent on your SBI Credit Card XX5532 at INDIGO AIRLINES on 19/11/25. Your available limit is Rs.2,60,767.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nThis is a system generated email. Please do not reply to this message.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-11-19",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m060",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,<br>\nINR 429.58 was debited from your A/c no. XX7348 on 21-11-2025 to VPA merchant@paytm (UPI Ref No. 559478178846).<br>\nAxis Bank\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2025-11-21",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m061",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.29,173.84 on 22-11-2025 towards your SBI Card Credit Card ending 5532. Thank you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-11-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m062",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;1,997.43&nbsp;was debited from your A/c no. XX7348 on 23-11-2025 to VPA bigbasket@icici (UPI Ref No. 326445804585).\nAxis Bank",
+   "date": "2025-11-23",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m063",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 437.34 was debited from your A/c no. XX7348 on 25-11-2025 to VPA bigbasket@paytm (UPI Ref No. 682274084452).\nAxis Bank\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2025-11-25",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m064",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi&nbsp;Priya,&nbsp;a&nbsp;gentle nudge: Rs.29,173.84 due on 30 November for card ending 5532. Ignore if already paid. Kripya samay par bhugtan karein.<br>\n<br>\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-11-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m065",
+   "subject": "Credit alert: Axis Bank",
+   "body": "नमस्ते,\nDear Customer,\nINR 1,05,000.00 credited to your A/c XX7348 on 01-12-2025 by SALARY NEFT. Ref 8119771958.\nThank you for banking with us.\n\nT&C apply. Visit www.axisbank.com for more details.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-12-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m066",
+   "subject": "KYC update: Aadhaar verification",
+   "body": "Dear Customer,\nYour Aadhaar (XXXX XXXX 6115) has been sucessfully verified for e-KYC. PAN status: linked. No further action needed.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-02",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m067",
+   "subject": "Magnus, Atlas and Flipkart Axis Bank cards: lifetime free offers",
+   "body": "Choose&nbsp;from&nbsp;ACE,&nbsp;Magnus, Atlas, Reserve, Airtel Axis Bank cards. Offer reference 5991\nT&C apply.",
+   "date": "2025-12-02",
+   "attachments": [],
+   "from": "Axis Bank <offers@axisbank.com>"
+  },
+  {
+   "id": "m068",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.839.16 spent on your SBI Credit Card ending 5532 at BLINKIT on 03/12/25. Your available limit is Rs.83,595.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-12-03",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m069",
+   "subject": "Your account statement for December 2025",
+   "body": "Dear Customer,\nYour e-statement for A/c XX7348 for Dec 2025 is attached. The PDF is protected; password is your Customer ID.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-03",
+   "attachments": [
+    {
+     "filename": "Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m070",
+   "subject": "Transaction alert on Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX1999 for INR 286.09 at CROMA on 05-12-25 06:53:49 IST.\nAvailable limit INR 1,32,119.00. If this was not you, SMS BLOCK 1999 to 5676782.",
+   "date": "2025-12-05",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m071",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,215.07 spent on your SBI Credit Card xx5532 at UBER INDIA on 06/12/25. Your available limit is Rs.30,144.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2025-12-06",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m072",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;37,997.45&nbsp;was debited from your A/c no. XX7348 on 09-12-2025 to Nikhil Kulkarni A/c no. XXXXXXXX9079 (ICICI Bank), NEFT Ref 115672973290.\nAxis Bank\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2025-12-09",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m073",
+   "subject": "Transaction alert on Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,<br>\nThank you for using your Axis Bank Credit Card XX1999 for INR 799.63 at JIO PREPAID on 10-12-25 13:22:38 IST.<br>\nAvailable limit INR 55,667.00. If this was not you, SMS BLOCK 1999 to 5676782.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-10",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m074",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 38,928.18 was debited from your A/c no. XX7348 on 10-12-2025 to VPA paytm.s1@okhdfcbank (UPI Ref No. 406520658631).\nAxis Bank\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2025-12-10",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m075",
+   "subject": "SBI Card Elite Credit Card Monthly Statement - Dec 2025",
+   "body": "Dear Cardholder,<br>\nPlease find enclosed your monthly statement ending 5532. Statement date: 12-Dec-2025. Total amount due Rs.31,563.75; minimum Rs.1,578.19; due 30-Dec-2025.<br>\nSBI/BOB style auto pay available on request.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Dec2025.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: PRIYA JOSHI\nCard No: 4605 46XX XXXX 5532\nCard Type: Elite\nStatement Date: 12/12/2025\nStatement Period: 12/11/2025 - 12/12/2025\nPayment Due Date: 30/12/2025\nTotal Amount Due: Rs. 31,563.75\nMinimum Amount Due: Rs. 1,578.19\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 55,501.00\n\nDate        Transaction Details                        Amount (Rs.)\n09/12/2025  ZEPTO KOCHI   3,419.78 Dr\n14/11/2025  TATA 1MG PUNE   1,306.63 Dr\n05/12/2025  CROMA KOCHI   17,302.34 Dr\n09/12/2025  BLINKIT MUMBAI   1,829.66 Dr\n29/11/2025  AIRBNB KOCHI   8,010.33 Dr\n03/12/2025  JIO PREPAID HYDERABAD   20,121.91 Dr\n07/12/2025  RELIANCE SMART MUMBAI   8,286.58 Dr\n03/12/2025  LENSKART CHENNAI   386.75 Dr\n02/12/2025  REDBUS CHENNAI   314.34 Dr\n03/12/2025  PAYMENT RECEIVED - THANK YOU   18,938.25 Cr\n\nReward Points Summary: Opening 3693  Earned 584  Closing 6139\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 7364737490121  IFSC SBI 0000613"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m076",
+   "subject": "Flipkart Axis Bank Credit Card Statement - Dec 2025",
+   "body": "Dear Customer,\nYour Flipkart Axis Bank Credit Card XX1999 Statement for the period 12/11/2025 to 12/12/2025 is attached.\nTotal Amount Due: Rs. 6,873.63\nMinimum Amount Due: Rs. 343.68\nPayment Due Date: 30/12/2025\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2025-12-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Dec2025.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m077",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "नमस्ते,\nDear Customer,\nINR 5,245.05 was debited from your A/c no. XX7348 on 13-12-2025 to VPA irctcweb@ybl (UPI Ref No. 468156620633).\nAxis Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-13",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m078",
+   "subject": "Transaction alert on Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX1999 for INR 8,680.55 at REDBUS on 17-12-25 08:02:46 IST.\nAvailable limit INR 63,080.00. If this was not you, SMS BLOCK 1999 to 5676782.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2025-12-17",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m079",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.775.16 spent on your SBI Credit Card xx5532 at INDIGO AIRLINES on 21/12/25. Your available limit is Rs.28,957.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-21",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m080",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear&nbsp;Cardholder,\nRs.2,959.58&nbsp;spent&nbsp;on your SBI Credit Card ending 5532 at MEDPLUS on 23/12/25. Your availble limit is Rs.2,25,313.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2025-12-23",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m081",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.6,873.63 on 25-12-2025 towards your Axis Bank Credit Card XX1999. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2025-12-25",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m082",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Priya, a gentle nudge: Rs.31,563.75 due on 30 December for card ending 5532. Ignore if already paid. Kripya samay par bhugtan karein.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m083",
+   "subject": "Transaction alert on Axis Bank Credit Card XXXX XXXX XXXX 1999",
+   "body": "Dear&nbsp;Customer,\nThank&nbsp;you&nbsp;for using your Axis Bank Credit Card XXXX XXXX XXXX 1999 for INR 8,171.48 at SHELL PETROL on 27-12-25 13:04:46 IST.\nAvailable limit INR 85,112.00. If this was not you, SMS BLOCK 1999 to 5676782.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m084",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Priya, a gentle nudge: Rs.6,873.63 due on 30 December for card no. XXXXXXXXXXXX1999. Ignore if already paid. Kripya samay par bhugtan karein.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2025-12-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m085",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.31,563.75 on 28-12-2025 towards your SBI Card Credit Card ending 5532. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2025-12-28",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m086",
+   "subject": "Credit alert: Axis Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX7348 on 01-01-2026 by SALARY NEFT. Ref 7511271776.\nThank you for banking with us.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-01-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m087",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.774.78 spent on your SBI Credit Card ending 5532 at TATA 1MG on 03/01/26. Your available limit is Rs.2,67,260.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-01-03",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m088",
+   "subject": "Your account statement for January 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XX7348 for Jan 2026 is attached. The PDF is protected; password is your Customer ID.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-01-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jan2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m089",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,016.28 spent on your SBI Credit Card ending 5532 at HOTSTAR on 05/01/26. Your available limit is Rs.2,88,450.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-01-05",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m090",
+   "subject": "Transaction alert on Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX1999 for INR 2,204.84 at ZEPTO on 08-01-26 20:22:53 IST.\nAvailable limit INR 96,246.00. If this was not you, SMS BLOCK 1999 to 5676782.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-01-08",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m091",
+   "subject": "Transaction alert on Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX1999 for INR 3,274.81 at JIO PREPAID on 09-01-26 13:33:57 IST.\nAvailable limit INR 3,55,864.00. If this was not you, SMS BLOCK 1999 to 5676782.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-09",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m092",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 25,707.44 was debited from your A/c no. XX7348 on 11-01-2026 to VPA q735235363@okhdfcbank (UPI Ref No. 366302061582).\nAxis Bank\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-01-11",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m093",
+   "subject": "SBI Card Elite Credit Card Monthly Statement - Jan 2026",
+   "body": "नमस्ते,\nDear&nbsp;Cardholder,\nPlease&nbsp;find&nbsp;enclosed your monthly statment ending 5532. Statement date: 12-Jan-2026. Total amount due Rs.17,021.46; minimum Rs.851.07; due 30-Jan-2026.\nSBI/BOB style auto pay available on request.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jan2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: PRIYA JOSHI\nCard No: 4905 69XX XXXX 5532\nCard Type: Elite\nStatement Date: 12/01/2026\nStatement Period: 13/12/2025 - 12/01/2026\nPayment Due Date: 30/01/2026\nTotal Amount Due: Rs. 17,021.46\nMinimum Amount Due: Rs. 851.07\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 1,23,655.00\n\nDate        Transaction Details                        Amount (Rs.)\n31/12/2025  ZOMATO GURGAON   568.23 Dr\n20/12/2025  IRCTC PUNE   2,278.94 Dr\n29/12/2025  THIRD WAVE COFFEE GURGAON   1,483.92 Dr\n30/12/2025  APOLLO PHARMACY PUNE   13,354.21 Dr\n21/12/2025  LICIOUS PUNE   4,199.08 Dr\n20/12/2025  LICIOUS GURGAON   3,436.56 Dr\n30/12/2025  MAKEMYTRIP KOCHI   19,550.43 Dr\n08/01/2026  INDIGO AIRLINES GURGAON   598.44 Dr\n03/01/2026  PAYMENT RECEIVED - THANK YOU   10,212.88 Cr\n\nReward Points Summary: Opening 4439  Earned 237  Closing 8974\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m094",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.7,923.60 spent on your SBI Credit Card ending 5532 at MAKEMYTRIP on 14/01/26. Your available limit is Rs.99,899.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-01-14",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m095",
+   "subject": "Transaction alert on Axis Bank Credit Card XX1999",
+   "body": "नमस्ते,\nDear Customer,\nThank you for using your Axis Bank Credit Card XX1999 for INR 1,844.72 at GOOGLE PLAY on 14-01-26 14:36:39 IST.\nAvailable limit INR 2,60,475.00. If this was not you, SMS BLOCK 1999 to 5676782.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-14",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m096",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 5,334.70 was debited from your A/c no. XX7348 on 18-01-2026 to VPA irctcweb@ybl (UPI Ref No. 755820497547).\nAxis Bank\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-01-18",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m097",
+   "subject": "OTP for online transaction",
+   "body": "143566 is the One Time Password (OTP) for your online transaction of INR 2,812.77 at CAFE COFFEE DAY. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nBank is not liable for any delay in delivery of email due to technical reasons.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-01-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m098",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,<br>\nINR 5,007.07 was debited from your A/c no. XX7348 on 26-01-2026 to VPA merchant@icici (UPI Ref No. 386462770938).<br>\nAxis Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-01-26",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m099",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Priya, a gentle nudge: Rs.17,021.46 due on 30 January for card ending 5532. Ignore if already paid. Kripya samay par bhugtan karein.\n\nT&C apply. Visit www.sbicard.com for more details.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m100",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.17,021.46 on 27-01-2026 towards your SBI Card Credit Card ending 5532. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-01-27",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m101",
+   "subject": "Credit alert: Axis Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX7348 on 01-02-2026 by SALARY NEFT. Ref 2111774018.\nThank you for banking with us.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-02-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m102",
+   "subject": "Transaction alert on Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX1999 for INR 323.54 at SHELL PETROL on 02-02-26 12:00:30 IST.\nAvailable limit INR 2,44,895.00. If this was not you, SMS BLOCK 1999 to 5676782.",
+   "date": "2026-02-02",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m103",
+   "subject": "Your account statement for February 2026",
+   "body": "नमस्ते,\nDear Customer,\nYour e-statement for A/c XX7348 for Feb 2026 is attached. The PDF is protected; password is your Customer ID.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-02-03",
+   "attachments": [
+    {
+     "filename": "Statement_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m104",
+   "subject": "Transaction alert on Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX1999 for INR 17,383.01 at JIO PREPAID on 06-02-26 02:56:07 IST.\nAvailable limit INR 42,371.00. If this was not you, SMS BLOCK 1999 to 5676782.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-06",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m105",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;31,592.85&nbsp;was debited from your A/c no. XX7348 on 06-02-2026 to VPA q860188512@icici (UPI Ref No. 968208213198).\nAxis Bank\n\nT&C apply. Visit www.axisbank.com for more details.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-02-06",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m106",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "नमस्ते,\nDear Cardholder,\nRs.5,827.88 spent on your SBI Credit Card xx5532 at UBER INDIA on 07/02/26. Your available limit is Rs.3,61,366.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-02-07",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m107",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "नमस्ते,\nDear Cardholder,\nRs.7,783.15 spent on your SBI Credit Card ending 5532 at CROMA on 07/02/26. Your availble limit is Rs.3,64,398.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-02-07",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m108",
+   "subject": "SBI Card Elite Credit Card Monthly Statement - Feb 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment ending 5532. Statement date: 12-Feb-2026. Total amount due Rs.12,318.24; minimum Rs.615.91; due 02-Mar-2026.\nSBI/BOB style auto pay available on request.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Feb2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: PRIYA JOSHI\nCredit Card Number: XXXX XXXX XXXX 5532\nCard Type: Elite\nStatement Date: 12/02/2026\nStatement Period: 13/01/2026 - 12/02/2026\nPayment Due Date: 02/03/2026\nTotal Amount Due: Rs. 12,318.24\nMinimum Amount Due: Rs. 615.91\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 41,248.00\n\nDate        Transaction Details                        Amount (Rs.)\n01/02/2026  LENSKART KOCHI   702.85 Dr\n19/01/2026  TATA 1MG HYDERABAD   3,174.68 Dr\n06/02/2026  IRCTC MUMBAI   2,138.37 Dr\n01/02/2026  STARBUCKS CHENNAI   37,808.17 Dr\n26/01/2026  CAFE COFFEE DAY PUNE   601.99 Dr\n22/01/2026  WESTSIDE PUNE   400.90 Dr\n21/01/2026  MAKEMYTRIP CHENNAI   8,412.35 Dr\n03/02/2026  PAYMENT RECEIVED - THANK YOU   7,390.94 Cr\n\nReward Points Summary: Opening 8238  Earned 153  Closing 6116\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m109",
+   "subject": "Flipkart Axis Bank Credit Card Statement - Feb 2026",
+   "body": "Dear Customer,\nYour Flipkart Axis Bank Credit Card no. XXXXXXXXXXXX1999 Statement for the period 13/01/2026 to 12/02/2026 is attached.\nTotal Amount Due: Rs. 2,18,334.64\nMinimum Amount Due: Rs. 10,916.73\nPayment Due Date: 02/03/2026\nThe statment is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-02-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Feb2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m110",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 5,593.09 was debited from your A/c no. XX7348 on 17-02-2026 to VPA irctcweb@icici (UPI Ref No. 754971445084).\nAxis Bank",
+   "date": "2026-02-17",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m111",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 1,300.37 was debited from your A/c no. XX7348 on 17-02-2026 to VPA paytm.s1@paytm (UPI Ref No. 187936272136).\nAxis Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-17",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m112",
+   "subject": "Transaction alert on Axis Bank Credit Card ending 1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card ending 1999 for INR 6,882.74 at URBAN COMPANY on 21-02-26 12:19:12 IST.\nAvailable limit INR 3,44,720.00. If this was not you, SMS BLOCK 1999 to 5676782.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-02-21",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m113",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.6,560.95 spent on your SBI Credit Card ending 5532 at STARBUCKS on 25/02/26. Your available limit is Rs.2,54,588.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-02-25",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m114",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.122.50 spent on your SBI Credit Card ending 5532 at GOOGLE PLAY on 27/02/26. Your available limit is Rs.3,46,024.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m115",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Priya, a gentle nudge: Rs.12,318.24 due on 02 March for card **5532. Ignore if already paid. Kripya samay par bhugtan karein.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m116",
+   "subject": "Payment reminder: Axis Bank Credit Card ending 1999",
+   "body": "Dear Customer,<br>\nThis is a reminder that Rs.2,18,334.64 (minimum Rs.10,916.73) is due on 02-Mar-2026 on your Axis Bank Credit Card ending 1999. Pay on time to avoid late payment charges.",
+   "date": "2026-02-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m117",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.2,18,334.64 on 28-02-2026 towards your Axis Bank Credit Card **1999. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-02-28",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m118",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 13,433.36 was debited from your A/c no. XX7348 on 28-02-2026 to VPA q597518345@okhdfcbank (UPI Ref No. 428770197127).\nAxis Bank\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-02-28",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m119",
+   "subject": "Credit alert: Axis Bank",
+   "body": "Dear Customer,<br>\nINR 72,500.00 credited to your A/c XX7348 on 01-03-2026 by SALARY NEFT. Ref 7036631042.<br>\nThank you for banking with us.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-03-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m120",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.5,784.89 spent on your SBI Credit Card ending 5532 at OLA CABS on 03/03/26. Your available limit is Rs.3,44,747.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-03-03",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m121",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,<br>\nINR 32,936.38 was debited from your A/c no. XX7348 on 03-03-2026 to VPA bigbasket@paytm (UPI Ref No. 683245042611).<br>\nAxis Bank\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-03-03",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m122",
+   "subject": "Your account statement for March 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XX7348 for Mar 2026 is attached. The PDF is protected; password is your Customer ID.\n\nT&C apply. Visit www.axisbank.com for more details.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-03",
+   "attachments": [
+    {
+     "filename": "Statement_Mar2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m123",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear&nbsp;Cardholder,\nRs.8,934.52&nbsp;spent&nbsp;on your SBI Credit Card ending 5532 at FLIPKART on 09/03/26. Your available limit is Rs.2,35,363.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-03-09",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m124",
+   "subject": "E-mandate cancelled",
+   "body": "Dear Customer,\nThe e-mandate for NETFLIX.COM registered on your SBI Card card ending 5532 has been cancelled as requested. No further auto-debits will happen. Your card remains active.",
+   "date": "2026-03-09",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m125",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 401.78 was debited from your A/c no. XX7348 on 10-03-2026 to VPA merchant@okaxis (UPI Ref No. 427934704527).\nAxis Bank\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-03-10",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m126",
+   "subject": "SBI Card Elite Credit Card Monthly Statement - Mar 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment no. XXXXXXXXXXXX5532. Statement date: 12-Mar-2026. Total amount due Rs.68,958.64; minimum Rs.3,447.93; due 30-Mar-2026.\nSBI/BOB style auto pay available on request.",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Mar2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: PRIYA JOSHI\nCredit Card Number: XXXX XXXX XXXX 5532\nCard Type: Elite\nStatement Date: 12/03/2026\nStatement Period: 10/02/2026 - 12/03/2026\nPayment Due Date: 30/03/2026\nTotal Amount Due: Rs. 68,958.64\nMinimum Amount Due: Rs. 3,447.93\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 63,028.00\n\nDate        Transaction Details                        Amount (Rs.)\n28/02/2026  RELIANCE SMART HYDERABAD   3,170.28 Dr\n22/02/2026  APOLLO PHARMACY GURGAON   22,423.02 Dr\n25/02/2026  GOOGLE PLAY BANGALORE   4,126.49 Dr\n07/03/2026  URBAN COMPANY MUMBAI   1,985.67 Dr\n09/03/2026  APOLLO PHARMACY HYDERABAD   775.35 Dr\n03/03/2026  PAYMENT RECEIVED - THANK YOU   41,375.18 Cr\n\nReward Points Summary: Opening 5337  Earned 55  Closing 4083\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m127",
+   "subject": "Flipkart Axis Bank Credit Card Statement - Mar 2026",
+   "body": "Dear Customer,\nYour Flipkart Axis Bank Credit Card XX1999 Statement for the period 10/02/2026 to 12/03/2026 is attached.\nTotal Amount Due: Rs. 15,419.19\nMinimum Amount Due: Rs. 770.96\nPayment Due Date: 30/03/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nThis is a system generated email. Please do not reply to this message.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-03-12",
+   "attachments": [
+    {
+     "filename": "1999_12032026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m128",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,<br>\nINR 17,331.14 was debited from your A/c no. XX7348 on 13-03-2026 to Meera Gupta A/c no. XXXXXXXX6480 (State Bank of India), NEFT Ref 327391548702.<br>\nAxis Bank",
+   "date": "2026-03-13",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m129",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.488.08 spent on your SBI Credit Card ending 5532 at STARBUCKS on 18/03/26. Your available limit is Rs.2,81,024.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-03-18",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m130",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.28,585.76 spent on your SBI Credit Card ending 5532 at BLINKIT on 19/03/26. Your available limit is Rs.2,65,831.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-03-19",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m131",
+   "subject": "Transaction alert on Axis Bank Credit Card **1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card **1999 for INR 557.28 at APOLLO PHARMACY on 24-03-26 15:11:20 IST.\nAvailable limit INR 3,44,938.00. If this was not you, SMS BLOCK 1999 to 5676782.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m132",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.15,419.19 on 24-03-2026 towards your Axis Bank Credit Card XX1999. Thank you.",
+   "date": "2026-03-24",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m133",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have recieved your payment of Rs.68,958.64 on 25-03-2026 towards your SBI Card Credit Card ending 5532. Thank you.<br>\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-03-25",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m134",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 3907 reward points on your SBI Card Elite Credit Card ending 5532. Redeem them on the rewards portal before they expire.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-03-25",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m135",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 8911 reward points on your Flipkart Axis Bank Credit Card XX1999. Redeem them on the rewards portal before they expire.",
+   "date": "2026-03-25",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m136",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi&nbsp;Priya,&nbsp;a&nbsp;gentle nudge: Rs.68,958.64 due on 30 March for card ending 5532. Ignore if already paid. Kripya samay par bhugtan karein.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m137",
+   "subject": "Payment reminder: Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,\nThis is a reminder that Rs.15,419.19 (minimum Rs.770.96) is due on 30-Mar-2026 on your Axis Bank Credit Card XX1999. Pay on time to avoid late payment charges.",
+   "date": "2026-03-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m138",
+   "subject": "Transaction alert on Axis Bank Credit Card xx1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card xx1999 for INR 832.76 at URBAN COMPANY on 28-03-26 06:42:22 IST.\nAvailable limit INR 2,68,049.00. If this was not you, SMS BLOCK 1999 to 5676782.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-03-28",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m139",
+   "subject": "Credit alert: Axis Bank",
+   "body": "Dear Customer,\nINR 65,000.00 credited to your A/c XX7348 on 01-04-2026 by SALARY NEFT. Ref 8755504743.\nThank you for banking with us.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m140",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;130.69&nbsp;was debited from your A/c no. XX7348 on 02-04-2026 to VPA q424797573@okaxis (UPI Ref No. 966154550692).\nAxis Bank\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-04-02",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m141",
+   "subject": "Your account statement for April 2026",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;e-statement&nbsp;for A/c xx7348 for Apr 2026 is attached. The PDF is protected; password is your Customer ID.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-04-03",
+   "attachments": [
+    {
+     "filename": "Statement_Apr2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m142",
+   "subject": "SBI Card Elite Credit Card Monthly Statement - Apr 2026",
+   "body": "Dear Cardholder,<br>\nPlease find enclosed your monthly statment ending 5532. Statement date: 12-Apr-2026. Total amount due Rs.65,970.51; minimum Rs.3,298.53; due 30-Apr-2026.<br>\nSBI/BOB style auto pay available on request.\n\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Apr2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: PRIYA JOSHI\nCard No: 4270 95XX XXXX 5532\nCard Type: Elite\nStatement Date: 12/04/2026\nStatement Period: 13/03/2026 - 12/04/2026\nPayment Due Date: 30/04/2026\nTotal Amount Due: Rs. 65,970.51\nMinimum Amount Due: Rs. 3,298.53\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 73,339.00\n\nDate        Transaction Details                        Amount (Rs.)\n02/04/2026  PVR INOX HYDERABAD   495.16 Dr\n17/03/2026  BOOKMYSHOW PUNE   2,823.46 Dr\n28/03/2026  PVR INOX HYDERABAD   27,704.46 Dr\n30/03/2026  URBAN COMPANY MUMBAI   330.72 Dr\n03/04/2026  PAYMENT RECEIVED - THANK YOU   39,582.31 Cr\n\nReward Points Summary: Opening 1604  Earned 751  Closing 5195\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 7364737490121  IFSC SBI 0000430"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m143",
+   "subject": "Flipkart Axis Bank Credit Card Statement - Apr 2026",
+   "body": "Dear Customer,<br>\nYour Flipkart Axis Bank Credit Card XX1999 Statement for the period 13/03/2026 to 12/04/2026 is attached.<br>\nTotal Amount Due: Rs. 28,599.08\nMinimum Amount Due: Rs. 1,429.95\nPayment Due Date: 30/04/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-04-12",
+   "attachments": [
+    {
+     "filename": "1999_12042026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m144",
+   "subject": "Your EMI request has been cancelled",
+   "body": "Your&nbsp;request&nbsp;to&nbsp;convert transaction of Rs.29,567.40 on card ending 5532 to EMI has been cancelled. The transaction stays on your regular bill.<br>\n<br>\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-04-14",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m145",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear&nbsp;Cardholder,\nRs.693.90&nbsp;spent&nbsp;on your SBI Credit Card **5532 at THIRD WAVE COFFEE on 21/04/26. Your available limit is Rs.1,57,339.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-04-21",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m146",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 1,372.83 was debited from your A/c no. XX7348 on 21-04-2026 to VPA swiggy@icici (UPI Ref No. 366572764721).\nAxis Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-21",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m147",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.28,599.08 on 22-04-2026 towards your Axis Bank Credit Card XX1999. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-04-22",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m148",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,<br>\nINR 6,686.83 was debited from your A/c no. XX7348 on 23-04-2026 to VPA zomato@okhdfcbank (UPI Ref No. 728841359934).<br>\nAxis Bank",
+   "date": "2026-04-23",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m149",
+   "subject": "Transaction alert on Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX1999 for INR 8,129.95 at BPCL FUEL on 25-04-26 19:25:32 IST.\nAvailable limit INR 3,88,315.00. If this was not you, SMS BLOCK 1999 to 5676782.",
+   "date": "2026-04-25",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m150",
+   "subject": "Payment reminder: Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,\nThis is a reminder that Rs.28,599.08 (minimum Rs.1,429.95) is due on 30-Apr-2026 on your Axis Bank Credit Card XX1999. Pay on time to avoid late payment charges.",
+   "date": "2026-04-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m151",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.65,970.51 on 28-04-2026 towards your SBI Card Credit Card ending 5532. Thank you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-04-28",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m152",
+   "subject": "Credit alert: Axis Bank",
+   "body": "Dear Customer,\nINR 72,500.00 credited to your A/c XX7348 on 01-05-2026 by SALARY NEFT. Ref 2176075355.\nThank you for banking with us.",
+   "date": "2026-05-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m153",
+   "subject": "OTP for online transaction",
+   "body": "680101 is the One Time Password (OTP) for your online transaction of INR 2,157.75 at URBAN COMPANY. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-05-02",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m154",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.39,993.46 spent on your SBI Credit Card ending 5532 at MEDPLUS on 03/05/26. Your available limit is Rs.1,51,249.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-03",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m155",
+   "subject": "Your account statement for May 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XX7348 for May 2026 is attached. The PDF is protected; password is your Customer ID.\n\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2026-05-03",
+   "attachments": [
+    {
+     "filename": "Statement_May2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m156",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.3,089.47 spent on your SBI Credit Card ending 5532 at APOLLO PHARMACY on 04/05/26. Your available limit is Rs.2,21,345.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-05-04",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m157",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 15,594.95 was debited from your A/c no. XX7348 on 07-05-2026 to VPA irctcweb@okaxis (UPI Ref No. 875002643092).\nAxis Bank",
+   "date": "2026-05-07",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m158",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.38,561.54 spent on your SBI Credit Card ending 5532 at BPCL FUEL on 12/05/26. Your available limit is Rs.98,059.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m159",
+   "subject": "SBI Card Elite Credit Card Monthly Statement - May 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 5532. Statement date: 12-May-2026. Total amount due Rs.4,138.39; minimum Rs.206.92; due 30-May-2026.\nSBI/BOB style auto pay available on request.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_May2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: PRIYA JOSHI\nCredit Card Number: XXXX XXXX XXXX 5532\nCard Type: Elite\nStatement Date: 12/05/2026\nStatement Period: 12/04/2026 - 12/05/2026\nPayment Due Date: 30/05/2026\nTotal Amount Due: Rs. 4,138.39\nMinimum Amount Due: Rs. 206.92\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 57,958.00\n\nDate        Transaction Details                        Amount (Rs.)\n30/04/2026  LENSKART MUMBAI   7,806.38 Dr\n13/04/2026  PVR INOX PUNE   35,165.44 Dr\n16/04/2026  STARBUCKS KOCHI   1,121.31 Dr\n02/05/2026  INDIGO AIRLINES PUNE   7,496.11 Dr\n23/04/2026  TATA 1MG CHENNAI   539.58 Dr\n05/05/2026  SHELL PETROL HYDERABAD   41,769.27 Dr\n03/05/2026  PAYMENT RECEIVED - THANK YOU   2,483.03 Cr\n\nReward Points Summary: Opening 6663  Earned 743  Closing 7780\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m160",
+   "subject": "Transaction alert on Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX1999 for INR 1,879.08 at INDIGO AIRLINES on 12-05-26 15:45:51 IST.\nAvailable limit INR 1,66,934.00. If this was not you, SMS BLOCK 1999 to 5676782.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-05-12",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m161",
+   "subject": "Flipkart Axis Bank Credit Card Statement - May 2026",
+   "body": "Dear Customer,\nYour Flipkart Axis Bank Credit Card XX1999 Statement for the period 12/04/2026 to 12/05/2026 is attached.\nTotal Amount Due: Rs. 5,575.14\nMinimum Amount Due: Rs. 278.76\nPayment Due Date: 30/05/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-05-12",
+   "attachments": [
+    {
+     "filename": "1999_12052026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m162",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 7,387.18 was debited from your A/c no. XX7348 on 20-05-2026 to VPA q389750489@okaxis (UPI Ref No. 934407504152).\nAxis Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-05-20",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m163",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.5,575.14 on 23-05-2026 towards your Axis Bank Credit Card **1999. Thank you.",
+   "date": "2026-05-23",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m164",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 5,154.08 was debited from your A/c no. XX7348 on 24-05-2026 to VPA merchant@icici (UPI Ref No. 804840268266).\nAxis Bank\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-05-24",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m165",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.4,138.39 on 25-05-2026 towards your SBI Card Credit Card ending 5532. Thank you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-05-25",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m166",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,<br>\nRs.3,138.97 spent on your SBI Credit Card ending 5532 at APOLLO PHARMACY on 26/05/26. Your available limit is Rs.1,30,512.00.<br>\nContact 1860 180 1290 if this transaction was not done by you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-05-26",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m167",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Priya, a gentle nudge: Rs.5,575.14 due on 30 May for card XX1999. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-05-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m168",
+   "subject": "Credit alert: Axis Bank",
+   "body": "Dear&nbsp;Customer,\nINR&nbsp;48,000.00&nbsp;credited to your A/c XX7348 on 01-06-2026 by SALARY NEFT. Ref 5674126590.\nThank you for banking with us.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-06-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m169",
+   "subject": "Your account statement for June 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XX7348 for Jun 2026 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2026-06-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m170",
+   "subject": "Transaction alert on Axis Bank Credit Card xx1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card xx1999 for INR 31,571.08 at SHELL PETROL on 07-06-26 22:08:25 IST.\nAvailable limit INR 32,135.00. If this was not you, SMS BLOCK 1999 to 5676782.\n\nThis is a system generated email. Please do not reply to this message.\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2026-06-07",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m171",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 128.78 was debited from your A/c no. XX7348 on 11-06-2026 to VPA merchant@okhdfcbank (UPI Ref No. 238197632937).\nAxis Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-11",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m172",
+   "subject": "SBI Card Elite Credit Card Monthly Statement - Jun 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statment XXXX XXXX XXXX 5532. Statement date: 12-Jun-2026. Total amount due Rs.33,767.34; minimum Rs.1,688.37; due 30-Jun-2026.\nSBI/BOB style auto pay available on request.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jun2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: PRIYA JOSHI\nCredit Card Number: XXXX XXXX XXXX 5532\nStatement Date: 12/06/2026\nStatement Period: 13/05/2026 - 12/06/2026\nPayment Due Date: 30/06/2026\nTotal Amount Due: Rs. 33,767.34\nMinimum Amount Due: Rs. 1,688.37\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,19,382.00\n\nDate        Transaction Details                        Amount (Rs.)\n30/05/2026  CROMA GURGAON   243.21 Dr\n10/06/2026  WESTSIDE BANGALORE   406.40 Dr\n28/05/2026  LENSKART MUMBAI   41,582.16 Dr\n27/05/2026  ZEPTO KOCHI   1,108.68 Dr\n23/05/2026  DECATHLON HYDERABAD   551.94 Dr\n03/06/2026  PAYMENT RECEIVED - THANK YOU   20,260.40 Cr\n\nReward Points Summary: Opening 721  Earned 247  Closing 6100\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 7364737490121  IFSC SBI 0000150"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m173",
+   "subject": "Flipkart Axis Bank Credit Card Statement - Jun 2026",
+   "body": "Dear Customer,\nYour Flipkart Axis Bank Credit Card XX1999 Statement for the period 13/05/2026 to 12/06/2026 is attached.\nTotal Amount Due: Rs. 3,831.22\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/06/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.",
+   "date": "2026-06-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Jun2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m174",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.1,489.67 spent on your SBI Credit Card ending 5532 at MEDPLUS on 15/06/26. Your available limit is Rs.2,12,299.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-15",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m175",
+   "subject": "Secure your family with term insurance",
+   "body": "Plans from Rs 500/month. Policy no. will be shared post issuance. Quote ref 6318\nT&C apply.",
+   "date": "2026-06-16",
+   "attachments": [],
+   "from": "Tata AIA Life <news@tataaia.com>"
+  },
+  {
+   "id": "m176",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.6,724.14 spent on your SBI Credit Card ending 5532 at MYNTRA on 24/06/26. Your available limit is Rs.1,68,257.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-06-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m177",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear Customer,\nWe have received your payment of Rs.33,767.34 on 25-06-2026 towards your SBI Card Credit Card ending 5532. Thank you.",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m178",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 1,042.75 was debited from your A/c no. XX7348 on 25-06-2026 to Karthik Chopra A/c no. XXXXXXXX6159 (Canara Bank), NEFT Ref 994967560437.\nAxis Bank\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-06-25",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m179",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.3,831.22 on 26-06-2026 towards your Axis Bank Credit Card XX1999. Thank you.\n\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2026-06-26",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m180",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 5,621.00 was debited from your A/c no. XX7348 on 26-06-2026 to VPA merchant@ybl (UPI Ref No. 924457893818).\nAxis Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-06-26",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m181",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Priya, a gentle nudge: Rs.3,831.22 due on 30 June for card XX1999. Ignore if already paid. Kripya samay par bhugtan karein.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nT&C apply. Visit www.axisbank.com for more details.",
+   "date": "2026-06-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m182",
+   "subject": "Credit alert: Axis Bank",
+   "body": "Dear Customer,\nINR 48,000.00 credited to your A/c XX7348 on 01-07-2026 by SALARY NEFT. Ref 6799841727.\nThank you for banking with us.",
+   "date": "2026-07-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m183",
+   "subject": "Your account statement for July 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XX7348 for Jul 2026 is attached. The PDF is protected; password is your Customer ID.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-07-03",
+   "attachments": [
+    {
+     "filename": "Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m184",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.153.03 spent on your SBI Credit Card no. XXXXXXXXXXXX5532 at NETFLIX.COM on 05/07/26. Your available limit is Rs.2,56,377.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-05",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m185",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 31,063.02 was debited from your A/c no. XX7348 on 06-07-2026 to VPA zomato@okhdfcbank (UPI Ref No. 323591309394).\nAxis Bank\n\nThis is a system generated email. Please do not reply to this message.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-06",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m186",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 6,715.75 was debited from your A/c no. XX7348 on 09-07-2026 to VPA irctcweb@icici (UPI Ref No. 991224810716).\nAxis Bank",
+   "date": "2026-07-09",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m187",
+   "subject": "Transaction alert on Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX1999 for INR 21,192.40 at BPCL FUEL on 10-07-26 15:36:49 IST.\nAvailable limit INR 3,17,271.00. If this was not you, SMS BLOCK 1999 to 5676782.",
+   "date": "2026-07-10",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m188",
+   "subject": "SBI Card Elite Credit Card Monthly Statement - Jul 2026",
+   "body": "Dear&nbsp;Cardholder,\nPlease&nbsp;find&nbsp;enclosed your monthly statement ending 5532. Statement date: 12-Jul-2026. Total amount due Rs.2,323.02; minimum Rs.200.00; due 30-Jul-2026.\nSBI/BOB style auto pay available on request.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Jul2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: PRIYA JOSHI\nCredit Card Number: XXXX XXXX XXXX 5532\nCard Type: Elite\nStatement Date: 12/07/2026\nStatement Period: 12/06/2026 - 12/07/2026\nPayment Due Date: 30/07/2026\nTotal Amount Due: Rs. 2,323.02\nMinimum Amount Due: Rs. 200.00\nCredit Limit: Rs. 1,00,000.00  Available Credit Limit: Rs. 1,70,576.00\n\nDate        Transaction Details                        Amount (Rs.)\n15/06/2026  PVR INOX CHENNAI   24,524.93 Dr\n13/06/2026  RELIANCE SMART KOCHI   15,952.37 Dr\n14/06/2026  CROMA GURGAON   134.17 Dr\n26/06/2026  BATA INDIA BANGALORE   30,091.16 Dr\n21/06/2026  THIRD WAVE COFFEE BANGALORE   3,360.14 Dr\n04/07/2026  MAKEMYTRIP CHENNAI   1,918.02 Dr\n03/07/2026  PAYMENT RECEIVED - THANK YOU   1,393.81 Cr\n\nReward Points Summary: Opening 8320  Earned 413  Closing 5227\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 7364737490121  IFSC SBI 0000347"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m189",
+   "subject": "Flipkart Axis Bank Credit Card Statement - Jul 2026",
+   "body": "नमस्ते,\nDear Customer,\nYour Flipkart Axis Bank Credit Card XX1999 Statement for the period 12/06/2026 to 12/07/2026 is attached.\nTotal Amount Due: Rs. 3,134.96\nMinimum Amount Due: Rs. 200.00\nPayment Due Date: 30/07/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-07-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Jul2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m190",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 393.74 was debited from your A/c no. XX7348 on 12-07-2026 to VPA q220046610@paytm (UPI Ref No. 827350332142).\nAxis Bank",
+   "date": "2026-07-12",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m191",
+   "subject": "Transaction alert on Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX1999 for INR 2,915.70 at OLA CABS on 13-07-26 03:35:51 IST.\nAvailable limit INR 30,902.00. If this was not you, SMS BLOCK 1999 to 5676782.",
+   "date": "2026-07-13",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m192",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 4,626.08 was debited from your A/c no. XX7348 on 16-07-2026 to VPA q932794059@ybl (UPI Ref No. 958481058392).\nAxis Bank\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-07-16",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m193",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.583.99 spent on your SBI Credit Card ending 5532 at INDIGO AIRLINES on 21/07/26. Your available limit is Rs.1,59,095.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-07-21",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m194",
+   "subject": "Payment received on your credit card",
+   "body": "नमस्ते,\nDear&nbsp;Customer,\nWe&nbsp;have&nbsp;recieved your payment of Rs.2,323.02 on 24-07-2026 towards your SBI Card Credit Card ending 5532. Thank you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-07-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m195",
+   "subject": "Transaction alert on Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX1999 for INR 143.98 at HOTSTAR on 26-07-26 15:58:28 IST.\nAvailable limit INR 2,22,316.00. If this was not you, SMS BLOCK 1999 to 5676782.\n\nNever share your OTP, PIN, CVV or password with anyone. Axis Bank will never ask for these.",
+   "date": "2026-07-26",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m196",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.3,134.96 on 27-07-2026 towards your Axis Bank Credit Card XXXX XXXX XXXX 1999. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-07-27",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m197",
+   "subject": "OTP for online transaction",
+   "body": "541725 is the One Time Password (OTP) for your online transaction of INR 563.82 at MEDPLUS. Valid for 5 minutes. Do not share with anyone, including bank staff.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-07-28",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m198",
+   "subject": "Transaction alert on Axis Bank Credit Card xx1999",
+   "body": "नमस्ते,\nDear Customer,\nThank you for using your Axis Bank Credit Card xx1999 for INR 316.72 at SPOTIFY on 01-08-26 20:05:41 IST.\nAvailable limit INR 2,21,632.00. If this was not you, SMS BLOCK 1999 to 5676782.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-08-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m199",
+   "subject": "Credit alert: Axis Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX7348 on 01-08-2026 by SALARY NEFT. Ref 9994201420.\nThank you for banking with us.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m200",
+   "subject": "Your account statement for August 2026",
+   "body": "नमस्ते,\nDear Customer,\nYour e-statement for A/c XX7348 for Aug 2026 is attached. The PDF is protected; password is your Customer ID.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-03",
+   "attachments": [
+    {
+     "filename": "Statement_Aug2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m201",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,<br>\nRs.3,508.22 spent on your SBI Credit Card ending 5532 at MYNTRA on 05/08/26. Your available limit is Rs.1,77,417.00.<br>\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-05",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m202",
+   "subject": "Magnus, Atlas and Flipkart Axis Bank cards: lifetime free offers",
+   "body": "Choose from ACE, Magnus, Atlas, Reserve, Airtel Axis Bank cards. Offer reference 8741\nT&C apply.",
+   "date": "2026-08-06",
+   "attachments": [],
+   "from": "Axis Bank <offers@axisbank.com>"
+  },
+  {
+   "id": "m203",
+   "subject": "Mobile number updated",
+   "body": "Your mobile number XXXXXX1636 has been updated in our records. If not requested by you, visit the nearest branch.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-10",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m204",
+   "subject": "SBI Card Elite Credit Card Monthly Statement - Aug 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement **5532. Statement date: 12-Aug-2026. Total amount due Rs.15,924.69; minimum Rs.796.23; due 30-Aug-2026.\nSBI/BOB style auto pay available on request.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Aug2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: PRIYA JOSHI\nCard No: 4364 66XX XXXX 5532\nStatement Date: 12/08/2026\nStatement Period: 13/07/2026 - 12/08/2026\nPayment Due Date: 30/08/2026\nTotal Amount Due: Rs. 15,924.69\nMinimum Amount Due: Rs. 796.23\nCredit Limit: Rs. 2,50,000.00  Available Credit Limit: Rs. 23,471.00\n\nDate        Transaction Details                        Amount (Rs.)\n09/08/2026  SHELL PETROL HYDERABAD   5,289.77 Dr\n30/07/2026  CAFE COFFEE DAY KOCHI   5,109.51 Dr\n23/07/2026  MAKEMYTRIP BANGALORE   5,839.14 Dr\n27/07/2026  ZEPTO PUNE   353.76 Dr\n03/08/2026  PAYMENT RECEIVED - THANK YOU   9,554.81 Cr\n\nReward Points Summary: Opening 4933  Earned 435  Closing 6021\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m205",
+   "subject": "Flipkart Axis Bank Credit Card Statement - Aug 2026",
+   "body": "Dear Customer,\nYour Flipkart Axis Bank Credit Card XX1999 Statement for the period 13/07/2026 to 12/08/2026 is attached.\nTotal Amount Due: Rs. 1,01,353.24\nMinimum Amount Due: Rs. 5,067.66\nPayment Due Date: 30/08/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-12",
+   "attachments": [
+    {
+     "filename": "1999_12082026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m206",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 1,228.88 was debited from your A/c no. XX7348 on 18-08-2026 to VPA paytm.s1@okaxis (UPI Ref No. 240314978381).\nAxis Bank\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-18",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m207",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,<br>\nWe have received your payment of Rs.15,924.69 on 22-08-2026 towards your SBI Card Credit Card ending 5532. Thank you.<br>\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m208",
+   "subject": "Convert to EMI",
+   "body": "Dear&nbsp;Customer,\nYour&nbsp;transaction&nbsp;of Rs.8,417.63 on card ending 5532 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m209",
+   "subject": "Payment received on your credit card",
+   "body": "Dear&nbsp;Customer,\nWe&nbsp;have&nbsp;received your payment of Rs.1,01,353.24 on 22-08-2026 towards your Axis Bank Credit Card XX1999. Thank you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m210",
+   "subject": "Convert to EMI",
+   "body": "Dear Customer,\nYour transaction of Rs.9,031.75 on card XX1999 is eligible for conversion to EMI at 13% p.a. Reply YES or use the app. Processing fee Rs.199 + GST.",
+   "date": "2026-08-22",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m211",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,<br>\nRs.805.05 spent on your SBI Credit Card ending 5532 at WESTSIDE on 23/08/26. Your available limit is Rs.1,44,087.00.<br>\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-08-23",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m212",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.3,154.93 spent on your SBI Credit Card ending 5532 at PVR INOX on 24/08/26. Your available limit is Rs.2,77,995.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-08-24",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m213",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 8635 reward points on your SBI Card Elite Credit Card ending 5532. Redeem them on the rewards portal before they expire.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-08-25",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m214",
+   "subject": "Your reward points summary",
+   "body": "Dear Customer,\nYou have 8818 reward points on your Flipkart Axis Bank Credit Card no. XXXXXXXXXXXX1999. Redeem them on the rewards portal before they expire.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-08-25",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m215",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 836.27 was debited from your A/c no. XX7348 on 26-08-2026 to VPA swiggy@okhdfcbank (UPI Ref No. 119869987684).\nAxis Bank\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-08-26",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m216",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 788.09 was debited from your A/c no. XX7348 on 27-08-2026 to VPA q947906156@paytm (UPI Ref No. 633568611785).\nAxis Bank",
+   "date": "2026-08-27",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m217",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.731.62 spent on your SBI Credit Card ending 5532 at URBAN COMPANY on 28/08/26. Your available limit is Rs.1,22,779.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-08-28",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m218",
+   "subject": "Credit alert: Axis Bank",
+   "body": "Dear Customer,<br>\nINR 48,000.00 credited to your A/c XX7348 on 01-09-2026 by SALARY NEFT. Ref 4492526064.<br>\nThank you for banking with us.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.",
+   "date": "2026-09-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m219",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.119.15 spent on your SBI Credit Card ending 5532 at APOLLO PHARMACY on 03/09/26. Your available limit is Rs.3,68,299.00.\nContact 1860 180 1290 if this transction was not done by you.\n\nEarn up to 5X reward points on partner brands this festive season! Know more.\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-09-03",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m220",
+   "subject": "Your account statement for September 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c XX7348 for Sep 2026 is attached. The PDF is protected; password is your Customer ID.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-03",
+   "attachments": [
+    {
+     "filename": "Statement_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m221",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.7,869.58 spent on your SBI Credit Card ending 5532 at BOOKMYSHOW on 05/09/26. Your available limit is Rs.1,52,109.00.\nContact 1860 180 1290 if this transaction was not done by you.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m222",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card ending 5532 has been processed. Tenure 6 months. First EMI will appear on your next statement.<br>\n<br>\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m223",
+   "subject": "EMI conversion successful",
+   "body": "Your request for EMI conversion on card XX1999 has been processed. Tenure 6 months. First EMI will appear on your next statment.",
+   "date": "2026-09-05",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m224",
+   "subject": "Transaction alert on Axis Bank Credit Card ending 1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card ending 1999 for INR 549.36 at RELIANCE SMART on 06-09-26 08:02:41 IST.\nAvailable limit INR 3,26,778.00. If this was not you, SMS BLOCK 1999 to 5676782.",
+   "date": "2026-09-06",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m225",
+   "subject": "Credit card bill payment successful",
+   "body": "Dear Customer,\nRs.91.31 paid from your A/c XX7348 to ICICI Bank Credit Card ending 5299 (beneficiary: Lakshmi Gupta) on 11-09-2026.\n\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-11",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m226",
+   "subject": "SBI Card Elite Credit Card Monthly Statement - Sep 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement ending 5532. Statement date: 12-Sep-2026. Total amount due Rs.17,474.01; minimum Rs.873.70; due 30-Sep-2026.\nSBI/BOB style auto pay available on request.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.\nDisclaimer: This email and any attachments are confidential and intended solely for the addressee.",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Sep2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: PRIYA JOSHI\nCard No: 4167 68XX XXXX 5532\nCard Type: Elite\nStatement Date: 12/09/2026\nStatement Period: 13/08/2026 - 12/09/2026\nPayment Due Date: 30/09/2026\nTotal Amount Due: Rs. 17,474.01\nMinimum Amount Due: Rs. 873.70\nCredit Limit: Rs. 4,00,000.00  Available Credit Limit: Rs. 1,88,785.00\n\nDate        Transaction Details                        Amount (Rs.)\n07/09/2026  WESTSIDE KOCHI   307.20 Dr\n07/09/2026  TATA 1MG CHENNAI   2,558.28 Dr\n15/08/2026  ZEPTO BANGALORE   624.63 Dr\n20/08/2026  OLA CABS GURGAON   2,954.76 Dr\n17/08/2026  PVR INOX HYDERABAD   610.04 Dr\n07/09/2026  JIO PREPAID GURGAON   543.46 Dr\n13/08/2026  AMAZON PAY INDIA GURGAON   304.46 Dr\n03/09/2026  PAYMENT RECEIVED - THANK YOU   10,484.41 Cr\n\nReward Points Summary: Opening 4816  Earned 845  Closing 8010\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit.\nNEFT/RTGS: Beneficiary account no. 7364737490121  IFSC SBI 0000802"
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m227",
+   "subject": "Flipkart Axis Bank Credit Card Statement - Sep 2026",
+   "body": "Dear Customer,\nYour Flipkart Axis Bank Credit Card XX1999 Statement for the period 13/08/2026 to 12/09/2026 is attached.\nTotal Amount Due: Rs. 42,675.28\nMinimum Amount Due: Rs. 2,133.76\nPayment Due Date: 30/09/2026\nThe statement is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-12",
+   "attachments": [
+    {
+     "filename": "AXIS_Statement_Sep2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m228",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,\nBased on your profile, the credit limit on your SBI Card Elite Credit Card no. XXXXXXXXXXXX5532 has been increased to Rs.4,50,000.00 effective 17-09-2026.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m229",
+   "subject": "Credit limit change on your card",
+   "body": "Dear Customer,<br>\nBased on your profile, the credit limit on your Flipkart Axis Bank Credit Card XX1999 has been increased to Rs.3,00,000.00 effective 17-09-2026.",
+   "date": "2026-09-17",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m230",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "Dear Cardholder,\nRs.3,457.73 spent on your SBI Credit Card ending 5532 at URBAN COMPANY on 21/09/26. Your availble limit is Rs.1,51,828.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nApply for a Pre-approved Personal Loan up to Rs.5,00,000 @ 10.49% p.a. Click here to know more. Offer valid till 30th Nov.",
+   "date": "2026-09-21",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m231",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 3,277.74 was debited from your A/c no. XX7348 on 21-09-2026 to VPA q660407713@okhdfcbank (UPI Ref No. 466819964179).\nAxis Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-09-21",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m232",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "नमस्ते,\nDear Customer,<br>\nINR 544.27 was debited from your A/c no. XX7348 on 21-09-2026 to VPA bigbasket@icici (UPI Ref No. 704816494101).<br>\nAxis Bank\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-21",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m233",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 35,865.85 was debited from your A/c no. XX7348 on 24-09-2026 to VPA swiggy@okhdfcbank (UPI Ref No. 187448730870).\nAxis Bank\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-09-24",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m234",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi Priya, a gentle nudge: Rs.17,474.01 due on 30 September for card ending 5532. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-09-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m235",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.17,474.01 on 28-09-2026 towards your SBI Card Credit Card **5532. Thank you.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-09-28",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m236",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.42,675.28 on 28-09-2026 towards your Axis Bank Credit Card XX1999. Thank you.",
+   "date": "2026-09-28",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m237",
+   "subject": "Credit alert: Axis Bank",
+   "body": "नमस्ते,\nDear Customer,\nINR 48,000.00 credited to your A/c XX7348 on 01-10-2026 by SALARY NEFT. Ref 8464020433.\nThank you for banking with us.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-10-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m238",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "Dear Customer,\nINR 481.85 was debited from your A/c no. XX7348 on 03-10-2026 to VPA bigbasket@paytm (UPI Ref No. 805722027983).\nAxis Bank",
+   "date": "2026-10-03",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m239",
+   "subject": "Your account statement for October 2026",
+   "body": "Dear Customer,\nYour e-statement for A/c ending 7348 for Oct 2026 is attached. The PDF is protected; password is your Customer ID.",
+   "date": "2026-10-03",
+   "attachments": [
+    {
+     "filename": "Statement_Oct2026.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m240",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "नमस्ते,\nDear Customer,\nINR 373.31 was debited from your A/c no. XX7348 on 08-10-2026 to VPA q769249465@paytm (UPI Ref No. 993240014317).\nAxis Bank",
+   "date": "2026-10-08",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m241",
+   "subject": "Transaction alert on Axis Bank Credit Card XX1999",
+   "body": "Dear Customer,\nThank you for using your Axis Bank Credit Card XX1999 for INR 642.52 at ZEPTO on 10-10-26 04:08:16 IST.\nAvailable limit INR 3,47,972.00. If this was not you, SMS BLOCK 1999 to 5676782.",
+   "date": "2026-10-10",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m242",
+   "subject": "SBI Card Elite Credit Card Monthly Statement - Oct 2026",
+   "body": "Dear Cardholder,\nPlease find enclosed your monthly statement no. XXXXXXXXXXXX5532. Statement date: 12-Oct-2026. Total amount due Rs.13,682.24; minimum Rs.684.11; due 30-Oct-2026.\nSBI/BOB style auto pay available on request.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "SBI_Statement_Oct2026.pdf",
+     "protected": false,
+     "pdfText": "SBI CARD - CREDIT CARD STATEMENT\nName: PRIYA JOSHI\nCard No: 4783 89XX XXXX 5532\nStatement Date: 12/10/2026\nStatement Period: 12/09/2026 - 12/10/2026\nPayment Due Date: 30/10/2026\nTotal Amount Due: Rs. 13,682.24\nMinimum Amount Due: Rs. 684.11\nCredit Limit: Rs. 1,50,000.00  Available Credit Limit: Rs. 26,762.00\n\nDate        Transaction Details                        Amount (Rs.)\n18/09/2026  SHELL PETROL PUNE   34,353.74 Dr\n18/09/2026  BOOKMYSHOW BANGALORE   1,971.89 Dr\n03/10/2026  LICIOUS CHENNAI   30,227.75 Dr\n15/09/2026  THIRD WAVE COFFEE HYDERABAD   1,706.37 Dr\n27/09/2026  NETFLIX.COM BANGALORE   1,775.37 Dr\n03/10/2026  PAYMENT RECEIVED - THANK YOU   8,209.34 Cr\n\nReward Points Summary: Opening 3564  Earned 827  Closing 2090\nWays to pay: UPI, NetBanking, NEFT/RTGS, auto debit."
+    }
+   ],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m243",
+   "subject": "Flipkart Axis Bank Credit Card Statement - Oct 2026",
+   "body": "Dear Customer,<br>\nYour Flipkart Axis Bank Credit Card XX1999 Statement for the period 12/09/2026 to 12/10/2026 is attached.<br>\nTotal Amount Due: Rs. 12,848.24\nMinimum Amount Due: Rs. 642.41\nPayment Due Date: 30/10/2026\nThe statment is password protected. Password: first 4 letters of your name in CAPITALS followed by DDMM of your date of birth.\nPay via NetBanking, UPI or auto-debit.\n\nआपकी सुरक्षा हमारी प्राथमिकता है। &nbsp;&nbsp; Visit your nearest branch.",
+   "date": "2026-10-12",
+   "attachments": [
+    {
+     "filename": "1999_12102026_stmt.pdf",
+     "protected": true
+    }
+   ],
+   "from": "Axis Bank <cc.statements@axisbank.com>"
+  },
+  {
+   "id": "m244",
+   "subject": "Transaction Alert from SBI Card",
+   "body": "नमस्ते,\nDear Cardholder,\nRs.509.57 spent on your SBI Credit Card ending 5532 at ZOMATO on 19/10/26. Your available limit is Rs.27,172.00.\nContact 1860 180 1290 if this transaction was not done by you.\n\nBank is not liable for any delay in delivery of email due to technical reasons.",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m245",
+   "subject": "Transaction cancelled / refund initiated",
+   "body": "Dear Customer,\nYour transaction at PVR INOX for Rs.606.60 has been cancelled by the merchant. A refund will be credited to your card ending 5532 in 5-7 working days.",
+   "date": "2026-10-19",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m246",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have received your payment of Rs.12,848.24 on 23-10-2026 towards your Axis Bank Credit Card XX1999. Thank you.\n\nThis is a system generated email. Please do not reply to this message.",
+   "date": "2026-10-23",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m247",
+   "subject": "Payment received on your credit card",
+   "body": "Dear Customer,\nWe have recieved your payment of Rs.13,682.24 on 25-10-2026 towards your SBI Card Credit Card ending 5532. Thank you.\n\nT&C apply. Visit www.sbicard.com for more details.\nNever share your OTP, PIN, CVV or password with anyone. SBI Card will never ask for these.",
+   "date": "2026-10-25",
+   "attachments": [],
+   "from": "SBI Card <Statements@sbicard.com>"
+  },
+  {
+   "id": "m248",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi&nbsp;Priya,&nbsp;a&nbsp;gentle nudge: Rs.13,682.24 due on 30 October for card ending 5532. Ignore if already paid. Kripya samay par bhugtan karein.\n\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।\nसावधान: अपना OTP, PIN या CVV किसी के साथ साझा न करें। धोखाधड़ी से बचें।",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "SBI Card <customercare@sbicard.com>"
+  },
+  {
+   "id": "m249",
+   "subject": "Your credit card bill is due in 3 days",
+   "body": "Hi&nbsp;Priya,&nbsp;a&nbsp;gentle nudge: Rs.12,848.24 due on 30 October for card XX1999. Ignore if already paid. Kripya samay par bhugtan karein.",
+   "date": "2026-10-27",
+   "attachments": [],
+   "from": "Axis Bank <customer.service@axisbank.com>"
+  },
+  {
+   "id": "m250",
+   "subject": "Credit alert: Axis Bank",
+   "body": "Dear Customer,\nINR 1,05,000.00 credited to your A/c XX7348 on 01-11-2026 by SALARY NEFT. Ref 4260312053.\nThank you for banking with us.\n\nClick here to view this email in your browser | Unsubscribe | Privacy Policy",
+   "date": "2026-11-01",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  },
+  {
+   "id": "m251",
+   "subject": "Debit alert on your Axis Bank A/c",
+   "body": "नमस्ते,\nDear Customer,\nINR 3,189.03 was debited from your A/c no. XX7348 on 02-11-2026 to VPA swiggy@icici (UPI Ref No. 559282052939).\nAxis Bank",
+   "date": "2026-11-02",
+   "attachments": [],
+   "from": "Axis Bank Alerts <alerts@axisbank.com>"
+  }
+ ],
+ "expected": {
+  "accounts": [
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "5532",
+    "kind": "CREDIT_CARD",
+    "variant": "Elite",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "1999",
+    "kind": "CREDIT_CARD",
+    "variant": "Flipkart",
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "7348",
+    "kind": "ACCOUNT",
+    "variant": null,
+    "lifecycle": null,
+    "lifecyclePartnerLast4": null,
+    "minEvidence": "STRONG"
+   }
+  ],
+  "mustNotReport": [
+   {
+    "issuerDomain": "sbicard.com",
+    "last4": "0121",
+    "why": "bank own beneficiary account in statement payment instructions"
+   },
+   {
+    "issuerDomain": "hdfcbank.net",
+    "last4": "8045",
+    "why": "payer account named in other bank card statement (pay via HDFC NetBanking)"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "1636",
+    "why": "masked mobile number"
+   },
+   {
+    "issuerDomain": "axisbank.com",
+    "last4": "6115",
+    "why": "masked Aadhaar number"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "5299",
+    "why": "another person's credit card bill paid from my account (other bank's card)"
+   },
+   {
+    "issuerDomain": "canarabank.com",
+    "last4": "6159",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "sbi.co.in",
+    "last4": "6480",
+    "why": "UPI/IMPS payee account"
+   },
+   {
+    "issuerDomain": "icicibank.com",
+    "last4": "9079",
+    "why": "UPI/IMPS payee account"
+   }
+  ]
+ }
+}
