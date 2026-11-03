@@ -20,6 +20,23 @@ public interface AccountDetectFactRepository extends JpaRepository<AccountDetect
     @Query("select f.messageId from AccountDetectFact f where f.userId = :userId")
     List<String> findMessageIdsForUser(@Param("userId") UUID userId);
 
+    /** The user's mails whose protected statement PDF is still closed (never opened, or tried and failed). */
+    @Query("select f from AccountDetectFact f where f.userId = :userId and f.unlockState in (com.financeos.gmail.accountdetect.job.AccountDetectFact.UnlockState.LOCKED, com.financeos.gmail.accountdetect.job.AccountDetectFact.UnlockState.FAILED) and f.pdfAttachmentId is not null and f.unlockTriedGen < :gen order by f.internalDate desc nulls last, f.messageId asc")
+    List<AccountDetectFact> findStillLockedForUser(@Param("userId") UUID userId, @Param("gen") int gen);
+
+    /** The user's mails with a statement PDF that opened (without or with a rule): their holder flag can be recomputed. */
+    @Query("select f from AccountDetectFact f where f.userId = :userId and f.hasPdf = true and f.unlockState in (com.financeos.gmail.accountdetect.job.AccountDetectFact.UnlockState.NONE, com.financeos.gmail.accountdetect.job.AccountDetectFact.UnlockState.UNLOCKED) and f.pdfAttachmentId is not null and f.holderCheckedGen < :gen order by f.internalDate desc nulls last, f.messageId asc")
+    List<AccountDetectFact> findOpenedPdfForUser(@Param("userId") UUID userId, @Param("gen") int gen);
+
+    /** Facts a retry pass still has to look at: locked ones not tried at the current unlock generation, opened ones not rechecked at the holder generation. */
+    @Query("select count(f) from AccountDetectFact f, AccountDetectState s where s.userId = :userId and f.userId = s.userId and f.pdfAttachmentId is not null and ("
+            + "(f.unlockState in (com.financeos.gmail.accountdetect.job.AccountDetectFact.UnlockState.LOCKED, com.financeos.gmail.accountdetect.job.AccountDetectFact.UnlockState.FAILED) and f.unlockTriedGen < s.unlockGen) or "
+            + "(f.hasPdf = true and f.unlockState in (com.financeos.gmail.accountdetect.job.AccountDetectFact.UnlockState.NONE, com.financeos.gmail.accountdetect.job.AccountDetectFact.UnlockState.UNLOCKED) and f.holderCheckedGen < s.holderGen))")
+    long countPendingForUser(@Param("userId") UUID userId);
+
+    @Query("select f from AccountDetectFact f where f.userId = :userId and f.messageId = :messageId")
+    java.util.Optional<AccountDetectFact> findByUserAndMessage(@Param("userId") UUID userId, @Param("messageId") String messageId);
+
     @Modifying
     @Query("delete from AccountDetectFact f where f.userId = :userId")
     int deleteForUser(@Param("userId") UUID userId);

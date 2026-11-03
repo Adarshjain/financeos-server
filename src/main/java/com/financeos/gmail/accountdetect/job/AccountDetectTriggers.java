@@ -8,7 +8,9 @@ import com.financeos.domain.job.JobStatus;
 import com.financeos.domain.job.JobTrigger;
 import com.financeos.domain.job.JobType;
 import com.financeos.domain.job.handlers.GmailSyncPayload;
+import com.financeos.domain.account.StatementPasswordSavedEvent;
 import com.financeos.domain.notification.job.JobFinishedEvent;
+import com.financeos.domain.user.ProfileChangedEvent;
 import com.financeos.gmail.domain.GmailConnection;
 import com.financeos.gmail.domain.GmailConnectionRepository;
 import org.slf4j.Logger;
@@ -93,6 +95,40 @@ public class AccountDetectTriggers {
         } catch (Exception e) {
             log.warn("Account detect enqueue after Gmail sync failed: {}", e.getClass().getSimpleName());
         }
+    }
+
+    /** The user's name or birth date changed: statement PDFs that stayed locked are tried again. */
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT, fallbackExecution = true)
+    public void onProfileChanged(ProfileChangedEvent event) {
+        if (event != null && (event.nameChanged() || event.birthDateChanged())) retryUnlockAfterCommit(event.userId(), event.nameChanged());
+    }
+
+    /** An account was saved with a statement password: statement PDFs that stayed locked are tried again. */
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT, fallbackExecution = true)
+    public void onStatementPasswordSaved(StatementPasswordSavedEvent event) {
+        if (event != null) retryUnlockAfterCommit(event.userId(), false);
+    }
+
+    private void retryUnlockAfterCommit(UUID userId, boolean nameChanged) {
+        if (!enabled || userId == null) return;
+        try {
+            newTransaction.executeWithoutResult(s -> enqueueUnlockRetry(userId, nameChanged));
+        } catch (Exception e) {
+            log.warn("Account detect unlock-retry enqueue failed: {}", e.getClass().getSimpleName());
+        }
+    }
+
+    /**
+     * Puts an unlock retry on the queue for the mailbox the scan reads, once that mailbox has been scanned. Same dedup as a
+     * scan: if a job is already queued the enqueue is dropped, but the persistent flag makes that job end with the retry.
+     */
+    void enqueueUnlockRetry(UUID userId, boolean recheckHolders) {
+        GmailConnection target = scanTarget(connectionRepository.findByUserId(userId));
+        if (target == null || store.state(userId).isEmpty()) return;
+        // the new generation outlives a dropped enqueue (accepted: a trigger arriving while a run is in progress may be deduped
+        // away): any later run of the user's ACCOUNT_DETECT ends with a retry pass over the facts not tried at it yet
+        store.requestUnlockRetry(userId, recheckHolders);   // a name change also recomputes the holder flags
+        jobService.enqueue(userId, JobType.ACCOUNT_DETECT, JobTrigger.CRON, new AccountDetectPayload(target.getId(), true), null, dedupKey(userId));
     }
 
     /**

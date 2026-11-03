@@ -572,6 +572,7 @@ public final class Detector {
         variants(mails, statements, weakLinked, clusterRole, opt, appIndependent, out);
         lifecycle(mails, statements, weakLinked, clusterRole, opt, out, end);
         limits(mails, statements, weakLinked, clusterRole, opt, out);
+        notInYourName(out);
         Contract.enforce(out);
         Contract.verify(out);
         for (Entity e : out.entities) {
@@ -1024,14 +1025,46 @@ public final class Detector {
         paired.add(b.key());
     }
 
+    /** Minimum distinct statement periods with a known holder, all of them not the user's, before a number is called "not in your name". */
+    static final int NOT_IN_YOUR_NAME_MIN_STATEMENTS = 2;
+
+    /**
+     * Marks an entity whose strongly linked statements (by number or by their mail, never by period) name a holder in at
+     * least {@link #NOT_IN_YOUR_NAME_MIN_STATEMENTS} distinct statement periods (two mails of one period count once), all of
+     * them "N": none carried the user's name. One "Y" vetoes it, and so does a statement the user uploaded (source DB).
+     */
+    private static void notInYourName(Detection out) {
+        Map<String, Set<Object>> periods = new HashMap<>();   // key -> distinct periods with a known holder
+        Set<String> veto = new java.util.HashSet<>();
+        for (Detection.StatementLink l : out.statementLinks) {
+            if (l.doc() == null || l.last4() == null || l.bank() == null) continue;
+            if (!LINK_LAST4.equals(l.outcome()) && !LINK_ORIGIN.equals(l.outcome())) continue;
+            String key = l.bank() + ":" + l.last4();
+            if ("DB".equals(l.doc().source())) {
+                veto.add(key);   // the user's own uploaded statement: theirs
+                continue;
+            }
+            if (l.doc().holder() == null) continue;
+            if ("Y".equals(l.doc().holder())) veto.add(key);
+            periods.computeIfAbsent(key, k -> new java.util.HashSet<>()).add(l.period() != null ? l.period() : l.doc());
+        }
+        for (Entity e : out.entities) {
+            Set<Object> p = periods.get(e.key());
+            e.notInYourName = p != null && p.size() >= NOT_IN_YOUR_NAME_MIN_STATEMENTS && !veto.contains(e.key());
+        }
+    }
+
     private static void limits(List<MailDerived> mails, List<StatementContent> statements, Set<StatementContent> weak,
                                Map<String, Role> clusterRole, Options opt, Detection out) {
         Map<String, TreeMap<LocalDate, String>> byKey = new HashMap<>();
         Map<String, TreeMap<LocalDate, String>> weakByKey = new HashMap<>();
+        Map<String, TreeMap<LocalDate, java.math.BigDecimal>> amountByKey = new HashMap<>();
+        Map<String, TreeMap<LocalDate, java.math.BigDecimal>> weakAmountByKey = new HashMap<>();
         for (StatementContent s : statements) {
             LocalDate wd = witnessDate(s);
             if (s.last4() == null || s.limitBucket() == null || wd == null) continue;
             String k = s.bank() + ":" + s.last4();
+            if (s.limitAmount() != null) (weak.contains(s) ? weakAmountByKey : amountByKey).computeIfAbsent(k, x -> new TreeMap<>()).put(wd, s.limitAmount());
             // weakly linked statements never count toward the documents or span behind a limit
             (weak.contains(s) ? weakByKey : byKey).computeIfAbsent(k, x -> new TreeMap<>()).put(wd, s.limitBucket());
         }
@@ -1076,6 +1109,10 @@ public final class Detector {
             e.limitAgree = m.values().stream().allMatch(latest::equals);
             e.limitWeakLink = weakOnly;
             e.limitConf = Conf.MEDIUM;   // the contract caps it
+            TreeMap<LocalDate, java.math.BigDecimal> amounts = weakOnly ? weakAmountByKey.get(e.key()) : amountByKey.get(e.key());
+            // the exact figure must come from the very statement that gives the bucket, and agree with it
+            java.math.BigDecimal amount = amounts == null || !amounts.lastKey().equals(m.lastKey()) ? null : amounts.lastEntry().getValue();
+            e.limitAmount = amount != null && latest.equals(StatementContent.bucket(amount.doubleValue())) ? amount : null;   // dropped by the contract below MEDIUM
         }
     }
 

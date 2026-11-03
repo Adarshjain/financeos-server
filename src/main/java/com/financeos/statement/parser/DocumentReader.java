@@ -22,7 +22,12 @@ public final class DocumentReader {
 
     public enum Outcome { OK, PROTECTED, FAILED, NO_TEXT }
 
-    public record Read(Outcome outcome, DocumentFacts.Facts facts) {}
+    /** @param holder the caller's check of the first page's text (see the check argument of read), or null */
+    public record Read(Outcome outcome, DocumentFacts.Facts facts, String holder) {
+        public Read(Outcome outcome, DocumentFacts.Facts facts) {
+            this(outcome, facts, null);
+        }
+    }
 
     public static final int MAX_PAGES = 8;
 
@@ -34,15 +39,34 @@ public final class DocumentReader {
     };
 
     public static Read read(byte[] pdf, DocumentFacts.Vocabulary vocab, Set<String> flags) {
+        return read(pdf, null, vocab, flags);
+    }
+
+    /**
+     * {@link #read(byte[], DocumentFacts.Vocabulary, Set)} with a password the caller already holds (never kept here):
+     * an encrypted document that opens with it is read like a plain one; a wrong password is PROTECTED.
+     */
+    public static Read read(byte[] pdf, String password, DocumentFacts.Vocabulary vocab, Set<String> flags) {
+        return read(pdf, password, vocab, flags, null);
+    }
+
+    /** As above; {@code firstPageCheck}, when given, is applied to the first page's text and its answer returned in {@link Read#holder}. */
+    public static Read read(byte[] pdf, String password, DocumentFacts.Vocabulary vocab, Set<String> flags,
+                            java.util.function.UnaryOperator<String> firstPageCheck) {
         if (pdf == null || pdf.length == 0) return new Read(Outcome.FAILED, null);
         String text;
-        try (PDDocument doc = Loader.loadPDF(pdf)) {
-            if (doc.isEncrypted()) return new Read(Outcome.PROTECTED, null);
+        String holder = null;
+        try (PDDocument doc = password == null ? Loader.loadPDF(pdf) : Loader.loadPDF(pdf, password)) {
+            if (password == null && doc.isEncrypted()) return new Read(Outcome.PROTECTED, null);
             PDFTextStripper stripper = new PDFTextStripper();
             stripper.setSortByPosition(true);
             stripper.setStartPage(1);
             stripper.setEndPage(Math.min(MAX_PAGES, doc.getNumberOfPages()));
             text = stripper.getText(doc);
+            if (firstPageCheck != null && text != null && !text.isBlank()) {
+                stripper.setEndPage(1);
+                holder = firstPageCheck.apply(stripper.getText(doc));
+            }
         } catch (InvalidPasswordException e) {
             return new Read(Outcome.PROTECTED, null);
         } catch (IOException | RuntimeException e) {
@@ -51,7 +75,7 @@ public final class DocumentReader {
             return new Read(Outcome.FAILED, null);
         }
         if (text == null || text.isBlank()) return new Read(Outcome.NO_TEXT, null);
-        return new Read(Outcome.OK, fromText(text, vocab, flags, () -> engineHints(pdf)));
+        return new Read(Outcome.OK, fromText(text, vocab, flags, () -> engineHints(pdf, password)), holder);
     }
 
     /** Facts from statement text; {@code engine} may be null. */
@@ -60,9 +84,9 @@ public final class DocumentReader {
         return DocumentFacts.extract(text, vocab, flags, engine);
     }
 
-    private static DocumentFacts.Hints engineHints(byte[] pdf) {
+    private static DocumentFacts.Hints engineHints(byte[] pdf, String password) {
         try {
-            ParsedStatement ps = StatementParseEngine.parse(pdf, null, null);
+            ParsedStatement ps = StatementParseEngine.parse(pdf, password, null);
             StatementMeta meta = ps.meta();
             String acct = meta.accountNumber;
             String masked4 = null;

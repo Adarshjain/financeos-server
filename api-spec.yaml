@@ -9870,15 +9870,21 @@ components:
           type: string
         lifecycleConf:
           type: string
+        limitAmount:
+          type: number
         limitBucket:
           type: string
         limitConf:
           type: string
+        notInYourName:
+          type: boolean
         parentAccount:
           $ref: "#/components/schemas/AccountSuggestionParentAccount"
         parentSuggestionId:
           type: string
           format: uuid
+        passwordFromProfile:
+          type: boolean
         variant:
           type: string
         variantCandidates:
@@ -9902,10 +9908,13 @@ components:
       - lastSeenOn
       - lifecycle
       - lifecycleConf
+      - limitAmount
       - limitBucket
       - limitConf
+      - notInYourName
       - parentAccount
       - parentSuggestionId
+      - passwordFromProfile
       - variant
       - variantCandidates
       - variantConf

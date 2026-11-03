@@ -67,6 +67,18 @@ public class AccountDetectState {
     @Column(name = "key_salt", length = 200)
     private String keySalt;
 
+    /**
+     * Generation of the user's unlock-retry requests: a trigger (name, birth date or saved password changed) adds one. A locked
+     * fact whose {@code unlock_tried_gen} is below it is still to be tried. Written only by the repository's HQL update (never
+     * by saving the entity), so a running scan saving its own copy of the state cannot lose a request made meanwhile.
+     */
+    @Column(name = "unlock_gen", nullable = false, insertable = false, updatable = false, columnDefinition = "NUMBER(10) DEFAULT 0 NOT NULL")
+    private int unlockGen;
+
+    /** Same for name changes: an opened fact whose {@code holder_checked_gen} is below it has its holder flag recomputed. */
+    @Column(name = "holder_gen", nullable = false, insertable = false, updatable = false, columnDefinition = "NUMBER(10) DEFAULT 0 NOT NULL")
+    private int holderGen;
+
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 

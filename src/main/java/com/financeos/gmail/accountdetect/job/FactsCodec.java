@@ -78,7 +78,8 @@ public final class FactsCodec {
     record LimJ(String last4, String bucket) {}
 
     record S(String source, String bank, String last4, String kind, String period, String variant, String limitBucket,
-             List<String> addOns, boolean closure, String periodEnd, String originCluster, String originDate) {}
+             List<String> addOns, boolean closure, String periodEnd, String originCluster, String originDate,
+             java.math.BigDecimal limitAmount, String unlockRule, String holder) {}
 
     public static String encode(MailDerived m, List<StatementContent> statements, boolean bodyFetched) {
         return encode(m, statements, bodyFetched, null, 0);
@@ -95,7 +96,7 @@ public final class FactsCodec {
                 m.limits().stream().map(l -> new LimJ(l.last4(), l.bucket())).toList());
         List<S> ss = statements == null ? List.of() : statements.stream().map(s -> new S(s.source(), s.bank(), s.last4(),
                 s.kind() == null ? null : s.kind().name(), s.period() == null ? null : s.period().toString(), s.variant(), s.limitBucket(),
-                s.addOnLast4(), s.mentionsClosure(), str(s.periodEnd()), s.originCluster(), str(s.originDate()))).toList();
+                s.addOnLast4(), s.mentionsClosure(), str(s.periodEnd()), s.originCluster(), str(s.originDate()), s.limitAmount(), s.unlockRule(), s.holder())).toList();
         try {
             String hv = headerVote == null || (m != null && headerVote == m.roleVote()) ? null : headerVote.name();
             return MAPPER.writeValueAsString(new J(VERSION, bodyFetched, mail, ss, hv, incompleteRuns > 0 ? incompleteRuns : null));
@@ -122,7 +123,8 @@ public final class FactsCodec {
                 list(m.limits()).stream().map(l -> new LimitHit(l.last4(), l.bucket())).toList());
         List<StatementContent> ss = list(j.statements()).stream().map(s -> new StatementContent(s.source(), s.bank(), s.last4(),
                 s.kind() == null ? null : Kind.valueOf(s.kind()), s.period() == null ? null : YearMonth.parse(s.period()), s.variant(),
-                s.limitBucket(), list(s.addOns()), s.closure(), date(s.periodEnd()), s.originCluster(), date(s.originDate()))).toList();
+                s.limitBucket(), list(s.addOns()), s.closure(), date(s.periodEnd()), s.originCluster(), date(s.originDate()), null,
+                s.limitAmount(), s.unlockRule(), s.holder())).toList();
         Role hv = j.hv() != null ? Role.valueOf(j.hv()) : d == null ? null : d.roleVote();
         return new Facts(d, ss, j.body(), hv, j.inc() == null ? 0 : j.inc());
     }

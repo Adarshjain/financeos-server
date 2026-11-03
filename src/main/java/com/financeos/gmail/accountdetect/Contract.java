@@ -115,6 +115,8 @@ public final class Contract {
             }
             if (e.variantConf != null) e.variantConf = e.variantConf.min(variantMax(e)).min(e.existsConf);
             if (e.limitConf != null) e.limitConf = e.limitConf.min(limitMax(e)).min(e.existsConf);
+            // the exact figure is only as good as the bucket: below MEDIUM it is not reported
+            if (e.limitConf == null || !e.limitConf.atLeast(Conf.MEDIUM)) e.limitAmount = null;
         }
         // lifecycle last, twice so a partner's lowered fact settles
         for (int i = 0; i < 2; i++) {

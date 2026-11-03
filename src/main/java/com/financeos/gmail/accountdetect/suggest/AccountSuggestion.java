@@ -41,6 +41,7 @@ public class AccountSuggestion implements Persistable<UUID> {
     public static final int VARIANT_MAX = 150;
     public static final int VARIANT_CANDIDATES_MAX = 2000;
     public static final int LIMIT_BUCKET_MAX = 40;
+    public static final int PASSWORD_RULE_MAX = 100;
 
     public enum Kind { BANK_ACCOUNT, CREDIT_CARD, DEBIT_CARD, ADDON_CARD, REPLACEMENT_CARD }
 
@@ -88,6 +89,18 @@ public class AccountSuggestion implements Persistable<UUID> {
 
     @Column(name = "limit_conf", length = 10)
     private String limitConf;
+
+    /** The exact credit limit of the latest statement that printed one (only with limit confidence MEDIUM or better). */
+    @Column(name = "limit_amount", precision = 15, scale = 2)
+    private java.math.BigDecimal limitAmount;
+
+    /** The rule (e.g. "NAME4U+DDMM") that opened this number's protected statements; the password itself is never stored. */
+    @Column(name = "password_rule", length = PASSWORD_RULE_MAX)
+    private String passwordRule;
+
+    /** Statements of this number name a holder and none is the user. */
+    @Column(name = "not_in_your_name", nullable = false)
+    private boolean notInYourName;
 
     @Column(name = "lifecycle", length = 20)
     private String lifecycle;

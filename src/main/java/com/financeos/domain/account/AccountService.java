@@ -22,6 +22,7 @@ import com.financeos.gmail.domain.GmailBackfillDemandRepository;
 import com.financeos.gmail.ingest.event.AccountIngestChangedEvent;
 import com.financeos.gmail.accountdetect.suggest.AccountSuggestion;
 import com.financeos.gmail.accountdetect.suggest.SuggestionAdoption;
+import com.financeos.gmail.accountdetect.unlock.PasswordRender;
 import com.financeos.gmail.ingest.event.ParkedMailSettleRequestedEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
@@ -142,9 +143,11 @@ public class AccountService {
         }
 
         addExtraCards(account, request);
+        if (suggestion != null) fillPasswordFromSuggestion(account, user, suggestion);
 
         Account saved = accountRepository.save(account);
         populateBalanceInfo(saved);
+        if (hasStatementPassword(saved)) eventPublisher.publishEvent(new StatementPasswordSavedEvent(userId));
 
         if (saved.getIngestFromDate() != null) {
             ratchetDemand(user, saved.getIngestFromDate());
@@ -184,6 +187,29 @@ public class AccountService {
         }
 
         return saved;
+    }
+
+    private static String statementPasswordOf(Account account) {
+        return account.getCreditCardDetails() != null ? account.getCreditCardDetails().getStatementPassword()
+                : account.getBankDetails() != null ? account.getBankDetails().getStatementPassword() : null;
+    }
+
+    private static boolean hasStatementPassword(Account account) {
+        String pwd = statementPasswordOf(account);
+        return pwd != null && !pwd.isBlank();
+    }
+
+    /**
+     * An account created from a suggestion whose statements opened by a name / birth date rule: when the request carries
+     * no statement password, the password is built server-side from the profile (and the suggestion's number for CARD4)
+     * and saved on the account. It is never returned in any response.
+     */
+    private static void fillPasswordFromSuggestion(Account account, User user, AccountSuggestion suggestion) {
+        if (suggestion.getPasswordRule() == null || hasStatementPassword(account)) return;
+        String pwd = PasswordRender.renderOne(suggestion.getPasswordRule(), user.getDisplayName(), user.getBirthDate(), suggestion.getLast4());
+        if (pwd == null) return;
+        if (account.getCreditCardDetails() != null) account.getCreditCardDetails().setStatementPassword(pwd);
+        else if (account.getBankDetails() != null) account.getBankDetails().setStatementPassword(pwd);
     }
 
     /**
@@ -383,6 +409,7 @@ public class AccountService {
 
         LocalDate oldDate = account.getIngestFromDate();
         String oldLast4 = extractLast4(account);
+        String oldPassword = statementPasswordOf(account);
         LocalDate newDate = request.ingestFromDate();
 
         account.setName(request.name());
@@ -423,6 +450,9 @@ public class AccountService {
         // Leaving (or switching) a shared limit can empty the old one.
         accountRepository.deleteEmptyLimitPools(saved.getUser().getId());
         populateBalanceInfo(saved);
+        if (hasStatementPassword(saved) && !Objects.equals(oldPassword, statementPasswordOf(saved))) {
+            eventPublisher.publishEvent(new StatementPasswordSavedEvent(saved.getUser().getId()));
+        }
 
         boolean dateAdvanced = newDate != null && (oldDate == null || newDate.isBefore(oldDate));
         if (dateAdvanced) {

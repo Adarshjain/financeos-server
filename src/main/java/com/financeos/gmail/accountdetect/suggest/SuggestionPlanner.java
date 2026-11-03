@@ -107,7 +107,7 @@ public final class SuggestionPlanner {
                     if (older != null) {
                         parentAccount = older;
                         olderLinked = true;
-                        if (band != Band.MAYBE) band = Band.OLDER;
+                        if (band != Band.MAYBE) band = Band.OLDER;   // (a not-in-your-name row is already MAYBE)
                     }
                 }
                 if (kind == AccountSuggestion.Kind.DEBIT_CARD && !olderLinked) {
@@ -163,6 +163,7 @@ public final class SuggestionPlanner {
     }
 
     static Band band(Detection.Entity e, LocalDate today) {
+        if (e.notInYourName) return Band.MAYBE;   // someone else's number: never a confident row
         if (e.existsConf == null || e.existsConf == Conf.LOW) return Band.MAYBE;
         if (e.kindConf == null || !e.kindConf.atLeast(Conf.MEDIUM)) return Band.MAYBE;
         boolean goneAway = (e.lifecycle == Lifecycle.CLOSED || e.lifecycle == Lifecycle.REPLACED || e.lifecycle == Lifecycle.UPGRADED)

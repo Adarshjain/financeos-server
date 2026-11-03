@@ -15,6 +15,9 @@ import com.financeos.domain.account.card.CardRepository;
 import com.financeos.domain.account.card.Cardholder;
 import com.financeos.domain.account.card.CardholderService;
 import com.financeos.gmail.accountdetect.Detection;
+import com.financeos.gmail.accountdetect.Detector;
+import com.financeos.gmail.accountdetect.Vocab;
+import com.financeos.gmail.accountdetect.unlock.PasswordRender;
 import com.financeos.gmail.accountdetect.suggest.AccountSuggestion.Band;
 import com.financeos.gmail.accountdetect.suggest.AccountSuggestion.State;
 import com.financeos.gmail.ingest.event.AccountIngestChangedEvent;
@@ -76,6 +79,7 @@ public class AccountSuggestionService {
             byKey.put(s.getKey(), s);
             if (s.isParentDeclined()) declinedParents.add(s.getKey());
         }
+        Map<String, String> passwordRules = passwordRules(detection);
         List<SuggestionPlanner.Plan> plans = SuggestionPlanner.plan(detection, existingLoader.load(userId), today, declinedParents);
 
         List<SuggestionPlanner.Plan> live = new ArrayList<>();
@@ -88,7 +92,7 @@ public class AccountSuggestionService {
                 row = new AccountSuggestion(userId, p.key());
                 byKey.put(p.key(), row);
             }
-            facts(row, p);
+            facts(row, p, passwordRules.get(p.entity().key()));
             if (p.match() != null && (created || row.getState() == State.NEW)) {
                 row.setState(State.MATCHED);
                 row.setResolvedAccountId(p.match().accountId());
@@ -162,7 +166,24 @@ public class AccountSuggestionService {
         }
     }
 
-    private static void facts(AccountSuggestion row, SuggestionPlanner.Plan p) {
+    /**
+     * Per entity key (bank:last4): the rule that opened its protected statements, from the statements the detector linked
+     * to it by number or by their mail. Only rules built from the profile (name, birth date, card number) count; a saved
+     * password ("SAVED") is never turned into a rule.
+     */
+    static Map<String, String> passwordRules(Detection detection) {
+        Map<String, String> out = new HashMap<>();
+        for (Detection.StatementLink l : detection.statementLinks) {
+            if (l.doc() == null || l.doc().unlockRule() == null || l.last4() == null || l.bank() == null) continue;
+            if (!Detector.LINK_LAST4.equals(l.outcome()) && !Detector.LINK_ORIGIN.equals(l.outcome())) continue;
+            String rule = l.doc().unlockRule();
+            if (rule.length() > AccountSuggestion.PASSWORD_RULE_MAX || !PasswordRender.renderable(rule)) continue;
+            out.putIfAbsent(l.bank() + ":" + l.last4(), rule);
+        }
+        return out;
+    }
+
+    private static void facts(AccountSuggestion row, SuggestionPlanner.Plan p, String passwordRule) {
         Detection.Entity e = p.entity();
         row.setKind(p.kind());
         row.setBank(e.bank);
@@ -174,6 +195,9 @@ public class AccountSuggestionService {
         row.setLimitBucket(e.limitBucket == null || e.limitBucket.length() <= AccountSuggestion.LIMIT_BUCKET_MAX
                 ? e.limitBucket : e.limitBucket.substring(0, AccountSuggestion.LIMIT_BUCKET_MAX));
         row.setLimitConf(name(e.limitConf));
+        row.setLimitAmount(e.limitAmount != null && e.limitConf != null && e.limitConf.atLeast(Vocab.Conf.MEDIUM) ? e.limitAmount : null);
+        row.setPasswordRule(passwordRule);
+        row.setNotInYourName(e.notInYourName);
         row.setLifecycle(e.lifecycleConf == null ? null : name(e.lifecycle));
         row.setLifecycleConf(e.lifecycle == null ? null : name(e.lifecycleConf));
         row.setExistsConf(name(e.existsConf));
