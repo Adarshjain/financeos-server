@@ -20,6 +20,7 @@ import com.financeos.domain.loan.LoanStatus;
 import com.financeos.domain.notification.bill.BillStatus;
 import com.financeos.domain.notification.bill.CardBill;
 import com.financeos.domain.notification.bill.CardBillService;
+import com.financeos.domain.recurring.RecurringService;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementRepository;
 import com.financeos.domain.statement.StatementVerdict;
@@ -65,9 +66,16 @@ public class ObligationsService {
     public static final String KIND_LENDING_DUE = "lending_due";
     public static final String KIND_CARD_BILL = "card_bill";
     public static final String KIND_STATEMENT_EXPECTED = "statement_expected";
-    /** Every kind, in display order. */
+    /**
+     * Tracked subscriptions and other regular payments. Opt-in: not part of {@link #ALL_KINDS} (the default for
+     * reports and widgets), asked for by name, e.g. {@code kinds=emi,lending_due,card_bill,statement_expected,recurring}.
+     */
+    public static final String KIND_RECURRING = "recurring";
+    /** Every default kind, in display order. */
     public static final List<String> KINDS = List.of(KIND_EMI, KIND_LENDING_DUE, KIND_CARD_BILL, KIND_STATEMENT_EXPECTED);
     public static final Set<String> ALL_KINDS = Set.copyOf(KINDS);
+    private static final Set<String> PARSEABLE_KINDS = Set.of(
+            KIND_EMI, KIND_LENDING_DUE, KIND_CARD_BILL, KIND_STATEMENT_EXPECTED, KIND_RECURRING);
 
     public static final String STATUS_OVERDUE = "overdue";
     public static final String STATUS_DUE_SOON = "due_soon";
@@ -99,6 +107,8 @@ public class ObligationsService {
     private final AccountRepository accountRepository;
     private final StatementRepository statementRepository;
     private final SectionRunner sectionRunner;
+    @Nullable
+    private final RecurringService recurringService;
 
     @Autowired
     public ObligationsService(LoanService loanService,
@@ -106,13 +116,25 @@ public class ObligationsService {
                               CardBillService cardBillService,
                               AccountRepository accountRepository,
                               StatementRepository statementRepository,
-                              SectionRunner sectionRunner) {
+                              SectionRunner sectionRunner,
+                              @Nullable RecurringService recurringService) {
         this.loanService = loanService;
         this.lendingService = lendingService;
         this.cardBillService = cardBillService;
         this.accountRepository = accountRepository;
         this.statementRepository = statementRepository;
         this.sectionRunner = sectionRunner;
+        this.recurringService = recurringService;
+    }
+
+    /** Without recurring rows. */
+    public ObligationsService(LoanService loanService,
+                              LendingService lendingService,
+                              CardBillService cardBillService,
+                              AccountRepository accountRepository,
+                              StatementRepository statementRepository,
+                              SectionRunner sectionRunner) {
+        this(loanService, lendingService, cardBillService, accountRepository, statementRepository, sectionRunner, null);
     }
 
     /** Runs sections inline, without their own transactions (plain unit tests). */
@@ -152,6 +174,9 @@ public class ObligationsService {
             if (wanted.contains(KIND_STATEMENT_EXPECTED)) {
                 items.addAll(section(KIND_STATEMENT_EXPECTED, () -> statementsExpected(userId, today, maxDate)));
             }
+            if (wanted.contains(KIND_RECURRING) && recurringService != null) {
+                items.addAll(section(KIND_RECURRING, () -> recurring(userId, today, maxDate)));
+            }
         }
         items.sort(ORDER);
         return new ObligationsResponse(items);
@@ -190,7 +215,7 @@ public class ObligationsService {
             if (kind.isEmpty()) {
                 continue;
             }
-            if (!ALL_KINDS.contains(kind)) {
+            if (!PARSEABLE_KINDS.contains(kind)) {
                 throw new ValidationException("Unknown obligation kind: " + raw.trim());
             }
             out.add(kind);
@@ -222,7 +247,7 @@ public class ObligationsService {
                         KIND_EMI, due, inst.emi(), status(today, due, 0),
                         loan.id(), loan.name(), inst.seq(),
                         null, null, null, null,
-                        loan.name() + " EMI" + seq, null, loan.name(), null, href, daysUntil(today, due), askClosed));
+                        loan.name() + " EMI" + seq, null, loan.name(), null, href, daysUntil(today, due), askClosed, null, null));
             }
         }
         return items;
@@ -295,6 +320,30 @@ public class ObligationsService {
                     null, null, null, null, null, null, null,
                     account.getName() + " statement expected", account.getId(), account.getName(), null,
                     "/transactions/import", daysUntil(today, expectedOn)));
+        }
+        return items;
+    }
+
+    /**
+     * Tracked series, one row each: titled with the series name, due on its next due date. {@code paid} is true
+     * when a payment already landed in the current cycle (the last one is less than half a period old), in which
+     * case the row is a plain "upcoming" one; otherwise it is overdue only once the cycle window has passed.
+     */
+    private List<ObligationItemDto> recurring(UUID userId, LocalDate today, LocalDate maxDate) {
+        List<ObligationItemDto> items = new ArrayList<>();
+        for (RecurringService.TrackedRow row : recurringService.trackedRows(userId)) {
+            var s = row.series();
+            LocalDate due = s.getNextDueOn();
+            if (due.isAfter(maxDate)) {
+                continue;
+            }
+            boolean paid = !s.getLastPaidOn().isBefore(today.minusDays(s.getPeriod().nominalDays() / 2));
+            String status = paid ? STATUS_UPCOMING : status(today, due, s.getPeriod().windowDays());
+            items.add(new ObligationItemDto(
+                    KIND_RECURRING, due, s.getAmount(), status,
+                    null, null, null, null, null, null, null,
+                    s.getDisplayName(), s.getAccountId(), row.accountName(), null,
+                    "/upcoming?recurring=" + s.getId(), daysUntil(today, due), false, s.getId(), paid));
         }
         return items;
     }
