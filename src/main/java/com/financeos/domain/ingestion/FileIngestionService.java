@@ -92,6 +92,13 @@ public class FileIngestionService {
     @org.springframework.beans.factory.annotation.Autowired(required = false)
     private StatementDuplicateReconciler duplicateReconciler;
 
+    @jakarta.annotation.PostConstruct
+    void warnWithoutReconciler() {
+        if (duplicateReconciler == null) {
+            log.warn("StatementDuplicateReconciler is not available: statement uploads will flag, never merge, duplicates of alert/manual rows");
+        }
+    }
+
     private record PendingLink(Transaction txn, UUID statementId, int lineIndex, BigDecimal balanceAfter, Boolean chainValid, int fileIndex) {}
 
     public FileIngestionResult ingest(UUID accountId, List<UploadedFile> files) {
@@ -355,8 +362,13 @@ public class FileIngestionService {
 
             // Merge the certain pairs now that both rows are stored and the statement lines are linked.
             if (!certainPairs.isEmpty()) {
-                int merged = reconciler.mergeCertain(certainPairs);
-                log.info("Statement import merged {} of {} certain duplicate(s) of alert/manual rows", merged, certainPairs.size());
+                try {
+                    int merged = reconciler.mergeCertain(certainPairs);
+                    log.info("Statement import merged {} of {} certain duplicate(s) of alert/manual rows", merged, certainPairs.size());
+                } catch (RuntimeException e) {
+                    // The import itself is stored: never fail it over the optional merge step.
+                    log.warn("Statement import could not settle {} certain duplicate(s): {}", certainPairs.size(), e.getClass().getSimpleName());
+                }
             }
 
             // Rebuild fileDetails for SUCCESS entries with created & duplicates counts

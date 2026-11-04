@@ -373,4 +373,69 @@ class TransactionMergeTest {
         verify(statementTransactionRepository).delete(st);
         verify(statementTransactionRepository).save(any(StatementTransaction.class));
     }
+
+    private Transaction systemMergeFixture(UUID keepId, UUID deleteId, TransactionSource keptSource) {
+        Transaction kept = createTestTxn(keepId, testAccount, keptSource);
+        Transaction deleted = createTestTxn(deleteId, testAccount, TransactionSource.gmail_transaction_alert);
+        when(transactionRepository.findById(keepId)).thenReturn(Optional.of(kept));
+        when(transactionRepository.findById(deleteId)).thenReturn(Optional.of(deleted));
+        when(transactionRepository.save(any(Transaction.class))).thenAnswer(inv -> inv.getArgument(0));
+        return kept;
+    }
+
+    @Test
+    void systemMergeKeepsOtherReviewReasonsAndDoesNotStampManuallyReviewed() {
+        UUID keepId = UUID.randomUUID();
+        UUID deleteId = UUID.randomUUID();
+        Transaction kept = systemMergeFixture(keepId, deleteId, TransactionSource.file_upload);
+        kept.setReviewReasons(new HashSet<>(Set.of(ReviewReason.UNRECONCILED, ReviewReason.DUPLICATE_SUSPECT)));
+
+        assertTrue(transactionService.mergeStatementDuplicate(keepId, deleteId));
+
+        assertEquals(Set.of(ReviewReason.UNRECONCILED), kept.getReviewReasons());
+        assertEquals(ReviewType.NEEDS_REVIEW, kept.getReviewType());
+    }
+
+    @Test
+    void systemMergeAutoReviewsWhenOnlyTheDuplicateFlagWasLeft() {
+        UUID keepId = UUID.randomUUID();
+        UUID deleteId = UUID.randomUUID();
+        Transaction kept = systemMergeFixture(keepId, deleteId, TransactionSource.file_upload);
+        kept.setReviewReasons(new HashSet<>(Set.of(ReviewReason.DUPLICATE_SUSPECT)));
+
+        assertTrue(transactionService.mergeStatementDuplicate(keepId, deleteId));
+
+        assertTrue(kept.getReviewReasons().isEmpty());
+        assertEquals(ReviewType.AUTO_REVIEWED, kept.getReviewType());
+    }
+
+    @Test
+    void systemMergeCarriesExclusionAndSourceMessageIdWhenKeptHasNone() {
+        UUID keepId = UUID.randomUUID();
+        UUID deleteId = UUID.randomUUID();
+        Transaction kept = systemMergeFixture(keepId, deleteId, TransactionSource.file_upload);
+        Transaction deleted = transactionRepository.findById(deleteId).get();
+        deleted.setTransactionExcluded(true);
+        deleted.setSourceMessageId("msg-9");
+
+        assertTrue(transactionService.mergeStatementDuplicate(keepId, deleteId));
+
+        assertTrue(kept.isTransactionExcluded());
+        assertEquals("msg-9", kept.getSourceMessageId());
+        assertNull(deleted.getSourceMessageId());
+    }
+
+    @Test
+    void systemMergeKeepsTheKeptRowsOwnSourceMessageId() {
+        UUID keepId = UUID.randomUUID();
+        UUID deleteId = UUID.randomUUID();
+        Transaction kept = systemMergeFixture(keepId, deleteId, TransactionSource.gmail_statement);
+        kept.setSourceMessageId("stmt-1");
+        transactionRepository.findById(deleteId).get().setSourceMessageId("msg-9");
+
+        assertTrue(transactionService.mergeStatementDuplicate(keepId, deleteId));
+
+        assertEquals("stmt-1", kept.getSourceMessageId());
+        assertFalse(kept.isTransactionExcluded());
+    }
 }

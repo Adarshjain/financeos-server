@@ -155,4 +155,72 @@ class StatementDuplicateReconcilerTest {
         assertThat(mail.getTransaction()).isSameAs(ref);
         verify(processedRepo).save(mail);
     }
+
+    @Test
+    void lateSeriesDoesNotCrossOver() {
+        // Statement rows on the 12th and 13th, existing rows on the 11th and 12th: every pair is in the window,
+        // and both assignments total 2 days (1 + 1 versus 0 + 2); the tie goes to date order, not the crossed pairing.
+        Transaction s12 = statement(LocalDate.of(2026, 8, 12), "SWIGGY");
+        Transaction s13 = statement(LocalDate.of(2026, 8, 13), "SWIGGY");
+        Transaction e11 = row(TransactionSource.manual, LocalDate.of(2026, 8, 11), "450.00", "Swiggy", Instant.parse("2026-08-11T10:00:00Z"));
+        Transaction e12 = row(TransactionSource.manual, LocalDate.of(2026, 8, 12), "450.00", "Swiggy", Instant.parse("2026-08-12T10:00:00Z"));
+
+        List<StatementDuplicateReconciler.Pair> pairs = reconciler.pair(List.of(s12, s13), List.of(e11, e12), START, END, Set.of());
+
+        assertThat(pairs).hasSize(2);
+        assertThat(pairs).filteredOn(p -> p.statementRow() == s12).extracting(StatementDuplicateReconciler.Pair::existing).containsExactly(e11);
+        assertThat(pairs).filteredOn(p -> p.statementRow() == s13).extracting(StatementDuplicateReconciler.Pair::existing).containsExactly(e12);
+    }
+
+    @Test
+    void maximisesMatchedPairsOverTheNearestPair() {
+        // s12 is nearest to e12 (0) but s14 can only take e12; matching both rows needs s12 with e10.
+        Transaction s12 = statement(LocalDate.of(2026, 8, 12), "SWIGGY");
+        Transaction s14 = statement(LocalDate.of(2026, 8, 14), "SWIGGY");
+        Transaction e10 = row(TransactionSource.manual, LocalDate.of(2026, 8, 10), "450.00", "Swiggy", Instant.now());
+        Transaction e12 = row(TransactionSource.manual, LocalDate.of(2026, 8, 12), "450.00", "Swiggy", Instant.now());
+
+        List<StatementDuplicateReconciler.Pair> pairs = reconciler.pair(List.of(s12, s14), List.of(e10, e12), START, END, Set.of());
+
+        assertThat(pairs).hasSize(2);
+        assertThat(pairs).filteredOn(p -> p.statementRow() == s12).extracting(StatementDuplicateReconciler.Pair::existing).containsExactly(e10);
+        assertThat(pairs).filteredOn(p -> p.statementRow() == s14).extracting(StatementDuplicateReconciler.Pair::existing).containsExactly(e12);
+    }
+
+    @Test
+    void mergeThatThrowsFlagsBothRowsAndDoesNotStopTheOthers() {
+        Transaction s1 = statement(LocalDate.of(2026, 8, 12), "SWIGGY");
+        Transaction s2 = row(TransactionSource.file_upload, LocalDate.of(2026, 8, 12), "900.00", "SWIGGY", Instant.now());
+        Transaction e1 = row(TransactionSource.manual, LocalDate.of(2026, 8, 12), "450.00", "Swiggy", Instant.now());
+        Transaction e2 = row(TransactionSource.manual, LocalDate.of(2026, 8, 12), "900.00", "Swiggy", Instant.now());
+        when(transactionService.mergeStatementDuplicate(s1.getId(), e1.getId())).thenThrow(new IllegalStateException("boom"));
+        when(transactionService.mergeStatementDuplicate(s2.getId(), e2.getId())).thenReturn(true);
+
+        List<StatementDuplicateReconciler.Pair> pairs = reconciler.pair(List.of(s1, s2), List.of(e1, e2), START, END, Set.of());
+        int merged = reconciler.mergeCertain(pairs);
+
+        assertThat(merged).isEqualTo(1);
+        assertThat(s1.getReviewReasons()).contains(ReviewReason.DUPLICATE_SUSPECT);
+        assertThat(e1.getReviewReasons()).contains(ReviewReason.DUPLICATE_SUSPECT);
+        assertThat(s2.getReviewReasons()).doesNotContain(ReviewReason.DUPLICATE_SUSPECT);
+    }
+
+    @Test
+    void flagReloadsRowsByIdBeforeSaving() {
+        Transaction stmt = statement(LocalDate.of(2026, 8, 12), "UPI/DR/4123/ZOMATO/YESB");
+        Transaction manual = row(TransactionSource.manual, LocalDate.of(2026, 8, 10), "450.00", "Swiggy", Instant.now());
+        Transaction freshStmt = new Transaction();
+        freshStmt.setId(stmt.getId());
+        Transaction freshManual = new Transaction();
+        freshManual.setId(manual.getId());
+        when(transactionRepository.findById(stmt.getId())).thenReturn(Optional.of(freshStmt));
+        when(transactionRepository.findById(manual.getId())).thenReturn(Optional.of(freshManual));
+
+        reconciler.settle(reconciler.pair(List.of(stmt), List.of(manual), START, END, Set.of()));
+
+        verify(transactionRepository).save(freshStmt);
+        verify(transactionRepository).save(freshManual);
+        assertThat(freshStmt.getReviewReasons()).contains(ReviewReason.DUPLICATE_SUSPECT);
+        assertThat(freshManual.getReviewReasons()).contains(ReviewReason.DUPLICATE_SUSPECT);
+    }
 }

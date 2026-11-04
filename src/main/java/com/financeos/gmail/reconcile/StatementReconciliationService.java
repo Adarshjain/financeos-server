@@ -66,6 +66,13 @@ public class StatementReconciliationService {
     @org.springframework.beans.factory.annotation.Autowired(required = false)
     private com.financeos.domain.transaction.StatementDuplicateReconciler duplicateReconciler;
 
+    @jakarta.annotation.PostConstruct
+    void warnWithoutReconciler() {
+        if (duplicateReconciler == null) {
+            log.warn("StatementDuplicateReconciler is not available: reconciled statements will not pair alert/manual duplicates");
+        }
+    }
+
     public StatementReconciliationService(GmailEngine gmailEngine,
                                           StatementParser statementParser,
                                           TransactionRepository transactionRepository,
