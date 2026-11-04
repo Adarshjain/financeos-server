@@ -8,6 +8,7 @@ import com.financeos.domain.categorization.CategorizationService;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.gmail.classify.ClassificationResult;
+import com.financeos.gmail.classify.ClassifierConfidence;
 import com.financeos.gmail.classify.EmailClassifier;
 import com.financeos.gmail.domain.*;
 import com.financeos.gmail.engine.GmailEngine;
@@ -509,6 +510,16 @@ public class GmailIngestionService {
                 return List.of();
             }
 
+            // Classifier gate: a mail the classifier is sure is neither an alert nor a statement never reaches the AI read.
+            if (isConfidentlyNotFinancial(gpm)) {
+                recordPipelineKind(gpm, "OTHER");
+                gpm.setStatus(GmailProcessedStatus.SKIPPED_NOT_TRANSACTION);
+                gpm.setError(null);
+                processedMessageRepository.save(gpm);
+                log.info("gmail.classifier.gate skipped_ai_read=1 kind=OTHER confidence=HIGH");
+                return List.of();
+            }
+
             // Statement path check
             if (hasStatementAttachment(message)) {
                 recordPipelineKind(gpm, "STATEMENT");
@@ -539,7 +550,7 @@ public class GmailIngestionService {
 
             gpm.setExtractedLast4(normalizeLast4(extractionResult.accountLast4()));
             AccountResolver.ResolvedCard resolved = accountResolver.resolve(
-                    extractionResult.accountLast4(), java.util.Arrays.asList(message.subject(), message.getStrippedText())).orElse(null);
+                    extractionResult.accountLast4(), java.util.Arrays.asList(message.subject(), message.getStrippedText()), fromAddress).orElse(null);
             Account account = resolved != null ? resolved.account() : null;
             com.financeos.domain.account.card.Card card = resolved != null ? resolved.card() : null;
             mergeOut[0] = mergeRequest(gpm, connection.getUser().getId(), account, shadowEngine);
@@ -620,6 +631,12 @@ public class GmailIngestionService {
         }
         return new com.financeos.domain.categorization.CategoryAssigner.ArrivalContext(counterparty, fromAddress,
                 message.subject(), text, engine.map(ExtractedTransaction::templateId).orElse(null));
+    }
+
+    /** True only for kind OTHER at HIGH confidence (never ALERT, STATEMENT or a lower confidence). */
+    static boolean isConfidentlyNotFinancial(GmailProcessedMessage gpm) {
+        return com.financeos.gmail.classify.EmailKind.OTHER.name().equals(gpm.getClassifiedKind())
+                && ClassifierConfidence.HIGH.name().equals(gpm.getClassifiedConfidence());
     }
 
     /** Shadow run: stores the classifier answer on the row; never changes the outcome, never throws. */

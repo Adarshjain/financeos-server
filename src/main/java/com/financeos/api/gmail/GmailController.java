@@ -221,6 +221,11 @@ public class GmailController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/api/v1/gmail/bank-domains")
+    public ResponseEntity<List<com.financeos.api.gmail.dto.BankDomainsResponse>> getBankDomains() {
+        return ResponseEntity.ok(senderAllowlistService.bankDomains());
+    }
+
     @PostMapping("/api/v1/gmail/senders")
     public ResponseEntity<GmailSenderResponse> createSender(@Valid @RequestBody GmailSenderRequest request) {
         User currentUser = authService.getCurrentUser();

@@ -21,6 +21,18 @@ public class EmailClassifier {
 
     public static final int VERSION = 3;
 
+    private final BankSenderDomains bankSenderDomains;
+
+    @org.springframework.beans.factory.annotation.Autowired
+    public EmailClassifier(BankSenderDomains bankSenderDomains) {
+        this.bankSenderDomains = bankSenderDomains;
+    }
+
+    /** Over the built-in bank domains (tests and tools without a database). */
+    public EmailClassifier() {
+        this(BankSenderDomains.defaults());
+    }
+
     // ---------------------------------------------------------------------------------------------
     // Word lists: extend here. All patterns match against lowercase text, currency already as "INR".
     // ---------------------------------------------------------------------------------------------
@@ -198,7 +210,7 @@ public class EmailClassifier {
         if (message == null) {
             return result(EmailSubtype.UNKNOWN, ClassifierConfidence.LOW, null, signals);
         }
-        String bankId = BankSenderDomains.bankIdFor(extractAddress(message.from()));
+        String bankId = bankSenderDomains.bankIdFor(extractAddress(message.from()));
         if (bankId != null) {
             signals.add("bank:" + bankId);
         }

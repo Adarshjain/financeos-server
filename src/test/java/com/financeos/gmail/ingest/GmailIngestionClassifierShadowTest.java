@@ -135,7 +135,7 @@ class GmailIngestionClassifierShadowTest {
         when(geminiExtractor.extract(m)).thenReturn(GeminiExtractionResult.success(
                 new com.financeos.gmail.ingest.gemini.ExtractedTransaction(true, new java.math.BigDecimal("725.00"), "INR", "DEBIT",
                         java.time.LocalDate.now().toString(), "BLUE LEAF CAFE", "4821", 0.9), java.time.LocalDate.now()));
-        when(accountResolver.resolve(any(), any())).thenReturn(Optional.empty());
+        when(accountResolver.resolve(any(), any(), any())).thenReturn(Optional.empty());
 
         GmailProcessedMessage row = run(m);
 
@@ -306,5 +306,77 @@ class GmailIngestionClassifierShadowTest {
         assertThat(row.getClassifiedSignals()).isNull();
         assertThat(row.getClassifierVersion()).isNull();
         assertThat(row.getPipelineKind()).isNull();
+    }
+
+    private void classifyAs(com.financeos.gmail.classify.EmailKind kind, com.financeos.gmail.classify.ClassifierConfidence confidence) {
+        EmailClassifier fixed = mock(EmailClassifier.class);
+        when(fixed.classify(any())).thenReturn(new ClassificationResult(kind,
+                com.financeos.gmail.classify.EmailSubtype.OTP, confidence, "hdfc", List.of("test"), EmailClassifier.VERSION));
+        ReflectionTestUtils.setField(service, "emailClassifier", fixed);
+    }
+
+    @Test
+    void gate_otherAtHighConfidenceSkipsTheAiRead() {
+        classifyAs(com.financeos.gmail.classify.EmailKind.OTHER, com.financeos.gmail.classify.ClassifierConfidence.HIGH);
+        GmailMessage m = new GmailMessage("g1", Instant.now(), "alerts@hdfcbank.net", "Offers", "s", "Unsubscribe here.", null, List.of());
+
+        GmailProcessedMessage row = run(m);
+
+        assertThat(row.getStatus()).isEqualTo(GmailProcessedStatus.SKIPPED_NOT_TRANSACTION);
+        assertThat(row.getError()).isNull();
+        assertThat(row.getPipelineKind()).isEqualTo("OTHER");
+        verifyNoInteractions(geminiExtractor);
+        verifyNoInteractions(statementReconciliationService);
+    }
+
+    @Test
+    void gate_otherAtHighConfidenceWithAnAttachmentAlsoSkipsTheStatementPath() {
+        classifyAs(com.financeos.gmail.classify.EmailKind.OTHER, com.financeos.gmail.classify.ClassifierConfidence.HIGH);
+        GmailMessage m = new GmailMessage("g2", Instant.now(), "alerts@hdfcbank.net", "Invoice", "s", "attached", null,
+                List.of(new GmailAttachment("att", "invoice.pdf", "application/pdf", new byte[]{1})));
+
+        GmailProcessedMessage row = run(m);
+
+        assertThat(row.getStatus()).isEqualTo(GmailProcessedStatus.SKIPPED_NOT_TRANSACTION);
+        verifyNoInteractions(geminiExtractor);
+        verifyNoInteractions(statementReconciliationService);
+    }
+
+    @Test
+    void gate_otherBelowHighStillGetsTheAiRead() {
+        for (var confidence : new com.financeos.gmail.classify.ClassifierConfidence[] {
+                com.financeos.gmail.classify.ClassifierConfidence.MEDIUM, com.financeos.gmail.classify.ClassifierConfidence.LOW}) {
+            reset(geminiExtractor);
+            classifyAs(com.financeos.gmail.classify.EmailKind.OTHER, confidence);
+            GmailMessage m = new GmailMessage("g3" + confidence, Instant.now(), "alerts@hdfcbank.net", "Hi", "s", "hi", null, List.of());
+            when(geminiExtractor.extract(m)).thenReturn(GeminiExtractionResult.notTransaction());
+
+            run(m);
+
+            verify(geminiExtractor).extract(m);
+        }
+    }
+
+    @Test
+    void gate_alertAtHighConfidenceStillGetsTheAiRead() {
+        classifyAs(com.financeos.gmail.classify.EmailKind.ALERT, com.financeos.gmail.classify.ClassifierConfidence.HIGH);
+        GmailMessage m = alert("g4", "alerts@hdfcbank.net");
+        when(geminiExtractor.extract(m)).thenReturn(GeminiExtractionResult.notTransaction());
+
+        run(m);
+
+        verify(geminiExtractor).extract(m);
+    }
+
+    @Test
+    void gate_statementAtHighConfidenceStillTakesTheStatementPath() {
+        classifyAs(com.financeos.gmail.classify.EmailKind.STATEMENT, com.financeos.gmail.classify.ClassifierConfidence.HIGH);
+        GmailMessage m = new GmailMessage("g5", Instant.now(), "alerts@hdfcbank.net", "Statement", "s", "attached", null,
+                List.of(new GmailAttachment("att", "stmt.pdf", "application/pdf", new byte[]{1})));
+        when(statementReconciliationService.reconcile(eq(connection), eq(m))).thenReturn(new ReconSummary(0, 0, 0));
+
+        run(m);
+
+        verify(statementReconciliationService).reconcile(connection, m);
     }
 }

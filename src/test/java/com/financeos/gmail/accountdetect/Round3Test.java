@@ -130,7 +130,7 @@ class Round3Test {
         assertThat(ProductCatalog.issuers()).contains("hdfc", "yes", "axis", "citi", "union_bank").hasSizeGreaterThanOrEqualTo(30);
         for (String b : ProductCatalog.issuers()) {
             boolean known = BankDirectory.ISSUER_NAMES.containsKey(b) || BankDirectory.EXTRA_BANK_DOMAINS.containsValue(b)
-                    || com.financeos.gmail.classify.BankSenderDomains.domains().stream().anyMatch(d -> b.equals(BankDirectory.bankForDomain(d)));
+                    || com.financeos.gmail.classify.BankSenderDomains.current().domains().stream().anyMatch(d -> b.equals(BankDirectory.bankForDomain(d)));
             assertThat(known).as("catalogue issuer id " + b + " is a directory bank id").isTrue();
             assertThat(BankDirectory.variantsOf(b)).isNotEmpty();
         }

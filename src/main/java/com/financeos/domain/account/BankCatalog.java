@@ -39,7 +39,8 @@ public final class BankCatalog {
             new Bank("unity", "Unity Small Finance Bank", List.of("Unity Small Finance Bank", "Unity Bank")),
             new Bank("amex", "American Express", List.of("American Express", "Amex")),
             new Bank("hsbc", "HSBC", List.of("HSBC")),
-            new Bank("sbm", "SBM Bank India", List.of("SBM Bank"))
+            new Bank("sbm", "SBM Bank India", List.of("SBM Bank")),
+            new Bank("kotak", "Kotak Mahindra Bank", List.of("Kotak", "Kotak Bank"))
     );
 
     /**

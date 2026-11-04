@@ -3371,6 +3371,26 @@ paths:
           description: Error response
       tags:
       - gmail-controller
+  /api/v1/gmail/bank-domains:
+    get:
+      operationId: getBankDomains
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/BankDomainsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - gmail-controller
   /api/v1/gmail/connections:
     get:
       operationId: getConnections
@@ -10294,6 +10314,18 @@ components:
       - type
       - updatedAt
       - warnings
+    BankDomainsResponse:
+      type: object
+      properties:
+        bankId:
+          type: string
+        domains:
+          type: array
+          items:
+            type: string
+      required:
+      - bankId
+      - domains
     BatchDeleteRequest:
       type: object
       properties:
@@ -15054,6 +15086,10 @@ components:
     GmailSenderResponse:
       type: object
       properties:
+        bankId:
+          type: string
+          nullable: true
+          x-nullable: true
         enabled:
           type: boolean
         id:

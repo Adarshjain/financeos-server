@@ -30,18 +30,26 @@ class BankCatalogTest {
     }
 
     @Test
-    void catalogIsTheNineteenBanks() {
+    void catalogIsTheTwentyBanks() {
         assertThat(BankCatalog.BANKS).extracting(BankCatalog.Bank::id).containsExactlyInAnyOrder(
                 "amex", "au", "axis", "bank_of_baroda", "canara", "csb", "equitas", "federal", "hdfc", "hsbc",
-                "icici", "idfc_first", "indian_bank", "indusind", "sbi", "sbm", "slice", "unity", "yes");
+                "icici", "idfc_first", "indian_bank", "indusind", "kotak", "sbi", "sbm", "slice", "unity", "yes");
     }
 
     @Test
     void droppedBanksAreUnknownAndNotNamed() {
-        for (String dropped : new String[] {"kotak", "pnb", "south_indian", "iob", "rbl", "idbi", "citi", "dbs"}) {
+        for (String dropped : new String[] {"pnb", "south_indian", "iob", "rbl", "idbi", "citi", "dbs"}) {
             assertThat(BankCatalog.isKnown(dropped)).as(dropped).isFalse();
         }
-        assertThat(BankCatalog.banksNamedIn("Kotak Mahindra Bank alert", "Citibank")).isEmpty();
+        assertThat(BankCatalog.banksNamedIn("Citibank")).isEmpty();
+    }
+
+    @Test
+    void kotakIsInTheCatalogWithItsAliases() {
+        assertThat(BankCatalog.isKnown("kotak")).isTrue();
+        assertThat(BankCatalog.find("kotak").orElseThrow().name()).isEqualTo("Kotak Mahindra Bank");
+        assertThat(BankCatalog.banksNamedIn("Kotak Mahindra Bank alert")).containsExactly("kotak");
+        assertThat(BankCatalog.banksNamedIn("Your Kotak Bank card")).containsExactly("kotak");
     }
 
     @Test

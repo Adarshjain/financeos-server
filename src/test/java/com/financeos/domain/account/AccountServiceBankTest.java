@@ -26,6 +26,7 @@ class AccountServiceBankTest {
 
     private AccountRepository accountRepository;
     private AccountService accountService;
+    private com.financeos.gmail.ingest.SenderAllowlistService senderAllowlistService;
     private UUID userId;
     private User user;
 
@@ -40,6 +41,8 @@ class AccountServiceBankTest {
                 mock(HoldingValuationService.class),
                 mock(com.financeos.gmail.domain.GmailBackfillDemandRepository.class),
                 mock(org.springframework.context.ApplicationEventPublisher.class));
+        senderAllowlistService = mock(com.financeos.gmail.ingest.SenderAllowlistService.class);
+        org.springframework.test.util.ReflectionTestUtils.setField(accountService, "senderAllowlistService", senderAllowlistService);
         userId = UUID.randomUUID();
         user = new User();
         user.setId(userId);
@@ -123,5 +126,29 @@ class AccountServiceBankTest {
         Account a = stored("hdfc");
         assertThrows(ValidationException.class, () -> accountService.updateAccount(a.getId(), bank("zzz")));
         assertThat(a.getBank()).isEqualTo("hdfc");
+    }
+
+    @Test
+    void createWithBank_addsThatBanksSenders() {
+        accountService.createAccount(bank("hdfc"));
+        verify(senderAllowlistService).addBankSenders(userId, "hdfc");
+    }
+
+    @Test
+    void createWithoutBank_addsNoSenders() {
+        accountService.createAccount(bank(null));
+        verifyNoInteractions(senderAllowlistService);
+    }
+
+    @Test
+    void updateChangingBank_addsTheNewBanksSenders_butSameBankOrNoBankDoesNot() {
+        Account a = stored("hdfc");
+
+        accountService.updateAccount(a.getId(), bank("hdfc"));
+        accountService.updateAccount(a.getId(), bank(null));
+        verifyNoInteractions(senderAllowlistService);
+
+        accountService.updateAccount(a.getId(), bank("icici"));
+        verify(senderAllowlistService).addBankSenders(userId, "icici");
     }
 }

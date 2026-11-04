@@ -173,7 +173,7 @@ public final class BankDirectory {
         if (domain == null || domain.isBlank()) return null;
         String d = domain.toLowerCase(Locale.ROOT);
         for (var e : APP_DOMAINS.entrySet()) if (d.equals(e.getKey()) || d.endsWith("." + e.getKey())) return e.getValue();
-        String id = BankSenderDomains.bankIdFor(d);
+        String id = BankSenderDomains.current().bankIdFor(d);
         if (id != null) return id;
         for (var e : EXTRA_BANK_DOMAINS.entrySet()) if (d.equals(e.getKey()) || d.endsWith("." + e.getKey())) return e.getValue();
         return null;
@@ -185,7 +185,7 @@ public final class BankDirectory {
 
     /** Every sender domain worth listing (catalog + extras + apps). */
     public static List<String> allDomains() {
-        List<String> all = new ArrayList<>(BankSenderDomains.domains());
+        List<String> all = new ArrayList<>(BankSenderDomains.current().domains());
         all.addAll(EXTRA_BANK_DOMAINS.keySet());
         all.addAll(APP_DOMAINS.keySet());
         return all;

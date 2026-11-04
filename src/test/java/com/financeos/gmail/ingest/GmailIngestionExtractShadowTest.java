@@ -174,7 +174,7 @@ class GmailIngestionExtractShadowTest {
     private GmailProcessedMessage runWith(GmailMessage m, Optional<ExtractedTransaction> e, GeminiExtractionResult a) {
         when(engine.extract(m)).thenReturn(e);
         when(geminiExtractor.extract(m)).thenReturn(a);
-        when(accountResolver.resolve(any(), any())).thenReturn(Optional.empty());
+        when(accountResolver.resolve(any(), any(), any())).thenReturn(Optional.empty());
         return run(m);
     }
 
@@ -290,7 +290,7 @@ class GmailIngestionExtractShadowTest {
         GmailMessage m = msg("t1", "alerts@hdfcbank.net");
         when(engine.extract(m)).thenThrow(new IllegalStateException("engine bug"));
         when(geminiExtractor.extract(m)).thenReturn(aiBase());
-        when(accountResolver.resolve(any(), any())).thenReturn(Optional.empty());
+        when(accountResolver.resolve(any(), any(), any())).thenReturn(Optional.empty());
 
         GmailProcessedMessage row = run(m);
 
@@ -521,7 +521,7 @@ class GmailIngestionExtractShadowTest {
         GmailMessage m = msg("c8", "no-reply@cred.club");
         when(engine.extract(m)).thenReturn(Optional.of(base()));
         when(geminiExtractor.extract(m)).thenReturn(aiBase());
-        when(accountResolver.resolve(any(), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(account, null)));
+        when(accountResolver.resolve(any(), any(), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(account, null)));
         when(processedMessageRepository.findMergeCandidatesForAccount(eq(user.getId()), eq(account.getId()), eq("c8"), any(), any(), any(), any()))
                 .thenReturn(List.of(candidate(twin, "alerts@hdfcbank.net")));
 
