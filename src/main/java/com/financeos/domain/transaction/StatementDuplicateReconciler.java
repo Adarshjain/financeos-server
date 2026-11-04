@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.support.TransactionSynchronization;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.math.BigDecimal;
@@ -47,8 +49,8 @@ public class StatementDuplicateReconciler {
     private final ReviewStatusManager reviewStatusManager;
 
     /**
-     * Each pair runs in its own savepoint (nested; a plain transaction when none is open), so one failing merge
-     * cannot roll back the others or the import around it. Absent in hand-built instances: pairs run directly.
+     * Each pair runs in its own REQUIRES_NEW transaction, so one failing merge cannot roll back the others or the
+     * import around it. Absent in hand-built instances: pairs run directly.
      */
     private TransactionTemplate pairTx;
 
@@ -69,7 +71,7 @@ public class StatementDuplicateReconciler {
     public void setTransactionManager(PlatformTransactionManager transactionManager) {
         if (transactionManager != null) {
             this.pairTx = new TransactionTemplate(transactionManager);
-            this.pairTx.setPropagationBehavior(TransactionDefinition.PROPAGATION_NESTED);
+            this.pairTx.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
         }
     }
 
@@ -206,6 +208,29 @@ public class StatementDuplicateReconciler {
     /** Merges only the certain pairs, each in its own transaction; a pair that cannot be merged is flagged. */
     public int mergeCertain(List<Pair> pairs) {
         return run(pairs, true);
+    }
+
+    /** Like {@link #settle} but after the surrounding transaction commits (directly when none is active). */
+    public void settleAfterCommit(List<Pair> pairs) {
+        afterCommit(() -> run(pairs, false));
+    }
+
+    /** Like {@link #mergeCertain} but after the surrounding transaction commits (directly when none is active). */
+    public void mergeCertainAfterCommit(List<Pair> pairs) {
+        afterCommit(() -> run(pairs, true));
+    }
+
+    private static void afterCommit(Runnable work) {
+        if (TransactionSynchronizationManager.isSynchronizationActive()) {
+            TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+                @Override
+                public void afterCommit() {
+                    work.run();
+                }
+            });
+        } else {
+            work.run();
+        }
     }
 
     private int run(List<Pair> pairs, boolean certainOnly) {

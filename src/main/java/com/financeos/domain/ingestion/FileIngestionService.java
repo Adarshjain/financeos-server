@@ -363,8 +363,8 @@ public class FileIngestionService {
             // Merge the certain pairs now that both rows are stored and the statement lines are linked.
             if (!certainPairs.isEmpty()) {
                 try {
-                    int merged = reconciler.mergeCertain(certainPairs);
-                    log.info("Statement import merged {} of {} certain duplicate(s) of alert/manual rows", merged, certainPairs.size());
+                    reconciler.mergeCertainAfterCommit(certainPairs);
+                    log.info("Statement import queued {} certain duplicate(s) of alert/manual rows for merge after commit", certainPairs.size());
                 } catch (RuntimeException e) {
                     // The import itself is stored: never fail it over the optional merge step.
                     log.warn("Statement import could not settle {} certain duplicate(s): {}", certainPairs.size(), e.getClass().getSimpleName());

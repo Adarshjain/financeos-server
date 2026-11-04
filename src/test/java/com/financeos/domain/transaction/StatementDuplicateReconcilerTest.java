@@ -223,4 +223,35 @@ class StatementDuplicateReconcilerTest {
         assertThat(freshStmt.getReviewReasons()).contains(ReviewReason.DUPLICATE_SUSPECT);
         assertThat(freshManual.getReviewReasons()).contains(ReviewReason.DUPLICATE_SUSPECT);
     }
+
+    @Test
+    void mergeRunsOnlyAfterTheSurroundingTransactionCommits() {
+        Transaction stmt = statement(LocalDate.of(2026, 8, 12), "UPI/DR/4123/SWIGGY/YESB");
+        Transaction manual = row(TransactionSource.manual, LocalDate.of(2026, 8, 10), "450.00", "Swiggy", Instant.now());
+        when(transactionService.mergeStatementDuplicate(stmt.getId(), manual.getId())).thenReturn(true);
+        List<StatementDuplicateReconciler.Pair> pairs = reconciler.pair(List.of(stmt), List.of(manual), START, END, Set.of());
+
+        org.springframework.transaction.support.TransactionSynchronizationManager.initSynchronization();
+        try {
+            reconciler.mergeCertainAfterCommit(pairs);
+            verify(transactionService, never()).mergeStatementDuplicate(any(), any());
+            for (var sync : org.springframework.transaction.support.TransactionSynchronizationManager.getSynchronizations()) {
+                sync.afterCommit();
+            }
+        } finally {
+            org.springframework.transaction.support.TransactionSynchronizationManager.clear();
+        }
+        verify(transactionService).mergeStatementDuplicate(stmt.getId(), manual.getId());
+    }
+
+    @Test
+    void mergeRunsDirectlyWhenNoTransactionIsActive() {
+        Transaction stmt = statement(LocalDate.of(2026, 8, 12), "UPI/DR/4123/SWIGGY/YESB");
+        Transaction manual = row(TransactionSource.manual, LocalDate.of(2026, 8, 10), "450.00", "Swiggy", Instant.now());
+        when(transactionService.mergeStatementDuplicate(stmt.getId(), manual.getId())).thenReturn(true);
+
+        reconciler.settleAfterCommit(reconciler.pair(List.of(stmt), List.of(manual), START, END, Set.of()));
+
+        verify(transactionService).mergeStatementDuplicate(stmt.getId(), manual.getId());
+    }
 }
