@@ -65,7 +65,7 @@ public interface JobRepository extends JpaRepository<Job, UUID> {
     int markInterrupted(@Param("fromStatus") JobStatus fromStatus, @Param("toStatus") JobStatus toStatus, @Param("errorCode") String errorCode, @Param("errorMessage") String errorMessage, @Param("finishedAt") Instant finishedAt);
 
     @Modifying
-    @Query("delete from JobArtifact a where a.jobId in (select j.id from Job j where j.status = 'FAILED' and j.finishedAt < :cutoff)")
+    @Query("delete from JobArtifact a where a.retained = false and a.jobId in (select j.id from Job j where j.status = 'FAILED' and j.finishedAt < :cutoff)")
     int deleteFailedJobArtifactsOlderThan(@Param("cutoff") Instant cutoff);
 
     @Modifying

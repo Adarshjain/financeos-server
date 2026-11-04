@@ -11,6 +11,29 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class StatementAccountMatcherTest {
 
+    @Test
+    void keysOfFetchesAllCardLast4sInOneQuery() {
+        com.financeos.domain.account.AccountRepository repo = org.mockito.Mockito.mock(com.financeos.domain.account.AccountRepository.class);
+        UUID userId = UUID.randomUUID();
+        com.financeos.domain.account.Account cc1 = new com.financeos.domain.account.Account();
+        cc1.setId(a);
+        cc1.setBank("hdfc");
+        com.financeos.domain.account.Account cc2 = new com.financeos.domain.account.Account();
+        cc2.setId(b);
+        cc2.setBank("icici");
+        org.mockito.Mockito.when(repo.findByUserIdAndType(userId, com.financeos.domain.account.AccountType.credit_card)).thenReturn(List.of(cc1, cc2));
+        org.mockito.Mockito.when(repo.findByUserIdAndType(userId, com.financeos.domain.account.AccountType.bank_account)).thenReturn(List.of());
+        org.mockito.Mockito.when(repo.findCardLast4sByAccountIds(org.mockito.ArgumentMatchers.anyCollection())).thenReturn(
+                List.<Object[]>of(new Object[]{a, "1111"}, new Object[]{a, "X-2222"}, new Object[]{b, "3333"}));
+
+        List<AccountKey> keys = new StatementAccountMatcher(repo).keysOf(userId);
+
+        assertThat(keys).hasSize(2);
+        assertThat(keys.get(0).last4s()).containsExactlyInAnyOrder("1111", "x2222");
+        assertThat(keys.get(1).last4s()).containsExactly("3333");
+        org.mockito.Mockito.verify(repo, org.mockito.Mockito.times(1)).findCardLast4sByAccountIds(org.mockito.ArgumentMatchers.anyCollection());
+    }
+
     private final UUID a = UUID.randomUUID();
     private final UUID b = UUID.randomUUID();
 

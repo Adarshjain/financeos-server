@@ -255,6 +255,14 @@ public class JobService {
         if (orig.getType() == JobType.STATEMENT_INGEST && origArtifacts.isEmpty()) {
             throw new ValidationException("Statement ingest artifacts expired, please re-upload.");
         }
+        if (orig.getType() == JobType.STATEMENT_INGEST) {
+            // files already waiting in the Inbox are not copied: the copy would be held again as a duplicate row
+            List<JobArtifact> pending = origArtifacts.stream().filter(a -> !artifactRepository.hasUnresolvedHeldUpload(a.getId())).toList();
+            if (pending.isEmpty()) {
+                throw new ValidationException("These files are already waiting in the Inbox.");
+            }
+            origArtifacts = pending;
+        }
 
         Job newJob = new Job();
         newJob.setUserId(orig.getUserId());

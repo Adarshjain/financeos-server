@@ -77,6 +77,9 @@ public class StatementIntakeService {
         if (job.getType() != JobType.STATEMENT_INGEST) {
             throw new ValidationException("Only statement imports have files.");
         }
+        if (!job.getStatus().isTerminal()) {
+            throw new ApiStatusException(HttpStatus.CONFLICT, "JOB_NOT_FINISHED", "This import is still running. Try again when it has finished.");
+        }
         UUID accountId = accountIdOf(job);
         if (accountId == null) {
             throw new ValidationException("This import has no account yet. Pick an account for the held file instead.");
@@ -84,7 +87,7 @@ public class StatementIntakeService {
         Account account = accountRepository.findByIdAndUser_Id(accountId, userId)
                 .orElseThrow(() -> new ResourceNotFoundException("Account", accountId));
         List<JobArtifact> artifacts = jobService.getArtifacts(jobId);
-        JobArtifact artifact = fileIndex < 0 || fileIndex >= artifacts.size() ? null : artifacts.get(fileIndex);
+        JobArtifact artifact = findArtifact(artifacts, fileIndex);
         if (artifact == null) {
             throw new ApiStatusException(HttpStatus.CONFLICT, "FILE_EXPIRED", HeldUploadService.FILE_GONE_MESSAGE);
         }
@@ -142,10 +145,20 @@ public class StatementIntakeService {
                 throw new ApiStatusException(HttpStatus.UNPROCESSABLE_ENTITY, code.name(), summary.errorMessage());
             }
         }
-        if (summary != null && "SUCCESS".equals(summary.status())) {
+        boolean targetHasIt = summary != null && "SUCCESS".equals(summary.status())
+                && statementRepository.existsByAccountIdAndFileSha256(target.getId(), statement.getFileSha256());
+        if (targetHasIt) {
             deletionService.delete(source.getId(), statementId);
         }
         return result;
+    }
+
+    /** By the stored file index (positions shift once a file is used up); by position only for old rows that carry no index. */
+    private static JobArtifact findArtifact(List<JobArtifact> artifacts, int fileIndex) {
+        if (artifacts.stream().allMatch(a -> a.getFileIndex() == null)) {
+            return fileIndex < 0 || fileIndex >= artifacts.size() ? null : artifacts.get(fileIndex);
+        }
+        return artifacts.stream().filter(a -> a.getFileIndex() != null && a.getFileIndex() == fileIndex).findFirst().orElse(null);
     }
 
     private UUID accountIdOf(Job job) {

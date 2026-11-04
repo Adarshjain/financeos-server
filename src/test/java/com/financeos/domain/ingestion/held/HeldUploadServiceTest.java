@@ -78,6 +78,7 @@ class HeldUploadServiceTest {
         });
         when(heldRepository.findByIdAndUserId(held.getId(), userId)).thenReturn(Optional.of(held));
         when(artifactRepository.findById(artifact.getId())).thenReturn(Optional.of(artifact));
+        when(heldRepository.claim(any(), any())).thenReturn(1);
         Account account = new Account();
         account.setId(accountId);
         account.setType(AccountType.bank_account);
@@ -155,6 +156,38 @@ class HeldUploadServiceTest {
         assertThat(held.getResolvedAt()).isNull();
         verify(vault, never()).save(any(), any(), any());
         verify(artifactRepository, never()).delete(any());
+    }
+
+    @Test
+    void assignWithATypedPasswordThatDoesNotOpenTheFileNeverIngestsOrSavesIt() {
+        when(identifier.isLocked(artifact.getData())).thenReturn(true);
+        when(identifier.identify(artifact.getData(), "bad"))
+                .thenThrow(new com.financeos.statement.parser.StatementParseException("Incorrect password"));
+
+        assertThatThrownBy(() -> service.assign(userId, held.getId(), accountId, "bad"))
+                .isInstanceOfSatisfying(ApiStatusException.class, e -> assertThat(e.getStatus().value()).isEqualTo(422));
+        verifyNoInteractions(ingestion, vault);
+        assertThat(held.getResolvedAt()).isNull();
+    }
+
+    @Test
+    void assignLosingTheClaimRaceIs409AndIngestsNothing() {
+        when(heldRepository.claim(eq(held.getId()), any())).thenReturn(0);
+
+        assertThatThrownBy(() -> service.assign(userId, held.getId(), accountId, null))
+                .isInstanceOfSatisfying(ApiStatusException.class, e -> assertThat(e.getStatus().value()).isEqualTo(409));
+        verifyNoInteractions(ingestion);
+        verify(heldRepository, never()).release(any());
+    }
+
+    @Test
+    void assignThatDoesNotFinishGivesTheClaimBack() {
+        when(ingestion.ingest(eq(accountId), anyList(), nullable(com.financeos.domain.job.JobExecutionContext.class), nullable(String.class)))
+                .thenReturn(result(FileIngestionResult.FileSummary.failed("s.pdf", "unreadable", FileIngestionResult.ErrorCode.UNREADABLE)));
+
+        service.assign(userId, held.getId(), accountId, null);
+
+        verify(heldRepository).release(held.getId());
     }
 
     @Test
