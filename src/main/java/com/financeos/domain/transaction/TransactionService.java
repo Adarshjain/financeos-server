@@ -729,6 +729,43 @@ public class TransactionService {
             }
         }
 
+        return doMerge(kept, deleted, "user:" + currentSessionUserId);
+    }
+
+    /**
+     * Folds an alert or manual row into the statement row that covers the same payment, for the
+     * duplicate reconcile on statement import (a background job, so no session user). The statement row
+     * is kept; the absorbed row's user-chosen category wins over an automatic one. Returns false, and
+     * changes nothing, when the rows cannot be merged (different accounts, incompatible loan references).
+     */
+    public boolean mergeStatementDuplicate(UUID keepId, UUID deleteId) {
+        Transaction kept = transactionRepository.findById(keepId).orElse(null);
+        Transaction deleted = transactionRepository.findById(deleteId).orElse(null);
+        if (kept == null || deleted == null || keepId.equals(deleteId)) {
+            return false;
+        }
+        if (kept.getAccount() == null || deleted.getAccount() == null
+                || !kept.getAccount().getId().equals(deleted.getAccount().getId())) {
+            return false;
+        }
+        if (obligationRefService != null && obligationRefService.checkMergeCompatibility(kept, deleted) != null) {
+            return false;
+        }
+        if (deleted.getCategorySource() == CategorySource.USER && deleted.getCategoryKey() != null) {
+            kept.setCategoryKey(deleted.getCategoryKey());
+            kept.setSubcategoryKey(deleted.getSubcategoryKey());
+            kept.setCategorySource(deleted.getCategorySource());
+            kept.setCategorySetAt(deleted.getCategorySetAt());
+            kept.setAppliedRule(deleted.getAppliedRule());
+        }
+        doMerge(kept, deleted, "system:statement-duplicate");
+        return true;
+    }
+
+    private MergeTransactionsResponse doMerge(Transaction kept, Transaction deleted, String actor) {
+        UUID keepId = kept.getId();
+        UUID deleteId = deleted.getId();
+
         // --- CARRY-OVER ---
         if (kept.getTags().isEmpty() && !deleted.getTags().isEmpty()) {
             Set<Tag> deletedTags = deleted.getTags().stream()
@@ -848,7 +885,7 @@ public class TransactionService {
                         net.logstash.logback.argument.StructuredArguments.keyValue("toTxnId", String.valueOf(keepId)),
                         net.logstash.logback.argument.StructuredArguments.keyValue("count", moved.size()));
                 if (auditLogger != null) {
-                    auditLogger.mutation("Transaction", keepId, "OBLIGATION_REFS_REPOINTED", "user:" + currentSessionUserId,
+                    auditLogger.mutation("Transaction", keepId, "OBLIGATION_REFS_REPOINTED", actor,
                             "manual", moved, null, null, "INR");
                 }
             }
@@ -856,7 +893,7 @@ public class TransactionService {
 
         // --- HARD-DELETE DELETED TRANSACTION ---
         if (auditLogger != null) {
-            auditLogger.mutation("Transaction", deleteId, "DELETE_MERGED", "user:" + currentSessionUserId, "manual",
+            auditLogger.mutation("Transaction", deleteId, "DELETE_MERGED", actor, "manual",
                     List.of("mergedInto:" + keepId), deleted.getAmount(), null, "INR");
         }
         transactionRepository.delete(deleted);

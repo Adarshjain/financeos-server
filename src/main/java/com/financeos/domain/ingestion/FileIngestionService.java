@@ -8,6 +8,7 @@ import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.transaction.ReviewType;
 import com.financeos.domain.transaction.Transaction;
+import com.financeos.domain.transaction.StatementDuplicateReconciler;
 import com.financeos.domain.transaction.TransactionMatcher;
 import com.financeos.domain.transaction.TransactionSource;
 import com.financeos.domain.transaction.TransactionType;
@@ -87,6 +88,10 @@ public class FileIngestionService {
         this.accountService = accountService;
     }
 
+    /** Optional so tests that build the service by hand need no reconciler; without it nothing is ever auto-merged. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private StatementDuplicateReconciler duplicateReconciler;
+
     private record PendingLink(Transaction txn, UUID statementId, int lineIndex, BigDecimal balanceAfter, Boolean chainValid, int fileIndex) {}
 
     public FileIngestionResult ingest(UUID accountId, List<UploadedFile> files) {
@@ -112,6 +117,7 @@ public class FileIngestionService {
         List<Transaction> newTransactionsToInsert = new ArrayList<>();
         List<FileIngestionResult.FileSummary> fileDetails = new ArrayList<>();
         List<PendingLink> pendingLinks = new ArrayList<>();
+        Map<Integer, LocalDate[]> filePeriods = new java.util.LinkedHashMap<>();
         LocalDate maxEffectiveEnd = null;
 
         // Loop over files to parse them (statement parsing runs here outside the write transaction)
@@ -211,6 +217,13 @@ public class FileIngestionService {
                 }
 
                 int currentFileIndex = fileDetails.size();
+                LocalDate periodStart = parseResult.periodStart();
+                LocalDate periodEnd = parseResult.periodEnd();
+                if (periodStart == null || periodEnd == null) {
+                    periodStart = lines.stream().map(ParsedStatementLine::date).min(LocalDate::compareTo).orElse(null);
+                    periodEnd = lines.stream().map(ParsedStatementLine::date).max(LocalDate::compareTo).orElse(null);
+                }
+                filePeriods.put(currentFileIndex, new LocalDate[]{periodStart, periodEnd});
                 UUID statementId = stmt.get().getId();
                 for (int j = 0; j < lines.size(); j++) {
                     ParsedStatementLine line = lines.get(j);
@@ -249,7 +262,9 @@ public class FileIngestionService {
             LocalDate maxDate = newTransactionsToInsert.stream().map(Transaction::getDate).max(LocalDate::compareTo).get();
 
             // Load candidates inside a read-only transaction boundary
-            List<Transaction> dbTxns = dbHandler.findExistingTransactions(account.getId(), minDate, maxDate);
+            int pairWindow = StatementDuplicateReconciler.WINDOW_DAYS;
+            List<Transaction> dbTxns = dbHandler.findExistingTransactions(
+                    account.getId(), minDate.minusDays(pairWindow), maxDate.plusDays(pairWindow));
             Set<Transaction> dbTxnsToUpdate = new HashSet<>();
             Set<Transaction> duplicateNewTxns = new HashSet<>();
             Map<Transaction, UUID> matchedDbTxnIds = new HashMap<>();
@@ -261,6 +276,8 @@ public class FileIngestionService {
 
                 // Check duplicates against DB using shared TransactionMatcher
                 for (Transaction dbTx : dbTxns) {
+                    // Alert and manual rows are paired below, with the wider window and the merge rule.
+                    if (StatementDuplicateReconciler.isAlertOrManual(dbTx)) continue;
                     if (transactionMatcher.areDuplicates(newTx, dbTx, dateWindow)) {
                         duplicateNewTxns.add(newTx);
                         reviewStatusManager.addReason(dbTx, ReviewReason.DUPLICATE_SUSPECT);
@@ -277,6 +294,32 @@ public class FileIngestionService {
                     if (transactionMatcher.areDuplicates(newTx, otherNewTx, dateWindow)) {
                         duplicateNewTxns.add(newTx);
                         duplicateNewTxns.add(otherNewTx);
+                    }
+                }
+            }
+
+            // Pair the rows of each statement with the alert and manual rows that already record them.
+            StatementDuplicateReconciler reconciler = duplicateReconciler != null ? duplicateReconciler
+                    : new StatementDuplicateReconciler(transactionMatcher, null, null, null, reviewStatusManager);
+            Set<UUID> pairedIds = new HashSet<>();
+            Set<UUID> claimed = statementPersistenceService.findStatementLinkedTransactionIds(
+                    account.getId(), minDate.minusDays(pairWindow), maxDate.plusDays(pairWindow));
+            if (claimed != null) pairedIds.addAll(claimed);
+            List<StatementDuplicateReconciler.Pair> certainPairs = new ArrayList<>();
+            for (Map.Entry<Integer, LocalDate[]> fp : filePeriods.entrySet()) {
+                List<Transaction> fileRows = new ArrayList<>();
+                for (PendingLink pl : pendingLinks) {
+                    if (pl.fileIndex() == fp.getKey()) fileRows.add(pl.txn());
+                }
+                for (StatementDuplicateReconciler.Pair pair : reconciler.pair(fileRows, dbTxns, fp.getValue()[0], fp.getValue()[1], pairedIds)) {
+                    pairedIds.add(pair.existing().getId());
+                    if (pair.certain()) {
+                        certainPairs.add(pair);
+                    } else {
+                        duplicateNewTxns.add(pair.statementRow());
+                        reviewStatusManager.addReason(pair.existing(), ReviewReason.DUPLICATE_SUSPECT);
+                        dbTxnsToUpdate.add(pair.existing());
+                        matchedDbTxnIds.putIfAbsent(pair.statementRow(), pair.existing().getId());
                     }
                 }
             }
@@ -308,6 +351,12 @@ public class FileIngestionService {
             }
             for (Map.Entry<UUID, List<StatementPersistenceService.TxnLink>> entry : linksByStatement.entrySet()) {
                 statementPersistenceService.linkTransactions(entry.getKey(), entry.getValue());
+            }
+
+            // Merge the certain pairs now that both rows are stored and the statement lines are linked.
+            if (!certainPairs.isEmpty()) {
+                int merged = reconciler.mergeCertain(certainPairs);
+                log.info("Statement import merged {} of {} certain duplicate(s) of alert/manual rows", merged, certainPairs.size());
             }
 
             // Rebuild fileDetails for SUCCESS entries with created & duplicates counts

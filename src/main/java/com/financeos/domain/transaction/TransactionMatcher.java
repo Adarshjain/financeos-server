@@ -130,6 +130,11 @@ public class TransactionMatcher {
         return namesSameCounterparty(effectiveDescription(t1), effectiveDescription(t2));
     }
 
+    /** True when the two rows' descriptions name the same counterparty (see {@link #namesSameCounterparty}). */
+    public boolean sameCounterparty(Transaction t1, Transaction t2) {
+        return namesSameCounterparty(effectiveDescription(t1), effectiveDescription(t2));
+    }
+
     /**
      * True when the row's description is the bank's own narration (statement upload or Gmail statement),
      * as opposed to alert text written by the extractor or a user-typed manual entry.
