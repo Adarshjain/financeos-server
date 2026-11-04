@@ -10,7 +10,7 @@ import java.util.UUID;
 
 /**
  * One upcoming obligation. {@code type} is one of {@code emi | lending_due | card_bill |
- * statement_expected}; {@code status} is {@code overdue | due_soon | upcoming} (due soon = due
+ * statement_expected | recurring}; {@code status} is {@code overdue | due_soon | upcoming} (due soon = due
  * within the next 7 days). {@code date} and {@code amount} are null when unknown (a card bill
  * whose due date the parser missed, an expected statement whose amount is not yet known).
  */
@@ -33,9 +33,11 @@ public record ObligationItemDto(
         @Nullable String href,
         @Nullable Long daysUntil,
         /** emi rows: ask "Is this loan closed?" (active loan, oldest unpaid installment 45+ days overdue, not dismissed lately); false elsewhere. */
-        boolean askClosed
+        boolean askClosed,
+        @Nullable UUID seriesId, // recurring only: the tracked series
+        @Nullable Boolean paid // recurring only: a payment already landed in the current cycle
 ) {
-    /** A row that does not ask whether its loan is closed. */
+    /** The shape every producer except recurring rows uses: no loan-closed ask, no series, no paid flag. */
     public ObligationItemDto(String type,
                              @Nullable LocalDate date,
                              @Nullable BigDecimal amount,
@@ -54,7 +56,7 @@ public record ObligationItemDto(
                              @Nullable String href,
                              @Nullable Long daysUntil) {
         this(type, date, amount, status, loanId, loanName, installmentSeq, lendingId, counterpartyId,
-                counterpartyName, direction, title, accountId, accountName, statementId, href, daysUntil, false);
+                counterpartyName, direction, title, accountId, accountName, statementId, href, daysUntil, false, null, null);
     }
 
     /**

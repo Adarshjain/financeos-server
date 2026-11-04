@@ -3953,7 +3953,7 @@ paths:
       - inbox-controller
   /api/v1/inbox/{key}/dismiss:
     post:
-      operationId: dismiss
+      operationId: dismiss_1
       parameters:
       - in: path
         name: key
@@ -6468,7 +6468,7 @@ paths:
       - link-suggestion-controller
   /api/v1/link-suggestions/{id}:
     delete:
-      operationId: dismiss_1
+      operationId: dismiss_2
       parameters:
       - in: path
         name: id
@@ -7785,6 +7785,152 @@ paths:
           description: Error response
       tags:
       - obligations-controller
+  /api/v1/recurring/proposals:
+    get:
+      operationId: proposals
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RecurringSeriesDto"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - recurring-controller
+  /api/v1/recurring/tracked:
+    get:
+      operationId: tracked
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/RecurringSeriesDto"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - recurring-controller
+  /api/v1/recurring/{id}/converted:
+    post:
+      operationId: converted
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RecurringConvertedRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RecurringSeriesDto"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - recurring-controller
+  /api/v1/recurring/{id}/dismiss:
+    post:
+      operationId: dismiss
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RecurringSeriesDto"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - recurring-controller
+  /api/v1/recurring/{id}/stop:
+    post:
+      operationId: stop
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RecurringSeriesDto"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - recurring-controller
+  /api/v1/recurring/{id}/track:
+    post:
+      operationId: track
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RecurringSeriesDto"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - recurring-controller
   /api/v1/report/datasource:
     get:
       operationId: datasource
@@ -17848,6 +17994,30 @@ components:
       - loanId
       - origin
       - paymentDate
+    LoanPrefillDto:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        emiAmount:
+          type: number
+        emiDayOfMonth:
+          type: integer
+          format: int32
+        firstPaymentGuess:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        name:
+          type: string
+      required:
+      - emiAmount
+      - emiDayOfMonth
+      - name
     LoanResponse:
       type: object
       properties:
@@ -18583,6 +18753,15 @@ components:
           x-nullable: true
         loanName:
           type: string
+          nullable: true
+          x-nullable: true
+        paid:
+          type: boolean
+          nullable: true
+          x-nullable: true
+        seriesId:
+          type: string
+          format: uuid
           nullable: true
           x-nullable: true
         statementId:
@@ -20287,6 +20466,71 @@ components:
       - totalValue
       - tradeDate
       - type
+    RecurringConvertedRequest:
+      type: object
+      properties:
+        loanId:
+          type: string
+          format: uuid
+          x-required: true
+      required:
+      - loanId
+    RecurringSeriesDto:
+      type: object
+      properties:
+        accountName:
+          type: string
+          nullable: true
+          x-nullable: true
+        amount:
+          type: number
+        displayName:
+          type: string
+        id:
+          type: string
+          format: uuid
+        kind:
+          type: string
+          enum:
+          - SUBSCRIPTION
+          - EMI
+          - OTHER
+        lastPaidOn:
+          type: string
+          format: date
+        loanPrefill:
+          $ref: "#/components/schemas/LoanPrefillDto"
+        nextDueOn:
+          type: string
+          format: date
+        paymentCount:
+          type: integer
+          format: int32
+        period:
+          type: string
+          enum:
+          - WEEKLY
+          - MONTHLY
+          - QUARTERLY
+          - YEARLY
+        status:
+          type: string
+          enum:
+          - PROPOSED
+          - TRACKED
+          - DISMISSED
+          - ENDED
+          - LOAN
+      required:
+      - amount
+      - displayName
+      - id
+      - kind
+      - lastPaidOn
+      - nextDueOn
+      - paymentCount
+      - period
+      - status
     Refs:
       type: object
       properties:
