@@ -905,6 +905,27 @@ paths:
           description: Error response
       tags:
       - account-controller
+  /api/v1/accounts/{id}/close-prompt/dismiss:
+    post:
+      operationId: dismissClosePrompt
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - account-controller
   /api/v1/accounts/{id}/coverage:
     get:
       operationId: getCoverage
@@ -6892,6 +6913,27 @@ paths:
           description: Error response
       tags:
       - loan-controller
+  /api/v1/loans/{id}/closed-prompt/dismiss:
+    post:
+      operationId: dismissClosedPrompt
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - loan-controller
   /api/v1/loans/{id}/events:
     post:
       operationId: addEvent
@@ -10498,6 +10540,8 @@ components:
           format: uuid
           nullable: true
           x-nullable: true
+        suggestClose:
+          type: boolean
         type:
           type: string
           enum:
@@ -10517,6 +10561,7 @@ components:
       - excludeFromNetAsset
       - id
       - name
+      - suggestClose
       - type
       - updatedAt
       - warnings
@@ -10859,6 +10904,8 @@ components:
           format: uuid
           nullable: true
           x-nullable: true
+        suggestClose:
+          type: boolean
         type:
           type: string
           enum:
@@ -10878,6 +10925,7 @@ components:
       - gmailFetch
       - id
       - name
+      - suggestClose
       - type
       - updatedAt
       - warnings
@@ -13202,6 +13250,8 @@ components:
           format: date
           nullable: true
           x-nullable: true
+        suggestClose:
+          type: boolean
         type:
           type: string
           enum:
@@ -13226,6 +13276,7 @@ components:
       - gmailFetch
       - id
       - name
+      - suggestClose
       - type
       - updatedAt
       - warnings
@@ -15101,6 +15152,8 @@ components:
           format: uuid
           nullable: true
           x-nullable: true
+        suggestClose:
+          type: boolean
         type:
           type: string
           enum:
@@ -15120,6 +15173,7 @@ components:
       - gmailFetch
       - id
       - name
+      - suggestClose
       - type
       - updatedAt
       - warnings
@@ -17299,6 +17353,8 @@ components:
     LoanDetailResponse:
       type: object
       properties:
+        askClosed:
+          type: boolean
         charges:
           type: array
           items:
@@ -17310,6 +17366,7 @@ components:
         loan:
           $ref: "#/components/schemas/LoanResponse"
       required:
+      - askClosed
       - charges
       - events
       - loan
@@ -18059,6 +18116,8 @@ components:
           items:
             type: integer
             format: int32
+        reminderStyle:
+          type: string
         sendHour:
           type: integer
           format: int32
@@ -18070,6 +18129,7 @@ components:
       - pushConfigured
       - pushEnabled
       - reminderOffsets
+      - reminderStyle
       - sendHour
     OAuthStartResponse:
       type: object
@@ -18094,6 +18154,8 @@ components:
           type: number
           nullable: true
           x-nullable: true
+        askClosed:
+          type: boolean
         counterpartyId:
           type: string
           format: uuid
@@ -18157,6 +18219,7 @@ components:
         type:
           type: string
       required:
+      - askClosed
       - status
       - type
     ObligationRef:
@@ -19854,6 +19917,11 @@ components:
           x-nullable: true
         jobType:
           type: string
+          nullable: true
+          x-nullable: true
+        loanId:
+          type: string
+          format: uuid
           nullable: true
           x-nullable: true
     RegistrationOptionsRequest:
@@ -23920,6 +23988,10 @@ components:
             format: int32
             nullable: true
             x-nullable: true
+          nullable: true
+          x-nullable: true
+        reminderStyle:
+          type: string
           nullable: true
           x-nullable: true
         sendHour:

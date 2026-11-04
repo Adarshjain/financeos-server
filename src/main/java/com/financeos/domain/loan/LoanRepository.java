@@ -11,6 +11,10 @@ import java.util.UUID;
 
 public interface LoanRepository extends JpaRepository<Loan, UUID> {
 
+    /** Ids of every user owning a loan of {@code status} (for system-wide ticks; no user context). */
+    @Query("SELECT DISTINCT l.user.id FROM Loan l WHERE l.status = :status")
+    List<UUID> findDistinctUserIdsByStatus(@Param("status") LoanStatus status);
+
     /** Whether the user has at least one row. */
     boolean existsByUser_Id(UUID userId);
 

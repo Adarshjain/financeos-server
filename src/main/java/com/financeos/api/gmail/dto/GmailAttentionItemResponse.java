@@ -62,7 +62,7 @@ public record GmailAttentionItemResponse(
             row.accountName(),
             gpm.getArchivedAt(),
             AttentionReason.of(gpm.getStatus(), gpm.getError()),
-            BankSenderDomains.bankIdFor(gpm.getSenderAddress()),
+            BankSenderDomains.current().bankIdFor(gpm.getSenderAddress()),
             gpm.getExtractedLast4() == null || gpm.getExtractedLast4().isBlank() ? null : gpm.getExtractedLast4()
         );
     }

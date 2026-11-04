@@ -65,11 +65,23 @@ public class AppNotification {
     @Column(name = "connection_id", length = 36)
     private UUID connectionId;
 
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Column(name = "loan_id", length = 36)
+    private UUID loanId;
+
     @Column(name = "dedupe_key", nullable = false, length = MAX_KEY_LENGTH)
     private String dedupeKey;
 
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
+
+    /** Set when an in-place reminder's text last changed; null for rows that never change. */
+    @Column(name = "updated_at")
+    private Instant updatedAt;
+
+    /** The stage an in-place reminder shows (D3, D2, D1, D0, OVERDUE); a change re-surfaces the row. */
+    @Column(length = 20)
+    private String stage;
 
     /** Null = unread. */
     @Column(name = "read_at")

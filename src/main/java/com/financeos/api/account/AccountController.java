@@ -105,6 +105,13 @@ public class AccountController {
         return ResponseEntity.ok(accountService.closeAccount(id, closedOn));
     }
 
+    /** "Not yet" to "Close this account?". */
+    @PostMapping("/{id}/close-prompt/dismiss")
+    public ResponseEntity<Void> dismissClosePrompt(@PathVariable UUID id) {
+        accountService.dismissClosePrompt(id);
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/{id}/reopen")
     public ResponseEntity<AccountResponse> reopenAccount(@PathVariable UUID id) {
         return ResponseEntity.ok(accountService.reopenAccount(id));

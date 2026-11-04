@@ -139,6 +139,14 @@ public class Account {
     @Transient
     private GmailFetchProgress gmailFetch;
 
+    /** Whether to ask "Close this account?" (see {@link AccountClosePrompt}); set with the last transaction date. */
+    @Transient
+    private boolean suggestClose;
+
+    /** When the user answered "Not yet" to "Close this account?"; the prompt rests for 90 days after. */
+    @Column(name = "close_prompt_dismissed_at")
+    private Instant closePromptDismissedAt;
+
     @Transient
     private Boolean balanceAnchored;
 

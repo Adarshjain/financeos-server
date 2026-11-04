@@ -95,6 +95,10 @@ public class Loan {
     @Column(name = "last_notified_on")
     private LocalDate lastNotifiedOn;
 
+    /** When the user answered "Not yet" to "Is this loan closed?"; the prompt rests for 45 days after. */
+    @Column(name = "closed_prompt_dismissed_at")
+    private Instant closedPromptDismissedAt;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 

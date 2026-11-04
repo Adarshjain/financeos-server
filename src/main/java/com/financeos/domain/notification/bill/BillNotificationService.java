@@ -9,6 +9,7 @@ import com.financeos.domain.notification.NotificationOutcome;
 import com.financeos.domain.notification.NotificationProducer;
 import com.financeos.domain.notification.NotificationSettingsCodec;
 import com.financeos.domain.notification.NotificationSettingsService;
+import com.financeos.domain.notification.ReminderStyle;
 import com.financeos.domain.notification.UserNotificationSettings;
 import com.financeos.domain.notification.UserNotificationSettingsRepository;
 import com.financeos.domain.notification.push.WebPushSender;
@@ -120,7 +121,8 @@ public class BillNotificationService implements NotificationProducer {
             if (kind == null || !shouldSend(kind, d.getLastNotifiedKind(), d.getLastNotifiedOn(), today)) {
                 continue;
             }
-            boolean deliverable = prefs.canSend() && !bill.muted() && prefs.allows(kind);
+            boolean deliverable = prefs.canSend() && !bill.muted() && prefs.allows(kind)
+                    && !(prefs.quiet() && BillNotificationKinds.OVERDUE.equals(kind)); // Quiet never re-nags
             if (deliverable) {
                 sent += deliver(prefs.settings(), kind, bill);
             }
@@ -240,8 +242,9 @@ public class BillNotificationService implements NotificationProducer {
 
     // ---------------------------------------------------------------- plumbing
 
+    /** {@code offsets} is already the Quiet single 1-day offset when {@code quiet}. */
     record Prefs(UserNotificationSettings settings, boolean canSend, int sendHour, List<Integer> offsets,
-                 Map<NotificationKind, Boolean> kinds) {
+                 Map<NotificationKind, Boolean> kinds, boolean quiet) {
         boolean allows(String kind) {
             NotificationKind preference = preferenceFor(kind);
             return preference != null && Boolean.TRUE.equals(kinds.get(preference));
@@ -252,15 +255,16 @@ public class BillNotificationService implements NotificationProducer {
         UserNotificationSettings settings = settingsRepository.findById(userId).orElse(null);
         if (settings == null) {
             return new Prefs(null, false, UserNotificationSettings.DEFAULT_SEND_HOUR,
-                    NotificationSettingsCodec.parseOffsets(null), NotificationSettingsCodec.parseKinds(null));
+                    NotificationSettingsCodec.parseOffsets(null), NotificationSettingsCodec.parseKinds(null), false);
         }
+        boolean quiet = ReminderStyle.parse(settings.getReminderStyle()) == ReminderStyle.QUIET;
         boolean canSend = !Boolean.FALSE.equals(settings.getPushEnabled())
                 && !NotificationSettingsCodec.parseSubscriptions(settings.getPushSubscriptions()).isEmpty()
                 && sender.isConfigured();
         return new Prefs(settings, canSend,
                 settings.getSendHour() == null ? UserNotificationSettings.DEFAULT_SEND_HOUR : settings.getSendHour(),
-                NotificationSettingsCodec.parseOffsets(settings.getReminderOffsets()),
-                NotificationSettingsCodec.parseKinds(settings.getKindsJson()));
+                quiet ? List.of(1) : NotificationSettingsCodec.parseOffsets(settings.getReminderOffsets()),
+                NotificationSettingsCodec.parseKinds(settings.getKindsJson()), quiet);
     }
 
     private int deliver(UserNotificationSettings settings, String kind, CardBill bill) {

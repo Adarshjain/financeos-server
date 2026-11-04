@@ -29,6 +29,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import com.financeos.domain.notification.reminder.ReminderKeys;
+import com.financeos.domain.notification.reminder.ReminderResolveEvent;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,6 +61,14 @@ public class CardBillService {
     private final StatementRepository statementRepository;
     private final TransactionRepository transactionRepository;
     private final AccountService accountService;
+
+    private ApplicationEventPublisher eventPublisher;
+
+    /** Optional (plain unit tests build the service without a context): publishes the "bill paid" resolve event. */
+    @Autowired(required = false)
+    public void setEventPublisher(ApplicationEventPublisher eventPublisher) {
+        this.eventPublisher = eventPublisher;
+    }
 
     public CardBillService(AccountRepository accountRepository,
                            StatementRepository statementRepository,
@@ -589,6 +601,9 @@ public class CardBillService {
             d.setLastNotifiedOn(today);
         }
         statementRepository.save(statement);
+        if (bill.isPaid() && eventPublisher != null) {
+            eventPublisher.publishEvent(new ReminderResolveEvent(userId, ReminderKeys.bill(statementId)));
+        }
         return buildEnriched(statement.getAccount(), statement, today, null);
     }
 

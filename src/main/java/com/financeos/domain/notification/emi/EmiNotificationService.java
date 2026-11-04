@@ -85,7 +85,7 @@ public class EmiNotificationService implements NotificationProducer {
             String lastKind = sameInstallment ? loan.getLastNotifiedKind() : null;
             LocalDate lastOn = sameInstallment ? loan.getLastNotifiedOn() : null;
             long days = ChronoUnit.DAYS.between(today, current.dueDate());
-            String kind = applicableKind(days, prefs.offsets());
+            String kind = applicableKind(days, prefs.reminderOffsets());
             if (kind == null || (BillNotificationKinds.OVERDUE.equals(kind) && isStale(loan, current, today))) {
                 continue;
             }
@@ -93,7 +93,8 @@ public class EmiNotificationService implements NotificationProducer {
                 continue;
             }
             NotificationKind preference = preferenceFor(kind);
-            if (prefs.deliverable(preference) && !Boolean.TRUE.equals(loan.getNotificationsMuted())) {
+            if (prefs.deliverable(preference) && !Boolean.TRUE.equals(loan.getNotificationsMuted())
+                    && !(prefs.quiet() && BillNotificationKinds.OVERDUE.equals(kind))) { // Quiet never re-nags
                 sent += settingsService.deliver(prefs.settings(),
                         EmiMessages.forKind(kind, loan, current, installments.size(), days));
                 log.info("EMI notification: kind={}, loanId={}, seq={}", kind, loan.getId(), current.seq());

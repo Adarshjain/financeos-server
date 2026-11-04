@@ -24,4 +24,12 @@ public interface NotificationProducer {
     default boolean runsWithoutPush() {
         return false;
     }
+
+    /**
+     * Users beyond the card-holders that a {@link #runsWithoutPush} producer also wants visited when push cannot
+     * reach them (say, users who only have a loan). Only read for producers that run without push.
+     */
+    default java.util.Collection<UUID> extraFeedUserIds() {
+        return java.util.List.of();
+    }
 }

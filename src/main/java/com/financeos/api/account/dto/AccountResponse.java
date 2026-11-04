@@ -59,6 +59,9 @@ public sealed interface AccountResponse {
     @Nullable
     LocalDate lastTransactionDate();
 
+    /** Ask "Close this account?": open, zero balance, 90+ days old with no transaction for 90 days, not dismissed lately. */
+    boolean suggestClose();
+
     List<String> warnings();
 
     /** Months of Gmail history done of the months since the ingest-from date, while some are still being fetched; else null. */
@@ -79,6 +82,7 @@ public sealed interface AccountResponse {
         BigDecimal gap = account.getReconciliationGap();
         LocalDate anchorDate = account.getAnchorDate();
         LocalDate lastTxnDate = account.getLastTransactionDate();
+        boolean suggestClose = account.isSuggestClose();
         List<String> warnList = warnings != null ? warnings : List.of();
         GmailFetchProgress gmailFetch = account.getGmailFetch();
         UUID replacesAccId = account.getReplacesAccount() != null ? account.getReplacesAccount().getId() : null;
@@ -114,6 +118,7 @@ public sealed interface AccountResponse {
                         gap,
                         anchorDate,
                         lastTxnDate,
+                        suggestClose,
                         bankCardholders,
                         warnList,
                         gmailFetch);
@@ -149,6 +154,7 @@ public sealed interface AccountResponse {
                         gap,
                         anchorDate,
                         lastTxnDate,
+                        suggestClose,
                         cardholders,
                         warnList,
                         account.getStatementExpectedNotifiedFor(),
@@ -178,6 +184,7 @@ public sealed interface AccountResponse {
                         gap,
                         anchorDate,
                         lastTxnDate,
+                        suggestClose,
                         warnList,
                         gmailFetch);
             }
@@ -197,6 +204,7 @@ public sealed interface AccountResponse {
                     gap,
                     anchorDate,
                     lastTxnDate,
+                    suggestClose,
                     warnList,
                     gmailFetch);
         };
@@ -223,6 +231,7 @@ public sealed interface AccountResponse {
             @Nullable BigDecimal reconciliationGap,
             @Nullable LocalDate anchorDate,
             @Nullable LocalDate lastTransactionDate,
+            boolean suggestClose,
             List<CardholderResponse> cardholders,
             List<String> warnings,
             @Nullable GmailFetchProgress gmailFetch) implements AccountResponse {
@@ -252,6 +261,7 @@ public sealed interface AccountResponse {
             @Nullable BigDecimal reconciliationGap,
             @Nullable LocalDate anchorDate,
             @Nullable LocalDate lastTransactionDate,
+            boolean suggestClose,
             List<CardholderResponse> cardholders,
             List<String> warnings,
             /** The projected statement period end already announced as "hasn't arrived" (null = none). */
@@ -292,6 +302,7 @@ public sealed interface AccountResponse {
             @Nullable BigDecimal reconciliationGap,
             @Nullable LocalDate anchorDate,
             @Nullable LocalDate lastTransactionDate,
+            boolean suggestClose,
             List<String> warnings,
             @Nullable GmailFetchProgress gmailFetch) implements AccountResponse {
     }
@@ -312,6 +323,7 @@ public sealed interface AccountResponse {
             @Nullable BigDecimal reconciliationGap,
             @Nullable LocalDate anchorDate,
             @Nullable LocalDate lastTransactionDate,
+            boolean suggestClose,
             List<String> warnings,
             @Nullable GmailFetchProgress gmailFetch) implements AccountResponse {
     }
