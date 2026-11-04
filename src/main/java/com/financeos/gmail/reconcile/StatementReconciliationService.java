@@ -346,8 +346,8 @@ public class StatementReconciliationService {
             Set<UUID> excluded = new HashSet<>(consumedTxnIds);
             excluded.addAll(claimedTxnIds);
             var pairs = duplicateReconciler.pair(createdTxns, allPeriodTxns, periodStart, periodEnd, excluded);
-            int merged = duplicateReconciler.settle(pairs);
-            log.info("Statement reconcile paired {} created row(s) with alert/manual rows, merged {}", pairs.size(), merged);
+            duplicateReconciler.settleAfterCommit(pairs);
+            log.info("Statement reconcile paired {} created row(s) with alert/manual rows; merges run after commit", pairs.size());
         }
 
         // Record successful reconciliation run in the ledger

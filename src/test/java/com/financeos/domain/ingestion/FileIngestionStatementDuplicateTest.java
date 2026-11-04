@@ -163,7 +163,7 @@ class FileIngestionStatementDuplicateTest {
 
         FileIngestionResult res = ingestOneLine(manual, "UPI/DR/4123/SWIGGY/YESB");
 
-        verify(reconciler).mergeCertain(argThat(pairs -> pairs.size() == 1 && pairs.get(0).certain() && pairs.get(0).existing() == manual));
+        verify(reconciler).mergeCertainAfterCommit(argThat(pairs -> pairs.size() == 1 && pairs.get(0).certain() && pairs.get(0).existing() == manual));
         assertThat(res.totalDuplicatesFound()).isZero();
     }
 
@@ -173,7 +173,7 @@ class FileIngestionStatementDuplicateTest {
         // Same rule as before, now with the two-day window: a different merchant stays a suspect.
         FileIngestionResult res = ingestOneLine(manual, "UPI/DR/4123/ZOMATO/YESB");
 
-        verify(reconciler, never()).mergeCertain(argThat(pairs -> !pairs.isEmpty()));
+        verify(reconciler, never()).mergeCertainAfterCommit(argThat(pairs -> !pairs.isEmpty()));
         assertThat(res.totalDuplicatesFound()).isEqualTo(1);
         assertThat(res.duplicateDetails().get(0).matchedTransactionId()).isEqualTo(manual.getId());
     }
