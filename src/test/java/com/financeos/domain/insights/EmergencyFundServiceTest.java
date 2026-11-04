@@ -109,4 +109,15 @@ class EmergencyFundServiceTest {
         assertEquals(List.of(true, true, true, true, true, true),
                 flags(EmergencyFundService.months(sixMonths(), YearMonth.of(2026, 10))));
     }
+
+    @Test
+    void theOutflowQueryAndTheDrillFilterShareTheSameRule() throws Exception {
+        java.lang.reflect.Field f = EmergencyFundService.class.getDeclaredField("OUTFLOW_SQL");
+        f.setAccessible(true);
+        assertTrue(((String) f.get(null)).contains(EmergencyFundService.EXCLUDED_FROM_OUTFLOW_SQL + " = :notExcluded"));
+        assertFalse(((String) f.get(null)).contains("t.is_excluded = :notExcluded"));
+
+        assertTrue(com.financeos.domain.report.datasource.DatasourceCatalog.transactionFields().stream()
+                .anyMatch(x -> x.name().equals("isExcludedFromOutflow")), "the drill filter exists in the catalog");
+    }
 }

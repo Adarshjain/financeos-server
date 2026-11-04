@@ -134,6 +134,7 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
                     JOIN_SUBCATEGORY)),
             Map.entry("isUnderMonitoring", new Mapping("t.is_under_monitoring", null)),
             Map.entry("isExcluded", new Mapping("t.is_excluded", null)),
+            Map.entry("isExcludedFromOutflow", new Mapping(com.financeos.domain.insights.EmergencyFundService.EXCLUDED_FROM_OUTFLOW_SQL, null)),
             Map.entry("isTransferLeg", new Mapping(IS_TRANSFER_LEG, null)),
             Map.entry("isRefundLeg", new Mapping(IS_REFUND_LEG, null)),
             Map.entry("isLendingLeg", new Mapping(IS_LENDING_LEG, null)),

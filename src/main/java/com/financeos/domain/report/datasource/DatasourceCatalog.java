@@ -310,6 +310,7 @@ public class DatasourceCatalog {
             new FieldDef("description", "Description", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
             new FieldDef("isUnderMonitoring", "Under monitoring", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("isExcluded", "Is Excluded", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
+            new FieldDef("isExcludedFromOutflow", "Is excluded from outflow", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("isTransferLeg", "Is transfer leg", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("isRefundLeg", "Is refund leg", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("isLendingLeg", "Is lending leg", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
