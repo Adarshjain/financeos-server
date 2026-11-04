@@ -18,6 +18,10 @@ public class ReminderResolveListener {
     /** Never throws: {@link NotificationFeedService#resolve} swallows its own failures. */
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT, fallbackExecution = true)
     public void onResolve(ReminderResolveEvent event) {
-        feedService.resolve(event.userId(), event.dedupeKey());
+        if (event.prefix()) {
+            feedService.resolvePrefix(event.userId(), event.dedupeKey());
+        } else {
+            feedService.resolve(event.userId(), event.dedupeKey());
+        }
     }
 }

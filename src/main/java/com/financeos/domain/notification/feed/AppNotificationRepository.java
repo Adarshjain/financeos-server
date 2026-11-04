@@ -16,7 +16,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AppNotificationRepository extends JpaRepository<AppNotification, UUID> {
 
-    Page<AppNotification> findByUserIdAndClearedAtIsNull(UUID userId, Pageable pageable);
+    /** Newest surfaced first: a re-surfaced (updated) reminder counts from its update. Pageable must be unsorted. */
+    @Query("select n from AppNotification n where n.userId = :userId and n.clearedAt is null "
+            + "order by coalesce(n.updatedAt, n.createdAt) desc, n.id desc")
+    Page<AppNotification> findFeed(@Param("userId") UUID userId, Pageable pageable);
+
+    List<AppNotification> findByUserIdAndDedupeKeyStartingWithAndClearedAtIsNull(UUID userId, String prefix);
 
     long countByUserIdAndClearedAtIsNullAndReadAtIsNull(UUID userId);
 
@@ -31,11 +36,11 @@ public interface AppNotificationRepository extends JpaRepository<AppNotification
     List<AppNotification> findByUserIdAndKindInAndClearedAtIsNull(UUID userId, Collection<String> kinds);
 
     @Modifying
-    @Query("update AppNotification n set n.readAt = :now where n.userId = :userId and n.readAt is null and n.createdAt <= :before")
+    @Query("update AppNotification n set n.readAt = :now where n.userId = :userId and n.readAt is null and coalesce(n.updatedAt, n.createdAt) <= :before")
     int markRead(@Param("userId") UUID userId, @Param("before") Instant before, @Param("now") Instant now);
 
     @Modifying
-    @Query("update AppNotification n set n.clearedAt = :now where n.userId = :userId and n.clearedAt is null")
+    @Query("update AppNotification n set n.clearedAt = :now, n.clearedBy = 'USER' where n.userId = :userId and n.clearedAt is null")
     int clearAll(@Param("userId") UUID userId, @Param("now") Instant now);
 
     /**

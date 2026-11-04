@@ -96,9 +96,11 @@ public class ReminderFeedService implements NotificationProducer {
         int evaluated = bills(userId, prefs, today, reminders) + emis(prefs, today, reminders);
         Set<String> keep = new HashSet<>();
         reminders.forEach(r -> keep.add(r.dedupeKey()));
-        feedService.upsertAll(userId, reminders);
-        feedService.resolveAllExcept(userId, KINDS, keep);
-        lastRun.put(userId, today);
+        boolean upserted = feedService.upsertAll(userId, reminders);
+        boolean resolved = feedService.resolveAllExcept(userId, KINDS, keep) >= 0;
+        if (upserted && resolved) {
+            lastRun.put(userId, today);
+        }
         return new NotificationOutcome(evaluated, reminders.size(), 0);
     }
 

@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -91,16 +90,19 @@ public class NotificationFeedService {
      * Inserts each reminder's row or updates the existing one in place (title, body, refs, updated_at), all in
      * one transaction with one lookup for the whole batch. A changed {@code stage} ("in 3 days" to "tomorrow" to
      * "today" to overdue) marks the row unread again; a row the user cleared stays cleared unless the stage changed
-     * to {@link #STAGE_OVERDUE}. An unchanged reminder writes nothing. Never throws.
+     * to {@link #STAGE_OVERDUE}. A row the system auto-resolved comes back, unread, when it is due again. An
+     * unchanged reminder writes nothing. Never throws; returns false when the write failed.
      */
-    public void upsertAll(UUID userId, List<Reminder> reminders) {
+    public boolean upsertAll(UUID userId, List<Reminder> reminders) {
         if (reminders == null || reminders.isEmpty()) {
-            return;
+            return true;
         }
         try {
             isolated.executeWithoutResult(status -> doUpsertAll(userId, reminders));
+            return true;
         } catch (Exception e) {
             log.warn("Feed upsert failed (user {}, {} reminder(s)): {}", userId, reminders.size(), e.getMessage());
+            return false;
         }
     }
 
@@ -134,7 +136,8 @@ public class NotificationFeedService {
             }
             boolean stageChanged = !Objects.equals(n.getStage(), reminder.stage());
             boolean textChanged = !Objects.equals(n.getTitle(), title) || !Objects.equals(n.getBody(), body);
-            if (!stageChanged && !textChanged) {
+            boolean autoCleared = n.getClearedAt() != null && AppNotification.CLEARED_BY_AUTO.equals(n.getClearedBy());
+            if (!stageChanged && !textChanged && !autoCleared) {
                 continue;
             }
             n.setTitle(title);
@@ -142,10 +145,17 @@ public class NotificationFeedService {
             n.setStage(reminder.stage());
             n.setUpdatedAt(now);
             applyRefs(n, reminder.refs());
+            if (autoCleared) {
+                // Resolved by the system (bill paid, EMI recorded) and due again: back in the feed, unread.
+                n.setClearedAt(null);
+                n.setClearedBy(null);
+                n.setReadAt(null);
+            }
             if (stageChanged) {
                 n.setReadAt(null);
                 if (STAGE_OVERDUE.equals(reminder.stage())) {
                     n.setClearedAt(null);
+                    n.setClearedBy(null);
                 }
             }
             toSave.add(n);
@@ -162,6 +172,7 @@ public class NotificationFeedService {
                     .filter(n -> n.getClearedAt() == null)
                     .ifPresent(n -> {
                         n.setClearedAt(now());
+                        n.setClearedBy(AppNotification.CLEARED_BY_AUTO);
                         repository.save(n);
                     }));
         } catch (Exception e) {
@@ -169,10 +180,29 @@ public class NotificationFeedService {
         }
     }
 
+    /** Auto-resolve for every row of this user whose key starts with {@code prefix} (a closed or deleted loan's EMIs). Never throws. */
+    public void resolvePrefix(UUID userId, String prefix) {
+        try {
+            isolated.executeWithoutResult(status -> {
+                Instant now = now();
+                List<AppNotification> rows = repository.findByUserIdAndDedupeKeyStartingWithAndClearedAtIsNull(userId, prefix);
+                rows.forEach(n -> {
+                    n.setClearedAt(now);
+                    n.setClearedBy(AppNotification.CLEARED_BY_AUTO);
+                });
+                if (!rows.isEmpty()) {
+                    repository.saveAll(rows);
+                }
+            });
+        } catch (Exception e) {
+            log.warn("Feed prefix resolve failed (user {}, prefix {}): {}", userId, prefix, e.getMessage());
+        }
+    }
+
     /**
      * Auto-resolve for a producer's whole set: every row of {@code kinds} still in the feed whose key is not in
      * {@code keepKeys} is cleared (the bill was paid, the installment recorded, the loan closed). Returns how many.
-     * Never throws.
+     * Never throws; returns -1 when it failed.
      */
     public int resolveAllExcept(UUID userId, Collection<String> kinds, Set<String> keepKeys) {
         try {
@@ -181,7 +211,10 @@ public class NotificationFeedService {
                 List<AppNotification> stale = repository.findByUserIdAndKindInAndClearedAtIsNull(userId, kinds).stream()
                         .filter(n -> !keepKeys.contains(n.getDedupeKey()))
                         .toList();
-                stale.forEach(n -> n.setClearedAt(now));
+                stale.forEach(n -> {
+                    n.setClearedAt(now);
+                    n.setClearedBy(AppNotification.CLEARED_BY_AUTO);
+                });
                 if (!stale.isEmpty()) {
                     repository.saveAll(stale);
                 }
@@ -190,7 +223,7 @@ public class NotificationFeedService {
             return resolved == null ? 0 : resolved;
         } catch (Exception e) {
             log.warn("Feed resolve-all failed (user {}): {}", userId, e.getMessage());
-            return 0;
+            return -1;
         }
     }
 
@@ -203,11 +236,10 @@ public class NotificationFeedService {
         n.setLoanId(r.loanId());
     }
 
-    /** Newest first (id breaks ties so paging is stable), cleared rows excluded. */
+    /** Newest first by when each row last surfaced (updated, else created; id breaks ties so paging is stable), cleared rows excluded. */
     @Transactional(readOnly = true)
     public Page<AppNotification> list(UUID userId, Pageable pageable) {
-        Pageable sorted = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), Sort.by(Sort.Direction.DESC, "createdAt").and(Sort.by(Sort.Direction.DESC, "id")));
-        return repository.findByUserIdAndClearedAtIsNull(userId, sorted);
+        return repository.findFeed(userId, PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()));
     }
 
     @Transactional(readOnly = true)
@@ -226,6 +258,7 @@ public class NotificationFeedService {
     public void clear(UUID userId, UUID id) {
         AppNotification n = find(userId, id);
         n.setClearedAt(now());
+        n.setClearedBy(AppNotification.CLEARED_BY_USER);
         repository.save(n);
     }
 
@@ -233,6 +266,7 @@ public class NotificationFeedService {
     public void restore(UUID userId, UUID id) {
         AppNotification n = find(userId, id);
         n.setClearedAt(null);
+        n.setClearedBy(null);
         repository.save(n);
     }
 

@@ -118,15 +118,19 @@ public class NotificationSettingsService {
         return toView(repository.save(settings));
     }
 
-    /** Sets the reminder style (STANDARD or QUIET, case-insensitive); anything else is a 400. */
-    @Transactional
-    public View setReminderStyle(UUID userId, String style) {
-        ReminderStyle parsed;
+    /** Parses a reminder style (case-insensitive); anything else is a 400. Lets a caller validate before saving anything. */
+    public static ReminderStyle parseReminderStyle(String style) {
         try {
-            parsed = ReminderStyle.valueOf(style == null ? "" : style.trim().toUpperCase(java.util.Locale.ROOT));
+            return ReminderStyle.valueOf(style == null ? "" : style.trim().toUpperCase(java.util.Locale.ROOT));
         } catch (IllegalArgumentException e) {
             throw new ValidationException("Reminder style must be STANDARD or QUIET");
         }
+    }
+
+    /** Sets the reminder style (STANDARD or QUIET, case-insensitive); anything else is a 400. */
+    @Transactional
+    public View setReminderStyle(UUID userId, String style) {
+        ReminderStyle parsed = parseReminderStyle(style);
         UserNotificationSettings settings = getOrCreate(userId);
         settings.setReminderStyle(parsed.name());
         return toView(repository.save(settings));

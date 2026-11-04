@@ -59,6 +59,9 @@ public class NotificationController {
     @PutMapping("/settings")
     public ResponseEntity<NotificationSettingsResponse> updateSettings(@Valid @RequestBody UpdateNotificationSettingsRequest request) {
         UUID userId = requireCurrentUserId();
+        if (request.reminderStyle() != null) {
+            NotificationSettingsService.parseReminderStyle(request.reminderStyle());
+        }
         NotificationSettingsService.View view = settingsService.update(userId,
                 request.pushEnabled(), request.sendHour(), request.reminderOffsets(), request.kinds());
         if (request.reminderStyle() != null) {

@@ -72,6 +72,7 @@ class ReminderFeedServiceTest {
         loan.setName("Home loan");
         loan.setStatus(LoanStatus.active);
         loan.setCreatedAt(TODAY.minusDays(400).atStartOfDay(IST).toInstant());
+        when(feedService.upsertAll(any(), any())).thenReturn(true);
         prefs(false); // a user push cannot reach: the feed rows are for everyone
         bills();
         loans(List.of());
@@ -346,5 +347,21 @@ class ReminderFeedServiceTest {
         org.mockito.Mockito.doReturn(List.of(bill(BillStatus.OPEN, 1))).when(cardBillService).listBills(userId);
         service.evaluate(userId);
         verify(feedService).upsertAll(eq(userId), any());
+    }
+
+    @Test
+    void aFailedUpsertOrResolveDoesNotConsumeTheDaySoItRetriesToday() {
+        bills(bill(BillStatus.OPEN, 1));
+        when(feedService.upsertAll(eq(userId), any())).thenReturn(false);
+        service.evaluate(userId);
+        when(feedService.upsertAll(eq(userId), any())).thenReturn(true);
+        when(feedService.resolveAllExcept(eq(userId), any(), any())).thenReturn(-1);
+        service.evaluate(userId);
+        verify(feedService, times(2)).upsertAll(eq(userId), any());
+
+        when(feedService.resolveAllExcept(eq(userId), any(), any())).thenReturn(0);
+        service.evaluate(userId);
+        service.evaluate(userId);
+        verify(feedService, times(3)).upsertAll(eq(userId), any());
     }
 }
