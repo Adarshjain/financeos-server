@@ -78,6 +78,13 @@ public class LoanService {
         }
     }
 
+    private void publishLoanRemindersResolved(UUID loanId) {
+        if (eventPublisher != null) {
+            eventPublisher.publishEvent(com.financeos.domain.notification.reminder.ReminderResolveEvent.allEmisOf(
+                    UserContext.getCurrentUserId(), loanId));
+        }
+    }
+
     private com.financeos.domain.categorization.CategoryLinkHooks categoryLinkHooks;
 
     @org.springframework.beans.factory.annotation.Autowired(required = false)
@@ -387,12 +394,14 @@ public class LoanService {
     public void deleteLoan(UUID loanId) {
         Loan loan = getLoanAndVerifyOwnership(loanId);
         loanRepository.delete(loan);
+        publishLoanRemindersResolved(loanId);
     }
 
     public void closeLoan(UUID loanId) {
         Loan loan = getLoanAndVerifyOwnership(loanId);
         loan.setStatus(LoanStatus.closed);
         loanRepository.save(loan);
+        publishLoanRemindersResolved(loanId);
     }
 
     /** "Not yet" to "Is this loan closed?": the prompt rests for {@value LoanClosedPrompt#REST_DAYS} days. */

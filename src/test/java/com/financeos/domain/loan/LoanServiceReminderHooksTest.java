@@ -181,4 +181,21 @@ class LoanServiceReminderHooksTest {
 
         assertThat(service.closedPromptDismissals()).containsOnlyKeys(dismissed.getId());
     }
+
+    @Test
+    void closingTheLoanResolvesAllItsEmiRows() {
+        service.closeLoan(loan.getId());
+
+        assertThat(loan.getStatus()).isEqualTo(LoanStatus.closed);
+        verify(publisher).publishEvent(ReminderResolveEvent.allEmisOf(userId, loan.getId()));
+        assertThat(ReminderResolveEvent.allEmisOf(userId, loan.getId()).dedupeKey()).isEqualTo("emi:" + loan.getId() + ":");
+    }
+
+    @Test
+    void deletingTheLoanResolvesAllItsEmiRows() {
+        service.deleteLoan(loan.getId());
+
+        verify(loanRepository).delete(loan);
+        verify(publisher).publishEvent(ReminderResolveEvent.allEmisOf(userId, loan.getId()));
+    }
 }

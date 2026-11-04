@@ -107,17 +107,17 @@ class NotificationFeedServiceTest {
     @Test
     void listIsNewestFirstScopedToTheUserAndKeepsPaging() {
         Page<AppNotification> page = new PageImpl<>(List.of(row(UUID.randomUUID(), userId)));
-        when(repository.findByUserIdAndClearedAtIsNull(any(), any())).thenReturn(page);
+        when(repository.findFeed(any(), any())).thenReturn(page);
 
         Page<AppNotification> result = service.list(userId, PageRequest.of(2, 15, Sort.by("title")));
 
         assertEquals(page, result);
         ArgumentCaptor<Pageable> pageable = ArgumentCaptor.forClass(Pageable.class);
-        verify(repository).findByUserIdAndClearedAtIsNull(any(), pageable.capture());
+        verify(repository).findFeed(any(), pageable.capture());
         assertEquals(2, pageable.getValue().getPageNumber());
         assertEquals(15, pageable.getValue().getPageSize());
-        assertEquals(Sort.by(Sort.Direction.DESC, "createdAt").and(Sort.by(Sort.Direction.DESC, "id")), pageable.getValue().getSort());
-        verify(repository).findByUserIdAndClearedAtIsNull(userId, pageable.getValue());
+        assertEquals(Sort.unsorted(), pageable.getValue().getSort()); // the query orders by coalesce(updatedAt, createdAt), id
+        verify(repository).findFeed(userId, pageable.getValue());
     }
 
     @Test

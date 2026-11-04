@@ -102,4 +102,16 @@ class ReminderStyleTest {
         verify(mocked, org.mockito.Mockito.times(1)).setReminderStyle(any(), any());
         verify(mocked, never()).setReminderStyle(userId, null);
     }
+
+    @Test
+    void aBadStyleOnPutIs400AndSavesNothingElse() {
+        NotificationSettingsService mocked = mock(NotificationSettingsService.class);
+        NotificationController controller = new NotificationController(mocked, sender, mock(NotificationScheduler.class));
+
+        assertThrows(ValidationException.class,
+                () -> controller.updateSettings(new UpdateNotificationSettingsRequest(true, 7, null, null, "LOUD")));
+
+        verify(mocked, never()).update(any(), any(), any(), any(), any());
+        verify(mocked, never()).setReminderStyle(any(), any());
+    }
 }

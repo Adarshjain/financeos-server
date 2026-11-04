@@ -201,4 +201,80 @@ class NotificationFeedServiceReminderTest {
         assertNull(kept.getClearedAt());
         assertEquals(NOW, gone.getClearedAt());
     }
+
+    @Test
+    void anAutoResolvedRowComesBackUnreadWhenItIsDueAgainEvenAtTheSameStage() {
+        AppNotification row = existing("D1", "HDFC bill due tomorrow");
+        row.setReadAt(NOW.minusSeconds(100));
+        when(repository.findByUserIdAndDedupeKey(userId, key)).thenReturn(Optional.of(row));
+        service.resolve(userId, key);
+        assertEquals(AppNotification.CLEARED_BY_AUTO, row.getClearedBy());
+        when(repository.findByUserIdAndDedupeKeyIn(any(), any())).thenReturn(List.of(row));
+
+        upsert("D1", "HDFC bill due tomorrow");
+
+        AppNotification back = saved();
+        assertNull(back.getClearedAt());
+        assertNull(back.getClearedBy());
+        assertNull(back.getReadAt());
+        assertEquals(NOW, back.getUpdatedAt());
+    }
+
+    @Test
+    void aBulkAutoResolvedRowAlsoComesBack() {
+        AppNotification gone = existing("D1", "gone");
+        when(repository.findByUserIdAndKindInAndClearedAtIsNull(userId, List.of("bill_reminder"))).thenReturn(List.of(gone));
+        service.resolveAllExcept(userId, List.of("bill_reminder"), Set.of());
+        assertEquals(AppNotification.CLEARED_BY_AUTO, gone.getClearedBy());
+        when(repository.findByUserIdAndDedupeKeyIn(any(), any())).thenReturn(List.of(gone));
+
+        upsert("D1", "gone");
+
+        assertNull(gone.getClearedAt());
+        assertNull(gone.getClearedBy());
+    }
+
+    @Test
+    void aUserClearedRowStaysHiddenUnlessTheStageBecomesOverdue() {
+        AppNotification row = existing("D1", "HDFC bill due tomorrow");
+        row.setClearedAt(NOW.minusSeconds(60));
+        row.setClearedBy(AppNotification.CLEARED_BY_USER);
+        when(repository.findByUserIdAndDedupeKeyIn(any(), any())).thenReturn(List.of(row));
+
+        upsert("D1", "HDFC bill due tomorrow");
+        verify(repository, never()).saveAll(anyIterable());
+
+        upsert("D0", "HDFC bill due today");
+        AppNotification still = saved();
+        assertNotNull(still.getClearedAt());
+
+        upsert("OVERDUE", "HDFC bill overdue");
+        assertNull(row.getClearedAt());
+        assertNull(row.getClearedBy());
+    }
+
+    @Test
+    void resolvePrefixClearsEveryMatchingRowAsAuto() {
+        AppNotification a = existing("D1", "a");
+        AppNotification b = existing("D1", "b");
+        when(repository.findByUserIdAndDedupeKeyStartingWithAndClearedAtIsNull(userId, "emi:L:")).thenReturn(List.of(a, b));
+
+        service.resolvePrefix(userId, "emi:L:");
+
+        assertEquals(NOW, a.getClearedAt());
+        assertEquals(AppNotification.CLEARED_BY_AUTO, b.getClearedBy());
+    }
+
+    @Test
+    void upsertAllReportsAFailedWrite() {
+        when(repository.findByUserIdAndDedupeKeyIn(any(), any())).thenThrow(new IllegalStateException("db"));
+        // the mocked transaction manager yields no transaction: the template still runs the callback and surfaces the failure
+        assertEquals(false, service.upsertAll(userId, List.of(new NotificationFeedService.Reminder(key, "bill_reminder", "t", null, null, "D1"))));
+    }
+
+    @Test
+    void listOrdersBySurfacedTimeAndUsesTheUnsortedPage() {
+        service.list(userId, org.springframework.data.domain.PageRequest.of(2, 20));
+        verify(repository).findFeed(userId, org.springframework.data.domain.PageRequest.of(2, 20));
+    }
 }

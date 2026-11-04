@@ -12,6 +12,10 @@ public final class ReminderKeys {
         return "bill:" + statementId;
     }
 
+    public static String emiPrefix(UUID loanId) {
+        return "emi:" + loanId + ":";
+    }
+
     public static String emi(UUID loanId, int seq) {
         return "emi:" + loanId + ":" + seq;
     }

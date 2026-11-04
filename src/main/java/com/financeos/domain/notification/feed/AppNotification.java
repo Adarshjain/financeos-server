@@ -91,6 +91,13 @@ public class AppNotification {
     @Column(name = "cleared_at")
     private Instant clearedAt;
 
+    /** Why it was cleared: {@link #CLEARED_BY_USER} or {@link #CLEARED_BY_AUTO} (null while in the feed). */
+    @Column(name = "cleared_by", length = 10)
+    private String clearedBy;
+
+    public static final String CLEARED_BY_USER = "USER";
+    public static final String CLEARED_BY_AUTO = "AUTO";
+
     @PrePersist
     void onCreate() {
         if (createdAt == null) {
