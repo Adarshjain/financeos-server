@@ -213,7 +213,7 @@ class GmailControllerAttentionArchiveTest {
         when(processedMessageRepository.findAttentionItems(eq(currentUser.getId()), anyCollection(), any()))
                 .thenReturn(Page.empty());
 
-        controller.getAttentionItems(0, 10, false, false);
+        controller.getAttentionItems(0, 10, false, false, null);
 
         ArgumentCaptor<Pageable> pageable = ArgumentCaptor.forClass(Pageable.class);
         verify(processedMessageRepository).findAttentionItems(eq(currentUser.getId()), anyCollection(), pageable.capture());
@@ -226,7 +226,7 @@ class GmailControllerAttentionArchiveTest {
         when(processedMessageRepository.findArchivedAttentionItems(eq(currentUser.getId()), anyCollection(), any()))
                 .thenReturn(Page.empty());
 
-        controller.getAttentionItems(1, 10, false, true);
+        controller.getAttentionItems(1, 10, false, true, null);
 
         ArgumentCaptor<Pageable> pageable = ArgumentCaptor.forClass(Pageable.class);
         verify(processedMessageRepository).findArchivedAttentionItems(eq(currentUser.getId()), anyCollection(), pageable.capture());
@@ -247,7 +247,7 @@ class GmailControllerAttentionArchiveTest {
         when(processedMessageRepository.findArchivedAttentionItems(eq(currentUser.getId()), anyCollection(), any()))
                 .thenReturn(new PageImpl<>(List.of(new GmailAttentionRow(gpm, "me@gmail.com", account.getId(), account.getName()))));
 
-        GmailAttentionItemResponse row = controller.getAttentionItems(0, 10, false, true).getBody().getContent().get(0);
+        GmailAttentionItemResponse row = controller.getAttentionItems(0, 10, false, true, null).getBody().getContent().get(0);
 
         assertThat(row.connectionEmail()).isEqualTo("me@gmail.com");
         assertThat(row.accountId()).isEqualTo(account.getId());
@@ -262,7 +262,7 @@ class GmailControllerAttentionArchiveTest {
         when(processedMessageRepository.findAttentionItems(eq(currentUser.getId()), anyCollection(), any()))
                 .thenReturn(new PageImpl<>(List.of(new GmailAttentionRow(gpm, "me@gmail.com", null, null))));
 
-        GmailAttentionItemResponse row = controller.getAttentionItems(0, 10, false, false).getBody().getContent().get(0);
+        GmailAttentionItemResponse row = controller.getAttentionItems(0, 10, false, false, null).getBody().getContent().get(0);
 
         assertThat(row.accountId()).isNull();
         assertThat(row.accountName()).isNull();

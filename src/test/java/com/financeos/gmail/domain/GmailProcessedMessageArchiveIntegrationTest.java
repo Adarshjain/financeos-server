@@ -163,6 +163,19 @@ class GmailProcessedMessageArchiveIntegrationTest {
         assertThat(ids(messageRepository.findAttentionItems(user.getId(), STATUSES, page("discoveredAt")))).containsExactly(id);
     }
 
+    @Test
+    void attentionBriefs_areActiveOnly_scopedToTheUser_andFindByIdIsUserScoped() {
+        UUID active = save(connection, GmailProcessedStatus.FAILED_PERMANENT, null, null);
+        save(connection, GmailProcessedStatus.FAILED_PERMANENT, null, Instant.now());
+        UUID foreign = save(otherConnection, GmailProcessedStatus.FAILED_PERMANENT, null, null);
+
+        var briefs = messageRepository.findAttentionBriefs(user.getId(), STATUSES);
+
+        assertThat(briefs).extracting(GmailProcessedMessageRepository.AttentionBrief::getId).containsExactly(active);
+        assertThat(messageRepository.findByUserIdAndIdIn(user.getId(), List.of(active, foreign)))
+                .extracting(GmailProcessedMessage::getId).containsExactly(active);
+    }
+
     // ------------------------------------------------------------------ helpers
 
     private static PageRequest page(String sortField) {
