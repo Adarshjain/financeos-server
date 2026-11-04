@@ -259,9 +259,11 @@ class RecurringIntegrationTest {
         assertEquals("Bank A", row.get("accountName").asText());
         assertFalse(row.get("date").isNull());
 
-        // The default kinds (reports, widgets) do not include recurring rows.
+        // The endpoint's default list carries them too; asking for other kinds only does not.
         JsonNode defaults = api.getJson("/api/v1/obligations/upcoming", 200).get("items");
-        defaults.forEach(i -> assertFalse("recurring".equals(i.get("type").asText())));
+        assertEquals(1, java.util.stream.StreamSupport.stream(defaults.spliterator(), false)
+                .filter(i -> "recurring".equals(i.get("type").asText())).count());
+        assertEquals(0, api.getJson("/api/v1/obligations/upcoming?kinds=emi", 200).get("items").size());
     }
 
     @Test
@@ -302,25 +304,68 @@ class RecurringIntegrationTest {
     }
 
     @Test
+    void aLatePaymentStillLinksToTheOverdueCycle() throws Exception {
+        threeMonthly("ZORBLAX GYM CLUB", 1000);
+        detect();
+        api.postJson("/api/v1/recurring/" + onlyProposalId() + "/track", Map.of(), 200);
+        // Due 12 days ago (window 5); the payment is 8 days late, well before the next window opens.
+        jdbc.update("UPDATE recurring_series SET next_due_on = ? WHERE user_id = ?",
+                java.sql.Date.valueOf(AppTime.today().minusDays(12)), userId.toString());
+        debit(api, bank, 1000, 4, "ZORBLAX GYM CLUB");
+        link();
+
+        Map<String, Object> row = seriesRow();
+        assertEquals("TRACKED", row.get("status"));
+        assertEquals(0, ((Number) row.get("missed_cycles")).intValue());
+        assertEquals(AppTime.today().minusDays(4), day(row.get("last_paid_on")));
+        assertEquals(4, jdbc.queryForObject("SELECT COUNT(*) FROM recurring_series_payments", Integer.class));
+    }
+
+    @Test
     void oneMissedCycleKeepsItTrackedAndTwoEndIt() throws Exception {
         threeMonthly("ZORBLAX GYM CLUB", 1000);
         detect();
         api.postJson("/api/v1/recurring/" + onlyProposalId() + "/track", Map.of(), 200);
+        // The account's data is current: something else was spent today.
+        debit(api, bank, 50, 0, "TEA STALL");
 
-        // Due 10 days ago, window 5: one cycle missed, the next due in about 20 days.
+        // Due 10 days ago: the next window has not opened, so nothing is missed yet.
         jdbc.update("UPDATE recurring_series SET next_due_on = ? WHERE user_id = ?",
                 java.sql.Date.valueOf(AppTime.today().minusDays(10)), userId.toString());
+        link();
+        assertEquals(0, ((Number) seriesRow().get("missed_cycles")).intValue());
+
+        // Due 30 days ago: the next window has opened with nothing paid, one cycle missed.
+        jdbc.update("UPDATE recurring_series SET next_due_on = ? WHERE user_id = ?",
+                java.sql.Date.valueOf(AppTime.today().minusDays(30)), userId.toString());
         link();
         assertEquals("TRACKED", seriesRow().get("status"));
         assertEquals(1, ((Number) seriesRow().get("missed_cycles")).intValue());
 
-        // Due 50 days ago: both cycles since then passed with nothing paid.
+        // Due 60 days ago: both cycles since then passed with nothing paid.
         jdbc.update("UPDATE recurring_series SET next_due_on = ?, missed_cycles = 0 WHERE user_id = ?",
-                java.sql.Date.valueOf(AppTime.today().minusDays(50)), userId.toString());
+                java.sql.Date.valueOf(AppTime.today().minusDays(60)), userId.toString());
         link();
         assertEquals("ENDED", seriesRow().get("status"));
         assertEquals(2, ((Number) seriesRow().get("missed_cycles")).intValue());
         assertEquals(0, api.getJson("/api/v1/obligations/upcoming?kinds=recurring", 200).get("items").size());
+    }
+
+    @Test
+    void aSeriesIsNotCountedMissedWhileTheAccountHasNoNewerData() throws Exception {
+        threeMonthly("ZORBLAX GYM CLUB", 1000);
+        detect();
+        api.postJson("/api/v1/recurring/" + onlyProposalId() + "/track", Map.of(), 200);
+
+        // Due 30 days ago (its window ended 25 days ago), but the newest transaction on the account is 35 days old: the statement is missing.
+        jdbc.update("UPDATE recurring_series SET next_due_on = ? WHERE user_id = ?",
+                java.sql.Date.valueOf(AppTime.today().minusDays(30)), userId.toString());
+        link();
+
+        Map<String, Object> row = seriesRow();
+        assertEquals("TRACKED", row.get("status"));
+        assertEquals(0, ((Number) row.get("missed_cycles")).intValue());
+        assertEquals(AppTime.today().minusDays(30), day(row.get("next_due_on")));
     }
 
     @Test

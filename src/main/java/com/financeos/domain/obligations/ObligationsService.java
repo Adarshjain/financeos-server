@@ -183,6 +183,31 @@ public class ObligationsService {
     }
 
     /**
+     * The tracked-series rows alone, for the Upcoming endpoint's default list (the report datasource keeps its own
+     * fixed kinds and never asks for these). Empty when recurring is unavailable or its section fails.
+     */
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public List<ObligationItemDto> recurringItems(UUID userId, int months) {
+        if (userId == null || recurringService == null) {
+            return List.of();
+        }
+        LocalDate today = AppTime.today();
+        LocalDate maxDate = today.plusMonths(clampMonths(months));
+        return section(KIND_RECURRING, () -> recurring(userId, today, maxDate));
+    }
+
+    /** {@code base} with {@code extra} rows added and the whole list in display order; {@code base} itself when nothing is added. */
+    public static ObligationsResponse merge(ObligationsResponse base, List<ObligationItemDto> extra) {
+        if (extra == null || extra.isEmpty()) {
+            return base;
+        }
+        List<ObligationItemDto> all = new ArrayList<>(base.items());
+        all.addAll(extra);
+        all.sort(ORDER);
+        return new ObligationsResponse(all);
+    }
+
+    /**
      * One kind's rows, or none if computing them fails: a broken section (say a malformed loan schedule)
      * must not take the whole Upcoming list or widget down. Each section runs in its own transaction
      * ({@link SectionRunner}), so a failure inside a transactional collaborator rolls back only that

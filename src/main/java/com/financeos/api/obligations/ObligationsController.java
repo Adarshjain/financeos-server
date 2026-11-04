@@ -16,7 +16,7 @@ import java.util.UUID;
 /**
  * Upcoming obligations: EMIs, lending returns, card bills and expected statements, overdue
  * first. {@code months} is the look-ahead window (1..12, default 3); {@code kinds} is an
- * optional CSV of {@code emi,lending_due,card_bill,statement_expected} (default all).
+ * optional CSV of {@code emi,lending_due,card_bill,statement_expected,recurring} (default: the first four plus recurring).
  */
 @RestController
 @RequestMapping("/api/v1/obligations")
@@ -40,6 +40,11 @@ public class ObligationsController {
     public ObligationsResponse getUpcomingObligations(@RequestParam(defaultValue = "3") int months,
                                                       @RequestParam(required = false) String kinds) {
         UUID userId = requireCurrentUserId();
-        return obligationsService.upcoming(userId, months, ObligationsService.parseKinds(kinds));
+        ObligationsResponse response = obligationsService.upcoming(userId, months, ObligationsService.parseKinds(kinds));
+        if (kinds == null || kinds.isBlank()) {
+            // No kinds asked for: the default list also carries the user's tracked recurring payments.
+            response = ObligationsService.merge(response, obligationsService.recurringItems(userId, months));
+        }
+        return response;
     }
 }
