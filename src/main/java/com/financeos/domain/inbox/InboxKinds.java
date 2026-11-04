@@ -24,10 +24,11 @@ public final class InboxKinds {
     public static final String EPF_MATCH = "epf_match";
     /** No longer produced (link suggestions show on the transaction); kept so persisted dismissals still resolve a label. */
     public static final String LINK_SUGGESTION = "link_suggestion";
+    public static final String UPLOAD_NEEDS_ACCOUNT = "upload_needs_account";
 
     /** Every kind the inbox can produce, in display order. */
     public static final List<String> ALL = List.of(BILL, EMI, LENDING, STATEMENT_EXPECTED, STATEMENT_DETAILS_MISSING,
-            GMAIL_RECONNECT, GMAIL_ATTENTION, REVIEW, JOB, REWARD_MILESTONE, REWARD_CAP, EPF_MATCH);
+            GMAIL_RECONNECT, GMAIL_ATTENTION, REVIEW, JOB, REWARD_MILESTONE, REWARD_CAP, EPF_MATCH, UPLOAD_NEEDS_ACCOUNT);
 
     /** The two summary rows have fixed keys; everything else is keyed by its subject. */
     public static final String KEY_GMAIL_ATTENTION = "gmail-attention";
@@ -71,6 +72,11 @@ public final class InboxKinds {
 
     public static String gmailReconnectKey(UUID connectionId) {
         return "gmail-reconnect:" + connectionId;
+    }
+
+    /** One per held file, so resolving one never hides another. */
+    public static String uploadNeedsAccountKey(UUID heldUploadId) {
+        return "upload-needs-account:" + heldUploadId;
     }
 
     public static String jobKey(UUID jobId) {
@@ -126,6 +132,7 @@ public final class InboxKinds {
             case REWARD_CAP -> "Reward caps";
             case EPF_MATCH -> "EPF withdrawals to match";
             case LINK_SUGGESTION -> "Possible links";
+            case UPLOAD_NEEDS_ACCOUNT -> "Statements needing an account";
             default -> kind;
         };
     }
@@ -145,6 +152,7 @@ public final class InboxKinds {
             case REWARD_MILESTONE, REWARD_CAP -> "/rewards";
             case EPF_MATCH -> "/investments/epf";
             case LINK_SUGGESTION -> "/transactions/review";
+            case UPLOAD_NEEDS_ACCOUNT -> "/transactions/import";
             default -> "/inbox";
         };
     }

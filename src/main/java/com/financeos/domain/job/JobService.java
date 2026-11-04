@@ -71,8 +71,12 @@ public class JobService {
         Job savedJob = jobRepository.save(job);
 
         if (files != null && !files.isEmpty()) {
+            int fileIndex = 0;
             for (StagedFile file : files) {
                 JobArtifact artifact = new JobArtifact();
+                artifact.setFileIndex(fileIndex++);
+                artifact.setFileSha256(file.bytes() != null && file.bytes().length > 0
+                        ? com.financeos.domain.statement.StatementPersistenceService.sha256Hex(file.bytes()) : null);
                 artifact.setJobId(savedJob.getId());
                 artifact.setFilename(file.filename());
                 artifact.setContentType(file.contentType());
@@ -115,8 +119,23 @@ public class JobService {
         job.setResult(resultJson);
         job.setFinishedAt(Instant.now());
         jobRepository.save(job);
-        artifactRepository.deleteByJobId(jobId);
+        // Files kept for a held upload or a password retry outlive the job's success (until the job is purged).
+        artifactRepository.deleteByJobIdAndRetainedFalse(jobId);
         publishFinished(job);
+    }
+
+    /** Keeps these stored files after the job succeeds (see {@link JobArtifact#isRetained()}). */
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void retainArtifacts(UUID jobId, java.util.Collection<UUID> artifactIds) {
+        if (artifactIds == null || artifactIds.isEmpty()) {
+            return;
+        }
+        for (JobArtifact a : artifactRepository.findByJobId(jobId)) {
+            if (artifactIds.contains(a.getId()) && !a.isRetained()) {
+                a.setRetained(true);
+                artifactRepository.save(a);
+            }
+        }
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)
@@ -178,7 +197,12 @@ public class JobService {
 
     @Transactional(readOnly = true)
     public List<JobArtifact> getArtifacts(UUID jobId) {
-        return artifactRepository.findByJobId(jobId);
+        List<JobArtifact> artifacts = new java.util.ArrayList<>(artifactRepository.findByJobId(jobId));
+        // Upload order: a file's index in the job result is its index here.
+        artifacts.sort(java.util.Comparator
+                .comparing(JobArtifact::getFileIndex, java.util.Comparator.nullsLast(Integer::compareTo))
+                .thenComparing(JobArtifact::getCreatedAt, java.util.Comparator.nullsLast(Instant::compareTo)));
+        return artifacts;
     }
 
     @Transactional
@@ -251,6 +275,8 @@ public class JobService {
             newArtifact.setContentType(a.getContentType());
             newArtifact.setSizeBytes(a.getSizeBytes());
             newArtifact.setData(a.getData());
+            newArtifact.setFileIndex(a.getFileIndex());
+            newArtifact.setFileSha256(a.getFileSha256());
             artifactRepository.save(newArtifact);
         }
 

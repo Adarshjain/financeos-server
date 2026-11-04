@@ -725,6 +725,43 @@ paths:
           description: Error response
       tags:
       - statement-controller
+  /api/v1/accounts/{accountId}/statements/{statementId}/move:
+    post:
+      operationId: moveStatement
+      parameters:
+      - in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: statementId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MoveStatementRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/FileIngestionResult"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - statement-intake-controller
   /api/v1/accounts/{id}:
     delete:
       operationId: deleteAccount_1
@@ -3806,6 +3843,78 @@ paths:
           description: Error response
       tags:
       - gmail-controller
+  /api/v1/held-uploads:
+    get:
+      operationId: listHeld
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/HeldUploadResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - statement-intake-controller
+  /api/v1/held-uploads/{id}:
+    delete:
+      operationId: discardHeld
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - statement-intake-controller
+  /api/v1/held-uploads/{id}/assign:
+    post:
+      operationId: assignHeld
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AssignHeldUploadRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/FileIngestionResult"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - statement-intake-controller
   /api/v1/inbox:
     get:
       operationId: list_1
@@ -3920,6 +4029,43 @@ paths:
           description: Error response
       tags:
       - inbox-controller
+  /api/v1/ingest:
+    post:
+      operationId: ingestAuto
+      parameters:
+      - in: query
+        name: password
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                files:
+                  type: array
+                  items:
+                    type: string
+                    format: binary
+              required:
+              - files
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EnqueueResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - statement-intake-controller
   /api/v1/insights/emergency-fund:
     get:
       operationId: emergencyFund
@@ -6062,6 +6208,43 @@ paths:
           description: Error response
       tags:
       - job-controller
+  /api/v1/jobs/{jobId}/files/{fileIndex}/password:
+    post:
+      operationId: retryWithPassword
+      parameters:
+      - in: path
+        name: jobId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: fileIndex
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PasswordRetryRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/JobResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - statement-intake-controller
   /api/v1/lendings:
     get:
       operationId: getLendings
@@ -10359,6 +10542,19 @@ components:
       - identifierId
       - jobIds
       - reactivatedCount
+    AssignHeldUploadRequest:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+          x-required: true
+        password:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - accountId
     AttentionBulkRequest:
       type: object
       properties:
@@ -13943,6 +14139,30 @@ components:
       type: object
       properties:
         draftResult: {}
+    DuplicateDetail:
+      type: object
+      properties:
+        amount:
+          type: number
+        date:
+          type: string
+        description:
+          type: string
+        filename:
+          type: string
+        matchedTransactionId:
+          type: string
+          format: uuid
+        transactionId:
+          type: string
+          format: uuid
+      required:
+      - amount
+      - date
+      - description
+      - filename
+      - matchedTransactionId
+      - transactionId
     EarlierCardRequest:
       type: object
       properties:
@@ -14864,6 +15084,88 @@ components:
       - fields
       - kind
       - reason
+    FileIngestionResult:
+      type: object
+      properties:
+        duplicateDetails:
+          type: array
+          items:
+            $ref: "#/components/schemas/DuplicateDetail"
+        duplicatesTruncated:
+          type: integer
+          format: int32
+        fileDetails:
+          type: array
+          items:
+            $ref: "#/components/schemas/FileSummary"
+        filesProcessed:
+          type: integer
+          format: int32
+        totalCreated:
+          type: integer
+          format: int32
+        totalDuplicatesFound:
+          type: integer
+          format: int32
+      required:
+      - duplicateDetails
+      - duplicatesTruncated
+      - fileDetails
+      - filesProcessed
+      - totalCreated
+      - totalDuplicatesFound
+    FileSummary:
+      type: object
+      properties:
+        created:
+          type: integer
+          format: int32
+        duplicates:
+          type: integer
+          format: int32
+        errorCode:
+          type: string
+          enum:
+          - PASSWORD_REQUIRED
+          - WRONG_PASSWORD
+          - UNREADABLE
+          - OTHER
+          nullable: true
+          x-nullable: true
+        errorMessage:
+          type: string
+          nullable: true
+          x-nullable: true
+        filename:
+          type: string
+        filledDetails:
+          type: array
+          items:
+            type: string
+            nullable: true
+            x-nullable: true
+          nullable: true
+          x-nullable: true
+        heldUploadId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        linesParsed:
+          type: integer
+          format: int32
+        status:
+          type: string
+        warning:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - created
+      - duplicates
+      - filename
+      - linesParsed
+      - status
     FilterClause:
       type: object
       properties:
@@ -15714,6 +16016,46 @@ components:
       - currentValue
       - invested
       - unrealised
+    HeldUploadResponse:
+      type: object
+      properties:
+        candidateAccountIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        createdAt:
+          type: string
+          format: date-time
+        detectedBankId:
+          type: string
+          nullable: true
+          x-nullable: true
+        detectedLast4:
+          type: string
+          nullable: true
+          x-nullable: true
+        fileName:
+          type: string
+        id:
+          type: string
+          format: uuid
+        jobId:
+          type: string
+          format: uuid
+        reason:
+          type: string
+          enum:
+          - NO_MATCH
+          - AMBIGUOUS
+          - LOCKED
+      required:
+      - candidateAccountIds
+      - createdAt
+      - fileName
+      - id
+      - jobId
+      - reason
     HelloRequest:
       type: object
       properties:
@@ -18018,6 +18360,15 @@ components:
       required:
       - month
       - pnl
+    MoveStatementRequest:
+      type: object
+      properties:
+        targetAccountId:
+          type: string
+          format: uuid
+          x-required: true
+      required:
+      - targetAccountId
     Mover:
       type: object
       properties:
@@ -19316,6 +19667,16 @@ components:
           enum:
           - buy
           - sell
+    PasswordRetryRequest:
+      type: object
+      properties:
+        password:
+          type: string
+          x-required: true
+        saveToAccount:
+          type: boolean
+      required:
+      - password
     PaymentInfo:
       type: object
       properties:

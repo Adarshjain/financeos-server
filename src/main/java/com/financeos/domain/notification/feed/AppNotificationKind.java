@@ -16,6 +16,7 @@ public final class AppNotificationKind {
     public static final String BILL_REMINDER = "bill_reminder";
     /** A loan EMI installment that is due soon or overdue; one row per installment, same life cycle. */
     public static final String EMI_REMINDER = "emi_reminder";
+    public static final String UPLOAD_HELD = "upload_held";
 
     private AppNotificationKind() {
     }
