@@ -34,9 +34,10 @@ import java.util.UUID;
  *       (bank_account, generic)} rows, so the balance drills into net worth.</li>
  *   <li>Monthly outflow: debits on the liquid accounts that are not excluded, leaving out
  *       transactions in a TRANSFER or REVERSAL link (money moved between own accounts, reversals).
- *       A CC_PAYMENT link stays in: card bills are outflow, as are EMIs. It is the transactions
- *       datasource's {@code spend} sum over {@code account in <ids>, type is DEBIT, isExcluded is
- *       false, linkType not_in (TRANSFER, REVERSAL)} for the month, so each month drills into that
+ *       A CC_PAYMENT link stays in: card bills are outflow, as are EMIs (a card bill excluded only by
+ *       its category's default still counts; one the user excluded does not). It is the transactions
+ *       datasource's {@code spend} sum over {@code account in <ids>, type is DEBIT, isExcludedFromOutflow
+ *       is false, linkType not_in (TRANSFER, REVERSAL)} for the month, so each month drills into that
  *       ad-hoc KPI.</li>
  *   <li>History starts with the first full month of data: the month of the earliest transaction
  *       (any type, excluded or not) on a liquid account when that transaction is on day 1–{@value
@@ -62,13 +63,23 @@ public class EmergencyFundService {
     public static final String BAND_HIGH = "high";
 
     // Link type as the transactions datasource reads it (one link per transaction; MIN keeps it 1:1).
+    /**
+     * The rows the outflow leaves out as excluded (also the report filter {@code isExcludedFromOutflow}, which the
+     * month drill uses): an excluded row, except a card bill (category {@code card_bill}) that is excluded only by
+     * the category's default. A card bill is real outflow from the bank; a row the user excluded themselves stays out.
+     */
+    public static final String EXCLUDED_FROM_OUTFLOW_SQL =
+            "(CASE WHEN CAST(t.is_excluded AS NUMBER(1)) = 1 AND (CAST(t.exclude_set_by_user AS NUMBER(1)) = 1"
+                    + " OR t.category_key IS NULL"
+                    + " OR t.category_key <> 'card_bill') THEN 1 ELSE 0 END)";
+
     private static final String OUTFLOW_SQL = "SELECT t.transaction_date AS d, SUM(t.amount) AS total"
             + " FROM transactions t"
             + " LEFT JOIN (SELECT m.transaction_id, MIN(l.type) AS link_type"
             + " FROM transaction_link_members m JOIN transaction_links l ON l.id = m.link_id"
             + " GROUP BY m.transaction_id) lk ON lk.transaction_id = t.id"
             + " WHERE t.user_id = :userId AND t.account_id IN (:accountIds)"
-            + " AND t.type = 'DEBIT' AND t.is_excluded = :notExcluded"
+            + " AND t.type = 'DEBIT' AND " + EXCLUDED_FROM_OUTFLOW_SQL + " = :notExcluded"
             + " AND (lk.link_type IS NULL OR lk.link_type NOT IN (:excludedLinks))"
             + " AND t.transaction_date BETWEEN :fromDate AND :toDate"
             + " GROUP BY t.transaction_date";
