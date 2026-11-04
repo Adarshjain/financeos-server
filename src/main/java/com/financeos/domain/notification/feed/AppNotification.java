@@ -69,6 +69,10 @@ public class AppNotification {
     @Column(name = "loan_id", length = 36)
     private UUID loanId;
 
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Column(name = "statement_id", length = 36)
+    private UUID statementId;
+
     @Column(name = "dedupe_key", nullable = false, length = MAX_KEY_LENGTH)
     private String dedupeKey;
 

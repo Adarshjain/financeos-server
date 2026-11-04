@@ -72,6 +72,7 @@ public class NotificationFeedService {
         n.setAccountId(r.accountId());
         n.setConnectionId(r.connectionId());
         n.setLoanId(r.loanId());
+        n.setStatementId(r.statementId());
         n.setDedupeKey(clip(dedupeKey, AppNotification.MAX_KEY_LENGTH));
         n.setCreatedAt(now());
         repository.saveAndFlush(n);
@@ -234,6 +235,7 @@ public class NotificationFeedService {
         n.setAccountId(r.accountId());
         n.setConnectionId(r.connectionId());
         n.setLoanId(r.loanId());
+        n.setStatementId(r.statementId());
     }
 
     /** Newest first by when each row last surfaced (updated, else created; id breaks ties so paging is stable), cleared rows excluded. */
