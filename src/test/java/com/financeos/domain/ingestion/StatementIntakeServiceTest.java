@@ -16,14 +16,13 @@ import com.financeos.domain.job.JobType;
 import com.financeos.domain.job.StagedFile;
 import com.financeos.domain.job.handlers.StatementIngestPayload;
 import com.financeos.domain.statement.Statement;
-import com.financeos.domain.statement.StatementDeletionService;
+import com.financeos.domain.statement.StatementMoveService;
 import com.financeos.domain.statement.StatementRepository;
 import com.financeos.statement.parser.StatementIdentity;
 import com.financeos.statement.parser.StatementParseException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.mockito.InOrder;
 
 import java.util.List;
 import java.util.Optional;
@@ -45,8 +44,7 @@ class StatementIntakeServiceTest {
     private JobArtifactRepository artifactRepository;
     private AccountRepository accountRepository;
     private StatementRepository statementRepository;
-    private StatementDeletionService deletionService;
-    private FileIngestionService ingestion;
+    private StatementMoveService moveService;
     private StatementIdentifier identifier;
     private StatementPasswordVault vault;
     private EncryptionService encryption;
@@ -66,13 +64,12 @@ class StatementIntakeServiceTest {
         artifactRepository = mock(JobArtifactRepository.class);
         accountRepository = mock(AccountRepository.class);
         statementRepository = mock(StatementRepository.class);
-        deletionService = mock(StatementDeletionService.class);
-        ingestion = mock(FileIngestionService.class);
+        moveService = mock(StatementMoveService.class);
         identifier = mock(StatementIdentifier.class);
         vault = mock(StatementPasswordVault.class);
         encryption = mock(EncryptionService.class);
         service = new StatementIntakeService(jobRepository, jobService, artifactRepository, accountRepository, statementRepository,
-                deletionService, ingestion, identifier, vault, encryption, new ObjectMapper());
+                moveService, identifier, vault, encryption, new ObjectMapper());
 
         job = new Job();
         job.setId(jobId);
@@ -90,7 +87,7 @@ class StatementIntakeServiceTest {
         when(jobRepository.findByIdAndUserId(jobId, userId)).thenReturn(Optional.of(job));
         when(jobService.getArtifacts(jobId)).thenReturn(List.of(artifact));
         when(accountRepository.findByIdAndUser_Id(accountId, userId)).thenReturn(Optional.of(account(accountId, AccountType.bank_account)));
-        when(accountRepository.findByIdAndUser_Id(targetId, userId)).thenReturn(Optional.of(account(targetId, AccountType.credit_card)));
+        when(accountRepository.findByIdAndUser_Id(targetId, userId)).thenReturn(Optional.of(account(targetId, AccountType.bank_account)));
         when(encryption.encrypt(any())).thenAnswer(inv -> "enc:" + inv.getArgument(0));
         Job rerun = new Job();
         rerun.setId(UUID.randomUUID());
@@ -181,40 +178,79 @@ class StatementIntakeServiceTest {
 
     private void stored(UUID stmtId) {
         when(statementRepository.findByIdAndAccount_Id(stmtId, accountId)).thenReturn(Optional.of(statement(stmtId, "abc")));
-        when(artifactRepository.findByUserAndSha(userId, "abc")).thenReturn(List.of(artifact));
-    }
-
-    private static FileIngestionResult resultOf(FileIngestionResult.FileSummary f) {
-        return new FileIngestionResult(1, f.created(), 0, List.of(f));
     }
 
     @Test
-    void moveIngestsIntoTheTargetFirstThenDeletesTheSourceStatement() {
+    void moveHandsTheStatementToTheMoveServiceAndReportsTheMovedRows() {
         UUID stmtId = UUID.randomUUID();
         stored(stmtId);
-        FileIngestionResult expected = resultOf(new FileIngestionResult.FileSummary("s.pdf", "SUCCESS", 4, null, null, 4, 0));
-        when(ingestion.ingest(eq(targetId), anyList(), any())).thenReturn(expected);
-        when(statementRepository.existsByAccountIdAndFileSha256(targetId, "abc")).thenReturn(true);
+        when(moveService.move(userId, accountId, targetId, stmtId)).thenReturn(new StatementMoveService.Moved(4, 1));
 
         FileIngestionResult r = service.moveStatement(userId, accountId, stmtId, targetId);
 
-        assertThat(r).isSameAs(expected);
-        InOrder order = inOrder(ingestion, deletionService);
-        order.verify(ingestion).ingest(eq(targetId), anyList(), any());
-        order.verify(deletionService).delete(accountId, stmtId);
+        assertThat(r.totalCreated()).isEqualTo(4);
+        assertThat(r.totalDuplicatesFound()).isEqualTo(1);
+        assertThat(r.fileDetails()).hasSize(1);
+        assertThat(r.fileDetails().get(0).status()).isEqualTo("SUCCESS");
     }
 
     @Test
-    void moveWhenTheTargetReportsSuccessButHasNoStatementKeepsTheSource() {
+    void moveWorksForAStatementWithNoStoredFileAtAll() {
+        UUID stmtId = UUID.randomUUID();
+        when(statementRepository.findByIdAndAccount_Id(stmtId, accountId)).thenReturn(Optional.of(statement(stmtId, null)));
+        when(moveService.move(userId, accountId, targetId, stmtId)).thenReturn(new StatementMoveService.Moved(2, 0));
+
+        assertThat(service.moveStatement(userId, accountId, stmtId, targetId).totalCreated()).isEqualTo(2);
+        verifyNoInteractions(artifactRepository);
+    }
+
+    @Test
+    void moveToTheSameAccountIsRejected() {
+        UUID stmtId = UUID.randomUUID();
+        when(statementRepository.findByIdAndAccount_Id(stmtId, accountId)).thenReturn(Optional.of(statement(stmtId, "abc")));
+
+        assertThatThrownBy(() -> service.moveStatement(userId, accountId, stmtId, accountId))
+                .isInstanceOf(com.financeos.core.exception.ValidationException.class).hasMessage("Pick a different account.");
+        verifyNoInteractions(moveService);
+    }
+
+    @Test
+    void moveToAnAccountOfAnotherTypeIsRejected() {
         UUID stmtId = UUID.randomUUID();
         stored(stmtId);
-        when(ingestion.ingest(eq(targetId), anyList(), any()))
-                .thenReturn(resultOf(new FileIngestionResult.FileSummary("s.pdf", "SUCCESS", 0, null, null, 0, 0)));
-        when(statementRepository.existsByAccountIdAndFileSha256(targetId, "abc")).thenReturn(false);
+        when(accountRepository.findByIdAndUser_Id(targetId, userId)).thenReturn(Optional.of(account(targetId, AccountType.credit_card)));
 
-        service.moveStatement(userId, accountId, stmtId, targetId);
+        assertThatThrownBy(() -> service.moveStatement(userId, accountId, stmtId, targetId))
+                .isInstanceOf(com.financeos.core.exception.ValidationException.class).hasMessage("Pick an account of the same type.");
+        verifyNoInteractions(moveService);
+    }
 
-        verifyNoInteractions(deletionService);
+    @Test
+    void moveWhenTheTargetHasTheSameFileIs409() {
+        UUID stmtId = UUID.randomUUID();
+        stored(stmtId);
+        when(statementRepository.existsByAccountIdAndFileSha256(targetId, "abc")).thenReturn(true);
+
+        assertThatThrownBy(() -> service.moveStatement(userId, accountId, stmtId, targetId))
+                .isInstanceOfSatisfying(ApiStatusException.class, e -> {
+                    assertThat(e.getStatus().value()).isEqualTo(409);
+                    assertThat(e.getCode()).isEqualTo("STATEMENT_EXISTS");
+                });
+        verifyNoInteractions(moveService);
+    }
+
+    @Test
+    void moveWhenTheTargetHasTheSamePeriodIs409() {
+        UUID stmtId = UUID.randomUUID();
+        Statement st = statement(stmtId, "abc");
+        st.setPeriodStart(java.time.LocalDate.of(2026, 1, 1));
+        st.setPeriodEnd(java.time.LocalDate.of(2026, 1, 31));
+        when(statementRepository.findByIdAndAccount_Id(stmtId, accountId)).thenReturn(Optional.of(st));
+        when(statementRepository.existsByAccountIdAndPeriodStartAndPeriodEnd(targetId, st.getPeriodStart(), st.getPeriodEnd())).thenReturn(true);
+
+        assertThatThrownBy(() -> service.moveStatement(userId, accountId, stmtId, targetId))
+                .isInstanceOfSatisfying(ApiStatusException.class, e -> assertThat(e.getCode()).isEqualTo("STATEMENT_EXISTS"));
+        verifyNoInteractions(moveService);
     }
 
     @Test
@@ -244,75 +280,13 @@ class StatementIntakeServiceTest {
     }
 
     @Test
-    void moveWhenTheTargetIngestFailsKeepsTheSourceAndReturnsTheResult() {
-        UUID stmtId = UUID.randomUUID();
-        stored(stmtId);
-        FileIngestionResult failed = resultOf(FileIngestionResult.FileSummary.failed("s.pdf", "bad", FileIngestionResult.ErrorCode.UNREADABLE));
-        when(ingestion.ingest(eq(targetId), anyList(), any())).thenReturn(failed);
-
-        assertThat(service.moveStatement(userId, accountId, stmtId, targetId)).isSameAs(failed);
-        verifyNoInteractions(deletionService);
-    }
-
-    @Test
-    void moveWhenTheTargetNeedsAPasswordIs422AndKeepsTheSource() {
-        UUID stmtId = UUID.randomUUID();
-        stored(stmtId);
-        when(ingestion.ingest(eq(targetId), anyList(), any())).thenReturn(
-                resultOf(FileIngestionResult.FileSummary.failed("s.pdf", "locked", FileIngestionResult.ErrorCode.PASSWORD_REQUIRED)));
-
-        assertThatThrownBy(() -> service.moveStatement(userId, accountId, stmtId, targetId))
-                .isInstanceOfSatisfying(ApiStatusException.class, e -> {
-                    assertThat(e.getStatus().value()).isEqualTo(422);
-                    assertThat(e.getCode()).isEqualTo("PASSWORD_REQUIRED");
-                });
-        verifyNoInteractions(deletionService);
-    }
-
-    @Test
-    void moveWhenTheTargetFileIsSkippedKeepsTheSource() {
-        UUID stmtId = UUID.randomUUID();
-        stored(stmtId);
-        when(ingestion.ingest(eq(targetId), anyList(), any())).thenReturn(
-                resultOf(new FileIngestionResult.FileSummary("s.pdf", "SKIPPED", 0, "already imported")));
-
-        service.moveStatement(userId, accountId, stmtId, targetId);
-
-        verifyNoInteractions(deletionService);
-    }
-
-    @Test
-    void moveWhenTheFileIsGoneIs409AndDeletesNothing() {
-        UUID stmtId = UUID.randomUUID();
-        when(statementRepository.findByIdAndAccount_Id(stmtId, accountId)).thenReturn(Optional.of(statement(stmtId, "abc")));
-        when(artifactRepository.findByUserAndSha(userId, "abc")).thenReturn(List.of());
-
-        assertThatThrownBy(() -> service.moveStatement(userId, accountId, stmtId, targetId))
-                .isInstanceOfSatisfying(ApiStatusException.class, e -> {
-                    assertThat(e.getStatus().value()).isEqualTo(409);
-                    assertThat(e.getMessage()).isEqualTo("The file is no longer stored. Upload it again.");
-                });
-        verifyNoInteractions(deletionService);
-        verifyNoInteractions(ingestion);
-    }
-
-    @Test
-    void moveOfAStatementWithoutAFileHashIs409() {
-        UUID stmtId = UUID.randomUUID();
-        when(statementRepository.findByIdAndAccount_Id(stmtId, accountId)).thenReturn(Optional.of(statement(stmtId, null)));
-
-        assertThatThrownBy(() -> service.moveStatement(userId, accountId, stmtId, targetId)).isInstanceOf(ApiStatusException.class);
-        verifyNoInteractions(deletionService);
-    }
-
-    @Test
     void moveWithAnotherUsersTargetAccountIs404() {
         UUID foreign = UUID.randomUUID();
         UUID stmtId = UUID.randomUUID();
         when(accountRepository.findByIdAndUser_Id(foreign, userId)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> service.moveStatement(userId, accountId, stmtId, foreign)).isInstanceOf(ResourceNotFoundException.class);
-        verifyNoInteractions(deletionService);
+        verifyNoInteractions(moveService);
     }
 
     @Test
@@ -321,7 +295,7 @@ class StatementIntakeServiceTest {
         when(accountRepository.findByIdAndUser_Id(foreign, userId)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> service.moveStatement(userId, foreign, UUID.randomUUID(), targetId)).isInstanceOf(ResourceNotFoundException.class);
-        verifyNoInteractions(deletionService);
+        verifyNoInteractions(moveService);
     }
 
     @Test
@@ -330,5 +304,24 @@ class StatementIntakeServiceTest {
         when(statementRepository.findByIdAndAccount_Id(stmtId, accountId)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> service.moveStatement(userId, accountId, stmtId, targetId)).isInstanceOf(ResourceNotFoundException.class);
+    }
+
+    @Test
+    void moveNamesAnUploadByItsFileAndAGmailStatementNeutrally() {
+        UUID up = UUID.randomUUID();
+        Statement upload = statement(up, "abc");
+        upload.setSource(com.financeos.domain.statement.StatementSource.file_upload);
+        upload.setSourceRef("jan.pdf");
+        when(statementRepository.findByIdAndAccount_Id(up, accountId)).thenReturn(Optional.of(upload));
+        when(moveService.move(userId, accountId, targetId, up)).thenReturn(new StatementMoveService.Moved(1, 0));
+        assertThat(service.moveStatement(userId, accountId, up, targetId).fileDetails().get(0).filename()).isEqualTo("jan.pdf");
+
+        UUID gm = UUID.randomUUID();
+        Statement mail = statement(gm, null);
+        mail.setSource(com.financeos.domain.statement.StatementSource.gmail);
+        mail.setSourceRef("18f3a9message");
+        when(statementRepository.findByIdAndAccount_Id(gm, accountId)).thenReturn(Optional.of(mail));
+        when(moveService.move(userId, accountId, targetId, gm)).thenReturn(new StatementMoveService.Moved(1, 0));
+        assertThat(service.moveStatement(userId, accountId, gm, targetId).fileDetails().get(0).filename()).isEqualTo("Statement");
     }
 }

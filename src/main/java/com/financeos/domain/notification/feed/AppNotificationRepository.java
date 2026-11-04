@@ -43,6 +43,11 @@ public interface AppNotificationRepository extends JpaRepository<AppNotification
     @Query("update AppNotification n set n.clearedAt = :now, n.clearedBy = 'USER' where n.userId = :userId and n.clearedAt is null")
     int clearAll(@Param("userId") UUID userId, @Param("now") Instant now);
 
+    /** A statement moved to another account: its bill reminder row follows it. */
+    @Modifying
+    @Query("update AppNotification n set n.accountId = :accountId where n.userId = :userId and n.statementId = :statementId")
+    int moveStatementRows(@Param("userId") UUID userId, @Param("statementId") UUID statementId, @Param("accountId") UUID accountId);
+
     /**
      * Cleared in-place reminders are kept until they age out: purging one a day after it was cleared would let the
      * next daily run re-create the row of a bill that is still unpaid.
