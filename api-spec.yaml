@@ -636,6 +636,88 @@ paths:
           description: Error response
       tags:
       - file-upload-controller
+  /api/v1/accounts/{accountId}/statement-skips:
+    get:
+      operationId: state
+      parameters:
+      - in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/StatementSkipsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - statement-skip-controller
+    post:
+      operationId: skip
+      parameters:
+      - in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/StatementSkipRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/StatementSkipResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - statement-skip-controller
+  /api/v1/accounts/{accountId}/statement-skips/{skipId}:
+    delete:
+      operationId: undo_2
+      parameters:
+      - in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: skipId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - statement-skip-controller
   /api/v1/accounts/{accountId}/statements:
     get:
       operationId: getStatementsByAccountId
@@ -18469,6 +18551,22 @@ components:
       - windowEnd
       - windowStart
       - windowType
+    Missing:
+      type: object
+      properties:
+        expectedBy:
+          type: string
+          format: date
+        periodEnd:
+          type: string
+          format: date
+        periodStart:
+          type: string
+          format: date
+      required:
+      - expectedBy
+      - periodEnd
+      - periodStart
     ModelCatalogEntryDto:
       type: object
       properties:
@@ -23112,6 +23210,46 @@ components:
       - origin
       - transactionId
       - type
+    StatementSkipRequest:
+      type: object
+      properties:
+        periodEnd:
+          type: string
+          format: date
+          x-required: true
+      required:
+      - periodEnd
+    StatementSkipResponse:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        periodEnd:
+          type: string
+          format: date
+        periodStart:
+          type: string
+          format: date
+      required:
+      - createdAt
+      - id
+      - periodEnd
+      - periodStart
+    StatementSkipsResponse:
+      type: object
+      properties:
+        missing:
+          $ref: "#/components/schemas/Missing"
+        skipped:
+          type: array
+          items:
+            $ref: "#/components/schemas/StatementSkipResponse"
+      required:
+      - skipped
     StatementSummaryResponse:
       type: object
       properties:

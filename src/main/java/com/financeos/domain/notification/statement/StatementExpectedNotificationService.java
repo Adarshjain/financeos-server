@@ -13,10 +13,15 @@ import com.financeos.domain.notification.NotificationProducer;
 import com.financeos.domain.notification.NotificationSettingsService;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementRepository;
+import com.financeos.domain.statement.skip.SkippedPeriods;
+import com.financeos.domain.statement.skip.StatementSkippedPeriodRepository;
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -39,6 +44,7 @@ public class StatementExpectedNotificationService implements NotificationProduce
 
     private final AccountRepository accountRepository;
     private final StatementRepository statementRepository;
+    private StatementSkippedPeriodRepository skippedRepository;
     private final NotificationPrefsLoader prefsLoader;
     private final NotificationSettingsService settingsService;
 
@@ -50,6 +56,12 @@ public class StatementExpectedNotificationService implements NotificationProduce
         this.statementRepository = statementRepository;
         this.prefsLoader = prefsLoader;
         this.settingsService = settingsService;
+    }
+
+    /** Optional (plain unit tests build this without a context): the cycles the owner marked "No statement this period". */
+    @Autowired(required = false)
+    public void setSkippedRepository(StatementSkippedPeriodRepository skippedRepository) {
+        this.skippedRepository = skippedRepository;
     }
 
     @Override
@@ -68,12 +80,14 @@ public class StatementExpectedNotificationService implements NotificationProduce
         int evaluated = 0;
         int recorded = 0;
         int sent = 0;
-        for (Account card : accountRepository.findByUserIdAndType(userId, AccountType.credit_card)) {
+        List<Account> cards = accountRepository.findByUserIdAndType(userId, AccountType.credit_card);
+        Map<UUID, List<LocalDate>> skips = SkippedPeriods.byAccount(skippedRepository, cards.stream().map(Account::getId).toList());
+        for (Account card : cards) {
             if (card.isClosed(today)) {
                 continue;
             }
             List<Statement> statements = statementRepository.findQualifyingCreditCardStatements(card.getId());
-            LocalDate overdueEnd = overduePeriodEnd(statements, today);
+            LocalDate overdueEnd = overduePeriodEnd(statements, skips.get(card.getId()), today);
             if (overdueEnd == null) {
                 continue;
             }
@@ -99,11 +113,16 @@ public class StatementExpectedNotificationService implements NotificationProduce
      * without a statement, or null when the card is current (or has no statement to project from).
      */
     public static LocalDate overduePeriodEnd(List<Statement> statements, LocalDate today) {
-        LocalDate lastEnd = statements.stream()
+        return overduePeriodEnd(statements, List.of(), today);
+    }
+
+    /** {@link #overduePeriodEnd(List, LocalDate)} where the cycles in {@code skippedEnds} count as covered ("No statement this period"). */
+    public static LocalDate overduePeriodEnd(List<Statement> statements, Collection<LocalDate> skippedEnds, LocalDate today) {
+        LocalDate lastEnd = SkippedPeriods.coveredEnd(statements.stream()
                 .map(Statement::getPeriodEnd)
                 .filter(Objects::nonNull)
                 .max(LocalDate::compareTo)
-                .orElse(null);
+                .orElse(null), skippedEnds);
         if (lastEnd == null) {
             return null;
         }

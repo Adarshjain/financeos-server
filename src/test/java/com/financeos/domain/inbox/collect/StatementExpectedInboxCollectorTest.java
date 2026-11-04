@@ -7,6 +7,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import com.financeos.api.inbox.dto.InboxActionPayloadResponse;
 import com.financeos.api.inbox.dto.InboxActionResponse;
 import com.financeos.api.inbox.dto.InboxItemResponse;
 import com.financeos.api.inbox.dto.InboxRefsResponse;
@@ -91,7 +92,10 @@ class StatementExpectedInboxCollectorTest {
         assertEquals(href, row.href());
         assertEquals(null, row.amount());
         assertEquals(LocalDate.of(2026, 9, 15), row.date());
-        assertEquals(List.of(InboxActionResponse.navigate("upload", "Upload", href), InboxRows.snooze()), row.actions());
+        assertEquals(List.of(InboxActionResponse.navigate("upload", "Upload", href), InboxRows.snooze(),
+                InboxActionResponse.mutate("no_statement", "No statement this period",
+                        new InboxActionPayloadResponse(null, null, null, LocalDate.of(2026, 9, 15), card.getId(), null, null, null, null, null))),
+                row.actions());
         assertEquals(InboxRefsResponse.ofAccount(card.getId()), row.refs());
     }
 
