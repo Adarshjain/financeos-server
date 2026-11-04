@@ -111,4 +111,38 @@ class GmailTransactionWriterStatementPairTest {
 
         assertEquals(GmailProcessedStatus.CREATED, result.getStatus());
     }
+
+    @Test
+    void differentMerchantOnTheStatementRowStillCreatesTheAlert() {
+        Transaction stmt = statementRow(LocalDate.of(2026, 8, 12));
+        stmt.setSourcedDescription("UPI/DR/4123/ZOMATO/YESB");
+        statementRowsAre(List.of(stmt));
+
+        GmailProcessedMessage result = writer.writeTransaction(connection, "msg-1", alert(LocalDate.of(2026, 8, 12)), account);
+
+        assertEquals(GmailProcessedStatus.CREATED, result.getStatus());
+    }
+
+    @Test
+    void sameMerchantOnTheStatementRowSkipsTheAlert() {
+        Transaction stmt = statementRow(LocalDate.of(2026, 8, 12));
+        stmt.setSourcedDescription("UPI/DR/4123/SWIGGY/YESB");
+        statementRowsAre(List.of(stmt));
+
+        GmailProcessedMessage result = writer.writeTransaction(connection, "msg-1", alert(LocalDate.of(2026, 8, 12)), account);
+
+        assertEquals(GmailProcessedStatus.SKIPPED_DUPLICATE, result.getStatus());
+        assertSame(stmt, result.getTransaction());
+    }
+
+    @Test
+    void statementRowInAnUncertainDuplicatePairingIsNotACandidate() {
+        Transaction stmt = statementRow(LocalDate.of(2026, 8, 12));
+        stmt.setReviewReasons(new java.util.HashSet<>(java.util.Set.of(ReviewReason.DUPLICATE_SUSPECT)));
+        statementRowsAre(List.of(stmt));
+
+        GmailProcessedMessage result = writer.writeTransaction(connection, "msg-1", alert(LocalDate.of(2026, 8, 12)), account);
+
+        assertEquals(GmailProcessedStatus.CREATED, result.getStatus());
+    }
 }

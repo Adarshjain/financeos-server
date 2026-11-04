@@ -23,6 +23,10 @@ public class GmailTransactionWriter {
     @org.springframework.beans.factory.annotation.Autowired(required = false)
     private org.springframework.context.ApplicationEventPublisher eventPublisher;
 
+    /** Stateless; replaced by the Spring bean when present. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private TransactionMatcher transactionMatcher = new TransactionMatcher();
+
     public GmailTransactionWriter(TransactionRepository transactionRepository,
                                   GmailProcessedMessageRepository processedMessageRepository,
                                   ReviewStatusManager reviewStatusManager) {
@@ -122,12 +126,25 @@ public class GmailTransactionWriter {
                 date.minusDays(1), date.plusDays(1),
                 java.util.List.of(TransactionSource.gmail_statement, TransactionSource.file_upload));
         if (rows == null) return null;
+        Transaction alertRow = new Transaction();
+        alertRow.setSource(TransactionSource.gmail_transaction_alert);
+        alertRow.setSourcedDescription(alert.description());
         return rows.stream()
+                // A row already in an uncertain duplicate pairing is waiting for the user, not a settled record.
+                .filter(r -> r.getReviewReasons() == null || !r.getReviewReasons().contains(ReviewReason.DUPLICATE_SUSPECT))
+                // Skip only for the same merchant; two different merchants for one amount are two payments.
+                .filter(r -> !hasMerchant(r) || !hasMerchant(alertRow)
+                        || transactionMatcher.sameCounterparty(r, alertRow))
                 .filter(r -> card == null || r.getCard() == null || card.getId().equals(r.getCard().getId()))
                 .min(java.util.Comparator
                         .comparingLong((Transaction r) -> Math.abs(java.time.temporal.ChronoUnit.DAYS.between(date, r.getDate())))
                         .thenComparing(Transaction::getCreatedAt, java.util.Comparator.nullsLast(java.util.Comparator.naturalOrder())))
                 .orElse(null);
+    }
+
+    private static boolean hasMerchant(Transaction t) {
+        String d = t.getSourcedDescription() != null ? t.getSourcedDescription() : t.getDescription();
+        return d != null && !d.isBlank();
     }
 
     private GmailProcessedMessage findOrCreateLedgerEntry(GmailConnection connection, String gmailMessageId) {

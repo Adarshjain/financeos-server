@@ -729,7 +729,7 @@ public class TransactionService {
             }
         }
 
-        return doMerge(kept, deleted, "user:" + currentSessionUserId);
+        return doMerge(kept, deleted, "user:" + currentSessionUserId, false);
     }
 
     /**
@@ -758,15 +758,28 @@ public class TransactionService {
             kept.setCategorySetAt(deleted.getCategorySetAt());
             kept.setAppliedRule(deleted.getAppliedRule());
         }
-        doMerge(kept, deleted, "system:statement-duplicate");
+        doMerge(kept, deleted, "system:statement-duplicate", true);
         return true;
     }
 
-    private MergeTransactionsResponse doMerge(Transaction kept, Transaction deleted, String actor) {
+    private MergeTransactionsResponse doMerge(Transaction kept, Transaction deleted, String actor, boolean system) {
         UUID keepId = kept.getId();
         UUID deleteId = deleted.getId();
 
         // --- CARRY-OVER ---
+        if (system) {
+            // Only the system merge carries these: the user's own exclusion and the alert's mail id must survive the absorb.
+            if (deleted.isTransactionExcluded()) {
+                kept.setTransactionExcluded(true);
+            }
+            if (kept.getSourceMessageId() == null && deleted.getSourceMessageId() != null) {
+                String messageId = deleted.getSourceMessageId();
+                // Unique per user: free the id on the absorbed row before the kept row takes it.
+                deleted.setSourceMessageId(null);
+                transactionRepository.saveAndFlush(deleted);
+                kept.setSourceMessageId(messageId);
+            }
+        }
         if (kept.getTags().isEmpty() && !deleted.getTags().isEmpty()) {
             Set<Tag> deletedTags = deleted.getTags().stream()
                     .map(TransactionTag::getTag)
@@ -901,12 +914,20 @@ public class TransactionService {
         // --- REVIEW REASONS CLEARING ON KEPT ---
         // Only touch review state when there is actually something to clear, so a kept
         // transaction that is already NA/AUTO_REVIEWED is not re-stamped MANUALLY_REVIEWED.
-        boolean hasClearableReason = kept.getReviewReasons() != null
-                && (kept.getReviewReasons().contains(ReviewReason.UNRECONCILED)
-                        || kept.getReviewReasons().contains(ReviewReason.DUPLICATE_SUSPECT));
-        if (hasClearableReason) {
-            reviewStatusManager.clearReason(kept, ReviewReason.UNRECONCILED, ReviewType.MANUALLY_REVIEWED);
-            reviewStatusManager.clearReason(kept, ReviewReason.DUPLICATE_SUSPECT, ReviewType.MANUALLY_REVIEWED);
+        if (system) {
+            // A system merge never stamps the kept row manually reviewed and keeps reasons from other sources:
+            // only the duplicate flag tied to this pair goes, and the row is auto-reviewed if nothing else remains.
+            if (kept.getReviewReasons() != null && kept.getReviewReasons().contains(ReviewReason.DUPLICATE_SUSPECT)) {
+                reviewStatusManager.clearReason(kept, ReviewReason.DUPLICATE_SUSPECT, ReviewType.AUTO_REVIEWED);
+            }
+        } else {
+            boolean hasClearableReason = kept.getReviewReasons() != null
+                    && (kept.getReviewReasons().contains(ReviewReason.UNRECONCILED)
+                            || kept.getReviewReasons().contains(ReviewReason.DUPLICATE_SUSPECT));
+            if (hasClearableReason) {
+                reviewStatusManager.clearReason(kept, ReviewReason.UNRECONCILED, ReviewType.MANUALLY_REVIEWED);
+                reviewStatusManager.clearReason(kept, ReviewReason.DUPLICATE_SUSPECT, ReviewType.MANUALLY_REVIEWED);
+            }
         }
 
         Transaction savedKept = transactionRepository.save(kept);
