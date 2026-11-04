@@ -21,6 +21,12 @@ public interface GmailProcessedMessageRepository extends JpaRepository<GmailProc
     @Query("SELECT g.gmailMessageId FROM GmailProcessedMessage g WHERE g.connection.id = :connectionId AND g.gmailMessageId IN :gmailMessageIds")
     List<String> findExistingMessageIds(@Param("connectionId") UUID connectionId, @Param("gmailMessageIds") Collection<String> gmailMessageIds);
 
+    /** A statement moved to another account: its mail (and its alert mails) are now that account's ledger entries. One update, scoped by user. */
+    @org.springframework.data.jpa.repository.Modifying
+    @Query("UPDATE GmailProcessedMessage g SET g.account = :to WHERE g.user.id = :userId AND g.account.id = :fromId AND g.gmailMessageId IN :messageIds")
+    int moveToAccount(@Param("userId") UUID userId, @Param("fromId") UUID fromId,
+                      @Param("to") com.financeos.domain.account.Account to, @Param("messageIds") Collection<String> messageIds);
+
     long countByConnectionIdAndStatus(UUID connectionId, GmailProcessedStatus status);
 
     long countByConnectionIdAndStatusIn(UUID connectionId, Collection<GmailProcessedStatus> statuses);

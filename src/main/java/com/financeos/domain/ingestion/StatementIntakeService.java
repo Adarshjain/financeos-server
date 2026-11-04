@@ -18,7 +18,7 @@ import com.financeos.domain.job.JobType;
 import com.financeos.domain.job.StagedFile;
 import com.financeos.domain.job.handlers.StatementIngestPayload;
 import com.financeos.domain.statement.Statement;
-import com.financeos.domain.statement.StatementDeletionService;
+import com.financeos.domain.statement.StatementMoveService;
 import com.financeos.domain.statement.StatementRepository;
 import com.financeos.statement.parser.StatementParseException;
 import org.springframework.http.HttpStatus;
@@ -36,8 +36,7 @@ public class StatementIntakeService {
     private final JobArtifactRepository artifactRepository;
     private final AccountRepository accountRepository;
     private final StatementRepository statementRepository;
-    private final StatementDeletionService deletionService;
-    private final FileIngestionService ingestionService;
+    private final StatementMoveService moveService;
     private final StatementIdentifier identifier;
     private final StatementPasswordVault passwordVault;
     private final EncryptionService encryptionService;
@@ -48,8 +47,7 @@ public class StatementIntakeService {
                                   JobArtifactRepository artifactRepository,
                                   AccountRepository accountRepository,
                                   StatementRepository statementRepository,
-                                  StatementDeletionService deletionService,
-                                  FileIngestionService ingestionService,
+                                  StatementMoveService moveService,
                                   StatementIdentifier identifier,
                                   StatementPasswordVault passwordVault,
                                   EncryptionService encryptionService,
@@ -59,8 +57,7 @@ public class StatementIntakeService {
         this.artifactRepository = artifactRepository;
         this.accountRepository = accountRepository;
         this.statementRepository = statementRepository;
-        this.deletionService = deletionService;
-        this.ingestionService = ingestionService;
+        this.moveService = moveService;
         this.identifier = identifier;
         this.passwordVault = passwordVault;
         this.encryptionService = encryptionService;
@@ -114,8 +111,9 @@ public class StatementIntakeService {
     }
 
     /**
-     * Moves an ingested statement to another account: ingests its stored file into the target and, only when that succeeds, deletes it
-     * (and the transactions it created) from this one. 409 when the file is no longer stored.
+     * Moves an ingested statement, and the transactions its lines point at, to another account of the same type in place
+     * (see {@link StatementMoveService}); no stored file is needed. 409 STATEMENT_EXISTS when the target already has the
+     * statement (same file or same period). The result reports the moved rows as one successful file.
      */
     public FileIngestionResult moveStatement(UUID userId, UUID accountId, UUID statementId, UUID targetAccountId) {
         Account source = accountRepository.findByIdAndUser_Id(accountId, userId)
@@ -128,29 +126,21 @@ public class StatementIntakeService {
             throw new ValidationException("Pick a different account.");
         }
         StatementAccountMatcher.requireStatementAccount(target);
-        JobArtifact stored = statement.getFileSha256() == null ? null
-                : artifactRepository.findByUserAndSha(userId, statement.getFileSha256()).stream().findFirst().orElse(null);
-        if (stored == null) {
-            throw new ApiStatusException(HttpStatus.CONFLICT, "FILE_EXPIRED", HeldUploadService.FILE_GONE_MESSAGE);
+        if (source.getType() != target.getType()) {
+            throw new ValidationException("Pick an account of the same type.");
         }
-        UploadedFile file = new UploadedFile(stored.getFilename(), stored.getContentType(), stored.getData());
-        // Target first: if it fails the source statement is untouched. No wrapping transaction (ingest and delete each
-        // commit on their own), so the worst case is a delete failure leaving the statement on both accounts, never on neither.
-        FileIngestionResult result = ingestionService.ingest(target.getId(), List.of(file), null);
-        FileIngestionResult.FileSummary summary = result.fileDetails() == null || result.fileDetails().isEmpty()
-                ? null : result.fileDetails().get(0);
-        if (summary != null && "FAILED".equals(summary.status())) {
-            FileIngestionResult.ErrorCode code = summary.errorCode();
-            if (code == FileIngestionResult.ErrorCode.PASSWORD_REQUIRED || code == FileIngestionResult.ErrorCode.WRONG_PASSWORD) {
-                throw new ApiStatusException(HttpStatus.UNPROCESSABLE_ENTITY, code.name(), summary.errorMessage());
-            }
-        }
-        boolean targetHasIt = summary != null && "SUCCESS".equals(summary.status())
+        boolean sameFile = statement.getFileSha256() != null
                 && statementRepository.existsByAccountIdAndFileSha256(target.getId(), statement.getFileSha256());
-        if (targetHasIt) {
-            deletionService.delete(source.getId(), statementId);
+        boolean samePeriod = statement.getPeriodStart() != null && statement.getPeriodEnd() != null
+                && statementRepository.existsByAccountIdAndPeriodStartAndPeriodEnd(target.getId(), statement.getPeriodStart(), statement.getPeriodEnd());
+        if (sameFile || samePeriod) {
+            throw new ApiStatusException(HttpStatus.CONFLICT, "STATEMENT_EXISTS", "That account already has this statement.");
         }
-        return result;
+        StatementMoveService.Moved moved = moveService.move(userId, source.getId(), target.getId(), statement.getId());
+        String name = statement.getSource() == com.financeos.domain.statement.StatementSource.file_upload && statement.getSourceRef() != null
+                ? statement.getSourceRef() : "Statement";
+        return new FileIngestionResult(1, moved.moved(), moved.duplicatesFlagged(), List.of(
+                new FileIngestionResult.FileSummary(name, "SUCCESS", moved.moved(), null, null, moved.moved(), moved.duplicatesFlagged())));
     }
 
     /** By the stored file index (positions shift once a file is used up); by position only for old rows that carry no index. */
