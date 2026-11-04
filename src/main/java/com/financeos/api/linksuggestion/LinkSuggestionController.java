@@ -46,7 +46,9 @@ public class LinkSuggestionController {
     @PostMapping("/{id}/accept")
     public ResponseEntity<TransactionLinkResponse> accept(@PathVariable UUID id,
                                                           @Valid @RequestBody AcceptLinkSuggestionRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.accept(requireCurrentUserId(), id, request.candidateId()));
+        TransactionLinkResponse link = service.accept(requireCurrentUserId(), id, request.candidateId());
+        // A LENDING suggestion settles a lending entry and creates no transaction link.
+        return link == null ? ResponseEntity.noContent().build() : ResponseEntity.status(HttpStatus.CREATED).body(link);
     }
 
     @DeleteMapping("/{id}")

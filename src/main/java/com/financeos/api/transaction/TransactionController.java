@@ -22,11 +22,14 @@ public class TransactionController {
     private final com.financeos.domain.transaction.link.TransactionLinkService transactionLinkService;
     private final com.financeos.domain.obligation.ObligationRefService obligationRefService;
     private final com.financeos.domain.category.CategoryCatalog categoryCatalog;
+    private final com.financeos.domain.transaction.autolink.TransactionSuggestionService suggestionService;
 
     public TransactionController(TransactionService transactionService,
                                  com.financeos.domain.transaction.link.TransactionLinkService transactionLinkService,
                                  com.financeos.domain.obligation.ObligationRefService obligationRefService,
-                                 com.financeos.domain.category.CategoryCatalog categoryCatalog) {
+                                 com.financeos.domain.category.CategoryCatalog categoryCatalog,
+                                 com.financeos.domain.transaction.autolink.TransactionSuggestionService suggestionService) {
+        this.suggestionService = suggestionService;
         this.categoryCatalog = categoryCatalog;
         this.transactionService = transactionService;
         this.transactionLinkService = transactionLinkService;
@@ -49,7 +52,8 @@ public class TransactionController {
         java.util.Map<UUID, java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary>> linkMap =
                 transactionLinkService.linkSummariesFor(ids);
         java.util.Map<UUID, java.util.List<ObligationRef>> refMap = obligationRefService.refsFor(ids);
-        Page<TransactionResponse> response = transactions.map(t -> TransactionResponse.from(t, t.getBalance(), linkMap, refMap));
+        java.util.Map<UUID, TransactionSuggestion> suggestionMap = suggestionService.suggestionsFor(ids);
+        Page<TransactionResponse> response = transactions.map(t -> TransactionResponse.from(t, t.getBalance(), linkMap, refMap, suggestionMap));
         return ResponseEntity.ok(response);
     }
 
@@ -63,7 +67,8 @@ public class TransactionController {
         java.util.Map<UUID, java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary>> linkMap =
                 transactionLinkService.linkSummariesFor(ids);
         java.util.Map<UUID, java.util.List<ObligationRef>> refMap = obligationRefService.refsFor(ids);
-        Page<TransactionResponse> response = transactions.map(t -> TransactionResponse.from(t, t.getBalance(), linkMap, refMap));
+        java.util.Map<UUID, TransactionSuggestion> suggestionMap = suggestionService.suggestionsFor(ids);
+        Page<TransactionResponse> response = transactions.map(t -> TransactionResponse.from(t, t.getBalance(), linkMap, refMap, suggestionMap));
         return ResponseEntity.ok(response);
     }
 
@@ -146,6 +151,7 @@ public class TransactionController {
     private TransactionResponse toSingleResponse(Transaction transaction) {
         java.util.List<UUID> ids = java.util.List.of(transaction.getId());
         return TransactionResponse.from(transaction, null,
-                transactionLinkService.linkSummariesFor(ids), obligationRefService.refsFor(ids));
+                transactionLinkService.linkSummariesFor(ids), obligationRefService.refsFor(ids),
+                suggestionService.suggestionsFor(ids));
     }
 }

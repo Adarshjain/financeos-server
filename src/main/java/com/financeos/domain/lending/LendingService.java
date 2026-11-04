@@ -462,6 +462,62 @@ public class LendingService {
                 .toList();
     }
 
+    /** A credit that looks like a person paying back: the person and their latest lent entry (the suggestion's candidate). */
+    public record RepaymentSuggestion(UUID transactionId, UUID counterpartyId, String counterpartyName, UUID lendingId) {}
+
+    /**
+     * Credits that name a person who owes at least that much and have no entry yet (the unrecorded-transfer
+     * rule, credits only), each with the person's most recent lent entry as the candidate. Two batched
+     * queries for all people; entries are ordered newest first.
+     */
+    @Transactional(readOnly = true)
+    public List<RepaymentSuggestion> getRepaymentSuggestions() {
+        List<UnrecordedTransferResponse> hits = getUnrecordedTransfers().stream()
+                .filter(h -> h.direction() == LendingDirection.borrowed).toList();
+        if (hits.isEmpty()) {
+            return List.of();
+        }
+        Set<UUID> people = hits.stream().map(UnrecordedTransferResponse::counterpartyId).collect(Collectors.toSet());
+        Map<UUID, UUID> latestLent = new HashMap<>();
+        lendingRepository.findByCounterparty_IdIn(people).stream()
+                .filter(l -> l.getDirection() == LendingDirection.lent)
+                .sorted(Comparator.comparing(Lending::getEntryDate).thenComparing(Lending::getId))
+                .forEach(l -> latestLent.put(l.getCounterparty().getId(), l.getId()));
+        List<RepaymentSuggestion> out = new ArrayList<>();
+        for (UnrecordedTransferResponse h : hits) {
+            UUID lendingId = latestLent.get(h.counterpartyId());
+            if (lendingId != null) {
+                out.add(new RepaymentSuggestion(h.transaction().id(), h.counterpartyId(), h.counterpartyName(), lendingId));
+            }
+        }
+        return out;
+    }
+
+    /**
+     * Accepts a LENDING link suggestion: the lending entry only identifies the person; the credit is recorded
+     * as that person's settlement through {@link #recordSettlement} (same checks and errors).
+     */
+    public LendingResponse settleFromSuggestion(UUID lendingId, UUID transactionId) {
+        Lending lending = getLendingAndVerifyOwnership(lendingId);
+        return recordSettlement(lending.getCounterparty().getId(), transactionId);
+    }
+
+    /** Person id per owned lending id, one query; foreign or missing ids are absent. */
+    @Transactional(readOnly = true)
+    public Map<UUID, UUID> counterpartyIdsOf(Collection<UUID> lendingIds) {
+        UUID userId = UserContext.getCurrentUserId();
+        Map<UUID, UUID> out = new HashMap<>();
+        if (lendingIds.isEmpty()) {
+            return out;
+        }
+        for (Lending l : lendingRepository.findAllById(lendingIds)) {
+            if (l.getUser() != null && l.getUser().getId().equals(userId)) {
+                out.put(l.getId(), l.getCounterparty().getId());
+            }
+        }
+        return out;
+    }
+
     /**
      * The settlement direction when this transaction reduces {@code net} (a credit while they owe you,
      * a debit while you owe them) and its amount is within |net| plus the match tolerance; else null.

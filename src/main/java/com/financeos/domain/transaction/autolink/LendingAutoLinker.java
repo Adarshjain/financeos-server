@@ -43,15 +43,27 @@ public class LendingAutoLinker implements AutoLinker {
 
     @Override
     public Set<SuggestionKind> ownedKinds() {
-        return Set.of();
+        return Set.of(SuggestionKind.LENDING);
     }
 
     @Override
     public AutoLinkOutcome link(UUID userId) {
         List<UnlinkedEntry> entries = lendingService.getUnlinkedEntries();
-        if (entries.isEmpty()) {
-            return AutoLinkOutcome.of(Map.of());
+        AutoLinkOutcome linked = AutoLinkOutcome.of(Map.of());
+        if (!entries.isEmpty()) {
+            linked = linkEntries(userId, entries);
         }
+        Map<UUID, List<UUID>> repayments = repaymentSuggestions(store.loadRejectionKeys(userId),
+                lendingService.getRepaymentSuggestions());
+        store.syncSuggestions(userId, ownedKinds(), Map.of(SuggestionKind.LENDING, repayments));
+        if (repayments.isEmpty()) {
+            return linked;
+        }
+        return AutoLinkOutcome.of(AutoLinkOutcome.merge(linked.byKind(),
+                Map.of(SuggestionKind.LENDING, new AutoLinkOutcome.Counts(0, repayments.size()))), linked.partial());
+    }
+
+    private AutoLinkOutcome linkEntries(UUID userId, List<UnlinkedEntry> entries) {
         List<Pair> pairs = plan(entries, loader.load(userId), store.loadRejectionKeys(userId));
         List<Planned> planned = pairs.stream()
                 .map(p -> new Planned(p.transactionId(), "lending " + p.entry().id(),
@@ -62,6 +74,22 @@ public class LendingAutoLinker implements AutoLinker {
     }
 
     // ---------------------------------------------------------------- pure planning
+
+    /**
+     * Credit id to its lending candidate: a credit that names a person who owes it but has no entry cannot be
+     * linked on its own, so it is suggested. A pairing remembered (rejected) against the person is left out;
+     * the rejection's other side is the person's id so a newer entry does not bring it back.
+     */
+    static Map<UUID, List<UUID>> repaymentSuggestions(Set<String> rejections,
+                                                      List<LendingService.RepaymentSuggestion> found) {
+        Map<UUID, List<UUID>> out = new LinkedHashMap<>();
+        for (LendingService.RepaymentSuggestion s : found) {
+            if (!AutoLinkStore.isRejected(rejections, SuggestionKind.LENDING, s.transactionId(), s.counterpartyId())) {
+                out.computeIfAbsent(s.transactionId(), k -> new ArrayList<>()).add(s.lendingId());
+            }
+        }
+        return out;
+    }
 
     record Pair(UnlinkedEntry entry, UUID transactionId) {
     }

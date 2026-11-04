@@ -92,6 +92,32 @@ public class AutoLinkStore {
                 userId.toString());
     }
 
+    /**
+     * Suggestions that name any of {@code transactionIds} as the subject or inside the candidate list, in
+     * one query per 100 ids (never per row); newest first. Candidate matching is a substring match on the
+     * stored list, so callers still check the roles.
+     */
+    public List<SuggestionRow> listSuggestionsFor(UUID userId, Collection<UUID> transactionIds) {
+        List<UUID> list = new ArrayList<>(new HashSet<>(transactionIds));
+        Map<UUID, SuggestionRow> out = new java.util.LinkedHashMap<>();
+        for (int i = 0; i < list.size(); i += 100) {
+            List<UUID> chunk = list.subList(i, Math.min(i + 100, list.size()));
+            String marks = String.join(",", java.util.Collections.nCopies(chunk.size(), "?"));
+            String likes = String.join(" OR ", java.util.Collections.nCopies(chunk.size(), "candidate_ids LIKE ?"));
+            List<Object> args = new ArrayList<>();
+            args.add(userId.toString());
+            chunk.forEach(id -> args.add(id.toString()));
+            chunk.forEach(id -> args.add("%" + id + "%"));
+            jdbc.query("SELECT id, kind, transaction_id, candidate_ids FROM link_suggestions WHERE user_id = ? AND "
+                    + "(transaction_id IN (" + marks + ") OR " + likes + ") ORDER BY created_at DESC, id",
+                    rs -> {
+                        SuggestionRow r = row(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+                        out.putIfAbsent(r.id(), r);
+                    }, args.toArray());
+        }
+        return new ArrayList<>(out.values());
+    }
+
     public Optional<SuggestionRow> findSuggestion(UUID userId, UUID id) {
         return jdbc.query("SELECT id, kind, transaction_id, candidate_ids FROM link_suggestions WHERE user_id = ? AND id = ?",
                 (rs, i) -> row(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)),

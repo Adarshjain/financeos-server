@@ -22,11 +22,12 @@ public final class InboxKinds {
     public static final String REWARD_MILESTONE = "reward_milestone";
     public static final String REWARD_CAP = "reward_cap";
     public static final String EPF_MATCH = "epf_match";
+    /** No longer produced (link suggestions show on the transaction); kept so persisted dismissals still resolve a label. */
     public static final String LINK_SUGGESTION = "link_suggestion";
 
     /** Every kind the inbox can produce, in display order. */
     public static final List<String> ALL = List.of(BILL, EMI, LENDING, STATEMENT_EXPECTED, STATEMENT_DETAILS_MISSING,
-            GMAIL_RECONNECT, GMAIL_ATTENTION, REVIEW, JOB, REWARD_MILESTONE, REWARD_CAP, EPF_MATCH, LINK_SUGGESTION);
+            GMAIL_RECONNECT, GMAIL_ATTENTION, REVIEW, JOB, REWARD_MILESTONE, REWARD_CAP, EPF_MATCH);
 
     /** The two summary rows have fixed keys; everything else is keyed by its subject. */
     public static final String KEY_GMAIL_ATTENTION = "gmail-attention";

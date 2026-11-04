@@ -165,4 +165,42 @@ class LendingAutoLinkerTest {
         verify(lendingService, never()).autoLinkTransaction(any(), any());
         assertThat(outcome.linked()).isZero();
     }
+
+    @Test
+    void aRepaymentThatNamesAPersonIsSuggestedAndARememberedOneIsNot() {
+        UUID credit = UUID.randomUUID();
+        UUID person = UUID.randomUUID();
+        UUID lending = UUID.randomUUID();
+        UUID other = UUID.randomUUID();
+        List<LendingService.RepaymentSuggestion> found = List.of(
+                new LendingService.RepaymentSuggestion(credit, person, "Rahul", lending),
+                new LendingService.RepaymentSuggestion(other, person, "Rahul", lending));
+        Set<String> rejected = Set.of(AutoLinkStore.pairKey(SuggestionKind.LENDING, other, person));
+
+        assertThat(LendingAutoLinker.repaymentSuggestions(rejected, found)).containsOnlyKeys(credit)
+                .containsEntry(credit, List.of(lending));
+    }
+
+    @Test
+    void linkStoresTheLendingSuggestionsEvenWithNoUnlinkedEntries() {
+        AutoLinkCandidateLoader loader = mock(AutoLinkCandidateLoader.class);
+        AutoLinkStore store = mock(AutoLinkStore.class);
+        LendingService lendingService = mock(LendingService.class);
+        UUID userId = UUID.randomUUID();
+        UUID credit = UUID.randomUUID();
+        UUID lending = UUID.randomUUID();
+        when(lendingService.getUnlinkedEntries()).thenReturn(List.of());
+        when(store.loadRejectionKeys(userId)).thenReturn(Set.of());
+        when(lendingService.getRepaymentSuggestions()).thenReturn(List.of(
+                new LendingService.RepaymentSuggestion(credit, UUID.randomUUID(), "Rahul", lending)));
+
+        LendingAutoLinker linker = new LendingAutoLinker(loader, store, lendingService, tm());
+        AutoLinkOutcome outcome = linker.link(userId);
+
+        assertThat(linker.ownedKinds()).containsExactly(SuggestionKind.LENDING);
+        verify(store).syncSuggestions(userId, Set.of(SuggestionKind.LENDING),
+                java.util.Map.of(SuggestionKind.LENDING, java.util.Map.of(credit, List.of(lending))));
+        assertThat(outcome.suggested()).isEqualTo(1);
+        assertThat(outcome.linked()).isZero();
+    }
 }

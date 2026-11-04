@@ -203,4 +203,54 @@ class LinkSuggestionServiceTest {
 
         assertThat(service.openCounts(userId)).containsOnly(java.util.Map.entry(SuggestionKind.TRANSFER, 1));
     }
+
+    @Test
+    void acceptOfALendingSuggestionSettlesThePersonThroughTheLendingServiceAndCreatesNoLink() {
+        com.financeos.domain.lending.LendingService lendingService = mock(com.financeos.domain.lending.LendingService.class);
+        service.setLendingService(lendingService);
+        Transaction credit = tx(AccountType.bank_account, TransactionType.CREDIT);
+        UUID lendingId = UUID.randomUUID();
+        AutoLinkStore.SuggestionRow row = new AutoLinkStore.SuggestionRow(UUID.randomUUID(), SuggestionKind.LENDING,
+                credit.getId(), List.of(lendingId));
+        when(store.findSuggestion(userId, row.id())).thenReturn(Optional.of(row));
+
+        assertThat(service.accept(userId, row.id(), lendingId)).isNull();
+
+        verify(lendingService).settleFromSuggestion(lendingId, credit.getId());
+        verify(store).deleteSuggestion(userId, row.id());
+        verify(linkService, never()).createLink(any(), any());
+    }
+
+    @Test
+    void acceptOfALendingSuggestionRejectsAnEntryThatIsNotACandidate() {
+        service.setLendingService(mock(com.financeos.domain.lending.LendingService.class));
+        Transaction credit = tx(AccountType.bank_account, TransactionType.CREDIT);
+        AutoLinkStore.SuggestionRow row = new AutoLinkStore.SuggestionRow(UUID.randomUUID(), SuggestionKind.LENDING,
+                credit.getId(), List.of(UUID.randomUUID()));
+        when(store.findSuggestion(userId, row.id())).thenReturn(Optional.of(row));
+
+        assertThatThrownBy(() -> service.accept(userId, row.id(), UUID.randomUUID())).isInstanceOf(ValidationException.class);
+        verify(store, never()).deleteSuggestion(any(), any());
+    }
+
+    @Test
+    void dismissOfALendingSuggestionRemembersThePersonAndDeletesTheRow() {
+        com.financeos.domain.lending.LendingService lendingService = mock(com.financeos.domain.lending.LendingService.class);
+        service.setLendingService(lendingService);
+        Transaction credit = tx(AccountType.bank_account, TransactionType.CREDIT);
+        UUID lendingId = UUID.randomUUID();
+        UUID personId = UUID.randomUUID();
+        AutoLinkStore.SuggestionRow row = new AutoLinkStore.SuggestionRow(UUID.randomUUID(), SuggestionKind.LENDING,
+                credit.getId(), List.of(lendingId));
+        when(store.findSuggestion(userId, row.id())).thenReturn(Optional.of(row));
+        when(lendingService.counterpartyIdsOf(List.of(lendingId))).thenReturn(java.util.Map.of(lendingId, personId));
+
+        service.dismiss(userId, row.id());
+
+        @SuppressWarnings("unchecked")
+        ArgumentCaptor<java.util.Collection<AutoLinkStore.Rejection>> captor = ArgumentCaptor.forClass(java.util.Collection.class);
+        verify(store).addRejections(eq(userId), captor.capture());
+        assertThat(captor.getValue()).containsExactly(new AutoLinkStore.Rejection(SuggestionKind.LENDING, credit.getId(), personId));
+        verify(store).deleteSuggestion(userId, row.id());
+    }
 }

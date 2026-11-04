@@ -54,7 +54,9 @@ public record TransactionResponse(
                 @Nullable Boolean isInternational,
                 java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary> links,
                 /** Loan/lending rows that reference this transaction via direct FK (empty when none). */
-                java.util.List<ObligationRef> obligationRefs) {
+                java.util.List<ObligationRef> obligationRefs,
+                /** The open link suggestion this row is the subject or a candidate of; null when none. */
+                @Nullable TransactionSuggestion suggestion) {
 
         public static TransactionResponse from(Transaction transaction) {
                 return from(transaction, null, java.util.Collections.emptyMap());
@@ -72,6 +74,13 @@ public record TransactionResponse(
         public static TransactionResponse from(Transaction transaction, BigDecimal balance,
                         java.util.Map<UUID, java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary>> linkMap,
                         java.util.Map<UUID, java.util.List<ObligationRef>> obligationRefMap) {
+                return from(transaction, balance, linkMap, obligationRefMap, java.util.Collections.emptyMap());
+        }
+
+        public static TransactionResponse from(Transaction transaction, BigDecimal balance,
+                        java.util.Map<UUID, java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary>> linkMap,
+                        java.util.Map<UUID, java.util.List<ObligationRef>> obligationRefMap,
+                        java.util.Map<UUID, TransactionSuggestion> suggestionMap) {
                 // Convert internal representation (unsigned + type) to API representation
                 // (signed)
                 BigDecimal signedAmount = transaction.getType() == TransactionType.DEBIT
@@ -144,7 +153,8 @@ public record TransactionResponse(
                                 transaction.getIsEmi(),
                                 transaction.getIsInternational(),
                                 transactionLinks,
-                                refs);
+                                refs,
+                                suggestionMap != null ? suggestionMap.get(transaction.getId()) : null);
         }
 
         /** The rule behind a RULE category: its id and what the rules page calls it (display name, else pattern). */
