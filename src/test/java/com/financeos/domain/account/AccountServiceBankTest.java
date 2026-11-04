@@ -26,13 +26,14 @@ class AccountServiceBankTest {
 
     private AccountRepository accountRepository;
     private AccountService accountService;
-    private com.financeos.gmail.ingest.SenderAllowlistService senderAllowlistService;
+    private org.springframework.context.ApplicationEventPublisher publisher;
     private UUID userId;
     private User user;
 
     @BeforeEach
     void setUp() {
         accountRepository = mock(AccountRepository.class);
+        publisher = mock(org.springframework.context.ApplicationEventPublisher.class);
         UserRepository userRepository = mock(UserRepository.class);
         accountService = new AccountService(accountRepository,
                 mock(com.financeos.domain.account.card.CardholderRepository.class),
@@ -40,9 +41,7 @@ class AccountServiceBankTest {
                 mock(StatementRepository.class), mock(TransactionRepository.class),
                 mock(HoldingValuationService.class),
                 mock(com.financeos.gmail.domain.GmailBackfillDemandRepository.class),
-                mock(org.springframework.context.ApplicationEventPublisher.class));
-        senderAllowlistService = mock(com.financeos.gmail.ingest.SenderAllowlistService.class);
-        org.springframework.test.util.ReflectionTestUtils.setField(accountService, "senderAllowlistService", senderAllowlistService);
+                publisher);
         userId = UUID.randomUUID();
         user = new User();
         user.setId(userId);
@@ -128,27 +127,62 @@ class AccountServiceBankTest {
         assertThat(a.getBank()).isEqualTo("hdfc");
     }
 
-    @Test
-    void createWithBank_addsThatBanksSenders() {
-        accountService.createAccount(bank("hdfc"));
-        verify(senderAllowlistService).addBankSenders(userId, "hdfc");
+    private CreateAccountRequest bankOn(String bank, LocalDate ingestFrom) {
+        return new CreateAccountRequest.BankAccountRequest("Savings", AccountType.bank_account, false,
+                FinancialPosition.asset, null, new BigDecimal("100"), "1234", null, ingestFrom, bank, null, null, null);
+    }
+
+    private static final LocalDate FROM = LocalDate.of(2026, 1, 1);
+
+    private long bankSenderEvents() {
+        return mockingDetails(publisher).getInvocations().stream()
+                .filter(i -> i.getArgument(0) instanceof com.financeos.gmail.ingest.event.BankSendersRequestedEvent).count();
     }
 
     @Test
-    void createWithoutBank_addsNoSenders() {
-        accountService.createAccount(bank(null));
-        verifyNoInteractions(senderAllowlistService);
+    void createOptedInWithBank_requestsThatBanksSenders_afterCommitViaEvent() {
+        accountService.createAccount(bankOn("hdfc", FROM));
+        verify(publisher).publishEvent(new com.financeos.gmail.ingest.event.BankSendersRequestedEvent(userId, "hdfc", FROM));
     }
 
     @Test
-    void updateChangingBank_addsTheNewBanksSenders_butSameBankOrNoBankDoesNot() {
+    void createWithoutBankOrWithoutIngestDate_requestsNoSenders() {
+        accountService.createAccount(bankOn(null, FROM));
+        accountService.createAccount(bankOn("hdfc", null));
+        assertThat(bankSenderEvents()).isZero();
+    }
+
+    @Test
+    void updateChangingBank_requestsNewBanksSenders_butSameBankNoBankOrNotOptedInDoesNot() {
         Account a = stored("hdfc");
+        a.setIngestFromDate(FROM);
 
-        accountService.updateAccount(a.getId(), bank("hdfc"));
-        accountService.updateAccount(a.getId(), bank(null));
-        verifyNoInteractions(senderAllowlistService);
+        accountService.updateAccount(a.getId(), bankOn("hdfc", FROM));
+        accountService.updateAccount(a.getId(), bankOn(null, FROM));
+        assertThat(bankSenderEvents()).isZero();
 
-        accountService.updateAccount(a.getId(), bank("icici"));
-        verify(senderAllowlistService).addBankSenders(userId, "icici");
+        accountService.updateAccount(a.getId(), bankOn("icici", FROM));
+        verify(publisher).publishEvent(new com.financeos.gmail.ingest.event.BankSendersRequestedEvent(userId, "icici", FROM));
+
+        Account notOptedIn = stored("hdfc");
+        accountService.updateAccount(notOptedIn.getId(), bankOn("axis", null));
+        assertThat(bankSenderEvents()).isEqualTo(1);
+    }
+
+    @Test
+    void updateOptingIn_orMovingTheDateBack_requestsSenders_butAClosedAccountDoesNot() {
+        Account a = stored("hdfc");
+        accountService.updateAccount(a.getId(), bankOn("hdfc", FROM)); // null -> set
+        assertThat(bankSenderEvents()).isEqualTo(1);
+
+        accountService.updateAccount(a.getId(), bankOn("hdfc", FROM)); // unchanged
+        assertThat(bankSenderEvents()).isEqualTo(1);
+
+        accountService.updateAccount(a.getId(), bankOn("hdfc", FROM.minusMonths(3))); // earlier
+        assertThat(bankSenderEvents()).isEqualTo(2);
+
+        a.setClosedOn(FROM);
+        accountService.updateAccount(a.getId(), bankOn("hdfc", FROM.minusMonths(6)));
+        assertThat(bankSenderEvents()).isEqualTo(2);
     }
 }

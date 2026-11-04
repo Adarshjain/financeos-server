@@ -43,7 +43,8 @@ class AccountControllerIdentifierTest {
                 accountService,
                 accountRepository,
                 authService,
-                accountIdentifierService
+                accountIdentifierService,
+                mock(com.financeos.domain.account.coverage.AccountCoverageService.class)
         );
 
         currentUser = new User();

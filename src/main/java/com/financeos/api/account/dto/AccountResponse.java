@@ -61,6 +61,10 @@ public sealed interface AccountResponse {
 
     List<String> warnings();
 
+    /** Months of Gmail history done of the months since the ingest-from date, while some are still being fetched; else null. */
+    @Nullable
+    GmailFetchProgress gmailFetch();
+
     static AccountResponse from(Account account) {
         return from(account, null, null, null);
     }
@@ -76,6 +80,7 @@ public sealed interface AccountResponse {
         LocalDate anchorDate = account.getAnchorDate();
         LocalDate lastTxnDate = account.getLastTransactionDate();
         List<String> warnList = warnings != null ? warnings : List.of();
+        GmailFetchProgress gmailFetch = account.getGmailFetch();
         UUID replacesAccId = account.getReplacesAccount() != null ? account.getReplacesAccount().getId() : null;
 
         return switch (account.getType()) {
@@ -110,7 +115,8 @@ public sealed interface AccountResponse {
                         anchorDate,
                         lastTxnDate,
                         bankCardholders,
-                        warnList);
+                        warnList,
+                        gmailFetch);
             }
             case credit_card -> {
                 AccountCreditCardDetails details = account.getCreditCardDetails();
@@ -148,7 +154,8 @@ public sealed interface AccountResponse {
                         account.getStatementExpectedNotifiedFor(),
                         account.getUtilizationPct(),
                         account.getEffectiveCreditLimit(),
-                        CreditLimitPoolResponse.from(account.getLimitPoolUsage()));
+                        CreditLimitPoolResponse.from(account.getLimitPoolUsage()),
+                        gmailFetch);
             }
             case broker -> {
                 AccountBrokerDetails details = account.getBrokerDetails();
@@ -171,7 +178,8 @@ public sealed interface AccountResponse {
                         gap,
                         anchorDate,
                         lastTxnDate,
-                        warnList);
+                        warnList,
+                        gmailFetch);
             }
             default -> new GenericAccountResponse(
                     account.getId(),
@@ -189,7 +197,8 @@ public sealed interface AccountResponse {
                     gap,
                     anchorDate,
                     lastTxnDate,
-                    warnList);
+                    warnList,
+                    gmailFetch);
         };
     }
 
@@ -215,7 +224,8 @@ public sealed interface AccountResponse {
             @Nullable LocalDate anchorDate,
             @Nullable LocalDate lastTransactionDate,
             List<CardholderResponse> cardholders,
-            List<String> warnings) implements AccountResponse {
+            List<String> warnings,
+            @Nullable GmailFetchProgress gmailFetch) implements AccountResponse {
     }
 
     record CreditCardAccountResponse(
@@ -259,7 +269,8 @@ public sealed interface AccountResponse {
              */
             @Nullable BigDecimal effectiveCreditLimit,
             /** The shared limit this account draws on, with usage across all its accounts; null = not pooled. */
-            @Nullable CreditLimitPoolResponse limitPool) implements AccountResponse {
+            @Nullable CreditLimitPoolResponse limitPool,
+            @Nullable GmailFetchProgress gmailFetch) implements AccountResponse {
     }
 
     record BrokerAccountResponse(
@@ -281,7 +292,8 @@ public sealed interface AccountResponse {
             @Nullable BigDecimal reconciliationGap,
             @Nullable LocalDate anchorDate,
             @Nullable LocalDate lastTransactionDate,
-            List<String> warnings) implements AccountResponse {
+            List<String> warnings,
+            @Nullable GmailFetchProgress gmailFetch) implements AccountResponse {
     }
 
     record GenericAccountResponse(
@@ -300,7 +312,8 @@ public sealed interface AccountResponse {
             @Nullable BigDecimal reconciliationGap,
             @Nullable LocalDate anchorDate,
             @Nullable LocalDate lastTransactionDate,
-            List<String> warnings) implements AccountResponse {
+            List<String> warnings,
+            @Nullable GmailFetchProgress gmailFetch) implements AccountResponse {
     }
 }
 

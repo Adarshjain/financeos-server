@@ -905,6 +905,82 @@ paths:
           description: Error response
       tags:
       - account-controller
+  /api/v1/accounts/{id}/coverage:
+    get:
+      operationId: getCoverage
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CoverageResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - account-controller
+  /api/v1/accounts/{id}/coverage/{month}/empty:
+    delete:
+      operationId: unmarkMonthEmpty
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: month
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - account-controller
+    post:
+      operationId: markMonthEmpty
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: month
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - account-controller
   /api/v1/accounts/{id}/flow-summary:
     get:
       operationId: getFlowSummary
@@ -10255,6 +10331,8 @@ components:
           - liability
           nullable: true
           x-nullable: true
+        gmailFetch:
+          $ref: "#/components/schemas/GmailFetchProgress"
         id:
           type: string
           format: uuid
@@ -10628,6 +10706,8 @@ components:
           - liability
           nullable: true
           x-nullable: true
+        gmailFetch:
+          $ref: "#/components/schemas/GmailFetchProgress"
         id:
           type: string
           format: uuid
@@ -10667,6 +10747,7 @@ components:
       - balanceAnchored
       - createdAt
       - excludeFromNetAsset
+      - gmailFetch
       - id
       - name
       - type
@@ -12245,6 +12326,17 @@ components:
       - owedToYouCount
       - youOwe
       - youOweCount
+    CoverageResponse:
+      type: object
+      properties:
+        fetching:
+          $ref: "#/components/schemas/GmailFetchProgress"
+        months:
+          type: array
+          items:
+            $ref: "#/components/schemas/MonthCoverage"
+      required:
+      - months
     CreateAccountIdentifierRequest:
       type: object
       properties:
@@ -12932,6 +13024,8 @@ components:
           - liability
           nullable: true
           x-nullable: true
+        gmailFetch:
+          $ref: "#/components/schemas/GmailFetchProgress"
         id:
           type: string
           format: uuid
@@ -13001,6 +13095,7 @@ components:
       - cardholders
       - createdAt
       - excludeFromNetAsset
+      - gmailFetch
       - id
       - name
       - type
@@ -14857,6 +14952,8 @@ components:
           - liability
           nullable: true
           x-nullable: true
+        gmailFetch:
+          $ref: "#/components/schemas/GmailFetchProgress"
         id:
           type: string
           format: uuid
@@ -14892,6 +14989,7 @@ components:
       - balanceAnchored
       - createdAt
       - excludeFromNetAsset
+      - gmailFetch
       - id
       - name
       - type
@@ -15071,6 +15169,18 @@ components:
       - isConnected
       - isPrimary
       - needsReconnect
+    GmailFetchProgress:
+      type: object
+      properties:
+        monthsDone:
+          type: integer
+          format: int32
+        monthsTotal:
+          type: integer
+          format: int32
+      required:
+      - monthsDone
+      - monthsTotal
     GmailSenderRequest:
       type: object
       properties:
@@ -17638,6 +17748,21 @@ components:
       - label
       - structuredOutput
       - trainsOnData
+    MonthCoverage:
+      type: object
+      properties:
+        month:
+          type: string
+        state:
+          type: string
+          enum:
+          - DATA
+          - EMPTY
+          - FETCHING
+          - MARKED_EMPTY
+      required:
+      - month
+      - state
     MonthOutflow:
       type: object
       properties:

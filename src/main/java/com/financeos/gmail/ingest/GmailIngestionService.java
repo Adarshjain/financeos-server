@@ -188,19 +188,28 @@ public class GmailIngestionService {
         var demandOpt = backfillDemandRepository.findById(userId);
         if (demandOpt.isPresent()) {
             LocalDate demandFloor = demandOpt.get().getFloorDate();
-            LocalDate effectiveFloor = demandFloor;
-            Instant floorInstant = effectiveFloor.atStartOfDay(AppTime.zone()).toInstant();
 
-            List<GmailSyncCursor> deficitCursors = cursors.stream()
-                    .filter(c -> c.getEarliestCoveredAt().isAfter(floorInstant))
-                    .toList();
+            // A sender added for one account never reaches back past that account's date (its own floor),
+            // even when the user-level demand floor is older.
+            Map<GmailSyncCursor, LocalDate> floors = new java.util.LinkedHashMap<>();
+            for (GmailSyncCursor c : cursors) {
+                LocalDate own = c.getSender().getBackfillFrom();
+                LocalDate floor = own != null && own.isAfter(demandFloor) ? own : demandFloor;
+                if (c.getEarliestCoveredAt().isAfter(floor.atStartOfDay(AppTime.zone()).toInstant())) {
+                    floors.put(c, floor);
+                }
+            }
 
-            if (!deficitCursors.isEmpty()) {
-                Map<Instant, List<GmailSyncCursor>> backfillGroups = deficitCursors.stream()
-                        .collect(Collectors.groupingBy(GmailSyncCursor::getEarliestCoveredAt));
+            if (!floors.isEmpty()) {
+                record BackfillKey(Instant earliestCovered, LocalDate floor) {}
+                Map<BackfillKey, List<GmailSyncCursor>> backfillGroups = floors.entrySet().stream()
+                        .collect(Collectors.groupingBy(e -> new BackfillKey(e.getKey().getEarliestCoveredAt(), e.getValue()),
+                                Collectors.mapping(Map.Entry::getKey, Collectors.toList())));
 
-                for (Map.Entry<Instant, List<GmailSyncCursor>> entry : backfillGroups.entrySet()) {
-                    Instant earliestCovered = entry.getKey();
+                for (Map.Entry<BackfillKey, List<GmailSyncCursor>> entry : backfillGroups.entrySet()) {
+                    Instant earliestCovered = entry.getKey().earliestCovered();
+                    LocalDate effectiveFloor = entry.getKey().floor();
+                    Instant floorInstant = effectiveFloor.atStartOfDay(AppTime.zone()).toInstant();
                     List<GmailSyncCursor> groupCursors = entry.getValue();
 
                     long floorEpoch = effectiveFloor.atStartOfDay(AppTime.zone()).toEpochSecond();
@@ -220,8 +229,10 @@ public class GmailIngestionService {
                     listedIds.addAll(messageIds);
 
                     cursorService.updateEarliestCoveredAt(groupCursors, floorInstant);
+                    if (backfilledTo == null || effectiveFloor.isBefore(backfilledTo)) {
+                        backfilledTo = effectiveFloor;
+                    }
                 }
-                backfilledTo = effectiveFloor;
             }
         }
 

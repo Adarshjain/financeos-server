@@ -262,4 +262,82 @@ class SenderAllowlistServiceTest {
         assertThat(all).filteredOn(b -> b.bankId().equals("sbm")).singleElement()
                 .satisfies(b -> assertThat(b.domains()).isEmpty());
     }
+
+    // ---- backfill floor, update validation, tombstone on rename ----
+
+    @Test
+    void addBankSenders_withFromDate_setsTheFloorOnNewSenders() {
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        when(senderRepository.findByUserId(userId)).thenReturn(List.of());
+        when(removalRepository.findByUserId(userId)).thenReturn(List.of());
+        when(senderRepository.saveAll(any())).thenAnswer(inv -> inv.getArgument(0));
+
+        service.addBankSenders(userId, "hdfc", java.time.LocalDate.of(2026, 3, 1));
+
+        assertThat(savedBatch()).allSatisfy(s -> assertThat(s.getBackfillFrom()).isEqualTo(java.time.LocalDate.of(2026, 3, 1)));
+    }
+
+    @Test
+    void addBankSenders_withoutFromDate_leavesNoFloor() {
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        when(senderRepository.findByUserId(userId)).thenReturn(List.of());
+        when(removalRepository.findByUserId(userId)).thenReturn(List.of());
+        when(senderRepository.saveAll(any())).thenAnswer(inv -> inv.getArgument(0));
+
+        service.addBankSenders(userId, "hdfc");
+
+        assertThat(savedBatch()).allSatisfy(s -> assertThat(s.getBackfillFrom()).isNull());
+    }
+
+    @Test
+    void addBankSenders_secondAccountWithEarlierDate_lowersTheExistingFloor_laterDateAndNoFloorStay() {
+        GmailSender floored = sender("hdfcbank.net", "hdfc");
+        floored.setBackfillFrom(java.time.LocalDate.of(2026, 3, 1));
+        GmailSender followsDemand = sender("hdfcbank.com", "hdfc");
+        when(senderRepository.findByUserId(userId)).thenReturn(List.of(floored, followsDemand));
+        when(removalRepository.findByUserId(userId)).thenReturn(List.of());
+
+        assertThat(service.addBankSenders(userId, "hdfc", java.time.LocalDate.of(2026, 1, 1))).isEmpty();
+
+        assertThat(floored.getBackfillFrom()).isEqualTo(java.time.LocalDate.of(2026, 1, 1));
+        assertThat(followsDemand.getBackfillFrom()).isNull();
+        verify(eventPublisher).publishEvent(eq(new SenderIngestChangedEvent(userId)));
+
+        service.addBankSenders(userId, "hdfc", java.time.LocalDate.of(2026, 6, 1));
+        assertThat(floored.getBackfillFrom()).isEqualTo(java.time.LocalDate.of(2026, 1, 1));
+    }
+
+    @Test
+    void updateSender_unchangedAddress_isNotRevalidated_andKeepsBankAndFloor() {
+        GmailSender s = sender("odd-stored-address", "hdfc");
+        s.setBackfillFrom(java.time.LocalDate.of(2026, 3, 1));
+        when(senderRepository.findById(s.getId())).thenReturn(Optional.of(s));
+        when(senderRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+        GmailSender saved = service.updateSender(userId, s.getId(), new GmailSenderRequest("Renamed", "Odd-Stored-Address", true));
+
+        assertThat(saved.getSenderAddress()).isEqualTo("odd-stored-address");
+        assertThat(saved.getName()).isEqualTo("Renamed");
+        assertThat(saved.getBankId()).isEqualTo("hdfc");
+        assertThat(saved.getBackfillFrom()).isEqualTo(java.time.LocalDate.of(2026, 3, 1));
+        verify(cursorService, never()).resetCursorForSender(any());
+        verifyNoInteractions(removalRepository);
+    }
+
+    @Test
+    void updateSender_changedAddress_toATombstonedOne_clearsTheTombstone_resetsCursorAndFloor() {
+        GmailSender s = sender("alerts@bank.com", null);
+        s.setBackfillFrom(java.time.LocalDate.of(2026, 3, 1));
+        when(senderRepository.findById(s.getId())).thenReturn(Optional.of(s));
+        when(senderRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+
+        GmailSender saved = service.updateSender(userId, s.getId(), new GmailSenderRequest(null, " HDFCBank.net ", true));
+
+        assertThat(saved.getSenderAddress()).isEqualTo("hdfcbank.net");
+        assertThat(saved.getBankId()).isEqualTo("hdfc");
+        assertThat(saved.getBackfillFrom()).isNull();
+        verify(removalRepository).deleteByUserIdAndSenderAddressIgnoreCase(userId, "hdfcbank.net");
+        verify(cursorService).resetCursorForSender(s.getId());
+        verify(eventPublisher).publishEvent(eq(new SenderIngestChangedEvent(userId)));
+    }
 }

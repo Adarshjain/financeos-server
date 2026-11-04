@@ -19,7 +19,8 @@ import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import com.financeos.gmail.domain.GmailBackfillDemand;
 import com.financeos.gmail.domain.GmailBackfillDemandRepository;
-import com.financeos.gmail.ingest.SenderAllowlistService;
+import com.financeos.domain.account.coverage.AccountCoverageService;
+import com.financeos.gmail.ingest.event.BankSendersRequestedEvent;
 import com.financeos.gmail.ingest.event.AccountIngestChangedEvent;
 import com.financeos.gmail.accountdetect.suggest.AccountSuggestion;
 import com.financeos.gmail.accountdetect.suggest.SuggestionAdoption;
@@ -53,9 +54,9 @@ public class AccountService {
     private final ApplicationEventPublisher eventPublisher;
     private final SuggestionAdoption suggestionAdoption;
 
-    /** Adds a bank's sender domains to the user's Gmail senders; optional so tests that build the service by hand need none. */
+    /** Fills the Gmail fetch progress of responses; optional so tests that build the service by hand need none. */
     @Autowired(required = false)
-    private SenderAllowlistService senderAllowlistService;
+    private AccountCoverageService coverageService;
 
     /** Without suggestion support, for callers that build the service by hand. */
     public AccountService(AccountRepository accountRepository,
@@ -105,9 +106,14 @@ public class AccountService {
         }
     }
 
-    private void addBankSenders(UUID userId, String bankId) {
-        if (senderAllowlistService != null && bankId != null) {
-            senderAllowlistService.addBankSenders(userId, bankId);
+    /**
+     * Asks for the bank's sender domains to be added once this transaction commits (see BankSendersEventListener), only
+     * for an account that imports from Gmail (has an ingest-from date) and is open.
+     */
+    private void requestBankSenders(Account account) {
+        if (account.getBank() != null && account.getIngestFromDate() != null && account.getClosedOn() == null) {
+            eventPublisher.publishEvent(new BankSendersRequestedEvent(
+                    account.getUser().getId(), account.getBank(), account.getIngestFromDate()));
         }
     }
 
@@ -158,7 +164,7 @@ public class AccountService {
 
         Account saved = accountRepository.save(account);
         populateBalanceInfo(saved);
-        addBankSenders(userId, saved.getBank());
+        requestBankSenders(saved);
         if (hasStatementPassword(saved)) eventPublisher.publishEvent(new StatementPasswordSavedEvent(userId));
 
         if (saved.getIngestFromDate() != null) {
@@ -267,7 +273,20 @@ public class AccountService {
     public List<Account> getAllAccountsWithLastTransactionDates() {
         List<Account> accounts = getAllAccounts();
         populateLastTransactionDates(accounts);
+        populateGmailFetch(accounts);
         return accounts;
+    }
+
+    /** Sets {@code gmailFetch} on the opted-in accounts still fetching from Gmail (null on the rest), in a fixed number of queries. */
+    @Transactional(readOnly = true)
+    public void populateGmailFetch(List<Account> accounts) {
+        if (coverageService == null || accounts.isEmpty()) {
+            return;
+        }
+        java.util.Map<UUID, GmailFetchProgress> progress = coverageService.gmailFetch(accounts);
+        for (Account account : accounts) {
+            account.setGmailFetch(progress.get(account.getId()));
+        }
     }
 
     /**
@@ -463,8 +482,9 @@ public class AccountService {
         // Leaving (or switching) a shared limit can empty the old one.
         accountRepository.deleteEmptyLimitPools(saved.getUser().getId());
         populateBalanceInfo(saved);
-        if (saved.getBank() != null && !Objects.equals(oldBank, saved.getBank())) {
-            addBankSenders(saved.getUser().getId(), saved.getBank());
+        boolean dateMovedBack = newDate != null && (oldDate == null || newDate.isBefore(oldDate));
+        if (!Objects.equals(oldBank, saved.getBank()) || dateMovedBack) {
+            requestBankSenders(saved);
         }
         if (hasStatementPassword(saved) && !Objects.equals(oldPassword, statementPasswordOf(saved))) {
             eventPublisher.publishEvent(new StatementPasswordSavedEvent(saved.getUser().getId()));
@@ -517,6 +537,7 @@ public class AccountService {
         }
 
         String last4 = extractLast4(saved);
+        populateGmailFetch(List.of(saved));
         return AccountResponse.from(saved, last4, null, warnings);
     }
 
@@ -542,6 +563,7 @@ public class AccountService {
         populateBalanceInfo(saved);
         initCardholders(saved);
         String last4 = extractLast4(saved);
+        populateGmailFetch(List.of(saved));
         return AccountResponse.from(saved, last4, null);
     }
 

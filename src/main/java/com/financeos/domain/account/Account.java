@@ -135,6 +135,10 @@ public class Account {
     @Transient
     private LocalDate lastTransactionDate;
 
+    /** Gmail backfill progress while months are still being fetched (see AccountCoverageService); null otherwise. */
+    @Transient
+    private GmailFetchProgress gmailFetch;
+
     @Transient
     private Boolean balanceAnchored;
 

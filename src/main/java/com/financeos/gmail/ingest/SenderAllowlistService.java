@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -66,19 +67,36 @@ public class SenderAllowlistService {
         return a;
     }
 
+    /** {@link #addBankSenders(UUID, String, LocalDate)} without a backfill floor (the senders follow the user's demand floor). */
+    public List<GmailSender> addBankSenders(UUID userId, String bankId) {
+        return addBankSenders(userId, bankId, null);
+    }
+
     /**
      * Adds each sender domain of {@code bankId} to the user's senders (bare domain, enabled, tagged with the bank),
      * skipping addresses the user already has (any case) and addresses they removed before. One read of the user's
      * senders and removals; one ingest event.
+     *
+     * <p>{@code fromDate} (the account's ingest-from date) becomes the new senders' backfill floor, so their Gmail
+     * backfill reaches back no further than that account, whatever the user-level demand floor is. A bank sender
+     * added earlier that has a floor later than {@code fromDate} is lowered to it (two accounts at one bank);
+     * senders without a floor are left to follow the demand floor.
      */
-    public List<GmailSender> addBankSenders(UUID userId, String bankId) {
+    public List<GmailSender> addBankSenders(UUID userId, String bankId, LocalDate fromDate) {
         List<String> domains = bankSenderDomains.domainsFor(bankId);
         if (domains.isEmpty()) {
             return List.of();
         }
         Set<String> skip = new HashSet<>();
+        List<GmailSender> lowered = new ArrayList<>();
         for (GmailSender s : gmailSenderRepository.findByUserId(userId)) {
-            skip.add(s.getSenderAddress().toLowerCase(Locale.ROOT));
+            String address = s.getSenderAddress().toLowerCase(Locale.ROOT);
+            skip.add(address);
+            if (fromDate != null && bankId.equals(s.getBankId()) && domains.contains(address)
+                    && s.getBackfillFrom() != null && s.getBackfillFrom().isAfter(fromDate)) {
+                s.setBackfillFrom(fromDate);
+                lowered.add(s);
+            }
         }
         for (GmailSenderRemoval r : removalRepository.findByUserId(userId)) {
             skip.add(r.getSenderAddress().toLowerCase(Locale.ROOT));
@@ -100,9 +118,16 @@ public class SenderAllowlistService {
             sender.setSenderAddress(domain);
             sender.setEnabled(true);
             sender.setBankId(bankId);
+            sender.setBackfillFrom(fromDate);
             added.add(sender);
         }
+        if (!lowered.isEmpty()) {
+            gmailSenderRepository.saveAll(lowered);
+        }
         if (added.isEmpty()) {
+            if (!lowered.isEmpty()) {
+                eventPublisher.publishEvent(new SenderIngestChangedEvent(userId));
+            }
             return List.of();
         }
         List<GmailSender> saved = gmailSenderRepository.saveAll(added);
@@ -142,13 +167,18 @@ public class SenderAllowlistService {
         }
 
         boolean oldEnabled = Boolean.TRUE.equals(sender.getEnabled());
-        String newAddress = normalizeAddress(request.senderAddress());
-        boolean addressChanged = !newAddress.equalsIgnoreCase(sender.getSenderAddress());
+        String rawAddress = request.senderAddress() == null ? "" : request.senderAddress().trim();
+        boolean addressChanged = !rawAddress.equalsIgnoreCase(sender.getSenderAddress());
+        // An unchanged address is not re-validated (a stored one may predate today's rules); only a changed one is.
+        String newAddress = addressChanged ? normalizeAddress(rawAddress) : sender.getSenderAddress();
+        addressChanged = !newAddress.equalsIgnoreCase(sender.getSenderAddress());
 
         sender.setName(request.name() != null && !request.name().trim().isEmpty() ? request.name().trim() : null);
-        sender.setSenderAddress(newAddress);
         if (addressChanged) {
+            sender.setSenderAddress(newAddress);
             sender.setBankId(bankSenderDomains.bankIdFor(newAddress));
+            sender.setBackfillFrom(null);
+            removalRepository.deleteByUserIdAndSenderAddressIgnoreCase(userId, newAddress);
         }
         if (request.enabled() != null) {
             sender.setEnabled(request.enabled());

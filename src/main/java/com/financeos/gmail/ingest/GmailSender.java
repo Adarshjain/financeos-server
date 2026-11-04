@@ -44,6 +44,13 @@ public class GmailSender {
     @Column(name = "bank_id", length = 40)
     private String bankId;
 
+    /**
+     * Set when the sender was added for an account: its Gmail backfill never reaches back before this date (the
+     * account's ingest-from date), whatever the user-level demand floor is. Null = follows the demand floor.
+     */
+    @Column(name = "backfill_from")
+    private java.time.LocalDate backfillFrom;
+
     @Column(name = "created_at")
     private Instant createdAt;
 
