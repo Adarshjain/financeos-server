@@ -79,4 +79,22 @@ class JobServiceRetentionTest {
 
         assertThat(service.getArtifacts(jobId)).containsExactly(first, second);
     }
+
+    @Test
+    void succeedKeepsRetainedFilesSoTheyOutliveTheJobUntilItIsPurged() {
+        UUID jobId = UUID.randomUUID();
+        Job job = new Job();
+        job.setId(jobId);
+        when(jobRepository.findById(jobId)).thenReturn(Optional.of(job));
+        JobArtifact kept = new JobArtifact();
+        kept.setId(UUID.randomUUID());
+        when(artifactRepository.findByJobId(jobId)).thenReturn(List.of(kept));
+
+        service.retainArtifacts(jobId, Set.of(kept.getId()));
+        service.succeed(jobId, "{}");
+
+        assertThat(kept.isRetained()).isTrue();
+        verify(artifactRepository, never()).delete(any(JobArtifact.class));
+        verify(artifactRepository, never()).deleteByJobId(jobId); // only the 30-day job purge (FK cascade) removes it
+    }
 }

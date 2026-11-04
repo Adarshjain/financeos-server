@@ -66,22 +66,21 @@ public class StatementIngestJobHandler implements JobHandler {
                     ? fileIngestionService.ingest(payload.accountId(), files, ctx)
                     : fileIngestionService.ingest(payload.accountId(), files, ctx, password);
         }
-        retainFilesNeedingAPassword(ctx.getJobId(), artifacts, result);
+        retainStoredFiles(ctx.getJobId(), artifacts);
         return result;
     }
 
-    /** A locked file the user can still fix with a password keeps its stored copy after the job succeeds. */
-    private void retainFilesNeedingAPassword(UUID jobId, List<JobArtifact> artifacts, FileIngestionResult result) {
-        if (jobService == null || result == null || result.fileDetails() == null) {
+    /**
+     * Every uploaded file outlives the job's success until the job is purged (30 days): a locked one can still get a
+     * password, an ingested statement can be moved to another account.
+     */
+    private void retainStoredFiles(UUID jobId, List<JobArtifact> artifacts) {
+        if (jobService == null || artifacts == null) {
             return;
         }
         Set<UUID> keep = new HashSet<>();
-        List<FileIngestionResult.FileSummary> details = result.fileDetails();
-        for (int i = 0; i < details.size() && i < artifacts.size(); i++) {
-            FileIngestionResult.ErrorCode code = details.get(i).errorCode();
-            if (code == FileIngestionResult.ErrorCode.PASSWORD_REQUIRED || code == FileIngestionResult.ErrorCode.WRONG_PASSWORD) {
-                keep.add(artifacts.get(i).getId());
-            }
+        for (JobArtifact a : artifacts) {
+            keep.add(a.getId());
         }
         jobService.retainArtifacts(jobId, keep);
     }
