@@ -148,6 +148,7 @@ class ReminderFeedServiceTest {
         assertEquals("₹12,340 due 5 Nov", r.body());
         assertEquals("D1", r.stage());
         assertEquals(cardId, r.refs().accountId());
+        assertEquals(statementId, r.refs().statementId());
         assertTrue(service.runsWithoutPush());
     }
 

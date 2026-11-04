@@ -106,6 +106,20 @@ class NotificationFeedServiceReminderTest {
     }
 
     @Test
+    void anExistingBillRowGainsItsStatementIdOnUpdate() {
+        UUID statementId = UUID.randomUUID();
+        AppNotification row = existing("D3", "HDFC bill due in 3 days");
+        when(repository.findByUserIdAndDedupeKeyIn(any(), any())).thenReturn(List.of(row));
+
+        service.upsert(userId, key, AppNotificationKind.BILL_REMINDER, "HDFC bill due in 2 days", "₹100 due 6 Nov",
+                AppNotificationRefs.ofBill(accountId, statementId), "D2");
+
+        AppNotification n = saved();
+        assertEquals(statementId, n.getStatementId());
+        assertEquals(accountId, n.getAccountId());
+    }
+
+    @Test
     void stageChangeMarksTheRowUnreadAgain() {
         AppNotification row = existing("D3", "HDFC bill due in 3 days");
         row.setReadAt(NOW.minusSeconds(3600));

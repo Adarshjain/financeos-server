@@ -120,7 +120,7 @@ public class ReminderFeedService implements NotificationProducer {
             BigDecimal amount = bill.remainingAmount() != null ? bill.remainingAmount() : bill.totalAmountDue();
             out.add(new NotificationFeedService.Reminder(ReminderKeys.bill(bill.statementId()), AppNotificationKind.BILL_REMINDER,
                     ReminderStages.billTitle(bill.accountName(), days), ReminderStages.billBody(amount, bill.paymentDueDate()),
-                    AppNotificationRefs.ofAccount(bill.accountId()), stage));
+                    AppNotificationRefs.ofBill(bill.accountId(), bill.statementId()), stage));
         }
         return evaluated;
     }

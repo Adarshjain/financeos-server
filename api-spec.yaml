@@ -20558,6 +20558,11 @@ components:
           format: uuid
           nullable: true
           x-nullable: true
+        statementId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
     RegistrationOptionsRequest:
       type: object
       properties:

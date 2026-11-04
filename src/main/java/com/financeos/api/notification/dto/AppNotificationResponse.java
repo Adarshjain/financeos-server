@@ -8,12 +8,12 @@ import org.springframework.lang.Nullable;
 /** One row of the in-app notifications feed. */
 public record AppNotificationResponse(UUID id, String kind, String title, @Nullable String body, Refs refs, Instant createdAt, boolean read) {
 
-    public record Refs(@Nullable UUID jobId, @Nullable String jobType, @Nullable UUID accountId, @Nullable UUID connectionId, @Nullable UUID loanId) {
+    public record Refs(@Nullable UUID jobId, @Nullable String jobType, @Nullable UUID accountId, @Nullable UUID connectionId, @Nullable UUID loanId, @Nullable UUID statementId) {
     }
 
     public static AppNotificationResponse from(AppNotification n) {
         return new AppNotificationResponse(n.getId(), n.getKind(), n.getTitle(), n.getBody(),
-                new Refs(n.getJobId(), n.getJobType(), n.getAccountId(), n.getConnectionId(), n.getLoanId()),
+                new Refs(n.getJobId(), n.getJobType(), n.getAccountId(), n.getConnectionId(), n.getLoanId(), n.getStatementId()),
                 n.getCreatedAt(), n.getReadAt() != null);
     }
 }
