@@ -131,7 +131,7 @@ app:
     lock-ignore-after-unlock-seconds: 2
     # Allowed "lock after" values (seconds) and the default for a new device. The DB check
     # constraint (V108) allows the same set.
-    allowed-lock-after-seconds: [0, 60, 300, 900]
+    allowed-lock-after-seconds: [0, 60, 300, 900, 1800, 3600]
     default-lock-after-seconds: 60
   # Web Push (VAPID). Both keys unset => push is off: the settings page says so and the bill
   # tick only records markers. Generate with com.financeos.core.push.GenerateVapidKeys.
@@ -180,7 +180,7 @@ gmail:
     root-url: ${GMAIL_API_ROOT_URL:https://gmail.googleapis.com/}
   ingest:
     enabled: ${GMAIL_INGEST_ENABLED:true}
-    cron: ${GMAIL_INGEST_CRON:0 0 10-22/2 * * *}
+    cron: ${GMAIL_INGEST_CRON:0 0 7,10-22/2 * * *}
     first-backfill-days: ${GMAIL_INGEST_BACKFILL_DAYS:30}
     zone: ${GMAIL_INGEST_ZONE:Asia/Kolkata}
 

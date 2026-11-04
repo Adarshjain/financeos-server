@@ -187,8 +187,7 @@ public class GmailIngestionService {
         var demandOpt = backfillDemandRepository.findById(userId);
         if (demandOpt.isPresent()) {
             LocalDate demandFloor = demandOpt.get().getFloorDate();
-            LocalDate maxBackfillFloor = AppTime.today().minusDays(ingestProperties.getMaxBackfillDays());
-            LocalDate effectiveFloor = demandFloor.isAfter(maxBackfillFloor) ? demandFloor : maxBackfillFloor;
+            LocalDate effectiveFloor = demandFloor;
             Instant floorInstant = effectiveFloor.atStartOfDay(AppTime.zone()).toInstant();
 
             List<GmailSyncCursor> deficitCursors = cursors.stream()

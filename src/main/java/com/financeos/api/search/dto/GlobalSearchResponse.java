@@ -10,5 +10,7 @@ public record GlobalSearchResponse(
         List<SearchPersonHit> people,
         List<SearchLoanHit> loans,
         List<SearchReportHit> reports,
-        List<SearchDashboardHit> dashboards) {
+        List<SearchDashboardHit> dashboards,
+        List<SearchCategoryHit> categories,
+        List<SearchRuleHit> rules) {
 }

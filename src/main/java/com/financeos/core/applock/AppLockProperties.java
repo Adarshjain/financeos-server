@@ -20,7 +20,7 @@ public class AppLockProperties {
     private int immediateBackstopSeconds = 30;
     private int maxUnlockFailures = 5;
     private int lockIgnoreAfterUnlockSeconds = 2;
-    private List<Integer> allowedLockAfterSeconds = new ArrayList<>(List.of(0, 60, 300, 900));
+    private List<Integer> allowedLockAfterSeconds = new ArrayList<>(List.of(0, 60, 300, 900, 1800, 3600));
     private int defaultLockAfterSeconds = 60;
 
     public Set<String> originSet() {

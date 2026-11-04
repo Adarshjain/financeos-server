@@ -229,4 +229,31 @@ class GmailControllerTest {
                 () -> controller.assignAttentionItem(ledgerId, request)
         );
     }
+
+    @Test
+    void rescanAcceptsDateOlderThanAYearAndRaisesFloor() {
+        UUID userId = UUID.randomUUID();
+        currentUser.setId(userId);
+        when(authService.getCurrentUser()).thenReturn(currentUser);
+        LocalDate threeYearsBack = com.financeos.core.time.AppTime.today().minusYears(3);
+        GmailBackfillDemand demand = new GmailBackfillDemand(currentUser, com.financeos.core.time.AppTime.today().minusDays(30));
+        when(backfillDemandRepository.findById(userId)).thenReturn(Optional.of(demand));
+        GmailConnection connection = mock(GmailConnection.class);
+        when(connection.getIsConnected()).thenReturn(true);
+        when(connection.getId()).thenReturn(UUID.randomUUID());
+        when(oauthService.getConnection(userId)).thenReturn(connection);
+        when(jobService.enqueue(any(), any(), any(), any(), any(), any()))
+                .thenReturn(mock(com.financeos.domain.job.Job.class));
+
+        controller.rescan(new com.financeos.api.gmail.dto.RescanRequest(threeYearsBack));
+
+        assertThat(demand.getFloorDate()).isEqualTo(threeYearsBack);
+    }
+
+    @Test
+    void rescanRejectsFutureDate() {
+        when(authService.getCurrentUser()).thenReturn(currentUser);
+        org.junit.jupiter.api.Assertions.assertThrows(ValidationException.class, () -> controller.rescan(
+                new com.financeos.api.gmail.dto.RescanRequest(com.financeos.core.time.AppTime.today().plusDays(1))));
+    }
 }

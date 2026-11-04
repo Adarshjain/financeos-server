@@ -44,7 +44,7 @@ Implement in order **M1 → M2 → M3 → M4** (spec §12). After **each** miles
 - Every milestone: `./mvnw compile` clean; app boots; new Flyway migrations apply without error.
 - **M1:** body capture in `GmailMessage`/engine; migrations V16–V18; ledger + `review_type`/`source_message_id`/`ingest_from_date` exist; background `UserContext` helper. No behavior change yet.
 - **M2:** `gmail_senders` (V19) + CRUD; `GeminiExtractor` (Flash, JSON schema, temp 0); `AccountResolver`; `GmailTransactionWriter`; `POST /api/v1/gmail/sync` creates `gmail_transaction_alert`/`NEEDS_REVIEW` txns, watermark-gated, idempotent. Verify by connecting a Gmail account, seeding a sender, and calling `/sync`.
-- **M3:** `@EnableScheduling` + the cron (`0 0 10-22/2 * * *`, `Asia/Kolkata`); fetch via `from:(allowlist) after:<last_synced_at>`; advance `last_synced_at`.
+- **M3:** `@EnableScheduling` + the cron (`0 0 7,10-22/2 * * *`, `Asia/Kolkata`); fetch via `from:(allowlist) after:<last_synced_at>`; advance `last_synced_at`.
 - **M4:** V20 (source values + statement passwords); STATEMENT routing; PDFBox/POI decrypt; Gemini Pro parse; `StatementReconciliationService` (1:1 greedy match, amount+direction+date±N, watermark-gated); outcomes per spec §4.10/§4.8.
 
 Report what you changed after each milestone and stop for review.

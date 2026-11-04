@@ -99,7 +99,6 @@ class GmailIngestionRunDetailTest {
         when(props.getOverlapLapMinutes()).thenReturn(15);
         when(props.getStaleProcessingMinutes()).thenReturn(60);
         when(props.getRetryMaxAttempts()).thenReturn(5);
-        when(props.getMaxBackfillDays()).thenReturn(365);
         when(backfillDemandRepository.findById(userId)).thenReturn(Optional.empty());
         when(processedMessageRepository.findExistingMessageIds(eq(connection.getId()), anyCollection())).thenReturn(List.of());
         when(processedMessageRepository.countByConnectionIdAndStatusIn(eq(connection.getId()), anyCollection())).thenReturn(0L);
