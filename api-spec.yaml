@@ -6958,6 +6958,24 @@ paths:
           description: Error response
       tags:
       - profile-controller
+  /api/v1/me/hello/finish:
+    post:
+      operationId: finishHello
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/UserResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - profile-controller
   /api/v1/me/profile:
     patch:
       operationId: updateProfile
@@ -15320,6 +15338,10 @@ components:
           x-nullable: true
         displayName:
           type: string
+          nullable: true
+          x-nullable: true
+        finish:
+          type: boolean
           nullable: true
           x-nullable: true
         termsAccepted:
@@ -23719,6 +23741,8 @@ components:
           type: boolean
         helloDone:
           type: boolean
+        helloProfileSaved:
+          type: boolean
         id:
           type: string
           format: uuid
@@ -23732,6 +23756,7 @@ components:
       - email
       - hasPassword
       - helloDone
+      - helloProfileSaved
       - id
     WidgetLayout:
       type: object

@@ -9,6 +9,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.times;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -60,5 +65,41 @@ class ProfileServiceTest {
         assertEquals("1991-01-02", user.getBirthDate());
         assertEquals(BirthDateSource.TYPED, user.getBirthDateSource());
         verify(events).publishEvent(new ProfileChangedEvent(userId, false, true));
+    }
+
+    @Test
+    void helloWithFinishFalseSavesTermsButDoesNotCompleteOnboarding() {
+        service.hello(userId, "Asha", "1990-04-05", true, false);
+
+        assertNull(user.getHelloDoneAt());
+        assertNotNull(user.getTermsAcceptedAt());
+        verify(events, never()).publishEvent(any(HelloCompletedEvent.class));
+    }
+
+    @Test
+    void helloDefaultsToFinishing() {
+        service.hello(userId, "Asha", "1990-04-05", true);
+
+        assertNotNull(user.getHelloDoneAt());
+        verify(events).publishEvent(new HelloCompletedEvent(userId));
+    }
+
+    @Test
+    void finishHelloSetsDoneOnceAndPublishesOneEvent() {
+        service.hello(userId, "Asha", "1990-04-05", true, false);
+
+        service.finishHello(userId);
+        java.time.Instant first = user.getHelloDoneAt();
+        service.finishHello(userId);
+
+        assertNotNull(first);
+        assertEquals(first, user.getHelloDoneAt());
+        verify(events, times(1)).publishEvent(any(HelloCompletedEvent.class));
+    }
+
+    @Test
+    void completeHelloReportsWhetherItWasNew() {
+        assertTrue(service.completeHello(userId));
+        assertFalse(service.completeHello(userId));
     }
 }

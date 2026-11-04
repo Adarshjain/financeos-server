@@ -4,6 +4,7 @@ import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.oauth.OAuthStateService;
 import com.financeos.domain.user.GoogleBirthdayService;
+import com.financeos.domain.user.ProfileService;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import com.financeos.gmail.accountdetect.job.AccountDetectTriggers;
@@ -43,6 +44,8 @@ public class GmailOAuthService {
     private final AccountDetectTriggers accountDetectTriggers;
     /** Optional birth date fill (null in unit tests). */
     private final GoogleBirthdayService googleBirthdayService;
+    /** Marks onboarding done when connecting from the Welcome flow (null in unit tests). */
+    private final ProfileService profileService;
 
     public GmailOAuthService(GmailApiClient gmailApiClient,
             GmailConnectionRepository connectionRepository,
@@ -59,13 +62,24 @@ public class GmailOAuthService {
         this(gmailApiClient, connectionRepository, userRepository, stateService, accountDetectTriggers, null);
     }
 
-    @Autowired
     public GmailOAuthService(GmailApiClient gmailApiClient,
             GmailConnectionRepository connectionRepository,
             UserRepository userRepository,
             OAuthStateService stateService,
             AccountDetectTriggers accountDetectTriggers,
             GoogleBirthdayService googleBirthdayService) {
+        this(gmailApiClient, connectionRepository, userRepository, stateService, accountDetectTriggers, googleBirthdayService, null);
+    }
+
+    @Autowired
+    public GmailOAuthService(GmailApiClient gmailApiClient,
+            GmailConnectionRepository connectionRepository,
+            UserRepository userRepository,
+            OAuthStateService stateService,
+            AccountDetectTriggers accountDetectTriggers,
+            GoogleBirthdayService googleBirthdayService,
+            ProfileService profileService) {
+        this.profileService = profileService;
         this.googleBirthdayService = googleBirthdayService;
         this.gmailApiClient = gmailApiClient;
         this.connectionRepository = connectionRepository;
@@ -177,7 +191,10 @@ public class GmailOAuthService {
             connection.setReconnectNotifiedAt(null);
 
             GmailConnection savedConnection = connectionRepository.save(connection);
-            if (accountDetectTriggers != null) {
+            // Connecting from Welcome finishes onboarding. Its HelloCompletedEvent queues the one detection run after
+            // commit, so onConnected is skipped then; when hello was already done onConnected queues it as before.
+            boolean helloJustDone = flowId.endsWith(HOME_FLOW_SUFFIX) && profileService != null && profileService.completeHello(userId);
+            if (!helloJustDone && accountDetectTriggers != null) {
                 accountDetectTriggers.onConnected(userId, savedConnection);
             }
             log.info("Gmail connection succeeded: email={}, userId={}", email, userId,
