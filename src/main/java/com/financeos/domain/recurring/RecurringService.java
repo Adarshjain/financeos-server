@@ -106,6 +106,8 @@ public class RecurringService {
         Map<String, RecurringSeries> existing = seriesRepository.findByUserId(userId).stream()
                 .collect(Collectors.toMap(RecurringSeries::getMerchantKey, s -> s, (a, b) -> a));
 
+        withdrawLoanLinked(existing);
+
         List<RecurringSeries> toSave = new ArrayList<>();
         Map<RecurringSeries, List<RecurringDetector.Payment>> payments = new LinkedHashMap<>();
         List<RecurringSeries> stale = new ArrayList<>();
@@ -172,6 +174,51 @@ public class RecurringService {
         return toSave.size() + stale.size();
     }
 
+    /**
+     * A PROPOSED or TRACKED series whose payments are mostly loan-linked now (a loan took them over) is
+     * withdrawn: a proposal is deleted, a tracked series ends. Removed or ended rows leave {@code existing}
+     * only when deleted.
+     */
+    private void withdrawLoanLinked(Map<String, RecurringSeries> existing) {
+        List<RecurringSeries> open = existing.values().stream()
+                .filter(s -> s.getStatus() == RecurringStatus.PROPOSED || s.getStatus() == RecurringStatus.TRACKED).toList();
+        if (open.isEmpty()) {
+            return;
+        }
+        List<UUID> ids = open.stream().map(RecurringSeries::getId).toList();
+        Map<UUID, Long> total = new HashMap<>();
+        for (Object[] r : seriesRepository.paymentStats(ids)) {
+            total.put((UUID) r[0], (Long) r[1]);
+        }
+        Map<UUID, Long> loanLinked = new HashMap<>();
+        for (Object[] r : entityManager.createQuery(
+                "SELECT p.seriesId, COUNT(p.id) FROM RecurringSeriesPayment p, Transaction t WHERE t.id = p.transactionId "
+                        + "AND p.seriesId IN :ids AND (EXISTS (SELECT 1 FROM LoanPayment lp WHERE lp.transaction = t) "
+                        + "OR EXISTS (SELECT 1 FROM LoanEvent le WHERE le.transaction = t) "
+                        + "OR EXISTS (SELECT 1 FROM LoanCharge lc WHERE lc.transaction = t)) GROUP BY p.seriesId", Object[].class)
+                .setParameter("ids", ids).getResultList()) {
+            loanLinked.put((UUID) r[0], (Long) r[1]);
+        }
+        List<RecurringSeries> toDelete = new ArrayList<>();
+        for (RecurringSeries s : open) {
+            long linked = loanLinked.getOrDefault(s.getId(), 0L);
+            if (linked * 2 <= total.getOrDefault(s.getId(), 0L)) {
+                continue;
+            }
+            if (s.getStatus() == RecurringStatus.PROPOSED) {
+                toDelete.add(s);
+                existing.remove(s.getMerchantKey());
+            } else {
+                s.setStatus(RecurringStatus.ENDED);
+                s.setUpdatedAt(AppTime.nowInstant());
+            }
+        }
+        if (!toDelete.isEmpty()) {
+            seriesRepository.deletePaymentsOf(toDelete.stream().map(RecurringSeries::getId).toList());
+            seriesRepository.deleteAll(toDelete);
+        }
+    }
+
     // ------------------------------------------------------------------ tracking
 
     /**
@@ -197,13 +244,14 @@ public class RecurringService {
                 }
             }
         }
+        Map<UUID, LocalDate> dataThrough = dataThrough(userId, tracked);
         Instant now = AppTime.nowInstant();
         List<RecurringSeriesPayment> links = new ArrayList<>();
         int changed = 0;
         for (RecurringSeries series : tracked) {
             List<RecurringDetector.Payment> candidates = byMerchant.getOrDefault(series.getMerchantKey(), List.of()).stream()
                     .sorted(Comparator.comparing(RecurringDetector.Payment::date)).collect(Collectors.toCollection(ArrayList::new));
-            if (advance(series, candidates, today, links)) {
+            if (advance(series, candidates, today, dataThrough.get(series.getId()), links)) {
                 series.setUpdatedAt(now);
                 changed++;
             }
@@ -215,17 +263,24 @@ public class RecurringService {
         return changed;
     }
 
-    /** Applies links and misses to one series; true when anything changed. */
+    /**
+     * Applies links and misses to one series; true when anything changed. A payment belongs to the cycle whose
+     * due date it is nearest to from {@code due - window} until the next cycle's window opens, so a late payment
+     * still links. A cycle counts as missed only once the next cycle's window has opened with no payment, and only
+     * when {@code dataThrough} (the newest transaction on the series' accounts) is past the cycle's window, so a
+     * statement that was never imported cannot end a series.
+     */
     private boolean advance(RecurringSeries series, List<RecurringDetector.Payment> candidates, LocalDate today,
-                            List<RecurringSeriesPayment> links) {
+                            @Nullable LocalDate dataThrough, List<RecurringSeriesPayment> links) {
         boolean changed = false;
         int window = series.getPeriod().windowDays();
         while (true) {
             LocalDate lo = series.getNextDueOn().minusDays(window);
             LocalDate hi = series.getNextDueOn().plusDays(window);
+            LocalDate nextWindowStart = series.getPeriod().next(series.getNextDueOn()).minusDays(window);
             RecurringDetector.Payment match = null;
             for (RecurringDetector.Payment c : candidates) {
-                if (!c.date().isBefore(lo) && !c.date().isAfter(hi) && withinLinkTolerance(series.getAmount(), c.amount())) {
+                if (!c.date().isBefore(lo) && c.date().isBefore(nextWindowStart) && withinLinkTolerance(series.getAmount(), c.amount())) {
                     match = c;
                     break;
                 }
@@ -238,7 +293,7 @@ public class RecurringService {
                 series.setNextDueOn(series.getPeriod().next(match.date()));
                 series.setMissedCycles(0);
                 changed = true;
-            } else if (today.isAfter(hi)) {
+            } else if (!today.isBefore(nextWindowStart) && dataThrough != null && dataThrough.isAfter(hi)) {
                 series.setMissedCycles(series.getMissedCycles() + 1);
                 series.setNextDueOn(series.getPeriod().next(series.getNextDueOn()));
                 changed = true;
@@ -250,6 +305,43 @@ public class RecurringService {
                 return changed;
             }
         }
+    }
+
+    /** Per series, the date of the newest transaction on its account (or, with none, the accounts its payments came from). */
+    private Map<UUID, LocalDate> dataThrough(UUID userId, List<RecurringSeries> tracked) {
+        Map<UUID, Set<UUID>> accountsOf = new HashMap<>();
+        List<UUID> noAccount = new ArrayList<>();
+        for (RecurringSeries s : tracked) {
+            if (s.getAccountId() != null) {
+                accountsOf.computeIfAbsent(s.getId(), k -> new HashSet<>()).add(s.getAccountId());
+            } else {
+                noAccount.add(s.getId());
+            }
+        }
+        if (!noAccount.isEmpty()) {
+            List<Object[]> rows = entityManager.createQuery(
+                    "SELECT DISTINCT p.seriesId, t.account.id FROM RecurringSeriesPayment p, Transaction t "
+                            + "WHERE t.id = p.transactionId AND t.user.id = :userId AND p.seriesId IN :ids", Object[].class)
+                    .setParameter("userId", userId).setParameter("ids", noAccount).getResultList();
+            for (Object[] r : rows) {
+                accountsOf.computeIfAbsent((UUID) r[0], k -> new HashSet<>()).add((UUID) r[1]);
+            }
+        }
+        Set<UUID> all = accountsOf.values().stream().flatMap(Set::stream).collect(Collectors.toSet());
+        if (all.isEmpty()) {
+            return Map.of();
+        }
+        Map<UUID, LocalDate> latest = new HashMap<>();
+        for (Object[] r : entityManager.createQuery(
+                        "SELECT t.account.id, MAX(t.date) FROM Transaction t WHERE t.user.id = :userId "
+                                + "AND t.account.id IN :ids GROUP BY t.account.id", Object[].class)
+                .setParameter("userId", userId).setParameter("ids", all).getResultList()) {
+            latest.put((UUID) r[0], (LocalDate) r[1]);
+        }
+        Map<UUID, LocalDate> out = new HashMap<>();
+        accountsOf.forEach((seriesId, accounts) -> accounts.stream().map(latest::get).filter(java.util.Objects::nonNull)
+                .max(Comparator.naturalOrder()).ifPresent(d -> out.put(seriesId, d)));
+        return out;
     }
 
     static boolean withinLinkTolerance(BigDecimal current, BigDecimal candidate) {
