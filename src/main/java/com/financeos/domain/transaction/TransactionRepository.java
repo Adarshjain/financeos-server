@@ -81,6 +81,22 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
            "AND t.type = com.financeos.domain.transaction.TransactionType.CREDIT AND t.date > :afterDate")
     java.math.BigDecimal sumCreditsAfter(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
 
+    /**
+     * Statement-sourced rows of one account that could be the statement side of an alert: same direction and
+     * exact amount, dated in the window, and not yet standing for any processed mail (a mail already paired
+     * with the row, whether as its absorbed alert or as a skipped duplicate).
+     */
+    @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId AND t.type = :type AND t.amount = :amount"
+            + " AND t.date BETWEEN :fromDate AND :toDate AND t.source IN :sources"
+            + " AND NOT EXISTS (SELECT 1 FROM com.financeos.gmail.domain.GmailProcessedMessage g WHERE g.transaction = t)")
+    List<Transaction> findUnpairedStatementRows(
+            @Param("accountId") UUID accountId,
+            @Param("type") TransactionType type,
+            @Param("amount") java.math.BigDecimal amount,
+            @Param("fromDate") LocalDate fromDate,
+            @Param("toDate") LocalDate toDate,
+            @Param("sources") java.util.Collection<TransactionSource> sources);
+
     @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId AND t.date BETWEEN :startDate AND :endDate")
     List<Transaction> findByAccountIdAndDateRange(
             @Param("accountId") UUID accountId,

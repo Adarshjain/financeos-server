@@ -65,6 +65,18 @@ public class GmailTransactionWriter {
             }
         }
 
+        // 1b. An alert that arrives after its statement: the statement row already records the payment.
+        Transaction statementRow = findPairedStatementRow(resolvedAccount, resolvedCard, extractionResult);
+        if (statementRow != null) {
+            GmailProcessedMessage processed = findOrCreateLedgerEntry(connection, gmailMessageId);
+            processed.setAccount(resolvedAccount);
+            processed.setStatus(GmailProcessedStatus.SKIPPED_DUPLICATE);
+            processed.setTransaction(statementRow);
+            processed.setError(null);
+            processed.setProcessedAt(Instant.now());
+            return processedMessageRepository.save(processed);
+        }
+
         // 2. Map fields and persist
         Transaction txn = new Transaction();
         txn.setUser(user);
@@ -97,6 +109,25 @@ public class GmailTransactionWriter {
         processed.setProcessedAt(Instant.now());
 
         return processedMessageRepository.save(processed);
+    }
+
+    /**
+     * The closest statement-sourced row (Gmail statement or upload) on the same account with the alert's
+     * direction and exact amount, dated within a day, that no other mail already stands for. One query per alert.
+     */
+    private Transaction findPairedStatementRow(Account account, Card card, GeminiExtractionResult alert) {
+        LocalDate date = alert.date();
+        java.util.List<Transaction> rows = transactionRepository.findUnpairedStatementRows(
+                account.getId(), TransactionType.fromLlmDirection(alert.direction()), alert.amount().abs(),
+                date.minusDays(1), date.plusDays(1),
+                java.util.List.of(TransactionSource.gmail_statement, TransactionSource.file_upload));
+        if (rows == null) return null;
+        return rows.stream()
+                .filter(r -> card == null || r.getCard() == null || card.getId().equals(r.getCard().getId()))
+                .min(java.util.Comparator
+                        .comparingLong((Transaction r) -> Math.abs(java.time.temporal.ChronoUnit.DAYS.between(date, r.getDate())))
+                        .thenComparing(Transaction::getCreatedAt, java.util.Comparator.nullsLast(java.util.Comparator.naturalOrder())))
+                .orElse(null);
     }
 
     private GmailProcessedMessage findOrCreateLedgerEntry(GmailConnection connection, String gmailMessageId) {

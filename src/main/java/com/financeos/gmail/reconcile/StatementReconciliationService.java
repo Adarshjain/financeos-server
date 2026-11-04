@@ -62,6 +62,10 @@ public class StatementReconciliationService {
     @org.springframework.beans.factory.annotation.Autowired(required = false)
     private org.springframework.context.ApplicationEventPublisher eventPublisher;
 
+    /** Optional so tests that build the service by hand need no reconciler. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private com.financeos.domain.transaction.StatementDuplicateReconciler duplicateReconciler;
+
     public StatementReconciliationService(GmailEngine gmailEngine,
                                           StatementParser statementParser,
                                           TransactionRepository transactionRepository,
@@ -241,8 +245,9 @@ public class StatementReconciliationService {
         LocalDate maxLineDate = candidateLines.stream().map(ParsedStatementLine::date).max(LocalDate::compareTo).get();
 
         int dateWindow = ingestProperties.getDateWindowDays();
-        LocalDate searchStart = minLineDate.minusDays(dateWindow);
-        LocalDate searchEnd = maxLineDate.plusDays(dateWindow);
+        int searchDays = Math.max(dateWindow, com.financeos.domain.transaction.StatementDuplicateReconciler.WINDOW_DAYS);
+        LocalDate searchStart = minLineDate.minusDays(searchDays);
+        LocalDate searchEnd = maxLineDate.plusDays(searchDays);
 
         // Fetch all transactions for this account in the window
         List<Transaction> allPeriodTxns = transactionRepository.findByAccountIdAndDateRange(resolvedAccount.getId(), searchStart, searchEnd);
@@ -324,6 +329,18 @@ public class StatementReconciliationService {
 
         if (stmt.isPresent()) {
             statementPersistenceService.linkTransactions(stmt.get().getId(), links);
+        }
+
+        // Rows this statement just created may repeat an alert or manual row that no line matched above:
+        // merge the certain pairs (statement row wins), flag the rest.
+        if (duplicateReconciler != null && !createdTxns.isEmpty()) {
+            LocalDate periodStart = result.periodStart() != null && result.periodEnd() != null ? result.periodStart() : minLineDate;
+            LocalDate periodEnd = result.periodStart() != null && result.periodEnd() != null ? result.periodEnd() : maxLineDate;
+            Set<UUID> excluded = new HashSet<>(consumedTxnIds);
+            excluded.addAll(claimedTxnIds);
+            var pairs = duplicateReconciler.pair(createdTxns, allPeriodTxns, periodStart, periodEnd, excluded);
+            int merged = duplicateReconciler.settle(pairs);
+            log.info("Statement reconcile paired {} created row(s) with alert/manual rows, merged {}", pairs.size(), merged);
         }
 
         // Record successful reconciliation run in the ledger
