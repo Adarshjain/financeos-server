@@ -4,7 +4,8 @@ import org.springframework.lang.Nullable;
 
 /**
  * One button on an inbox row. {@code type} is one of
- * {@code mark_paid | set_details | snooze | dismiss | open | reconnect | upload | review | approve_suggested | retry | epf_link};
+ * {@code mark_paid | set_details | snooze | dismiss | open | reconnect | upload | review | approve_suggested | retry | epf_link | no_statement};
+ * {@code no_statement} posts {@code payload.accountId} + {@code payload.date} (the period end) to the statement-skips endpoint;
  * {@code href} is where a navigation action lands, {@code payload} what a mutation action needs.
  */
 public record InboxActionResponse(

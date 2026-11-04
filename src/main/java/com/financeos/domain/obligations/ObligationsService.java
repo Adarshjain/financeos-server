@@ -23,6 +23,8 @@ import com.financeos.domain.notification.bill.CardBillService;
 import com.financeos.domain.recurring.RecurringService;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementRepository;
+import com.financeos.domain.statement.skip.SkippedPeriods;
+import com.financeos.domain.statement.skip.StatementSkippedPeriodRepository;
 import com.financeos.domain.statement.StatementVerdict;
 import net.logstash.logback.argument.StructuredArguments;
 import org.slf4j.Logger;
@@ -42,6 +44,7 @@ import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Locale;
 import java.util.Set;
 import java.util.UUID;
@@ -109,6 +112,7 @@ public class ObligationsService {
     private final SectionRunner sectionRunner;
     @Nullable
     private final RecurringService recurringService;
+    private StatementSkippedPeriodRepository skippedRepository;
 
     @Autowired
     public ObligationsService(LoanService loanService,
@@ -125,6 +129,12 @@ public class ObligationsService {
         this.statementRepository = statementRepository;
         this.sectionRunner = sectionRunner;
         this.recurringService = recurringService;
+    }
+
+    /** Optional (plain unit tests build this without a context): the cycles the owner marked "No statement this period". */
+    @Autowired(required = false)
+    public void setSkippedRepository(StatementSkippedPeriodRepository skippedRepository) {
+        this.skippedRepository = skippedRepository;
     }
 
     /** Without recurring rows. */
@@ -323,7 +333,9 @@ public class ObligationsService {
      */
     private List<ObligationItemDto> statementsExpected(UUID userId, LocalDate today, LocalDate maxDate) {
         List<ObligationItemDto> items = new ArrayList<>();
-        for (Account account : accountRepository.findByUserIdAndType(userId, AccountType.credit_card)) {
+        List<Account> cards = accountRepository.findByUserIdAndType(userId, AccountType.credit_card);
+        Map<UUID, List<LocalDate>> skips = SkippedPeriods.byAccount(skippedRepository, cards.stream().map(Account::getId).toList());
+        for (Account account : cards) {
             if (account.getClosedOn() != null && !account.getClosedOn().isAfter(today)) {
                 continue;
             }
@@ -332,7 +344,7 @@ public class ObligationsService {
             if (!cycles.hasStatements()) {
                 continue;
             }
-            LocalDate latestPeriodEnd = latestPeriodEnd(statements);
+            LocalDate latestPeriodEnd = SkippedPeriods.coveredEnd(latestPeriodEnd(statements), skips.get(account.getId()));
             if (latestPeriodEnd == null) {
                 continue;
             }

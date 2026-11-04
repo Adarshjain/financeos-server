@@ -13,12 +13,16 @@ import com.financeos.domain.inbox.InboxKinds;
 import com.financeos.domain.notification.statement.StatementExpectedNotificationService;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementRepository;
+import com.financeos.domain.statement.skip.SkippedPeriods;
+import com.financeos.domain.statement.skip.StatementSkippedPeriodRepository;
+import com.financeos.api.inbox.dto.InboxActionPayloadResponse;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /** Open cards whose projected statement is past its grace period with nothing imported. */
@@ -29,10 +33,17 @@ public class StatementExpectedInboxCollector implements ContextAwareInboxCollect
 
     private final AccountRepository accountRepository;
     private final StatementRepository statementRepository;
+    private StatementSkippedPeriodRepository skippedRepository;
 
     public StatementExpectedInboxCollector(AccountRepository accountRepository, StatementRepository statementRepository) {
         this.accountRepository = accountRepository;
         this.statementRepository = statementRepository;
+    }
+
+    /** Optional (plain unit tests build this without a context): the cycles the owner marked "No statement this period". */
+    @Autowired(required = false)
+    public void setSkippedRepository(StatementSkippedPeriodRepository skippedRepository) {
+        this.skippedRepository = skippedRepository;
     }
 
     @Override
@@ -52,9 +63,10 @@ public class StatementExpectedInboxCollector implements ContextAwareInboxCollect
         for (Statement s : statementRepository.findQualifyingCreditCardStatementsIn(open.stream().map(Account::getId).toList())) {
             byCard.computeIfAbsent(s.getAccount().getId(), k -> new ArrayList<>()).add(s);
         }
+        Map<UUID, List<LocalDate>> skips = SkippedPeriods.byAccount(skippedRepository, open.stream().map(Account::getId).toList());
         for (Account card : open) {
             List<Statement> statements = byCard.getOrDefault(card.getId(), List.of());
-            LocalDate overdueEnd = StatementExpectedNotificationService.overduePeriodEnd(statements, today);
+            LocalDate overdueEnd = StatementExpectedNotificationService.overduePeriodEnd(statements, skips.getOrDefault(card.getId(), List.of()), today);
             if (overdueEnd == null) {
                 continue;
             }
@@ -64,7 +76,9 @@ public class StatementExpectedInboxCollector implements ContextAwareInboxCollect
                     + " · period ended " + InboxRows.date(overdueEnd);
             rows.add(InboxRows.item(InboxKinds.statementExpectedKey(card.getId(), overdueEnd), InboxKinds.STATEMENT_EXPECTED,
                     SEVERITY_WARNING, SECTION_ACT_NOW, title, subtitle, href, null, overdueEnd,
-                    List.of(InboxActionResponse.navigate("upload", "Upload", href), InboxRows.snooze()),
+                    List.of(InboxActionResponse.navigate("upload", "Upload", href), InboxRows.snooze(),
+                            InboxActionResponse.mutate("no_statement", "No statement this period",
+                                    new InboxActionPayloadResponse(null, null, null, overdueEnd, card.getId(), null, null, null, null, null))),
                     InboxRefsResponse.ofAccount(card.getId())));
         }
         return rows;

@@ -15,6 +15,8 @@ import com.financeos.domain.statement.MissingDetails;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementCreditCardDetails;
 import com.financeos.domain.statement.StatementRepository;
+import com.financeos.domain.statement.skip.SkippedPeriods;
+import com.financeos.domain.statement.skip.StatementSkippedPeriodRepository;
 import com.financeos.domain.statement.StatementVerdict;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.transaction.TransactionRepositoryCustom;
@@ -63,6 +65,13 @@ public class CardBillService {
     private final AccountService accountService;
 
     private ApplicationEventPublisher eventPublisher;
+    private StatementSkippedPeriodRepository skippedRepository;
+
+    /** Optional (plain unit tests build the service without a context): cycles the owner marked "No statement this period". */
+    @Autowired(required = false)
+    public void setSkippedRepository(StatementSkippedPeriodRepository skippedRepository) {
+        this.skippedRepository = skippedRepository;
+    }
 
     /** Optional (plain unit tests build the service without a context): publishes the "bill paid" resolve event. */
     @Autowired(required = false)
@@ -216,7 +225,8 @@ public class CardBillService {
                 sums.put(statementId, new TransactionRepositoryCustom.SumsAfter(credits, debits));
             });
         }
-        Batch batch = new Batch(Map.of(), lastLines, Map.of(), Map.of(accountId, all.stream().map(CardBillService::periodOf).toList()), Map.of(), sums);
+        Batch batch = new Batch(Map.of(), lastLines, Map.of(), Map.of(accountId, all.stream().map(CardBillService::periodOf).toList()), Map.of(), sums,
+                SkippedPeriods.byAccount(skippedRepository, List.of(accountId)));
         List<CardBill> bills = new ArrayList<>();
         for (Statement s : picked) {
             bills.add(buildEnriched(account, s, today, batch));
@@ -266,7 +276,8 @@ public class CardBillService {
                          Map<UUID, TransactionRepositoryCustom.SumsAfter> sumsAfter,
                          Map<UUID, List<StatementRepository.StatementPeriod>> periodsByAccount,
                          Map<UUID, BigDecimal> signedSums,
-                         Map<UUID, TransactionRepositoryCustom.SumsAfter> sumsByStatement) {
+                         Map<UUID, TransactionRepositoryCustom.SumsAfter> sumsByStatement,
+                         Map<UUID, List<LocalDate>> skippedEnds) {
     }
 
     private static StatementRepository.StatementPeriod periodOf(Statement s) {
@@ -291,7 +302,7 @@ public class CardBillService {
 
     private Batch loadBatch(List<Account> allCards, List<Account> openCards) {
         if (openCards.isEmpty()) {
-            return new Batch(Map.of(), Map.of(), Map.of(), Map.of(), Map.of(), Map.of());
+            return new Batch(Map.of(), Map.of(), Map.of(), Map.of(), Map.of(), Map.of(), Map.of());
         }
         // Pool usage needs every member's balance, closed cards included.
         accountService.populateBalances(allCards);
@@ -344,7 +355,7 @@ public class CardBillService {
             }
         }
         return new Batch(live, lastLineByStatement, transactionRepository.sumsAfterCutoffs(cutoffs),
-                periodsByAccount, signedSums, Map.of());
+                periodsByAccount, signedSums, Map.of(), SkippedPeriods.byAccount(skippedRepository, openIds));
     }
 
     /**
@@ -576,7 +587,10 @@ public class CardBillService {
                 latestPeriodEnd = b[1];
             }
         }
-        return latestPeriodEnd == null ? null : cycles.containing(latestPeriodEnd.plusDays(1)).end();
+        List<LocalDate> skipped = batch != null ? batch.skippedEnds().get(accountId)
+                : SkippedPeriods.byAccount(skippedRepository, List.of(accountId)).get(accountId);
+        LocalDate covered = SkippedPeriods.coveredEnd(latestPeriodEnd, skipped);
+        return covered == null ? null : cycles.containing(covered.plusDays(1)).end();
     }
 
     // ---------------------------------------------------------------- writes
