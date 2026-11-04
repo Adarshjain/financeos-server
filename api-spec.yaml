@@ -22375,6 +22375,10 @@ components:
           type: boolean
         previous:
           $ref: "#/components/schemas/Previous"
+        ruleKey:
+          type: string
+          nullable: true
+          x-nullable: true
         subcategory:
           $ref: "#/components/schemas/SubcategoryRef"
         transactionId:

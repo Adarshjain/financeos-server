@@ -262,4 +262,42 @@ class TransactionServiceCategoryTest {
 
         assertThrows(ResourceNotFoundException.class, () -> service.setCategory(id, "food", null, null));
     }
+
+    // ------------------------------------------------------------------ ruleKey
+
+    private void withAnalyser(String counterparty) {
+        com.financeos.domain.categorization.CategoryAssigner assigner = mock(com.financeos.domain.categorization.CategoryAssigner.class);
+        when(assigner.analyse(any(), any(), any(), any())).thenReturn(
+                new com.financeos.domain.categorization.builtin.BuiltinMatch(null, null, null, null, counterparty, false));
+        org.springframework.test.util.ReflectionTestUtils.setField(service, "categoryAssigner", assigner);
+    }
+
+    @Test
+    void ruleKeyIsTheUpperCasedCounterpartyTheGroupingUses() {
+        withAnalyser("swiggy");
+        Transaction t = stored("food", CategorySource.AUTO);
+        t.setDescription("UPI/412345678901/SWIGGY ORDER/swiggy@icici");
+
+        assertEquals("SWIGGY", service.ruleKeyOf(t));
+    }
+
+    @Test
+    void ruleKeyIsNullWhenNoCounterpartyOrNoText() {
+        withAnalyser(null);
+        Transaction t = stored("food", CategorySource.AUTO);
+        t.setDescription("Lunch");
+        assertNull(service.ruleKeyOf(t));
+
+        withAnalyser("swiggy");
+        t.setDescription(" ");
+        t.setSourcedDescription(null);
+        assertNull(service.ruleKeyOf(t));
+    }
+
+    @Test
+    void ruleKeyIsNullWithoutAnAssigner() {
+        Transaction t = stored("food", CategorySource.AUTO);
+        t.setDescription("Lunch");
+        assertNull(service.ruleKeyOf(t));
+    }
 }
