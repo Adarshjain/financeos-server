@@ -8,6 +8,7 @@ import com.financeos.llm.LlmProperties;
 import com.financeos.llm.security.LlmKeyEncryptionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -44,6 +45,8 @@ public class LlmKeyService {
     private final LlmProperties llmProperties;
     private final Map<String, LlmProvider> providers;
     private final HttpClient httpClient;
+    @Autowired(required = false)
+    private ApplicationEventPublisher eventPublisher;
 
     @Autowired
     public LlmKeyService(LlmKeyRepository keyRepository,
@@ -114,6 +117,7 @@ public class LlmKeyService {
 
         LlmKey saved = keyRepository.save(key);
         log.info("Saved new LLM API key {} (provider={}, last4={}) for user {}", saved.getId(), provider, last4, userId);
+        if (eventPublisher != null) eventPublisher.publishEvent(new LlmKeySavedEvent(userId));
         return LlmKeyDto.fromEntity(saved);
     }
 

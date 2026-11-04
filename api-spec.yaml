@@ -3334,6 +3334,18 @@ paths:
         schema:
           type: boolean
           default: false
+      - in: query
+        name: reason
+        required: false
+        schema:
+          type: string
+          enum:
+          - NO_ACCOUNT
+          - IMPORT_OFF
+          - NO_AI_KEY
+          - LOCKED_STATEMENT
+          - UNREADABLE_STATEMENT
+          - FAILED
       responses:
         "200":
           content:
@@ -3349,6 +3361,81 @@ paths:
           description: Error response
       tags:
       - gmail-controller
+  /api/v1/gmail/attention/archive-all:
+    post:
+      operationId: archiveAll
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AttentionBulkRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AttentionBulkResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - gmail-attention-controller
+  /api/v1/gmail/attention/retry-all:
+    post:
+      operationId: retryAll
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AttentionBulkRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AttentionBulkResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - gmail-attention-controller
+  /api/v1/gmail/attention/summary:
+    get:
+      operationId: summary_2
+      parameters:
+      - in: query
+        name: includeRetryable
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/AttentionReasonCount"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - gmail-attention-controller
   /api/v1/gmail/attention/{ledgerId}/archive:
     post:
       operationId: archiveAttentionItem
@@ -10230,6 +10317,47 @@ components:
       - identifierId
       - jobIds
       - reactivatedCount
+    AttentionBulkRequest:
+      type: object
+      properties:
+        reason:
+          type: string
+          enum:
+          - NO_ACCOUNT
+          - IMPORT_OFF
+          - NO_AI_KEY
+          - LOCKED_STATEMENT
+          - UNREADABLE_STATEMENT
+          - FAILED
+          x-required: true
+      required:
+      - reason
+    AttentionBulkResponse:
+      type: object
+      properties:
+        affected:
+          type: integer
+          format: int32
+      required:
+      - affected
+    AttentionReasonCount:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int64
+        reason:
+          type: string
+          enum:
+          - NO_ACCOUNT
+          - IMPORT_OFF
+          - NO_AI_KEY
+          - LOCKED_STATEMENT
+          - UNREADABLE_STATEMENT
+          - FAILED
+      required:
+      - count
+      - reason
     BalancePointResponse:
       type: object
       properties:
@@ -15102,6 +15230,15 @@ components:
           format: date-time
           nullable: true
           x-nullable: true
+        reason:
+          type: string
+          enum:
+          - NO_ACCOUNT
+          - IMPORT_OFF
+          - NO_AI_KEY
+          - LOCKED_STATEMENT
+          - UNREADABLE_STATEMENT
+          - FAILED
         senderAddress:
           type: string
           nullable: true
@@ -15127,12 +15264,21 @@ components:
           type: string
           nullable: true
           x-nullable: true
+        suggestedBankId:
+          type: string
+          nullable: true
+          x-nullable: true
+        suggestedLast4:
+          type: string
+          nullable: true
+          x-nullable: true
       required:
       - attemptCount
       - connectionEmail
       - discoveredAt
       - gmailMessageId
       - id
+      - reason
       - status
     GmailConnectionResponse:
       type: object

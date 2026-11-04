@@ -28,7 +28,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -254,7 +256,8 @@ public class GmailController {
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "20") int size,
             @RequestParam(defaultValue = "false") boolean includeRetryable,
-            @RequestParam(defaultValue = "false") boolean archived) {
+            @RequestParam(defaultValue = "false") boolean archived,
+            @RequestParam(required = false) AttentionReason reason) {
         User currentUser = authService.getCurrentUser();
         List<GmailProcessedStatus> statuses = new ArrayList<>(List.of(
                 GmailProcessedStatus.UNRESOLVED_ACCOUNT,
@@ -263,6 +266,25 @@ public class GmailController {
         ));
         if (includeRetryable) {
             statuses.add(GmailProcessedStatus.FAILED_RETRYABLE);
+        }
+
+        if (reason != null) {
+            // The reason comes from the error text, so it is filtered in memory (attention lists are small) and paged by hand.
+            Pageable all = PageRequest.of(0, Integer.MAX_VALUE);
+            List<GmailAttentionRow> rows = new ArrayList<>(archived
+                    ? processedMessageRepository.findArchivedAttentionItems(currentUser.getId(), statuses, all).getContent()
+                    : processedMessageRepository.findAttentionItems(currentUser.getId(), statuses, all).getContent());
+            Comparator<GmailAttentionRow> byDate = Comparator.comparing(
+                    (GmailAttentionRow r) -> archived ? r.message().getArchivedAt() : r.message().getDiscoveredAt(),
+                    Comparator.nullsLast(Comparator.<java.time.Instant>naturalOrder())).reversed();
+            List<GmailAttentionRow> matching = rows.stream()
+                    .filter(r -> AttentionReason.of(r.message().getStatus(), r.message().getError()) == reason)
+                    .sorted(byDate)
+                    .toList();
+            int from = (int) Math.min((long) page * size, matching.size());
+            int to = Math.min(matching.size(), from + size);
+            List<GmailAttentionItemResponse> content = matching.subList(from, to).stream().map(GmailAttentionItemResponse::from).toList();
+            return ResponseEntity.ok(new PageImpl<>(content, PageRequest.of(page, size), matching.size()));
         }
 
         Page<GmailAttentionRow> items = archived

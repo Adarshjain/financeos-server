@@ -1,5 +1,7 @@
 package com.financeos.api.gmail.dto;
 
+import com.financeos.gmail.classify.BankSenderDomains;
+import com.financeos.gmail.domain.AttentionReason;
 import com.financeos.gmail.domain.GmailAttentionRow;
 import com.financeos.gmail.domain.GmailProcessedMessage;
 import com.financeos.gmail.domain.GmailProcessedStatus;
@@ -31,7 +33,13 @@ public record GmailAttentionItemResponse(
     @Nullable UUID accountId,
     @Nullable String accountName,
     /** When the user archived this item; null while it is active. */
-    @Nullable Instant archivedAt
+    @Nullable Instant archivedAt,
+    /** Why the item needs attention, derived from its status and error. */
+    AttentionReason reason,
+    /** Catalog bank id for the sender's domain (for "Create account"); null when unknown. */
+    @Nullable String suggestedBankId,
+    /** The card or account last four extracted from the mail, when one was stored; null otherwise. */
+    @Nullable String suggestedLast4
 ) {
     public static GmailAttentionItemResponse from(GmailAttentionRow row) {
         GmailProcessedMessage gpm = row.message();
@@ -52,7 +60,10 @@ public record GmailAttentionItemResponse(
             row.connectionEmail(),
             row.accountId(),
             row.accountName(),
-            gpm.getArchivedAt()
+            gpm.getArchivedAt(),
+            AttentionReason.of(gpm.getStatus(), gpm.getError()),
+            BankSenderDomains.bankIdFor(gpm.getSenderAddress()),
+            gpm.getExtractedLast4() == null || gpm.getExtractedLast4().isBlank() ? null : gpm.getExtractedLast4()
         );
     }
 }

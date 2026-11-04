@@ -51,6 +51,21 @@ public interface GmailProcessedMessageRepository extends JpaRepository<GmailProc
            countQuery = "SELECT COUNT(g) FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.status IN :statuses AND g.archivedAt IS NULL" + NOT_STANDING_FOR_SUGGESTION)
     Page<GmailAttentionRow> findAttentionItems(@Param("userId") UUID userId, @Param("statuses") Collection<GmailProcessedStatus> statuses, Pageable pageable);
 
+    /** Id, status and error of a row: enough to classify its {@link AttentionReason} without loading entities. */
+    interface AttentionBrief {
+        UUID getId();
+        GmailProcessedStatus getStatus();
+        String getError();
+    }
+
+    /** Active attention rows (same inclusion as {@link #findAttentionItems}) as briefs, for the summary and bulk actions. */
+    @Query("SELECT g.id AS id, g.status AS status, g.error AS error FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.status IN :statuses AND g.archivedAt IS NULL" + NOT_STANDING_FOR_SUGGESTION)
+    List<AttentionBrief> findAttentionBriefs(@Param("userId") UUID userId, @Param("statuses") Collection<GmailProcessedStatus> statuses);
+
+    /** Rows by id, scoped to one user. */
+    @Query("SELECT g FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.id IN :ids")
+    List<GmailProcessedMessage> findByUserIdAndIdIn(@Param("userId") UUID userId, @Param("ids") Collection<UUID> ids);
+
     /** Attention items the user archived, same shape as {@link #findAttentionItems}. */
     @Query(value = "SELECT new com.financeos.gmail.domain.GmailAttentionRow(g, c.email, a.id, a.name) FROM GmailProcessedMessage g JOIN g.connection c LEFT JOIN g.account a WHERE g.user.id = :userId AND g.status IN :statuses AND g.archivedAt IS NOT NULL",
            countQuery = "SELECT COUNT(g) FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.status IN :statuses AND g.archivedAt IS NOT NULL")
