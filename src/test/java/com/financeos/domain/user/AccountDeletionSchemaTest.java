@@ -112,7 +112,7 @@ class AccountDeletionSchemaTest {
                 "user_instrument_repoints", "corporate_actions", "credit_limit_pools", "app_notifications",
                 "chat_conversation", "epf_employer", "epf_entry", "epf_link_dismissal",
                 "app_lock_devices", "link_suggestions", "auto_link_rejections",
-                "account_detect_state", "account_detect_facts", "account_suggestions",
+                "account_detect_state", "account_detect_facts", "account_suggestions", "held_uploads",
                 // no FK (a '*' row marks the run); AccountDeletionExecutor deletes it explicitly
                 "category_backfill_progress"
         );

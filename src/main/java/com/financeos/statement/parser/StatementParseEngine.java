@@ -21,6 +21,37 @@ public final class StatementParseEngine {
     private StatementParseEngine() {
     }
 
+    /**
+     * Reads only who the file is from (issuer id, bank text, account number): no rows, no balances.
+     * Throws {@link StatementParseException} for a locked or unreadable file.
+     */
+    public static StatementIdentity identify(byte[] bytes, String password) {
+        Consumer<String> dbg = s -> {
+        };
+        FileType type = FileType.detect(bytes);
+        if (type == FileType.PDF) {
+            int start = FileType.pdfHeaderOffset(bytes);
+            if (start > 0) {
+                bytes = Arrays.copyOfRange(bytes, start, bytes.length);
+            }
+        }
+        WordSource extractor = type == FileType.PDF ? new PdfWordExtractor() : new ExcelGridExtractor();
+        List<Line> lines = extractor.extract(bytes, password);
+        CollectedRows cr = RowCollector.collect(lines, dbg);
+        StatementMeta meta = MetadataExtractor.extract(cr.metaZone(), cr.dateFmt());
+        if (meta.accountNumber == null) {
+            for (Line ln : lines) {
+                Matcher m = Tokens.ACCOUNT_LABEL.matcher(ln.text());
+                if (m.find()) {
+                    meta.accountNumber = m.group(1);
+                    break;
+                }
+            }
+        }
+        fillDocumentFacts(meta, lines);
+        return new StatementIdentity(meta.issuerId, meta.bank, meta.accountNumber);
+    }
+
     public static ParsedStatement parse(byte[] bytes, String password, Consumer<String> debug) {
         Consumer<String> dbg = debug != null ? debug : s -> {
         };

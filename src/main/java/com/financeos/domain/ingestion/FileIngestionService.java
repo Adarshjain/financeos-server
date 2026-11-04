@@ -60,6 +60,14 @@ public class FileIngestionService {
     private com.financeos.domain.categorization.CategoryAssigner categoryAssigner;
     private final StatementPersistenceService statementPersistenceService;
     private final com.financeos.domain.account.AccountService accountService;
+
+    /** Other saved passwords and saving a working one; optional so hand-built test instances need none. */
+    private StatementPasswordVault passwordVault;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setPasswordVault(StatementPasswordVault passwordVault) {
+        this.passwordVault = passwordVault;
+    }
     private com.financeos.statement.details.StatementDetailsAiFiller detailsAiFiller;
 
     /** Optional: absent in plain unit tests, where no AI step runs. */
@@ -106,6 +114,46 @@ public class FileIngestionService {
     }
 
     public FileIngestionResult ingest(UUID accountId, List<UploadedFile> files, com.financeos.domain.job.JobExecutionContext execCtx) {
+        return ingest(accountId, files, execCtx, null);
+    }
+
+    /** What opening a file took: the parse result, whether a password was tried, and the one that worked (null = none or the account's own). */
+    private record Opened(StatementExtractionResult result, boolean passwordTried) {}
+
+    /**
+     * Parses with the explicit password (if any), else the account's; when the file is locked and that fails,
+     * tries the user's other saved statement passwords. A password that opens a file for an account with none
+     * is saved to that account. Passwords are never logged.
+     */
+    private Opened open(UUID userId, UUID accountId, byte[] bytes, String explicit, String accountPassword) {
+        boolean hasExplicit = explicit != null && !explicit.isBlank();
+        boolean hasAccount = accountPassword != null && !accountPassword.isBlank();
+        String first = hasExplicit ? explicit : hasAccount ? accountPassword : null;
+        StatementExtractionResult result = statementParser.parse(bytes, first);
+        boolean tried = first != null;
+        if (result.success() || !com.financeos.statement.parser.StatementParseException.isPasswordMessage(result.failureReason())) {
+            return new Opened(result, tried);
+        }
+        java.util.LinkedHashSet<String> others = new java.util.LinkedHashSet<>();
+        if (hasExplicit && hasAccount) others.add(accountPassword);
+        if (passwordVault != null) others.addAll(passwordVault.savedPasswords(userId));
+        others.remove(first);
+        for (String candidate : others) {
+            StatementExtractionResult attempt = statementParser.parse(bytes, candidate);
+            tried = true;
+            if (attempt.success()) {
+                if (!hasAccount && passwordVault != null) {
+                    passwordVault.saveIfMissing(userId, accountId, candidate);
+                }
+                return new Opened(attempt, true);
+            }
+        }
+        return new Opened(result, tried);
+    }
+
+    /** {@code explicitPassword}: a password the user just typed for these files; tried before the account's. */
+    public FileIngestionResult ingest(UUID accountId, List<UploadedFile> files, com.financeos.domain.job.JobExecutionContext execCtx,
+                                      String explicitPassword) {
         // Read account (retrieves account, checks permissions, initializes cardholders)
         Account account = accountService.getAccountById(accountId);
         UUID currentSessionUserId = com.financeos.core.security.UserContext.getCurrentUserId();
@@ -143,7 +191,7 @@ public class FileIngestionService {
             try {
                 byte[] bytes = file.bytes() != null ? file.bytes() : new byte[0];
                 if (bytes.length == 0) {
-                    fileDetails.add(new FileIngestionResult.FileSummary(filename, "FAILED", 0, "File is empty"));
+                    fileDetails.add(FileIngestionResult.FileSummary.failed(filename, "File is empty", FileIngestionResult.ErrorCode.UNREADABLE));
                     continue;
                 }
 
@@ -156,9 +204,11 @@ public class FileIngestionService {
                         StructuredArguments.keyValue("parserChosen", statementParser.getClass().getSimpleName()),
                         StructuredArguments.keyValue("brokerHint", account.getType().name()));
 
-                StatementExtractionResult parseResult = statementParser.parse(bytes, password);
+                Opened opened = open(currentSessionUserId, accountId, bytes, explicitPassword, password);
+                StatementExtractionResult parseResult = opened.result();
                 if (!parseResult.success()) {
-                    fileDetails.add(new FileIngestionResult.FileSummary(filename, "FAILED", 0, parseResult.failureReason()));
+                    fileDetails.add(FileIngestionResult.FileSummary.failed(filename, parseResult.failureReason(),
+                            FileIngestionResult.ErrorCode.classify(parseResult.failureReason(), opened.passwordTried())));
                     continue;
                 }
                 if (detailsAiFiller != null && parseResult.draft() != null) {
@@ -255,7 +305,8 @@ public class FileIngestionService {
 
             } catch (Exception e) {
                 log.error("Failed to process file: {}", filename, e);
-                fileDetails.add(new FileIngestionResult.FileSummary(filename, "FAILED", 0, e.getMessage()));
+                fileDetails.add(FileIngestionResult.FileSummary.failed(filename, e.getMessage(),
+                        FileIngestionResult.ErrorCode.classify(e.getMessage(), false)));
             }
         }
 
@@ -390,16 +441,7 @@ public class FileIngestionService {
                             dupsForFile++;
                         }
                     }
-                    fileDetails.set(k, new FileIngestionResult.FileSummary(
-                            summary.filename(),
-                            summary.status(),
-                            summary.linesParsed(),
-                            summary.errorMessage(),
-                            summary.warning(),
-                            createdForFile,
-                            dupsForFile,
-                            summary.filledDetails()
-                    ));
+                    fileDetails.set(k, summary.withCounts(createdForFile, dupsForFile));
                 }
             }
 

@@ -44,6 +44,17 @@ public class JobArtifact {
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
+    /** Position of the file in its upload (the index of its entry in the job result); null on older rows. */
+    @Column(name = "file_index")
+    private Integer fileIndex;
+
+    @Column(name = "file_sha256", length = 64)
+    private String fileSha256;
+
+    /** True keeps the file after the job succeeds (held for an account, or waiting for a password). */
+    @Column(name = "retained", nullable = false)
+    private boolean retained;
+
     @PrePersist
     protected void onCreate() {
         if (id == null) {
@@ -68,4 +79,10 @@ public class JobArtifact {
     public void setData(byte[] data) { this.data = data; }
     public Instant getCreatedAt() { return createdAt; }
     public void setCreatedAt(Instant createdAt) { this.createdAt = createdAt; }
+    public Integer getFileIndex() { return fileIndex; }
+    public void setFileIndex(Integer fileIndex) { this.fileIndex = fileIndex; }
+    public String getFileSha256() { return fileSha256; }
+    public void setFileSha256(String fileSha256) { this.fileSha256 = fileSha256; }
+    public boolean isRetained() { return retained; }
+    public void setRetained(boolean retained) { this.retained = retained; }
 }
