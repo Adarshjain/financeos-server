@@ -505,6 +505,24 @@ public class TransactionService {
         return new CategoryChange(saved, prevKey, prevSub, prevSource, prevRuleId, prevSetAt);
     }
 
+    /**
+     * The short payee key a "do the same next time" rule would match for this transaction: the counterparty name
+     * the Sort them grouping uses (same text, same analyser), upper-cased like a Sort them rule's pattern; null when none.
+     */
+    public String ruleKeyOf(Transaction t) {
+        if (categoryAssigner == null) {
+            return null;
+        }
+        String text = t.getSourcedDescription() != null && !t.getSourcedDescription().isBlank()
+                ? t.getSourcedDescription() : t.getDescription();
+        if (text == null || text.isBlank()) {
+            return null;
+        }
+        com.financeos.domain.categorization.builtin.BuiltinMatch m = categoryAssigner.analyse(text, t.getType(), null, t.getMcc());
+        String name = m == null ? null : m.counterpartyName();
+        return name == null || name.isBlank() ? null : name.trim().toUpperCase(java.util.Locale.ROOT);
+    }
+
     public void deleteTransaction(UUID id) {
         Transaction transaction = transactionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Transaction", id));

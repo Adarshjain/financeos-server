@@ -11,7 +11,7 @@ import org.springframework.lang.Nullable;
 import java.time.Instant;
 import java.util.UUID;
 
-/** The transaction's category fields after the change, and the ones before it (feed them to restore for Undo). */
+/** The transaction's category fields after the change, and the ones before it (feed them to restore for Undo). {@code ruleKey} is the short payee key a "do the same next time" rule would match, null when none. */
 public record SetCategoryResponse(
         UUID transactionId,
         @Nullable CategoryRef category,
@@ -20,6 +20,7 @@ public record SetCategoryResponse(
         @Nullable UUID categoryRuleId,
         @Nullable Instant categorySetAt,
         boolean isTransactionExcluded,
+        @Nullable String ruleKey,
         Previous previous) {
 
     public record Previous(
@@ -30,7 +31,7 @@ public record SetCategoryResponse(
             @Nullable Instant setAt) {
     }
 
-    public static SetCategoryResponse from(TransactionService.CategoryChange change, CategoryCatalog catalog) {
+    public static SetCategoryResponse from(TransactionService.CategoryChange change, CategoryCatalog catalog, @Nullable String ruleKey) {
         Transaction t = change.transaction();
         return new SetCategoryResponse(
                 t.getId(),
@@ -40,6 +41,7 @@ public record SetCategoryResponse(
                 t.getAppliedRule() != null ? t.getAppliedRule().getId() : null,
                 t.getCategorySetAt(),
                 t.isTransactionExcluded(),
+                ruleKey,
                 new Previous(change.previousCategoryKey(), change.previousSubcategoryKey(), change.previousSource(),
                         change.previousRuleId(), change.previousSetAt()));
     }

@@ -102,7 +102,7 @@ public class TransactionController {
                 request.subcategoryKey(),
                 restore == null ? null
                         : new TransactionService.CategoryRestore(restore.source(), restore.ruleId(), restore.setAt()));
-        return ResponseEntity.ok(SetCategoryResponse.from(change, categoryCatalog));
+        return ResponseEntity.ok(SetCategoryResponse.from(change, categoryCatalog, transactionService.ruleKeyOf(change.transaction())));
     }
 
     @DeleteMapping("/{id}")
