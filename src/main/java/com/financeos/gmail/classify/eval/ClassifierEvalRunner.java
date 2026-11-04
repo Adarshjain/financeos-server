@@ -214,7 +214,7 @@ public class ClassifierEvalRunner implements CommandLineRunner {
                                    Summary summary) throws IOException {
         List<String> senders = senderRepository.findByUserId(connection.getUser().getId()).stream()
                 .map(GmailSender::getSenderAddress).toList();
-        List<String> queries = buildQueries(BankSenderDomains.domains(), EXTRA_DOMAINS, senders, days);
+        List<String> queries = buildQueries(BankSenderDomains.current().domains(), EXTRA_DOMAINS, senders, days);
         Set<String> ids = new LinkedHashSet<>();
         Gmail service;
         try {

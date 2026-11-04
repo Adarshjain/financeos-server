@@ -40,6 +40,10 @@ public class GmailSender {
     @Column(nullable = false)
     private Boolean enabled = true;
 
+    /** The catalog bank this sender was added for (or matches); null for a sender the user typed that matches no bank. */
+    @Column(name = "bank_id", length = 40)
+    private String bankId;
+
     @Column(name = "created_at")
     private Instant createdAt;
 

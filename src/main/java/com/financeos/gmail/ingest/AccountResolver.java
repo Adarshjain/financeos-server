@@ -7,6 +7,8 @@ import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.BankCatalog;
 import com.financeos.domain.account.card.Card;
 import com.financeos.domain.account.card.CardRepository;
+import com.financeos.gmail.classify.BankSenderDomains;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -25,12 +27,24 @@ public class AccountResolver {
     private final CardRepository cardRepository;
     private final AccountIdentifierRepository accountIdentifierRepository;
 
+    private final BankSenderDomains bankSenderDomains;
+
+    /** Over the built-in bank domains (tests). */
     public AccountResolver(AccountRepository accountRepository,
                            CardRepository cardRepository,
                            AccountIdentifierRepository accountIdentifierRepository) {
+        this(accountRepository, cardRepository, accountIdentifierRepository, BankSenderDomains.defaults());
+    }
+
+    @Autowired
+    public AccountResolver(AccountRepository accountRepository,
+                           CardRepository cardRepository,
+                           AccountIdentifierRepository accountIdentifierRepository,
+                           BankSenderDomains bankSenderDomains) {
         this.accountRepository = accountRepository;
         this.cardRepository = cardRepository;
         this.accountIdentifierRepository = accountIdentifierRepository;
+        this.bankSenderDomains = bankSenderDomains;
     }
 
     private boolean isMatch(String ext, String db) {
@@ -69,12 +83,45 @@ public class AccountResolver {
     }
 
     /**
+     * First tie-break: the bank behind the sender's domain. Keeps only candidates whose account bank is that bank;
+     * wins when they are all one account. Unknown sender domain, or none/several accounts on that bank: no answer.
+     */
+    private Optional<ResolvedCard> tieBreakBySenderBank(List<ResolvedCard> candidates, String accountLast4,
+                                                        String fromAddress) {
+        String senderBank = bankSenderDomains.bankIdFor(fromAddress);
+        if (senderBank == null) {
+            return Optional.empty();
+        }
+        Map<UUID, ResolvedCard> byAccount = new LinkedHashMap<>();
+        for (ResolvedCard c : candidates) {
+            if (!senderBank.equals(c.account().getBank())) {
+                continue;
+            }
+            ResolvedCard existing = byAccount.get(c.account().getId());
+            if (existing == null || (existing.card() == null && c.card() != null)) {
+                byAccount.put(c.account().getId(), c);
+            }
+        }
+        if (byAccount.size() != 1) {
+            return Optional.empty();
+        }
+        ResolvedCard winner = byAccount.values().iterator().next();
+        log.info("gmail.resolver.sender_bank_tiebreak last4={} candidates={} senderBank={} account={}",
+                accountLast4, candidates.size(), senderBank, winner.account().getId());
+        return Optional.of(winner);
+    }
+
+    /**
      * Same-last4 tie-break: when several candidates share the last4, the one whose bank is the single bank
      * named in the email text wins. Banks come from the email's own text (never the sender address); no
      * bank set on a candidate, no bank named, or more than one candidate on a named bank keeps it ambiguous.
      */
     private Optional<ResolvedCard> tieBreakByBank(List<ResolvedCard> candidates, String accountLast4,
-                                                  Collection<String> emailTexts) {
+                                                  Collection<String> emailTexts, String fromAddress) {
+        Optional<ResolvedCard> bySender = tieBreakBySenderBank(candidates, accountLast4, fromAddress);
+        if (bySender.isPresent()) {
+            return bySender;
+        }
         if (emailTexts == null || emailTexts.isEmpty()) {
             return Optional.empty();
         }
@@ -112,6 +159,14 @@ public class AccountResolver {
      */
     @Transactional(readOnly = true)
     public Optional<ResolvedCard> resolve(String accountLast4, Collection<String> emailTexts) {
+        return resolve(accountLast4, emailTexts, null);
+    }
+
+    /**
+     * @param fromAddress the mail's sender; its bank (via the bank sender domains) is the first same-last4 tie-break
+     */
+    @Transactional(readOnly = true)
+    public Optional<ResolvedCard> resolve(String accountLast4, Collection<String> emailTexts, String fromAddress) {
         if (accountLast4 == null || accountLast4.trim().isEmpty()) {
             return Optional.empty();
         }
@@ -153,7 +208,7 @@ public class AccountResolver {
             return Optional.of(pass1Matches.get(0));
         }
         if (pass1Matches.size() > 1) {
-            return tieBreakByBank(pass1Matches, accountLast4, emailTexts); // else ambiguity -> UNRESOLVED_ACCOUNT
+            return tieBreakByBank(pass1Matches, accountLast4, emailTexts, fromAddress); // else ambiguity -> UNRESOLVED_ACCOUNT
         }
 
         // Pass 2: Fuzzy isMatch over open cards, bank accounts, and aliases
@@ -192,7 +247,7 @@ public class AccountResolver {
             return Optional.of(pass2Matches.get(0));
         }
         if (pass2Matches.size() > 1) {
-            return tieBreakByBank(pass2Matches, accountLast4, emailTexts); // else ambiguity -> UNRESOLVED_ACCOUNT
+            return tieBreakByBank(pass2Matches, accountLast4, emailTexts, fromAddress); // else ambiguity -> UNRESOLVED_ACCOUNT
         }
 
         // Pass 3: Exact match against closed cards or cards of closed cardholders

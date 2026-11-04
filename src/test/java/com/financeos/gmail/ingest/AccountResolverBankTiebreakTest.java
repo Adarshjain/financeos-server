@@ -159,4 +159,39 @@ class AccountResolverBankTiebreakTest {
 
         assertThat(resolve("1111", "ICICI Bank alert")).map(r -> r.account()).contains(hdfc);
     }
+
+    @Test
+    void senderBankIsTheFirstTieBreak_beatingTheEmailText() {
+        Account hdfc = card("HDFC card", "hdfc");
+        Account icici = card("ICICI card", "icici");
+        given(hdfc, icici, "1111");
+
+        // the sender is ICICI while the text names HDFC: the sender decides
+        assertThat(resolver.resolve("1111", List.of("HDFC Bank alert", "card ending 1111"), "alerts@icicibank.com"))
+                .map(r -> r.account()).contains(icici);
+    }
+
+    @Test
+    void senderBankWithSeveralAccountsOnIt_fallsThroughToTheEmailText() {
+        Account hdfc1 = card("HDFC one", "hdfc");
+        Account hdfc2 = card("HDFC two", "hdfc");
+        Account icici = card("ICICI card", "icici");
+        when(accountRepository.findAll()).thenReturn(List.of(hdfc1, hdfc2, icici));
+        when(cardRepository.findAll()).thenReturn(List.of(cardOf(hdfc1, "1111"), cardOf(hdfc2, "1111"), cardOf(icici, "1111")));
+
+        assertThat(resolver.resolve("1111", List.of("ICICI Bank alert"), "alerts@hdfcbank.net")).map(r -> r.account()).contains(icici);
+        assertThat(resolver.resolve("1111", List.of("card ending 1111"), "alerts@hdfcbank.net")).isEmpty();
+    }
+
+    @Test
+    void unknownSenderOrNoMatchingAccount_keepsTheOldBehaviour() {
+        Account hdfc = card("HDFC card", "hdfc");
+        Account icici = card("ICICI card", "icici");
+        given(hdfc, icici, "1111");
+
+        assertThat(resolver.resolve("1111", List.of("card ending 1111"), "noreply@example.com")).isEmpty();
+        assertThat(resolver.resolve("1111", List.of("card ending 1111"), "alerts@axisbank.com")).isEmpty();
+        assertThat(resolver.resolve("1111", List.of("ICICI Bank alert"), "noreply@example.com"))
+                .map(r -> r.account()).contains(icici);
+    }
 }

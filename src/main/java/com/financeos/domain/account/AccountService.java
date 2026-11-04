@@ -19,6 +19,7 @@ import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
 import com.financeos.gmail.domain.GmailBackfillDemand;
 import com.financeos.gmail.domain.GmailBackfillDemandRepository;
+import com.financeos.gmail.ingest.SenderAllowlistService;
 import com.financeos.gmail.ingest.event.AccountIngestChangedEvent;
 import com.financeos.gmail.accountdetect.suggest.AccountSuggestion;
 import com.financeos.gmail.accountdetect.suggest.SuggestionAdoption;
@@ -51,6 +52,10 @@ public class AccountService {
     private final GmailBackfillDemandRepository backfillDemandRepository;
     private final ApplicationEventPublisher eventPublisher;
     private final SuggestionAdoption suggestionAdoption;
+
+    /** Adds a bank's sender domains to the user's Gmail senders; optional so tests that build the service by hand need none. */
+    @Autowired(required = false)
+    private SenderAllowlistService senderAllowlistService;
 
     /** Without suggestion support, for callers that build the service by hand. */
     public AccountService(AccountRepository accountRepository,
@@ -97,6 +102,12 @@ public class AccountService {
         }
         if (!BankCatalog.isKnown(bank)) {
             throw new ValidationException("Unknown bank: " + bank);
+        }
+    }
+
+    private void addBankSenders(UUID userId, String bankId) {
+        if (senderAllowlistService != null && bankId != null) {
+            senderAllowlistService.addBankSenders(userId, bankId);
         }
     }
 
@@ -147,6 +158,7 @@ public class AccountService {
 
         Account saved = accountRepository.save(account);
         populateBalanceInfo(saved);
+        addBankSenders(userId, saved.getBank());
         if (hasStatementPassword(saved)) eventPublisher.publishEvent(new StatementPasswordSavedEvent(userId));
 
         if (saved.getIngestFromDate() != null) {
@@ -408,6 +420,7 @@ public class AccountService {
         }
 
         LocalDate oldDate = account.getIngestFromDate();
+        String oldBank = account.getBank();
         String oldLast4 = extractLast4(account);
         String oldPassword = statementPasswordOf(account);
         LocalDate newDate = request.ingestFromDate();
@@ -450,6 +463,9 @@ public class AccountService {
         // Leaving (or switching) a shared limit can empty the old one.
         accountRepository.deleteEmptyLimitPools(saved.getUser().getId());
         populateBalanceInfo(saved);
+        if (saved.getBank() != null && !Objects.equals(oldBank, saved.getBank())) {
+            addBankSenders(saved.getUser().getId(), saved.getBank());
+        }
         if (hasStatementPassword(saved) && !Objects.equals(oldPassword, statementPasswordOf(saved))) {
             eventPublisher.publishEvent(new StatementPasswordSavedEvent(saved.getUser().getId()));
         }
