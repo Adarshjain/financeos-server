@@ -11250,6 +11250,35 @@ components:
           format: int32
       required:
       - updatedCount
+    Candidate:
+      type: object
+      properties:
+        accountName:
+          type: string
+          nullable: true
+          x-nullable: true
+        amount:
+          type: number
+        date:
+          type: string
+          format: date
+        description:
+          type: string
+          nullable: true
+          x-nullable: true
+        lendingId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        transactionId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+      required:
+      - amount
+      - date
     CapStatus:
       type: object
       properties:
@@ -23251,6 +23280,8 @@ components:
           x-nullable: true
         subcategory:
           $ref: "#/components/schemas/SubcategoryRef"
+        suggestion:
+          $ref: "#/components/schemas/TransactionSuggestion"
         tags:
           type: array
           items:
@@ -23285,6 +23316,32 @@ components:
           type: string
           nullable: true
           x-nullable: true
+    TransactionSuggestion:
+      type: object
+      properties:
+        candidates:
+          type: array
+          items:
+            $ref: "#/components/schemas/Candidate"
+        id:
+          type: string
+          format: uuid
+        kind:
+          type: string
+          enum:
+          - TRANSFER
+          - CC_PAYMENT
+          - REFUND
+          - EMI
+          - LENDING
+          - DIVIDEND
+        label:
+          type: string
+      required:
+      - candidates
+      - id
+      - kind
+      - label
     TransactionSummary:
       type: object
       properties:

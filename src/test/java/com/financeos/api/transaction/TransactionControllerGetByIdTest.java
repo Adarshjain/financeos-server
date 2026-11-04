@@ -25,6 +25,7 @@ class TransactionControllerGetByIdTest {
     private TransactionService transactionService;
     private TransactionLinkService linkService;
     private ObligationRefService obligationRefService;
+    private com.financeos.domain.transaction.autolink.TransactionSuggestionService suggestionService;
     private TransactionController controller;
 
     @BeforeEach
@@ -32,8 +33,10 @@ class TransactionControllerGetByIdTest {
         transactionService = mock(TransactionService.class);
         linkService = mock(TransactionLinkService.class);
         obligationRefService = mock(ObligationRefService.class);
+        suggestionService = mock(com.financeos.domain.transaction.autolink.TransactionSuggestionService.class);
         controller = new TransactionController(transactionService, linkService, obligationRefService,
-                com.financeos.domain.category.CategoryCatalog.shared());
+                com.financeos.domain.category.CategoryCatalog.shared(),
+                suggestionService);
     }
 
     @Test

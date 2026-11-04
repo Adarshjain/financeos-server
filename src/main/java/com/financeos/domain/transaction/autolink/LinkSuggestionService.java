@@ -8,6 +8,7 @@ import com.financeos.api.transactionlink.dto.TransactionLinkResponse;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.domain.account.AccountType;
+import com.financeos.domain.lending.LendingService;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.transaction.link.LinkOrigin;
@@ -32,6 +33,13 @@ public class LinkSuggestionService {
     private final AutoLinkStore store;
     private final TransactionRepository transactionRepository;
     private final TransactionLinkService linkService;
+    private LendingService lendingService;
+
+    /** Needed only for LENDING suggestions (accept settles through the lending service). */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setLendingService(LendingService lendingService) {
+        this.lendingService = lendingService;
+    }
 
     public LinkSuggestionService(AutoLinkStore store, TransactionRepository transactionRepository,
                                  TransactionLinkService linkService) {
@@ -53,7 +61,9 @@ public class LinkSuggestionService {
         Set<UUID> ids = new LinkedHashSet<>();
         for (AutoLinkStore.SuggestionRow row : rows) {
             ids.add(row.transactionId());
-            ids.addAll(row.candidateIds());
+            if (row.kind() != SuggestionKind.LENDING) {
+                ids.addAll(row.candidateIds());
+            }
         }
         Set<UUID> live = store.liveTransactionIds(userId, ids);
         List<AutoLinkStore.SuggestionRow> out = new ArrayList<>();
@@ -61,7 +71,9 @@ public class LinkSuggestionService {
             if (!live.contains(row.transactionId())) {
                 continue;
             }
-            List<UUID> candidates = row.candidateIds().stream().filter(live::contains).toList();
+            // LENDING candidates are lending entry ids: no transaction to check, only the credit must still be free.
+            List<UUID> candidates = row.kind() == SuggestionKind.LENDING ? row.candidateIds()
+                    : row.candidateIds().stream().filter(live::contains).toList();
             if (!candidates.isEmpty()) {
                 out.add(new AutoLinkStore.SuggestionRow(row.id(), row.kind(), row.transactionId(), candidates));
             }
@@ -88,12 +100,18 @@ public class LinkSuggestionService {
         }
         Set<UUID> ids = new LinkedHashSet<>();
         for (AutoLinkStore.SuggestionRow row : rows) {
+            if (row.kind() == SuggestionKind.LENDING) {
+                continue; // its candidates are lending entries; shown on the transaction row, not in this list
+            }
             ids.add(row.transactionId());
             ids.addAll(row.candidateIds());
         }
         Map<UUID, Transaction> byId = load(userId, ids);
         List<LinkSuggestionResponse> out = new ArrayList<>();
         for (AutoLinkStore.SuggestionRow row : rows) {
+            if (row.kind() == SuggestionKind.LENDING) {
+                continue;
+            }
             Transaction main = byId.get(row.transactionId());
             List<TransactionSummary> candidates = row.candidateIds().stream()
                     .filter(byId::containsKey).map(id -> summary(byId.get(id))).toList();
@@ -104,13 +122,25 @@ public class LinkSuggestionService {
         return out;
     }
 
-    /** Creates the link with origin USER and removes the suggestion. */
+    /**
+     * Creates the link with origin USER and removes the suggestion. A LENDING suggestion creates no link: the
+     * candidate is a lending entry (it names the person) and the credit is recorded as that person's settlement
+     * entry through the lending service; the result is then null.
+     */
     @Transactional
     public TransactionLinkResponse accept(UUID userId, UUID suggestionId, UUID candidateId) {
         AutoLinkStore.SuggestionRow row = store.findSuggestion(userId, suggestionId)
                 .orElseThrow(() -> new ResourceNotFoundException("LinkSuggestion", suggestionId));
         if (!row.candidateIds().contains(candidateId)) {
             throw new ValidationException("That transaction is not a candidate of this suggestion");
+        }
+        if (row.kind() == SuggestionKind.LENDING) {
+            if (lendingService == null) {
+                throw new ValidationException("Lending suggestions are not available");
+            }
+            lendingService.settleFromSuggestion(candidateId, row.transactionId());
+            store.deleteSuggestion(userId, suggestionId);
+            return null;
         }
         if (!store.ownedTransactionIds(userId, List.of(row.transactionId(), candidateId)).isEmpty()) {
             throw new ValidationException("One of these transactions is already linked to a record");
@@ -146,6 +176,17 @@ public class LinkSuggestionService {
     public void dismiss(UUID userId, UUID suggestionId) {
         AutoLinkStore.SuggestionRow row = store.findSuggestion(userId, suggestionId)
                 .orElseThrow(() -> new ResourceNotFoundException("LinkSuggestion", suggestionId));
+        if (row.kind() == SuggestionKind.LENDING) {
+            // Remembered against the person (not the entry) so a newer entry does not bring the suggestion back.
+            List<AutoLinkStore.Rejection> remembered = new ArrayList<>();
+            if (lendingService != null) {
+                lendingService.counterpartyIdsOf(row.candidateIds()).values().stream().distinct().forEach(
+                        cp -> remembered.add(new AutoLinkStore.Rejection(SuggestionKind.LENDING, row.transactionId(), cp)));
+            }
+            store.addRejections(userId, remembered);
+            store.deleteSuggestion(userId, suggestionId);
+            return;
+        }
         Map<UUID, Transaction> candidates = load(userId, row.candidateIds());
         List<AutoLinkStore.Rejection> rejections = new ArrayList<>();
         for (UUID candidateId : row.candidateIds()) {
