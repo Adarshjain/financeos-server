@@ -80,7 +80,7 @@ class StatementIngestJobHandlerAutoTest {
     }
 
     @Test
-    void filesThatStillNeedAPasswordAreRetainedAndOthersAreNot() throws Exception {
+    void everyUploadedFileIsRetainedAfterTheJobSucceeds() throws Exception {
         UUID accountId = UUID.randomUUID();
         JobArtifact ok = new JobArtifact();
         ok.setId(UUID.randomUUID());
@@ -97,6 +97,6 @@ class StatementIngestJobHandlerAutoTest {
         @SuppressWarnings("unchecked")
         ArgumentCaptor<Collection<UUID>> kept = ArgumentCaptor.forClass(Collection.class);
         verify(jobService).retainArtifacts(eq(jobId), kept.capture());
-        assertThat(kept.getValue()).containsExactly(artifact.getId());
+        assertThat(kept.getValue()).containsExactlyInAnyOrder(artifact.getId(), ok.getId());
     }
 }

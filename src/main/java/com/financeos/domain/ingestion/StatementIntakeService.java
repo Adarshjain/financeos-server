@@ -111,8 +111,8 @@ public class StatementIntakeService {
     }
 
     /**
-     * Moves an ingested statement to another account: deletes it (and the transactions it created) from this one and
-     * ingests its stored file into the target. 409 when the file is no longer stored.
+     * Moves an ingested statement to another account: ingests its stored file into the target and, only when that succeeds, deletes it
+     * (and the transactions it created) from this one. 409 when the file is no longer stored.
      */
     public FileIngestionResult moveStatement(UUID userId, UUID accountId, UUID statementId, UUID targetAccountId) {
         Account source = accountRepository.findByIdAndUser_Id(accountId, userId)
@@ -131,8 +131,21 @@ public class StatementIntakeService {
             throw new ApiStatusException(HttpStatus.CONFLICT, "FILE_EXPIRED", HeldUploadService.FILE_GONE_MESSAGE);
         }
         UploadedFile file = new UploadedFile(stored.getFilename(), stored.getContentType(), stored.getData());
-        deletionService.delete(source.getId(), statementId);
-        return ingestionService.ingest(target.getId(), List.of(file), null);
+        // Target first: if it fails the source statement is untouched. No wrapping transaction (ingest and delete each
+        // commit on their own), so the worst case is a delete failure leaving the statement on both accounts, never on neither.
+        FileIngestionResult result = ingestionService.ingest(target.getId(), List.of(file), null);
+        FileIngestionResult.FileSummary summary = result.fileDetails() == null || result.fileDetails().isEmpty()
+                ? null : result.fileDetails().get(0);
+        if (summary != null && "FAILED".equals(summary.status())) {
+            FileIngestionResult.ErrorCode code = summary.errorCode();
+            if (code == FileIngestionResult.ErrorCode.PASSWORD_REQUIRED || code == FileIngestionResult.ErrorCode.WRONG_PASSWORD) {
+                throw new ApiStatusException(HttpStatus.UNPROCESSABLE_ENTITY, code.name(), summary.errorMessage());
+            }
+        }
+        if (summary != null && "SUCCESS".equals(summary.status())) {
+            deletionService.delete(source.getId(), statementId);
+        }
+        return result;
     }
 
     private UUID accountIdOf(Job job) {

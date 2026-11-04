@@ -178,20 +178,66 @@ class StatementIntakeServiceTest {
         return s;
     }
 
-    @Test
-    void moveDeletesTheStatementThenIngestsTheStoredFileIntoTheTarget() {
-        UUID stmtId = UUID.randomUUID();
+    private void stored(UUID stmtId) {
         when(statementRepository.findByIdAndAccount_Id(stmtId, accountId)).thenReturn(Optional.of(statement(stmtId, "abc")));
         when(artifactRepository.findByUserAndSha(userId, "abc")).thenReturn(List.of(artifact));
-        FileIngestionResult expected = new FileIngestionResult(1, 4, 0, List.of());
+    }
+
+    private static FileIngestionResult resultOf(FileIngestionResult.FileSummary f) {
+        return new FileIngestionResult(1, f.created(), 0, List.of(f));
+    }
+
+    @Test
+    void moveIngestsIntoTheTargetFirstThenDeletesTheSourceStatement() {
+        UUID stmtId = UUID.randomUUID();
+        stored(stmtId);
+        FileIngestionResult expected = resultOf(new FileIngestionResult.FileSummary("s.pdf", "SUCCESS", 4, null, null, 4, 0));
         when(ingestion.ingest(eq(targetId), anyList(), any())).thenReturn(expected);
 
         FileIngestionResult r = service.moveStatement(userId, accountId, stmtId, targetId);
 
         assertThat(r).isSameAs(expected);
-        InOrder order = inOrder(deletionService, ingestion);
-        order.verify(deletionService).delete(accountId, stmtId);
+        InOrder order = inOrder(ingestion, deletionService);
         order.verify(ingestion).ingest(eq(targetId), anyList(), any());
+        order.verify(deletionService).delete(accountId, stmtId);
+    }
+
+    @Test
+    void moveWhenTheTargetIngestFailsKeepsTheSourceAndReturnsTheResult() {
+        UUID stmtId = UUID.randomUUID();
+        stored(stmtId);
+        FileIngestionResult failed = resultOf(FileIngestionResult.FileSummary.failed("s.pdf", "bad", FileIngestionResult.ErrorCode.UNREADABLE));
+        when(ingestion.ingest(eq(targetId), anyList(), any())).thenReturn(failed);
+
+        assertThat(service.moveStatement(userId, accountId, stmtId, targetId)).isSameAs(failed);
+        verifyNoInteractions(deletionService);
+    }
+
+    @Test
+    void moveWhenTheTargetNeedsAPasswordIs422AndKeepsTheSource() {
+        UUID stmtId = UUID.randomUUID();
+        stored(stmtId);
+        when(ingestion.ingest(eq(targetId), anyList(), any())).thenReturn(
+                resultOf(FileIngestionResult.FileSummary.failed("s.pdf", "locked", FileIngestionResult.ErrorCode.PASSWORD_REQUIRED)));
+
+        assertThatThrownBy(() -> service.moveStatement(userId, accountId, stmtId, targetId))
+                .isInstanceOfSatisfying(ApiStatusException.class, e -> {
+                    assertThat(e.getStatus().value()).isEqualTo(422);
+                    assertThat(e.getCode()).isEqualTo("PASSWORD_REQUIRED");
+                });
+        verifyNoInteractions(deletionService);
+    }
+
+    @Test
+    void moveWhenTheTargetFileIsSkippedKeepsTheSource() {
+        UUID stmtId = UUID.randomUUID();
+        stored(stmtId);
+        when(ingestion.ingest(eq(targetId), anyList(), any())).thenReturn(
+                resultOf(new FileIngestionResult.FileSummary("s.pdf", "SKIPPED", 0, "already imported")));
+
+        service.moveStatement(userId, accountId, stmtId, targetId);
+
+        verifyNoInteractions(deletionService);
     }
 
     @Test
