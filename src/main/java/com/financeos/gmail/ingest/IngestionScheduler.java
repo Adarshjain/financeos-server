@@ -36,7 +36,7 @@ public class IngestionScheduler {
      * Periodic cron task that syncs Gmail connections and processes transactions.
      * Defaults to running every 2 hours from 10:00 to 22:00 in Asia/Kolkata (IST).
      */
-    @Scheduled(cron = "${gmail.ingest.cron:0 0 10-22/2 * * *}", zone = "${gmail.ingest.zone:Asia/Kolkata}")
+    @Scheduled(cron = "${gmail.ingest.cron:0 0 7,10-22/2 * * *}", zone = "${gmail.ingest.zone:Asia/Kolkata}")
     public void runIngestion() {
         if (!ingestProperties.isEnabled()) {
             log.info("Gmail Ingestion is disabled via configuration properties");

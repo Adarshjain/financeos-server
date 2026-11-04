@@ -396,9 +396,8 @@ public class GmailController {
     @Transactional
     public ResponseEntity<EnqueueResponse> rescan(@Valid @RequestBody RescanRequest request) {
         User currentUser = authService.getCurrentUser();
-        LocalDate minAllowed = AppTime.today().minusDays(ingestProperties.getMaxBackfillDays());
-        if (request.fromDate().isBefore(minAllowed)) {
-            throw new ValidationException("Rescan date cannot be earlier than " + minAllowed);
+        if (request.fromDate().isAfter(AppTime.today())) {
+            throw new ValidationException("Rescan date cannot be in the future");
         }
 
         GmailBackfillDemand demand = backfillDemandRepository.findById(currentUser.getId())

@@ -2,6 +2,8 @@ package com.financeos.domain.search;
 
 import com.financeos.api.search.dto.GlobalSearchResponse;
 import com.financeos.api.search.dto.SearchAccountHit;
+import com.financeos.api.search.dto.SearchCategoryHit;
+import com.financeos.api.search.dto.SearchRuleHit;
 import com.financeos.api.search.dto.SearchDashboardHit;
 import com.financeos.api.search.dto.SearchHoldingHit;
 import com.financeos.api.search.dto.SearchLoanHit;
@@ -32,7 +34,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 /**
- * Global search: seven small capped queries (5 rows each, no counts), run in order inside one read-only
+ * Global search: nine small capped queries (5 rows each, no counts), run in order inside one read-only
  * transaction. Every query is scoped by {@code user_id}; small groups list prefix matches first, then
  * alphabetically; transactions list newest first (served by idx_txn_user_date).
  */
@@ -42,7 +44,9 @@ public class GlobalSearchService {
 
     private static final Logger log = LoggerFactory.getLogger(GlobalSearchService.class);
 
-    static final int MIN_LENGTH = 3;
+    static final int MIN_LENGTH = 2;
+    /** Transactions and holdings are only searched from this length (too noisy at 2 characters). */
+    static final int HEAVY_MIN_LENGTH = 3;
     static final int MAX_LENGTH = 100;
 
     private static final String LIKE = " ESCAPE '\\'";
@@ -88,6 +92,24 @@ public class GlobalSearchService {
     private static final String DASHBOARDS_SQL = "SELECT id, name, is_default FROM dashboards WHERE user_id = :userId"
             + " AND LOWER(name) LIKE :q" + LIKE + PREFIX_ORDER.formatted("name", "id");
 
+    /** Fixed taxonomy: categories and sub-categories in one query, prefix matches first. */
+    private static final String CATEGORIES_SQL = """
+            SELECT item_key, name, parent_name FROM (
+                SELECT c.category_key AS item_key, c.name AS name, CAST(NULL AS VARCHAR2(100)) AS parent_name
+                  FROM txn_categories c
+                UNION ALL
+                SELECT s.subcategory_key, s.name, p.name
+                  FROM txn_subcategories s JOIN txn_categories p ON p.category_key = s.category_key
+            ) WHERE LOWER(name) LIKE :q""" + LIKE
+            + PREFIX_ORDER.formatted("name", "item_key");
+
+    private static final String RULES_SQL = """
+            SELECT r.id, r.merchant_key, c.name AS category_name
+              FROM category_rules r JOIN txn_categories c ON c.category_key = r.category_key
+             WHERE r.user_id = :userId
+               AND (LOWER(r.merchant_key) LIKE :q""" + LIKE + " OR LOWER(r.display_name) LIKE :q" + LIKE + ")"
+            + PREFIX_ORDER.formatted("r.merchant_key", "r.id");
+
     private final NamedParameterJdbcTemplate jdbc;
 
     private final CardBillService cardBillService;
@@ -115,13 +137,16 @@ public class GlobalSearchService {
                 UUID.fromString(rs.getString("id")), rs.getString("name"), rs.getString("bank"),
                 AccountType.valueOf(rs.getString("type")), rs.getString("last4"), null)));
 
-        List<SearchTransactionHit> transactions = jdbc.query(transactionsSql(text, params), params,
+        boolean heavy = text.length() >= HEAVY_MIN_LENGTH;
+        List<SearchTransactionHit> transactions = !heavy ? List.<SearchTransactionHit>of()
+                : jdbc.query(transactionsSql(text, params), params,
                 (rs, n) -> new SearchTransactionHit(UUID.fromString(rs.getString("id")),
                         rs.getDate("transaction_date").toLocalDate(), rs.getString("description"),
                         UUID.fromString(rs.getString("account_id")), rs.getString("account_name"),
                         rs.getBigDecimal("signed_amount")));
 
-        List<SearchHoldingHit> holdings = jdbc.query(HOLDINGS_SQL, params, (rs, n) -> new SearchHoldingHit(
+        List<SearchHoldingHit> holdings = !heavy ? List.<SearchHoldingHit>of()
+                : jdbc.query(HOLDINGS_SQL, params, (rs, n) -> new SearchHoldingHit(
                 UUID.fromString(rs.getString("id")), rs.getString("name"), rs.getString("symbol")));
 
         List<SearchPersonHit> people = jdbc.query(PEOPLE_SQL, params,
@@ -136,10 +161,18 @@ public class GlobalSearchService {
         List<SearchDashboardHit> dashboards = jdbc.query(DASHBOARDS_SQL, params, (rs, n) -> new SearchDashboardHit(
                 UUID.fromString(rs.getString("id")), rs.getString("name"), rs.getInt("is_default") != 0));
 
-        log.debug("Global search: accounts={} transactions={} holdings={} people={} loans={} reports={} dashboards={} in {} ms",
+        List<SearchCategoryHit> categories = jdbc.query(CATEGORIES_SQL, params, (rs, n) -> new SearchCategoryHit(
+                rs.getString("item_key"), rs.getString("name"), rs.getString("parent_name")));
+
+        List<SearchRuleHit> rules = jdbc.query(RULES_SQL, params, (rs, n) -> new SearchRuleHit(
+                UUID.fromString(rs.getString("id")), rs.getString("merchant_key"), rs.getString("category_name")));
+
+        log.debug("Global search: accounts={} transactions={} holdings={} people={} loans={} reports={} dashboards={}"
+                        + " categories={} rules={} in {} ms",
                 accounts.size(), transactions.size(), holdings.size(), people.size(), loans.size(), reports.size(),
-                dashboards.size(), (System.nanoTime() - started) / 1_000_000);
-        return new GlobalSearchResponse(accounts, transactions, holdings, people, loans, reports, dashboards);
+                dashboards.size(), categories.size(), rules.size(), (System.nanoTime() - started) / 1_000_000);
+        return new GlobalSearchResponse(accounts, transactions, holdings, people, loans, reports, dashboards,
+                categories, rules);
     }
 
     /**

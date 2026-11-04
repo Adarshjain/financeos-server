@@ -378,9 +378,9 @@ class GlobalSearchIntegrationTest {
 
     @Test
     void shortOrLongQueryIs400AndPaddedQueryIsTrimmed() throws Exception {
-        api.getJson("/api/v1/search?q=ab", 400);
+        api.getJson("/api/v1/search?q=a", 400);
         api.getJson("/api/v1/search?q=" + "a".repeat(101), 400);
-        api.getJson("/api/v1/search?q=  ab  ", 400);
+        api.getJson("/api/v1/search?q=  a  ", 400);
         api.getJson("/api/v1/search", 400);
         search(api, "a".repeat(100));
 
@@ -451,5 +451,67 @@ class GlobalSearchIntegrationTest {
         assertEquals(0, search(api, "their card " + tag).get("accounts").size());
         assertEquals(1, search(other, "their card " + tag).get("accounts").size());
         assertTrue(!search(other, "their card " + tag).get("accounts").get(0).get("openBill").isNull());
+    }
+
+    // ---------- two-character search, categories, rules ----------
+
+    private UUID rule(UUID owner, String matchText, String categoryKey) {
+        UUID id = UUID.randomUUID();
+        jdbc.update("INSERT INTO category_rules (id, user_id, merchant_key, match_type, category_key, applied_count) VALUES (?, ?, ?, 'CONTAINS', ?, 0)",
+                id.toString(), owner.toString(), matchText, categoryKey);
+        return id;
+    }
+
+    @Test
+    void twoCharacterQuerySearchesEverythingButTransactionsAndHoldings() throws Exception {
+        account(api, "Zq" + tag, null);
+        txn(api, bank, "Zq payment " + tag, 10, 1);
+        UUID person = counterparty(userId, "Zq Friend " + tag);
+
+        JsonNode r = search(api, "zq");
+        assertEquals(1, r.get("accounts").size());
+        assertEquals(List.of(person.toString()), texts(r.get("people"), "id"));
+        assertEquals(0, r.get("transactions").size());
+        assertEquals(0, r.get("holdings").size());
+        assertTrue(r.get("categories").isArray());
+        assertEquals(1, search(api, "zq payment").get("transactions").size(), "3+ chars still search transactions");
+    }
+
+    @Test
+    void categoryHitsCarryKeyNameAndParentAndListPrefixMatchesFirst() throws Exception {
+        JsonNode food = search(api, "food").get("categories");
+        assertTrue(food.size() >= 1 && food.size() <= 5);
+        JsonNode first = food.get(0);
+        assertEquals("food", first.get("key").asText());
+        assertEquals("Food", first.get("name").asText());
+        assertTrue(first.get("parentName").isNull());
+
+        String subKey = jdbc.queryForObject("SELECT subcategory_key FROM txn_subcategories ORDER BY subcategory_key FETCH FIRST 1 ROW ONLY", String.class);
+        String subName = jdbc.queryForObject("SELECT name FROM txn_subcategories WHERE subcategory_key = ?", String.class, subKey);
+        String parent = jdbc.queryForObject("SELECT c.name FROM txn_subcategories s JOIN txn_categories c ON c.category_key = s.category_key WHERE s.subcategory_key = ?", String.class, subKey);
+        JsonNode hits = search(api, java.net.URLEncoder.encode(subName.toUpperCase(), java.nio.charset.StandardCharsets.UTF_8)).get("categories");
+        boolean found = false;
+        for (JsonNode h : hits) {
+            if (h.get("key").asText().equals(subKey)) {
+                found = true;
+                assertEquals(subName, h.get("name").asText());
+                assertEquals(parent, h.get("parentName").asText());
+            }
+        }
+        assertTrue(found, "sub-category hit with parent name");
+    }
+
+    @Test
+    void ruleHitsAreOwnRulesOnlyWithTargetCategoryName() throws Exception {
+        UUID mine = rule(userId, "zqmerchant" + tag, "food");
+        rule(otherUserId, "zqmerchant-other" + tag, "food");
+
+        JsonNode rules = search(api, "zqmerchant").get("rules");
+        assertEquals(1, rules.size());
+        assertEquals(mine.toString(), rules.get(0).get("id").asText());
+        assertEquals("zqmerchant" + tag, rules.get(0).get("matchText").asText());
+        assertEquals("Food", rules.get(0).get("categoryName").asText());
+        assertEquals(1, search(other, "zqmerchant-other").get("rules").size());
+        assertEquals(0, search(api, "zqmerchant-other").get("rules").size());
     }
 }

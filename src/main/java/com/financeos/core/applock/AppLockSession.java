@@ -13,7 +13,7 @@ public final class AppLockSession {
 
     /** Enrolled device id (String). Set = the session is armed. */
     public static final String DEVICE_ID = "APP_LOCK_DEVICE_ID";
-    /** Seconds away before locking: 0, 60, 300 or 900 (Integer). */
+    /** Seconds away before locking: 0, 60, 300, 900, 1800 or 3600 (Integer). */
     public static final String AFTER_S = "APP_LOCK_AFTER_S";
     /** Last heartbeat, epoch millis (Long). */
     public static final String LAST_ACTIVE_MS = "APP_LOCK_LAST_ACTIVE_MS";

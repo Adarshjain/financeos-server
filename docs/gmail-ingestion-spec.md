@@ -151,7 +151,7 @@ for each connection where is_connected:
 - One DB transaction **per message**. `messages.list` + `after:` is the cursor — **no `historyId` dependency** (expiry is a non-issue).
 
 ### 4.7 Trigger — cron [D2]
-- `@EnableScheduling` + `@Scheduled(cron = "0 0 10-22/2 * * *", zone = "Asia/Kolkata")`. Single instance → no lock.
+- `@EnableScheduling` + `@Scheduled(cron = "0 0 7,10-22/2 * * *", zone = "Asia/Kolkata")`. Single instance → no lock.
 - `POST /sync` runs the same pipeline (backfill/debug), returns summary counts.
 - Mail after the 22:00 run is captured at 10:00 via `after:lastSync` — delayed, never lost.
 
@@ -276,7 +276,7 @@ Cursor: reuse `gmail_sync_state.last_synced_at` (no migration). `TransactionSour
 Counts (fetched/created/skipped/failed/reconciled), Gemini latency + failure rate, per-sender volume, match-rate, run duration. Structured logs with connection + message id; never log bodies/PII.
 
 ## 10. Configuration (`application.yml`)
-`gmail.ingest.enabled`; `gmail.ingest.cron` (`0 0 10-22/2 * * *`, `Asia/Kolkata`); `gmail.ingest.first-backfill-days`; `gmail.reconcile.date-window-days` (±3); `gemini.api-key`; `gemini.model` (default `gemini-3.5-flash`); `gemini.statement-model` (default `gemini-3.5-flash`, Pro as fallback); `gemini.timeout`.
+`gmail.ingest.enabled`; `gmail.ingest.cron` (`0 0 7,10-22/2 * * *`, `Asia/Kolkata`); `gmail.ingest.first-backfill-days`; `gmail.reconcile.date-window-days` (±3); `gemini.api-key`; `gemini.model` (default `gemini-3.5-flash`); `gemini.statement-model` (default `gemini-3.5-flash`, Pro as fallback); `gemini.timeout`.
 
 ## 11. Testing
 Deferred — added later.

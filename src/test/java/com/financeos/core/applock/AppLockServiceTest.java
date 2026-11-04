@@ -162,10 +162,11 @@ class AppLockServiceTest {
     @Test
     void allowedLockAfterValuesAreFixed() {
         AppLockProperties props = new AppLockProperties();
-        for (int ok : new int[] {0, 60, 300, 900}) {
+        for (int ok : new int[] {0, 60, 300, 900, 1800, 3600}) {
             assertTrue(props.isAllowedLockAfter(ok));
         }
         assertFalse(props.isAllowedLockAfter(30));
+        assertFalse(props.isAllowedLockAfter(1200));
         assertFalse(props.isAllowedLockAfter(null));
         assertEquals(60, props.getDefaultLockAfterSeconds());
     }

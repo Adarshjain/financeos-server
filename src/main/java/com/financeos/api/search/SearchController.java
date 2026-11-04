@@ -17,7 +17,7 @@ public class SearchController {
         this.searchService = searchService;
     }
 
-    /** Up to 5 matches per group for the trimmed {@code q} (3-100 characters, else 400). */
+    /** Up to 5 matches per group for the trimmed {@code q} (2-100 characters, else 400; transactions and holdings need 3+). */
     @GetMapping("/api/v1/search")
     public ResponseEntity<GlobalSearchResponse> globalSearch(@RequestParam(required = false) String q) {
         return ResponseEntity.ok(searchService.search(q));

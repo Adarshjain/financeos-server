@@ -276,6 +276,29 @@ class AccountServiceTest {
     }
 
     @Test
+    void testRatchet_DateThreeYearsBack_RaisesDemandFloorToThatDate() {
+        UUID userId = UUID.randomUUID();
+        UserContext.setCurrentUserId(userId);
+        User user = new User();
+        user.setId(userId);
+        when(userRepository.getReferenceById(userId)).thenReturn(user);
+        when(accountRepository.save(any())).thenAnswer(inv -> {
+            Account a = inv.getArgument(0);
+            a.setId(UUID.randomUUID());
+            return a;
+        });
+        LocalDate threeYearsBack = com.financeos.core.time.AppTime.today().minusYears(3);
+        com.financeos.gmail.domain.GmailBackfillDemand existing = new com.financeos.gmail.domain.GmailBackfillDemand(user, com.financeos.core.time.AppTime.today().minusDays(30));
+        when(backfillDemandRepository.findById(userId)).thenReturn(Optional.of(existing));
+
+        accountService.createAccount(new CreateAccountRequest.BankAccountRequest(
+                "Old", AccountType.bank_account, false, FinancialPosition.asset, "desc",
+                null, null, null, threeYearsBack));
+
+        verify(backfillDemandRepository).save(argThat(d -> d.getFloorDate().equals(threeYearsBack)));
+    }
+
+    @Test
     void testRatchetMatrix_DateLowered_LowersFloor() {
         UUID userId = UUID.randomUUID();
         UUID accountId = UUID.randomUUID();
