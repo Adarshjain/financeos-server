@@ -12,8 +12,13 @@ permissions:
   contents: read
 
 jobs:
-  verify:
+  test:
+    name: test (${{ matrix.shard }}/4)
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3, 4]
     steps:
       - uses: actions/checkout@v4
 
@@ -23,8 +28,13 @@ jobs:
           java-version: '21'
           cache: maven
 
-      - name: Build and test
-        run: ./mvnw -B verify "-DgitSha=${GITHUB_SHA::12}"
+      - name: Pick this shard's test classes
+        run: |
+          if [ "${{ matrix.shard }}" = "1" ]; then python3 .github/scripts/test-shard.py --check 4; fi
+          python3 .github/scripts/test-shard.py ${{ matrix.shard }} 4 "$RUNNER_TEMP/shard.txt"
+
+      - name: Test
+        run: ./mvnw -B test "-Dsurefire.includesFile=$RUNNER_TEMP/shard.txt"
 
       # Job logs need a login but annotations are public, so failing tests are named here.
       - name: Name failing tests
@@ -41,7 +51,8 @@ jobs:
                           print(f"::error title={tc.get('classname')}.{tc.get('name')}::{msg}")
           PY
 
-      # OpenApiExportTest regenerates api-spec.yaml during `verify` above, so a stale committed spec fails the build here.
+      # OpenApiExportTest regenerates api-spec.yaml in whichever shard runs it; the other shards leave the file
+      # untouched and pass trivially, so a stale committed spec fails exactly that shard.
       - name: Spec drift
         run: git diff --exit-code -- api-spec.yaml
 
