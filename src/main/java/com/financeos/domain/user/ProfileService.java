@@ -30,13 +30,19 @@ public class ProfileService {
 
     @Transactional
     public User hello(UUID userId, @Nullable String displayName, @Nullable String birthDate, boolean termsAccepted) {
+        return hello(userId, displayName, birthDate, termsAccepted, true);
+    }
+
+    /** {@code finish=false} saves the profile and terms but leaves onboarding open (see {@link #finishHello}). */
+    @Transactional
+    public User hello(UUID userId, @Nullable String displayName, @Nullable String birthDate, boolean termsAccepted, boolean finish) {
         if (!termsAccepted) {
             throw new ValidationException("You need to accept the Terms and Privacy policy");
         }
         User user = load(userId);
         boolean[] changed = apply(user, displayName == null || displayName.isBlank() ? null : displayName, birthDate);
         Instant now = AppTime.nowInstant();
-        boolean firstHello = user.getHelloDoneAt() == null;
+        boolean firstHello = finish && user.getHelloDoneAt() == null;
         if (firstHello) {
             user.setHelloDoneAt(now);
         }
@@ -47,6 +53,25 @@ public class ProfileService {
             events.publishEvent(new HelloCompletedEvent(userId));
         }
         return user;
+    }
+
+    /** Marks onboarding done and publishes {@link HelloCompletedEvent} once. Returns whether it was newly marked. */
+    @Transactional
+    public boolean completeHello(UUID userId) {
+        User user = load(userId);
+        if (user.getHelloDoneAt() != null) {
+            return false;
+        }
+        user.setHelloDoneAt(AppTime.nowInstant());
+        userRepository.save(user);
+        events.publishEvent(new HelloCompletedEvent(userId));
+        return true;
+    }
+
+    @Transactional
+    public User finishHello(UUID userId) {
+        completeHello(userId);
+        return load(userId);
     }
 
     @Transactional
