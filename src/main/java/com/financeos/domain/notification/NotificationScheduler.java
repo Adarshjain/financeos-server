@@ -4,6 +4,7 @@ import com.financeos.core.security.UserContext;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -91,7 +92,19 @@ public class NotificationScheduler {
                 failed++;
                 log.error("Notification tick: could not list card-holders for the feed producers", e);
             }
-            for (UUID userId : cardHolders) {
+            Set<UUID> audience = new LinkedHashSet<>(cardHolders);
+            for (NotificationProducer producer : feedProducers) {
+                try {
+                    java.util.Collection<UUID> extra = producer.extraFeedUserIds();
+                    if (extra != null) {
+                        audience.addAll(extra);
+                    }
+                } catch (Exception e) {
+                    failed++;
+                    log.error("Notification tick: producer {} could not list its extra feed users", producer.name(), e);
+                }
+            }
+            for (UUID userId : audience) {
                 if (reachableIds.contains(userId)) {
                     continue;
                 }

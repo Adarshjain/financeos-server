@@ -375,9 +375,23 @@ public class AccountService {
                 .map(Account::getId)
                 .toList();
         java.util.Map<UUID, LocalDate> lastDates = lastTransactionDates(nonBrokerIds);
+        LocalDate today = AppTime.today();
         for (Account account : accounts) {
             account.setLastTransactionDate(lastDates.get(account.getId()));
+            account.setSuggestClose(AccountClosePrompt.suggest(account, today));
         }
+    }
+
+    /** "Not yet" to "Close this account?": the prompt rests for {@value AccountClosePrompt#QUIET_DAYS} days. */
+    public void dismissClosePrompt(UUID id) {
+        Account account = accountRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Account", id));
+        UUID currentUserId = UserContext.getCurrentUserId();
+        if (currentUserId != null && !account.getUser().getId().equals(currentUserId)) {
+            throw new ValidationException("You do not have permission to access this account.");
+        }
+        account.setClosePromptDismissedAt(java.time.Instant.now());
+        accountRepository.save(account);
     }
 
     /** The latest transaction date per account id (accounts without transactions are absent), in chunks of 900 ids. */

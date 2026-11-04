@@ -17,7 +17,9 @@ public record NotificationSettingsResponse(
         List<UUID> mutedAccountIds,
         List<UUID> mutedLoanIds,
         /** False when the server has no VAPID keys: the UI explains instead of offering to subscribe. */
-        boolean pushConfigured
+        boolean pushConfigured,
+        /** {@code STANDARD} or {@code QUIET}. */
+        String reminderStyle
 ) {
     public record PushDeviceResponse(String endpoint, @Nullable String userAgent, @Nullable Instant addedAt) {
     }
@@ -35,6 +37,7 @@ public record NotificationSettingsResponse(
                         .toList(),
                 view.mutedAccountIds(),
                 view.mutedLoanIds(),
-                view.pushConfigured());
+                view.pushConfigured(),
+                view.reminderStyle().name());
     }
 }

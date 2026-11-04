@@ -42,7 +42,14 @@ public class NotificationSettingsService {
 
     public record View(boolean pushEnabled, int sendHour, List<Integer> reminderOffsets,
                        Map<NotificationKind, Boolean> kinds, List<PushSubscription> subscriptions,
-                       List<UUID> mutedAccountIds, List<UUID> mutedLoanIds, boolean pushConfigured) {
+                       List<UUID> mutedAccountIds, List<UUID> mutedLoanIds, boolean pushConfigured,
+                       ReminderStyle reminderStyle) {
+        public View(boolean pushEnabled, int sendHour, List<Integer> reminderOffsets,
+                    Map<NotificationKind, Boolean> kinds, List<PushSubscription> subscriptions,
+                    List<UUID> mutedAccountIds, List<UUID> mutedLoanIds, boolean pushConfigured) {
+            this(pushEnabled, sendHour, reminderOffsets, kinds, subscriptions, mutedAccountIds, mutedLoanIds,
+                    pushConfigured, ReminderStyle.STANDARD);
+        }
     }
 
     private final UserNotificationSettingsRepository repository;
@@ -108,6 +115,20 @@ public class NotificationSettingsService {
             }
             settings.setKindsJson(NotificationSettingsCodec.writeKinds(merged));
         }
+        return toView(repository.save(settings));
+    }
+
+    /** Sets the reminder style (STANDARD or QUIET, case-insensitive); anything else is a 400. */
+    @Transactional
+    public View setReminderStyle(UUID userId, String style) {
+        ReminderStyle parsed;
+        try {
+            parsed = ReminderStyle.valueOf(style == null ? "" : style.trim().toUpperCase(java.util.Locale.ROOT));
+        } catch (IllegalArgumentException e) {
+            throw new ValidationException("Reminder style must be STANDARD or QUIET");
+        }
+        UserNotificationSettings settings = getOrCreate(userId);
+        settings.setReminderStyle(parsed.name());
         return toView(repository.save(settings));
     }
 
@@ -238,7 +259,8 @@ public class NotificationSettingsService {
                 NotificationSettingsCodec.parseSubscriptions(settings.getPushSubscriptions()),
                 muted,
                 mutedLoans,
-                sender.isConfigured());
+                sender.isConfigured(),
+                ReminderStyle.parse(settings.getReminderStyle()));
     }
 
     static void validateEndpoint(String endpoint) {

@@ -14,6 +14,7 @@ import com.financeos.domain.account.AccountType;
 import com.financeos.domain.account.cycle.BillingCycles;
 import com.financeos.domain.lending.LendingDirection;
 import com.financeos.domain.lending.LendingService;
+import com.financeos.domain.loan.LoanClosedPrompt;
 import com.financeos.domain.loan.LoanService;
 import com.financeos.domain.loan.LoanStatus;
 import com.financeos.domain.notification.bill.BillStatus;
@@ -203,8 +204,10 @@ public class ObligationsService {
     private List<ObligationItemDto> emis(LocalDate today, LocalDate maxDate) {
         List<ObligationItemDto> items = new ArrayList<>();
         List<LoanResponse> activeLoans = loanService.getLoans(LoanStatus.active, Pageable.unpaged()).getContent();
+        java.util.Map<UUID, java.time.Instant> dismissals = activeLoans.isEmpty() ? java.util.Map.of() : loanService.closedPromptDismissals();
         for (LoanResponse loan : activeLoans) {
             List<InstallmentDto> installments = loanService.getLoanSchedule(loan.id());
+            boolean askClosed = LoanClosedPrompt.ask(loan.status(), installments, dismissals.get(loan.id()), today);
             for (InstallmentDto inst : installments) {
                 if ("settled".equals(inst.status())) {
                     continue;
@@ -219,7 +222,7 @@ public class ObligationsService {
                         KIND_EMI, due, inst.emi(), status(today, due, 0),
                         loan.id(), loan.name(), inst.seq(),
                         null, null, null, null,
-                        loan.name() + " EMI" + seq, null, loan.name(), null, href, daysUntil(today, due)));
+                        loan.name() + " EMI" + seq, null, loan.name(), null, href, daysUntil(today, due), askClosed));
             }
         }
         return items;

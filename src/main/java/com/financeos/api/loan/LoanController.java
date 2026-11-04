@@ -96,6 +96,13 @@ public class LoanController {
         loanService.closeLoan(id);
     }
 
+    /** "Not yet" to "Is this loan closed?". */
+    @PostMapping("/{id}/closed-prompt/dismiss")
+    @ResponseStatus(HttpStatus.OK)
+    public void dismissClosedPrompt(@PathVariable UUID id) {
+        loanService.dismissClosedPrompt(id);
+    }
+
     @PostMapping("/{id}/reopen")
     @ResponseStatus(HttpStatus.OK)
     public void reopenLoan(@PathVariable UUID id) {

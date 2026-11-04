@@ -3,19 +3,23 @@ package com.financeos.domain.notification.feed;
 import java.util.UUID;
 
 /** What a feed row points at; every part is optional. */
-public record AppNotificationRefs(UUID jobId, String jobType, UUID accountId, UUID connectionId) {
+public record AppNotificationRefs(UUID jobId, String jobType, UUID accountId, UUID connectionId, UUID loanId) {
 
-    public static final AppNotificationRefs NONE = new AppNotificationRefs(null, null, null, null);
+    public static final AppNotificationRefs NONE = new AppNotificationRefs(null, null, null, null, null);
 
     public static AppNotificationRefs ofJob(UUID jobId, String jobType) {
-        return new AppNotificationRefs(jobId, jobType, null, null);
+        return new AppNotificationRefs(jobId, jobType, null, null, null);
     }
 
     public static AppNotificationRefs ofAccount(UUID accountId) {
-        return new AppNotificationRefs(null, null, accountId, null);
+        return new AppNotificationRefs(null, null, accountId, null, null);
     }
 
     public static AppNotificationRefs ofConnection(UUID connectionId) {
-        return new AppNotificationRefs(null, null, null, connectionId);
+        return new AppNotificationRefs(null, null, null, connectionId, null);
+    }
+
+    public static AppNotificationRefs ofLoan(UUID loanId) {
+        return new AppNotificationRefs(null, null, null, null, loanId);
     }
 }

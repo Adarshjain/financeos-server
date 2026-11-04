@@ -12,6 +12,10 @@ public final class AppNotificationKind {
     public static final String REWARD_CAP = "reward_cap";
     public static final String AUTO_LINKED = "auto_linked";
     public static final String ACCOUNTS_FOUND = "accounts_found";
+    /** A card bill that is due soon or overdue; one row per bill, updated in place, resolved when paid. */
+    public static final String BILL_REMINDER = "bill_reminder";
+    /** A loan EMI installment that is due soon or overdue; one row per installment, same life cycle. */
+    public static final String EMI_REMINDER = "emi_reminder";
 
     private AppNotificationKind() {
     }

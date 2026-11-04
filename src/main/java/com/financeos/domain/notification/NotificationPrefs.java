@@ -17,6 +17,16 @@ public record NotificationPrefs(@Nullable UserNotificationSettings settings, boo
         return kind != null && Boolean.TRUE.equals(kinds.get(kind));
     }
 
+    /** The user chose the Quiet reminder style (one push per bill/EMI, no overdue re-nags). */
+    public boolean quiet() {
+        return settings != null && ReminderStyle.parse(settings.getReminderStyle()) == ReminderStyle.QUIET;
+    }
+
+    /** The offsets a bill/EMI producer walks: the user's own, or just the 1-day offset when Quiet. */
+    public List<Integer> reminderOffsets() {
+        return quiet() ? List.of(1) : offsets;
+    }
+
     /** Scheduled (non-event) sends wait for the user's send hour in the business zone. */
     public boolean pastSendHour(LocalDateTime now) {
         return now.getHour() >= sendHour;

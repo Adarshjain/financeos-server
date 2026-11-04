@@ -48,6 +48,10 @@ public class UserNotificationSettings {
     @Column(name = "reminder_offsets", nullable = false, length = 40)
     private String reminderOffsets = DEFAULT_OFFSETS;
 
+    /** {@link ReminderStyle} name: STANDARD or QUIET. */
+    @Column(name = "reminder_style", nullable = false, length = 10)
+    private String reminderStyle = ReminderStyle.STANDARD.name();
+
     /** {@code {"STATEMENT_RECEIVED":true,...}} — absent kinds use their default. */
     @Lob
     @Column(name = "kinds_json")

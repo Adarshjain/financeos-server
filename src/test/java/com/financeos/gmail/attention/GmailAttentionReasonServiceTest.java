@@ -193,7 +193,7 @@ class GmailAttentionReasonServiceTest {
         GmailAttentionItemResponse r = GmailAttentionItemResponse.from(new GmailAttentionRow(g, "me@gmail.com", null, null));
 
         assertThat(r.reason()).isEqualTo(AttentionReason.NO_ACCOUNT);
-        assertThat(r.suggestedBankId()).isEqualTo(BankSenderDomains.bankIdFor("alerts@hdfcbank.net"));
+        assertThat(r.suggestedBankId()).isEqualTo(BankSenderDomains.current().bankIdFor("alerts@hdfcbank.net"));
         assertThat(r.suggestedBankId()).isNotNull();
         assertThat(r.suggestedLast4()).isEqualTo("1234");
 

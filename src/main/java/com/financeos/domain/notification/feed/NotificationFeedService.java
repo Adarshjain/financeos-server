@@ -4,6 +4,13 @@ import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.time.AppTime;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +37,8 @@ public class NotificationFeedService {
 
     static final int RETENTION_DAYS = 90;
     static final int CLEARED_RETENTION_DAYS = 1;
+    /** The stage that un-clears a reminder the user had cleared. */
+    public static final String STAGE_OVERDUE = "OVERDUE";
 
     private final AppNotificationRepository repository;
     private final TransactionTemplate isolated;
@@ -63,9 +72,135 @@ public class NotificationFeedService {
         n.setJobType(r.jobType());
         n.setAccountId(r.accountId());
         n.setConnectionId(r.connectionId());
+        n.setLoanId(r.loanId());
         n.setDedupeKey(clip(dedupeKey, AppNotification.MAX_KEY_LENGTH));
         n.setCreatedAt(now());
         repository.saveAndFlush(n);
+    }
+
+    /** One in-place reminder: what its row should say right now. */
+    public record Reminder(String dedupeKey, String kind, String title, String body, AppNotificationRefs refs, String stage) {
+    }
+
+    /** {@link #upsertAll} for one reminder. Never throws. */
+    public void upsert(UUID userId, String dedupeKey, String kind, String title, String body, AppNotificationRefs refs, String stage) {
+        upsertAll(userId, List.of(new Reminder(dedupeKey, kind, title, body, refs, stage)));
+    }
+
+    /**
+     * Inserts each reminder's row or updates the existing one in place (title, body, refs, updated_at), all in
+     * one transaction with one lookup for the whole batch. A changed {@code stage} ("in 3 days" to "tomorrow" to
+     * "today" to overdue) marks the row unread again; a row the user cleared stays cleared unless the stage changed
+     * to {@link #STAGE_OVERDUE}. An unchanged reminder writes nothing. Never throws.
+     */
+    public void upsertAll(UUID userId, List<Reminder> reminders) {
+        if (reminders == null || reminders.isEmpty()) {
+            return;
+        }
+        try {
+            isolated.executeWithoutResult(status -> doUpsertAll(userId, reminders));
+        } catch (Exception e) {
+            log.warn("Feed upsert failed (user {}, {} reminder(s)): {}", userId, reminders.size(), e.getMessage());
+        }
+    }
+
+    private void doUpsertAll(UUID userId, List<Reminder> reminders) {
+        Map<String, AppNotification> existing = new HashMap<>();
+        List<String> keys = reminders.stream().map(r -> clip(r.dedupeKey(), AppNotification.MAX_KEY_LENGTH)).toList();
+        for (int i = 0; i < keys.size(); i += 900) {
+            repository.findByUserIdAndDedupeKeyIn(userId, keys.subList(i, Math.min(i + 900, keys.size())))
+                    .forEach(n -> existing.put(n.getDedupeKey(), n));
+        }
+        Instant now = now();
+        List<AppNotification> toSave = new ArrayList<>();
+        for (Reminder reminder : reminders) {
+            String key = clip(reminder.dedupeKey(), AppNotification.MAX_KEY_LENGTH);
+            String title = clip(reminder.title(), AppNotification.MAX_TITLE_LENGTH);
+            String body = reminder.body() == null || reminder.body().isBlank() ? null : clip(reminder.body(), AppNotification.MAX_BODY_LENGTH);
+            AppNotification n = existing.get(key);
+            if (n == null) {
+                n = new AppNotification();
+                n.setUserId(userId);
+                n.setKind(reminder.kind());
+                n.setDedupeKey(key);
+                n.setCreatedAt(now);
+                n.setUpdatedAt(now);
+                applyRefs(n, reminder.refs());
+                n.setTitle(title);
+                n.setBody(body);
+                n.setStage(reminder.stage());
+                toSave.add(n);
+                continue;
+            }
+            boolean stageChanged = !Objects.equals(n.getStage(), reminder.stage());
+            boolean textChanged = !Objects.equals(n.getTitle(), title) || !Objects.equals(n.getBody(), body);
+            if (!stageChanged && !textChanged) {
+                continue;
+            }
+            n.setTitle(title);
+            n.setBody(body);
+            n.setStage(reminder.stage());
+            n.setUpdatedAt(now);
+            applyRefs(n, reminder.refs());
+            if (stageChanged) {
+                n.setReadAt(null);
+                if (STAGE_OVERDUE.equals(reminder.stage())) {
+                    n.setClearedAt(null);
+                }
+            }
+            toSave.add(n);
+        }
+        if (!toSave.isEmpty()) {
+            repository.saveAll(toSave);
+        }
+    }
+
+    /** Auto-resolve: clears the row with this key if it is still in the feed. Never throws. */
+    public void resolve(UUID userId, String dedupeKey) {
+        try {
+            isolated.executeWithoutResult(status -> repository.findByUserIdAndDedupeKey(userId, dedupeKey)
+                    .filter(n -> n.getClearedAt() == null)
+                    .ifPresent(n -> {
+                        n.setClearedAt(now());
+                        repository.save(n);
+                    }));
+        } catch (Exception e) {
+            log.warn("Feed resolve failed (user {}, key {}): {}", userId, dedupeKey, e.getMessage());
+        }
+    }
+
+    /**
+     * Auto-resolve for a producer's whole set: every row of {@code kinds} still in the feed whose key is not in
+     * {@code keepKeys} is cleared (the bill was paid, the installment recorded, the loan closed). Returns how many.
+     * Never throws.
+     */
+    public int resolveAllExcept(UUID userId, Collection<String> kinds, Set<String> keepKeys) {
+        try {
+            Integer resolved = isolated.execute(status -> {
+                Instant now = now();
+                List<AppNotification> stale = repository.findByUserIdAndKindInAndClearedAtIsNull(userId, kinds).stream()
+                        .filter(n -> !keepKeys.contains(n.getDedupeKey()))
+                        .toList();
+                stale.forEach(n -> n.setClearedAt(now));
+                if (!stale.isEmpty()) {
+                    repository.saveAll(stale);
+                }
+                return stale.size();
+            });
+            return resolved == null ? 0 : resolved;
+        } catch (Exception e) {
+            log.warn("Feed resolve-all failed (user {}): {}", userId, e.getMessage());
+            return 0;
+        }
+    }
+
+    private static void applyRefs(AppNotification n, AppNotificationRefs refs) {
+        AppNotificationRefs r = refs == null ? AppNotificationRefs.NONE : refs;
+        n.setJobId(r.jobId());
+        n.setJobType(r.jobType());
+        n.setAccountId(r.accountId());
+        n.setConnectionId(r.connectionId());
+        n.setLoanId(r.loanId());
     }
 
     /** Newest first (id breaks ties so paging is stable), cleared rows excluded. */

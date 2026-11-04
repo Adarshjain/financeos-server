@@ -31,8 +31,32 @@ public record ObligationItemDto(
         @Nullable String accountName,
         @Nullable UUID statementId,
         @Nullable String href,
-        @Nullable Long daysUntil
+        @Nullable Long daysUntil,
+        /** emi rows: ask "Is this loan closed?" (active loan, oldest unpaid installment 45+ days overdue, not dismissed lately); false elsewhere. */
+        boolean askClosed
 ) {
+    /** A row that does not ask whether its loan is closed. */
+    public ObligationItemDto(String type,
+                             @Nullable LocalDate date,
+                             @Nullable BigDecimal amount,
+                             String status,
+                             @Nullable UUID loanId,
+                             @Nullable String loanName,
+                             @Nullable Integer installmentSeq,
+                             @Nullable UUID lendingId,
+                             @Nullable UUID counterpartyId,
+                             @Nullable String counterpartyName,
+                             @Nullable LendingDirection direction,
+                             @Nullable String title,
+                             @Nullable UUID accountId,
+                             @Nullable String accountName,
+                             @Nullable UUID statementId,
+                             @Nullable String href,
+                             @Nullable Long daysUntil) {
+        this(type, date, amount, status, loanId, loanName, installmentSeq, lendingId, counterpartyId,
+                counterpartyName, direction, title, accountId, accountName, statementId, href, daysUntil, false);
+    }
+
     /**
      * The producer shape (EMI and lending items carry only their references); the obligations
      * service fills title, href, daysUntil and the final status before the row leaves the API.

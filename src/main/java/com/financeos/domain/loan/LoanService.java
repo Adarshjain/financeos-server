@@ -63,6 +63,21 @@ public class LoanService {
         this.autoLinkStore = autoLinkStore;
     }
 
+    private org.springframework.context.ApplicationEventPublisher eventPublisher;
+
+    /** Optional (plain unit tests build the service without a context): publishes the "EMI recorded" resolve event. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setEventPublisher(org.springframework.context.ApplicationEventPublisher eventPublisher) {
+        this.eventPublisher = eventPublisher;
+    }
+
+    private void publishEmiResolved(UUID loanId, Integer seq) {
+        if (eventPublisher != null && seq != null) {
+            eventPublisher.publishEvent(new com.financeos.domain.notification.reminder.ReminderResolveEvent(
+                    UserContext.getCurrentUserId(), com.financeos.domain.notification.reminder.ReminderKeys.emi(loanId, seq)));
+        }
+    }
+
     private com.financeos.domain.categorization.CategoryLinkHooks categoryLinkHooks;
 
     @org.springframework.beans.factory.annotation.Autowired(required = false)
@@ -268,7 +283,8 @@ public class LoanService {
         List<LoanEventResponse> eventResponses = events.stream().map(LoanEventResponse::from).toList();
         List<LoanChargeResponse> chargeResponses = charges.stream().map(LoanChargeResponse::from).toList();
 
-        return new LoanDetailResponse(LoanResponse.from(loan, schedule), eventResponses, chargeResponses);
+        boolean askClosed = LoanClosedPrompt.ask(loan.getStatus(), schedule.installments(), loan.getClosedPromptDismissedAt(), AppTime.today());
+        return new LoanDetailResponse(LoanResponse.from(loan, schedule), eventResponses, chargeResponses, askClosed);
     }
 
     @Transactional(readOnly = true)
@@ -377,6 +393,25 @@ public class LoanService {
         Loan loan = getLoanAndVerifyOwnership(loanId);
         loan.setStatus(LoanStatus.closed);
         loanRepository.save(loan);
+    }
+
+    /** "Not yet" to "Is this loan closed?": the prompt rests for {@value LoanClosedPrompt#REST_DAYS} days. */
+    public void dismissClosedPrompt(UUID loanId) {
+        Loan loan = getLoanAndVerifyOwnership(loanId);
+        loan.setClosedPromptDismissedAt(java.time.Instant.now());
+        loanRepository.save(loan);
+    }
+
+    /** When each of the user's loans last had its closed prompt dismissed (loans never dismissed are absent): one query. */
+    @Transactional(readOnly = true)
+    public Map<UUID, java.time.Instant> closedPromptDismissals() {
+        Map<UUID, java.time.Instant> out = new HashMap<>();
+        for (Loan loan : loanRepository.findAll()) {
+            if (loan.getClosedPromptDismissedAt() != null) {
+                out.put(loan.getId(), loan.getClosedPromptDismissedAt());
+            }
+        }
+        return out;
     }
 
     public void reopenLoan(UUID loanId) {
@@ -623,6 +658,7 @@ public class LoanService {
         if (categoryLinkHooks != null) {
             categoryLinkHooks.linked(transaction);
         }
+        publishEmiResolved(loanId, targetSeq);
         return savedPayment;
     }
 
@@ -713,6 +749,7 @@ public class LoanService {
             newPayments.stream().map(LoanPayment::getTransaction).filter(java.util.Objects::nonNull)
                     .forEach(categoryLinkHooks::linked);
         }
+        newPayments.forEach(p -> publishEmiResolved(loanId, p.getInstallmentSeq()));
         return Map.of("created", newPayments.size());
     }
 
