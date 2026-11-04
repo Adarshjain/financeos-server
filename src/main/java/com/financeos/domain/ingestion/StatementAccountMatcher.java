@@ -4,8 +4,6 @@ import com.financeos.core.exception.ValidationException;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountType;
-import com.financeos.domain.account.card.Card;
-import com.financeos.domain.account.card.Cardholder;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,24 +39,28 @@ public class StatementAccountMatcher {
     /** The user's bank and card accounts (open or closed) with their bank id and every last 4 they carry. */
     @Transactional(readOnly = true)
     public List<AccountKey> keysOf(UUID userId) {
-        List<AccountKey> keys = new java.util.ArrayList<>();
+        List<Account> accounts = new java.util.ArrayList<>();
         for (AccountType type : STATEMENT_ACCOUNT_TYPES) {
-            for (Account a : accountRepository.findByUserIdAndType(userId, type)) {
-                Set<String> last4s = new LinkedHashSet<>();
-                if (a.getBankDetails() != null && a.getBankDetails().getLast4() != null) {
-                    last4s.add(normalise(a.getBankDetails().getLast4()));
+            accounts.addAll(accountRepository.findByUserIdAndType(userId, type));
+        }
+        // every card last 4 of all these accounts in one query (no cardholder -> cards walk per account)
+        java.util.Map<UUID, Set<String>> cardLast4s = new java.util.HashMap<>();
+        if (!accounts.isEmpty()) {
+            for (Object[] row : accountRepository.findCardLast4sByAccountIds(accounts.stream().map(Account::getId).toList())) {
+                if (row[1] != null) {
+                    cardLast4s.computeIfAbsent((UUID) row[0], k -> new LinkedHashSet<>()).add(normalise((String) row[1]));
                 }
-                if (a.getCardholders() != null) {
-                    for (Cardholder ch : a.getCardholders()) {
-                        if (ch.getCards() == null) continue;
-                        for (Card c : ch.getCards()) {
-                            if (c.getLast4() != null) last4s.add(normalise(c.getLast4()));
-                        }
-                    }
-                }
-                last4s.remove("");
-                keys.add(new AccountKey(a.getId(), a.getBank(), last4s));
             }
+        }
+        List<AccountKey> keys = new java.util.ArrayList<>();
+        for (Account a : accounts) {
+            Set<String> last4s = new LinkedHashSet<>();
+            if (a.getBankDetails() != null && a.getBankDetails().getLast4() != null) {
+                last4s.add(normalise(a.getBankDetails().getLast4()));
+            }
+            last4s.addAll(cardLast4s.getOrDefault(a.getId(), Set.of()));
+            last4s.remove("");
+            keys.add(new AccountKey(a.getId(), a.getBank(), last4s));
         }
         return keys;
     }

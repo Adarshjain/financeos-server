@@ -78,6 +78,7 @@ class StatementIntakeServiceTest {
         job.setId(jobId);
         job.setUserId(userId);
         job.setType(JobType.STATEMENT_INGEST);
+        job.setStatus(com.financeos.domain.job.JobStatus.FAILED);
         job.setPayload("{\"accountId\":\"" + accountId + "\"}");
         artifact = new JobArtifact();
         artifact.setId(UUID.randomUUID());
@@ -193,6 +194,7 @@ class StatementIntakeServiceTest {
         stored(stmtId);
         FileIngestionResult expected = resultOf(new FileIngestionResult.FileSummary("s.pdf", "SUCCESS", 4, null, null, 4, 0));
         when(ingestion.ingest(eq(targetId), anyList(), any())).thenReturn(expected);
+        when(statementRepository.existsByAccountIdAndFileSha256(targetId, "abc")).thenReturn(true);
 
         FileIngestionResult r = service.moveStatement(userId, accountId, stmtId, targetId);
 
@@ -200,6 +202,45 @@ class StatementIntakeServiceTest {
         InOrder order = inOrder(ingestion, deletionService);
         order.verify(ingestion).ingest(eq(targetId), anyList(), any());
         order.verify(deletionService).delete(accountId, stmtId);
+    }
+
+    @Test
+    void moveWhenTheTargetReportsSuccessButHasNoStatementKeepsTheSource() {
+        UUID stmtId = UUID.randomUUID();
+        stored(stmtId);
+        when(ingestion.ingest(eq(targetId), anyList(), any()))
+                .thenReturn(resultOf(new FileIngestionResult.FileSummary("s.pdf", "SUCCESS", 0, null, null, 0, 0)));
+        when(statementRepository.existsByAccountIdAndFileSha256(targetId, "abc")).thenReturn(false);
+
+        service.moveStatement(userId, accountId, stmtId, targetId);
+
+        verifyNoInteractions(deletionService);
+    }
+
+    @Test
+    void rerunPicksTheFileByItsIndexNotItsPosition() {
+        JobArtifact second = new JobArtifact();
+        second.setFileIndex(1);
+        second.setFilename("b.pdf");
+        second.setData("b".getBytes());
+        artifact.setFileIndex(0);
+        when(jobService.getArtifacts(jobId)).thenReturn(List.of(second)); // file 0 was already used up
+        when(identifier.identify(second.getData(), "pw")).thenReturn(new StatementIdentity("hdfc", "HDFC", "1234"));
+
+        service.rerunWithPassword(userId, jobId, 1, "pw", false);
+        verify(artifactRepository).delete(second);
+
+        assertThatThrownBy(() -> service.rerunWithPassword(userId, jobId, 0, "pw", false))
+                .isInstanceOfSatisfying(ApiStatusException.class, e -> assertThat(e.getStatus().value()).isEqualTo(409));
+    }
+
+    @Test
+    void rerunOfAJobThatIsStillRunningIs409() {
+        job.setStatus(com.financeos.domain.job.JobStatus.RUNNING);
+
+        assertThatThrownBy(() -> service.rerunWithPassword(userId, jobId, 0, "pw", false))
+                .isInstanceOfSatisfying(ApiStatusException.class, e -> assertThat(e.getStatus().value()).isEqualTo(409));
+        verifyNoInteractions(identifier);
     }
 
     @Test

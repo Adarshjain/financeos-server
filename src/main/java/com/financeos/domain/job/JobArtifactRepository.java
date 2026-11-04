@@ -19,4 +19,8 @@ public interface JobArtifactRepository extends JpaRepository<JobArtifact, UUID> 
             + "and a.retained = true and a.fileSha256 = :sha order by a.createdAt desc")
     List<JobArtifact> findByUserAndSha(@org.springframework.data.repository.query.Param("userId") UUID userId,
                                        @org.springframework.data.repository.query.Param("sha") String sha);
+
+    /** True when this stored file backs a held upload that still waits in the Inbox. */
+    @org.springframework.data.jpa.repository.Query("select count(h) > 0 from HeldUpload h where h.artifactId = :artifactId and h.resolvedAt is null")
+    boolean hasUnresolvedHeldUpload(@org.springframework.data.repository.query.Param("artifactId") UUID artifactId);
 }

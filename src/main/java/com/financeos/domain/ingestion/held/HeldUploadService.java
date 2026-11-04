@@ -15,6 +15,7 @@ import com.financeos.domain.job.JobArtifactRepository;
 import com.financeos.domain.notification.feed.AppNotificationKind;
 import com.financeos.domain.notification.feed.AppNotificationRefs;
 import com.financeos.domain.notification.feed.NotificationFeedService;
+import com.financeos.statement.parser.StatementParseException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -100,22 +101,45 @@ public class HeldUploadService {
         byte[] bytes = artifact.getData();
         boolean passwordGiven = password != null && !password.isBlank();
         boolean locked = passwordGiven && identifier.isLocked(bytes);
-        FileIngestionResult result = ingestionService.ingest(accountId,
-                List.of(new UploadedFile(artifact.getFilename(), artifact.getContentType(), bytes)), null, passwordGiven ? password : null);
-
-        FileIngestionResult.FileSummary file = result.fileDetails().isEmpty() ? null : result.fileDetails().get(0);
-        if (file != null && "FAILED".equals(file.status())) {
-            FileIngestionResult.ErrorCode code = file.errorCode();
-            if (code == FileIngestionResult.ErrorCode.PASSWORD_REQUIRED || code == FileIngestionResult.ErrorCode.WRONG_PASSWORD) {
-                throw new ApiStatusException(HttpStatus.UNPROCESSABLE_ENTITY, code.name(), file.errorMessage());
-            }
-            return result; // not a password problem: the file stays held so another account can be tried
-        }
         if (locked) {
-            passwordVault.save(userId, accountId, password);
+            // the typed password must open the file itself: ingest falls back to saved passwords, which would mask a wrong one
+            try {
+                identifier.identify(bytes, password);
+            } catch (StatementParseException e) {
+                if (e.isPasswordProblem()) {
+                    throw new ApiStatusException(HttpStatus.UNPROCESSABLE_ENTITY, FileIngestionResult.ErrorCode.WRONG_PASSWORD.name(),
+                            "That password does not open this file.");
+                }
+                throw new ApiStatusException(HttpStatus.UNPROCESSABLE_ENTITY, FileIngestionResult.ErrorCode.UNREADABLE.name(), e.getMessage());
+            }
         }
-        resolve(held, artifact);
-        return result;
+        if (heldRepository.claim(held.getId(), Instant.now()) == 0) {
+            throw new ApiStatusException(HttpStatus.CONFLICT, "ALREADY_ASSIGNED", "This file was already handled.");
+        }
+        FileIngestionResult result;
+        boolean resolved = false;
+        try {
+            result = ingestionService.ingest(accountId,
+                    List.of(new UploadedFile(artifact.getFilename(), artifact.getContentType(), bytes)), null, passwordGiven ? password : null);
+            FileIngestionResult.FileSummary file = result.fileDetails().isEmpty() ? null : result.fileDetails().get(0);
+            if (file != null && "FAILED".equals(file.status())) {
+                FileIngestionResult.ErrorCode code = file.errorCode();
+                if (code == FileIngestionResult.ErrorCode.PASSWORD_REQUIRED || code == FileIngestionResult.ErrorCode.WRONG_PASSWORD) {
+                    throw new ApiStatusException(HttpStatus.UNPROCESSABLE_ENTITY, code.name(), file.errorMessage());
+                }
+                return result; // not a password problem: the file stays held so another account can be tried
+            }
+            if (locked) {
+                passwordVault.save(userId, accountId, password);
+            }
+            resolve(held, artifact);
+            resolved = true;
+            return result;
+        } finally {
+            if (!resolved) {
+                heldRepository.release(held.getId());
+            }
+        }
     }
 
     /** Throws the held file away (and its stored copy). */

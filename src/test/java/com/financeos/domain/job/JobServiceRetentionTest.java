@@ -97,4 +97,55 @@ class JobServiceRetentionTest {
         verify(artifactRepository, never()).delete(any(JobArtifact.class));
         verify(artifactRepository, never()).deleteByJobId(jobId); // only the 30-day job purge (FK cascade) removes it
     }
+
+    @Test
+    void retryDoesNotCopyFilesThatAlreadyWaitInTheInbox() {
+        UUID jobId = UUID.randomUUID();
+        UUID userId = UUID.randomUUID();
+        Job orig = new Job();
+        orig.setId(jobId);
+        orig.setUserId(userId);
+        orig.setType(JobType.STATEMENT_INGEST);
+        orig.setStatus(JobStatus.FAILED);
+        JobArtifact held = new JobArtifact();
+        held.setId(UUID.randomUUID());
+        held.setFilename("held.pdf");
+        JobArtifact other = new JobArtifact();
+        other.setId(UUID.randomUUID());
+        other.setFilename("other.pdf");
+        when(jobRepository.findByIdAndUserId(jobId, userId)).thenReturn(Optional.of(orig));
+        when(artifactRepository.findByJobId(jobId)).thenReturn(List.of(held, other));
+        when(artifactRepository.hasUnresolvedHeldUpload(held.getId())).thenReturn(true);
+        when(jobRepository.save(any())).thenAnswer(inv -> {
+            Job j = inv.getArgument(0);
+            j.setId(UUID.randomUUID());
+            return j;
+        });
+
+        service.retry(userId, jobId);
+
+        org.mockito.ArgumentCaptor<JobArtifact> saved = org.mockito.ArgumentCaptor.forClass(JobArtifact.class);
+        verify(artifactRepository, times(1)).save(saved.capture());
+        assertThat(saved.getValue().getFilename()).isEqualTo("other.pdf");
+    }
+
+    @Test
+    void retryOfAJobWhoseFilesAllWaitInTheInboxIsRejected() {
+        UUID jobId = UUID.randomUUID();
+        UUID userId = UUID.randomUUID();
+        Job orig = new Job();
+        orig.setId(jobId);
+        orig.setUserId(userId);
+        orig.setType(JobType.STATEMENT_INGEST);
+        orig.setStatus(JobStatus.FAILED);
+        JobArtifact held = new JobArtifact();
+        held.setId(UUID.randomUUID());
+        when(jobRepository.findByIdAndUserId(jobId, userId)).thenReturn(Optional.of(orig));
+        when(artifactRepository.findByJobId(jobId)).thenReturn(List.of(held));
+        when(artifactRepository.hasUnresolvedHeldUpload(held.getId())).thenReturn(true);
+
+        org.assertj.core.api.Assertions.assertThatThrownBy(() -> service.retry(userId, jobId))
+                .isInstanceOf(com.financeos.core.exception.ValidationException.class);
+        verify(jobRepository, never()).save(any());
+    }
 }
