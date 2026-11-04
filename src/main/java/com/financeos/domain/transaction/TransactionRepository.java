@@ -190,6 +190,18 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
         LocalDate getLastDate();
     }
 
+    interface AccountMonthProjection {
+        UUID getAccountId();
+        Integer getYr();
+        Integer getMo();
+    }
+
+    /** The distinct (year, month) of the transactions of several accounts, one grouped query (every transaction counts). */
+    @Query("SELECT t.account.id AS accountId, extract(year from t.date) AS yr, extract(month from t.date) AS mo "
+           + "FROM Transaction t WHERE t.account.id IN :accountIds "
+           + "GROUP BY t.account.id, extract(year from t.date), extract(month from t.date)")
+    List<AccountMonthProjection> findTransactionMonthsByAccountIds(@Param("accountIds") java.util.Collection<UUID> accountIds);
+
     /**
      * The latest transaction date per account for several accounts at once. Counts every transaction of the
      * account (the same set the balance sums: no excluded/pending filter); an account without one has no row.

@@ -20,6 +20,8 @@ public interface GmailConnectionRepository extends JpaRepository<GmailConnection
 
     boolean existsByUserId(UUID userId);
 
+    boolean existsByUserIdAndIsConnectedTrue(UUID userId);
+
     List<GmailConnection> findByIsConnectedTrue();
 
     /** Connections the cron should sync: wanted by the user AND holding a token Google still accepts. */

@@ -8,6 +8,7 @@ import com.financeos.domain.account.AccountIdentifier;
 import com.financeos.domain.account.AccountIdentifierService;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.AccountService;
+import com.financeos.domain.account.coverage.AccountCoverageService;
 import com.financeos.domain.user.AuthService;
 import com.financeos.domain.user.User;
 import jakarta.validation.Valid;
@@ -27,11 +28,14 @@ public class AccountController {
     private final AccountRepository accountRepository;
     private final AuthService authService;
     private final AccountIdentifierService accountIdentifierService;
+    private final AccountCoverageService coverageService;
 
     public AccountController(AccountService accountService,
                              AccountRepository accountRepository,
                              AuthService authService,
-                             AccountIdentifierService accountIdentifierService) {
+                             AccountIdentifierService accountIdentifierService,
+                             AccountCoverageService coverageService) {
+        this.coverageService = coverageService;
         this.accountService = accountService;
         this.accountRepository = accountRepository;
         this.authService = authService;
@@ -41,6 +45,7 @@ public class AccountController {
     @PostMapping
     public ResponseEntity<AccountResponse> createAccount(@Valid @RequestBody CreateAccountRequest request) {
         Account account = accountService.createAccount(request);
+        accountService.populateGmailFetch(List.of(account));
         return ResponseEntity.status(HttpStatus.CREATED).body(AccountResponse.from(account));
     }
 
@@ -57,6 +62,7 @@ public class AccountController {
     public ResponseEntity<AccountResponse> getAccountById(@PathVariable UUID id) {
         Account account = accountService.getAccountById(id);
         accountService.populateLastTransactionDates(List.of(account));
+        accountService.populateGmailFetch(List.of(account));
         return ResponseEntity.ok(AccountResponse.from(account));
     }
 
@@ -70,7 +76,25 @@ public class AccountController {
             @PathVariable UUID id,
             @Valid @RequestBody CreateAccountRequest request) {
         Account account = accountService.updateAccount(id, request);
+        accountService.populateGmailFetch(List.of(account));
         return ResponseEntity.ok(AccountResponse.from(account));
+    }
+
+    @GetMapping("/{id}/coverage")
+    public ResponseEntity<CoverageResponse> getCoverage(@PathVariable UUID id) {
+        return ResponseEntity.ok(coverageService.coverage(id));
+    }
+
+    @PostMapping("/{id}/coverage/{month}/empty")
+    public ResponseEntity<Void> markMonthEmpty(@PathVariable UUID id, @PathVariable String month) {
+        coverageService.markEmpty(id, month);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{id}/coverage/{month}/empty")
+    public ResponseEntity<Void> unmarkMonthEmpty(@PathVariable UUID id, @PathVariable String month) {
+        coverageService.unmarkEmpty(id, month);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/{id}/close")
