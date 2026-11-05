@@ -18,12 +18,18 @@ public record UserResponse(
         @Nullable String birthDate,
         @Nullable String birthDateSource,
         boolean helloDone,
-        boolean helloProfileSaved) {
+        boolean helloProfileSaved,
+        boolean failuresAdmin) {
     public static UserResponse from(User user) {
         return from(user, false);
     }
 
     public static UserResponse from(User user, boolean admin) {
+        return from(user, admin, false);
+    }
+
+    /** {@code failuresAdmin}: listed explicitly in ADMIN_EMAILS (never the open-to-all fallback); gates the Failures page. */
+    public static UserResponse from(User user, boolean admin, boolean failuresAdmin) {
         return new UserResponse(
                 user.getId(),
                 user.getEmail(),
@@ -35,6 +41,7 @@ public record UserResponse(
                 user.getBirthDate(),
                 user.getBirthDateSource() != null ? user.getBirthDateSource().name() : null,
                 user.getHelloDoneAt() != null,
-                user.getTermsAcceptedAt() != null);
+                user.getTermsAcceptedAt() != null,
+                failuresAdmin);
     }
 }

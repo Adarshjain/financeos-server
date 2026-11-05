@@ -84,6 +84,20 @@ public class GmailProcessedMessage {
     @Column(length = 2000)
     private String error;
 
+    /** Stack trace of the failure (truncated), for the admin Failures tool. */
+    @Lob
+    @Column(name = "error_detail")
+    private String errorDetail;
+
+    @Column(name = "dismissed_at")
+    private Instant dismissedAt;
+
+    @Column(name = "dismissed_by", length = 320)
+    private String dismissedBy;
+
+    @Column(name = "dismiss_reason", length = 500)
+    private String dismissReason;
+
     @Column(name = "processed_at")
     private Instant processedAt;
 
@@ -167,6 +181,19 @@ public class GmailProcessedMessage {
             this.archivedAt = null;
         }
         this.status = status;
+    }
+
+    /** Back to DISCOVERED for a fresh run: no attempts, no backoff, no error, no dismissal; a second failure is announced again. */
+    public void resetForRetry() {
+        setStatus(GmailProcessedStatus.DISCOVERED);
+        attemptCount = 0;
+        nextRetryAt = null;
+        error = null;
+        errorDetail = null;
+        dismissedAt = null;
+        dismissedBy = null;
+        dismissReason = null;
+        attentionNotifiedAt = null;
     }
 
     @PrePersist

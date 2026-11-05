@@ -37,7 +37,7 @@ public class AuthController {
     @PostMapping("/signup")
     public ResponseEntity<UserResponse> signup(@Valid @RequestBody SignupRequest request) {
         User user = authService.signup(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(UserResponse.from(user, adminService.isAdmin(user.getId())));
+        return ResponseEntity.status(HttpStatus.CREATED).body(UserResponse.from(user, adminService.isAdmin(user.getId()), adminService.isExplicitAdmin(user)));
     }
 
     @PostMapping("/login")
@@ -46,7 +46,7 @@ public class AuthController {
             HttpServletRequest httpRequest,
             HttpServletResponse httpResponse) {
         User user = authService.login(request, httpRequest, httpResponse);
-        return ResponseEntity.ok(UserResponse.from(user, adminService.isAdmin(user.getId())));
+        return ResponseEntity.ok(UserResponse.from(user, adminService.isAdmin(user.getId()), adminService.isExplicitAdmin(user)));
     }
 
     @PostMapping("/logout")
@@ -58,7 +58,7 @@ public class AuthController {
     @GetMapping("/me")
     public ResponseEntity<UserResponse> getCurrentUser() {
         User user = authService.getCurrentUserForRead();
-        return ResponseEntity.ok(UserResponse.from(user, adminService.isAdmin(user)));
+        return ResponseEntity.ok(UserResponse.from(user, adminService.isAdmin(user), adminService.isExplicitAdmin(user)));
     }
 
     @GetMapping("/google/start")
@@ -97,7 +97,7 @@ public class AuthController {
         }
 
         User user = authService.handleGoogleLogin(code, state, request, response);
-        return ResponseEntity.ok(UserResponse.from(user, adminService.isAdmin(user.getId())));
+        return ResponseEntity.ok(UserResponse.from(user, adminService.isAdmin(user.getId()), adminService.isExplicitAdmin(user)));
     }
 
     @GetMapping("/me/deletion-summary")

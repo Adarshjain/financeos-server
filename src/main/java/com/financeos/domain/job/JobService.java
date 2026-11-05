@@ -156,6 +156,15 @@ public class JobService {
         publishFinished(job);
     }
 
+    /** Stores the failure's stack trace (admin Failures tool); a separate step so a failed save never hides the failure. */
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void saveErrorDetail(UUID jobId, String errorDetail) {
+        jobRepository.findById(jobId).ifPresent(job -> {
+            job.setErrorDetail(errorDetail);
+            jobRepository.save(job);
+        });
+    }
+
     /** Consumed after this REQUIRES_NEW transaction commits (the "job finished" push). */
     private void publishFinished(Job job) {
         if (eventPublisher != null) {
@@ -247,6 +256,26 @@ public class JobService {
             throw new ResourceNotFoundException("Job", jobId);
         }
 
+        return cloneAndDismiss(orig, jobRepository.findUserEmail(userId));
+    }
+
+    /**
+     * Admin retry of any user's FAILED or CANCELLED job: the same clone as {@link #retry}, the original marked dismissed by
+     * the admin. Call it as the job's owner (UserContextHelper.callAs) so the tenant filter matches the job's rows.
+     */
+    @Transactional
+    public Job retryForAdmin(UUID jobId, String adminEmail) {
+        Job orig = jobRepository.findById(jobId).orElseThrow(() -> new ResourceNotFoundException("Job", jobId));
+        return cloneAndDismiss(orig, adminEmail);
+    }
+
+    /** True when a retry of this job can find what it needs (a statement ingest needs its stored files). */
+    public static boolean needsArtifacts(Job job) {
+        return job.getType() == JobType.STATEMENT_INGEST;
+    }
+
+    private Job cloneAndDismiss(Job orig, String dismissedBy) {
+        UUID jobId = orig.getId();
         if (orig.getStatus() != JobStatus.FAILED && orig.getStatus() != JobStatus.CANCELLED) {
             throw new ValidationException("Only FAILED or CANCELLED jobs can be retried.");
         }
@@ -275,6 +304,11 @@ public class JobService {
         newJob.setCancelRequested(false);
 
         Job savedJob = jobRepository.save(newJob);
+
+        orig.setDismissedAt(Instant.now());
+        orig.setDismissedBy(dismissedBy);
+        orig.setDismissReason("Retried as " + savedJob.getId());
+        jobRepository.save(orig);
 
         for (JobArtifact a : origArtifacts) {
             JobArtifact newArtifact = new JobArtifact();

@@ -39,6 +39,22 @@ public interface JobRepository extends JpaRepository<Job, UUID> {
     List<Job> findPreviousFinished(@Param("userId") UUID userId, @Param("type") JobType type, @Param("excludeId") UUID excludeId,
                                    @Param("statuses") Collection<JobStatus> statuses, @Param("finishedAt") Instant finishedAt, Pageable limit);
 
+    /** The email of a user (for the "dismissed by" mark of a user retry); null when unknown. */
+    @Query("select u.email from User u where u.id = :userId")
+    String findUserEmail(@Param("userId") UUID userId);
+
+    /** Admin Failures tool, across users: FAILED jobs finished since {@code since}, newest first; dismissed ones only on request. */
+    @Query(value = "select j from Job j where j.status = com.financeos.domain.job.JobStatus.FAILED and j.finishedAt >= :since and (:includeDismissed = true or j.dismissedAt is null) order by j.finishedAt desc, j.id desc",
+           countQuery = "select count(j) from Job j where j.status = com.financeos.domain.job.JobStatus.FAILED and j.finishedAt >= :since and (:includeDismissed = true or j.dismissedAt is null)")
+    Page<Job> findFailedForAdmin(@Param("since") Instant since, @Param("includeDismissed") boolean includeDismissed, Pageable pageable);
+
+    /** Every non-dismissed FAILED job finished since {@code since} (retry-all). */
+    @Query("select j from Job j where j.status = com.financeos.domain.job.JobStatus.FAILED and j.finishedAt >= :since and j.dismissedAt is null order by j.finishedAt desc, j.id desc")
+    List<Job> findFailedActiveForAdmin(@Param("since") Instant since);
+
+    @Query("select count(j) from Job j where j.status = com.financeos.domain.job.JobStatus.FAILED and j.finishedAt >= :since and j.dismissedAt is null")
+    long countFailedActiveForAdmin(@Param("since") Instant since);
+
     Optional<Job> findByIdAndUserId(UUID id, UUID userId);
 
     long countByUserIdAndStatus(UUID userId, JobStatus status);

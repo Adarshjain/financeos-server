@@ -56,6 +56,20 @@ public class Job {
     @Column(name = "error_message", length = 2000)
     private String errorMessage;
 
+    /** Stack trace of the failure (truncated), for the admin Failures tool. */
+    @Lob
+    @Column(name = "error_detail")
+    private String errorDetail;
+
+    @Column(name = "dismissed_at")
+    private Instant dismissedAt;
+
+    @Column(name = "dismissed_by", length = 320)
+    private String dismissedBy;
+
+    @Column(name = "dismiss_reason", length = 500)
+    private String dismissReason;
+
     @Column(name = "progress_current")
     private Integer progressCurrent;
 
@@ -129,6 +143,14 @@ public class Job {
     public void setErrorCode(String errorCode) { this.errorCode = errorCode; }
     public String getErrorMessage() { return errorMessage; }
     public void setErrorMessage(String errorMessage) { this.errorMessage = errorMessage; }
+    public String getErrorDetail() { return errorDetail; }
+    public void setErrorDetail(String errorDetail) { this.errorDetail = errorDetail; }
+    public Instant getDismissedAt() { return dismissedAt; }
+    public void setDismissedAt(Instant dismissedAt) { this.dismissedAt = dismissedAt; }
+    public String getDismissedBy() { return dismissedBy; }
+    public void setDismissedBy(String dismissedBy) { this.dismissedBy = dismissedBy; }
+    public String getDismissReason() { return dismissReason; }
+    public void setDismissReason(String dismissReason) { this.dismissReason = dismissReason; }
     public Integer getProgressCurrent() { return progressCurrent; }
     public void setProgressCurrent(Integer progressCurrent) { this.progressCurrent = progressCurrent; }
     public Integer getProgressTotal() { return progressTotal; }

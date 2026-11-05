@@ -372,7 +372,7 @@ public class GmailIngestionService {
             switch (result.status()) {
                 case CREATED -> createdCount++;
                 case RECONCILED -> reconciledCount++;
-                case SKIPPED_NOT_TRANSACTION, SKIPPED_BEFORE_WATERMARK, SKIPPED_SENDER_DISABLED, SKIPPED_DUPLICATE, SKIPPED_MESSAGE_GONE -> skippedCount++;
+                case SKIPPED_NOT_TRANSACTION, SKIPPED_BEFORE_WATERMARK, SKIPPED_SENDER_DISABLED, SKIPPED_DUPLICATE, SKIPPED_MESSAGE_GONE, SKIPPED_BY_ADMIN -> skippedCount++;
                 case UNRESOLVED_ACCOUNT, ACCOUNT_NOT_OPTED_IN -> parkedCount++;
                 case FAILED_RETRYABLE -> failedRetryableCount++;
                 case FAILED_PERMANENT -> failedPermanentCount++;
@@ -442,6 +442,7 @@ public class GmailIngestionService {
             case FAILED_RETRYABLE -> 1;
             case UNRESOLVED_ACCOUNT, ACCOUNT_NOT_OPTED_IN -> 2;
             case CREATED, RECONCILED -> 3;
+            case SKIPPED_BY_ADMIN -> 5;
             default -> 4;
         };
     }
@@ -502,6 +503,13 @@ public class GmailIngestionService {
         }
     }
 
+    /** The exception's stack trace (with causes), at most 16000 chars, for the admin Failures tool. */
+    private String stackOf(Throwable t) {
+        java.io.StringWriter sw = new java.io.StringWriter();
+        t.printStackTrace(new java.io.PrintWriter(sw));
+        return truncate(sw.toString(), 16000);
+    }
+
     private static Throwable rootCause(Throwable t) {
         Throwable root = t;
         for (int i = 0; i < 20 && root.getCause() != null && root.getCause() != root; i++) {
@@ -541,6 +549,7 @@ public class GmailIngestionService {
         gpm.setAttemptCount(attempts);
         boolean isNoKeys = (e instanceof com.financeos.llm.LlmException le && le.getKind() == com.financeos.llm.LlmException.Kind.NO_KEYS)
                 || (e.getMessage() != null && e.getMessage().contains("No API keys configured"));
+        gpm.setErrorDetail(stackOf(e));
         if (isNoKeys) {
             gpm.setError("needs attention: add an API key in Settings");
         } else {
