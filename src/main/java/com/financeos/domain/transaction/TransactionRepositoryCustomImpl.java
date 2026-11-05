@@ -132,55 +132,91 @@ public class TransactionRepositoryCustomImpl implements TransactionRepositoryCus
 
         queryBuilder.validate(criteria, pageable);
 
-        // 1. Build and execute count query
-        TransactionListQueryBuilder.QueryResult countResult = queryBuilder.buildCountQuery(userId, criteria);
-        Query countQuery = entityManager.createNativeQuery(countResult.sql());
-        countResult.params().forEach(countQuery::setParameter);
-        long total = ((Number) countQuery.getSingleResult()).longValue();
-
-        if (total == 0) {
+        // 1. The page itself (ids and accounts, no window work), in sort order.
+        TransactionListQueryBuilder.QueryResult pageResult = queryBuilder.buildPageQuery(userId, criteria, pageable);
+        Query pageQuery = entityManager.createNativeQuery(pageResult.sql());
+        pageResult.params().forEach(pageQuery::setParameter);
+        if (pageable.isPaged()) {
+            pageQuery.setFirstResult((int) pageable.getOffset());
+            pageQuery.setMaxResults(pageable.getPageSize());
+        }
+        List<?> pageRows = pageQuery.getResultList();
+        if (pageRows.isEmpty() && pageable.getOffset() == 0) {
             return new PageImpl<>(Collections.emptyList(), pageable, 0);
         }
 
-        // 2. Build and execute data query
-        TransactionListQueryBuilder.QueryResult dataResult = queryBuilder.buildDataQuery(userId, criteria, pageable);
-        Query dataQuery = entityManager.createNativeQuery(dataResult.sql());
-        dataResult.params().forEach(dataQuery::setParameter);
+        // 2. The total: a short first page already is the total, otherwise count.
+        long total;
+        if (pageable.isUnpaged() || (pageable.getOffset() == 0 && pageRows.size() < pageable.getPageSize())) {
+            total = pageRows.size();
+        } else {
+            TransactionListQueryBuilder.QueryResult countResult = queryBuilder.buildCountQuery(userId, criteria);
+            Query countQuery = entityManager.createNativeQuery(countResult.sql());
+            countResult.params().forEach(countQuery::setParameter);
+            total = ((Number) countQuery.getSingleResult()).longValue();
+        }
+        if (pageRows.isEmpty()) {
+            return new PageImpl<>(Collections.emptyList(), pageable, total);
+        }
 
-        // Apply pagination limit/offset
-        dataQuery.setFirstResult((int) pageable.getOffset());
-        dataQuery.setMaxResults(pageable.getPageSize());
-
-        List<?> rows = dataQuery.getResultList();
-        List<TransactionRepository.TransactionBalanceProjection> projections = new ArrayList<>();
-        for (Object row : rows) {
+        // 3. Running balances of just the page's rows: windowed over their accounts, up to the page's last date.
+        List<String> ids = new ArrayList<>();
+        java.util.Set<String> accountIds = new java.util.LinkedHashSet<>();
+        LocalDate maxDate = null;
+        for (Object row : pageRows) {
             Object[] array = (Object[]) row;
-
-            UUID id;
-            if (array[0] instanceof UUID) {
-                id = (UUID) array[0];
-            } else {
-                id = UUID.fromString(array[0].toString());
+            ids.add(array[0].toString());
+            if (array[1] != null) {
+                accountIds.add(array[1].toString());
             }
-
-            BigDecimal balance = BigDecimal.ZERO;
-            if (array[1] instanceof BigDecimal) {
-                balance = (BigDecimal) array[1];
-            } else if (array[1] != null) {
-                balance = new BigDecimal(array[1].toString());
+            LocalDate date = toLocalDate(array[2]);
+            if (maxDate == null || date.isAfter(maxDate)) {
+                maxDate = date;
             }
-
-            BigDecimal bankBalance = null;
-            if (array[2] instanceof BigDecimal) {
-                bankBalance = (BigDecimal) array[2];
-            } else if (array[2] != null) {
-                bankBalance = new BigDecimal(array[2].toString());
+        }
+        Map<String, BigDecimal[]> balances = new java.util.HashMap<>();
+        if (!accountIds.isEmpty()) {
+            // Oracle caps an IN list at 1000 entries: a page beyond 900 rows is balanced in chunks.
+            for (int from = 0; from < ids.size(); from += 900) {
+                List<String> chunk = ids.subList(from, Math.min(ids.size(), from + 900));
+                TransactionListQueryBuilder.QueryResult balanceResult = queryBuilder.buildBalanceQuery(userId, accountIds, maxDate, chunk);
+                Query balanceQuery = entityManager.createNativeQuery(balanceResult.sql());
+                balanceResult.params().forEach(balanceQuery::setParameter);
+                for (Object row : balanceQuery.getResultList()) {
+                    Object[] array = (Object[]) row;
+                    balances.put(array[0].toString(), new BigDecimal[] { toDecimal(array[1]), toDecimal(array[2]) });
+                }
             }
+        }
 
-            projections.add(new TransactionBalanceProjectionImpl(id, balance, bankBalance));
+        List<TransactionRepository.TransactionBalanceProjection> projections = new ArrayList<>();
+        for (String id : ids) {
+            BigDecimal[] pair = balances.get(id);
+            BigDecimal balance = pair != null && pair[0] != null ? pair[0] : BigDecimal.ZERO;
+            projections.add(new TransactionBalanceProjectionImpl(UUID.fromString(id), balance, pair != null ? pair[1] : null));
         }
 
         return new PageImpl<>(projections, pageable, total);
+    }
+
+    private static BigDecimal toDecimal(Object value) {
+        if (value == null) {
+            return null;
+        }
+        return value instanceof BigDecimal d ? d : new BigDecimal(value.toString());
+    }
+
+    private static LocalDate toLocalDate(Object value) {
+        if (value instanceof LocalDate d) {
+            return d;
+        }
+        if (value instanceof java.sql.Date d) {
+            return d.toLocalDate();
+        }
+        if (value instanceof java.sql.Timestamp ts) {
+            return ts.toLocalDateTime().toLocalDate();
+        }
+        return LocalDate.parse(value.toString().substring(0, 10));
     }
 
     private static class TransactionBalanceProjectionImpl implements TransactionRepository.TransactionBalanceProjection {
