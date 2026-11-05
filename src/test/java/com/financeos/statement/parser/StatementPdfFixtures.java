@@ -347,6 +347,69 @@ public final class StatementPdfFixtures {
 		return d.save();
 	}
 
+	/** A withdrawal whose narration wraps over five undated lines under the dated row (13pt pitch), then a gap and a credit. */
+	public static byte[] bankRowWithFiveLineNarration() throws Exception {
+		Doc d = new Doc();
+		d.line(l(300, "SAVINGS ACCOUNT STATEMENT"));
+		header(d);
+		d.line(l(NARR, "OPENING BALANCE"), r(BAL, "10,000.00"));
+		d.line(l(DATE, "05Mar2026"), l(NARR, "UPI/DR/NARRL1"), r(WDL, "213.00"), r(BAL, "9,787.00"));
+		d.line(l(NARR, "NARRL2"));
+		d.line(l(NARR, "NARRL3"));
+		d.line(l(NARR, "NARRL4"));
+		d.line(l(NARR, "NARRL5"));
+		d.line(l(NARR, "NARRL6"));
+		for (int i = 0; i < 5; i++) {
+			d.line();
+		}
+		d.line(l(DATE, "06Mar2026"), l(NARR, "NEFT FROM ACME"), r(DEP, "1,000.00"), r(BAL, "10,787.00"));
+		return d.save();
+	}
+
+	/** A lone "Cashback" heading in the description area and another right beside the Deposits column: both columns keep their amounts. */
+	public static byte[] bankHeaderWithLoneCashbackWord() throws Exception {
+		Doc d = new Doc();
+		d.line(l(300, "SAVINGS ACCOUNT STATEMENT"));
+		d.line(l(DATE, "Date"), l(NARR, "Cashback Details"), l(372, "Cashback"), l(430, "Withdrawals"),
+				l(523, "Balance"));
+		d.line(l(NARR, "OPENING BALANCE"), r(BAL, "10,000.00"));
+		d.line(l(DATE, "05Mar2026"), l(NARR, "NEFT FROM ACME"), r(390, "1,000.00"), r(BAL, "11,000.00"));
+		d.line(l(DATE, "06Mar2026"), l(NARR, "UPI TO SHOP"), r(480, "213.00"), r(BAL, "10,787.00"));
+		return d.save();
+	}
+
+	/** Block layout whose narration holds a letter-spaced figure ("INR 5 ,000.00") left of the amount columns. */
+	public static byte[] bankBlockWithSplitFigureInNarration() throws Exception {
+		Doc d = new Doc();
+		d.line(l(300, "SAVINGS ACCOUNT STATEMENT"));
+		header(d);
+		d.line(l(NARR, "OPENING BALANCE"), r(BAL, "10,000.00"));
+		d.line(l(DATE, "05Mar2026"), l(NARR, "CARD SWIPE"));
+		d.line(l(NARR, "INR"), l(130, "5"), l(136, ",000.00"), l(190, "FOREIGN"));
+		d.line(l(NARR, "SHOP"), r(WDL, "213.00"), r(BAL, "9,787.00"));
+		return d.save();
+	}
+
+	/** Card row read as 0.00 with the given text in its narration and no column header. */
+	public static byte[] cardZeroRowWithText(String narration) throws Exception {
+		Doc d = new Doc();
+		d.line(l(38, "CREDIT CARD STATEMENT"));
+		d.line(l(40, "Statement period : 21/10/2022 to 20/11/2022"));
+		d.line(l(34, "21/10/2022"), l(89, narration), l(490, "0.00"), l(509, "Dr"));
+		d.line(l(34, "29/10/2022"), l(89, "HOTEL RESTAURANTS"), l(402, "213.00"), l(431, "Dr"));
+		return d.save();
+	}
+
+	/** Card row read as 0.00 whose narration holds a figure that stays split ("5" ... ",000.00"). */
+	public static byte[] cardZeroRowWithSplitFigure() throws Exception {
+		Doc d = new Doc();
+		d.line(l(38, "CREDIT CARD STATEMENT"));
+		d.line(l(40, "Statement period : 21/10/2022 to 20/11/2022"));
+		d.line(l(34, "21/10/2022"), l(89, "FEE"), l(300, "5"), l(330, ",000.00"), l(490, "0.00"), l(509, "Dr"));
+		d.line(l(34, "29/10/2022"), l(89, "HOTEL RESTAURANTS"), l(402, "213.00"), l(431, "Dr"));
+		return d.save();
+	}
+
 	private static void header(Doc d) {
 		d.line(l(DATE, "Date"), l(NARR, "Transaction Details"), l(335, "Deposits"), l(409, "Withdrawals"),
 				l(523, "Balance"));
