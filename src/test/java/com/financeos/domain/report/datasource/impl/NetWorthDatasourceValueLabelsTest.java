@@ -31,9 +31,9 @@ class NetWorthDatasourceValueLabelsTest {
         FieldDef kind = netWorth.field("kind");
 
         assertEquals(kind.values(), new ArrayList<>(kind.valueLabels().keySet()));
-        assertEquals(List.of("Bank account", "Credit card", "Broker", "Wallet/Cash", "Loan", "Lending", "EPF"),
+        assertEquals(List.of("Bank account", "Credit card", "Broker", "Wallet/Cash", "Loan", "Lending", "EPF", "NPS"),
                 new ArrayList<>(kind.valueLabels().values()));
-        assertEquals(List.of("bank_account", "credit_card", "broker", "generic", "loan", "lending", "epf"), kind.values());
+        assertEquals(List.of("bank_account", "credit_card", "broker", "generic", "loan", "lending", "epf", "nps"), kind.values());
     }
 
     @Test

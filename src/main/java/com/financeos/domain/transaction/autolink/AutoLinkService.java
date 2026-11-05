@@ -244,6 +244,10 @@ public class AutoLinkService {
         int emis = result.byKind().getOrDefault(SuggestionKind.EMI, Counts.ZERO).linked();
         int lendings = result.byKind().getOrDefault(SuggestionKind.LENDING, Counts.ZERO).linked();
         int dividends = result.byKind().getOrDefault(SuggestionKind.DIVIDEND, Counts.ZERO).linked();
+        int nps = result.byKind().getOrDefault(SuggestionKind.NPS, Counts.ZERO).linked();
+        if (nps > 0) {
+            parts.add(nps + (nps == 1 ? " NPS contribution" : " NPS contributions"));
+        }
         if (emis > 0) {
             parts.add(emis + (emis == 1 ? " EMI" : " EMIs"));
         }

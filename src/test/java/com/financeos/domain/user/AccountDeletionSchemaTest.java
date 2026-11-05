@@ -111,6 +111,7 @@ class AccountDeletionSchemaTest {
                 "inbox_item_state", "user_instrument_overrides", "instrument_prices", "instrument_aliases",
                 "user_instrument_repoints", "corporate_actions", "credit_limit_pools", "app_notifications",
                 "chat_conversation", "epf_employer", "epf_entry", "epf_link_dismissal",
+                "nps_account", "nps_entry", "nps_link_dismissal", "nps_statement", "nps_gmail_pending",
                 "app_lock_devices", "link_suggestions", "auto_link_rejections",
                 "account_detect_state", "account_detect_facts", "account_suggestions", "held_uploads",
                 "recurring_series", // V149: ON DELETE CASCADE from users (recurring_series_payments cascade from it)

@@ -210,7 +210,8 @@ public class PortfolioValueDatasource implements ComputedReportDatasource {
     }
 
     private List<FieldDef> buildCatalog() {
-        List<String> instTypeValues = Arrays.stream(InstrumentType.values()).map(Enum::name).toList();
+        List<String> instTypeValues = Arrays.stream(InstrumentType.values()).filter(t -> t != InstrumentType.nps_scheme)
+                .map(Enum::name).toList();
 
         return List.of(
                 new FieldDef("valueDate", "Value Date", FieldType.DATE, FieldRole.DIMENSION, null, null, null, CHART_TABLE),

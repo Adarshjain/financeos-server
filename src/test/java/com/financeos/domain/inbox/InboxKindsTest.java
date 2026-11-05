@@ -73,7 +73,7 @@ class InboxKindsTest {
     @Test
     void allListsEveryKindInDisplayOrder() {
         assertEquals(List.of("bill", "emi", "lending", "statement_expected", "statement_details_missing", "gmail_reconnect",
-                "gmail_attention", "review", "job", "reward_milestone", "reward_cap", "epf_match", "upload_needs_account"), InboxKinds.ALL);
+                "gmail_attention", "review", "job", "reward_milestone", "reward_cap", "epf_match", "upload_needs_account", "nps_password", "nps_new_account", "nps_match", "nps_record"), InboxKinds.ALL);
     }
 
     @Test

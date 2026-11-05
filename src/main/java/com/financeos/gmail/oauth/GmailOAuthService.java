@@ -46,6 +46,9 @@ public class GmailOAuthService {
     private final GoogleBirthdayService googleBirthdayService;
     /** Marks onboarding done when connecting from the Welcome flow (null in unit tests). */
     private final ProfileService profileService;
+    /** Adds the NPS (document) senders on connect; null in unit tests. */
+    @Autowired(required = false)
+    private com.financeos.gmail.ingest.SenderAllowlistService senderAllowlistService;
 
     public GmailOAuthService(GmailApiClient gmailApiClient,
             GmailConnectionRepository connectionRepository,
@@ -191,6 +194,14 @@ public class GmailOAuthService {
             connection.setReconnectNotifiedAt(null);
 
             GmailConnection savedConnection = connectionRepository.save(connection);
+            if (senderAllowlistService != null) {
+                try {
+                    senderAllowlistService.addDocumentSenders(userId);
+                } catch (RuntimeException e) {
+                    // The mailbox is connected either way; the senders come with the next connect.
+                    log.warn("Adding the document senders failed: {}", e.getClass().getSimpleName());
+                }
+            }
             // Connecting from Welcome finishes onboarding. Its HelloCompletedEvent queues the one detection run after
             // commit, so onConnected is skipped then; when hello was already done onConnected queues it as before.
             boolean helloJustDone = flowId.endsWith(HOME_FLOW_SUFFIX) && profileService != null && profileService.completeHello(userId);

@@ -372,6 +372,8 @@ price:
   intraday-cron: ${PRICE_INTRADAY_CRON:0 */5 9-15 * * MON-FRI}
   amfi-refresh-cron: ${AMFI_REFRESH_CRON:0 30 23 * * *}
   amfi-retry-cron: ${AMFI_RETRY_CRON:0 0 7 * * *}
+  nps-refresh-cron: ${NPS_REFRESH_CRON:0 45 23 * * *}
+  nps-retry-cron: ${NPS_RETRY_CRON:0 0 8 * * *}
   timezone: ${PRICE_TIMEZONE:Asia/Kolkata}
   history:
     enabled: ${PRICE_HISTORY_ENABLED:true}
@@ -386,6 +388,10 @@ price:
       enabled: true
       base-url: ${AMFI_BASE_URL:https://www.amfiindia.com}
       timeout-ms: ${AMFI_TIMEOUT_MS:30000}
+    nps:
+      enabled: true
+      base-url: ${NPS_TRUST_BASE_URL:https://npstrust.org.in}
+      timeout-ms: ${NPS_TRUST_TIMEOUT_MS:30000}
     yahoo:
       enabled: true
       base-url: ${YAHOO_BASE_URL:https://query2.finance.yahoo.com}

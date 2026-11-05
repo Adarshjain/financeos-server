@@ -43,7 +43,8 @@ public class AutoLinkStore {
             + "OR EXISTS (SELECT 1 FROM loan_charges x WHERE x.transaction_id = t.id) "
             + "OR EXISTS (SELECT 1 FROM lendings x WHERE x.transaction_id = t.id) "
             + "OR EXISTS (SELECT 1 FROM dividends x WHERE x.transaction_id = t.id) "
-            + "OR EXISTS (SELECT 1 FROM epf_entry x WHERE x.transaction_id = t.id))";
+            + "OR EXISTS (SELECT 1 FROM epf_entry x WHERE x.transaction_id = t.id) "
+            + "OR EXISTS (SELECT 1 FROM nps_entry x WHERE x.transaction_id = t.id))";
 
     private final JdbcTemplate jdbc;
 

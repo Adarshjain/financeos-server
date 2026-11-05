@@ -2,6 +2,8 @@ package com.financeos.domain.instrument.price;
 
 import com.financeos.core.time.AppTime;
 import com.financeos.domain.instrument.Instrument;
+import com.financeos.domain.instrument.InstrumentType;
+import com.financeos.domain.nps.NpsEntryRepository;
 import com.financeos.domain.instrument.InstrumentPriceRepository;
 import com.financeos.domain.instrument.InstrumentRepository;
 import com.financeos.domain.instrument.PriceSource;
@@ -53,6 +55,8 @@ public class PriceHistoryService {
     private final InvestmentTransactionRepository transactionRepository;
     private final PriceHistoryClient historyClient;
     private final JdbcTemplate jdbcTemplate;
+    /** Null in plain construction (older tests): NPS schemes then have no entry-based window start. */
+    private final NpsEntryRepository npsEntryRepository;
     private final Map<UUID, Fetched> lastFetched = new ConcurrentHashMap<>();
     private Clock clock = Clock.systemUTC();
 
@@ -60,6 +64,17 @@ public class PriceHistoryService {
                                InstrumentPriceRepository priceRepository,
                                InvestmentTransactionRepository transactionRepository,
                                PriceHistoryClient historyClient, JdbcTemplate jdbcTemplate) {
+        this(priceProperties, instrumentRepository, priceRepository, transactionRepository, historyClient,
+                jdbcTemplate, null);
+    }
+
+    @org.springframework.beans.factory.annotation.Autowired
+    public PriceHistoryService(PriceProperties priceProperties, InstrumentRepository instrumentRepository,
+                               InstrumentPriceRepository priceRepository,
+                               InvestmentTransactionRepository transactionRepository,
+                               PriceHistoryClient historyClient, JdbcTemplate jdbcTemplate,
+                               NpsEntryRepository npsEntryRepository) {
+        this.npsEntryRepository = npsEntryRepository;
         this.priceProperties = priceProperties;
         this.instrumentRepository = instrumentRepository;
         this.priceRepository = priceRepository;
@@ -96,6 +111,7 @@ public class PriceHistoryService {
         try {
             List<Instrument> instruments = instrumentRepository.findAllById(instrumentIds);
             Map<UUID, LocalDate> earliestTrade = toDateMap(transactionRepository.findEarliestTradeDates(instrumentIds));
+            addNpsEarliestEntries(instruments, earliestTrade);
             LocalDate today = AppTime.today();
             for (Instrument instrument : instruments) {
                 try {
@@ -110,10 +126,31 @@ public class PriceHistoryService {
         return written;
     }
 
+    /** For NPS scheme instruments, the "first trade" is the earliest ledger entry holding the scheme (any user). */
+    private void addNpsEarliestEntries(List<Instrument> instruments, Map<UUID, LocalDate> earliest) {
+        if (npsEntryRepository == null) {
+            return;
+        }
+        Map<String, UUID> byCode = new HashMap<>();
+        for (Instrument instrument : instruments) {
+            if (instrument.getType() == InstrumentType.nps_scheme && instrument.getSymbol() != null) {
+                byCode.put(instrument.getSymbol(), instrument.getId());
+            }
+        }
+        if (byCode.isEmpty()) {
+            return;
+        }
+        for (Object[] row : npsEntryRepository.findEarliestPostedDates(byCode.keySet())) {
+            earliest.put(byCode.get(String.valueOf(row[0])), toLocalDate(row[1]));
+        }
+    }
+
     private int backfillOne(Instrument instrument, LocalDate today, LocalDate firstTrade, PriceProperties.History cfg) {
         boolean yahoo = instrument.getYahooSymbol() != null && !instrument.getYahooSymbol().isBlank();
         boolean amfi = instrument.getAmfiCode() != null && !instrument.getAmfiCode().isBlank();
-        if (!yahoo && !amfi) {
+        boolean nps = instrument.getType() == InstrumentType.nps_scheme
+                && instrument.getSymbol() != null && !instrument.getSymbol().isBlank();
+        if (!yahoo && !amfi && !nps) {
             return 0;
         }
         LocalDate from = windowStart(today, firstTrade, cfg.getMinYears(), cfg.getYearsBeforeFirstTrade());
@@ -124,7 +161,10 @@ public class PriceHistoryService {
         }
         PriceHistoryClient.Result result;
         PriceSource source;
-        if (yahoo) {
+        if (nps) {
+            source = PriceSource.NPS_TRUST;
+            result = historyClient.fetchNpsScheme(instrument.getSymbol(), from, to);
+        } else if (yahoo) {
             source = PriceSource.YAHOO;
             result = historyClient.fetchYahoo(instrument.getYahooSymbol(), from, to);
         } else {

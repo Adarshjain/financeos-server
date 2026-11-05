@@ -130,18 +130,50 @@ public interface InstrumentPriceRepository extends JpaRepository<InstrumentPrice
         return findLatestTwoClosesAsOf(instrumentIds, userId, com.financeos.core.time.AppTime.today());
     }
 
+    /** The feed (ownerless) rows of several instruments on any of the dates (the NPS daily sync). */
+    @Query("SELECT p FROM InstrumentPrice p WHERE p.instrument.id IN :ids AND p.userId IS NULL AND p.asOf IN :dates")
+    List<InstrumentPrice> findFeedRows(@Param("ids") Collection<UUID> ids, @Param("dates") Collection<LocalDate> dates);
+
+    /** The feed (ownerless) rows of several instruments dated from {@code from} to {@code to}, both included. */
+    @Query("SELECT p FROM InstrumentPrice p WHERE p.instrument.id IN :ids AND p.userId IS NULL "
+            + "AND p.asOf >= :from AND p.asOf <= :to")
+    List<InstrumentPrice> findFeedRowsBetween(@Param("ids") Collection<UUID> ids, @Param("from") LocalDate from,
+                                              @Param("to") LocalDate to);
+
+    /** The newest feed (ownerless) close of each instrument, one query (shared NAVs, e.g. NPS schemes). */
+    @Query("SELECT p FROM InstrumentPrice p WHERE p.instrument.id IN :ids AND p.userId IS NULL "
+            + "AND p.asOf = (SELECT MAX(p2.asOf) FROM InstrumentPrice p2 WHERE p2.instrument.id = p.instrument.id "
+            + "AND p2.userId IS NULL)")
+    List<InstrumentPrice> findLatestFeedRows(@Param("ids") Collection<UUID> ids);
+
+    /** The earliest feed close of the instrument dated on or after {@code date}. */
+    Optional<InstrumentPrice> findFirstByInstrumentIdAndUserIdIsNullAndAsOfGreaterThanEqualOrderByAsOfAsc(
+            UUID instrumentId, LocalDate date);
+
+    /** Every feed close of the instruments dated from {@code from} to {@code to}, oldest first (one query). */
+    @Query("SELECT p FROM InstrumentPrice p WHERE p.instrument.id IN :ids AND p.userId IS NULL "
+            + "AND p.asOf >= :from AND p.asOf <= :to ORDER BY p.asOf")
+    List<InstrumentPrice> findFeedUpTo(@Param("ids") Collection<UUID> ids, @Param("from") LocalDate from,
+                                       @Param("to") LocalDate to);
+
+    /** The newest feed close of the instrument dated on or before {@code date}. */
+    Optional<InstrumentPrice> findFirstByInstrumentIdAndUserIdIsNullAndAsOfLessThanEqualOrderByAsOfDesc(
+            UUID instrumentId, LocalDate date);
+
     /** {@code userId}'s own prices of one instrument. */
     List<InstrumentPrice> findByInstrumentIdAndUserId(UUID instrumentId, UUID userId);
 
     /**
      * Prunes, for instruments with at least one trade (any user), up to {@code limit} feed rows (ownerless,
      * non-MANUAL) older than that instrument's window start: {@code LEAST(earliest trade - months, minStart)}.
-     * Keeps the newest feed row of every instrument. Callers loop until it returns less than {@code limit}.
+     * Keeps the newest feed row of every instrument and never prunes NPS scheme NAVs (their history is the
+     * unit ledger's valuation, held for every scheme). Callers loop until it returns less than {@code limit}.
      */
     @org.springframework.data.jpa.repository.Modifying
     @org.springframework.transaction.annotation.Transactional
     @Query(value = "DELETE FROM instrument_prices p WHERE p.user_id IS NULL AND p.source <> 'MANUAL' "
             + "AND ROWNUM <= :limit "
+            + "AND NOT EXISTS (SELECT 1 FROM instruments ni WHERE ni.id = p.instrument_id AND ni.type = 'nps_scheme') "
             + "AND p.as_of < (SELECT LEAST(ADD_MONTHS(MIN(t.trade_date), -:months), :minStart) "
             + "FROM investment_transactions t JOIN holdings h ON h.id = t.holding_id WHERE h.instrument_id = p.instrument_id) "
             + "AND EXISTS (SELECT 1 FROM instrument_prices n WHERE n.instrument_id = p.instrument_id "
@@ -158,6 +190,7 @@ public interface InstrumentPriceRepository extends JpaRepository<InstrumentPrice
     @org.springframework.transaction.annotation.Transactional
     @Query(value = "DELETE FROM instrument_prices p WHERE p.user_id IS NULL AND p.source <> 'MANUAL' "
             + "AND ROWNUM <= :limit "
+            + "AND NOT EXISTS (SELECT 1 FROM instruments ni WHERE ni.id = p.instrument_id AND ni.type = 'nps_scheme') "
             + "AND NOT EXISTS (SELECT 1 FROM investment_transactions t JOIN holdings h ON h.id = t.holding_id "
             + "WHERE h.instrument_id = p.instrument_id) "
             + "AND EXISTS (SELECT 1 FROM instrument_prices n WHERE n.instrument_id = p.instrument_id "

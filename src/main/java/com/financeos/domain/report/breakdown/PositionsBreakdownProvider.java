@@ -200,6 +200,7 @@ public class PositionsBreakdownProvider implements RowBreakdownProvider {
             case AMFI -> "AMFI";
             case YAHOO -> "Yahoo Finance";
             case MANUAL -> "Manual";
+            case NPS_TRUST -> "NPS Trust";
         };
     }
 
@@ -211,6 +212,7 @@ public class PositionsBreakdownProvider implements RowBreakdownProvider {
             case stock -> "Stock";
             case mutual_fund -> "Mutual fund";
             case etf -> "ETF";
+            case nps_scheme -> "NPS scheme";
         };
     }
 

@@ -33,10 +33,13 @@ public class NetWorthBreakdownProvider implements RowBreakdownProvider {
 
     private final List<NetWorthItemBreakdown> kinds;
     private final NetWorthEpfBreakdown epf;
+    private final NetWorthNpsBreakdown nps;
 
     public NetWorthBreakdownProvider(NetWorthAccountBreakdown accounts, NetWorthLoanBreakdown loans,
-                                     NetWorthLendingBreakdown lendings, NetWorthEpfBreakdown epf) {
+                                     NetWorthLendingBreakdown lendings, NetWorthEpfBreakdown epf,
+                                     NetWorthNpsBreakdown nps) {
         this.epf = epf;
+        this.nps = nps;
         this.kinds = List.of(accounts, loans, lendings);
     }
 
@@ -50,6 +53,9 @@ public class NetWorthBreakdownProvider implements RowBreakdownProvider {
         if (NetWorthDatasource.EPF_ROW_ID.equals(rowId)) {
             return epf.breakdown(size).orElseThrow(() -> new ResourceNotFoundException("Net worth row", rowId));
         }
+        if (NetWorthDatasource.NPS_ROW_ID.equals(rowId)) {
+            return nps.breakdown(size).orElseThrow(() -> new ResourceNotFoundException("Net worth row", rowId));
+        }
         return resolve(rowId, (kind, id) -> kind.breakdown(id, size));
     }
 
@@ -57,6 +63,10 @@ public class NetWorthBreakdownProvider implements RowBreakdownProvider {
     public ReportData section(String rowId, String section, int page, int size, @Nullable SortClause sort) {
         if (NetWorthDatasource.EPF_ROW_ID.equals(rowId)) {
             return epf.section(section, page, size, sort)
+                    .orElseThrow(() -> new ResourceNotFoundException("Net worth row", rowId));
+        }
+        if (NetWorthDatasource.NPS_ROW_ID.equals(rowId)) {
+            return nps.section(section, page, size, sort)
                     .orElseThrow(() -> new ResourceNotFoundException("Net worth row", rowId));
         }
         return resolve(rowId, (kind, id) -> sort == null

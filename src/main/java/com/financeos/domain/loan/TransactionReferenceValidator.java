@@ -73,6 +73,9 @@ public class TransactionReferenceValidator {
         if (isReferencedByEpf(transactionId)) {
             throw new ValidationException("Transaction " + transactionId + " is already linked to an EPF withdrawal");
         }
+        if (isReferencedByNps(transactionId)) {
+            throw new ValidationException("This transaction is linked to an NPS contribution.");
+        }
         if (isReferencedByDividend(transactionId)) {
             throw new ValidationException("Transaction " + transactionId + " is already linked to a dividend");
         }
@@ -100,6 +103,9 @@ public class TransactionReferenceValidator {
         if (isReferencedByEpf(transactionId)) {
             throw new ValidationException("Transaction " + transactionId + " is already linked to an EPF withdrawal");
         }
+        if (isReferencedByNps(transactionId)) {
+            throw new ValidationException("This transaction is linked to an NPS contribution.");
+        }
         TransactionType expected = expectedTypeFor(direction);
         if (direction != null && transaction.getType() != expected) {
             String want = expected == TransactionType.DEBIT ? "a DEBIT (money out)" : "a CREDIT (money in)";
@@ -125,6 +131,9 @@ public class TransactionReferenceValidator {
         }
         if (isReferencedByEpf(transactionId)) {
             throw new ValidationException("Transaction " + transactionId + " is already linked to an EPF withdrawal");
+        }
+        if (isReferencedByNps(transactionId)) {
+            throw new ValidationException("This transaction is linked to an NPS contribution.");
         }
         if (transaction.getType() != TransactionType.CREDIT) {
             throw new ValidationException("A dividend must link a CREDIT (money in) transaction");
@@ -163,9 +172,20 @@ public class TransactionReferenceValidator {
         return count.longValue() > 0;
     }
 
+    /** An NPS contribution holds this transaction. */
+    public boolean isReferencedByNps(UUID transactionId) {
+        if (transactionId == null || entityManager == null) {
+            return false;
+        }
+        Number count = (Number) entityManager.createNativeQuery("SELECT COUNT(*) FROM nps_entry WHERE transaction_id = ?1")
+                .setParameter(1, transactionId.toString()).getSingleResult();
+        return count.longValue() > 0;
+    }
+
     public boolean isTransactionReferenced(UUID transactionId) {
         return isReferencedByLoan(transactionId) || isReferencedByLending(transactionId)
-                || isReferencedByDividend(transactionId) || isReferencedByEpf(transactionId);
+                || isReferencedByDividend(transactionId) || isReferencedByEpf(transactionId)
+                || isReferencedByNps(transactionId);
     }
 
     /**
@@ -180,7 +200,8 @@ public class TransactionReferenceValidator {
                 + "UNION ALL SELECT transaction_id FROM loan_charges WHERE transaction_id IS NOT NULL "
                 + "UNION ALL SELECT transaction_id FROM lendings WHERE transaction_id IS NOT NULL "
                 + "UNION ALL SELECT transaction_id FROM dividends WHERE transaction_id IS NOT NULL "
-                + "UNION ALL SELECT transaction_id FROM epf_entry WHERE transaction_id IS NOT NULL";
+                + "UNION ALL SELECT transaction_id FROM epf_entry WHERE transaction_id IS NOT NULL "
+                + "UNION ALL SELECT transaction_id FROM nps_entry WHERE transaction_id IS NOT NULL";
 
         List<?> results = entityManager.createNativeQuery(sql).getResultList();
         for (Object res : results) {

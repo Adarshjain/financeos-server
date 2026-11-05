@@ -47,12 +47,20 @@ public class PriceHistoryClient {
     private final YahooPriceProvider yahooPriceProvider;
     private final ObjectMapper objectMapper;
     private final HttpClient httpClient;
+    private final NpsTrustFeedClient npsFeedClient;
 
     public PriceHistoryClient(PriceProperties priceProperties, YahooPriceProvider yahooPriceProvider,
                               ObjectMapper objectMapper) {
+        this(priceProperties, yahooPriceProvider, objectMapper, new NpsTrustFeedClient(priceProperties));
+    }
+
+    @org.springframework.beans.factory.annotation.Autowired
+    public PriceHistoryClient(PriceProperties priceProperties, YahooPriceProvider yahooPriceProvider,
+                              ObjectMapper objectMapper, NpsTrustFeedClient npsFeedClient) {
         this.priceProperties = priceProperties;
         this.yahooPriceProvider = yahooPriceProvider;
         this.objectMapper = objectMapper;
+        this.npsFeedClient = npsFeedClient;
         this.httpClient = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(10))
                 .followRedirects(HttpClient.Redirect.NORMAL)
@@ -103,6 +111,11 @@ public class PriceHistoryClient {
             log.info("Yahoo history for {} failed: {}", symbol, e.getMessage());
             return Result.of(Status.FAILED);
         }
+    }
+
+    /** Daily NAVs of an NPS scheme from the NPS Trust history file within [from, to] (inclusive), oldest first. */
+    public Result fetchNpsScheme(String schemeCode, LocalDate from, LocalDate to) {
+        return npsFeedClient.fetchHistory(schemeCode, from, to);
     }
 
     /** Daily closes of an AMFI scheme from mfapi.in within [from, to] (inclusive), oldest first. */

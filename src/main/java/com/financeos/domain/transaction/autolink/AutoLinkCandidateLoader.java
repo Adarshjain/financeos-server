@@ -25,14 +25,16 @@ public class AutoLinkCandidateLoader {
             + "COALESCE(t.sourcedDescription, t.description) "
             + "FROM Transaction t JOIN t.account a WHERE t.user.id = :userId ";
 
-    private static final String FREE = ""
+    /** The "nothing owns this transaction" conditions on alias {@code t}; shared with the NPS payment linking. */
+    public static final String FREE = ""
             + "AND NOT EXISTS (SELECT 1 FROM TransactionLinkMember m WHERE m.transaction = t) "
             + "AND NOT EXISTS (SELECT 1 FROM LoanEvent e WHERE e.transaction = t) "
             + "AND NOT EXISTS (SELECT 1 FROM LoanPayment p WHERE p.transaction = t) "
             + "AND NOT EXISTS (SELECT 1 FROM LoanCharge c WHERE c.transaction = t) "
             + "AND NOT EXISTS (SELECT 1 FROM Lending l WHERE l.transaction = t) "
             + "AND NOT EXISTS (SELECT 1 FROM Dividend d WHERE d.transaction = t) "
-            + "AND NOT EXISTS (SELECT 1 FROM EpfEntry x WHERE x.transaction = t) ";
+            + "AND NOT EXISTS (SELECT 1 FROM EpfEntry x WHERE x.transaction = t) "
+            + "AND NOT EXISTS (SELECT 1 FROM NpsEntry n WHERE n.transaction = t) ";
 
     @PersistenceContext
     private EntityManager entityManager;

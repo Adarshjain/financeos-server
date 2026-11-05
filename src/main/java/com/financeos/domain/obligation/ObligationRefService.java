@@ -6,6 +6,8 @@ import com.financeos.domain.epf.EpfEntryRepository;
 import com.financeos.domain.epf.EpfLedger;
 import com.financeos.domain.epf.EpfWithdrawalKind;
 import com.financeos.domain.instrument.AssetClassOverrideService;
+import com.financeos.domain.nps.NpsEntry;
+import com.financeos.domain.nps.NpsEntryRepository;
 import com.financeos.domain.instrument.Instrument;
 import com.financeos.domain.instrument.InstrumentOverrides;
 import com.financeos.domain.investment.dividend.Dividend;
@@ -60,6 +62,9 @@ public class ObligationRefService {
     /** EPF withdrawals linked to a credit; null in unit tests that do not cover them. */
     @Nullable
     private final EpfEntryRepository epfEntryRepository;
+    /** NPS contributions linked to a payment; null in unit tests that do not cover them. */
+    @Nullable
+    private final NpsEntryRepository npsEntryRepository;
 
     /** Without instrument overrides (unit tests). */
     public ObligationRefService(LendingRepository lendingRepository,
@@ -81,7 +86,6 @@ public class ObligationRefService {
                 overrideService, null);
     }
 
-    @Autowired
     public ObligationRefService(LendingRepository lendingRepository,
                                 LoanPaymentRepository loanPaymentRepository,
                                 LoanEventRepository loanEventRepository,
@@ -89,6 +93,20 @@ public class ObligationRefService {
                                 DividendRepository dividendRepository,
                                 @Nullable AssetClassOverrideService overrideService,
                                 @Nullable EpfEntryRepository epfEntryRepository) {
+        this(lendingRepository, loanPaymentRepository, loanEventRepository, loanChargeRepository, dividendRepository,
+                overrideService, epfEntryRepository, null);
+    }
+
+    @Autowired
+    public ObligationRefService(LendingRepository lendingRepository,
+                                LoanPaymentRepository loanPaymentRepository,
+                                LoanEventRepository loanEventRepository,
+                                LoanChargeRepository loanChargeRepository,
+                                DividendRepository dividendRepository,
+                                @Nullable AssetClassOverrideService overrideService,
+                                @Nullable EpfEntryRepository epfEntryRepository,
+                                @Nullable NpsEntryRepository npsEntryRepository) {
+        this.npsEntryRepository = npsEntryRepository;
         this.lendingRepository = lendingRepository;
         this.loanPaymentRepository = loanPaymentRepository;
         this.loanEventRepository = loanEventRepository;
@@ -130,6 +148,11 @@ public class ObligationRefService {
         }
         if (epfEntryRepository != null) {
             for (EpfEntry e : epfEntryRepository.findWithEmployerByTransactionIdIn(transactionIds)) {
+                map.computeIfAbsent(e.getTransaction().getId(), k -> new ArrayList<>()).add(toRef(e));
+            }
+        }
+        if (npsEntryRepository != null) {
+            for (NpsEntry e : npsEntryRepository.findWithAccountByTransactionIdIn(transactionIds)) {
                 map.computeIfAbsent(e.getTransaction().getId(), k -> new ArrayList<>()).add(toRef(e));
             }
         }
@@ -219,6 +242,18 @@ public class ObligationRefService {
             if (!epfEntries.isEmpty()) {
                 epfEntryRepository.saveAll(epfEntries);
                 epfEntryRepository.flush();
+            }
+        }
+
+        if (npsEntryRepository != null) {
+            List<NpsEntry> npsEntries = npsEntryRepository.findWithAccountByTransactionIdIn(List.of(from.getId()));
+            for (NpsEntry e : npsEntries) {
+                e.setTransaction(to);
+                moved.add(toRef(e).label());
+            }
+            if (!npsEntries.isEmpty()) {
+                npsEntryRepository.saveAll(npsEntries);
+                npsEntryRepository.flush();
             }
         }
 
@@ -316,6 +351,12 @@ public class ObligationRefService {
         String label = e.getWithdrawalKind() == EpfWithdrawalKind.PENSION ? "EPF pension" : "EPF withdrawal";
         return new ObligationRef(ObligationKind.EPF_WITHDRAWAL, e.getId(), e.getEmployer().getId(), label,
                 EpfLedger.received(e));
+    }
+
+    /** parentId is the NPS account; the entry's tier and status ride in the label. */
+    static ObligationRef toRef(NpsEntry e) {
+        String label = "NPS contribution · Tier " + e.getTier() + (e.getStatus() == null ? "" : " · " + e.getStatus().name().toLowerCase());
+        return new ObligationRef(ObligationKind.NPS_CONTRIBUTION, e.getId(), e.getAccount().getId(), label, e.getAmount());
     }
 
     static ObligationRef toRef(LoanPayment p) {

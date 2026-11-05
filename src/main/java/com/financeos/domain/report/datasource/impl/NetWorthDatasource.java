@@ -9,6 +9,7 @@ import com.financeos.domain.account.AccountService;
 import com.financeos.domain.account.AccountType;
 import com.financeos.domain.account.FinancialPosition;
 import com.financeos.domain.epf.EpfService;
+import com.financeos.domain.nps.NpsService;
 import com.financeos.domain.lending.LendingService;
 import com.financeos.domain.loan.LoanService;
 import com.financeos.domain.loan.LoanStatus;
@@ -84,11 +85,14 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
     public static final String KIND_LOAN = "loan";
     public static final String KIND_LENDING = "lending";
     public static final String KIND_EPF = "epf";
+    public static final String KIND_NPS = "nps";
     /** The id of the single EPF row (the balance over all employers). */
     public static final String EPF_ROW_ID = "epf";
+    /** The id of the single NPS row (the user's own accounts' holdings; a child's NPS is left out). */
+    public static final String NPS_ROW_ID = "nps";
     static final List<String> KIND_VALUES = List.of(
             AccountType.bank_account.name(), AccountType.credit_card.name(), AccountType.broker.name(),
-            AccountType.generic.name(), KIND_LOAN, KIND_LENDING, KIND_EPF);
+            AccountType.generic.name(), KIND_LOAN, KIND_LENDING, KIND_EPF, KIND_NPS);
     static final List<String> SIDE_VALUES = List.of(FinancialPosition.asset.name(), FinancialPosition.liability.name());
     /** How each kind reads for people; the generic account type is a wallet or cash account in the app. */
     static final Map<String, String> KIND_LABELS = DatasourceCatalog.valueLabels(
@@ -98,7 +102,8 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
             AccountType.generic.name(), "Wallet/Cash",
             KIND_LOAN, "Loan",
             KIND_LENDING, "Lending",
-            KIND_EPF, "EPF");
+            KIND_EPF, "EPF",
+            KIND_NPS, "NPS");
     /** Underlying-only grouping: broker accounts are investments, other liability-side rows liabilities, the rest assets. */
     public static final String GROUP_ASSETS = "assets";
     public static final String GROUP_LIABILITIES = "liabilities";
@@ -122,6 +127,8 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
     private final LendingService lendingService;
     /** Null in plain unit tests that do not cover the EPF row. */
     private final EpfService epfService;
+    /** Null in plain unit tests that do not cover the NPS row. */
+    private final NpsService npsService;
     private final SectionRunner sectionRunner;
     private final List<FieldDef> fields;
 
@@ -130,10 +137,16 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
         this(accountService, loanService, lendingService, sectionRunner, null);
     }
 
-    @Autowired
     public NetWorthDatasource(AccountService accountService, LoanService loanService, LendingService lendingService,
                               SectionRunner sectionRunner, EpfService epfService) {
+        this(accountService, loanService, lendingService, sectionRunner, epfService, null);
+    }
+
+    @Autowired
+    public NetWorthDatasource(AccountService accountService, LoanService loanService, LendingService lendingService,
+                              SectionRunner sectionRunner, EpfService epfService, NpsService npsService) {
         this.epfService = epfService;
+        this.npsService = npsService;
         this.accountService = accountService;
         this.loanService = loanService;
         this.lendingService = lendingService;
@@ -254,6 +267,7 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
         loanRows(today, snapshot);
         lendingRows(today, snapshot);
         epfRows(today, snapshot);
+        npsRows(today, snapshot);
         return snapshot;
     }
 
@@ -331,6 +345,26 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
         }
     }
 
+    /** One row for the user's own NPS holdings; none when they have no NPS account of their own. */
+    private void npsRows(LocalDate today, Snapshot snapshot) {
+        if (npsService == null) {
+            return;
+        }
+        List<BigDecimal> value = guarded("nps", () -> {
+            BigDecimal total = npsService.getSelfValueOrNull();
+            return total == null ? List.of() : List.of(total);
+        });
+        for (BigDecimal total : value) {
+            try {
+                snapshot.rows().add(row(NPS_ROW_ID, "NPS", KIND_NPS,
+                        new NetWorthPlacement(FinancialPosition.asset, total.max(BigDecimal.ZERO)), today));
+            } catch (RuntimeException e) {
+                skipped("nps", "nps", e);
+                snapshot.notCounted().add(failed("nps", "NPS", KIND_NPS));
+            }
+        }
+    }
+
     // ------------------------------------------------------------------ helpers
 
     private static Map<String, Object> row(String id, String name, String kind, NetWorthPlacement placement,
@@ -353,7 +387,8 @@ public class NetWorthDatasource implements ComputedReportDatasource, UnderlyingE
         if (side == FinancialPosition.liability) {
             return GROUP_LIABILITIES;
         }
-        return AccountType.broker.name().equals(kind) || KIND_EPF.equals(kind) ? GROUP_INVESTMENTS : GROUP_ASSETS;
+        return AccountType.broker.name().equals(kind) || KIND_EPF.equals(kind) || KIND_NPS.equals(kind)
+                ? GROUP_INVESTMENTS : GROUP_ASSETS;
     }
 
     private static String id(UUID id) {
