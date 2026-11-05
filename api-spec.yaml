@@ -1378,6 +1378,300 @@ paths:
           description: Error response
       tags:
       - account-controller
+  /api/v1/admin/failures/gmail:
+    get:
+      operationId: listGmail
+      parameters:
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+      - in: query
+        name: status
+        required: false
+        schema:
+          type: string
+          enum:
+          - DISCOVERED
+          - PROCESSING
+          - CREATED
+          - RECONCILED
+          - SKIPPED_NOT_TRANSACTION
+          - SKIPPED_BEFORE_WATERMARK
+          - SKIPPED_SENDER_DISABLED
+          - SKIPPED_DUPLICATE
+          - SKIPPED_MESSAGE_GONE
+          - UNRESOLVED_ACCOUNT
+          - ACCOUNT_NOT_OPTED_IN
+          - FAILED_RETRYABLE
+          - FAILED_PERMANENT
+          - CLEANED_UP
+          - NPS_IMPORTED
+          - NPS_PASSWORD_NEEDED
+          - NPS_ACCOUNT_NEEDED
+          - NPS_ENTRY
+          - NPS_IGNORED
+          - SKIPPED_BY_ADMIN
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageFailedGmailItemResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - admin-failures-controller
+  /api/v1/admin/failures/gmail/{ledgerId}:
+    get:
+      operationId: gmailDetail
+      parameters:
+      - in: path
+        name: ledgerId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/FailedGmailItemResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - admin-failures-controller
+  /api/v1/admin/failures/gmail/{ledgerId}/retry:
+    post:
+      operationId: retryGmail
+      parameters:
+      - in: path
+        name: ledgerId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EnqueueResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - admin-failures-controller
+  /api/v1/admin/failures/gmail/{ledgerId}/skip:
+    post:
+      operationId: skipGmail
+      parameters:
+      - in: path
+        name: ledgerId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FailureReasonRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - admin-failures-controller
+  /api/v1/admin/failures/jobs:
+    get:
+      operationId: listJobs
+      parameters:
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+      - in: query
+        name: includeDismissed
+        required: false
+        schema:
+          type: boolean
+          default: false
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageFailedJobResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - admin-failures-controller
+  /api/v1/admin/failures/jobs/{id}:
+    get:
+      operationId: jobDetail
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/FailedJobResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - admin-failures-controller
+  /api/v1/admin/failures/jobs/{id}/dismiss:
+    post:
+      operationId: dismissJob
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/FailureReasonRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - admin-failures-controller
+  /api/v1/admin/failures/jobs/{id}/retry:
+    post:
+      operationId: retryJob_1
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EnqueueResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - admin-failures-controller
+  /api/v1/admin/failures/retry-all:
+    post:
+      operationId: retryAll_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RetryAllRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/RetryAllResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - admin-failures-controller
+  /api/v1/admin/failures/summary:
+    get:
+      operationId: summary_3
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/FailureSummaryResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - admin-failures-controller
   /api/v1/app-lock/disable:
     post:
       operationId: disable
@@ -15951,6 +16245,190 @@ components:
       required:
       - code
       - message
+    FailedGmailItemResponse:
+      type: object
+      properties:
+        attemptCount:
+          type: integer
+          format: int32
+        connectionEmail:
+          type: string
+        dismissReason:
+          type: string
+          nullable: true
+          x-nullable: true
+        dismissedAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
+        dismissedBy:
+          type: string
+          nullable: true
+          x-nullable: true
+        error:
+          type: string
+          nullable: true
+          x-nullable: true
+        errorDetail:
+          type: string
+          nullable: true
+          x-nullable: true
+        gmailMessageId:
+          type: string
+        internalDate:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
+        ledgerId:
+          type: string
+          format: uuid
+        nextRetryAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
+        processedAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
+        sender:
+          type: string
+          nullable: true
+          x-nullable: true
+        status:
+          type: string
+          enum:
+          - DISCOVERED
+          - PROCESSING
+          - CREATED
+          - RECONCILED
+          - SKIPPED_NOT_TRANSACTION
+          - SKIPPED_BEFORE_WATERMARK
+          - SKIPPED_SENDER_DISABLED
+          - SKIPPED_DUPLICATE
+          - SKIPPED_MESSAGE_GONE
+          - UNRESOLVED_ACCOUNT
+          - ACCOUNT_NOT_OPTED_IN
+          - FAILED_RETRYABLE
+          - FAILED_PERMANENT
+          - CLEANED_UP
+          - NPS_IMPORTED
+          - NPS_PASSWORD_NEEDED
+          - NPS_ACCOUNT_NEEDED
+          - NPS_ENTRY
+          - NPS_IGNORED
+          - SKIPPED_BY_ADMIN
+        subject:
+          type: string
+          nullable: true
+          x-nullable: true
+        userEmail:
+          type: string
+        userId:
+          type: string
+          format: uuid
+      required:
+      - attemptCount
+      - connectionEmail
+      - gmailMessageId
+      - ledgerId
+      - status
+      - userEmail
+      - userId
+    FailedJobResponse:
+      type: object
+      properties:
+        attempt:
+          type: integer
+          format: int32
+        dismissReason:
+          type: string
+          nullable: true
+          x-nullable: true
+        dismissedAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
+        dismissedBy:
+          type: string
+          nullable: true
+          x-nullable: true
+        error:
+          type: string
+          nullable: true
+          x-nullable: true
+        errorCode:
+          type: string
+          nullable: true
+          x-nullable: true
+        errorDetail:
+          type: string
+          nullable: true
+          x-nullable: true
+        finishedAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
+        id:
+          type: string
+          format: uuid
+        jobName:
+          type: string
+        retryable:
+          type: boolean
+        startedAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
+        type:
+          type: string
+        userEmail:
+          type: string
+          nullable: true
+          x-nullable: true
+        userId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+      required:
+      - attempt
+      - id
+      - jobName
+      - retryable
+      - type
+    FailureReasonRequest:
+      type: object
+      properties:
+        reason:
+          type: string
+          maxLength: 500
+          minLength: 0
+          x-required: true
+      required:
+      - reason
+    FailureSummaryResponse:
+      type: object
+      properties:
+        failedGmailPermanent:
+          type: integer
+          format: int64
+        failedGmailRetryable:
+          type: integer
+          format: int64
+        failedJobs:
+          type: integer
+          format: int64
+      required:
+      - failedGmailPermanent
+      - failedGmailRetryable
+      - failedJobs
     FieldDef:
       type: object
       properties:
@@ -16625,6 +17103,7 @@ components:
           - NPS_ACCOUNT_NEEDED
           - NPS_ENTRY
           - NPS_IGNORED
+          - SKIPPED_BY_ADMIN
         subject:
           type: string
           nullable: true
@@ -21077,6 +21556,98 @@ components:
       - sort
       - totalElements
       - totalPages
+    PageFailedGmailItemResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/FailedGmailItemResponse"
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        size:
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            $ref: "#/components/schemas/SortObject"
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+      required:
+      - content
+      - empty
+      - first
+      - last
+      - number
+      - numberOfElements
+      - pageable
+      - size
+      - sort
+      - totalElements
+      - totalPages
+    PageFailedJobResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/FailedJobResponse"
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        size:
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            $ref: "#/components/schemas/SortObject"
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+      required:
+      - content
+      - empty
+      - first
+      - last
+      - number
+      - numberOfElements
+      - pageable
+      - size
+      - sort
+      - totalElements
+      - totalPages
     PageFnoTradeResponse:
       type: object
       properties:
@@ -22908,6 +23479,33 @@ components:
           - USER
           nullable: true
           x-nullable: true
+    RetryAllRequest:
+      type: object
+      properties:
+        kind:
+          type: string
+          enum:
+          - gmail
+          - jobs
+          x-required: true
+      required:
+      - kind
+    RetryAllResponse:
+      type: object
+      properties:
+        affected:
+          type: integer
+          format: int32
+        jobsEnqueued:
+          type: integer
+          format: int32
+        skipped:
+          type: integer
+          format: int32
+      required:
+      - affected
+      - jobsEnqueued
+      - skipped
     RewardAccountConfigRequest:
       type: object
       properties:
@@ -26898,6 +27496,8 @@ components:
           x-nullable: true
         email:
           type: string
+        failuresAdmin:
+          type: boolean
         hasPassword:
           type: boolean
         helloDone:
@@ -26915,6 +27515,7 @@ components:
       - admin
       - createdAt
       - email
+      - failuresAdmin
       - hasPassword
       - helloDone
       - helloProfileSaved
