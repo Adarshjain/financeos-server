@@ -67,7 +67,8 @@ public class AutoLinkService {
 
     private final Object gate = new Object();
     private final Set<UUID> running = new HashSet<>();
-    private final Set<UUID> rerun = new HashSet<>();
+    /** Users flagged for one more run while one was going, with the union of the scopes asked for meanwhile. */
+    private final Map<UUID, LinkScope> rerun = new java.util.HashMap<>();
 
     public AutoLinkService(List<AutoLinker> linkers, PlatformTransactionManager transactionManager,
                            NotificationFeedService feed) {
@@ -79,7 +80,12 @@ public class AutoLinkService {
 
     /** Runs for the user and, when something was linked automatically, writes one feed notification. */
     public RunResult run(UUID userId) {
-        RunResult result = runGuarded(userId);
+        return run(userId, LinkScope.ALL);
+    }
+
+    /** As {@link #run(UUID)} but only for the transactions dated within {@code scope} (linkers that cannot scope run in full). */
+    public RunResult run(UUID userId, LinkScope scope) {
+        RunResult result = runGuarded(userId, scope);
         if (result.linked() > 0) {
             notifyLinked(userId, result);
         }
@@ -88,33 +94,53 @@ public class AutoLinkService {
 
     /** Runs for the user without any notification (the backfill writes its own summary). */
     public RunResult runQuietly(UUID userId) {
-        return runGuarded(userId);
+        return runGuarded(userId, LinkScope.ALL);
     }
 
-    /** If a run for the user is going, flags one more run and returns true; otherwise does nothing. */
+    /** Users with a scoped run (or a dropped one) since their last full pass; the nightly pass runs them in full. */
+    private final Set<UUID> touched = java.util.concurrent.ConcurrentHashMap.newKeySet();
+
+    /** Marks the user for the nightly full pass (a scoped run that may have missed something, or an event that was dropped). */
+    public void markTouched(UUID userId) {
+        touched.add(userId);
+    }
+
+    /** A snapshot of the users marked since their last full pass. */
+    public Set<UUID> touchedUsers() {
+        return Set.copyOf(touched);
+    }
+
+    /** If a run for the user is going, flags one more run (full scope) and returns true; otherwise does nothing. */
     public boolean requestRerunIfRunning(UUID userId) {
+        return requestRerunIfRunning(userId, LinkScope.ALL);
+    }
+
+    /** As above; the extra run covers the union of every scope requested while the current one goes. */
+    public boolean requestRerunIfRunning(UUID userId, LinkScope scope) {
         synchronized (gate) {
             if (running.contains(userId)) {
-                rerun.add(userId);
+                rerun.merge(userId, scope, LinkScope::union);
                 return true;
             }
             return false;
         }
     }
 
-    private RunResult runGuarded(UUID userId) {
+    private RunResult runGuarded(UUID userId, LinkScope scope) {
         synchronized (gate) {
             if (!running.add(userId)) {
-                rerun.add(userId);
+                rerun.merge(userId, scope, LinkScope::union);
                 return RunResult.EMPTY;
             }
         }
         RunResult total = new RunResult(Map.of(), true, false);
         try {
+            LinkScope next = scope;
             while (true) {
-                total = total.plus(runOnce(userId));
+                total = total.plus(runOnce(userId, next));
                 synchronized (gate) {
-                    if (!rerun.remove(userId)) {
+                    next = rerun.remove(userId);
+                    if (next == null) {
                         running.remove(userId);
                         return total;
                     }
@@ -125,12 +151,19 @@ public class AutoLinkService {
                 running.remove(userId);
                 rerun.remove(userId);
             }
+            touched.add(userId);
             log.warn("Auto-link run failed for user {}: {}", userId, e.getMessage());
             return total.plus(new RunResult(Map.of(), true, true));
         }
     }
 
-    private RunResult runOnce(UUID userId) {
+    private RunResult runOnce(UUID userId, LinkScope scope) {
+        // A full pass starts clean; a scoped one (which can miss things) marks the user for the nightly full pass.
+        if (scope.isAll()) {
+            touched.remove(userId);
+        } else {
+            touched.add(userId);
+        }
         MDC.put("userId", userId.toString());
         try {
             return UserContextHelper.callAs(userId, () -> {
@@ -138,7 +171,7 @@ public class AutoLinkService {
                 boolean failed = false;
                 for (AutoLinker linker : linkers) {
                     try {
-                        AutoLinkOutcome outcome = passTransaction.execute(status -> linker.link(userId));
+                        AutoLinkOutcome outcome = passTransaction.execute(status -> scope.isAll() ? linker.link(userId) : linker.link(userId, scope));
                         if (outcome != null) {
                             byKind = AutoLinkOutcome.merge(byKind, outcome.byKind());
                             if (outcome.partial()) {
@@ -150,6 +183,9 @@ public class AutoLinkService {
                         failed = true;
                         log.warn("Auto-linker {} failed for user {}: {}", linker.getClass().getSimpleName(), userId, e.getMessage(), e);
                     }
+                }
+                if (failed) {
+                    touched.add(userId);   // a failed pass leaves the user for the nightly full pass
                 }
                 return new RunResult(byKind, true, failed);
             });

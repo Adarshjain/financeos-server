@@ -28,6 +28,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 @Order(30)
 public class LendingAutoLinker implements AutoLinker {
 
+    /** Entry-to-transaction match window (days), per {@link MatchRules#lendingEntryFits}. */
+    static final int WINDOW_DAYS = 7;
+
     private final AutoLinkCandidateLoader loader;
     private final AutoLinkStore store;
     private final LendingService lendingService;
@@ -48,11 +51,19 @@ public class LendingAutoLinker implements AutoLinker {
 
     @Override
     public AutoLinkOutcome link(UUID userId) {
+        return link(userId, LinkScope.ALL);
+    }
+
+    @Override
+    public AutoLinkOutcome link(UUID userId, LinkScope scope) {
         List<UnlinkedEntry> entries = lendingService.getUnlinkedEntries();
         AutoLinkOutcome linked = AutoLinkOutcome.of(Map.of());
-        if (!entries.isEmpty()) {
-            linked = linkEntries(userId, entries);
+        // Entries within the 7-day window of the span can change; the transactions they fit are read 3 windows out.
+        LinkScope anchors = scope.anchors(WINDOW_DAYS);
+        if (entries.stream().anyMatch(e -> anchors.contains(e.entryDate()))) {
+            linked = linkEntries(userId, entries, scope);
         }
+        // The repayment suggestions come from LendingService over all history, so that kind is always synced in full.
         Map<UUID, List<UUID>> repayments = repaymentSuggestions(store.loadRejectionKeys(userId),
                 lendingService.getRepaymentSuggestions());
         store.syncSuggestions(userId, ownedKinds(), Map.of(SuggestionKind.LENDING, repayments));
@@ -63,8 +74,9 @@ public class LendingAutoLinker implements AutoLinker {
                 Map.of(SuggestionKind.LENDING, new AutoLinkOutcome.Counts(0, repayments.size()))), linked.partial());
     }
 
-    private AutoLinkOutcome linkEntries(UUID userId, List<UnlinkedEntry> entries) {
-        List<Pair> pairs = plan(entries, loader.load(userId), store.loadRejectionKeys(userId));
+    private AutoLinkOutcome linkEntries(UUID userId, List<UnlinkedEntry> entries, LinkScope scope) {
+        List<AutoLinkCandidate> candidates = scope.isAll() ? loader.load(userId) : loader.load(userId, scope.candidates(WINDOW_DAYS));
+        List<Pair> pairs = plan(entries, candidates, store.loadRejectionKeys(userId), scope.anchors(WINDOW_DAYS));
         List<Planned> planned = pairs.stream()
                 .map(p -> new Planned(p.transactionId(), "lending " + p.entry().id(),
                         () -> lendingService.isUnlinked(p.entry().id()),
@@ -95,6 +107,12 @@ public class LendingAutoLinker implements AutoLinker {
     }
 
     static List<Pair> plan(List<UnlinkedEntry> entries, List<AutoLinkCandidate> candidates, Set<String> rejections) {
+        return plan(entries, candidates, rejections, LinkScope.ALL);
+    }
+
+    /** As above, but only entries dated within {@code anchors} are linked; the others still count for the one-entry-per-transaction check. */
+    static List<Pair> plan(List<UnlinkedEntry> entries, List<AutoLinkCandidate> candidates, Set<String> rejections,
+                           LinkScope anchors) {
         Map<TransactionType, List<AutoLinkCandidate>> byType = new HashMap<>();
         for (AutoLinkCandidate c : candidates) {
             byType.computeIfAbsent(c.type(), k -> new ArrayList<>()).add(c);
@@ -116,7 +134,7 @@ public class LendingAutoLinker implements AutoLinker {
 
         List<Pair> out = new ArrayList<>();
         for (Map.Entry<UnlinkedEntry, List<UUID>> e : fitsOfEntry.entrySet()) {
-            if (e.getValue().size() == 1 && entriesOfTxn.get(e.getValue().get(0)) == 1) {
+            if (anchors.contains(e.getKey().entryDate()) && e.getValue().size() == 1 && entriesOfTxn.get(e.getValue().get(0)) == 1) {
                 out.add(new Pair(e.getKey(), e.getValue().get(0)));
             }
         }

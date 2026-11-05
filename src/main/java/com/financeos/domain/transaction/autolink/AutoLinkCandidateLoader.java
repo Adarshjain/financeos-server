@@ -43,6 +43,18 @@ public class AutoLinkCandidateLoader {
         return rows.stream().map(AutoLinkCandidateLoader::toCandidate).toList();
     }
 
+    /** Free candidates dated within {@code scope} (inclusive); the whole history for {@link LinkScope#ALL}. */
+    public List<AutoLinkCandidate> load(UUID userId, LinkScope scope) {
+        if (scope.isAll()) {
+            return load(userId);
+        }
+        List<Object[]> rows = entityManager.createQuery(
+                        SELECT + "AND t.date BETWEEN :from AND :to " + FREE + "ORDER BY t.date, t.id", Object[].class)
+                .setParameter("userId", userId).setParameter("from", scope.from()).setParameter("to", scope.to())
+                .getResultList();
+        return rows.stream().map(AutoLinkCandidateLoader::toCandidate).toList();
+    }
+
     /** Which of {@code ids} are still free (same filter as {@link #load}); read right before linking a pair. */
     public Set<UUID> freeIds(UUID userId, Collection<UUID> ids) {
         if (ids.isEmpty()) {

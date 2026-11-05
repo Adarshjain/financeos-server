@@ -243,6 +243,24 @@ class AccountDetectUnlockTest {
     }
 
     @Test
+    void aRetryThatChangedFactsClearsTheCachedDetectionSoTheNextScanDetectsInFull() throws Exception {
+        source = source();
+        profile = UnlockProfile.of(null, null);
+        run(false);
+        assertThat(run(false).get("detection")).isEqualTo("SKIPPED_NOTHING_NEW");   // cached, nothing new
+        profile = UnlockProfile.of("Riya Sharma", "1994-08-14");
+        store.requestUnlockRetry(userId, false);
+        run(true);                                                                   // opens the PDFs: facts changed
+        int before = detections.size();
+
+        Map<String, Object> next = run(false);
+
+        assertThat(next.get("detection")).isNull();                                  // full detection, not the stale cache
+        assertThat(detections).hasSize(before + 1);
+        assertThat(detections.get(before)).isNotSameAs(detections.get(before - 1));
+    }
+
+    @Test
     void aRetryAskedForIsHonouredByTheEndOfANormalScanEvenWhenItsOwnJobWasDropped() throws Exception {
         source = source();
         profile = UnlockProfile.of(null, null);

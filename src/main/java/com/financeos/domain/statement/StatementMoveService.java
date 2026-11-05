@@ -148,7 +148,7 @@ public class StatementMoveService {
 
         int flagged = pairWithTargetRows(target.getId(), statement, moving);
         if (!moving.isEmpty()) {
-            eventPublisher.publishEvent(new TransactionsIngestedEvent(userId)); // auto-linking runs after commit
+            eventPublisher.publishEvent(TransactionsIngestedEvent.of(userId, moving)); // auto-linking runs after commit
         }
         auditLogger.mutation("Statement", statement.getId(), "MOVE", "user:" + UserContext.getCurrentUserId(),
                 "manual", List.of("account"), moving.size(), null, "INR");

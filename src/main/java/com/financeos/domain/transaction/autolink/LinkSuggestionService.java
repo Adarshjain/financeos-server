@@ -50,7 +50,7 @@ public class LinkSuggestionService {
 
     /**
      * The suggestions still worth showing: the transaction and at least one candidate still exist, belong to
-     * the user and are unlinked; candidate lists are trimmed to those. One query per 500 ids, never per row.
+     * the user and are unlinked; candidate lists are trimmed to those. One query, no bound id lists.
      */
     @Transactional(readOnly = true)
     public List<AutoLinkStore.SuggestionRow> openRows(UUID userId) {
@@ -58,14 +58,8 @@ public class LinkSuggestionService {
         if (rows.isEmpty()) {
             return List.of();
         }
-        Set<UUID> ids = new LinkedHashSet<>();
-        for (AutoLinkStore.SuggestionRow row : rows) {
-            ids.add(row.transactionId());
-            if (row.kind() != SuggestionKind.LENDING) {
-                ids.addAll(row.candidateIds());
-            }
-        }
-        Set<UUID> live = store.liveTransactionIds(userId, ids);
+        // One query joined to link_suggestions: no id list is bound.
+        Set<UUID> live = store.liveSuggestionTransactionIds(userId);
         List<AutoLinkStore.SuggestionRow> out = new ArrayList<>();
         for (AutoLinkStore.SuggestionRow row : rows) {
             if (!live.contains(row.transactionId())) {

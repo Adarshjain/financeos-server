@@ -39,6 +39,7 @@ public class DividendAutoLinker implements AutoLinker {
 
     @Override
     public AutoLinkOutcome link(UUID userId) {
+        // Not scoped (uses the default link(userId, scope)): the matching runs inside the dividend service over all unlinked dividends and transactions.
         Set<String> rejections = store.loadRejectionKeys(userId);
         List<UniqueMatch> matches = receipts.findUniqueMatches(
                 (dividendId, txId) -> AutoLinkStore.isRejected(rejections, SuggestionKind.DIVIDEND, txId, dividendId));
