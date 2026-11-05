@@ -15,6 +15,11 @@ import java.util.UUID;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, UUID>, AccountRepositoryCustom {
 
+    /** Every account of the user with its detail rows in the same select (inverse one-to-ones would otherwise load one by one per account). */
+    @Override
+    @org.springframework.data.jpa.repository.EntityGraph(attributePaths = {"bankDetails", "creditCardDetails", "creditCardDetails.limitPool", "brokerDetails"})
+    List<Account> findAll();
+
     List<Account> findByType(AccountType type);
 
     List<Account> findByFinancialPosition(FinancialPosition position);

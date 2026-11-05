@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.util.*;
 
 /**
@@ -77,23 +78,13 @@ public class TransactionListQueryBuilder {
     public record QueryResult(String sql, Map<String, Object> params) {}
 
     /**
-     * Builds the paginated native SQL query to fetch transaction IDs and running balances.
+     * The windowed CTE chain (running balance, per-day balance, bank anchors, first-mismatch flag). {@code t} and
+     * {@code s} are optional extra predicates on the transactions and on the statement lines; every figure is a
+     * prefix computation per account, so restricting accounts and dates up to the page's last date leaves the
+     * rows inside the restriction unchanged.
      */
-    public QueryResult buildDataQuery(UUID userId, TransactionSearchCriteria criteria, Pageable pageable) {
-        validate(criteria, pageable);
-
-        Map<String, Object> params = new HashMap<>();
-        Set<Join> joins = new HashSet<>();
-
-        String whereClause = buildWhereClause(criteria, params, joins);
-
-        // big = every transaction with our running balance (one window pass, as before the bank-balance flag).
-        // days = our end-of-day balance per account/day, from a per-day aggregate (tiny, so no second sort of the ledger).
-        // sl = each transaction's printed balance from its latest statement; anch = the day's anchor line (bank's last
-        // line of the day); mm = anchor vs our day end; flags = the first mismatching day of each run (previous compared
-        // day matched, or none) with the printed balance. Only anchor rows are windowed, one per account/day.
-        // Printed balances of credit cards state the amount owed, our balance is negative then, so they are negated.
-        String innerSql = """
+    private static String balanceCte(String t, String s) {
+        return """
             WITH big AS (
               SELECT t.id, t.account_id, t.card_id, t.transaction_date, t.created_at, t.type, t.source,
                      t.amount, t.description, t.sourced_description, t.category_key, t.subcategory_key,
@@ -105,7 +96,7 @@ public class TransactionListQueryBuilder {
                                 ORDER BY t.transaction_date ASC, t.created_at ASC, t.id ASC)) AS balance
               FROM transactions t
               LEFT JOIN account_bank_details abd ON t.account_id = abd.account_id
-              WHERE t.user_id = :userId
+              WHERE t.user_id = :userId@@T@@
             ),
             days AS (
               SELECT d.account_id, d.transaction_date,
@@ -115,7 +106,7 @@ public class TransactionListQueryBuilder {
                 SELECT t.account_id, t.transaction_date,
                        SUM(CASE WHEN t.type = 'CREDIT' THEN t.amount ELSE -t.amount END) AS net
                 FROM transactions t
-                WHERE t.user_id = :userId
+                WHERE t.user_id = :userId@@T@@
                 GROUP BY t.account_id, t.transaction_date
               ) d
               LEFT JOIN account_bank_details abd ON d.account_id = abd.account_id
@@ -128,7 +119,7 @@ public class TransactionListQueryBuilder {
                                           ORDER BY s.period_end DESC NULLS LAST, st.statement_id DESC) AS rn
                 FROM statement_transactions st
                 JOIN statements s ON s.id = st.statement_id
-                WHERE s.user_id = :userId
+                WHERE s.user_id = :userId@@S@@
               ) x WHERE x.rn = 1 AND x.balance_after IS NOT NULL
             ),
             anch AS (
@@ -140,7 +131,7 @@ public class TransactionListQueryBuilder {
               FROM sl
               JOIN transactions t ON t.id = sl.transaction_id
               JOIN accounts acc ON acc.id = t.account_id
-              WHERE t.user_id = :userId
+              WHERE t.user_id = :userId@@T@@
             ),
             mm AS (
               SELECT a.id, a.account_id, a.transaction_date, a.printed,
@@ -159,15 +150,85 @@ public class TransactionListQueryBuilder {
                 FROM mm
               ) m
             )
-            SELECT big.*, flags.bank_balance
-            FROM big
-            LEFT JOIN flags ON flags.id = big.id
+            """.replace("@@T@@", t).replace("@@S@@", s);
+    }
+
+    /** Predicate on {@code t}'s alias for the balance of just these accounts, up to a date. */
+    private static final String BALANCE_TXN_RESTRICTION = " AND t.account_id IN (:balAccts) AND t.transaction_date <= :balMax";
+    private static final String BALANCE_STMT_RESTRICTION = " AND EXISTS (SELECT 1 FROM transactions tx WHERE tx.id = st.transaction_id"
+            + " AND tx.account_id IN (:balAccts) AND tx.transaction_date <= :balMax)";
+
+    /**
+     * The page without any window work: ids and account ids of the matching rows in sort order. The running
+     * balances of just these rows come from {@link #buildBalanceQuery}.
+     */
+    public QueryResult buildPageQuery(UUID userId, TransactionSearchCriteria criteria, Pageable pageable) {
+        validate(criteria, pageable);
+        Map<String, Object> params = new HashMap<>();
+        Set<Join> joins = new HashSet<>();
+        String whereClause = buildWhereClause(criteria, params, joins);
+        String innerSql = """
+            SELECT t.id, t.account_id, t.card_id, t.transaction_date, t.created_at, t.type, t.source,
+                   t.amount, t.description, t.sourced_description, t.category_key, t.subcategory_key,
+                   t.is_under_monitoring, t.is_excluded, t.review_type,
+                   (CASE WHEN t.type = 'CREDIT' THEN t.amount ELSE -t.amount END) AS signed_amount
+            FROM transactions t
+            WHERE t.user_id = :userId
             """;
+        params.put("userId", userId.toString());
+        StringBuilder sql = new StringBuilder("SELECT sub.id, sub.account_id, sub.transaction_date FROM ( ").append(innerSql).append(" ) sub");
+        appendJoinsWhereAndOrder(sql, joins, whereClause, pageable);
+        return new QueryResult(sql.toString(), params);
+    }
+
+    /**
+     * Running balance and bank-mismatch balance of the given page rows, windowed only over the page's accounts and
+     * up to {@code maxDate} (the latest date on the page): the same numbers as the unrestricted chain.
+     */
+    public QueryResult buildBalanceQuery(UUID userId, Collection<String> accountIds, LocalDate maxDate, Collection<String> ids) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("userId", userId.toString());
+        params.put("balAccts", accountIds);
+        params.put("balMax", maxDate);
+        params.put("balIds", ids);
+        // wrapped like the full list query: a top-level WITH over these window CTEs misreads the anchors on H2
+        String sql = "SELECT x.id, x.balance, x.bank_balance FROM ( "
+                + balanceCte(BALANCE_TXN_RESTRICTION, BALANCE_STMT_RESTRICTION)
+                + "SELECT big.id, big.balance, flags.bank_balance FROM big LEFT JOIN flags ON flags.id = big.id"
+                + " ) x WHERE x.id IN (:balIds)";
+        return new QueryResult(sql, params);
+    }
+
+    /**
+     * Builds the paginated native SQL query to fetch transaction IDs and running balances.
+     */
+    public QueryResult buildDataQuery(UUID userId, TransactionSearchCriteria criteria, Pageable pageable) {
+        validate(criteria, pageable);
+
+        Map<String, Object> params = new HashMap<>();
+        Set<Join> joins = new HashSet<>();
+
+        String whereClause = buildWhereClause(criteria, params, joins);
+
+        // big = every transaction with our running balance (one window pass, as before the bank-balance flag).
+        // days = our end-of-day balance per account/day, from a per-day aggregate (tiny, so no second sort of the ledger).
+        // sl = each transaction's printed balance from its latest statement; anch = the day's anchor line (bank's last
+        // line of the day); mm = anchor vs our day end; flags = the first mismatching day of each run (previous compared
+        // day matched, or none) with the printed balance. Only anchor rows are windowed, one per account/day.
+        // Printed balances of credit cards state the amount owed, our balance is negative then, so they are negated.
+        String innerSql = balanceCte("", "")
+                + "SELECT big.*, flags.bank_balance FROM big LEFT JOIN flags ON flags.id = big.id";
         params.put("userId", userId.toString());
 
         StringBuilder sql = new StringBuilder();
         sql.append("SELECT sub.id, sub.balance, sub.bank_balance FROM ( ").append(innerSql).append(" ) sub");
 
+        appendJoinsWhereAndOrder(sql, joins, whereClause, pageable);
+
+        return new QueryResult(sql.toString(), params);
+    }
+
+    private void appendJoinsWhereAndOrder(StringBuilder sql, Set<Join> joins, String whereClause, Pageable pageable) {
         if (joins.contains(Join.ACCOUNTS)) {
             sql.append(" LEFT JOIN accounts a ON a.id = sub.account_id");
         }
@@ -207,8 +268,6 @@ public class TransactionListQueryBuilder {
         }
 
         sql.append(" ORDER BY ").append(String.join(", ", sortClauses));
-
-        return new QueryResult(sql.toString(), params);
     }
 
     /**
