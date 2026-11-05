@@ -5,6 +5,9 @@ import com.financeos.domain.holding.HoldingRepository;
 import com.financeos.domain.instrument.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
+import net.logstash.logback.argument.StructuredArguments;
+import com.financeos.core.observability.Events;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,6 +70,7 @@ public class PriceRefreshService {
      * scheduled background job, UserContext is clear so userFilter is inactive and active instruments
      * across all users are refreshed.
      */
+    @Transactional(propagation = org.springframework.transaction.annotation.Propagation.NOT_SUPPORTED)
     public PriceRefreshResult refresh(Optional<UUID> instrumentId) {
         List<Instrument> targets;
         if (instrumentId.isPresent()) {
@@ -124,39 +128,16 @@ public class PriceRefreshService {
                 try {
                     PriceQuote quote = quotes.get(inst.getId());
                     if (quote != null && quote.close() != null && quote.asOf() != null) {
-                        // Only the shared (ownerless) row of the date: a user's own MANUAL price is a
-                        // separate row the refresh never reads, overwrites or deletes.
-                        Optional<InstrumentPrice> existingPrice = priceRepository.findByInstrumentIdAndAsOfAndUserIdIsNull(inst.getId(), quote.asOf());
-                        if (existingPrice.isPresent()) {
-                            InstrumentPrice ep = existingPrice.get();
-                            if (ep.getSource() == PriceSource.MANUAL) {
-                                skippedCount++;
-                                skippedItems.add(new PriceRefreshResult.SkippedItem(
-                                        inst.getId(),
-                                        label(inst),
-                                        "A manually entered price already exists for " + quote.asOf() + ", so it was kept."
-                                ));
-                                log.info("Skipping price refresh for instrument {} on {} as a legacy shared MANUAL price exists.", inst.getName(), quote.asOf());
-                                continue;
-                            }
-                            ep.setClose(quote.close());
-                            ep.setSource(provider.source());
-                            ep.setPriceTime(quote.at());
-                            if (quote.previousClose() != null) {
-                                ep.setPreviousClose(quote.previousClose());
-                            }
-                            priceRepository.save(ep);
+                        // Each instrument's DB write is its own transaction: one failing (even at commit)
+                        // cannot mark a shared transaction rollback-only and lose the other prices.
+                        Object outcome = writeTx == null ? storePrice(inst, provider, quote)
+                                : writeTx.execute(status -> storePrice(inst, provider, quote));
+                        if (outcome instanceof PriceRefreshResult.SkippedItem skippedItem) {
+                            skippedCount++;
+                            skippedItems.add(skippedItem);
+                        } else if (outcome instanceof PriceRefreshResult.RefreshedItem refreshedItem) {
                             refreshedCount++;
-                            refreshedItems.add(new PriceRefreshResult.RefreshedItem(
-                                    inst.getId(), label(inst), quote.close(), quote.asOf(), provider.source()));
-                        } else {
-                            InstrumentPrice newPrice = new InstrumentPrice(inst, quote.asOf(), quote.close(), provider.source());
-                            newPrice.setPriceTime(quote.at());
-                            newPrice.setPreviousClose(quote.previousClose());
-                            priceRepository.save(newPrice);
-                            refreshedCount++;
-                            refreshedItems.add(new PriceRefreshResult.RefreshedItem(
-                                    inst.getId(), label(inst), quote.close(), quote.asOf(), provider.source()));
+                            refreshedItems.add(refreshedItem);
                         }
                     } else {
                         failedList.add(new PriceRefreshResult.FailedItem(
@@ -166,17 +147,79 @@ public class PriceRefreshService {
                         ));
                     }
                 } catch (Exception e) {
-                    log.error("Error processing price quote for instrument {}", inst.getName(), e);
+                    Throwable root = rootCause(e);
+                    String rootMessage = root.getMessage() != null ? root.getMessage() : root.toString();
+                    logItemFailed(inst, root, rootMessage);
                     failedList.add(new PriceRefreshResult.FailedItem(
                             inst.getId(),
                             label(inst),
-                            "Error saving the fetched price: " + e.getMessage()
+                            "Error saving the fetched price: " + rootMessage
                     ));
                 }
             }
         }
 
         return new PriceRefreshResult(refreshedCount, skippedCount, failedList, LocalDate.now(zoneId), refreshedItems, skippedItems);
+    }
+
+    /** Writes one instrument's quote (runs inside its own transaction); returns the refreshed or skipped item. */
+    private Object storePrice(Instrument inst, PriceProvider provider, PriceQuote quote) {
+        // Only the shared (ownerless) row of the date: a user's own MANUAL price is a
+        // separate row the refresh never reads, overwrites or deletes.
+        Optional<InstrumentPrice> existingPrice = priceRepository.findByInstrumentIdAndAsOfAndUserIdIsNull(inst.getId(), quote.asOf());
+        if (existingPrice.isPresent()) {
+            InstrumentPrice ep = existingPrice.get();
+            if (ep.getSource() == PriceSource.MANUAL) {
+                log.info("Skipping price refresh for instrument {} on {} as a legacy shared MANUAL price exists.", inst.getName(), quote.asOf());
+                return new PriceRefreshResult.SkippedItem(
+                        inst.getId(),
+                        label(inst),
+                        "A manually entered price already exists for " + quote.asOf() + ", so it was kept."
+                );
+            }
+            ep.setClose(quote.close());
+            ep.setSource(provider.source());
+            ep.setPriceTime(quote.at());
+            if (quote.previousClose() != null) {
+                ep.setPreviousClose(quote.previousClose());
+            }
+            priceRepository.save(ep);
+        } else {
+            InstrumentPrice newPrice = new InstrumentPrice(inst, quote.asOf(), quote.close(), provider.source());
+            newPrice.setPriceTime(quote.at());
+            newPrice.setPreviousClose(quote.previousClose());
+            priceRepository.save(newPrice);
+        }
+        return new PriceRefreshResult.RefreshedItem(inst.getId(), label(inst), quote.close(), quote.asOf(), provider.source());
+    }
+
+    private static Throwable rootCause(Throwable t) {
+        Throwable root = t;
+        for (int i = 0; i < 20 && root.getCause() != null && root.getCause() != root; i++) {
+            root = root.getCause();
+        }
+        return root;
+    }
+
+    /** One structured WARN naming the instrument that failed (event=ingest.item_failed), for Loki and the alert rule. */
+    private void logItemFailed(Instrument inst, Throwable root, String rootMessage) {
+        String oneLine = rootMessage.replaceAll("\\s+", " ").trim();
+        if (oneLine.length() > 300) {
+            oneLine = oneLine.substring(0, 300);
+        }
+        String jobName = MDC.get("jobName");
+        log.warn("Price refresh failed for instrument {}",
+                inst.getId(),
+                StructuredArguments.keyValue("event", Events.INGEST_ITEM_FAILED),
+                StructuredArguments.keyValue("jobName", jobName != null ? jobName : "price-refresh"),
+                StructuredArguments.keyValue("jobId", MDC.get("jobId")),
+                StructuredArguments.keyValue("itemType", "instrument"),
+                StructuredArguments.keyValue("itemId", inst.getId()),
+                StructuredArguments.keyValue("symbol", inst.getSymbol()),
+                StructuredArguments.keyValue("errorClass", root.getClass().getSimpleName()),
+                StructuredArguments.keyValue("error", oneLine),
+                StructuredArguments.keyValue("attempt", 1),
+                StructuredArguments.keyValue("status", "FAILED"));
     }
 
     private static final LocalTime INTRADAY_OPEN = LocalTime.of(9, 15);
