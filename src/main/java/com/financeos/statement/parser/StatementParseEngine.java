@@ -18,6 +18,10 @@ import java.util.regex.Matcher;
 
 public final class StatementParseEngine {
 
+    // an amount still sitting in a description: "5 ,000.00" or "1,842.00"
+    private static final java.util.regex.Pattern ZERO_ROW_TEXT_AMOUNT =
+            java.util.regex.Pattern.compile("\\d[\\d,]*\\.\\d{2}\\b|\\d ?,\\d{3}");
+
     private StatementParseEngine() {
     }
 
@@ -197,6 +201,24 @@ public final class StatementParseEngine {
                     }
                 }
             }
+        }
+
+        // A row read as 0 whose own text still holds an amount lost its real amount to
+        // another cell: a parse error. Never emit it as a 0 line; drop it, count it
+        // and cap the verdict below AUTO-INGEST.
+        int zeroWithAmountText = 0;
+        List<RowResult> kept = new ArrayList<>(results.size());
+        for (RowResult r : results) {
+            if (r.amount != null && r.amount == 0.0 && r.description != null
+                    && ZERO_ROW_TEXT_AMOUNT.matcher(r.description).find()) {
+                zeroWithAmountText++;
+            } else {
+                kept.add(r);
+            }
+        }
+        if (zeroWithAmountText > 0) {
+            results = kept;
+            rowsDropped += zeroWithAmountText;
         }
 
         // Python `if r["amount"] and ...` — an amount of exactly 0.0 is falsy
@@ -394,6 +416,10 @@ public final class StatementParseEngine {
             verdict = "NEEDS REVIEW";
         } else {
             verdict = "REJECT";
+        }
+
+        if (zeroWithAmountText > 0 && "AUTO-INGEST".equals(verdict)) {
+            verdict = "NEEDS REVIEW";
         }
 
         ParseInfo parseInfo = new ParseInfo();

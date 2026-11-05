@@ -35,11 +35,17 @@ final class RowCollector {
     private static int findHeaderRow(List<Line> lines, int firstTxnIdx) {
         int stop = Math.max(firstTxnIdx - 8, -1);
         for (int i = firstTxnIdx - 1; i > stop; i--) {
-            if (isHeaderLine(lines.get(i))) {
+            // a dated row can hold header words in its narration ("CASHBACK CREDIT ... Cr Dr")
+            // but is never the header itself
+            if (isHeaderLine(lines.get(i)) && !startsWithDate(lines.get(i))) {
                 return i;
             }
         }
         return -1;
+    }
+
+    private static boolean startsWithDate(Line line) {
+        return Tokens.isDateToken(Tokens.norm(line.words().get(0).text()));
     }
 
     private static boolean isHeaderLine(Line line) {

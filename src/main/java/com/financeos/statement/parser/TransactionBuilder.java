@@ -21,6 +21,13 @@ final class TransactionBuilder {
     private static final Pattern PRINT_COUNTER = Pattern.compile("\\d+/\\d+");
     // Widest gap between two words of one narration (a space is ~2.5pt at 9pt).
     private static final double TEXT_GAP = 5;
+    // heading of a cashback column sits right of its cells
+    private static final double CASHBACK_LEFT_PAD = 20;
+    // longest vertical gap at which an undated line still wraps a row's narration;
+    // a footer block ("CASHBACK DETAILS") further down is not part of it
+    private static final double MAX_CONTINUATION_GAP = 25;
+    private static final Pattern SPLIT_HEAD = Pattern.compile("\\d{1,3}");
+    private static final Pattern SPLIT_TAIL = Pattern.compile(",\\d{2,3}(?:,\\d{2,3})*\\.\\d{1,2}");
 
     private TransactionBuilder() {
     }
@@ -145,6 +152,15 @@ final class TransactionBuilder {
                 }
                 String tok = Tokens.norm(w.text());
                 String nxt = ci + 1 < words.size() ? Tokens.norm(words.get(ci + 1).text()) : "";
+                // Letter-spaced figures extract as "5" + ",000.00" (kerning gap after the
+                // first digit): rejoin them when the pieces touch and form an amount.
+                if (ci + 1 < words.size() && SPLIT_HEAD.matcher(tok).matches() && SPLIT_TAIL.matcher(nxt).matches()
+                        && words.get(ci + 1).x0() - w.x1() <= TEXT_GAP && Tokens.parseAmount(tok + nxt) != null) {
+                    w = new Word(tok + nxt, w.x0(), words.get(ci + 1).x1(), w.top(), w.page());
+                    tok = tok + nxt;
+                    nxt = ci + 2 < words.size() ? Tokens.norm(words.get(ci + 2).text()) : "";
+                    ci++;
+                }
                 Amount amt = Tokens.parseAmount(tok);
                 if (amt != null && narrationAmounts.contains(w)) {
                     // figure printed inside the narration, not an amount column
@@ -244,6 +260,9 @@ final class TransactionBuilder {
                     continue;
                 }
                 words.add(lineWords.get(k).text());
+            }
+            if (near.page == page && Math.abs(near.top - top) > MAX_CONTINUATION_GAP) {
+                continue;
             }
             if (near.pos > pos) {
                 near.desc.addAll(0, words);
@@ -371,6 +390,10 @@ final class TransactionBuilder {
             String wl = w.text().toLowerCase(Locale.ROOT);
             if (wl.startsWith("serno") || wl.startsWith("serial") || wl.startsWith("reward")) {
                 zones.add(new double[]{w.x0(), w.x1()});
+            } else if (wl.startsWith("cashback") || wl.equals("earned")) {
+                // Axis "CASHBACK EARNED": its cells ("4.00 Cr", "0.00 Dr") print left of
+                // the heading and look exactly like amounts; they are never the amount.
+                zones.add(new double[]{w.x0() - CASHBACK_LEFT_PAD, w.x1()});
             }
         }
         return zones;
