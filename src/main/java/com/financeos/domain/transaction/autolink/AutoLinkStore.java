@@ -26,6 +26,10 @@ public class AutoLinkStore {
     /** Candidate ids are stored comma separated in a 4000 character column (36 + 1 per id). */
     static final int MAX_CANDIDATES = 50;
 
+    /** Rows k = 0 .. MAX_CANDIDATES - 1: the candidate positions within {@code candidate_ids}. */
+    private static final String CANDIDATE_POSITIONS = java.util.stream.IntStream.range(0, MAX_CANDIDATES)
+            .mapToObj(k -> "SELECT " + k + " k FROM dual").collect(Collectors.joining(" UNION ALL "));
+
     public record SuggestionRow(UUID id, SuggestionKind kind, UUID transactionId, List<UUID> candidateIds) {
     }
 
@@ -151,8 +155,9 @@ public class AutoLinkStore {
     /**
      * The user's live transactions that any of the user's suggestions names (as the subject or, except for
      * LENDING whose candidates are lending ids, as a candidate), in one query: no bound id lists. The
-     * candidate column is a comma separated list, split in SQL with {@code JSON_TABLE}. Same liveness filter
-     * as {@link #liveTransactionIds}.
+     * candidate column holds at most {@link #MAX_CANDIDATES} UUIDs joined by ',' (fixed width 36 + 1), so
+     * candidate k is {@code SUBSTR(candidate_ids, k * 37 + 1, 36)}, split against a constant 0..49 row source
+     * (portable: Oracle and the H2 test database). Same liveness filter as {@link #liveTransactionIds}.
      */
     public Set<UUID> liveSuggestionTransactionIds(UUID userId) {
         Set<UUID> out = new HashSet<>();
@@ -161,8 +166,9 @@ public class AutoLinkStore {
                 + "AND NOT EXISTS (SELECT 1 FROM transaction_link_members m WHERE m.transaction_id = t.id) "
                 + "AND NOT " + OWNED + " "
                 + "AND t.id IN (SELECT s.transaction_id FROM link_suggestions s WHERE s.user_id = ? "
-                + "UNION SELECT j.cid FROM link_suggestions s2, JSON_TABLE('[\"' || REPLACE(s2.candidate_ids, ',', '\",\"') || '\"]', "
-                + "'$[*]' COLUMNS (cid VARCHAR2(36) PATH '$')) j WHERE s2.user_id = ? AND s2.kind <> 'LENDING')",
+                + "UNION SELECT SUBSTR(s2.candidate_ids, n.k * 37 + 1, 36) FROM link_suggestions s2 "
+                + "JOIN (" + CANDIDATE_POSITIONS + ") n ON n.k * 37 < LENGTH(s2.candidate_ids) "
+                + "WHERE s2.user_id = ? AND s2.kind <> 'LENDING')",
                 rs -> {
                     out.add(UUID.fromString(rs.getString(1)));
                 }, user, user, user);

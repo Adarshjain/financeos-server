@@ -112,7 +112,7 @@ class AutoLinkStoreScopeTest {
 
         assertThat(out).containsExactly(live);
         assertThat(sqls).hasSize(1);
-        assertThat(sqls.get(0)).contains("FROM link_suggestions").contains("JSON_TABLE").contains("kind <> 'LENDING'")
+        assertThat(sqls.get(0)).contains("FROM link_suggestions").contains("SUBSTR(s2.candidate_ids, n.k * 37 + 1, 36)").contains("kind <> 'LENDING'")
                 .contains("transaction_link_members");
         // the user id only: three placeholders, no id per row
         assertThat(argLists.get(0)).containsExactly(userId.toString(), userId.toString(), userId.toString());
