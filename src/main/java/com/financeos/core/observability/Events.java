@@ -70,6 +70,7 @@ public final class Events {
     public static final String JOB_FAILED = "job.failed";
 
     // Ingestion & Parsing Events (Phase 5B)
+    public static final String INGEST_ITEM_FAILED = "ingest.item_failed";
     public static final String INGEST_FILE_RECEIVED = "ingest.file.received";
     public static final String PARSE_STARTED = "parse.started";
     public static final String PARSE_COMPLETED = "parse.completed";

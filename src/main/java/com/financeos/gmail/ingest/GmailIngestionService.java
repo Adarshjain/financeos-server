@@ -24,6 +24,9 @@ import com.financeos.gmail.reconcile.StatementReconciliationService;
 import com.google.api.services.gmail.Gmail;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
+import net.logstash.logback.argument.StructuredArguments;
+import com.financeos.core.observability.Events;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -448,12 +451,112 @@ public class GmailIngestionService {
 
     private ProcessedMessage processSingleMessageInTx(Gmail service, GmailConnection connection, GmailProcessedMessage row, List<GmailSender> enabledSenders, MergeRequest[] mergeOut,
                                                        Map<UUID, com.financeos.domain.categorization.CategoryAssigner.ArrivalContext> arrivalContexts) {
-        return transactionTemplate.execute(status -> {
-            GmailProcessedMessage gpm = processedMessageRepository.findById(row.getId()).orElse(row);
-            ReconSummary[] recon = new ReconSummary[1];
-            List<Transaction> created = processMessage(service, connection, gpm, enabledSenders, recon, mergeOut, arrivalContexts);
-            return new ProcessedMessage(created, toMessageResult(gpm, created, recon[0]));
-        });
+        // The failure processMessage caught, kept here because a DB failure also marks the transaction rollback-only:
+        // the commit then throws "silently rolled back" and the ledger update made in the catch is lost.
+        Throwable[] caught = new Throwable[1];
+        ProcessedMessage outcome;
+        try {
+            outcome = transactionTemplate.execute(status -> {
+                GmailProcessedMessage gpm = processedMessageRepository.findById(row.getId()).orElse(row);
+                ReconSummary[] recon = new ReconSummary[1];
+                List<Transaction> created = processMessage(service, connection, gpm, enabledSenders, recon, mergeOut, arrivalContexts, caught);
+                return new ProcessedMessage(created, toMessageResult(gpm, created, recon[0]));
+            });
+        } catch (RuntimeException e) {
+            // The transaction is over (rolled back); one failing message must never fail the whole sync.
+            mergeOut[0] = null;
+            Throwable cause = caught[0] != null ? caught[0] : e;
+            return new ProcessedMessage(List.of(), recordFailureInFreshTx(row, cause, connection));
+        }
+        if (caught[0] != null && outcome != null) {
+            logItemFailed(connection, outcome.result(), caught[0]);
+        }
+        return outcome;
+    }
+
+    /**
+     * Records a failure that rolled the message's transaction back: reloads the row in a new transaction (the failed
+     * one left the stored attempt count untouched, so this is the one increment) and applies the same retry rules.
+     * Never throws.
+     */
+    private SyncSummary.MessageResult recordFailureInFreshTx(GmailProcessedMessage row, Throwable cause, GmailConnection connection) {
+        Throwable root = rootCause(cause);
+        String rootMessage = root.getMessage() != null ? root.getMessage() : root.toString();
+        try {
+            SyncSummary.MessageResult result = transactionTemplate.execute(status -> {
+                GmailProcessedMessage fresh = processedMessageRepository.findById(row.getId()).orElse(row);
+                applyFailure(fresh, cause, rootMessage);
+                processedMessageRepository.save(fresh);
+                return toMessageResult(fresh, List.of(), null);
+            });
+            logItemFailed(connection, result, root);
+            return result;
+        } catch (RuntimeException recordingFailed) {
+            log.warn("Could not record failure of message {}: {}", row.getGmailMessageId(), recordingFailed.toString());
+            // Counted as retryable so the summary stays honest; the stored row keeps its previous state and is picked up again.
+            SyncSummary.MessageResult fallback = new SyncSummary.MessageResult(row.getId(), row.getGmailMessageId(),
+                    row.getInternalDate(), row.getSenderAddress(), row.getSubject(), GmailProcessedStatus.FAILED_RETRYABLE,
+                    null, null, row.getExtractedLast4(), null, truncate(rootMessage, 2000), row.getAttemptCount(), null, 0, 0, List.of());
+            logItemFailed(connection, fallback, root);
+            return fallback;
+        }
+    }
+
+    private static Throwable rootCause(Throwable t) {
+        Throwable root = t;
+        for (int i = 0; i < 20 && root.getCause() != null && root.getCause() != root; i++) {
+            root = root.getCause();
+        }
+        return root;
+    }
+
+    /** One structured WARN naming the item that failed (event=ingest.item_failed), for Loki and the alert rule. */
+    private void logItemFailed(GmailConnection connection, SyncSummary.MessageResult result, Throwable cause) {
+        Throwable root = rootCause(cause);
+        String rootMessage = root.getMessage() != null ? root.getMessage() : root.toString();
+        String oneLine = rootMessage.replaceAll("\\s+", " ").trim();
+        if (oneLine.length() > 300) {
+            oneLine = oneLine.substring(0, 300);
+        }
+        String jobName = MDC.get("jobName");
+        String jobId = MDC.get("jobId");
+        log.warn("Message could not be processed: gmailMessageId={}, status={}",
+                result.gmailMessageId(), result.status(),
+                StructuredArguments.keyValue("event", Events.INGEST_ITEM_FAILED),
+                StructuredArguments.keyValue("jobName", jobName != null ? jobName : "gmail-sync"),
+                StructuredArguments.keyValue("jobId", jobId),
+                StructuredArguments.keyValue("userId", connection.getUser().getId()),
+                StructuredArguments.keyValue("itemType", "gmail_message"),
+                StructuredArguments.keyValue("itemId", result.gmailMessageId()),
+                StructuredArguments.keyValue("ledgerId", result.ledgerId()),
+                StructuredArguments.keyValue("errorClass", root.getClass().getSimpleName()),
+                StructuredArguments.keyValue("error", oneLine),
+                StructuredArguments.keyValue("attempt", result.attemptCount()),
+                StructuredArguments.keyValue("status", result.status()));
+    }
+
+    /** The one retry rule: one more attempt, then FAILED_RETRYABLE with backoff until the max, else FAILED_PERMANENT. */
+    private void applyFailure(GmailProcessedMessage gpm, Throwable e, String errorText) {
+        int attempts = gpm.getAttemptCount() + 1;
+        gpm.setAttemptCount(attempts);
+        boolean isNoKeys = (e instanceof com.financeos.llm.LlmException le && le.getKind() == com.financeos.llm.LlmException.Kind.NO_KEYS)
+                || (e.getMessage() != null && e.getMessage().contains("No API keys configured"));
+        if (isNoKeys) {
+            gpm.setError("needs attention: add an API key in Settings");
+        } else {
+            gpm.setError(truncate(errorText, 2000));
+        }
+
+        boolean permanent = e instanceof com.financeos.gmail.internal.GmailEngineException ge
+                && ge.getErrorType() == com.financeos.gmail.internal.GmailError.PERMANENT;
+        if (!permanent && attempts < ingestProperties.getRetryMaxAttempts()) {
+            gpm.setStatus(GmailProcessedStatus.FAILED_RETRYABLE);
+            long backoffSeconds = Math.min(86400L, 7200L * (1L << (attempts - 1)));
+            gpm.setNextRetryAt(Instant.now().plusSeconds(backoffSeconds));
+        } else {
+            gpm.setStatus(GmailProcessedStatus.FAILED_PERMANENT);
+            gpm.setNextRetryAt(null);
+        }
     }
 
     private SyncSummary.MessageResult toMessageResult(GmailProcessedMessage gpm, List<Transaction> created, ReconSummary recon) {
@@ -504,7 +607,8 @@ public class GmailIngestionService {
     private List<Transaction> processMessage(Gmail service, GmailConnection connection, GmailProcessedMessage gpm,
                                              List<GmailSender> enabledSenders, ReconSummary[] reconOut,
                                              MergeRequest[] mergeOut,
-                                             Map<UUID, com.financeos.domain.categorization.CategoryAssigner.ArrivalContext> arrivalContexts) {
+                                             Map<UUID, com.financeos.domain.categorization.CategoryAssigner.ArrivalContext> arrivalContexts,
+                                             Throwable[] caughtOut) {
         gpm.setStatus(GmailProcessedStatus.PROCESSING);
         gpm.setProcessedAt(Instant.now());
         processedMessageRepository.save(gpm);
@@ -636,26 +740,8 @@ public class GmailIngestionService {
 
         } catch (Exception e) {
             log.warn("Failed processing message {}: {}", gpm.getGmailMessageId(), e.getMessage());
-            int attempts = gpm.getAttemptCount() + 1;
-            gpm.setAttemptCount(attempts);
-            boolean isNoKeys = (e instanceof com.financeos.llm.LlmException le && le.getKind() == com.financeos.llm.LlmException.Kind.NO_KEYS)
-                    || (e.getMessage() != null && e.getMessage().contains("No API keys configured"));
-            if (isNoKeys) {
-                gpm.setError("needs attention: add an API key in Settings");
-            } else {
-                gpm.setError(truncate(e.getMessage() != null ? e.getMessage() : e.toString(), 2000));
-            }
-
-            boolean permanent = e instanceof com.financeos.gmail.internal.GmailEngineException ge
-                    && ge.getErrorType() == com.financeos.gmail.internal.GmailError.PERMANENT;
-            if (!permanent && attempts < ingestProperties.getRetryMaxAttempts()) {
-                gpm.setStatus(GmailProcessedStatus.FAILED_RETRYABLE);
-                long backoffSeconds = Math.min(86400L, 7200L * (1L << (attempts - 1)));
-                gpm.setNextRetryAt(Instant.now().plusSeconds(backoffSeconds));
-            } else {
-                gpm.setStatus(GmailProcessedStatus.FAILED_PERMANENT);
-                gpm.setNextRetryAt(null);
-            }
+            caughtOut[0] = e;
+            applyFailure(gpm, e, e.getMessage() != null ? e.getMessage() : e.toString());
             processedMessageRepository.save(gpm);
             return List.of();
         }

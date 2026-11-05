@@ -136,6 +136,8 @@ public class JobWorker {
         String jobName = getJobName(type);
 
         try (JobRunContext ctx = JobRunContext.start(shortJobId)) {
+            MDC.put("jobId", jobId.toString());
+            MDC.put("jobName", jobName);
             if (userId != null) {
                 UserContext.setCurrentUserId(userId);
                 MDC.put("userId", userId.toString());
@@ -185,14 +187,30 @@ public class JobWorker {
                         StructuredArguments.keyValue("jobName", jobName),
                         StructuredArguments.keyValue("jobRunId", shortJobId),
                         StructuredArguments.keyValue("durationMs", durationMs),
+                        StructuredArguments.keyValue("jobId", jobId.toString()),
+                        StructuredArguments.keyValue("userId", userId != null ? userId.toString() : null),
                         StructuredArguments.keyValue("errorClass", e.getClass().getName()),
+                        StructuredArguments.keyValue("rootCause", rootCauseLine(e)),
                         e);
             }
         } finally {
             inFlight.decrementAndGet();
             UserContext.clear();
             MDC.remove("userId");
+            MDC.remove("jobId");
+            MDC.remove("jobName");
         }
+    }
+
+    /** The deepest cause's message on one line, at most 300 chars. */
+    static String rootCauseLine(Throwable e) {
+        Throwable root = e;
+        for (int i = 0; i < 20 && root.getCause() != null && root.getCause() != root; i++) {
+            root = root.getCause();
+        }
+        String msg = root.getMessage() != null ? root.getMessage() : root.toString();
+        String line = msg.replaceAll("\\s+", " ").trim();
+        return line.length() > 300 ? line.substring(0, 300) : line;
     }
 
     public static String getJobName(JobType type) {

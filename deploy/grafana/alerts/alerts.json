@@ -79,8 +79,8 @@
             "severity": "warning"
           },
           "annotations": {
-            "summary": "The background job \"{{ $labels.jobName }}\" crashed, so its work (syncing or refreshing data) did not complete.",
-            "description": "Open Grafana → Pipelines dashboard → job outcomes, and check the server logs around this time for the error."
+            "summary": "The background job \"{{ $labels.jobName }}\" (job {{ $labels.jobId }}, user {{ $labels.userId }}) crashed with {{ $labels.errorClass }}: {{ $labels.rootCause }}",
+            "description": "The job's work (syncing or refreshing data) did not complete. Search the server logs for jobId {{ $labels.jobId }} to see the full error, or open Grafana → Pipelines dashboard → job outcomes."
           },
           "notification_settings": {
             "receiver": "slack-financeos"
@@ -90,11 +90,43 @@
               "refId": "A",
               "datasourceUid": "${DS_LOKI}",
               "model": {
-                "expr": "sum by (jobName) (count_over_time({service=\"financeos-server\"} | json | event=\"job.failed\" [30m])) > 0",
+                "expr": "sum by (jobName, jobId, userId, errorClass, rootCause) (count_over_time({service=\"financeos-server\"} | json | event=\"job.failed\" [30m])) > 0",
                 "queryType": "instant"
               },
               "relativeTimeRange": {
                 "from": 1800,
+                "to": 0
+              }
+            }
+          ],
+          "execErrState": "Alerting",
+          "noDataState": "OK"
+        },
+        {
+          "uid": "financeos-alert-ingest-item-failed",
+          "title": "Ingest item failed",
+          "condition": "A",
+          "for": "0m",
+          "labels": {
+            "severity": "warning"
+          },
+          "annotations": {
+            "summary": "An email or item ({{ $labels.itemType }} {{ $labels.itemId }}, user {{ $labels.userId }}) could not be processed ({{ $labels.errorClass }}: {{ $labels.error }}); the rest of the sync continued.",
+            "description": "That one item is held back while everything else keeps flowing. Fix the cause named in the error, then open Settings → Debug → Failures to see it and retry after a fix."
+          },
+          "notification_settings": {
+            "receiver": "slack-financeos"
+          },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_LOKI}",
+              "model": {
+                "expr": "sum by (userId, itemType, itemId, errorClass, error) (count_over_time({service=\"financeos-server\"} | json | event=\"ingest.item_failed\" [15m])) > 0",
+                "queryType": "instant"
+              },
+              "relativeTimeRange": {
+                "from": 900,
                 "to": 0
               }
             }
