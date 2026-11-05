@@ -20,5 +20,7 @@ public enum GmailProcessedStatus {
     NPS_PASSWORD_NEEDED,
     NPS_ACCOUNT_NEEDED,
     NPS_ENTRY,
-    NPS_IGNORED
+    NPS_IGNORED,
+    /** An admin gave up on a failed message (Failures tool): terminal, never drained, retried or shown as attention. */
+    SKIPPED_BY_ADMIN
 }

@@ -322,11 +322,7 @@ public class GmailController {
             throw new ValidationException("Item is not in a retryable attention status: " + gpm.getStatus());
         }
 
-        gpm.setStatus(GmailProcessedStatus.DISCOVERED);
-        gpm.setAttemptCount(0);
-        gpm.setNextRetryAt(null);
-        gpm.setError(null);
-        gpm.setAttentionNotifiedAt(null); // a second failure is announced again
+        gpm.resetForRetry();
         processedMessageRepository.save(gpm);
 
         GmailConnection conn = gpm.getConnection();

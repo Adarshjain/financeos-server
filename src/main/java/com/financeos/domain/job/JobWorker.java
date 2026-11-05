@@ -180,6 +180,14 @@ public class JobWorker {
                 String errorCode = e.getClass().getSimpleName();
                 String errorMessage = e.getMessage() != null ? e.getMessage() : e.toString();
                 jobService.fail(jobId, errorCode, errorMessage);
+                try {
+                    java.io.StringWriter sw = new java.io.StringWriter();
+                    e.printStackTrace(new java.io.PrintWriter(sw));
+                    String stack = sw.toString();
+                    jobService.saveErrorDetail(jobId, stack.length() > 16000 ? stack.substring(0, 16000) : stack);
+                } catch (RuntimeException detailFailed) {
+                    log.warn("Could not store the stack of failed job {}: {}", jobId, detailFailed.toString());
+                }
                 observabilityMetrics.recordJobFailure(jobName);
 
                 log.error("Job failed: jobName={}, durationMs={}", jobName, durationMs,

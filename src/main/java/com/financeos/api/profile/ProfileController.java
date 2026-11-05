@@ -39,7 +39,7 @@ public class ProfileController {
         User user = authService.getCurrentUser();
         User saved = profileService.hello(user.getId(), request.displayName(), request.birthDate(), request.termsAccepted(),
                 request.finish() == null || request.finish());
-        return UserResponse.from(saved, adminService.isAdmin(saved.getId()));
+        return UserResponse.from(saved, adminService.isAdmin(saved.getId()), adminService.isExplicitAdmin(saved));
     }
 
     /** Closes onboarding after a {@code finish=false} hello; idempotent. */
@@ -47,13 +47,13 @@ public class ProfileController {
     public UserResponse finishHello() {
         User user = authService.getCurrentUser();
         User saved = profileService.finishHello(user.getId());
-        return UserResponse.from(saved, adminService.isAdmin(saved.getId()));
+        return UserResponse.from(saved, adminService.isAdmin(saved.getId()), adminService.isExplicitAdmin(saved));
     }
 
     @PatchMapping("/profile")
     public UserResponse updateProfile(@RequestBody UpdateProfileRequest request) {
         User user = authService.getCurrentUser();
         User saved = profileService.updateProfile(user.getId(), request.displayName(), request.birthDate());
-        return UserResponse.from(saved, adminService.isAdmin(saved.getId()));
+        return UserResponse.from(saved, adminService.isAdmin(saved.getId()), adminService.isExplicitAdmin(saved));
     }
 }

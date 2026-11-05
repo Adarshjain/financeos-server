@@ -45,6 +45,26 @@ public class AdminService {
                 .anyMatch(adminEmail -> adminEmail.equalsIgnoreCase(email.trim()));
     }
 
+    /** True only when {@code ADMIN_EMAILS} lists this email: fail-closed, never open-to-all (the Failures tool). */
+    public boolean isExplicitAdmin(String email) {
+        if (email == null || email.isBlank()) {
+            return false;
+        }
+        return configuredEmails().stream().anyMatch(adminEmail -> adminEmail.equalsIgnoreCase(email.trim()));
+    }
+
+    /** The email of this user when ADMIN_EMAILS lists it, else null. */
+    public String explicitAdminEmail(UUID userId) {
+        if (userId == null) {
+            return null;
+        }
+        return userRepository.findById(userId).map(User::getEmail).filter(this::isExplicitAdmin).orElse(null);
+    }
+
+    public boolean isExplicitAdmin(User user) {
+        return user != null && isExplicitAdmin(user.getEmail());
+    }
+
     /**
      * Admin access is open to every signed-in user when {@code app.admin.emails} (env {@code ADMIN_EMAILS})
      * is unset or blank; once at least one email is listed, only those emails are admins.

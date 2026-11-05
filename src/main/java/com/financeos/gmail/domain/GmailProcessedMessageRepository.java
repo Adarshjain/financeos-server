@@ -27,6 +27,22 @@ public interface GmailProcessedMessageRepository extends JpaRepository<GmailProc
     int moveToAccount(@Param("userId") UUID userId, @Param("fromId") UUID fromId,
                       @Param("to") com.financeos.domain.account.Account to, @Param("messageIds") Collection<String> messageIds);
 
+    /** Admin Failures tool, across users: rows in these statuses with their user and mailbox, newest failure first. */
+    @Query(value = "SELECT g FROM GmailProcessedMessage g JOIN FETCH g.connection JOIN FETCH g.user WHERE g.status IN :statuses ORDER BY COALESCE(g.processedAt, g.discoveredAt) DESC, g.id DESC",
+           countQuery = "SELECT COUNT(g) FROM GmailProcessedMessage g WHERE g.status IN :statuses")
+    Page<GmailProcessedMessage> findForAdmin(@Param("statuses") Collection<GmailProcessedStatus> statuses, Pageable pageable);
+
+    long countByStatusAndDismissedAtIsNull(GmailProcessedStatus status);
+
+    /** The (user, mailbox) pairs that have rows in these statuses, one sync per pair after a bulk reset. */
+    @Query("SELECT DISTINCT g.user.id, g.connection.id FROM GmailProcessedMessage g WHERE g.status IN :statuses")
+    List<Object[]> findUserConnectionPairsByStatusIn(@Param("statuses") Collection<GmailProcessedStatus> statuses);
+
+    /** Bulk reset of failed rows to DISCOVERED (the same fields as {@link GmailProcessedMessage#resetForRetry}), one statement. */
+    @org.springframework.data.jpa.repository.Modifying
+    @Query("UPDATE GmailProcessedMessage g SET g.status = com.financeos.gmail.domain.GmailProcessedStatus.DISCOVERED, g.attemptCount = 0, g.nextRetryAt = NULL, g.error = NULL, g.errorDetail = NULL, g.dismissedAt = NULL, g.dismissedBy = NULL, g.dismissReason = NULL, g.attentionNotifiedAt = NULL, g.archivedAt = NULL WHERE g.status IN :statuses")
+    int resetFailedToDiscovered(@Param("statuses") Collection<GmailProcessedStatus> statuses);
+
     long countByConnectionIdAndStatus(UUID connectionId, GmailProcessedStatus status);
 
     long countByConnectionIdAndStatusIn(UUID connectionId, Collection<GmailProcessedStatus> statuses);
