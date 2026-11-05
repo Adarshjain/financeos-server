@@ -110,6 +110,32 @@ cp -f backend-1.0.0.jar.prev backend-1.0.0.jar
 sudo systemctl restart financeos
 ```
 
+## Failed items: find, fix, retry
+
+One failing item (a Gmail message, a statement, an instrument's price) never fails the whole job: it is
+recorded on its own row and the rest carries on. Prerequisite: `ADMIN_EMAILS` in the VM `.env` lists your
+email. The Failures tool is closed when it is blank.
+
+1. **Alert.** Slack "Ingest item failed" names `userId`, `itemType`, `itemId` (Gmail message id or
+   instrument id), `errorClass` and the root-cause `error`. "Job failed" (a whole job crashed) names
+   `jobName`, `jobId`, `userId`, `rootCause`.
+2. **Look.** Open the app, go to Settings → Debug → Failures. The Emails and Jobs tabs show every user's
+   failures with the full stack under Details. Emails link straight to the message in Gmail.
+   Logs: Loki `{service="financeos-server"} | json | event="ingest.item_failed"` (or `event="job.failed"`,
+   `jobId="<id>"`).
+3. **Decide.**
+   - Transient (provider down, timeout): do nothing. Emails retry automatically (5 tries, 2 h → 24 h
+     backoff), then show as Failed.
+   - Bug (parser misread, constraint violation): reproduce locally, e.g. download the attachment and run
+     `ParseStatementCli <file> --password <pw> --json`. Fix, test, push, and wait for Deploy to go green.
+   - Will never work (junk mail, a statement for a card we don't track): Skip (emails) or Dismiss (jobs),
+     with a reason.
+4. **Retry.** After the fix is deployed, use Retry now on the item, or Retry all on the tab. Emails go back
+   to the queue and one sync per user runs. Failed jobs are cloned; the original is marked "Retried as …".
+   Statement jobs whose uploaded files have expired can't be retried.
+5. **Confirm.** The item leaves the list, or comes back with a new error. Every admin action logs
+   `event="admin.failure_action"` with your email.
+
 ## E2E Testing & Cross-Repo PR Choreography
 
 - **Server PR against a client branch**: Add `e2e-client-ref: <ref>` on its own line in the PR description to run E2E against that branch (defaults to `main`).
