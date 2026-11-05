@@ -306,6 +306,47 @@ public final class StatementPdfFixtures {
 		return d.save();
 	}
 
+	/**
+	 * Axis-style card table: AMOUNT then CASHBACK EARNED, both printed as "value Cr/Dr". Figures are
+	 * letter-spaced so the first digit and the rest extract as two words ("5" + ",000.00"), credit rows
+	 * have no merchant category, one debit earns a non-zero cashback, and a footer block follows the table.
+	 */
+	public static byte[] axisCashbackColumn() throws Exception {
+		Doc d = new Doc();
+		d.line(l(38, "CREDIT CARD STATEMENT"));
+		d.line(l(40, "Statement period : 21/10/2022 to 20/11/2022"));
+		d.line(l(47, "DATE"), l(131, "TRANSACTION"), l(186, "DETAILS"), l(288, "MERCHANT"), l(333, "CATEGORY"),
+				l(416, "AMOUNT"), l(452, "(Rs.)"), l(500, "CASHBACK"), l(543, "EARNED"));
+		d.line(l(34, "21/10/2022"), l(89, "NEFT PAYMENT RECEIVED"), l(402, "5 ,000.00"), l(442, "Cr"),
+				l(490, "0.00"), l(509, "Dr"));
+		d.line(l(34, "22/10/2022"), l(89, "NEFT PAYMENT RECEIVED"), l(402, "15,008.00"), l(444, "Cr"),
+				l(490, "0.00"), l(509, "Dr"));
+		d.line(l(34, "29/10/2022"), l(89, "HOTELSRIKRISHNAPRASAD"), l(266, "RESTAURANTS"), l(402, "213.00"),
+				l(431, "Dr"), l(490, "4.00"), l(509, "Cr"));
+		d.line(l(34, "30/10/2022"), l(89, "GRAND ELECTRONICS CHENNAI"), l(266, "MISCELLANEOUS"),
+				l(402, "1 ,089.00"), l(442, "Dr"), l(490, "54.00"), l(514, "Cr"));
+		d.line(l(34, "10/11/2022"), l(89, "CASHBACK CREDIT OCT 2022"), l(402, "1 ,842.00"), l(442, "Cr"),
+				l(490, "0.00"), l(509, "Dr"));
+		d.line();
+		d.line();
+		d.line(l(263, "CASHBACK DETAILS"));
+		d.line(l(121, "Cashback Earned"), l(395, "Cashback Credited"));
+		d.line(l(141, "1,037.00"), l(419, "1,842.00"));
+		return d.save();
+	}
+
+	/** No column header, and an amount that stays split ("5" ... ",000.00"): only the cashback-style cells read as amounts. */
+	public static byte[] cardRowWithUnreadableAmount() throws Exception {
+		Doc d = new Doc();
+		d.line(l(38, "CREDIT CARD STATEMENT"));
+		d.line(l(40, "Statement period : 21/10/2022 to 20/11/2022"));
+		d.line(l(34, "21/10/2022"), l(89, "NEFT PAYMENT RECEIVED"), l(402, "5"), l(430, ",000.00"), l(470, "Cr"),
+				l(490, "0.00"), l(509, "Dr"));
+		d.line(l(34, "29/10/2022"), l(89, "HOTELSRIKRISHNAPRASAD"), l(266, "RESTAURANTS"), l(402, "213.00"),
+				l(431, "Dr"), l(490, "4.00"), l(509, "Cr"));
+		return d.save();
+	}
+
 	private static void header(Doc d) {
 		d.line(l(DATE, "Date"), l(NARR, "Transaction Details"), l(335, "Deposits"), l(409, "Withdrawals"),
 				l(523, "Balance"));
