@@ -18,9 +18,10 @@ import java.util.regex.Matcher;
 
 public final class StatementParseEngine {
 
-    // an amount still sitting in a description: "5 ,000.00" or "1,842.00"
+    // an amount still sitting in a description: "5 ,000.00" or "1,842.00"; not a dotted
+    // date ("12.05.2024"), a rate ("12.50%") or a longer number
     private static final java.util.regex.Pattern ZERO_ROW_TEXT_AMOUNT =
-            java.util.regex.Pattern.compile("\\d[\\d,]*\\.\\d{2}\\b|\\d ?,\\d{3}");
+            java.util.regex.Pattern.compile("(?<![\\d.])(?:\\d{1,3}(?: ?,\\d{2,3})+|\\d+)\\.\\d{2}(?![\\d.%])");
 
     private StatementParseEngine() {
     }

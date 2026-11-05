@@ -4,6 +4,7 @@ import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
@@ -21,13 +22,16 @@ final class TransactionBuilder {
     private static final Pattern PRINT_COUNTER = Pattern.compile("\\d+/\\d+");
     // Widest gap between two words of one narration (a space is ~2.5pt at 9pt).
     private static final double TEXT_GAP = 5;
-    // heading of a cashback column sits right of its cells
-    private static final double CASHBACK_LEFT_PAD = 20;
+    // heading of a cashback column sits right of its cells (Axis: cell centers sit 1.5pt or more left of the heading)
+    private static final double CASHBACK_LEFT_PAD = 5;
     // longest vertical gap at which an undated line still wraps a row's narration;
     // a footer block ("CASHBACK DETAILS") further down is not part of it
     private static final double MAX_CONTINUATION_GAP = 25;
     private static final Pattern SPLIT_HEAD = Pattern.compile("\\d{1,3}");
     private static final Pattern SPLIT_TAIL = Pattern.compile(",\\d{2,3}(?:,\\d{2,3})*\\.\\d{1,2}");
+
+    private record Attachment(TxnDraft row, int pos, int page, double top, List<String> words) {
+    }
 
     private TransactionBuilder() {
     }
@@ -35,6 +39,7 @@ final class TransactionBuilder {
     static TxnBuild build(List<RawRow> rawRows, String dateFmt, String dateFmt2,
                            LocalDate periodStart, LocalDate periodEnd, Line headerWords,
                            NavigableMap<Integer, Line> pageHeaders) {
+        rawRows = rejoinSplitAmounts(rawRows);
         double[] refZone = refZone(headerWords);
         Map<Integer, List<double[]>> sideZones = new HashMap<>();
         List<String> rowFmts = new ArrayList<>();
@@ -152,15 +157,6 @@ final class TransactionBuilder {
                 }
                 String tok = Tokens.norm(w.text());
                 String nxt = ci + 1 < words.size() ? Tokens.norm(words.get(ci + 1).text()) : "";
-                // Letter-spaced figures extract as "5" + ",000.00" (kerning gap after the
-                // first digit): rejoin them when the pieces touch and form an amount.
-                if (ci + 1 < words.size() && SPLIT_HEAD.matcher(tok).matches() && SPLIT_TAIL.matcher(nxt).matches()
-                        && words.get(ci + 1).x0() - w.x1() <= TEXT_GAP && Tokens.parseAmount(tok + nxt) != null) {
-                    w = new Word(tok + nxt, w.x0(), words.get(ci + 1).x1(), w.top(), w.page());
-                    tok = tok + nxt;
-                    nxt = ci + 2 < words.size() ? Tokens.norm(words.get(ci + 2).text()) : "";
-                    ci++;
-                }
                 Amount amt = Tokens.parseAmount(tok);
                 if (amt != null && narrationAmounts.contains(w)) {
                     // figure printed inside the narration, not an amount column
@@ -221,6 +217,7 @@ final class TransactionBuilder {
         // Attach continuation lines to the vertically nearest transaction — wrapped
         // narrations can sit above OR below their dated row. Lines outside the
         // description column (marketing text, section titles) are dropped.
+        List<Attachment> attachments = new ArrayList<>();
         for (Map.Entry<Integer, Line> entry : continuations) {
             int pos = entry.getKey();
             Line ln = entry.getValue();
@@ -261,13 +258,50 @@ final class TransactionBuilder {
                 }
                 words.add(lineWords.get(k).text());
             }
-            if (near.page == page && Math.abs(near.top - top) > MAX_CONTINUATION_GAP) {
+            attachments.add(new Attachment(near, pos, page, top, words));
+        }
+        // A line joins its row only while each line sits within MAX_CONTINUATION_GAP of the
+        // previous one attached (the row itself for the first): a real block gap such as a
+        // footer under the last row stops the chain, a long wrapped narration does not.
+        Map<TxnDraft, List<Attachment>> byRow = new IdentityHashMap<>();
+        for (Attachment at : attachments) {
+            if (at.row.page == at.page) {
+                byRow.computeIfAbsent(at.row, k -> new ArrayList<>()).add(at);
+            }
+        }
+        Set<Attachment> rejected = Collections.newSetFromMap(new IdentityHashMap<>());
+        for (Map.Entry<TxnDraft, List<Attachment>> e : byRow.entrySet()) {
+            TxnDraft row = e.getKey();
+            for (boolean above : new boolean[]{true, false}) {
+                List<Attachment> side = new ArrayList<>();
+                for (Attachment at : e.getValue()) {
+                    if ((row.pos > at.pos) == above) {
+                        side.add(at);
+                    }
+                }
+                side.sort(Comparator.comparingDouble(at -> Math.abs(at.top - row.top)));
+                double prev = row.top;
+                boolean open = true;
+                for (Attachment at : side) {
+                    if (open && Math.abs(at.top - prev) > MAX_CONTINUATION_GAP) {
+                        open = false;
+                    }
+                    if (open) {
+                        prev = at.top;
+                    } else {
+                        rejected.add(at);
+                    }
+                }
+            }
+        }
+        for (Attachment at : attachments) {
+            if (rejected.contains(at)) {
                 continue;
             }
-            if (near.pos > pos) {
-                near.desc.addAll(0, words);
+            if (at.row.pos > at.pos) {
+                at.row.desc.addAll(0, at.words);
             } else {
-                near.desc.addAll(words);
+                at.row.desc.addAll(at.words);
             }
         }
         // A row with no amounts anywhere is not a transaction (stray dated
@@ -276,6 +310,42 @@ final class TransactionBuilder {
         txns.removeIf(t -> t.amounts.isEmpty());
         droppedRows += before - txns.size();
         return new TxnBuild(txns, openingFromMarker, droppedRows);
+    }
+
+    // Letter-spaced figures extract as "5" + ",000.00" (kerning gap after the first digit):
+    // rejoin them once, up front, when the pieces touch and form an amount, so every later
+    // step (block splitting, narration figures, amount cells) sees the same words. The
+    // date anchor's words are never touched, so its word indices stay valid.
+    private static List<RawRow> rejoinSplitAmounts(List<RawRow> rawRows) {
+        List<RawRow> out = new ArrayList<>(rawRows.size());
+        for (RawRow r : rawRows) {
+            List<Word> words = r.line().words();
+            int from = r.anchor() != null ? r.anchor().start() + r.anchor().span() : 0;
+            List<Word> joined = null;
+            for (int i = 0; i < words.size(); i++) {
+                Word w = words.get(i);
+                if (i >= from && i + 1 < words.size()) {
+                    Word nx = words.get(i + 1);
+                    String tok = Tokens.norm(w.text());
+                    String nxt = Tokens.norm(nx.text());
+                    if (SPLIT_HEAD.matcher(tok).matches() && SPLIT_TAIL.matcher(nxt).matches()
+                            && nx.x0() - w.x1() <= TEXT_GAP && Tokens.parseAmount(tok + nxt) != null) {
+                        if (joined == null) {
+                            joined = new ArrayList<>(words.subList(0, i));
+                        }
+                        joined.add(new Word(tok + nxt, w.x0(), nx.x1(), w.top(), w.page()));
+                        i++;
+                        continue;
+                    }
+                }
+                if (joined != null) {
+                    joined.add(w);
+                }
+            }
+            out.add(joined == null ? r
+                    : new RawRow(new Line(joined), r.isNewTxn(), r.anchor(), r.cardLast4()));
+        }
+        return out;
     }
 
     private static boolean hasAmount(Line line) {
@@ -390,10 +460,15 @@ final class TransactionBuilder {
             String wl = w.text().toLowerCase(Locale.ROOT);
             if (wl.startsWith("serno") || wl.startsWith("serial") || wl.startsWith("reward")) {
                 zones.add(new double[]{w.x0(), w.x1()});
-            } else if (wl.startsWith("cashback") || wl.equals("earned")) {
-                // Axis "CASHBACK EARNED": its cells ("4.00 Cr", "0.00 Dr") print left of
-                // the heading and look exactly like amounts; they are never the amount.
-                zones.add(new double[]{w.x0() - CASHBACK_LEFT_PAD, w.x1()});
+            }
+        }
+        // Axis "CASHBACK EARNED": its cells ("4.00 Cr", "0.00 Dr") print left of the heading
+        // and look exactly like amounts; they are never the amount. Only a heading with both
+        // words side by side declares the zone, so a lone "Cashback" word elsewhere does not.
+        List<Word> hw = header.getValue().words();
+        for (int i = 0; i + 1 < hw.size(); i++) {
+            if (hw.get(i).text().equalsIgnoreCase("cashback") && hw.get(i + 1).text().equalsIgnoreCase("earned")) {
+                zones.add(new double[]{hw.get(i).x0() - CASHBACK_LEFT_PAD, hw.get(i + 1).x1()});
             }
         }
         return zones;
