@@ -35,8 +35,23 @@ public class PriceRefreshService {
 
     /** Runs the feed writes in one short transaction; null (plain construction) runs them in the caller's context. */
     private org.springframework.transaction.support.TransactionTemplate writeTx;
+    /** Short transaction in which the tenant filter is enabled for the caller's own work (target lookup, classification). */
+    private org.springframework.transaction.support.TransactionTemplate scopedTx;
+    private com.financeos.core.security.UserFilterEnabler userFilterEnabler;
 
     @org.springframework.beans.factory.annotation.Autowired
+    public PriceRefreshService(InstrumentRepository instrumentRepository,
+                               InstrumentPriceRepository priceRepository,
+                               HoldingRepository holdingRepository,
+                               List<PriceProvider> priceProviders,
+                               PriceProperties priceProperties,
+                               InstrumentClassificationService classificationService,
+                               org.springframework.transaction.PlatformTransactionManager transactionManager,
+                               com.financeos.core.security.UserFilterEnabler userFilterEnabler) {
+        this(instrumentRepository, priceRepository, holdingRepository, priceProviders, priceProperties, classificationService, transactionManager);
+        this.userFilterEnabler = userFilterEnabler;
+    }
+
     public PriceRefreshService(InstrumentRepository instrumentRepository,
                                InstrumentPriceRepository priceRepository,
                                HoldingRepository holdingRepository,
@@ -46,6 +61,7 @@ public class PriceRefreshService {
                                org.springframework.transaction.PlatformTransactionManager transactionManager) {
         this(instrumentRepository, priceRepository, holdingRepository, priceProviders, priceProperties, classificationService);
         this.writeTx = new org.springframework.transaction.support.TransactionTemplate(transactionManager);
+        this.scopedTx = new org.springframework.transaction.support.TransactionTemplate(transactionManager);
     }
 
     public PriceRefreshService(InstrumentRepository instrumentRepository,
@@ -68,20 +84,22 @@ public class PriceRefreshService {
      * are refreshed — fully sold-out positions are skipped. When called via an HTTP request, userFilter
      * is active so only the authenticated user's active instruments are returned. When called via the
      * scheduled background job, UserContext is clear so userFilter is inactive and active instruments
-     * across all users are refreshed.
+     * across all users are refreshed. The method itself runs with no transaction (the network fetches must not
+     * hold a connection), so the target lookup and the classification run in their own short transactions in
+     * which the tenant filter is enabled ({@link #scoped}); without that the filter would never be on.
      */
     @Transactional(propagation = org.springframework.transaction.annotation.Propagation.NOT_SUPPORTED)
     public PriceRefreshResult refresh(Optional<UUID> instrumentId) {
-        List<Instrument> targets;
-        if (instrumentId.isPresent()) {
-            UUID id = instrumentId.get();
-            Instrument inst = instrumentRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException("Instrument", id));
-            targets = List.of(inst);
-        } else {
+        List<Instrument> targets = scoped(() -> {
+            if (instrumentId.isPresent()) {
+                UUID id = instrumentId.get();
+                Instrument inst = instrumentRepository.findById(id)
+                        .orElseThrow(() -> new ResourceNotFoundException("Instrument", id));
+                return List.of(inst);
+            }
             List<UUID> activeIds = holdingRepository.findDistinctActiveInstrumentIdsHeld();
-            targets = activeIds.isEmpty() ? List.of() : instrumentRepository.findAllById(activeIds);
-        }
+            return activeIds.isEmpty() ? List.<Instrument>of() : instrumentRepository.findAllById(activeIds);
+        });
 
         int refreshedCount = 0;
         int skippedCount = 0;
@@ -111,7 +129,10 @@ public class PriceRefreshService {
             }
         }
 
-        classify(targets);
+        scoped(() -> {
+            classify(targets);
+            return null;
+        });
 
         for (Map.Entry<PriceProvider, List<Instrument>> entry : grouped.entrySet()) {
             PriceProvider provider = entry.getKey();
@@ -160,6 +181,23 @@ public class PriceRefreshService {
         }
 
         return new PriceRefreshResult(refreshedCount, skippedCount, failedList, LocalDate.now(zoneId), refreshedItems, skippedItems);
+    }
+
+    /**
+     * Runs {@code work} in a short transaction with the tenant filter enabled for the current user (no filter
+     * when there is no user, i.e. the scheduled job), so repository reads see only the caller's rows. Plain
+     * construction (no transaction manager) runs it as is.
+     */
+    private <T> T scoped(java.util.function.Supplier<T> work) {
+        if (scopedTx == null) {
+            return work.get();
+        }
+        return scopedTx.execute(status -> {
+            if (userFilterEnabler != null) {
+                userFilterEnabler.enable();
+            }
+            return work.get();
+        });
     }
 
     /** Writes one instrument's quote (runs inside its own transaction); returns the refreshed or skipped item. */

@@ -43,14 +43,41 @@ public interface JobRepository extends JpaRepository<Job, UUID> {
     @Query("select u.email from User u where u.id = :userId")
     String findUserEmail(@Param("userId") UUID userId);
 
-    /** Admin Failures tool, across users: FAILED jobs finished since {@code since}, newest first; dismissed ones only on request. */
-    @Query(value = "select j from Job j where j.status = com.financeos.domain.job.JobStatus.FAILED and j.finishedAt >= :since and (:includeDismissed = true or j.dismissedAt is null) order by j.finishedAt desc, j.id desc",
-           countQuery = "select count(j) from Job j where j.status = com.financeos.domain.job.JobStatus.FAILED and j.finishedAt >= :since and (:includeDismissed = true or j.dismissedAt is null)")
-    Page<Job> findFailedForAdmin(@Param("since") Instant since, @Param("includeDismissed") boolean includeDismissed, Pageable pageable);
+    String FAILED_ROW = "select new com.financeos.domain.job.FailedJobRow(j.id, j.type, j.userId, u.email, j.errorCode, j.errorMessage, j.attempt, "
+            + "j.startedAt, j.finishedAt, j.dismissedAt, j.dismissedBy, j.dismissReason) from Job j left join User u on u.id = j.userId "
+            + "where j.status = com.financeos.domain.job.JobStatus.FAILED and j.finishedAt >= :since";
+    String FAILED_COUNT = "select count(j) from Job j where j.status = com.financeos.domain.job.JobStatus.FAILED and j.finishedAt >= :since";
 
-    /** Every non-dismissed FAILED job finished since {@code since} (retry-all). */
-    @Query("select j from Job j where j.status = com.financeos.domain.job.JobStatus.FAILED and j.finishedAt >= :since and j.dismissedAt is null order by j.finishedAt desc, j.id desc")
-    List<Job> findFailedActiveForAdmin(@Param("since") Instant since);
+    /**
+     * Admin Failures tool, across users: FAILED jobs finished since {@code since}, newest first, dismissed ones included.
+     * A projection: the stack (error_detail CLOB) is not read; the owner's email comes in the same query.
+     */
+    @Query(value = FAILED_ROW + " order by j.finishedAt desc, j.id desc", countQuery = FAILED_COUNT)
+    Page<FailedJobRow> findFailedWithDismissedForAdmin(@Param("since") Instant since, Pageable pageable);
+
+    /** As {@link #findFailedWithDismissedForAdmin} but only the non-dismissed ones. */
+    @Query(value = FAILED_ROW + " and j.dismissedAt is null order by j.finishedAt desc, j.id desc", countQuery = FAILED_COUNT + " and j.dismissedAt is null")
+    Page<FailedJobRow> findFailedForAdmin(@Param("since") Instant since, Pageable pageable);
+
+    /** Every non-dismissed FAILED job finished since {@code since}, newest first (retry-all); identity columns only. */
+    @Query("select new com.financeos.domain.job.JobKeyRow(j.id, j.userId, j.type, j.payload, j.finishedAt) from Job j "
+            + "where j.status = com.financeos.domain.job.JobStatus.FAILED and j.finishedAt >= :since and j.dismissedAt is null order by j.finishedAt desc, j.id desc")
+    List<JobKeyRow> findFailedActiveForAdmin(@Param("since") Instant since);
+
+    /**
+     * SUCCEEDED jobs since {@code since} of a type and owner that has a FAILED, non-dismissed job of the same type finished
+     * before it (retry-all: a later success supersedes the failure). The payload is matched by the caller.
+     */
+    @Query("select new com.financeos.domain.job.JobKeyRow(s.id, s.userId, s.type, s.payload, s.finishedAt) from Job s "
+            + "where s.status = com.financeos.domain.job.JobStatus.SUCCEEDED and s.finishedAt >= :since and exists ("
+            + "select 1 from Job f where f.status = com.financeos.domain.job.JobStatus.FAILED and f.dismissedAt is null and f.finishedAt >= :since "
+            + "and f.type = s.type and f.finishedAt <= s.finishedAt and ((f.userId is null and s.userId is null) or f.userId = s.userId))")
+    List<JobKeyRow> findSucceededAfterFailuresForAdmin(@Param("since") Instant since);
+
+    /** Marks these jobs dismissed in one statement (retry-all supersede); already dismissed ones are left alone. */
+    @Modifying
+    @Query("update Job j set j.dismissedAt = :now, j.dismissedBy = :by, j.dismissReason = :reason where j.id in :ids and j.dismissedAt is null")
+    int dismissAll(@Param("ids") Collection<UUID> ids, @Param("now") Instant now, @Param("by") String by, @Param("reason") String reason);
 
     @Query("select count(j) from Job j where j.status = com.financeos.domain.job.JobStatus.FAILED and j.finishedAt >= :since and j.dismissedAt is null")
     long countFailedActiveForAdmin(@Param("since") Instant since);

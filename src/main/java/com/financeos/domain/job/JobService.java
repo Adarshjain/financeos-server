@@ -256,7 +256,7 @@ public class JobService {
             throw new ResourceNotFoundException("Job", jobId);
         }
 
-        return cloneAndDismiss(orig, jobRepository.findUserEmail(userId));
+        return cloneAndDismiss(orig, jobRepository.findUserEmail(userId), false);
     }
 
     /**
@@ -266,15 +266,24 @@ public class JobService {
     @Transactional
     public Job retryForAdmin(UUID jobId, String adminEmail) {
         Job orig = jobRepository.findById(jobId).orElseThrow(() -> new ResourceNotFoundException("Job", jobId));
-        return cloneAndDismiss(orig, adminEmail);
+        return cloneAndDismiss(orig, adminEmail, true);
     }
 
     /** True when a retry of this job can find what it needs (a statement ingest needs its stored files). */
     public static boolean needsArtifacts(Job job) {
-        return job.getType() == JobType.STATEMENT_INGEST;
+        return needsArtifacts(job.getType());
     }
 
-    private Job cloneAndDismiss(Job orig, String dismissedBy) {
+    public static boolean needsArtifacts(JobType type) {
+        return type == JobType.STATEMENT_INGEST;
+    }
+
+    /**
+     * @param carryDedupKey admin retry: the clone keeps the original's dedup key (as a normal enqueue would set it) and,
+     *                      when a PENDING or RUNNING job already holds that key, no clone is made: the original is
+     *                      dismissed as retried by that job, which is returned.
+     */
+    private Job cloneAndDismiss(Job orig, String dismissedBy, boolean carryDedupKey) {
         UUID jobId = orig.getId();
         if (orig.getStatus() != JobStatus.FAILED && orig.getStatus() != JobStatus.CANCELLED) {
             throw new ValidationException("Only FAILED or CANCELLED jobs can be retried.");
@@ -293,13 +302,26 @@ public class JobService {
             origArtifacts = pending;
         }
 
+        String dedupKey = carryDedupKey && orig.getDedupKey() != null && !orig.getDedupKey().isBlank() ? orig.getDedupKey() : null;
+        if (dedupKey != null) {
+            Optional<Job> active = jobRepository.findActiveDuplicate(orig.getUserId(), orig.getType(), dedupKey,
+                    List.of(JobStatus.PENDING, JobStatus.RUNNING));
+            if (active.isPresent()) {
+                orig.setDismissedAt(Instant.now());
+                orig.setDismissedBy(dismissedBy);
+                orig.setDismissReason("Retried as " + active.get().getId());
+                jobRepository.save(orig);
+                return active.get();
+            }
+        }
+
         Job newJob = new Job();
         newJob.setUserId(orig.getUserId());
         newJob.setType(orig.getType());
         newJob.setStatus(JobStatus.PENDING);
         newJob.setTriggerSource(JobTrigger.USER);
         newJob.setPayload(orig.getPayload());
-        newJob.setDedupKey(null);
+        newJob.setDedupKey(dedupKey);
         newJob.setAttempt(0);
         newJob.setCancelRequested(false);
 
