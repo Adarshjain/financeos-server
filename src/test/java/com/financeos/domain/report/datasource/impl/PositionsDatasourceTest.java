@@ -26,6 +26,12 @@ class PositionsDatasourceTest {
     }
 
     @Test
+    void instrumentTypeFilterValuesLeaveNpsSchemesOut() {
+        var field = datasource.fields().stream().filter(f -> "instrumentType".equals(f.name())).findFirst().orElseThrow();
+        assertEquals(java.util.List.of("stock", "mutual_fund", "etf"), field.values());
+    }
+
+    @Test
     void catalogShapeAndName() {
         assertEquals("positions", datasource.name());
         assertEquals("Positions", datasource.label());

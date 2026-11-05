@@ -51,6 +51,13 @@ public class GmailSender {
     @Column(name = "backfill_from")
     private java.time.LocalDate backfillFrom;
 
+    /**
+     * A sender whose mails a {@link GmailDocumentHandler} reads (NPS statements and alerts): its Gmail backfill reaches
+     * back to its own {@code backfillFrom} even when the user-level demand floor is later.
+     */
+    @Column(name = "document_sender", nullable = false)
+    private Boolean documentSender = false;
+
     @Column(name = "created_at")
     private Instant createdAt;
 

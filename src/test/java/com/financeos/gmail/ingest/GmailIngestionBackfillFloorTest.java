@@ -139,4 +139,36 @@ class GmailIngestionBackfillFloorTest {
         assertThat(backfillQueries()).isEmpty();
         verify(cursorService, never()).updateEarliestCoveredAt(any(), any());
     }
+
+    @Test
+    void documentSender_backfillsToItsOwnFloor_evenWhenTheDemandFloorIsLater() {
+        Instant covered = Instant.now().minus(Duration.ofDays(90));
+        GmailSyncCursor nps = cursor("nps-statements@proteantech.in", LocalDate.of(2013, 1, 1), covered);
+        nps.getSender().setDocumentSender(true);
+        GmailSyncCursor bank = cursor("hdfcbank.net", LocalDate.of(2013, 1, 1), covered);
+        withCursors(nps, bank);
+
+        service.syncConnection(connection);
+
+        List<String> queries = backfillQueries();
+        assertThat(queries).anyMatch(q -> q.contains("nps-statements@proteantech.in")
+                && q.contains("after:" + epoch(LocalDate.of(2013, 1, 1))));
+        // a bank sender with the same floor is still held to the user's demand floor
+        assertThat(queries).anyMatch(q -> q.contains("hdfcbank.net") && q.contains("after:" + epoch(LocalDate.of(2024, 1, 1))));
+        assertThat(queries).noneMatch(q -> q.contains("nps-statements@proteantech.in") && q.contains("hdfcbank.net"));
+    }
+
+    @Test
+    void documentSender_backfillsWithoutAnyDemandFloor_butAPlainSenderDoesNot() {
+        when(demandRepository.findById(user.getId())).thenReturn(Optional.empty());
+        Instant covered = Instant.now().minus(Duration.ofDays(90));
+        GmailSyncCursor nps = cursor("cra@nsdl.co.in", LocalDate.of(2013, 1, 1), covered);
+        nps.getSender().setDocumentSender(true);
+        GmailSyncCursor plain = cursor("alerts@other.com", null, covered);
+        withCursors(nps, plain);
+
+        service.syncConnection(connection);
+
+        assertThat(backfillQueries()).singleElement().satisfies(q -> assertThat(q).contains("cra@nsdl.co.in"));
+    }
 }

@@ -30,6 +30,12 @@ public final class UserDataCleanup {
             new String[]{"report_id", "reports"},
             new String[]{"dashboard_id", "dashboards"});
 
+    /** Children without a user_id whose parent column name is shared with another table: {table, column, parent}. */
+    private static final List<String[]> EXPLICIT_CHILDREN = List.of(
+            new String[]{"nps_entry_line", "entry_id", "nps_entry"},
+            new String[]{"nps_statement_holding", "statement_id", "nps_statement"},
+            new String[]{"nps_allocation", "account_id", "nps_account"});
+
     private static final int MAX_PASSES = 12;
 
     private UserDataCleanup() {
@@ -47,6 +53,10 @@ public final class UserDataCleanup {
                 "SELECT TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = 'PUBLIC' "
                         + "AND COLUMN_NAME = 'user_id' AND TABLE_NAME <> 'users'", String.class);
 
+        for (String[] child : EXPLICIT_CHILDREN) {
+            deleteQuietly(jdbc, "DELETE FROM " + child[0] + " WHERE " + child[1] + " IN (SELECT id FROM "
+                    + child[2] + " WHERE user_id IN (" + in + "))");
+        }
         for (String[] parentKey : PARENT_KEYS) {
             List<String> children = jdbc.queryForList(
                     "SELECT c.TABLE_NAME FROM INFORMATION_SCHEMA.COLUMNS c WHERE c.TABLE_SCHEMA = 'PUBLIC' "

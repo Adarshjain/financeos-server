@@ -106,7 +106,8 @@ public class RealizedLotsDatasource implements ComputedReportDatasource {
     }
 
     private List<FieldDef> buildCatalog() {
-        List<String> instTypeValues = Arrays.stream(InstrumentType.values()).map(Enum::name).toList();
+        List<String> instTypeValues = Arrays.stream(InstrumentType.values()).filter(t -> t != InstrumentType.nps_scheme)
+                .map(Enum::name).toList();
         List<String> termValues = List.of(CapitalGainsTerm.SHORT, CapitalGainsTerm.LONG, CapitalGainsTerm.SLAB);
 
         return List.of(

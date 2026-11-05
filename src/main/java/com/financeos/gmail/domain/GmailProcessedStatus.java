@@ -14,5 +14,11 @@ public enum GmailProcessedStatus {
     ACCOUNT_NOT_OPTED_IN,
     FAILED_RETRYABLE,
     FAILED_PERMANENT,
-    CLEANED_UP
+    CLEANED_UP,
+    /** A document handler (NPS) imported the statement. */
+    NPS_IMPORTED,
+    NPS_PASSWORD_NEEDED,
+    NPS_ACCOUNT_NEEDED,
+    NPS_ENTRY,
+    NPS_IGNORED
 }

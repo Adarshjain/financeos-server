@@ -25,10 +25,16 @@ public final class InboxKinds {
     /** No longer produced (link suggestions show on the transaction); kept so persisted dismissals still resolve a label. */
     public static final String LINK_SUGGESTION = "link_suggestion";
     public static final String UPLOAD_NEEDS_ACCOUNT = "upload_needs_account";
+    public static final String NPS_PASSWORD = "nps_password";
+    public static final String NPS_NEW_ACCOUNT = "nps_new_account";
+    public static final String NPS_MATCH = "nps_match";
+    public static final String NPS_RECORD = "nps_record";
+    public static final String NPS_SETUP = "nps_setup";
 
     /** Every kind the inbox can produce, in display order. */
     public static final List<String> ALL = List.of(BILL, EMI, LENDING, STATEMENT_EXPECTED, STATEMENT_DETAILS_MISSING,
-            GMAIL_RECONNECT, GMAIL_ATTENTION, REVIEW, JOB, REWARD_MILESTONE, REWARD_CAP, EPF_MATCH, UPLOAD_NEEDS_ACCOUNT);
+            GMAIL_RECONNECT, GMAIL_ATTENTION, REVIEW, JOB, REWARD_MILESTONE, REWARD_CAP, EPF_MATCH, UPLOAD_NEEDS_ACCOUNT,
+            NPS_PASSWORD, NPS_NEW_ACCOUNT, NPS_MATCH, NPS_RECORD, NPS_SETUP);
 
     /** The two summary rows have fixed keys; everything else is keyed by its subject. */
     public static final String KEY_GMAIL_ATTENTION = "gmail-attention";
@@ -98,6 +104,29 @@ public final class InboxKinds {
         return "epf_match:" + entryId + ":" + transactionId;
     }
 
+    /** One per detected NPS PRAN (the detection key), so answering one never hides another. */
+    public static String npsPendingKey(String kind, UUID detectionKey) {
+        return kind + ":" + detectionKey;
+    }
+
+    /** One grouped row for the locked NPS statements; the count is in the key so more locked mails bring it back. */
+    public static String npsPasswordKey(int count) {
+        return NPS_PASSWORD + ":" + count;
+    }
+
+    /** The one "Set up NPS?" row of a user. */
+    public static final String KEY_NPS_SETUP = "nps_setup";
+
+    /** One per contribution and candidate payment, so a dismissed pairing never hides a different one. */
+    public static String npsMatchKey(UUID entryId, UUID transactionId) {
+        return "nps_match:" + entryId + ":" + transactionId;
+    }
+
+    /** One per payment that may be an NPS contribution. */
+    public static String npsRecordKey(UUID transactionId) {
+        return "nps_record:" + transactionId;
+    }
+
     /** One grouped row per suggestion kind (TRANSFER, CC_PAYMENT, REFUND), so the count changes but the key does not. */
     public static final String KEY_LINK_SUGGESTION_PREFIX = "link-suggestion:";
 
@@ -133,6 +162,11 @@ public final class InboxKinds {
             case EPF_MATCH -> "EPF withdrawals to match";
             case LINK_SUGGESTION -> "Possible links";
             case UPLOAD_NEEDS_ACCOUNT -> "Statements needing an account";
+            case NPS_PASSWORD -> "NPS statements needing a password";
+            case NPS_NEW_ACCOUNT -> "New NPS accounts";
+            case NPS_MATCH -> "NPS contributions to match";
+            case NPS_RECORD -> "Possible NPS payments";
+            case NPS_SETUP -> "Set up NPS";
             default -> kind;
         };
     }
@@ -153,6 +187,7 @@ public final class InboxKinds {
             case EPF_MATCH -> "/investments/epf";
             case LINK_SUGGESTION -> "/transactions/review";
             case UPLOAD_NEEDS_ACCOUNT -> "/transactions/import";
+            case NPS_PASSWORD, NPS_NEW_ACCOUNT, NPS_MATCH, NPS_RECORD, NPS_SETUP -> "/investments/nps";
             default -> "/inbox";
         };
     }

@@ -4,6 +4,7 @@ import com.financeos.core.observability.MdcTaskDecorator;
 import jakarta.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionPhase;
@@ -26,10 +27,13 @@ public class PriceHistoryBackfillListener {
 
     private final PriceHistoryService historyService;
     private final PriceProperties priceProperties;
+    private final ApplicationEventPublisher eventPublisher;
     private final ThreadPoolTaskExecutor executor;
 
-    public PriceHistoryBackfillListener(PriceHistoryService historyService, PriceProperties priceProperties) {
+    public PriceHistoryBackfillListener(PriceHistoryService historyService, PriceProperties priceProperties,
+                                        ApplicationEventPublisher eventPublisher) {
         this.historyService = historyService;
+        this.eventPublisher = eventPublisher;
         this.priceProperties = priceProperties;
         this.executor = new ThreadPoolTaskExecutor();
         executor.setThreadNamePrefix("price-history-");
@@ -49,7 +53,15 @@ public class PriceHistoryBackfillListener {
         }
         Set<UUID> copy = Set.copyOf(ids);
         try {
-            executor.execute(() -> historyService.backfill(copy));
+            executor.execute(() -> {
+                if (historyService.backfill(copy) > 0) {
+                    try {
+                        eventPublisher.publishEvent(new PriceHistoryBackfilledEvent(copy));
+                    } catch (Exception e) {
+                        log.warn("Handling a landed price history failed: {}", e.getMessage());
+                    }
+                }
+            });
         } catch (RejectedExecutionException e) {
             log.info("Price history backfill queue is full; skipped for {} instruments", copy.size());
         }

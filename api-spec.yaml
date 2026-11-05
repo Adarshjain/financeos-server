@@ -4184,6 +4184,7 @@ paths:
           - stock
           - mutual_fund
           - etf
+          - nps_scheme
       - in: query
         name: sort
         required: false
@@ -4269,6 +4270,7 @@ paths:
           - stock
           - mutual_fund
           - etf
+          - nps_scheme
       responses:
         "200":
           content:
@@ -7836,6 +7838,750 @@ paths:
           description: Error response
       tags:
       - notification-controller
+  /api/v1/nps/accounts:
+    post:
+      operationId: createNpsAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NpsAccountRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NpsSummaryAccount"
+          description: Created
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-controller
+  /api/v1/nps/accounts/{id}:
+    delete:
+      operationId: deleteNpsAccount
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-controller
+    put:
+      operationId: updateNpsAccount
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NpsAccountRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NpsSummaryAccount"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-controller
+  /api/v1/nps/accounts/{id}/allocation:
+    put:
+      operationId: replaceNpsAllocation
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NpsAllocationRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NpsSummaryAccount"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-controller
+  /api/v1/nps/entries:
+    get:
+      operationId: listNpsEntries
+      parameters:
+      - in: query
+        name: accountId
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: tier
+        required: false
+        schema:
+          type: string
+          enum:
+          - I
+          - II
+      - in: query
+        name: type
+        required: false
+        schema:
+          type: string
+          enum:
+          - CONTRIBUTION
+          - CHARGE
+          - REBALANCE
+          - SWITCH
+          - MIGRATION
+          - WITHDRAWAL
+          - OPENING
+          - ADJUSTMENT
+          - OTHER
+      - in: query
+        name: schemeCode
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: from
+        required: false
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: to
+        required: false
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: contributor
+        required: false
+        schema:
+          type: string
+          enum:
+          - SELF
+          - EMPLOYER
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          default: 25
+          minimum: 1
+      - description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageNpsEntryResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-controller
+    post:
+      operationId: createNpsEntry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NpsEntryRequest"
+        required: true
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NpsEntryResponse"
+          description: Created
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-controller
+  /api/v1/nps/entries/{id}:
+    delete:
+      operationId: deleteNpsEntry
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-controller
+    get:
+      operationId: getNpsEntry
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NpsEntryResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-controller
+    put:
+      operationId: updateNpsEntry
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NpsEntryRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NpsEntryResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-controller
+  /api/v1/nps/entries/{id}/suggestion/dismiss:
+    post:
+      operationId: dismissNpsLinkSuggestion
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NpsLinkRequest"
+        required: true
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-controller
+  /api/v1/nps/entries/{id}/transaction:
+    delete:
+      operationId: unlinkNpsEntryTransaction
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-controller
+    post:
+      operationId: linkNpsEntryTransaction
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NpsLinkRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NpsEntryResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-controller
+  /api/v1/nps/gmail-detections/password:
+    post:
+      operationId: unlockNpsGmailStatements
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NpsGmailPasswordRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NpsGmailPasswordResult"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-gmail-controller
+  /api/v1/nps/gmail-detections/retry:
+    post:
+      operationId: retryNpsGmailImports
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NpsGmailRetry"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-gmail-controller
+  /api/v1/nps/gmail-detections/{key}:
+    delete:
+      operationId: ignoreNpsGmailDetection
+      parameters:
+      - in: path
+        name: key
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-gmail-controller
+  /api/v1/nps/gmail-detections/{key}/account:
+    post:
+      operationId: addNpsGmailDetectionAccount
+      parameters:
+      - in: path
+        name: key
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NpsGmailAccountRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NpsGmailDetectionAccepted"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-gmail-controller
+  /api/v1/nps/import/commit:
+    post:
+      operationId: commitNpsStatement
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NpsImportCommitRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NpsImportResultResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-import-controller
+  /api/v1/nps/import/preview:
+    post:
+      operationId: previewNpsStatement
+      parameters:
+      - in: query
+        name: password
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: accountId
+        required: false
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+              required:
+              - file
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NpsImportPreviewResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-import-controller
+  /api/v1/nps/import/statements:
+    get:
+      operationId: listNpsStatements
+      parameters:
+      - in: query
+        name: accountId
+        required: false
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/NpsStatementResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-import-controller
+  /api/v1/nps/import/statements/{id}:
+    delete:
+      operationId: deleteNpsStatement
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-import-controller
+  /api/v1/nps/schemes:
+    get:
+      operationId: searchNpsSchemes
+      parameters:
+      - in: query
+        name: query
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: tier
+        required: false
+        schema:
+          type: string
+          enum:
+          - I
+          - II
+          - TTS
+      - in: query
+        name: variant
+        required: false
+        schema:
+          type: string
+          enum:
+          - NONE
+          - DIRECT
+          - GS
+          - POP
+      - in: query
+        name: pfm
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/NpsSchemeResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-controller
+  /api/v1/nps/schemes/{code}:
+    get:
+      operationId: getNpsScheme
+      parameters:
+      - in: path
+        name: code
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NpsSchemeDetailResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-controller
+  /api/v1/nps/setup/not-nps:
+    post:
+      operationId: markSetupNotNps
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-controller
+  /api/v1/nps/summary:
+    get:
+      operationId: getNpsSummary
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NpsSummaryResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-controller
+  /api/v1/nps/transactions/{txnId}/not-nps:
+    post:
+      operationId: markNotNps
+      parameters:
+      - in: path
+        name: txnId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-controller
+  /api/v1/nps/transactions/{txnId}/record:
+    post:
+      operationId: recordNpsPayment
+      parameters:
+      - in: path
+        name: txnId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NpsRecordRequest"
+      responses:
+        "201":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NpsEntryResponse"
+          description: Created
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-controller
   /api/v1/obligations/upcoming:
     get:
       operationId: getUpcomingObligations
@@ -13223,6 +13969,7 @@ components:
           - stock
           - mutual_fund
           - etf
+          - nps_scheme
           nullable: true
           x-nullable: true
         yahooSymbol:
@@ -15873,6 +16620,11 @@ components:
           - FAILED_RETRYABLE
           - FAILED_PERMANENT
           - CLEANED_UP
+          - NPS_IMPORTED
+          - NPS_PASSWORD_NEEDED
+          - NPS_ACCOUNT_NEEDED
+          - NPS_ENTRY
+          - NPS_IGNORED
         subject:
           type: string
           nullable: true
@@ -15990,6 +16742,7 @@ components:
           - stock
           - mutual_fund
           - etf
+          - nps_scheme
         count:
           type: integer
           format: int32
@@ -16310,6 +17063,7 @@ components:
           - stock
           - mutual_fund
           - etf
+          - nps_scheme
         avgCost:
           type: number
         brokers:
@@ -16708,6 +17462,16 @@ components:
           format: uuid
           nullable: true
           x-nullable: true
+        npsEntryId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        npsPendingId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
         statementId:
           type: string
           format: uuid
@@ -16843,6 +17607,7 @@ components:
           - stock
           - mutual_fund
           - etf
+          - nps_scheme
         yahooSymbol:
           type: string
       required:
@@ -16875,6 +17640,7 @@ components:
           - stock
           - mutual_fund
           - etf
+          - nps_scheme
       required:
       - id
       - name
@@ -16928,6 +17694,7 @@ components:
           - AMFI
           - YAHOO
           - MANUAL
+          - NPS_TRUST
       required:
       - asOf
       - close
@@ -16968,6 +17735,7 @@ components:
           - stock
           - mutual_fund
           - etf
+          - nps_scheme
           x-required: true
         yahooSymbol:
           type: string
@@ -17031,6 +17799,7 @@ components:
           - AMFI
           - YAHOO
           - MANUAL
+          - NPS_TRUST
           nullable: true
           x-nullable: true
         mergeNote:
@@ -17069,6 +17838,7 @@ components:
           - stock
           - mutual_fund
           - etf
+          - nps_scheme
         updatedAt:
           type: string
           format: date-time
@@ -17104,6 +17874,7 @@ components:
           - stock
           - mutual_fund
           - etf
+          - nps_scheme
       required:
       - currentValue
       - invested
@@ -17385,6 +18156,7 @@ components:
           - RULE_APPLY
           - CATEGORY_BACKFILL
           - ACCOUNT_DETECT
+          - NPS_GMAIL_IMPORT
       required:
       - attempt
       - cancelRequested
@@ -17766,6 +18538,7 @@ components:
           - EMI
           - LENDING
           - DIVIDEND
+          - NPS
         transaction:
           $ref: "#/components/schemas/TransactionSummary"
       required:
@@ -18373,6 +19146,7 @@ components:
           - stock
           - mutual_fund
           - etf
+          - nps_scheme
       required:
       - id
       - name
@@ -18779,6 +19553,1116 @@ components:
       - reminderOffsets
       - reminderStyle
       - sendHour
+    NpsAccountRequest:
+      type: object
+      properties:
+        cra:
+          type: string
+          enum:
+          - PROTEAN
+          - KFINTECH
+          - CAMS
+          nullable: true
+          x-nullable: true
+        employerId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        holderName:
+          type: string
+          nullable: true
+          x-nullable: true
+        pran:
+          type: string
+          nullable: true
+          x-nullable: true
+        readGmail:
+          type: boolean
+          nullable: true
+          x-nullable: true
+        relation:
+          type: string
+          enum:
+          - SELF
+          - CHILD
+          nullable: true
+          x-nullable: true
+        schemeChoice:
+          type: string
+          nullable: true
+          x-nullable: true
+        sector:
+          type: string
+          enum:
+          - ALL_CITIZEN
+          - CORPORATE
+          - GOVT
+          - VATSALYA
+          - UPS
+          nullable: true
+          x-nullable: true
+        statementPassword:
+          type: string
+          nullable: true
+          x-nullable: true
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - CLOSED
+          nullable: true
+          x-nullable: true
+        tier2Active:
+          type: boolean
+          nullable: true
+          x-nullable: true
+    NpsAllocationRequest:
+      type: object
+      properties:
+        choice:
+          type: string
+          nullable: true
+          x-nullable: true
+        rows:
+          type: array
+          items:
+            $ref: "#/components/schemas/NpsAllocationRowRequest"
+        tier:
+          type: string
+          enum:
+          - I
+          - II
+    NpsAllocationRowRequest:
+      type: object
+      properties:
+        percent:
+          type: number
+        schemeCode:
+          type: string
+    NpsEntryLineRequest:
+      type: object
+      properties:
+        nav:
+          type: number
+          nullable: true
+          x-nullable: true
+        schemeCode:
+          type: string
+        units:
+          type: number
+    NpsEntryLineResponse:
+      type: object
+      properties:
+        amount:
+          type: number
+          nullable: true
+          x-nullable: true
+        nav:
+          type: number
+          nullable: true
+          x-nullable: true
+        schemeCode:
+          type: string
+        schemeName:
+          type: string
+          nullable: true
+          x-nullable: true
+        units:
+          type: number
+      required:
+      - schemeCode
+      - units
+    NpsEntryRequest:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        amount:
+          type: number
+          nullable: true
+          x-nullable: true
+        contributor:
+          type: string
+          enum:
+          - SELF
+          - EMPLOYER
+          nullable: true
+          x-nullable: true
+        description:
+          type: string
+          nullable: true
+          x-nullable: true
+        lines:
+          type: array
+          items:
+            $ref: "#/components/schemas/NpsEntryLineRequest"
+          nullable: true
+          x-nullable: true
+        navDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        note:
+          type: string
+          nullable: true
+          x-nullable: true
+        postedDate:
+          type: string
+          format: date
+        tier:
+          type: string
+          enum:
+          - I
+          - II
+        type:
+          type: string
+          enum:
+          - CONTRIBUTION
+          - CHARGE
+          - REBALANCE
+          - SWITCH
+          - MIGRATION
+          - WITHDRAWAL
+          - OPENING
+          - ADJUSTMENT
+          - OTHER
+    NpsEntryResponse:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        amount:
+          type: number
+          nullable: true
+          x-nullable: true
+        contributor:
+          type: string
+          enum:
+          - SELF
+          - EMPLOYER
+          nullable: true
+          x-nullable: true
+        description:
+          type: string
+          nullable: true
+          x-nullable: true
+        id:
+          type: string
+          format: uuid
+        lines:
+          type: array
+          items:
+            $ref: "#/components/schemas/NpsEntryLineResponse"
+        navDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        note:
+          type: string
+          nullable: true
+          x-nullable: true
+        postedDate:
+          type: string
+          format: date
+        source:
+          type: string
+          enum:
+          - MANUAL
+          - STATEMENT
+          - EMAIL
+          - BANK
+        status:
+          type: string
+          enum:
+          - CONFIRMED
+          - ESTIMATED
+          - PENDING
+        tier:
+          type: string
+          enum:
+          - I
+          - II
+        transactionId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        type:
+          type: string
+          enum:
+          - CONTRIBUTION
+          - CHARGE
+          - REBALANCE
+          - SWITCH
+          - MIGRATION
+          - WITHDRAWAL
+          - OPENING
+          - ADJUSTMENT
+          - OTHER
+      required:
+      - accountId
+      - id
+      - lines
+      - postedDate
+      - source
+      - status
+      - tier
+      - type
+    NpsGmailAccountRequest:
+      type: object
+      properties:
+        relation:
+          type: string
+          enum:
+          - SELF
+          - CHILD
+        sector:
+          type: string
+          enum:
+          - ALL_CITIZEN
+          - CORPORATE
+          - GOVT
+          - VATSALYA
+          - UPS
+          nullable: true
+          x-nullable: true
+    NpsGmailDetectionAccepted:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        importing:
+          type: integer
+          format: int32
+      required:
+      - accountId
+      - importing
+    NpsGmailPasswordRequest:
+      type: object
+      properties:
+        password:
+          type: string
+    NpsGmailPasswordResult:
+      type: object
+      properties:
+        opened:
+          type: integer
+          format: int32
+        stillLocked:
+          type: integer
+          format: int32
+      required:
+      - opened
+      - stillLocked
+    NpsGmailRetry:
+      type: object
+      properties:
+        importing:
+          type: integer
+          format: int32
+      required:
+      - importing
+    NpsImportAccount:
+      type: object
+      properties:
+        holderName:
+          type: string
+          nullable: true
+          x-nullable: true
+        id:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        pranLast4:
+          type: string
+          nullable: true
+          x-nullable: true
+        proposal:
+          $ref: "#/components/schemas/NpsImportProposal"
+        relation:
+          type: string
+          enum:
+          - SELF
+          - CHILD
+          nullable: true
+          x-nullable: true
+    NpsImportAdjustment:
+      type: object
+      properties:
+        schemeCode:
+          type: string
+        schemeName:
+          type: string
+          nullable: true
+          x-nullable: true
+        units:
+          type: number
+      required:
+      - schemeCode
+      - units
+    NpsImportCommitRequest:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        newAccount:
+          $ref: "#/components/schemas/NpsImportNewAccount"
+        previewId:
+          type: string
+          format: uuid
+    NpsImportNewAccount:
+      type: object
+      properties:
+        cra:
+          type: string
+          enum:
+          - PROTEAN
+          - KFINTECH
+          - CAMS
+          nullable: true
+          x-nullable: true
+        employerId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        holderName:
+          type: string
+          nullable: true
+          x-nullable: true
+        relation:
+          type: string
+          enum:
+          - SELF
+          - CHILD
+          nullable: true
+          x-nullable: true
+        sector:
+          type: string
+          enum:
+          - ALL_CITIZEN
+          - CORPORATE
+          - GOVT
+          - VATSALYA
+          - UPS
+          nullable: true
+          x-nullable: true
+    NpsImportPreviewResponse:
+      type: object
+      properties:
+        account:
+          $ref: "#/components/schemas/NpsImportAccount"
+        passwordNeeded:
+          type: boolean
+        previewId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        result:
+          $ref: "#/components/schemas/NpsImportResultResponse"
+        rows:
+          type: array
+          items:
+            $ref: "#/components/schemas/NpsImportRow"
+        statement:
+          $ref: "#/components/schemas/NpsImportStatement"
+      required:
+      - passwordNeeded
+      - rows
+    NpsImportProposal:
+      type: object
+      properties:
+        cra:
+          type: string
+          enum:
+          - PROTEAN
+          - KFINTECH
+          - CAMS
+        holderName:
+          type: string
+          nullable: true
+          x-nullable: true
+        pranMasked:
+          type: string
+        relation:
+          type: string
+          enum:
+          - SELF
+          - CHILD
+        sector:
+          type: string
+          enum:
+          - ALL_CITIZEN
+          - CORPORATE
+          - GOVT
+          - VATSALYA
+          - UPS
+          nullable: true
+          x-nullable: true
+      required:
+      - cra
+      - pranMasked
+      - relation
+    NpsImportResultResponse:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        added:
+          type: integer
+          format: int32
+        adjustments:
+          type: array
+          items:
+            $ref: "#/components/schemas/NpsImportAdjustment"
+        incomplete:
+          type: boolean
+        periodEnd:
+          type: string
+          format: date
+        periodStart:
+          type: string
+          format: date
+        skipped:
+          type: integer
+          format: int32
+        statementId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        unitsMismatch:
+          type: boolean
+        unmapped:
+          type: array
+          items:
+            type: string
+        upgraded:
+          type: integer
+          format: int32
+        warnings:
+          type: array
+          items:
+            type: string
+      required:
+      - added
+      - adjustments
+      - incomplete
+      - periodEnd
+      - periodStart
+      - skipped
+      - unitsMismatch
+      - unmapped
+      - upgraded
+      - warnings
+    NpsImportRow:
+      type: object
+      properties:
+        action:
+          type: string
+          enum:
+          - ADD
+          - UPGRADE
+          - SKIP
+          - UNMAPPED
+        amount:
+          type: number
+          nullable: true
+          x-nullable: true
+        date:
+          type: string
+          format: date
+        description:
+          type: string
+          nullable: true
+          x-nullable: true
+        nav:
+          type: number
+          nullable: true
+          x-nullable: true
+        schemeCode:
+          type: string
+          nullable: true
+          x-nullable: true
+        schemeName:
+          type: string
+        tier:
+          type: string
+          enum:
+          - I
+          - II
+        type:
+          type: string
+          enum:
+          - CONTRIBUTION
+          - CHARGE
+          - REBALANCE
+          - SWITCH
+          - MIGRATION
+          - WITHDRAWAL
+          - OPENING
+          - ADJUSTMENT
+          - OTHER
+        units:
+          type: number
+          nullable: true
+          x-nullable: true
+      required:
+      - action
+      - date
+      - schemeName
+      - tier
+      - type
+    NpsImportStatement:
+      type: object
+      properties:
+        holderName:
+          type: string
+          nullable: true
+          x-nullable: true
+        layout:
+          type: string
+          nullable: true
+          x-nullable: true
+        periodEnd:
+          type: string
+          format: date
+        periodStart:
+          type: string
+          format: date
+        pranMasked:
+          type: string
+        schemeChoice:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - periodEnd
+      - periodStart
+      - pranMasked
+    NpsLinkRequest:
+      type: object
+      properties:
+        transactionId:
+          type: string
+          format: uuid
+    NpsRecordRequest:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        tier:
+          type: string
+          enum:
+          - I
+          - II
+          nullable: true
+          x-nullable: true
+    NpsSchemeDetailResponse:
+      type: object
+      properties:
+        entries:
+          type: array
+          items:
+            $ref: "#/components/schemas/NpsEntryResponse"
+        holdings:
+          type: array
+          items:
+            $ref: "#/components/schemas/NpsSummaryHolding"
+        scheme:
+          $ref: "#/components/schemas/NpsSchemeResponse"
+      required:
+      - entries
+      - holdings
+      - scheme
+    NpsSchemeResponse:
+      type: object
+      properties:
+        assetClass:
+          type: string
+          nullable: true
+          x-nullable: true
+        instrumentId:
+          type: string
+          format: uuid
+        name:
+          type: string
+        nav:
+          type: number
+          nullable: true
+          x-nullable: true
+        navDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        pfmCode:
+          type: string
+          nullable: true
+          x-nullable: true
+        pfmName:
+          type: string
+          nullable: true
+          x-nullable: true
+        schemeCode:
+          type: string
+        tier:
+          type: string
+          enum:
+          - I
+          - II
+          - TTS
+          nullable: true
+          x-nullable: true
+        variant:
+          type: string
+          enum:
+          - NONE
+          - DIRECT
+          - GS
+          - POP
+      required:
+      - instrumentId
+      - name
+      - schemeCode
+      - variant
+    NpsStatementResponse:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        id:
+          type: string
+          format: uuid
+        importedAt:
+          type: string
+          format: date-time
+        incomplete:
+          type: boolean
+        periodEnd:
+          type: string
+          format: date
+        periodStart:
+          type: string
+          format: date
+        source:
+          type: string
+          enum:
+          - UPLOAD
+          - GMAIL
+        tier:
+          type: string
+          enum:
+          - I
+          - II
+        unitsMismatch:
+          type: boolean
+        warningCount:
+          type: integer
+          format: int32
+        warnings:
+          type: array
+          items:
+            type: string
+      required:
+      - accountId
+      - id
+      - importedAt
+      - incomplete
+      - periodEnd
+      - periodStart
+      - source
+      - tier
+      - unitsMismatch
+      - warningCount
+      - warnings
+    NpsSummaryAccount:
+      type: object
+      properties:
+        cra:
+          type: string
+          enum:
+          - PROTEAN
+          - KFINTECH
+          - CAMS
+        employer:
+          $ref: "#/components/schemas/NpsSummaryEmployerRef"
+        holderName:
+          type: string
+        id:
+          type: string
+          format: uuid
+        latestStatementEnd:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        pranMasked:
+          type: string
+        readGmail:
+          type: boolean
+        relation:
+          type: string
+          enum:
+          - SELF
+          - CHILD
+        schemeChoice:
+          type: string
+          nullable: true
+          x-nullable: true
+        sector:
+          type: string
+          enum:
+          - ALL_CITIZEN
+          - CORPORATE
+          - GOVT
+          - VATSALYA
+          - UPS
+          nullable: true
+          x-nullable: true
+        status:
+          type: string
+          enum:
+          - ACTIVE
+          - CLOSED
+        tier1Status:
+          type: string
+          enum:
+          - ACTIVE
+          - FROZEN
+          - OTHER
+          nullable: true
+          x-nullable: true
+        tier1StatusAsOf:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        tier2Active:
+          type: boolean
+        tiers:
+          type: array
+          items:
+            $ref: "#/components/schemas/NpsSummaryTier"
+      required:
+      - cra
+      - holderName
+      - id
+      - pranMasked
+      - readGmail
+      - relation
+      - status
+      - tier2Active
+      - tiers
+    NpsSummaryAllocation:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        asOf:
+          type: string
+          format: date
+        percent:
+          type: number
+        schemeCode:
+          type: string
+        tier:
+          type: string
+          enum:
+          - I
+          - II
+      required:
+      - accountId
+      - asOf
+      - percent
+      - schemeCode
+      - tier
+    NpsSummaryEmployerRef:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+      required:
+      - id
+      - name
+    NpsSummaryFlags:
+      type: object
+      properties:
+        hasEstimated:
+          type: boolean
+        navStale:
+          type: boolean
+        statementStale:
+          type: boolean
+        unitsMismatch:
+          type: boolean
+      required:
+      - hasEstimated
+      - navStale
+      - statementStale
+      - unitsMismatch
+    NpsSummaryHero:
+      type: object
+      properties:
+        contributedThisFy:
+          type: number
+        dayChange:
+          type: number
+          nullable: true
+          x-nullable: true
+        dayChangePct:
+          type: number
+          nullable: true
+          x-nullable: true
+        gain:
+          type: number
+        gainPct:
+          type: number
+          nullable: true
+          x-nullable: true
+        invested:
+          type: number
+        investedEmployer:
+          type: number
+        investedSelf:
+          type: number
+        navAsOf:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        value:
+          type: number
+        xirr:
+          type: number
+          nullable: true
+          x-nullable: true
+      required:
+      - contributedThisFy
+      - gain
+      - invested
+      - investedEmployer
+      - investedSelf
+      - value
+    NpsSummaryHolding:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        assetClass:
+          type: string
+          nullable: true
+          x-nullable: true
+        estimated:
+          type: boolean
+        nav:
+          type: number
+          nullable: true
+          x-nullable: true
+        navDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        schemeCode:
+          type: string
+        schemeName:
+          type: string
+        tier:
+          type: string
+          enum:
+          - I
+          - II
+        units:
+          type: number
+        value:
+          type: number
+      required:
+      - accountId
+      - estimated
+      - schemeCode
+      - schemeName
+      - tier
+      - units
+      - value
+    NpsSummaryPendingGmail:
+      type: object
+      properties:
+        firstPeriodStart:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        holderName:
+          type: string
+          nullable: true
+          x-nullable: true
+        key:
+          type: string
+          format: uuid
+        lastPeriodEnd:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        pranLast4:
+          type: string
+        sectorGuess:
+          type: string
+          enum:
+          - ALL_CITIZEN
+          - CORPORATE
+          - GOVT
+          - VATSALYA
+          - UPS
+          nullable: true
+          x-nullable: true
+        statementCount:
+          type: integer
+          format: int32
+      required:
+      - key
+      - pranLast4
+      - statementCount
+    NpsSummaryResponse:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: "#/components/schemas/NpsSummaryAccount"
+        allocation:
+          type: array
+          items:
+            $ref: "#/components/schemas/NpsSummaryAllocation"
+        failedGmail:
+          type: integer
+          format: int32
+        flags:
+          $ref: "#/components/schemas/NpsSummaryFlags"
+        hero:
+          $ref: "#/components/schemas/NpsSummaryHero"
+        holdings:
+          type: array
+          items:
+            $ref: "#/components/schemas/NpsSummaryHolding"
+        lockedGmail:
+          type: integer
+          format: int32
+        pendingGmail:
+          type: array
+          items:
+            $ref: "#/components/schemas/NpsSummaryPendingGmail"
+        thisFy:
+          $ref: "#/components/schemas/NpsSummaryThisFy"
+      required:
+      - accounts
+      - allocation
+      - failedGmail
+      - flags
+      - hero
+      - holdings
+      - lockedGmail
+      - pendingGmail
+      - thisFy
+    NpsSummarySchemeUnits:
+      type: object
+      properties:
+        nav:
+          type: number
+          nullable: true
+          x-nullable: true
+        schemeCode:
+          type: string
+        schemeName:
+          type: string
+        units:
+          type: number
+        value:
+          type: number
+      required:
+      - schemeCode
+      - schemeName
+      - units
+      - value
+    NpsSummaryThisFy:
+      type: object
+      properties:
+        byTier:
+          type: array
+          items:
+            $ref: "#/components/schemas/NpsSummaryTierSplit"
+        employer:
+          type: number
+        self:
+          type: number
+      required:
+      - byTier
+      - employer
+      - self
+    NpsSummaryTier:
+      type: object
+      properties:
+        gain:
+          type: number
+        invested:
+          type: number
+        schemes:
+          type: array
+          items:
+            $ref: "#/components/schemas/NpsSummarySchemeUnits"
+        tier:
+          type: string
+          enum:
+          - I
+          - II
+        value:
+          type: number
+      required:
+      - gain
+      - invested
+      - schemes
+      - tier
+      - value
+    NpsSummaryTierSplit:
+      type: object
+      properties:
+        employer:
+          type: number
+        self:
+          type: number
+        tier:
+          type: string
+          enum:
+          - I
+          - II
+      required:
+      - employer
+      - self
+      - tier
     OAuthStartResponse:
       type: object
       properties:
@@ -18898,6 +20782,7 @@ components:
           - LOAN_CHARGE
           - DIVIDEND
           - EPF_WITHDRAWAL
+          - NPS_CONTRIBUTION
         label:
           type: string
         origin:
@@ -19514,6 +21399,52 @@ components:
       - sort
       - totalElements
       - totalPages
+    PageNpsEntryResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/NpsEntryResponse"
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        size:
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            $ref: "#/components/schemas/SortObject"
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+      required:
+      - content
+      - empty
+      - first
+      - last
+      - number
+      - numberOfElements
+      - pageable
+      - size
+      - sort
+      - totalElements
+      - totalPages
     PageRewardLineResponse:
       type: object
       properties:
@@ -20077,6 +22008,7 @@ components:
           - AMFI
           - YAHOO
           - MANUAL
+          - NPS_TRUST
           nullable: true
           x-nullable: true
         mergedIntoDate:
@@ -20947,6 +22879,7 @@ components:
           - stock
           - mutual_fund
           - etf
+          - nps_scheme
           x-required: true
         yahooSymbol:
           type: string
@@ -22118,6 +24051,7 @@ components:
           - stock
           - mutual_fund
           - etf
+          - nps_scheme
         avgCost:
           type: number
         brokerCount:
@@ -24087,6 +26021,7 @@ components:
           - EMI
           - LENDING
           - DIVIDEND
+          - NPS
         label:
           type: string
       required:

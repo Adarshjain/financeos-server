@@ -75,6 +75,14 @@ public class GmailIngestionService {
     @org.springframework.beans.factory.annotation.Autowired(required = false)
     private com.financeos.domain.categorization.CategoryAssigner categoryAssigner;
 
+    /** Handlers for mails that are documents (NPS), asked after the sender check; null/empty = none (hand-built tests). */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private List<GmailDocumentHandler> documentHandlers;
+
+    /** Queues held NPS statements of owned PRANs that failed an earlier import (optional: hand-built tests have none). */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private com.financeos.domain.nps.gmail.NpsGmailHeldQueue npsHeldQueue;
+
     /** Senders (domain or subdomain) whose mails duplicate the issuer's alert for the same payment. */
     private static final Set<String> PROVIDER_SENDER_DOMAINS = Set.of("cred.club", "paytm.com", "amazonpay.in");
     private static final int MERGE_DATE_WINDOW_DAYS = 2;
@@ -116,6 +124,14 @@ public class GmailIngestionService {
 
     private SyncSummary syncConnectionInternal(GmailConnection connection) {
         UUID userId = connection.getUser().getId();
+        if (npsHeldQueue != null) {
+            try {
+                npsHeldQueue.requeueStranded(userId);
+            } catch (Exception e) {
+                log.warn("Re-queueing held NPS statements failed for connection {}: {}", connection.getId(),
+                        e.getClass().getSimpleName());
+            }
+        }
         List<GmailSender> enabledSenders = gmailSenderRepository.findByUserIdAndEnabledTrue(userId);
         if (enabledSenders.isEmpty()) {
             log.info("No enabled Gmail senders configured for user: {}", userId);
@@ -186,15 +202,24 @@ public class GmailIngestionService {
         // Backfill Pass: check user demand floor
         UUID userId = connection.getUser().getId();
         var demandOpt = backfillDemandRepository.findById(userId);
-        if (demandOpt.isPresent()) {
-            LocalDate demandFloor = demandOpt.get().getFloorDate();
+        boolean hasDocumentSender = cursors.stream().anyMatch(c -> isDocumentSender(c.getSender()));
+        if (demandOpt.isPresent() || hasDocumentSender) {
+            LocalDate demandFloor = demandOpt.map(GmailBackfillDemand::getFloorDate).orElse(null);
 
             // A sender added for one account never reaches back past that account's date (its own floor),
-            // even when the user-level demand floor is older.
+            // even when the user-level demand floor is older. A document sender (NPS) always uses its own floor:
+            // its mails are wanted back to the start, whatever the user's floor is.
             Map<GmailSyncCursor, LocalDate> floors = new java.util.LinkedHashMap<>();
             for (GmailSyncCursor c : cursors) {
                 LocalDate own = c.getSender().getBackfillFrom();
-                LocalDate floor = own != null && own.isAfter(demandFloor) ? own : demandFloor;
+                LocalDate floor;
+                if (own != null && isDocumentSender(c.getSender())) {
+                    floor = own;
+                } else if (demandFloor == null) {
+                    continue;
+                } else {
+                    floor = own != null && own.isAfter(demandFloor) ? own : demandFloor;
+                }
                 if (c.getEarliestCoveredAt().isAfter(floor.atStartOfDay(AppTime.zone()).toInstant())) {
                     floors.put(c, floor);
                 }
@@ -509,6 +534,16 @@ public class GmailIngestionService {
             if (sender == null) {
                 gpm.setStatus(GmailProcessedStatus.SKIPPED_SENDER_DISABLED);
                 gpm.setError(null);
+                processedMessageRepository.save(gpm);
+                return List.of();
+            }
+
+            // Document mails (NPS statements and alerts) are read by their own handler: never a bank transaction.
+            GmailDocumentHandler documentHandler = findDocumentHandler(fromAddress, message);
+            if (documentHandler != null) {
+                GmailDocumentHandler.Handled handled = documentHandler.handle(connection, message);
+                gpm.setStatus(handled.status());
+                gpm.setError(handled.error() == null ? null : truncate(handled.error(), 2000));
                 processedMessageRepository.save(gpm);
                 return List.of();
             }
@@ -847,6 +882,22 @@ public class GmailIngestionService {
             return fromHeader.substring(startIdx + 1, endIdx).trim().toLowerCase();
         }
         return fromHeader.trim().toLowerCase();
+    }
+
+    private static boolean isDocumentSender(GmailSender sender) {
+        return Boolean.TRUE.equals(sender.getDocumentSender());
+    }
+
+    private GmailDocumentHandler findDocumentHandler(String fromAddress, GmailMessage message) {
+        if (documentHandlers == null) {
+            return null;
+        }
+        for (GmailDocumentHandler handler : documentHandlers) {
+            if (handler.supports(fromAddress, message)) {
+                return handler;
+            }
+        }
+        return null;
     }
 
     private GmailSender findMatchingSender(List<GmailSender> senders, String emailAddress) {

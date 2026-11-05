@@ -1,0 +1,5 @@
+package com.financeos.domain.nps.statement;
+
+public enum NpsTxnKind {
+    OPENING, CLOSING, CONTRIBUTION, EMPLOYER_CONTRIBUTION, CHARGE, REBALANCE, SWITCH, MIGRATION, WITHDRAWAL, OTHER
+}

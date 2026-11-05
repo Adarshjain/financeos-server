@@ -32,6 +32,10 @@ public class SenderAllowlistService {
     private final GmailSenderRemovalRepository removalRepository;
     private final BankSenderDomains bankSenderDomains;
 
+    /** Document handlers (NPS) whose senders every connected user gets; null = none (hand-built tests). */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private List<GmailDocumentHandler> documentHandlers;
+
     private static final Pattern EMAIL = Pattern.compile("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$");
     private static final Pattern DOMAIN = Pattern.compile("^([a-z0-9-]+\\.)+[a-z]{2,}$");
     private static final String BAD_ADDRESS = "Enter an email address or a domain";
@@ -135,6 +139,54 @@ public class SenderAllowlistService {
         return saved;
     }
 
+    /**
+     * Adds the senders of every document handler (NPS) to the user's senders: exact address, enabled, flagged as a
+     * document sender and floored at the handler's own date (their backfill reaches back to it, whatever the user's
+     * demand floor). Skips addresses the user already has (any case) or removed. Publishes no ingest event: the connect queues the sync.
+     * Runs in its own transaction: the Gmail connect calls it best-effort, and a failure here must roll back only
+     * this call, never mark the connect's transaction rollback-only.
+     */
+    @Transactional(propagation = org.springframework.transaction.annotation.Propagation.REQUIRES_NEW)
+    public List<GmailSender> addDocumentSenders(UUID userId) {
+        if (documentHandlers == null || documentHandlers.isEmpty()) {
+            return List.of();
+        }
+        Set<String> skip = new HashSet<>();
+        for (GmailSender s : gmailSenderRepository.findByUserId(userId)) {
+            skip.add(s.getSenderAddress().toLowerCase(Locale.ROOT));
+        }
+        for (GmailSenderRemoval r : removalRepository.findByUserId(userId)) {
+            skip.add(r.getSenderAddress().toLowerCase(Locale.ROOT));
+        }
+        User user = null;
+        List<GmailSender> added = new ArrayList<>();
+        for (GmailDocumentHandler handler : documentHandlers) {
+            for (String address : handler.senderAddresses()) {
+                String lower = address.toLowerCase(Locale.ROOT);
+                if (!skip.add(lower)) {
+                    continue;
+                }
+                if (user == null) {
+                    user = userRepository.findById(userId)
+                            .orElseThrow(() -> new IllegalArgumentException("User not found: " + userId));
+                }
+                GmailSender sender = new GmailSender();
+                sender.setUser(user);
+                sender.setName(handler.senderName());
+                sender.setSenderAddress(lower);
+                sender.setEnabled(true);
+                sender.setDocumentSender(true);
+                sender.setBackfillFrom(handler.backfillFrom());
+                added.add(sender);
+            }
+        }
+        if (added.isEmpty()) {
+            return List.of();
+        }
+        // No SenderIngestChangedEvent from this inner transaction: the connect that calls it queues a sync itself.
+        return gmailSenderRepository.saveAll(added);
+    }
+
     @Transactional(readOnly = true)
     public List<GmailSender> getSenders(UUID userId) {
         return gmailSenderRepository.findByUserId(userId);
@@ -207,7 +259,7 @@ public class SenderAllowlistService {
             throw new ValidationException("You do not have permission to access this sender.");
         }
 
-        if (sender.getBankId() != null) {
+        if (sender.getBankId() != null || Boolean.TRUE.equals(sender.getDocumentSender())) {
             String address = sender.getSenderAddress().toLowerCase(Locale.ROOT);
             if (!removalRepository.existsByUserIdAndSenderAddressIgnoreCase(userId, address)) {
                 GmailSenderRemoval removal = new GmailSenderRemoval();

@@ -28,13 +28,24 @@ public class PriceSchedulerConfiguration {
 
     private final PriceRefreshService priceRefreshService;
     private final AmfiFeedClient amfiFeedClient;
+    /** Null in plain construction (older tests): the NPS crons then do nothing. */
+    private final com.financeos.domain.nps.NpsCatalogService npsCatalogService;
 
     public PriceSchedulerConfiguration(com.financeos.domain.job.JobService jobService,
                                        PriceRefreshService priceRefreshService,
                                        AmfiFeedClient amfiFeedClient) {
+        this(jobService, priceRefreshService, amfiFeedClient, null);
+    }
+
+    @org.springframework.beans.factory.annotation.Autowired
+    public PriceSchedulerConfiguration(com.financeos.domain.job.JobService jobService,
+                                       PriceRefreshService priceRefreshService,
+                                       AmfiFeedClient amfiFeedClient,
+                                       com.financeos.domain.nps.NpsCatalogService npsCatalogService) {
         this.jobService = jobService;
         this.priceRefreshService = priceRefreshService;
         this.amfiFeedClient = amfiFeedClient;
+        this.npsCatalogService = npsCatalogService;
     }
 
     /** Live Yahoo prices during the NSE session; the gate inside the service trims the cron's wider hours. */
@@ -70,6 +81,30 @@ public class PriceSchedulerConfiguration {
             log.info("AMFI {} refresh wrote {} NAVs", run, written);
         } catch (Exception e) {
             log.error("AMFI {} refresh failed", run, e);
+        }
+    }
+
+    /** Picks up the NPS Trust daily NAV file: catalog and NAVs of every scheme. */
+    @Scheduled(cron = "${price.nps-refresh-cron}", zone = "${price.timezone}")
+    public void runNpsRefresh() {
+        refreshNps("night");
+    }
+
+    /** Morning retry for a NAV file published late. */
+    @Scheduled(cron = "${price.nps-retry-cron}", zone = "${price.timezone}")
+    public void runNpsRetry() {
+        refreshNps("retry");
+    }
+
+    private void refreshNps(String run) {
+        if (npsCatalogService == null) {
+            return;
+        }
+        try {
+            int written = npsCatalogService.sync();
+            log.info("NPS {} refresh wrote {} NAVs", run, written);
+        } catch (Exception e) {
+            log.error("NPS {} refresh failed", run, e);
         }
     }
 

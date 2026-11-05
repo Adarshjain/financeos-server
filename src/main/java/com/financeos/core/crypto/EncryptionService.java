@@ -108,6 +108,20 @@ public class EncryptionService {
     }
 
     /**
+     * A keyed fingerprint (HMAC-SHA256) of {@code data}: stable for the same input, useless without the key. For
+     * identifiers derived from a secret value that must not be reversible by guessing (e.g. a PRAN).
+     */
+    public byte[] hmacSha256(String data) {
+        try {
+            javax.crypto.Mac mac = javax.crypto.Mac.getInstance("HmacSHA256");
+            mac.init(new SecretKeySpec(secretKey.getEncoded(), "HmacSHA256"));
+            return mac.doFinal(data.getBytes(java.nio.charset.StandardCharsets.UTF_8));
+        } catch (Exception e) {
+            throw new EncryptionException("Failed to fingerprint data", e);
+        }
+    }
+
+    /**
      * Generates a new random 256-bit key suitable for AES-256.
      * Use this to generate a key for the configuration.
      *

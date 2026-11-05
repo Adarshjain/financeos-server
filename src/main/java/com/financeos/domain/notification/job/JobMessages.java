@@ -29,6 +29,7 @@ public final class JobMessages {
             case PRICE_REFRESH -> "Price refresh";
             case CATEGORY_BACKFILL -> "Category backfill";
             case ACCOUNT_DETECT -> "Account detection";
+            case NPS_GMAIL_IMPORT -> "NPS statement import";
         };
     }
 

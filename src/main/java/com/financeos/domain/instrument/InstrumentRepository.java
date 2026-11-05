@@ -81,7 +81,8 @@ public interface InstrumentRepository extends JpaRepository<Instrument, UUID> {
      */
     String LIST_AS_SEEN_FROM = "FROM Instrument i LEFT JOIN UserInstrumentOverride o "
             + "ON o.instrumentId = i.id AND o.userId = :userId WHERE "
-            + "(:type IS NULL OR COALESCE(o.type, i.type) = :type) AND "
+            + "(COALESCE(o.type, i.type) = :type OR (:type IS NULL AND COALESCE(o.type, i.type) <> "
+            + "com.financeos.domain.instrument.InstrumentType.nps_scheme)) AND "
             + "(:search IS NULL OR "
             + "LOCATE(:search, LOWER(COALESCE(o.name, i.name))) > 0 OR "
             + "LOCATE(:search, LOWER(COALESCE(o.symbol, i.symbol))) > 0 OR "
@@ -142,7 +143,8 @@ public interface InstrumentRepository extends JpaRepository<Instrument, UUID> {
 
     /** {@link #searchInstruments(String, InstrumentType)} one page at a time, by name then id. */
     @Query("SELECT i FROM Instrument i WHERE " +
-           "(:type IS NULL OR i.type = :type) AND " +
+           "(i.type = :type OR (:type IS NULL AND i.type <> " +
+           "com.financeos.domain.instrument.InstrumentType.nps_scheme)) AND " +
            "(:search IS NULL OR :search = '' OR " +
            "LOCATE(LOWER(:search), LOWER(i.name)) > 0 OR " +
            "LOCATE(LOWER(:search), LOWER(i.symbol)) > 0 OR " +

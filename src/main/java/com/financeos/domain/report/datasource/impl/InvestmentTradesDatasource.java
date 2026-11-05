@@ -45,6 +45,7 @@ public class InvestmentTradesDatasource implements ReportDatasource {
             .map(Enum::name)
             .toList();
     private static final List<String> INSTRUMENT_TYPE_VALUES = Arrays.stream(InstrumentType.values())
+            .filter(t -> t != InstrumentType.nps_scheme)
             .map(Enum::name)
             .toList();
     private static final List<String> SOURCE_VALUES = Stream.concat(

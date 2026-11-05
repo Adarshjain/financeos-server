@@ -367,4 +367,33 @@ class TransactionReferenceValidatorTest {
         when(lendingRepository.existsByTransaction_Id(id)).thenReturn(false);
         assertFalse(validator.isTransactionReferenced(id));
     }
+
+    // --- NPS --------------------------------------------------------------------------------
+
+    private void linkedToNps(UUID id) {
+        jakarta.persistence.EntityManager em = mock(jakarta.persistence.EntityManager.class);
+        when(em.createNativeQuery(org.mockito.ArgumentMatchers.anyString())).thenAnswer(inv -> {
+            boolean nps = inv.getArgument(0, String.class).contains("nps_entry");
+            jakarta.persistence.Query q = mock(jakarta.persistence.Query.class, RETURNS_SELF);
+            when(q.getSingleResult()).thenReturn(nps ? 1L : 0L);
+            return q;
+        });
+        org.springframework.test.util.ReflectionTestUtils.setField(validator, "entityManager", em);
+    }
+
+    @Test
+    void validateForLoanLendingAndDividend_referencedByNps_throw() {
+        UUID id = UUID.randomUUID();
+        Transaction t = ownedTransaction(id, TransactionType.CREDIT);
+        mockClean(id, t);
+        linkedToNps(id);
+
+        for (org.junit.jupiter.api.function.Executable call : java.util.List.<org.junit.jupiter.api.function.Executable>of(
+                () -> validator.validateForLoan(id),
+                () -> validator.validateForLending(id, LendingDirection.borrowed),
+                () -> validator.validateForDividend(id))) {
+            ValidationException ex = assertThrows(ValidationException.class, call);
+            assertEquals("This transaction is linked to an NPS contribution.", ex.getMessage());
+        }
+    }
 }

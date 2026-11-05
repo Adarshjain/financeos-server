@@ -119,7 +119,8 @@ class NetWorthEpfBreakdownTest {
         NetWorthEpfBreakdown epfKind = mock(NetWorthEpfBreakdown.class);
         when(epfKind.breakdown(25)).thenReturn(Optional.empty());
         NetWorthBreakdownProvider provider = new NetWorthBreakdownProvider(mock(NetWorthAccountBreakdown.class),
-                mock(NetWorthLoanBreakdown.class), mock(NetWorthLendingBreakdown.class), epfKind);
+                mock(NetWorthLoanBreakdown.class), mock(NetWorthLendingBreakdown.class), epfKind,
+                mock(NetWorthNpsBreakdown.class));
         assertThrows(ResourceNotFoundException.class, () -> provider.breakdown("epf", 25));
     }
 }
