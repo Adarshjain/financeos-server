@@ -48,6 +48,7 @@ public class EmiAutoLinker implements AutoLinker {
 
     @Override
     public AutoLinkOutcome link(UUID userId) {
+        // Not scoped (uses the default link(userId, scope)): installment matching tolerances are not a fixed window.
         // Both sets are read fresh here, after the transfer pass.
         List<UnsettledInstallment> installments = loanService.getUnsettledInstallments();
         if (installments.isEmpty()) {

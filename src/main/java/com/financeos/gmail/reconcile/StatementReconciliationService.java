@@ -357,7 +357,7 @@ public class StatementReconciliationService {
         // Categorization is not done here: the caller (GmailIngestionService) categorizes the
         // returned transactions after this transaction commits.
         if (createdCount > 0 && eventPublisher != null) {
-            eventPublisher.publishEvent(new com.financeos.domain.transaction.autolink.TransactionsIngestedEvent(connection.getUser().getId()));
+            eventPublisher.publishEvent(com.financeos.domain.transaction.autolink.TransactionsIngestedEvent.of(connection.getUser().getId(), createdTxns));
         }
         return new ReconSummary(createdCount, matchedCount, 0, createdTxns);
     }

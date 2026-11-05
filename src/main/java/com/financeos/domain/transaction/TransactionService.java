@@ -236,7 +236,8 @@ public class TransactionService {
                 List.of("amount", "description", "account", "date"), null, savedTxn.getAmount(), "INR");
 
         if (eventPublisher != null) {
-            eventPublisher.publishEvent(new com.financeos.domain.transaction.autolink.TransactionsIngestedEvent(currentSessionUserId));
+            eventPublisher.publishEvent(new com.financeos.domain.transaction.autolink.TransactionsIngestedEvent(currentSessionUserId,
+                    com.financeos.domain.transaction.autolink.LinkScope.of(savedTxn.getDate(), savedTxn.getDate())));
         }
         return savedTxn;
     }

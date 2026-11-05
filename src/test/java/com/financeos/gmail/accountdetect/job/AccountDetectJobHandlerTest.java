@@ -217,6 +217,115 @@ class AccountDetectJobHandlerTest {
     }
 
     @Test
+    void aCacheHitSkipsTheSecondLoadAndDetectButStillCallsTheSinkWithTheCachedDetection() throws Exception {
+        source = FixtureMailSource.of(BOX, m -> true);
+        run();
+        AccountDetectState first = store.state(userId).orElseThrow();
+        Instant marker1 = first.getMarkerAt();
+        Instant lastRun1 = first.getLastRunAt();
+        Set<String> stored1 = store.messageIds(userId);
+        assertThat(detections).hasSize(1);
+
+        Map<String, Object> result = run();   // same mailbox: every listed mail is already stored
+
+        assertThat(result.get("status")).isEqualTo("DONE");
+        assertThat(result.get("detection")).isEqualTo("SKIPPED_NOTHING_NEW");
+        assertThat(result.get("newMails")).isEqualTo(0);
+        assertThat(result.get("mailsStored")).isEqualTo(stored1.size());
+        // no detector run: the sink got the very same detection again, for the same stored mails and no new ones
+        assertThat(detections).hasSize(2);
+        assertThat(detections.get(1)).isSameAs(detections.get(0));
+        assertThat(contexts.get(1).mailsStored()).isEqualTo(contexts.get(0).mailsStored());
+        assertThat(contexts.get(1).newMails()).isZero();
+        assertThat(contexts.get(1).firstScan()).isFalse();
+        AccountDetectState second = store.state(userId).orElseThrow();
+        assertThat(second.getMarkerAt()).isEqualTo(marker1);
+        assertThat(second.getLastRunAt()).isAfterOrEqualTo(lastRun1);
+        assertThat(second.getStatus()).isEqualTo(AccountDetectState.Status.IDLE);
+        assertThat(second.getFirstScanDoneAt()).isEqualTo(first.getFirstScanDoneAt());
+        assertThat(store.messageIds(userId)).isEqualTo(stored1);
+    }
+
+    /** A handler like setUp's, but whose statements fingerprint query answers with the given count (one stamp per count). */
+    private AccountDetectJobHandler handlerWithStatementsCount(java.util.concurrent.atomic.AtomicInteger count) {
+        JdbcTemplate jdbc = mock(JdbcTemplate.class);
+        org.mockito.Mockito.doAnswer(inv -> {
+            if (((String) inv.getArgument(0)).startsWith("SELECT COUNT(*)")) {
+                java.sql.ResultSet rs = mock(java.sql.ResultSet.class);
+                when(rs.getLong(1)).thenReturn((long) count.get());
+                when(rs.getString(2)).thenReturn("c" + count.get());
+                when(rs.getString(3)).thenReturn("u" + count.get());
+                when(rs.getString(4)).thenReturn("a" + count.get());
+                ((org.springframework.jdbc.core.RowCallbackHandler) inv.getArgument(1)).processRow(rs);
+            }
+            return null;
+        }).when(jdbc).query(org.mockito.ArgumentMatchers.anyString(), any(org.springframework.jdbc.core.RowCallbackHandler.class),
+                any(Object[].class));
+        GmailSenderRepository senders = mock(GmailSenderRepository.class);
+        when(senders.findByUserId(userId)).thenReturn(List.of());
+        return new AccountDetectJobHandler(connections, senders, store, c -> source, guard, triggers,
+                (u, d, c) -> { detections.add(d); contexts.add(c); }, jdbc, 12, 50, 120);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    void aRunWithNoNewMailStillDetectsWhenTheAppParsedStatementsChangedAndSkipsWhenTheyDidNot() throws Exception {
+        source = FixtureMailSource.of(BOX, m -> true);
+        java.util.concurrent.atomic.AtomicInteger statements = new java.util.concurrent.atomic.AtomicInteger(2);
+        handler = handlerWithStatementsCount(statements);
+        handler.execute(ctx);
+        assertThat(detections).hasSize(1);
+
+        Map<String, Object> same = (Map<String, Object>) handler.execute(ctx);       // nothing new, same statements
+        assertThat(same.get("detection")).isEqualTo("SKIPPED_NOTHING_NEW");
+        assertThat(detections).hasSize(2);
+        assertThat(detections.get(1)).isSameAs(detections.get(0));
+
+        statements.set(3);                                                           // a statement was parsed meanwhile
+        Map<String, Object> changed = (Map<String, Object>) handler.execute(ctx);
+        assertThat(changed.get("detection")).isNull();
+        assertThat(detections).hasSize(3);
+        assertThat(detections.get(2)).isNotSameAs(detections.get(0));
+
+        handler.execute(ctx);                                                        // and reuses the new one once recorded
+        assertThat(detections).hasSize(4);
+        assertThat(detections.get(3)).isSameAs(detections.get(2));
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    void aCacheMissRunsTheFullDetectionEvenWhenNothingIsNew() throws Exception {
+        source = FixtureMailSource.of(BOX, m -> true);
+        run();
+        assertThat(detections).hasSize(1);
+        // a restart: same stored facts and state, but no in-memory cache
+        handler = handlerWithStatementsCount(new java.util.concurrent.atomic.AtomicInteger(0));
+
+        Map<String, Object> result = (Map<String, Object>) handler.execute(ctx);
+
+        assertThat(result.get("detection")).isNull();
+        assertThat(detections).hasSize(2);
+        assertThat(detections.get(1)).isNotSameAs(detections.get(0));
+        assertThat(summary(detections.get(1))).isEqualTo(summary(detections.get(0)));
+    }
+
+    @Test
+    void theNothingNewGuardNeverAppliesToAFirstScanOrWhenAMailWasStoredOrIsStillPartial() {
+        AccountDetectScan.Result none = new AccountDetectScan.Result(List.of(), List.of(), Set.of(), 3, 3, List.of());
+        AccountDetectJobHandler.Incomplete clean = new AccountDetectJobHandler.Incomplete(List.of(), 0);
+
+        assertThat(AccountDetectJobHandler.nothingNew(false, none, List.of(), clean)).isTrue();
+        assertThat(AccountDetectJobHandler.nothingNew(true, none, List.of(), clean)).isFalse();
+        assertThat(AccountDetectJobHandler.nothingNew(false, none, List.of(ScannedMail.headersMissing("m1")), clean)).isFalse();
+        assertThat(AccountDetectJobHandler.nothingNew(false, new AccountDetectScan.Result(List.of(ScannedMail.headersMissing("m1")), List.of(),
+                Set.of(), 3, 2, List.of()), List.of(), clean)).isFalse();
+        assertThat(AccountDetectJobHandler.nothingNew(false, none, List.of(),
+                new AccountDetectJobHandler.Incomplete(List.of(Instant.EPOCH), 0))).isFalse();
+        assertThat(AccountDetectJobHandler.nothingNew(false, none, List.of(),
+                new AccountDetectJobHandler.Incomplete(List.of(), 1))).isFalse();
+    }
+
+    @Test
     void expiredGmailAccessPausesKeepsWhatIsStoredAndTheNextRunResumesTheFirstScan() throws Exception {
         source = FixtureMailSource.of(BOX, m -> true);
         source.failAuthAt = "full";

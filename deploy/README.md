@@ -14,7 +14,7 @@ Test commit
 | Shape | E2.1.Micro, x86_64, **952 MiB RAM, 0 swap** |
 | App dir | `/home/ubuntu/financeos-server` (not a git clone — JAR is copied in) |
 | JAR | `target/backend-1.0.0.jar` |
-| Unit | `/etc/systemd/system/financeos.service`, `EnvironmentFile=<app dir>/.env` |
+| Unit | `/etc/systemd/system/financeos.service`, `EnvironmentFile=<app dir>/.env`; drop-in `financeos.service.d/no-swap.conf` (service cgroup swappiness 0, from `deploy/keep-jvm-in-ram.sh`) |
 | Port | **8080**, exposed directly to the internet via ufw |
 | Wallet | `/home/ubuntu/financeos-server/wallet`, passed as `-Doracle.net.tns_admin` |
 | Firewall | **ufw** (allows 22 + 8080 only) |

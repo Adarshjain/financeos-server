@@ -13,6 +13,15 @@ public interface AutoLinker {
     /** The suggestion kinds this linker recomputes on every pass. */
     Set<SuggestionKind> ownedKinds();
 
-    /** Runs one pass for {@code userId}. May throw; the service logs it and moves on to the next linker. */
+    /** Runs one full-history pass for {@code userId}. May throw; the service logs it and moves on to the next linker. */
     AutoLinkOutcome link(UUID userId);
+
+    /**
+     * Runs one pass for {@code userId} over {@code scope}: only the transactions newly written within the
+     * scope's date span need considering. The default falls back to a full pass, for a linker that cannot
+     * scope correctly; a scoped linker overrides it.
+     */
+    default AutoLinkOutcome link(UUID userId, LinkScope scope) {
+        return link(userId);
+    }
 }

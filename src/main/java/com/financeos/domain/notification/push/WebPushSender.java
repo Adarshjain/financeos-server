@@ -73,7 +73,7 @@ public class WebPushSender {
                     WebPushCrypto.base64UrlDecode(subscription.p256dh()),
                     WebPushCrypto.base64UrlDecode(subscription.auth()));
             URI endpoint = URI.create(subscription.endpoint());
-            String token = WebPushCrypto.vapidToken(origin(endpoint), properties.getSubject(),
+            String token = WebPushCrypto.vapidToken(origin(endpoint), properties.effectiveSubject(),
                     Instant.now().plus(VAPID_LIFETIME), privateKey());
 
             HttpRequest request = HttpRequest.newBuilder(endpoint)

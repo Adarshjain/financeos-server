@@ -26,8 +26,8 @@ public class TransactionsIngestedListener {
     private final AutoLinkService autoLinkService;
     private final Executor executor;
     private final boolean enabled;
-    /** Users with a run queued but not started; a further event for them adds nothing. */
-    private final java.util.Set<UUID> pending = java.util.concurrent.ConcurrentHashMap.newKeySet();
+    /** Users with a run queued but not started, with the union of the scopes of their events so far. */
+    private final java.util.Map<UUID, LinkScope> pending = new java.util.concurrent.ConcurrentHashMap<>();
 
     public TransactionsIngestedListener(AutoLinkService autoLinkService, Executor executor) {
         this(autoLinkService, executor, true);
@@ -47,19 +47,30 @@ public class TransactionsIngestedListener {
         if (!enabled || userId == null) {
             return;
         }
-        // Already queued: that run reads fresh data when it starts. Already running: flag one more run.
-        if (pending.contains(userId) || autoLinkService.requestRerunIfRunning(userId)) {
+        LinkScope scope = event.scope();
+        // Already queued: widen that run's scope (it reads fresh data when it starts). Already running: flag one more run.
+        if (pending.computeIfPresent(userId, (k, queued) -> queued.union(scope)) != null) {
             return;
         }
-        pending.add(userId);
+        boolean rerunFlagged = scope.isAll() ? autoLinkService.requestRerunIfRunning(userId)
+                : autoLinkService.requestRerunIfRunning(userId, scope);
+        if (rerunFlagged) {
+            return;
+        }
+        pending.put(userId, scope);
         try {
             executor.execute(() -> {
-                pending.remove(userId);
-                autoLinkService.run(userId);
+                LinkScope toRun = pending.remove(userId);
+                if (toRun == null || toRun.isAll()) {
+                    autoLinkService.run(userId);
+                } else {
+                    autoLinkService.run(userId, toRun);
+                }
             });
         } catch (RejectedExecutionException e) {
             pending.remove(userId);
-            log.info("Auto-link queue is full; skipped a run for user {}", userId);
+            autoLinkService.markTouched(userId);   // the nightly full pass picks up what this run would have linked
+            log.info("Auto-link queue is full; skipped a run for user {}; left for the nightly pass", userId);
         }
     }
 }

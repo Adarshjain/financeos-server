@@ -44,6 +44,8 @@ public class TransferLinker implements AutoLinker {
 
     static final int DAYS_BEFORE = 1;
     static final int DAYS_AFTER = 2;
+    /** The widest distance between a debit and a credit that can pair. */
+    static final int WINDOW = Math.max(DAYS_BEFORE, DAYS_AFTER);
 
     private final AutoLinkCandidateLoader loader;
     private final AutoLinkStore store;
@@ -66,7 +68,15 @@ public class TransferLinker implements AutoLinker {
 
     @Override
     public AutoLinkOutcome link(UUID userId) {
-        Plan plan = plan(loader.load(userId), store.loadRejectionKeys(userId));
+        return link(userId, LinkScope.ALL);
+    }
+
+    @Override
+    public AutoLinkOutcome link(UUID userId, LinkScope scope) {
+        // Anchors (debits) within the window of the span can change; judging them needs candidates 3 windows out.
+        LinkScope anchors = scope.anchors(WINDOW);
+        List<AutoLinkCandidate> candidates = scope.isAll() ? loader.load(userId) : loader.load(userId, scope.candidates(WINDOW));
+        Plan plan = plan(candidates, store.loadRejectionKeys(userId), anchors);
 
         Map<SuggestionKind, Counts> counts = new EnumMap<>(SuggestionKind.class);
         int failed = 0;
@@ -98,7 +108,11 @@ public class TransferLinker implements AutoLinker {
             desired.computeIfAbsent(s.kind(), k -> new LinkedHashMap<>()).put(s.transactionId(), s.candidateIds());
             counts.merge(s.kind(), new Counts(0, 1), Counts::plus);
         }
-        store.syncSuggestions(userId, ownedKinds(), desired);
+        if (anchors.isAll()) {
+            store.syncSuggestions(userId, ownedKinds(), desired);
+        } else {
+            store.syncSuggestions(userId, ownedKinds(), desired, anchors);
+        }
         log.info("Transfer linker finished for user {}: linked={}, failed={}, suggested={}", userId,
                 counts.values().stream().mapToInt(Counts::linked).sum(), failed, plan.suggestions().size());
         return AutoLinkOutcome.of(counts, failed > 0);
@@ -136,6 +150,14 @@ public class TransferLinker implements AutoLinker {
     }
 
     static Plan plan(List<AutoLinkCandidate> candidates, Set<String> rejections) {
+        return plan(candidates, rejections, LinkScope.ALL);
+    }
+
+    /**
+     * As above, but only debits dated within {@code anchors} are planned (linked or suggested); the other
+     * debits still count when deciding whether a credit has a single fit.
+     */
+    static Plan plan(List<AutoLinkCandidate> candidates, Set<String> rejections, LinkScope anchors) {
         Map<BigDecimal, List<AutoLinkCandidate>> debitsByAmount = new HashMap<>();
         Map<BigDecimal, List<AutoLinkCandidate>> creditsByAmount = new HashMap<>();
         for (AutoLinkCandidate c : candidates) {
@@ -160,8 +182,10 @@ public class TransferLinker implements AutoLinker {
                             || AutoLinkStore.isRejected(rejections, kindFor(credit), debit.id(), credit.id())) {
                         continue;
                     }
-                    creditsOfDebit.computeIfAbsent(debit.id(), k -> new ArrayList<>()).add(credit);
-                    debitById.put(debit.id(), debit);
+                    if (anchors.contains(debit.date())) {
+                        creditsOfDebit.computeIfAbsent(debit.id(), k -> new ArrayList<>()).add(credit);
+                        debitById.put(debit.id(), debit);
+                    }
                     debitsOfCredit.merge(credit.id(), 1, Integer::sum);
                 }
             }

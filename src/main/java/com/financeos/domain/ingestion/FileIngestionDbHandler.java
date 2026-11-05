@@ -47,7 +47,7 @@ public class FileIngestionDbHandler {
             transactionRepository.saveAll(newTxns);
             // Once per statement import; auto-linking runs after this transaction commits.
             if (eventPublisher != null && newTxns.get(0).getUser() != null) {
-                eventPublisher.publishEvent(new TransactionsIngestedEvent(newTxns.get(0).getUser().getId()));
+                eventPublisher.publishEvent(TransactionsIngestedEvent.of(newTxns.get(0).getUser().getId(), newTxns));
             }
         }
     }

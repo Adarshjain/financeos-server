@@ -49,8 +49,20 @@ public class RefundSuggester implements AutoLinker {
 
     @Override
     public AutoLinkOutcome link(UUID userId) {
-        Map<UUID, List<UUID>> suggestions = plan(loader.load(userId), store.loadRejectionKeys(userId));
-        store.syncSuggestions(userId, ownedKinds(), Map.of(SuggestionKind.REFUND, suggestions));
+        return link(userId, LinkScope.ALL);
+    }
+
+    @Override
+    public AutoLinkOutcome link(UUID userId, LinkScope scope) {
+        // Anchors (credits) within the window of the span can change; their debits sit up to a window further out.
+        LinkScope anchors = scope.anchors(WINDOW_DAYS);
+        List<AutoLinkCandidate> candidates = scope.isAll() ? loader.load(userId) : loader.load(userId, scope.candidates(WINDOW_DAYS));
+        Map<UUID, List<UUID>> suggestions = plan(candidates, store.loadRejectionKeys(userId), anchors);
+        if (anchors.isAll()) {
+            store.syncSuggestions(userId, ownedKinds(), Map.of(SuggestionKind.REFUND, suggestions));
+        } else {
+            store.syncSuggestions(userId, ownedKinds(), Map.of(SuggestionKind.REFUND, suggestions), anchors);
+        }
         log.info("Refund suggester finished for user {}: suggested={}", userId, suggestions.size());
         Map<SuggestionKind, Counts> counts = new EnumMap<>(SuggestionKind.class);
         counts.put(SuggestionKind.REFUND, new Counts(0, suggestions.size()));
@@ -59,6 +71,11 @@ public class RefundSuggester implements AutoLinker {
 
     /** Credit id to its candidate debit ids, best first. */
     static Map<UUID, List<UUID>> plan(List<AutoLinkCandidate> candidates, Set<String> rejections) {
+        return plan(candidates, rejections, LinkScope.ALL);
+    }
+
+    /** As above, but only credits dated within {@code anchors} get a suggestion. */
+    static Map<UUID, List<UUID>> plan(List<AutoLinkCandidate> candidates, Set<String> rejections, LinkScope anchors) {
         Map<String, List<AutoLinkCandidate>> debitsByAccountAndMerchant = new HashMap<>();
         for (AutoLinkCandidate c : candidates) {
             if (c.type() == TransactionType.DEBIT) {
@@ -70,7 +87,7 @@ public class RefundSuggester implements AutoLinker {
         }
         Map<UUID, List<UUID>> out = new LinkedHashMap<>();
         for (AutoLinkCandidate credit : candidates) {
-            if (credit.type() != TransactionType.CREDIT) {
+            if (credit.type() != TransactionType.CREDIT || !anchors.contains(credit.date())) {
                 continue;
             }
             String key = key(credit);

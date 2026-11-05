@@ -148,6 +148,27 @@ public class AutoLinkStore {
         return out;
     }
 
+    /**
+     * The user's live transactions that any of the user's suggestions names (as the subject or, except for
+     * LENDING whose candidates are lending ids, as a candidate), in one query: no bound id lists. The
+     * candidate column is a comma separated list, split in SQL with {@code JSON_TABLE}. Same liveness filter
+     * as {@link #liveTransactionIds}.
+     */
+    public Set<UUID> liveSuggestionTransactionIds(UUID userId) {
+        Set<UUID> out = new HashSet<>();
+        String user = userId.toString();
+        jdbc.query("SELECT t.id FROM transactions t WHERE t.user_id = ? "
+                + "AND NOT EXISTS (SELECT 1 FROM transaction_link_members m WHERE m.transaction_id = t.id) "
+                + "AND NOT " + OWNED + " "
+                + "AND t.id IN (SELECT s.transaction_id FROM link_suggestions s WHERE s.user_id = ? "
+                + "UNION SELECT j.cid FROM link_suggestions s2, JSON_TABLE('[\"' || REPLACE(s2.candidate_ids, ',', '\",\"') || '\"]', "
+                + "'$[*]' COLUMNS (cid VARCHAR2(36) PATH '$')) j WHERE s2.user_id = ? AND s2.kind <> 'LENDING')",
+                rs -> {
+                    out.add(UUID.fromString(rs.getString(1)));
+                }, user, user, user);
+        return out;
+    }
+
     /** Which of {@code ids} are owned by a loan, lending, dividend or EPF row (so no longer free to link). */
     public Set<UUID> ownedTransactionIds(UUID userId, Collection<UUID> ids) {
         Set<UUID> out = new HashSet<>();
@@ -171,13 +192,31 @@ public class AutoLinkStore {
      * each as one batch.
      */
     public void syncSuggestions(UUID userId, Set<SuggestionKind> kinds, Map<SuggestionKind, Map<UUID, List<UUID>>> desired) {
+        syncSuggestions(userId, kinds, desired, LinkScope.ALL);
+    }
+
+    /**
+     * As {@link #syncSuggestions(UUID, Set, Map)} but, for a bounded {@code anchorRange}, only the stored
+     * suggestions whose subject (anchor) transaction is dated within the range are candidates for delete or
+     * update; the rest are left untouched. {@code desired} must hold only anchors within the range.
+     */
+    public void syncSuggestions(UUID userId, Set<SuggestionKind> kinds, Map<SuggestionKind, Map<UUID, List<UUID>>> desired,
+                                LinkScope anchorRange) {
         String in = kinds.stream().map(k -> "'" + k.name() + "'").collect(Collectors.joining(","));
         Map<String, SuggestionRow> existing = new HashMap<>();
-        jdbc.query("SELECT id, kind, transaction_id, candidate_ids FROM link_suggestions WHERE user_id = ? AND kind IN (" + in + ")",
-                rs -> {
-                    SuggestionRow r = row(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
-                    existing.put(r.kind() + "|" + r.transactionId(), r);
-                }, userId.toString());
+        org.springframework.jdbc.core.RowCallbackHandler collect = rs -> {
+            SuggestionRow r = row(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4));
+            existing.put(r.kind() + "|" + r.transactionId(), r);
+        };
+        if (anchorRange.isAll()) {
+            jdbc.query("SELECT id, kind, transaction_id, candidate_ids FROM link_suggestions WHERE user_id = ? AND kind IN (" + in + ")",
+                    collect, userId.toString());
+        } else {
+            jdbc.query("SELECT s.id, s.kind, s.transaction_id, s.candidate_ids FROM link_suggestions s "
+                            + "JOIN transactions t ON t.id = s.transaction_id AND t.user_id = s.user_id "
+                            + "WHERE s.user_id = ? AND s.kind IN (" + in + ") AND t.transaction_date BETWEEN ? AND ?",
+                    collect, userId.toString(), java.sql.Date.valueOf(anchorRange.from()), java.sql.Date.valueOf(anchorRange.to()));
+        }
 
         List<Object[]> inserts = new ArrayList<>();
         List<Object[]> updates = new ArrayList<>();

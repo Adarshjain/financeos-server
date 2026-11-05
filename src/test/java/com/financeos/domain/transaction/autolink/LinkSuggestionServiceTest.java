@@ -178,7 +178,7 @@ class LinkSuggestionServiceTest {
         AutoLinkStore.SuggestionRow onlyLinkedCandidate = row(SuggestionKind.TRANSFER, orphan, linkedCredit);
         when(store.listSuggestions(userId)).thenReturn(List.of(good, onlyLinkedCandidate));
         load(debit, credit, linkedCredit, orphan);
-        when(store.liveTransactionIds(eq(userId), any())).thenReturn(java.util.Set.of(debit.getId(), credit.getId(), orphan.getId()));
+        when(store.liveSuggestionTransactionIds(userId)).thenReturn(java.util.Set.of(debit.getId(), credit.getId(), orphan.getId()));
 
         List<LinkSuggestionResponse> out = service.list(userId);
 
@@ -199,7 +199,7 @@ class LinkSuggestionServiceTest {
         Transaction orphan = tx(AccountType.bank_account, TransactionType.DEBIT);
         when(store.listSuggestions(userId)).thenReturn(List.of(row(SuggestionKind.TRANSFER, debit, credit),
                 row(SuggestionKind.TRANSFER, orphan, linkedCredit)));
-        when(store.liveTransactionIds(eq(userId), any())).thenReturn(java.util.Set.of(debit.getId(), credit.getId(), orphan.getId()));
+        when(store.liveSuggestionTransactionIds(userId)).thenReturn(java.util.Set.of(debit.getId(), credit.getId(), orphan.getId()));
 
         assertThat(service.openCounts(userId)).containsOnly(java.util.Map.entry(SuggestionKind.TRANSFER, 1));
     }

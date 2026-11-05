@@ -85,6 +85,11 @@ public class AccountDetectJobHandler implements JobHandler {
     private final AccountDetectTriggers triggers;
     private final DetectionSink sink;
     private final JdbcTemplate jdbc;
+    /** What a user's last full detection produced, with the statements fingerprint it read: the input to the "nothing new" skip. */
+    record LastDetection(String statementsFp, Detected detected, int mailsStored) {}
+
+    /** Per user, in memory (one instance); a missing entry means the next run does the full detection. */
+    private final java.util.concurrent.ConcurrentHashMap<UUID, LastDetection> lastDetection = new java.util.concurrent.ConcurrentHashMap<>();
     private final int alertSample;
     private final int chunkSize;
     private final Duration firstScanRetryDelay;
@@ -303,6 +308,28 @@ public class AccountDetectJobHandler implements JobHandler {
         Incomplete incomplete = incomplete(scan, headersMissing, partialRuns);
 
         AccountDetectState s = state[0];
+        // read before detection: a statement saved meanwhile then differs from this on the next run
+        String statementsFp = statementsFingerprint(userId);
+        LastDetection last = lastDetection.get(userId);
+        if (nothingNew(firstScan, scan, headersMissing, incomplete) && last != null && statementsFp.equals(last.statementsFp())) {
+            // Nothing was stored or replaced and the statements are as they were, so the detection is as the last run left it:
+            // no second load of every fact and no detector run. The sink still runs on it (the plan depends on the user's
+            // accounts and today's date). The marker and run stamps still advance.
+            s.setMarkerAt(nextMarker(s.getMarkerAt(), scan.newest(), incomplete));
+            s.setLastRunAt(AppTime.nowInstant());
+            s.setMailsSeen(0);
+            s.setMailsTotal(0);
+            s.setStatus(AccountDetectState.Status.IDLE);
+            if (!stillScanned(userId, connectionId)) return mailboxGone();
+            store.save(s);
+            sink.accept(userId, last.detected().detection(), new DetectionContext(connection.getId(), false, false, last.mailsStored(), 0,
+                    last.detected().statements(), AppTime.nowInstant()));
+            log.info("Account detect finished: nothing new, detection reused: listed={}, alreadyStored={}, mailsStored={}, durationMs={}, stageMs={}",
+                    scan.listed(), scan.skippedKnown(), last.mailsStored(), System.currentTimeMillis() - started, timings);
+            Map<String, Object> skipped = result("DONE", 0, last.mailsStored(), last.detected().detection().entities.size());
+            skipped.put("detection", "SKIPPED_NOTHING_NEW");
+            return skipped;
+        }
         List<AccountDetectStore.StoredFact> all;
         try {
             all = store.facts(userId);
@@ -326,8 +353,10 @@ public class AccountDetectJobHandler implements JobHandler {
         Detection detection;
         int mailsStored;
         int statementCount;
+        Detected detected;
         try {
             Detected d = detect(all, DbStatements.load(jdbc, userId).statements());
+            detected = d;
             detection = d.detection();
             mailsStored = all.size();
             statementCount = d.statements();
@@ -340,6 +369,7 @@ public class AccountDetectJobHandler implements JobHandler {
         store.save(s);
 
         sink.accept(userId, detection, new DetectionContext(connection.getId(), firstScan, firstScanCompleted, mailsStored, scan.mails().size(), statementCount, now));
+        lastDetection.put(userId, new LastDetection(statementsFp, detected, mailsStored));   // only after a successful detection and sink
         log.info("Account detect finished: firstScan={}, firstScanDone={}, listed={}, alreadyStored={}, newMails={}, partialMails={}, givenUpMails={}, mailsStored={}, entities={}, durationMs={}, stageMs={}",
                 firstScan, s.getFirstScanDoneAt() != null, scan.listed(), scan.skippedKnown(), scan.mails().size(), incomplete.partial().size(),
                 incomplete.givenUp(), mailsStored, detection.entities.size(), System.currentTimeMillis() - started, timings);
@@ -487,6 +517,7 @@ public class AccountDetectJobHandler implements JobHandler {
             log.info("Account detect unlock retry: tried={}, changed=0, stillClosed={}", tried, stillClosed);
             return result("DONE", 0, tried, 0);
         }
+        lastDetection.remove(userId);   // facts changed: whatever happens next, the cached detection is stale
         List<AccountDetectStore.StoredFact> all = store.facts(userId);
         Detected d = detect(all, DbStatements.load(jdbc, userId).statements());
         if (!stillScanned(userId, connectionId)) return new LinkedHashMap<>(mailboxGone());
@@ -498,6 +529,31 @@ public class AccountDetectJobHandler implements JobHandler {
     }
 
     record Detected(Detection detection, int statements) {}
+
+    /**
+     * Cheap change marker of the statements {@link DbStatements#load} reads (same user, not rejected): one aggregate query, count
+     * plus newest statement created/updated stamps, newest account update and the credit-limit sum, mirroring its join.
+     */
+    String statementsFingerprint(UUID userId) {
+        String[] fp = {"none"};
+        jdbc.query("SELECT COUNT(*), MAX(s.created_at), MAX(s.updated_at), MAX(a.updated_at), SUM(NVL(d.credit_limit, 0)) "
+                        + "FROM statements s JOIN accounts a ON a.id = s.account_id "
+                        + "LEFT JOIN statement_credit_card_details d ON d.statement_id = s.id "
+                        + "WHERE s.user_id = ? AND (s.verdict IS NULL OR s.verdict <> 'REJECTED')",
+                rs -> {
+                    fp[0] = rs.getLong(1) + "|" + rs.getString(2) + "|" + rs.getString(3) + "|" + rs.getString(4) + "|" + rs.getBigDecimal(5);
+                }, userId.toString());
+        return fp[0];
+    }
+
+    /**
+     * True when a later (not first) scan stored and replaced no mail: no new mail, no listed mail whose headers failed (those are
+     * stored without features), hence no partial or given-up mail in this run, so the stored facts did not change.
+     */
+    static boolean nothingNew(boolean firstScan, AccountDetectScan.Result scan, List<ScannedMail> headersMissing, Incomplete incomplete) {
+        return !firstScan && scan.mails().isEmpty() && headersMissing.isEmpty()
+                && incomplete.partial().isEmpty() && incomplete.givenUp() == 0;
+    }
 
     /**
      * Mails of this run a read failed for. {@code partial}: still to be read again, with their internal dates (null when

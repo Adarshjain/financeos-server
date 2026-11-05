@@ -101,7 +101,8 @@ public class GmailTransactionWriter {
 
         txn = transactionRepository.save(txn);
         if (eventPublisher != null) {
-            eventPublisher.publishEvent(new com.financeos.domain.transaction.autolink.TransactionsIngestedEvent(user.getId()));
+            eventPublisher.publishEvent(new com.financeos.domain.transaction.autolink.TransactionsIngestedEvent(user.getId(),
+                    com.financeos.domain.transaction.autolink.LinkScope.of(txn.getDate(), txn.getDate())));
         }
 
         // 3. Record in ledger

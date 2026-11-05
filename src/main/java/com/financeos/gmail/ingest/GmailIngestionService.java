@@ -366,7 +366,7 @@ public class GmailIngestionService {
             }
         }
         if (!createdTxns.isEmpty() && eventPublisher != null) {
-            eventPublisher.publishEvent(new com.financeos.domain.transaction.autolink.TransactionsIngestedEvent(connection.getUser().getId()));
+            eventPublisher.publishEvent(com.financeos.domain.transaction.autolink.TransactionsIngestedEvent.of(connection.getUser().getId(), createdTxns));
         }
 
         long backlogRemaining = processedMessageRepository.countByConnectionIdAndStatusIn(
