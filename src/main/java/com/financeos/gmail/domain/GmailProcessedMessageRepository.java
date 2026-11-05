@@ -27,10 +27,12 @@ public interface GmailProcessedMessageRepository extends JpaRepository<GmailProc
     int moveToAccount(@Param("userId") UUID userId, @Param("fromId") UUID fromId,
                       @Param("to") com.financeos.domain.account.Account to, @Param("messageIds") Collection<String> messageIds);
 
-    /** Admin Failures tool, across users: rows in these statuses with their user and mailbox, newest failure first. */
-    @Query(value = "SELECT g FROM GmailProcessedMessage g JOIN FETCH g.connection JOIN FETCH g.user WHERE g.status IN :statuses ORDER BY COALESCE(g.processedAt, g.discoveredAt) DESC, g.id DESC",
+    /** Admin Failures tool, across users: rows in these statuses with their user and mailbox, newest failure first; a projection (no error_detail CLOB). */
+    @Query(value = "SELECT new com.financeos.gmail.domain.FailedGmailRow(g.id, g.gmailMessageId, u.id, u.email, c.email, g.senderAddress, g.subject, g.internalDate, "
+            + "g.status, g.attemptCount, g.nextRetryAt, g.error, g.processedAt, g.dismissedAt, g.dismissedBy, g.dismissReason) "
+            + "FROM GmailProcessedMessage g JOIN g.connection c JOIN g.user u WHERE g.status IN :statuses ORDER BY COALESCE(g.processedAt, g.discoveredAt) DESC, g.id DESC",
            countQuery = "SELECT COUNT(g) FROM GmailProcessedMessage g WHERE g.status IN :statuses")
-    Page<GmailProcessedMessage> findForAdmin(@Param("statuses") Collection<GmailProcessedStatus> statuses, Pageable pageable);
+    Page<FailedGmailRow> findForAdmin(@Param("statuses") Collection<GmailProcessedStatus> statuses, Pageable pageable);
 
     long countByStatusAndDismissedAtIsNull(GmailProcessedStatus status);
 
