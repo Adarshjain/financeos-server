@@ -67,6 +67,7 @@ BEGIN
         CONSTRAINT ck_nps_account_status CHECK (status IN (''ACTIVE'', ''CLOSED''))
     )', -955);
     run_ddl_swallowing('CREATE INDEX idx_nps_account_user ON nps_account (user_id)', -955, -1408);
+    run_ddl_swallowing('CREATE INDEX idx_nps_account_employer ON nps_account (employer_id)', -955, -1408);
 
     run_ddl_swallowing('CREATE TABLE nps_allocation (
         id          VARCHAR2(36) PRIMARY KEY,
