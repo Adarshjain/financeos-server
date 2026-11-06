@@ -22,7 +22,9 @@ public final class EmailText {
     private static final Pattern ENTITY = Pattern.compile("&(#[xX][0-9a-fA-F]{1,6}|#[0-9]{1,7}|[a-zA-Z]{2,8});");
     private static final Pattern WHITESPACE = Pattern.compile("[\\s\\p{Zs}\\u00A0\\u200B\\u200C\\u200D\\u2060\\uFEFF\\u00AD\\u034F]+");
     private static final Pattern CURRENCY = Pattern.compile("(?:\\binr\\b\\.?|\\brs\\b\\.?(?=\\s*\\d)|₹)\\s*", Pattern.CASE_INSENSITIVE);
-    private static final Pattern SECTION_RUNS = Pattern.compile("(?: ?\u2029)+ ?");
+    // A character class, not a repeated group: Java recurses once per group repeat, and a marketing mail with
+    // thousands of empty blocks overflowed the 512k job-thread stack. Spaces are already single here, so same output.
+    private static final Pattern SECTION_RUNS = Pattern.compile("[ \u2029]*\u2029[ \u2029]*");
     private static final Set<String> BLOCK_TAGS = Set.of("td", "th", "tr", "div", "p", "br", "li", "table",
             "h1", "h2", "h3", "h4", "h5", "h6");
     private static final String[] DROPPED_BLOCKS = {"style", "script", "head"};
