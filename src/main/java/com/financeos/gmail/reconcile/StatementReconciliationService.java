@@ -132,31 +132,10 @@ public class StatementReconciliationService {
 
         if (isProtected) {
             List<Account> pwdAccounts = accountRepository.findByUserIdAndHasStatementPassword(connection.getUser().getId());
-            for (Account acc : pwdAccounts) {
-                String pwd = getStatementPassword(acc);
-                if (pwd == null || pwd.trim().isEmpty()) {
-                    continue;
-                }
-                if (filename.endsWith(".pdf")) {
-                    try {
-                        try (PDDocument doc = Loader.loadPDF(chosenBytes, pwd)) {
-                            candidateAccount = acc;
-                            correctPassword = pwd;
-                            break;
-                        }
-                    } catch (IOException e) {
-                        // try next password
-                    }
-                } else {
-                    try (InputStream is = new ByteArrayInputStream(chosenBytes);
-                         Workbook wb = WorkbookFactory.create(is, pwd)) {
-                        candidateAccount = acc;
-                        correctPassword = pwd;
-                        break;
-                    } catch (Exception e) {
-                        // try next password
-                    }
-                }
+            PasswordMatch match = matchByPassword(pwdAccounts, chosenBytes, filename.endsWith(".pdf"));
+            if (match != null) {
+                candidateAccount = match.account();
+                correctPassword = match.password();
             }
 
             if (candidateAccount == null) {
@@ -468,7 +447,7 @@ public class StatementReconciliationService {
         return normalizedNumber.contains(normalizedFragment);
     }
 
-    private String getStatementPassword(Account account) {
+    private static String getStatementPassword(Account account) {
         if (account.getCreditCardDetails() != null) {
             return account.getCreditCardDetails().getStatementPassword();
         }
@@ -552,6 +531,49 @@ public class StatementReconciliationService {
 
     private void recordLedger(GmailConnection connection, String messageId, Account account, GmailProcessedStatus status, String error) {
         recordLedger(connection, messageId, account, status, null, error);
+    }
+
+    /** The account whose saved password opens the file, with the form of it that opened. */
+    record PasswordMatch(Account account, String password) {}
+
+    /**
+     * The password that opens the file picks the account: every account's password as saved is tried before any case
+     * variant (lowercase, then uppercase), so a variant never wins over another account's exact password. Null when none opens.
+     */
+    static PasswordMatch matchByPassword(List<Account> accounts, byte[] bytes, boolean pdf) {
+        for (boolean variantsPass : new boolean[]{false, true}) {
+            for (Account acc : accounts) {
+                String pwd = getStatementPassword(acc);
+                if (pwd == null || pwd.trim().isEmpty()) {
+                    continue;
+                }
+                List<String> tries = com.financeos.statement.parser.PdfPasswords.variants(pwd);
+                tries = variantsPass ? tries.subList(1, tries.size()) : tries.subList(0, 1);
+                for (String variant : tries) {
+                    if (opens(bytes, variant, pdf)) {
+                        return new PasswordMatch(acc, variant);
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /** True when this password opens the PDF (pdf) or the encrypted Excel file (otherwise). */
+    private static boolean opens(byte[] bytes, String password, boolean pdf) {
+        if (pdf) {
+            try (PDDocument doc = Loader.loadPDF(bytes, password)) {
+                return true;
+            } catch (IOException e) {
+                return false;
+            }
+        }
+        try (InputStream is = new ByteArrayInputStream(bytes);
+             Workbook wb = WorkbookFactory.create(is, password)) {
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     private void updateLastStatementDate(Account account, StatementExtractionResult result) {

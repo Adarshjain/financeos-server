@@ -123,7 +123,7 @@ class StatementUnlockerTest {
         UnlockProfile priyanka = UnlockProfile.of("Priyanka Sharma", "1994-08-14");
         Outcome o = unlocker.unlock(pdf("pr1408"), target("nobank", Kind.CREDIT_CARD, hint, List.of()), priyanka);   // NAME2L+DDMM is candidate 14
         assertThat(o.state()).isEqualTo(State.FAILED);
-        assertThat(o.tries()).isEqualTo(StatementUnlocker.MAX_TRIES);
+        assertThat(o.tries()).isEqualTo(StatementUnlocker.MAX_CANDIDATES);
         assertThat(o.rule()).isNull();
         assertThat(o.read()).isNull();
     }
@@ -184,7 +184,7 @@ class StatementUnlockerTest {
         // the 4th saved password is not tried first; the hint's RIYA1408 (try 4) wins before it
         Outcome o = unlocker.unlock(pdf("RIYA1408"), target("hdfc", Kind.CREDIT_CARD, List.of("NAME4U+DDMM"), List.of()), many);
         assertThat(o.rule()).isEqualTo("NAME4U+DDMM");
-        assertThat(o.tries()).isEqualTo(4);
+        assertThat(o.tries()).isEqualTo(7);   // s1 S1 s2 S2 s3 S3 (each saved one also in the other case), then RIYA1408
     }
 
     @Test

@@ -53,6 +53,7 @@ class ExcelGridExtractor implements WordSource {
     }
 
     private static Workbook load(byte[] bytes, String password) {
+        password = PdfPasswords.workingExcel(bytes, password);
         try {
             return (password != null && !password.isBlank())
                     ? WorkbookFactory.create(new ByteArrayInputStream(bytes), password)
