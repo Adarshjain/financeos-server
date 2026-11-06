@@ -679,12 +679,13 @@ public class GmailIngestionService {
             }
 
             // Classifier gate: a mail the classifier is sure is neither an alert nor a statement never reaches the AI read.
-            if (isConfidentlyNotFinancial(gpm)) {
+            if (isConfidentlyNotFinancial(gpm) || (!hasStatementAttachment(message) && isSureNonTransactionNotice(gpm))) {
                 recordPipelineKind(gpm, "OTHER");
                 gpm.setStatus(GmailProcessedStatus.SKIPPED_NOT_TRANSACTION);
                 gpm.setError(null);
                 processedMessageRepository.save(gpm);
-                log.info("gmail.classifier.gate skipped_ai_read=1 kind=OTHER confidence=HIGH");
+                log.info("gmail.classifier.gate skipped_ai_read=1 kind=OTHER confidence={} subtype={}",
+                        gpm.getClassifiedConfidence(), gpm.getClassifiedSubtype());
                 return List.of();
             }
 
@@ -815,6 +816,15 @@ public class GmailIngestionService {
     static boolean isConfidentlyNotFinancial(GmailProcessedMessage gpm) {
         return com.financeos.gmail.classify.EmailKind.OTHER.name().equals(gpm.getClassifiedKind())
                 && ClassifierConfidence.HIGH.name().equals(gpm.getClassifiedConfidence());
+    }
+
+    /** A declined-transaction or mandate-notice verdict (any confidence): never a transaction. Callers exclude statement attachments. */
+    static boolean isSureNonTransactionNotice(GmailProcessedMessage gpm) {
+        if (com.financeos.gmail.classify.EmailSubtype.DECLINED.name().equals(gpm.getClassifiedSubtype())) {
+            return true;
+        }
+        String signals = gpm.getClassifiedSignals();
+        return signals != null && java.util.Arrays.asList(signals.split(",")).contains("kw:mandate");
     }
 
     /** Shadow run: stores the classifier answer on the row; never changes the outcome, never throws. */
