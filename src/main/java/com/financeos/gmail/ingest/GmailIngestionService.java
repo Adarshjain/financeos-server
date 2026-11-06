@@ -455,10 +455,13 @@ public class GmailIngestionService {
         // The failure processMessage caught, kept here because a DB failure also marks the transaction rollback-only:
         // the commit then throws "silently rolled back" and the ledger update made in the catch is lost.
         Throwable[] caught = new Throwable[1];
+        // The row as processMessage filled it (sender, subject, date): the rollback drops those columns, the failure keeps them.
+        GmailProcessedMessage[] seen = new GmailProcessedMessage[1];
         ProcessedMessage outcome;
         try {
             outcome = transactionTemplate.execute(status -> {
                 GmailProcessedMessage gpm = processedMessageRepository.findById(row.getId()).orElse(row);
+                seen[0] = gpm;
                 ReconSummary[] recon = new ReconSummary[1];
                 List<Transaction> created = processMessage(service, connection, gpm, enabledSenders, recon, mergeOut, arrivalContexts, caught);
                 return new ProcessedMessage(created, toMessageResult(gpm, created, recon[0]));
@@ -467,7 +470,7 @@ public class GmailIngestionService {
             // The transaction is over (rolled back); one failing message must never fail the whole sync.
             mergeOut[0] = null;
             Throwable cause = caught[0] != null ? caught[0] : e;
-            return new ProcessedMessage(List.of(), recordFailureInFreshTx(row, cause, connection));
+            return new ProcessedMessage(List.of(), recordFailureInFreshTx(row, seen[0], cause, connection));
         }
         if (caught[0] != null && outcome != null) {
             logItemFailed(connection, outcome.result(), caught[0]);
@@ -480,12 +483,18 @@ public class GmailIngestionService {
      * one left the stored attempt count untouched, so this is the one increment) and applies the same retry rules.
      * Never throws.
      */
-    private SyncSummary.MessageResult recordFailureInFreshTx(GmailProcessedMessage row, Throwable cause, GmailConnection connection) {
+    private SyncSummary.MessageResult recordFailureInFreshTx(GmailProcessedMessage row, GmailProcessedMessage seen, Throwable cause,
+                                                             GmailConnection connection) {
         Throwable root = rootCause(cause);
         String rootMessage = root.getMessage() != null ? root.getMessage() : root.toString();
         try {
             SyncSummary.MessageResult result = transactionTemplate.execute(status -> {
                 GmailProcessedMessage fresh = processedMessageRepository.findById(row.getId()).orElse(row);
+                if (seen != null && seen != fresh) {
+                    if (seen.getSenderAddress() != null) fresh.setSenderAddress(seen.getSenderAddress());
+                    if (seen.getSubject() != null) fresh.setSubject(seen.getSubject());
+                    if (seen.getInternalDate() != null) fresh.setInternalDate(seen.getInternalDate());
+                }
                 applyFailure(fresh, cause, rootMessage);
                 processedMessageRepository.save(fresh);
                 return toMessageResult(fresh, List.of(), null);
