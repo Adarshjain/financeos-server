@@ -109,14 +109,14 @@ class NpsSetupInboxIntegrationTest {
     }
 
     @Test
-    void nothingWithoutAnNpsLookingDebitInTheLast400Days() throws Exception {
+    void nothingWithoutAnNpsLookingDebitInTheLast10Years() throws Exception {
         assertTrue(setupRows().isEmpty());
-        debit(api, bank, TODAY.minusDays(401), 5000, "NPS TRUST");
+        debit(api, bank, TODAY.minusYears(10).minusDays(1), 5000, "NPS TRUST");
         debit(api, bank, TODAY.minusDays(5), 1, "ENPS KYC VERIFICATION");
         debit(api, bank, TODAY.minusDays(5), 500, "UPI-SOMEONE");
 
         assertTrue(setupRows().isEmpty());
-        debit(api, bank, TODAY.minusDays(399), 5000, "NPS TRUST");
+        debit(api, bank, TODAY.minusYears(10).plusDays(1), 5000, "NPS TRUST");
         assertEquals(1, setupRows().size());
     }
 
