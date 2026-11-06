@@ -48,6 +48,10 @@ public class GmailIngestionService {
     private final GmailSyncCursorService cursorService;
     private final GmailSenderRepository gmailSenderRepository;
     private final AccountResolver accountResolver;
+
+    /** Optional so tests that build the service by hand need none. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private com.financeos.domain.statement.StatementCoverage statementCoverage;
     private final GmailTransactionWriter gmailTransactionWriter;
     private final GeminiExtractor geminiExtractor;
     private final GmailProcessedMessageRepository processedMessageRepository;
@@ -336,6 +340,11 @@ public class GmailIngestionService {
                 Instant.now(),
                 PageRequest.of(0, budget)
         );
+
+        // Statement mails first (stable), so a statement lands before the alerts it covers. Only rows already read
+        // once (a retry carries its pipeline kind) are known; a fresh DISCOVERED row has no attachment info until fetched.
+        pendingBatch = new ArrayList<>(pendingBatch);
+        pendingBatch.sort(Comparator.comparingInt(r -> "STATEMENT".equals(r.getPipelineKind()) ? 0 : 1));
 
         int processedCount = 0;
         int createdCount = 0;
@@ -702,7 +711,14 @@ public class GmailIngestionService {
                     return List.of();
                 }
                 recordPipelineKind(gpm, "STATEMENT");
-                ReconSummary recon = statementReconciliationService.reconcile(connection, message);
+                ReconSummary recon;
+                try {
+                    recon = statementReconciliationService.reconcile(connection, message);
+                } finally {
+                    if (statementCoverage != null) {
+                        statementCoverage.invalidateAll();
+                    }
+                }
                 reconOut[0] = recon;
                 if (recon.createdTransactions() != null && !recon.createdTransactions().isEmpty()) {
                     return recon.createdTransactions();
@@ -710,9 +726,15 @@ public class GmailIngestionService {
                 return List.of();
             }
 
+            // Offline engine first: a template read whose account and date a statement already covers needs no AI read.
+            Optional<ExtractedTransaction> engineResult = runEngine(message);
+            if (skipIfCoveredByEngine(gpm, message, fromAddress, engineResult)) {
+                return List.of();
+            }
+
             // Transaction Alert path -> Gemini extraction
             GeminiExtractionResult extractionResult = geminiExtractor.extract(message);
-            Optional<ExtractedTransaction> shadowEngine = extractInShadow(gpm, message, extractionResult);
+            Optional<ExtractedTransaction> shadowEngine = extractInShadow(gpm, message, extractionResult, engineResult);
             if (!extractionResult.isSuccess()) {
                 mergeOut[0] = mergeRequest(gpm, connection.getUser().getId(), null, shadowEngine);
                 throw new RuntimeException("Extraction failed: " + extractionResult.failureReason());
@@ -878,12 +900,69 @@ public class GmailIngestionService {
         gpm.setExtractMergeTxn(null);
     }
 
-    Optional<ExtractedTransaction> extractInShadow(GmailProcessedMessage gpm, GmailMessage message, GeminiExtractionResult ai) {
+    /** The offline engine's read of the mail, run once per message; empty when the engine is off or throws. */
+    private Optional<ExtractedTransaction> runEngine(GmailMessage message) {
         if (transactionExtractor == null) {
+            return null;
+        }
+        try {
+            return transactionExtractor.extract(message);
+        } catch (Exception e) {
+            log.warn("Engine extraction failed for message {}: {}", message.messageId(), e.toString());
+            return null;
+        }
+    }
+
+    /**
+     * Pre-AI shortcut: a TEMPLATE-tier engine read with a last4 and a date, resolving to exactly one opted-in account
+     * whose statements already cover that date, is recorded as covered without calling the AI. Anything else returns false.
+     */
+    private boolean skipIfCoveredByEngine(GmailProcessedMessage gpm, GmailMessage message, String fromAddress,
+                                          Optional<ExtractedTransaction> engine) {
+        if (statementCoverage == null || engine == null || engine.isEmpty()) {
+            return false;
+        }
+        ExtractedTransaction e = engine.get();
+        if (e.tier() != com.financeos.gmail.extract.Tier.TEMPLATE || e.last4() == null || e.date() == null) {
+            return false;
+        }
+        try {
+            List<String> resolveTexts = java.util.Arrays.asList(message.subject(), message.getStrippedText());
+            Account account = accountResolver.resolve(e.last4(), resolveTexts, fromAddress)
+                    .map(AccountResolver.ResolvedCard::account).orElse(null);
+            if (account == null || account.getIngestFromDate() == null) {
+                return false;
+            }
+            Optional<String> covered = statementCoverage.coveredBy(account.getId(), e.date());
+            if (covered.isEmpty()) {
+                return false;
+            }
+            recordPipelineKind(gpm, "ALERT");
+            gpm.setExtractedLast4(normalizeLast4(e.last4()));
+            gpm.setAccount(account);
+            gpm.setStatus(GmailProcessedStatus.SKIPPED_BEFORE_WATERMARK);
+            gpm.setError(covered.get());
+            processedMessageRepository.save(gpm);
+            log.info("gmail.alert.covered_by_statement=1 skipped_ai_read=1");
+            return true;
+        } catch (Exception ex) {
+            log.warn("Pre-AI coverage check failed for message {}: {}", gpm.getGmailMessageId(), ex.toString());
+            return false;
+        }
+    }
+
+    Optional<ExtractedTransaction> extractInShadow(GmailProcessedMessage gpm, GmailMessage message, GeminiExtractionResult ai) {
+        return extractInShadow(gpm, message, ai, transactionExtractor == null ? null : runEngine(message));
+    }
+
+    /** {@code precomputed} is the engine result already run for this mail (null: engine off or failed). */
+    Optional<ExtractedTransaction> extractInShadow(GmailProcessedMessage gpm, GmailMessage message, GeminiExtractionResult ai,
+                                                   Optional<ExtractedTransaction> precomputed) {
+        if (transactionExtractor == null || precomputed == null) {
             return Optional.empty();
         }
         try {
-            Optional<ExtractedTransaction> engine = transactionExtractor.extract(message);
+            Optional<ExtractedTransaction> engine = precomputed;
             gpm.setExtractVersion(TransactionExtractor.VERSION);
             gpm.setExtractAiProvider(truncate(ai.provider(), 64));
             String tier = "NONE";

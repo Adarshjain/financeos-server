@@ -23,6 +23,10 @@ public class GmailTransactionWriter {
     @org.springframework.beans.factory.annotation.Autowired(required = false)
     private org.springframework.context.ApplicationEventPublisher eventPublisher;
 
+    /** Optional so tests that build the writer by hand need none; without it no statement cutoff applies. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private com.financeos.domain.statement.StatementCoverage statementCoverage;
+
     /** Stateless; replaced by the Spring bean when present. */
     @org.springframework.beans.factory.annotation.Autowired(required = false)
     private TransactionMatcher transactionMatcher = new TransactionMatcher();
@@ -53,6 +57,22 @@ public class GmailTransactionWriter {
             Card resolvedCard) {
 
         User user = connection.getUser();
+
+        // 0. Statements are the source of truth: an alert inside a period a statement already covers writes nothing.
+        LocalDate alertDate = extractionResult.date();
+        if (statementCoverage != null && alertDate != null) {
+            java.util.Optional<String> covered = statementCoverage.coveredBy(resolvedAccount.getId(), alertDate);
+            if (covered.isPresent()) {
+                GmailProcessedMessage processed = findOrCreateLedgerEntry(connection, gmailMessageId);
+                processed.setAccount(resolvedAccount);
+                processed.setStatus(GmailProcessedStatus.SKIPPED_BEFORE_WATERMARK);
+                processed.setTransaction(null);
+                processed.setError(covered.get());
+                processed.setProcessedAt(Instant.now());
+                org.slf4j.LoggerFactory.getLogger(GmailTransactionWriter.class).info("gmail.alert.covered_by_statement=1");
+                return processedMessageRepository.save(processed);
+            }
+        }
 
         // 1. Watermark gate check: date >= ingest_from_date
         LocalDate txDate = extractionResult.date();
