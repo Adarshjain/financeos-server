@@ -249,5 +249,15 @@
   "subtype": "PROMOTION",
   "confidence": "MEDIUM",
   "bodyText": "Hi Sample, Thanks for using Amazon Pay Balance. Your payment was successful."
+ },
+ {
+  "name": "v3 axis auto pay request modified is service",
+  "from": "Axis Bank <alerts@axisbank.com>",
+  "subject": "Auto Pay request has been modified",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer, your Auto Pay request for Merchant X on your Axis Bank Credit Card no. XX9894 has been modified. Maximum amount: INR 1,000. Frequency: As presented",
+  "bank": "axis"
  }
 ]

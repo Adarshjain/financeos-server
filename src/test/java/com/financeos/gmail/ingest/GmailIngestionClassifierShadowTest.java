@@ -489,4 +489,61 @@ class GmailIngestionClassifierShadowTest {
         assertThat(row.getStatus()).isEqualTo(GmailProcessedStatus.UNRESOLVED_ACCOUNT);
         assertThat(row.getExtractedLast4()).isEqualTo("8180");
     }
+
+    private void classifyWith(com.financeos.gmail.classify.EmailKind kind, com.financeos.gmail.classify.EmailSubtype subtype,
+                              com.financeos.gmail.classify.ClassifierConfidence confidence, String... signals) {
+        EmailClassifier fixed = mock(EmailClassifier.class);
+        when(fixed.classify(any())).thenReturn(new ClassificationResult(kind, subtype, confidence, "axis",
+                List.of(signals), EmailClassifier.VERSION));
+        ReflectionTestUtils.setField(service, "emailClassifier", fixed);
+    }
+
+    @Test
+    void gate_declinedAtMediumSkipsTheAiRead() {
+        classifyWith(com.financeos.gmail.classify.EmailKind.OTHER, com.financeos.gmail.classify.EmailSubtype.DECLINED,
+                com.financeos.gmail.classify.ClassifierConfidence.MEDIUM, "bank:axis", "amt", "decline");
+
+        GmailProcessedMessage row = run(alert("d1", "alerts@hdfcbank.net"));
+
+        assertThat(row.getStatus()).isEqualTo(GmailProcessedStatus.SKIPPED_NOT_TRANSACTION);
+        assertThat(row.getPipelineKind()).isEqualTo("OTHER");
+        verifyNoInteractions(geminiExtractor);
+    }
+
+    @Test
+    void gate_mandateServiceSkipsTheAiRead() {
+        classifyWith(com.financeos.gmail.classify.EmailKind.OTHER, com.financeos.gmail.classify.EmailSubtype.SERVICE,
+                com.financeos.gmail.classify.ClassifierConfidence.MEDIUM, "bank:axis", "kw:mandate");
+
+        GmailProcessedMessage row = run(alert("d2", "alerts@hdfcbank.net"));
+
+        assertThat(row.getStatus()).isEqualTo(GmailProcessedStatus.SKIPPED_NOT_TRANSACTION);
+        assertThat(row.getPipelineKind()).isEqualTo("OTHER");
+        verifyNoInteractions(geminiExtractor);
+    }
+
+    @Test
+    void gate_debitAlertAtMediumStillGetsTheAiRead() {
+        classifyWith(com.financeos.gmail.classify.EmailKind.ALERT, com.financeos.gmail.classify.EmailSubtype.DEBIT,
+                com.financeos.gmail.classify.ClassifierConfidence.MEDIUM, "bank:axis", "amt");
+        GmailMessage m = alert("d3", "alerts@hdfcbank.net");
+        when(geminiExtractor.extract(m)).thenReturn(GeminiExtractionResult.notTransaction());
+
+        run(m);
+
+        verify(geminiExtractor).extract(m);
+    }
+
+    @Test
+    void gate_declinedOrMandateWithPdfAttachmentStillTakesTheStatementPath() {
+        classifyWith(com.financeos.gmail.classify.EmailKind.OTHER, com.financeos.gmail.classify.EmailSubtype.DECLINED,
+                com.financeos.gmail.classify.ClassifierConfidence.MEDIUM, "kw:mandate", "decline");
+        GmailMessage m = pdfMail("d4", "HDFC Bank - October", "1234.pdf");
+        when(statementReconciliationService.reconcile(eq(connection), eq(m))).thenReturn(new ReconSummary(0, 0, 0));
+
+        run(m);
+
+        verify(statementReconciliationService).reconcile(connection, m);
+        verifyNoInteractions(geminiExtractor);
+    }
 }

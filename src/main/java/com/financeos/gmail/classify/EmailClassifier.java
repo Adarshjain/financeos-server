@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 @Component
 public class EmailClassifier {
 
-    public static final int VERSION = 3;
+    public static final int VERSION = 4;
 
     private final BankSenderDomains bankSenderDomains;
 
@@ -160,7 +160,9 @@ public class EmailClassifier {
             "\\blounge\\b|reduce your (?:card )?bill|\\bvoucher\\b|\\bearned\\b.{0,40}?\\bcashback\\b");
     /** Mandate / standing-instruction set-up or cancellation: the amount is a limit, not a debit. */
     private static final Pattern MANDATE_SETUP_SUBJECT = Pattern.compile(
-            "\\bauto ?pay facility\\b|\\bcancellation of auto ?pay\\b|\\bregistration of standing instructions?\\b");
+            "\\bauto ?pay facility\\b|\\bcancellation of auto ?pay\\b|\\bregistration of standing instructions?\\b"
+                    + "|\\bauto ?pay (?:request|mandate)\\b.{0,40}?\\b(?:modified|modification|updated|changed)\\b"
+                    + "|\\b(?:modification|change) (?:of|to) auto ?pay\\b");
     /** The bank could not reach the customer to confirm a charge: a security notice, not a debit. */
     private static final Pattern UNCONFIRMED_TXN = Pattern.compile("\\bunable to (?:reach|contact) you\\b.{0,40}?\\bconfirm\\b");
     /** A foreign remittance request that was only received; the money has not moved yet. */
