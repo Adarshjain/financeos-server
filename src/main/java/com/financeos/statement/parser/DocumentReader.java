@@ -51,8 +51,9 @@ public final class DocumentReader {
     }
 
     /** As above; {@code firstPageCheck}, when given, is applied to the first page's text and its answer returned in {@link Read#holder}. */
-    public static Read read(byte[] pdf, String password, DocumentFacts.Vocabulary vocab, Set<String> flags,
+    public static Read read(byte[] pdf, String givenPassword, DocumentFacts.Vocabulary vocab, Set<String> flags,
                             java.util.function.UnaryOperator<String> firstPageCheck) {
+        final String password = givenPassword == null ? null : PdfPasswords.workingPdf(pdf, givenPassword);
         if (pdf == null || pdf.length == 0) return new Read(Outcome.FAILED, null);
         String text;
         String holder = null;

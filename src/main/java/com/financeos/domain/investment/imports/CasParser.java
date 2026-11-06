@@ -77,7 +77,7 @@ public class CasParser implements ImportParser {
         try {
             String password = context.password();
             if (password != null && !password.isBlank()) {
-                document = Loader.loadPDF(pdfBytes, password.trim());
+                document = Loader.loadPDF(pdfBytes, com.financeos.statement.parser.PdfPasswords.workingPdf(pdfBytes, password.trim()));
             } else {
                 document = Loader.loadPDF(pdfBytes);
             }

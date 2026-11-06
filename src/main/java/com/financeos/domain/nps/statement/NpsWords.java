@@ -71,7 +71,8 @@ final class NpsWords {
     /** Loads the PDF with the password; null when the password is wrong. Throws IOException on other failures. */
     static PDDocument open(byte[] pdf, String password) throws IOException {
         try {
-            return password == null || password.isEmpty() ? Loader.loadPDF(pdf) : Loader.loadPDF(pdf, password);
+            return password == null || password.isEmpty() ? Loader.loadPDF(pdf)
+                    : Loader.loadPDF(pdf, com.financeos.statement.parser.PdfPasswords.workingPdf(pdf, password));
         } catch (InvalidPasswordException e) {
             return null;
         }
@@ -89,7 +90,7 @@ final class NpsWords {
         } catch (IOException e) {
             return false;
         }
-        try (PDDocument ignored = Loader.loadPDF(pdf, password)) {
+        try (PDDocument ignored = Loader.loadPDF(pdf, com.financeos.statement.parser.PdfPasswords.workingPdf(pdf, password))) {
             return true;
         } catch (IOException e) {
             return false;

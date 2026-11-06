@@ -43,6 +43,7 @@ class PdfWordExtractor implements WordSource {
     }
 
     private static PDDocument load(byte[] bytes, String password) {
+        password = PdfPasswords.workingPdf(bytes, password);
         try {
             return (password != null && !password.isBlank())
                     ? Loader.loadPDF(bytes, password)
