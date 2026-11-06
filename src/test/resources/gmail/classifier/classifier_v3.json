@@ -77,6 +77,26 @@
   "bank": "axis"
  },
  {
+  "name": "v3 axis auto pay activated with initial debit is a debit",
+  "from": "Axis Bank <alerts@axisbank.com>",
+  "subject": "Auto Pay facility has been activated",
+  "kind": "ALERT",
+  "subtype": "DEBIT",
+  "confidence": "HIGH",
+  "bodyText": "07-02-2023\nDear Customer,\nThank you for banking with us.\nWe wish to inform you that Auto Pay facility has been successfully activated on your Axis Bank Card no. XX9894 for INR 130.00 from Google Play and initial amt of INR 35.00 has been debited. Google Play can initiate subsequent transactions for a maximum amount of INR 130.00.\nYou will receive notification with the transaction amount prior to any subsequent debits initiated by Google Play. Manage Auto Pay with ID WRxh198KRo via https://ccm.axbk.in/s/CNPKLr6S\nShould you have any queries, please connect with us via any of the channels mentioned in the footer.\nAlways open to help you.\nRegards,\nAxis Bank Ltd.\nT&C apply.",
+  "bank": "axis"
+ },
+ {
+  "name": "v3 axis auto pay activated limit only stays service",
+  "from": "Axis Bank <alerts@axisbank.com>",
+  "subject": "Auto Pay facility has been activated",
+  "kind": "OTHER",
+  "subtype": "SERVICE",
+  "confidence": "MEDIUM",
+  "bodyText": "Dear Customer,\nWe wish to inform you that Auto Pay facility has been successfully activated on your Axis Bank Card no. XX9894 for INR 130.00 from Netflix. Netflix can initiate subsequent transactions for a maximum amount of INR 130.00.\nRegards,\nAxis Bank Ltd.",
+  "bank": "axis"
+ },
+ {
   "name": "v3 axis auto pay cancelled is service",
   "from": "Axis Bank <alerts@axisbank.com>",
   "subject": "Cancellation of Auto Pay facility",
