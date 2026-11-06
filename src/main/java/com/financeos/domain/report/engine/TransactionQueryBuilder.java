@@ -329,7 +329,8 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
     @Override
     protected String userScopePredicate(Map<String, Object> params, UUID userId) {
         params.put("userId", userId.toString());
-        return "t.user_id = :userId";
+        // A foreign charge waiting for its statement has no rupee amount yet: left out of every report.
+        return "t.user_id = :userId AND t.amount IS NOT NULL";
     }
 
     @Override

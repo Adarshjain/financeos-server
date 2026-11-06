@@ -173,7 +173,7 @@ class TransactionSearchTest {
         
         TransactionListQueryBuilder.QueryResult dataQuery = queryBuilder.buildDataQuery(UUID.randomUUID(), criteria, pageable);
         
-        assertTrue(dataQuery.sql().contains("ORDER BY sub.signed_amount ASC, sub.transaction_date DESC, sub.created_at DESC, sub.id DESC"));
+        assertTrue(dataQuery.sql().contains("ORDER BY sub.signed_amount ASC NULLS LAST, sub.transaction_date DESC, sub.created_at DESC, sub.id DESC"));
     }
 
     @Test

@@ -12,7 +12,7 @@ import com.financeos.domain.statement.StatementPersistenceService;
 import com.financeos.domain.statement.StatementSource;
 import com.financeos.domain.statement.StatementVerdict;
 import com.financeos.domain.transaction.ReviewReason;
-import com.financeos.domain.transaction.StatementDuplicateReconciler;
+import com.financeos.domain.transaction.match.MatchFixture;
 import com.financeos.domain.transaction.ReviewStatusManager;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionMatcher;
@@ -108,12 +108,12 @@ class FileIngestionStatementDuplicateTest {
         when(accountService.getAccountById(accountId)).thenReturn(account);
         when(userRepository.getReferenceById(userId)).thenReturn(user);
 
+        fixture = new MatchFixture();
+        ingestionService.setBatchMatcher(fixture.matcher);
         doAnswer(inv -> {
             List<Transaction> txs = inv.getArgument(0);
             for (Transaction t : txs) {
-                if (t.getId() == null) {
-                    t.setId(UUID.randomUUID());
-                }
+                fixture.store(t);
             }
             return null;
         }).when(dbHandler).saveTransactions(any(), any());
@@ -124,7 +124,7 @@ class FileIngestionStatementDuplicateTest {
         UserContext.clear();
     }
 
-    private StatementDuplicateReconciler reconciler;
+    private MatchFixture fixture;
 
     private FileIngestionResult ingestOneLine(Transaction existing, String lineText) {
         byte[] bytes = "f".getBytes();
@@ -133,24 +133,19 @@ class FileIngestionStatementDuplicateTest {
                 List.of(line), "1234", LocalDate.of(2026, 8, 1), LocalDate.of(2026, 8, 31), null));
         Statement stmt = new Statement();
         stmt.setId(UUID.randomUUID());
+        stmt.setPeriodStart(LocalDate.of(2026, 8, 1));
+        stmt.setPeriodEnd(LocalDate.of(2026, 8, 31));
         when(statementPersistenceService.createIfNew(eq(user), eq(account), eq(StatementSource.file_upload), eq("a.pdf"), any(), nullable(StatementDraft.class)))
                 .thenReturn(Optional.of(stmt));
-        when(dbHandler.findExistingTransactions(eq(accountId), any(LocalDate.class), any(LocalDate.class))).thenReturn(List.of(existing));
-
-        reconciler = mock(StatementDuplicateReconciler.class);
-        TransactionMatcher real = new TransactionMatcher();
-        StatementDuplicateReconciler pairing = new StatementDuplicateReconciler(real, null, null, null, new ReviewStatusManager());
-        when(reconciler.pair(any(), any(), any(), any(), any())).thenAnswer(inv ->
-                pairing.pair(inv.getArgument(0), inv.getArgument(1), inv.getArgument(2), inv.getArgument(3), inv.getArgument(4)));
-        org.springframework.test.util.ReflectionTestUtils.setField(ingestionService, "duplicateReconciler", reconciler);
+        fixture.store(existing);
         return ingestionService.ingest(accountId, List.of(new UploadedFile("a.pdf", "application/pdf", bytes)));
     }
 
-    private Transaction manualRow() {
+    private Transaction manualRow(int day) {
         Transaction manual = new Transaction();
-        manual.setId(UUID.randomUUID());
+        manual.setAccount(account);
         manual.setSource(TransactionSource.manual);
-        manual.setDate(LocalDate.of(2026, 8, 10));
+        manual.setDate(LocalDate.of(2026, 8, day));
         manual.setAmount(new BigDecimal("450.00"));
         manual.setType(TransactionType.DEBIT);
         manual.setDescription("Swiggy");
@@ -158,23 +153,31 @@ class FileIngestionStatementDuplicateTest {
     }
 
     @Test
-    void uploadRunsTheReconcileAndMergesACertainManualRow() {
-        Transaction manual = manualRow();
+    void uploadAttachesItsLineToAManualRowADayEarlierAndTheStatementWins() {
+        Transaction manual = manualRow(11);
 
         FileIngestionResult res = ingestOneLine(manual, "UPI/DR/4123/SWIGGY/YESB");
 
-        verify(reconciler).mergeCertainAfterCommit(argThat(pairs -> pairs.size() == 1 && pairs.get(0).certain() && pairs.get(0).existing() == manual));
+        assertThat(res.totalCreated()).isZero();
         assertThat(res.totalDuplicatesFound()).isZero();
+        assertThat(fixture.txns).containsExactly(manual);
+        assertThat(manual.getDate()).isEqualTo(LocalDate.of(2026, 8, 12));
+        assertThat(manual.getSourcedDescription()).isEqualTo("UPI/DR/4123/SWIGGY/YESB");
+        assertThat(manual.getDescription()).isEqualTo("Swiggy");
+        assertThat(fixture.statementsOf(manual)).hasSize(1);
     }
 
     @Test
-    void uploadFlagsAnUncertainManualRowTwoDaysAway() {
-        Transaction manual = manualRow();
-        // Same rule as before, now with the two-day window: a different merchant stays a suspect.
+    void aManualRowOutsideTheBankWindowIsNotPairedAndNeverTagged() {
+        Transaction manual = manualRow(10);
+
         FileIngestionResult res = ingestOneLine(manual, "UPI/DR/4123/ZOMATO/YESB");
 
-        verify(reconciler, never()).mergeCertainAfterCommit(argThat(pairs -> !pairs.isEmpty()));
-        assertThat(res.totalDuplicatesFound()).isEqualTo(1);
-        assertThat(res.duplicateDetails().get(0).matchedTransactionId()).isEqualTo(manual.getId());
+        assertThat(res.totalCreated()).isEqualTo(1);
+        assertThat(res.totalDuplicatesFound()).isZero();
+        assertThat(fixture.txns).hasSize(2);
+        assertThat(manual.getReviewReasons()).isEmpty();
+        assertThat(manual.getNotOnStatementId()).isNull();
+        assertThat(fixture.statementsOf(manual)).isEmpty();
     }
 }

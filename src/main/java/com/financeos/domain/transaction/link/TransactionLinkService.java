@@ -419,7 +419,8 @@ public class TransactionLinkService {
         List<MemberSummary> memberSummaries = link.getMembers().stream()
                 .map(m -> {
                     Transaction t = m.getTransaction();
-                    BigDecimal signedAmount = t.getType() == TransactionType.DEBIT
+                    BigDecimal signedAmount = t.getAmount() == null ? null
+                            : t.getType() == TransactionType.DEBIT
                             ? t.getAmount().negate()
                             : t.getAmount();
                     String desc = t.getDescription() != null ? t.getDescription() : t.getSourcedDescription();

@@ -527,6 +527,9 @@ public class LendingService {
         if (credit ? net.signum() <= 0 : net.signum() >= 0) {
             return null;
         }
+        if (tx.getAmount() == null) {
+            return null;
+        }
         if (tx.getAmount().abs().compareTo(net.abs().add(MatchingConstants.MATCH_AMOUNT_TOLERANCE)) > 0) {
             return null;
         }

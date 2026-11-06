@@ -205,7 +205,7 @@ class StatementDeletionServiceTest {
     // ------------------------------------------------------------ email alerts
 
     @Test
-    void alertThisStatementReconciledGoesBackToReviewAsUnreconciled() {
+    void alertThisStatementReconciledGoesBackToPendingKeepingItsRow() {
         statement.setSource(StatementSource.gmail);
         statement.setSourceRef("msg-1");
         Transaction alert = txn(TransactionSource.gmail_transaction_alert, "alert-9", "Swiggy", "450.00", TransactionType.DEBIT);
@@ -214,9 +214,9 @@ class StatementDeletionServiceTest {
 
         StatementDeletionResponse res = service.delete(account.getId(), statement.getId());
 
-        assertThat(alert.getReviewType()).isEqualTo(ReviewType.NEEDS_REVIEW);
-        assertThat(alert.getReviewReasons()).containsExactly(ReviewReason.UNRECONCILED);
-        verify(transactionRepository).saveAll(List.of(alert));
+        assertThat(alert.getReviewType()).isEqualTo(ReviewType.AUTO_REVIEWED);
+        assertThat(alert.getReviewReasons()).isEmpty();
+        verify(statementTransactionRepository).deleteByStatementId(statement.getId());
         assertThat(res.alertsReopened()).isEqualTo(1);
         assertThat(deletedIds()).isEmpty();
     }
@@ -239,6 +239,29 @@ class StatementDeletionServiceTest {
         assertThat(alreadyOpen.getReviewReasons()).containsExactly(ReviewReason.UNRECONCILED);
         assertThat(res.alertsReopened()).isZero();
         assertThat(res.transactionsKept()).isEqualTo(2);
+    }
+
+    @Test
+    void notOnStatementTagsFromThisStatementAreClearedOtherReasonsStay() {
+        Transaction tagged = txn(TransactionSource.gmail_transaction_alert, "alert-3", "Hotel hold", "5000.00", TransactionType.DEBIT);
+        new ReviewStatusManager().addReason(tagged, ReviewReason.NOT_ON_STATEMENT);
+        tagged.setNotOnStatementId(statement.getId());
+        Transaction alsoDateCorrected = txn(TransactionSource.gmail_transaction_alert, "alert-4", "Fuel", "700.00", TransactionType.DEBIT);
+        new ReviewStatusManager().addReason(alsoDateCorrected, ReviewReason.NOT_ON_STATEMENT);
+        new ReviewStatusManager().addReason(alsoDateCorrected, ReviewReason.DATE_CORRECTED);
+        alsoDateCorrected.setNotOnStatementId(statement.getId());
+        linked();
+        when(transactionRepository.findByNotOnStatementId(statement.getId())).thenReturn(List.of(tagged, alsoDateCorrected));
+
+        service.delete(account.getId(), statement.getId());
+
+        assertThat(tagged.getReviewReasons()).isEmpty();
+        assertThat(tagged.getReviewType()).isEqualTo(ReviewType.AUTO_REVIEWED);
+        assertThat(tagged.getNotOnStatementId()).isNull();
+        assertThat(alsoDateCorrected.getReviewReasons()).containsExactly(ReviewReason.DATE_CORRECTED);
+        assertThat(alsoDateCorrected.getReviewType()).isEqualTo(ReviewType.NEEDS_REVIEW);
+        assertThat(alsoDateCorrected.getNotOnStatementId()).isNull();
+        verify(transactionRepository).saveAll(List.of(tagged, alsoDateCorrected));
     }
 
     // ------------------------------------------------------------ duplicate flags

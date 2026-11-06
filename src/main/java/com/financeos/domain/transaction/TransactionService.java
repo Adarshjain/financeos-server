@@ -363,8 +363,12 @@ public class TransactionService {
             throw new ValidationException("Review reasons can only be set when the review type is NEEDS_REVIEW");
         }
 
-        // Validate non-zero amount
-        if (request.amount().compareTo(BigDecimal.ZERO) == 0) {
+        // Amount: required, except on a foreign charge still waiting for its rupee amount, where null keeps it unknown.
+        if (request.amount() == null) {
+            if (transaction.getAmount() != null) {
+                throw new ValidationException("Amount is required");
+            }
+        } else if (request.amount().compareTo(BigDecimal.ZERO) == 0) {
             throw new ValidationException("Transaction amount cannot be zero");
         }
 
@@ -434,16 +438,18 @@ public class TransactionService {
             reviewStatusManager.transitionTo(transaction, request.reviewType());
         }
 
-        // Handle amount and type
-        BigDecimal absoluteAmount = request.amount().abs();
-        TransactionType type = request.amount().compareTo(BigDecimal.ZERO) >= 0 ? TransactionType.CREDIT
-                : TransactionType.DEBIT;
-        if (type != transaction.getType() && obligationRefService != null && obligationRefService.hasRefs(id)) {
-            throw new ValidationException(
-                    "This transaction is linked to a loan/lending/dividend record; unlink it before changing its direction.");
+        // Handle amount and type (a null amount, allowed only above, leaves both as stored)
+        if (request.amount() != null) {
+            BigDecimal absoluteAmount = request.amount().abs();
+            TransactionType type = request.amount().compareTo(BigDecimal.ZERO) >= 0 ? TransactionType.CREDIT
+                    : TransactionType.DEBIT;
+            if (type != transaction.getType() && obligationRefService != null && obligationRefService.hasRefs(id)) {
+                throw new ValidationException(
+                        "This transaction is linked to a loan/lending/dividend record; unlink it before changing its direction.");
+            }
+            transaction.setAmount(absoluteAmount);
+            transaction.setType(type);
         }
-        transaction.setAmount(absoluteAmount);
-        transaction.setType(type);
 
         // Update tags (clears if null)
         if (request.tagIds() != null) {
@@ -815,6 +821,15 @@ public class TransactionService {
 
         if (kept.getChannel() == null && deleted.getChannel() != null) {
             kept.setChannel(deleted.getChannel());
+        }
+        // A foreign charge waiting for its statement takes the other row's rupee amount, and a rupee row takes the
+        // other row's foreign amount and currency.
+        if (kept.getAmount() == null && deleted.getAmount() != null) {
+            kept.setAmount(deleted.getAmount());
+        }
+        if (kept.getOriginalCurrency() == null && deleted.getOriginalCurrency() != null) {
+            kept.setOriginalAmount(deleted.getOriginalAmount());
+            kept.setOriginalCurrency(deleted.getOriginalCurrency());
         }
         if ((kept.getIsEmi() == null || !kept.getIsEmi()) && Boolean.TRUE.equals(deleted.getIsEmi())) {
             kept.setIsEmi(true);

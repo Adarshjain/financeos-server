@@ -90,9 +90,9 @@ public class GmailIngestionService {
     @org.springframework.beans.factory.annotation.Autowired(required = false)
     private com.financeos.domain.nps.gmail.NpsGmailHeldQueue npsHeldQueue;
 
-    /** Senders (domain or subdomain) whose mails duplicate the issuer's alert for the same payment. */
-    private static final Set<String> PROVIDER_SENDER_DOMAINS = Set.of("cred.club", "paytm.com", "amazonpay.in");
-    private static final int MERGE_DATE_WINDOW_DAYS = 2;
+    /** The single match of an alert (pre-AI attach); optional so tests that build the service by hand need none. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private com.financeos.domain.transaction.match.AlertMatcher alertMatcher;
 
     public GmailIngestionService(GmailEngine gmailEngine,
                                  GmailSyncCursorService cursorService,
@@ -195,7 +195,7 @@ public class GmailIngestionService {
             log.info("Forward discovery listing for connection {} query: {}", connection.getEmail(), query);
 
             List<String> messageIds = gmailEngine.listMessageIds(connection, query);
-            int newCount = saveDiscoveredMessageIds(connection, messageIds, fetchStart);
+            int newCount = saveDiscoveredMessageIds(connection, messageIds, fetchStart, () -> attachmentIds(connection, query));
             totalDiscovered += newCount;
             listedIds.addAll(messageIds);
             Instant groupSince = Instant.ofEpochSecond(afterEpoch);
@@ -256,7 +256,7 @@ public class GmailIngestionService {
                     log.info("Backfill discovery listing for connection {} query: {}", connection.getEmail(), query);
 
                     List<String> messageIds = gmailEngine.listMessageIds(connection, query);
-                    int newCount = saveDiscoveredMessageIds(connection, messageIds, Instant.now());
+                    int newCount = saveDiscoveredMessageIds(connection, messageIds, Instant.now(), () -> attachmentIds(connection, query));
                     totalDiscovered += newCount;
                     listedIds.addAll(messageIds);
 
@@ -271,7 +271,21 @@ public class GmailIngestionService {
         return new Discovery(totalDiscovered, listedIds.size(), searchedSince, backfilledTo);
     }
 
-    private int saveDiscoveredMessageIds(GmailConnection connection, List<String> messageIds, Instant fetchStart) {
+    /**
+     * The ids of the same listing that have an attachment: one more messages.list (5 quota units per page of 100),
+     * asked only when the listing found new mails. A failure marks nothing (the drain then keeps discovery order).
+     */
+    private Set<String> attachmentIds(GmailConnection connection, String query) {
+        try {
+            return new HashSet<>(gmailEngine.listMessageIds(connection, query + " has:attachment"));
+        } catch (RuntimeException e) {
+            log.warn("Attachment listing failed for connection {}: {}", connection.getId(), e.toString());
+            return Set.of();
+        }
+    }
+
+    private int saveDiscoveredMessageIds(GmailConnection connection, List<String> messageIds, Instant fetchStart,
+                                         java.util.function.Supplier<Set<String>> withAttachment) {
         if (messageIds.isEmpty()) {
             return 0;
         }
@@ -299,6 +313,12 @@ public class GmailIngestionService {
         }
 
         if (!newRows.isEmpty()) {
+            Set<String> attached = withAttachment == null ? Set.of() : withAttachment.get();
+            if (attached != null && !attached.isEmpty()) {
+                for (GmailProcessedMessage gpm : newRows) {
+                    gpm.setHasAttachment(attached.contains(gpm.getGmailMessageId()));
+                }
+            }
             processedMessageRepository.saveAll(newRows);
         }
         return newRows.size();
@@ -341,10 +361,12 @@ public class GmailIngestionService {
                 PageRequest.of(0, budget)
         );
 
-        // Statement mails first (stable), so a statement lands before the alerts it covers. Only rows already read
-        // once (a retry carries its pipeline kind) are known; a fresh DISCOVERED row has no attachment info until fetched.
+        // The query already orders attachment / statement mails first across the whole backlog; the same order is
+        // kept here so the batch never depends on the database's tie-breaking.
         pendingBatch = new ArrayList<>(pendingBatch);
-        pendingBatch.sort(Comparator.comparingInt(r -> "STATEMENT".equals(r.getPipelineKind()) ? 0 : 1));
+        pendingBatch.sort(Comparator.<GmailProcessedMessage>comparingInt(
+                        r -> r.isHasAttachment() || "STATEMENT".equals(r.getPipelineKind()) ? 0 : 1)
+                .thenComparing(GmailProcessedMessage::getInternalDate, Comparator.nullsLast(Comparator.naturalOrder())));
 
         int processedCount = 0;
         int createdCount = 0;
@@ -368,9 +390,7 @@ public class GmailIngestionService {
 
         for (GmailProcessedMessage row : pendingBatch) {
             processedCount++;
-            MergeRequest[] mergeOut = new MergeRequest[1];
-            ProcessedMessage outcome = processSingleMessageInTx(service, connection, row, enabledSenders, mergeOut, arrivalContexts);
-            mergeCheckInShadow(mergeOut[0]);
+            ProcessedMessage outcome = processSingleMessageInTx(service, connection, row, enabledSenders, arrivalContexts);
             if (!outcome.createdTxns().isEmpty()) {
                 createdTxns.addAll(outcome.createdTxns());
             }
@@ -459,7 +479,7 @@ public class GmailIngestionService {
     /** One message's created transactions plus its run detail (built inside the transaction, while entities are attached). */
     private record ProcessedMessage(List<Transaction> createdTxns, SyncSummary.MessageResult result) {}
 
-    private ProcessedMessage processSingleMessageInTx(Gmail service, GmailConnection connection, GmailProcessedMessage row, List<GmailSender> enabledSenders, MergeRequest[] mergeOut,
+    private ProcessedMessage processSingleMessageInTx(Gmail service, GmailConnection connection, GmailProcessedMessage row, List<GmailSender> enabledSenders,
                                                        Map<UUID, com.financeos.domain.categorization.CategoryAssigner.ArrivalContext> arrivalContexts) {
         // The failure processMessage caught, kept here because a DB failure also marks the transaction rollback-only:
         // the commit then throws "silently rolled back" and the ledger update made in the catch is lost.
@@ -472,12 +492,11 @@ public class GmailIngestionService {
                 GmailProcessedMessage gpm = processedMessageRepository.findById(row.getId()).orElse(row);
                 seen[0] = gpm;
                 ReconSummary[] recon = new ReconSummary[1];
-                List<Transaction> created = processMessage(service, connection, gpm, enabledSenders, recon, mergeOut, arrivalContexts, caught);
+                List<Transaction> created = processMessage(service, connection, gpm, enabledSenders, recon, arrivalContexts, caught);
                 return new ProcessedMessage(created, toMessageResult(gpm, created, recon[0]));
             });
         } catch (RuntimeException | StackOverflowError e) {
             // The transaction is over (rolled back); one failing message must never fail the whole sync.
-            mergeOut[0] = null;
             Throwable cause = caught[0] != null ? caught[0] : e;
             return new ProcessedMessage(List.of(), recordFailureInFreshTx(row, seen[0], cause, connection));
         }
@@ -633,7 +652,6 @@ public class GmailIngestionService {
 
     private List<Transaction> processMessage(Gmail service, GmailConnection connection, GmailProcessedMessage gpm,
                                              List<GmailSender> enabledSenders, ReconSummary[] reconOut,
-                                             MergeRequest[] mergeOut,
                                              Map<UUID, com.financeos.domain.categorization.CategoryAssigner.ArrivalContext> arrivalContexts,
                                              Throwable[] caughtOut) {
         gpm.setStatus(GmailProcessedStatus.PROCESSING);
@@ -726,9 +744,9 @@ public class GmailIngestionService {
                 return List.of();
             }
 
-            // Offline engine first: a template read whose account and date a statement already covers needs no AI read.
+            // Offline engine first: a template read that is a payment already on the ledger needs no AI read.
             Optional<ExtractedTransaction> engineResult = runEngine(message);
-            if (skipIfCoveredByEngine(gpm, message, fromAddress, engineResult)) {
+            if (attachIfMatchedByEngine(gpm, message, fromAddress, engineResult)) {
                 return List.of();
             }
 
@@ -736,13 +754,18 @@ public class GmailIngestionService {
             GeminiExtractionResult extractionResult = geminiExtractor.extract(message);
             Optional<ExtractedTransaction> shadowEngine = extractInShadow(gpm, message, extractionResult, engineResult);
             if (!extractionResult.isSuccess()) {
-                mergeOut[0] = mergeRequest(gpm, connection.getUser().getId(), null, shadowEngine);
                 throw new RuntimeException("Extraction failed: " + extractionResult.failureReason());
             }
 
+            if (!extractionResult.isTransaction()) {
+                List<Transaction> overridden = writeFromTemplateOverride(connection, gpm, message, fromAddress, engineResult,
+                        arrivalContexts);
+                if (overridden != null) {
+                    return overridden;
+                }
+            }
             recordPipelineKind(gpm, extractionResult.isTransaction() ? "ALERT" : "OTHER");
             if (!extractionResult.isTransaction()) {
-                mergeOut[0] = mergeRequest(gpm, connection.getUser().getId(), null, shadowEngine);
                 gpm.setStatus(GmailProcessedStatus.SKIPPED_NOT_TRANSACTION);
                 gpm.setError(null);
                 processedMessageRepository.save(gpm);
@@ -772,7 +795,6 @@ public class GmailIngestionService {
             }
             Account account = resolved != null ? resolved.account() : null;
             com.financeos.domain.account.card.Card card = resolved != null ? resolved.card() : null;
-            mergeOut[0] = mergeRequest(gpm, connection.getUser().getId(), account, shadowEngine);
 
             if (account == null) {
                 gpm.setStatus(GmailProcessedStatus.UNRESOLVED_ACCOUNT);
@@ -792,13 +814,14 @@ public class GmailIngestionService {
 
             // Write transaction (checks ingestFromDate watermark inside writer)
             GmailProcessedMessage result = gmailTransactionWriter.writeTransaction(
-                    connection, message.messageId(), extractionResult, account, card);
+                    connection, message.messageId(), extractionResult, account, card, emailContext(message, fromAddress));
             gpm.setStatus(result.getStatus());
             gpm.setTransaction(result.getTransaction());
             gpm.setError(result.getError());
             processedMessageRepository.save(gpm);
 
-            if (result.getTransaction() != null) {
+            // An alert attached to an existing transaction created nothing: no arrival categorising, not counted as new.
+            if (result.getTransaction() != null && result.getStatus() == GmailProcessedStatus.CREATED) {
                 if (result.getTransaction().getId() != null) {
                     arrivalContexts.put(result.getTransaction().getId(),
                             arrivalContext(message, fromAddress, extractionResult, shadowEngine));
@@ -832,6 +855,75 @@ public class GmailIngestionService {
         }
         return new com.financeos.domain.categorization.CategoryAssigner.ArrivalContext(counterparty, fromAddress,
                 message.subject(), text, engine.map(ExtractedTransaction::templateId).orElse(null));
+    }
+
+    static final String TEMPLATE_OVERRIDE_NOTE = "AI said not a transaction; bank template read it";
+
+    /**
+     * Owner rule 06/11/2026: the AI called the mail not a transaction, but the classifier is HIGH ALERT (not DECLINED / OTP /
+     * SECURITY) and a bank template read amount, date, direction, currency and last4 completely, with the account resolving
+     * to one opted-in account. The template wins: written through the normal writer (attach or create).
+     * Returns null when the rule does not fire (the caller records SKIPPED_NOT_TRANSACTION), else the created transactions.
+     */
+    private List<Transaction> writeFromTemplateOverride(GmailConnection connection, GmailProcessedMessage gpm, GmailMessage message,
+                                                        String fromAddress, Optional<ExtractedTransaction> engine,
+                                                        Map<UUID, com.financeos.domain.categorization.CategoryAssigner.ArrivalContext> arrivalContexts) {
+        if (engine == null || engine.isEmpty() || !isHighAlertForOverride(gpm)) {
+            return null;
+        }
+        ExtractedTransaction e = engine.get();
+        if (e.tier() != com.financeos.gmail.extract.Tier.TEMPLATE || e.amount() == null || e.date() == null
+                || e.direction() == null || e.last4() == null || e.currency() == null
+                || !(e.currency().equals("INR") || e.currency().matches("[A-Z]{3}"))) {
+            return null;
+        }
+        List<String> resolveTexts = java.util.Arrays.asList(message.subject(), message.getStrippedText());
+        AccountResolver.ResolvedCard resolved = accountResolver.resolve(e.last4(), resolveTexts, fromAddress).orElse(null);
+        Account account = resolved == null ? null : resolved.account();
+        if (account == null || account.getIngestFromDate() == null) {
+            return null;
+        }
+        LocalDate date = e.date();
+        if (message.internalDate() != null) {
+            LocalDate sentOn = message.internalDate().atZone(AppTime.zone()).toLocalDate();
+            if (date.isAfter(sentOn)) {
+                date = sentOn;
+            }
+        }
+        GeminiExtractionResult fromTemplate = new GeminiExtractionResult(true, e.amount(), e.currency(), e.direction().name(),
+                date, e.counterparty(), e.last4(), e.confidence(), true, null);
+        recordPipelineKind(gpm, "ALERT");
+        gpm.setExtractedLast4(normalizeLast4(e.last4()));
+        gpm.setAccount(account);
+        GmailProcessedMessage result = gmailTransactionWriter.writeTransaction(
+                connection, message.messageId(), fromTemplate, account, resolved.card(), emailContext(message, fromAddress));
+        gpm.setStatus(result.getStatus());
+        gpm.setTransaction(result.getTransaction());
+        gpm.setError(result.getError());
+        gpm.setExtractMismatch(TEMPLATE_OVERRIDE_NOTE);
+        processedMessageRepository.save(gpm);
+        log.info("gmail.alert.template_override=1 template={} status={}", e.templateId(), result.getStatus());
+        if (observabilityMetrics != null) {
+            observabilityMetrics.recordGmailAlertTemplateOverride();
+        }
+        if (result.getTransaction() != null && result.getStatus() == GmailProcessedStatus.CREATED) {
+            if (result.getTransaction().getId() != null) {
+                arrivalContexts.put(result.getTransaction().getId(),
+                        arrivalContext(message, fromAddress, fromTemplate, engine));
+            }
+            return List.of(result.getTransaction());
+        }
+        return List.of();
+    }
+
+    /** Classifier says ALERT at HIGH confidence and the subtype is not a declined, OTP or security notice. */
+    static boolean isHighAlertForOverride(GmailProcessedMessage gpm) {
+        String subtype = gpm.getClassifiedSubtype();
+        return com.financeos.gmail.classify.EmailKind.ALERT.name().equals(gpm.getClassifiedKind())
+                && ClassifierConfidence.HIGH.name().equals(gpm.getClassifiedConfidence())
+                && !com.financeos.gmail.classify.EmailSubtype.DECLINED.name().equals(subtype)
+                && !com.financeos.gmail.classify.EmailSubtype.OTP.name().equals(subtype)
+                && !com.financeos.gmail.classify.EmailSubtype.SECURITY.name().equals(subtype);
     }
 
     /** True only for kind OTHER at HIGH confidence (never ALERT, STATEMENT or a lower confidence). */
@@ -914,41 +1006,68 @@ public class GmailIngestionService {
     }
 
     /**
-     * Pre-AI shortcut: a TEMPLATE-tier engine read with a last4 and a date, resolving to exactly one opted-in account
-     * whose statements already cover that date, is recorded as covered without calling the AI. Anything else returns false.
+     * Pre-AI shortcut: a TEMPLATE-tier engine read with amount, direction, date and last4, resolving to exactly one
+     * opted-in account, is matched like the final write; when it attaches to a payment already on the ledger the mail
+     * is recorded as attached without calling the AI. Anything else returns false (the AI read and the write follow).
      */
-    private boolean skipIfCoveredByEngine(GmailProcessedMessage gpm, GmailMessage message, String fromAddress,
-                                          Optional<ExtractedTransaction> engine) {
-        if (statementCoverage == null || engine == null || engine.isEmpty()) {
+    private boolean attachIfMatchedByEngine(GmailProcessedMessage gpm, GmailMessage message, String fromAddress,
+                                            Optional<ExtractedTransaction> engine) {
+        if (alertMatcher == null || engine == null || engine.isEmpty()) {
             return false;
         }
         ExtractedTransaction e = engine.get();
-        if (e.tier() != com.financeos.gmail.extract.Tier.TEMPLATE || e.last4() == null || e.date() == null) {
+        if (e.tier() != com.financeos.gmail.extract.Tier.TEMPLATE || e.last4() == null || e.date() == null
+                || e.amount() == null || e.direction() == null || e.currency() == null) {
             return false;
         }
         try {
             List<String> resolveTexts = java.util.Arrays.asList(message.subject(), message.getStrippedText());
-            Account account = accountResolver.resolve(e.last4(), resolveTexts, fromAddress)
-                    .map(AccountResolver.ResolvedCard::account).orElse(null);
+            AccountResolver.ResolvedCard resolved = accountResolver.resolve(e.last4(), resolveTexts, fromAddress).orElse(null);
+            Account account = resolved == null ? null : resolved.account();
             if (account == null || account.getIngestFromDate() == null) {
                 return false;
             }
-            Optional<String> covered = statementCoverage.coveredBy(account.getId(), e.date());
-            if (covered.isEmpty()) {
+            // The AI path's cap: an alert cannot describe a payment after the day it was sent.
+            LocalDate date = e.date();
+            if (message.internalDate() != null) {
+                LocalDate sentOn = message.internalDate().atZone(AppTime.zone()).toLocalDate();
+                if (date.isAfter(sentOn)) {
+                    date = sentOn;
+                }
+            }
+            if (date.isBefore(account.getIngestFromDate())) {
+                return false;
+            }
+            GmailTransactionWriter.EmailContext email = emailContext(message, fromAddress);
+            var alert = new com.financeos.domain.transaction.match.AlertMatcher.Alert(gpm.getUser(), account, resolved.card(),
+                    com.financeos.domain.transaction.TransactionType.valueOf(e.direction().name()), e.amount().abs(),
+                    e.currency(), date, e.counterparty(), e.last4(), email.refs(), email.senderAddress(), email.sentAt(),
+                    gpm.getGmailMessageId());
+            var attached = alertMatcher.attachIfMatched(alert);
+            if (attached.isEmpty()) {
                 return false;
             }
             recordPipelineKind(gpm, "ALERT");
             gpm.setExtractedLast4(normalizeLast4(e.last4()));
-            gpm.setAccount(account);
-            gpm.setStatus(GmailProcessedStatus.SKIPPED_BEFORE_WATERMARK);
-            gpm.setError(covered.get());
-            processedMessageRepository.save(gpm);
-            log.info("gmail.alert.covered_by_statement=1 skipped_ai_read=1");
+            gmailTransactionWriter.recordAttached(gpm, account, attached.get());
+            log.info("gmail.alert.attached_before_ai=1 kind={}", attached.get().kind());
             return true;
         } catch (Exception ex) {
-            log.warn("Pre-AI coverage check failed for message {}: {}", gpm.getGmailMessageId(), ex.toString());
+            log.warn("Pre-AI match failed for message {}: {}", gpm.getGmailMessageId(), ex.toString());
             return false;
         }
+    }
+
+    /** Sender, send time and the reference numbers anywhere in the mail (subject and text). */
+    private GmailTransactionWriter.EmailContext emailContext(GmailMessage message, String fromAddress) {
+        Set<String> refs = new LinkedHashSet<>();
+        try {
+            refs.addAll(com.financeos.domain.transaction.match.ReferenceNumbers.extract(message.subject()));
+            refs.addAll(com.financeos.domain.transaction.match.ReferenceNumbers.extract(message.getStrippedText()));
+        } catch (Exception e) {
+            log.debug("Reference numbers unavailable for message {}: {}", message.messageId(), e.toString());
+        }
+        return new GmailTransactionWriter.EmailContext(fromAddress, message.internalDate(), refs);
     }
 
     Optional<ExtractedTransaction> extractInShadow(GmailProcessedMessage gpm, GmailMessage message, GeminiExtractionResult ai) {
@@ -999,77 +1118,6 @@ public class GmailIngestionService {
             log.warn("Shadow extraction failed for message {}: {}", gpm.getGmailMessageId(), e.toString());
             return Optional.empty();
         }
-    }
-
-    /** What the merge check needs, carried out of the message transaction. */
-    record MergeRequest(UUID gpmId, UUID userId, UUID accountId, String gmailMessageId, String senderAddress,
-                        java.math.BigDecimal amount, LocalDate date,
-                        com.financeos.domain.transaction.TransactionType type) {}
-
-    /** Null when the check does not apply (engine off, no engine result, or no date/amount/direction). */
-    private MergeRequest mergeRequest(GmailProcessedMessage gpm, UUID userId, Account account, Optional<ExtractedTransaction> engine) {
-        if (transactionExtractor == null || engine == null || engine.isEmpty()) {
-            return null;
-        }
-        ExtractedTransaction e = engine.get();
-        if (e.date() == null || e.amount() == null || e.direction() == null) {
-            return null;
-        }
-        return new MergeRequest(gpm.getId(), userId, account == null ? null : account.getId(), gpm.getGmailMessageId(),
-                gpm.getSenderAddress(), e.amount().abs(),
-                e.date(), com.financeos.domain.transaction.TransactionType.valueOf(e.direction().name()));
-    }
-
-    /**
-     * Shadow merge check, run after the message's own transaction has committed, in its own small transaction:
-     * does this payment already exist as a transaction made by the other side's mail (issuer alert vs CRED /
-     * Paytm / Amazon Pay)? Only records extract_merge_txn; nothing is skipped or merged. Never throws.
-     */
-    void mergeCheckInShadow(MergeRequest r) {
-        if (r == null) {
-            return;
-        }
-        try {
-            String kind = transactionTemplate.execute(status -> {
-                var from = r.date().minusDays(MERGE_DATE_WINDOW_DAYS);
-                var to = r.date().plusDays(MERGE_DATE_WINDOW_DAYS);
-                var candidates = r.accountId() != null
-                        ? processedMessageRepository.findMergeCandidatesForAccount(r.userId(), r.accountId(),
-                                r.gmailMessageId(), r.amount(), r.type(), from, to)
-                        : processedMessageRepository.findMergeCandidates(r.userId(), r.gmailMessageId(),
-                                r.amount(), r.type(), from, to);
-                if (candidates == null) {
-                    return null;
-                }
-                boolean thisIsProvider = isProviderSender(r.senderAddress());
-                for (var c : candidates) {
-                    if (isProviderSender(c.getSenderAddress()) != thisIsProvider) {
-                        GmailProcessedMessage row = processedMessageRepository.findById(r.gpmId()).orElse(null);
-                        if (row == null) {
-                            return null;
-                        }
-                        row.setExtractMergeTxn(c.getTransactionId());
-                        processedMessageRepository.save(row);
-                        return thisIsProvider ? "provider_after_issuer" : "issuer_after_provider";
-                    }
-                }
-                return null;
-            });
-            if (kind != null && observabilityMetrics != null) {
-                observabilityMetrics.recordGmailExtractMerge(kind);
-            }
-        } catch (Exception ex) {
-            log.warn("Shadow merge check failed for message {}: {}", r.gmailMessageId(), ex.toString());
-        }
-    }
-
-    private static boolean isProviderSender(String address) {
-        if (address == null) {
-            return false;
-        }
-        int at = address.lastIndexOf('@');
-        String domain = (at >= 0 ? address.substring(at + 1) : address).trim().toLowerCase(Locale.ROOT);
-        return PROVIDER_SENDER_DOMAINS.stream().anyMatch(p -> domain.equals(p) || domain.endsWith("." + p));
     }
 
     /** What the existing pipeline decided, for comparison with the classifier; no effect on control flow. */

@@ -25,7 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * After a statement is parsed, the transactions in its period that still wait for review
- * (unreconciled, duplicate-suspect) are what the user asked to be told about. One shot per
+ * (not on the statement, or an old duplicate-suspect flag) are what the user asked to be told about. One shot per
  * statement, from the tick rather than the statement event: an uploaded statement commits its
  * row before its lines are linked and deduplicated, so the count is only trustworthy once the
  * ingest is a safe hour old. Not gated by the send hour, like the statement digest itself.
@@ -37,7 +37,7 @@ public class StatementReviewNotificationService implements NotificationProducer 
     /** Default minimum age (minutes) before a statement's count is trusted; the e2e profile sets 0. */
     static final int DEFAULT_MIN_AGE_MINUTES = 60;
     static final Duration MAX_AGE = Duration.ofDays(14);
-    static final List<ReviewReason> DANGLING_REASONS = List.of(ReviewReason.UNRECONCILED, ReviewReason.DUPLICATE_SUSPECT);
+    static final List<ReviewReason> DANGLING_REASONS = List.of(ReviewReason.NOT_ON_STATEMENT, ReviewReason.DUPLICATE_SUSPECT);
 
     private final StatementRepository statementRepository;
     private final TransactionRepository transactionRepository;

@@ -53,6 +53,7 @@ class FileIngestionServiceTest {
     private CategorizationService categorizationService;
     private StatementPersistenceService statementPersistenceService;
     private FileIngestionService ingestionService;
+    private com.financeos.domain.transaction.match.MatchFixture fixture;
 
     private UUID userId;
     private UUID accountId;
@@ -107,12 +108,12 @@ class FileIngestionServiceTest {
         when(accountService.getAccountById(accountId)).thenReturn(account);
         when(userRepository.getReferenceById(userId)).thenReturn(user);
 
+        fixture = new com.financeos.domain.transaction.match.MatchFixture();
+        ingestionService.setBatchMatcher(fixture.matcher);
         doAnswer(inv -> {
             List<Transaction> txs = inv.getArgument(0);
             for (Transaction t : txs) {
-                if (t.getId() == null) {
-                    t.setId(UUID.randomUUID());
-                }
+                fixture.store(t);
             }
             return null;
         }).when(dbHandler).saveTransactions(any(), any());
@@ -151,45 +152,37 @@ class FileIngestionServiceTest {
         when(statementPersistenceService.createIfNew(eq(user), eq(account), eq(StatementSource.file_upload), eq("file2.pdf"), any(), nullable(StatementDraft.class)))
                 .thenReturn(Optional.of(stmt2));
 
+        // An earlier row for line3's payment with no statement line yet: file2's line attaches to it.
         Transaction dbTx = new Transaction();
-        dbTx.setId(UUID.randomUUID());
+        dbTx.setAccount(account);
         dbTx.setDate(LocalDate.of(2026, 8, 3));
         dbTx.setAmount(new BigDecimal("300.00"));
+        dbTx.setType(TransactionType.DEBIT);
+        dbTx.setSource(TransactionSource.manual);
         dbTx.setSourcedDescription("Txn 3");
-
-        when(dbHandler.findExistingTransactions(eq(accountId), any(LocalDate.class), any(LocalDate.class))).thenReturn(List.of(dbTx));
-
-        when(transactionMatcher.areDuplicates(any(), any(), anyInt())).thenAnswer(invocation -> {
-            Transaction tx1 = invocation.getArgument(0);
-            Transaction tx2 = invocation.getArgument(1);
-            return tx1 != null && tx2 != null && tx1.getSourcedDescription() != null && tx1.getSourcedDescription().equals(tx2.getSourcedDescription());
-        });
-
+        fixture.store(dbTx);
 
         FileIngestionResult res = ingestionService.ingest(accountId, List.of(file1, file2));
 
         assertThat(res.filesProcessed()).isEqualTo(2);
-        assertThat(res.totalCreated()).isEqualTo(3);
-        assertThat(res.totalDuplicatesFound()).isEqualTo(1);
-        assertThat(res.duplicateDetails()).hasSize(1);
-
-        FileIngestionResult.DuplicateDetail dup = res.duplicateDetails().get(0);
-        assertThat(dup.filename()).isEqualTo("file2.pdf");
-        assertThat(dup.amount()).isEqualTo(new BigDecimal("300.00"));
-        assertThat(dup.matchedTransactionId()).isEqualTo(dbTx.getId());
+        assertThat(res.totalCreated()).isEqualTo(2);
+        assertThat(res.totalDuplicatesFound()).isZero();
+        assertThat(res.duplicateDetails()).isEmpty();
 
         assertThat(res.fileDetails()).hasSize(2);
         assertThat(res.fileDetails().get(0).created()).isEqualTo(2);
         assertThat(res.fileDetails().get(0).duplicates()).isEqualTo(0);
-        assertThat(res.fileDetails().get(1).created()).isEqualTo(1);
-        assertThat(res.fileDetails().get(1).duplicates()).isEqualTo(1);
+        assertThat(res.fileDetails().get(1).created()).isEqualTo(0);
+        assertThat(res.fileDetails().get(1).duplicates()).isEqualTo(0);
 
-        // Verify TxnLink line index (j fix: 0, 1 for file1; 0 for file2)
-        ArgumentCaptor<List<StatementPersistenceService.TxnLink>> linksCaptor = ArgumentCaptor.forClass(List.class);
-        verify(statementPersistenceService).linkTransactions(eq(stmt1.getId()), linksCaptor.capture());
-        List<StatementPersistenceService.TxnLink> file1Links = linksCaptor.getValue();
-        assertThat(file1Links.get(0).lineIndex()).isEqualTo(0);
-        assertThat(file1Links.get(1).lineIndex()).isEqualTo(1);
+        // Line indexes per file: 0, 1 for file1; 0 for file2 (on the existing row)
+        assertThat(fixture.links).filteredOn(l -> l.getId().getStatementId().equals(stmt1.getId()))
+                .extracting(com.financeos.domain.statement.StatementTransaction::getLineIndex).containsExactlyInAnyOrder(0, 1);
+        assertThat(fixture.links).filteredOn(l -> l.getId().getStatementId().equals(stmt2.getId()))
+                .singleElement().satisfies(l -> {
+                    assertThat(l.getLineIndex()).isZero();
+                    assertThat(l.getId().getTransactionId()).isEqualTo(dbTx.getId());
+                });
     }
 
     @Test
@@ -231,7 +224,7 @@ class FileIngestionServiceTest {
     }
 
     @Test
-    void testDuplicateCappingAt50() {
+    void rowsAlreadyOnTheAccountAreAttachedNeverFlagged() {
         byte[] bytes = "file_content".getBytes();
         UploadedFile file = new UploadedFile("file.pdf", "application/pdf", bytes);
 
@@ -242,41 +235,34 @@ class FileIngestionServiceTest {
         StatementExtractionResult parseResult = StatementExtractionResult.success(lines, "1234", LocalDate.of(2026, 8, 1), LocalDate.of(2026, 8, 1), null);
         when(statementParser.parse(eq(bytes), nullable(String.class))).thenReturn(parseResult);
 
-
         Statement stmt = new Statement();
         stmt.setId(UUID.randomUUID());
         when(statementPersistenceService.createIfNew(any(), any(), any(), any(), any(), nullable(StatementDraft.class))).thenReturn(Optional.of(stmt));
 
-
-
-
-        // Create 55 DB duplicates
-        List<Transaction> dbTxns = new ArrayList<>();
+        // 55 manual rows for the same payments, no statement line yet
         for (int i = 0; i < 55; i++) {
             Transaction dbTx = new Transaction();
-            dbTx.setId(UUID.randomUUID());
+            dbTx.setAccount(account);
             dbTx.setDate(LocalDate.of(2026, 8, 1));
             dbTx.setAmount(new BigDecimal("10.00"));
-            dbTx.setSourcedDescription("Dup " + i);
-            dbTxns.add(dbTx);
+            dbTx.setType(TransactionType.DEBIT);
+            dbTx.setSource(TransactionSource.manual);
+            dbTx.setDescription("Dup " + i);
+            fixture.store(dbTx);
         }
-        when(dbHandler.findExistingTransactions(any(), any(), any())).thenReturn(dbTxns);
-
-        when(transactionMatcher.areDuplicates(any(), any(), anyInt())).thenAnswer(inv -> {
-            Transaction t1 = inv.getArgument(0);
-            Transaction t2 = inv.getArgument(1);
-            return t1.getSourcedDescription().equals(t2.getSourcedDescription());
-        });
 
         FileIngestionResult res = ingestionService.ingest(accountId, List.of(file));
 
-        assertThat(res.totalDuplicatesFound()).isEqualTo(55);
-        assertThat(res.duplicateDetails()).hasSize(50);
-        assertThat(res.duplicatesTruncated()).isEqualTo(5);
+        assertThat(res.totalCreated()).isZero();
+        assertThat(res.totalDuplicatesFound()).isZero();
+        assertThat(res.duplicateDetails()).isEmpty();
+        assertThat(res.duplicatesTruncated()).isZero();
+        assertThat(fixture.txns).hasSize(55);
+        assertThat(fixture.links).hasSize(55);
     }
 
     @Test
-    void identicalRowsInOneStatementAreNotDuplicatesButRepeatInAnOverlappingStatementIs() {
+    void identicalRowsInOneStatementAreAllRealAndAnOverlappingStatementAttaches() {
         byte[] bytes1 = "file1_content".getBytes();
         byte[] bytes2 = "file2_content".getBytes();
         UploadedFile file1 = new UploadedFile("file1.pdf", "application/pdf", bytes1);
@@ -298,19 +284,16 @@ class FileIngestionServiceTest {
                 .thenReturn(Optional.of(stmt1));
         when(statementPersistenceService.createIfNew(eq(user), eq(account), eq(StatementSource.file_upload), eq("file2.pdf"), any(), nullable(StatementDraft.class)))
                 .thenReturn(Optional.of(stmt2));
-        when(dbHandler.findExistingTransactions(eq(accountId), any(LocalDate.class), any(LocalDate.class))).thenReturn(List.of());
-
-        TransactionMatcher realMatcher = new TransactionMatcher();
-        when(transactionMatcher.areDuplicates(any(), any(), anyInt())).thenAnswer(inv ->
-                realMatcher.areDuplicates(inv.getArgument(0), inv.getArgument(1), inv.getArgument(2)));
 
         FileIngestionResult single = ingestionService.ingest(accountId, List.of(file1));
+        assertThat(single.totalCreated()).isEqualTo(2);
         assertThat(single.totalDuplicatesFound()).isZero();
 
         FileIngestionResult overlapping = ingestionService.ingest(accountId, List.of(file1, file2));
-        assertThat(overlapping.totalDuplicatesFound()).isEqualTo(3);
-        assertThat(overlapping.fileDetails().get(0).duplicates()).isEqualTo(2);
-        assertThat(overlapping.fileDetails().get(1).duplicates()).isEqualTo(1);
+        assertThat(overlapping.totalCreated()).isZero();
+        assertThat(overlapping.totalDuplicatesFound()).isZero();
+        assertThat(fixture.txns).hasSize(2);
+        assertThat(fixture.links).filteredOn(l -> l.getId().getStatementId().equals(stmt2.getId())).hasSize(1);
     }
 
     @Test

@@ -184,6 +184,48 @@ class TransactionMergeTest {
     }
 
     @Test
+    void testMerge_KeptForeignChargeTakesTheRupeeAmount() {
+        UUID keepId = UUID.randomUUID();
+        UUID deleteId = UUID.randomUUID();
+        Transaction kept = createTestTxn(keepId, testAccount, TransactionSource.gmail_transaction_alert);
+        kept.setAmount(null);
+        kept.setOriginalAmount(new BigDecimal("20.00"));
+        kept.setOriginalCurrency("USD");
+        Transaction deleted = createTestTxn(deleteId, testAccount, TransactionSource.gmail_statement);
+        deleted.setAmount(new BigDecimal("928.08"));
+        when(transactionRepository.findById(keepId)).thenReturn(Optional.of(kept));
+        when(transactionRepository.findById(deleteId)).thenReturn(Optional.of(deleted));
+        when(transactionRepository.save(any(Transaction.class))).thenAnswer(i -> i.getArgument(0));
+
+        transactionService.mergeTransactions(keepId, deleteId);
+
+        assertEquals(new BigDecimal("928.08"), kept.getAmount());
+        assertEquals(new BigDecimal("20.00"), kept.getOriginalAmount());
+        assertEquals("USD", kept.getOriginalCurrency());
+    }
+
+    @Test
+    void testMerge_KeptRupeeRowTakesTheForeignAmountAndCurrency() {
+        UUID keepId = UUID.randomUUID();
+        UUID deleteId = UUID.randomUUID();
+        Transaction kept = createTestTxn(keepId, testAccount, TransactionSource.gmail_statement);
+        kept.setAmount(new BigDecimal("928.08"));
+        Transaction deleted = createTestTxn(deleteId, testAccount, TransactionSource.gmail_transaction_alert);
+        deleted.setAmount(null);
+        deleted.setOriginalAmount(new BigDecimal("20.00"));
+        deleted.setOriginalCurrency("USD");
+        when(transactionRepository.findById(keepId)).thenReturn(Optional.of(kept));
+        when(transactionRepository.findById(deleteId)).thenReturn(Optional.of(deleted));
+        when(transactionRepository.save(any(Transaction.class))).thenAnswer(i -> i.getArgument(0));
+
+        transactionService.mergeTransactions(keepId, deleteId);
+
+        assertEquals(new BigDecimal("928.08"), kept.getAmount());
+        assertEquals(new BigDecimal("20.00"), kept.getOriginalAmount());
+        assertEquals("USD", kept.getOriginalCurrency());
+    }
+
+    @Test
     void testMerge_CategoriesNotUnioned() {
         UUID keepId = UUID.randomUUID();
         UUID deleteId = UUID.randomUUID();

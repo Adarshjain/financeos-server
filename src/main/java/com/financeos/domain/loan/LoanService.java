@@ -611,6 +611,9 @@ public class LoanService {
     public LoanPaymentResponse addAutoPayment(UUID loanId, int installmentSeq, UUID transactionId) {
         Transaction tx = transactionRepository.findById(transactionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Transaction", transactionId));
+        if (tx.getAmount() == null) {
+            throw new ValidationException("This foreign charge has no rupee amount until its statement arrives.");
+        }
         return LoanPaymentResponse.from(savePayment(loanId,
                 new CreateLoanPaymentRequest(tx.getDate(), tx.getAmount(), installmentSeq, transactionId), LinkOrigin.AUTO));
     }

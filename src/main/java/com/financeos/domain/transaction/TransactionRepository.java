@@ -81,24 +81,15 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
            "AND t.type = com.financeos.domain.transaction.TransactionType.CREDIT AND t.date > :afterDate")
     java.math.BigDecimal sumCreditsAfter(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
 
-    /**
-     * Statement-sourced rows of one account that could be the statement side of an alert: same direction and
-     * exact amount, dated in the window, and not yet standing for any processed mail (a mail already paired
-     * with the row, whether as its absorbed alert or as a skipped duplicate).
-     */
-    @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId AND t.type = :type AND t.amount = :amount"
-            + " AND t.date BETWEEN :fromDate AND :toDate AND t.source IN :sources"
-            + " AND NOT EXISTS (SELECT 1 FROM com.financeos.gmail.domain.GmailProcessedMessage g WHERE g.transaction = t)")
-    List<Transaction> findUnpairedStatementRows(
-            @Param("accountId") UUID accountId,
-            @Param("type") TransactionType type,
-            @Param("amount") java.math.BigDecimal amount,
-            @Param("fromDate") LocalDate fromDate,
-            @Param("toDate") LocalDate toDate,
-            @Param("sources") java.util.Collection<TransactionSource> sources);
-
     @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId AND t.date BETWEEN :startDate AND :endDate")
     List<Transaction> findByAccountIdAndDateRange(
+            @Param("accountId") UUID accountId,
+            @Param("startDate") LocalDate startDate,
+            @Param("endDate") LocalDate endDate);
+
+    /** {@link #findByAccountIdAndDateRange} with each row's card in the same query: the matchers read every row's card last4. */
+    @Query("SELECT t FROM Transaction t LEFT JOIN FETCH t.card WHERE t.account.id = :accountId AND t.date BETWEEN :startDate AND :endDate")
+    List<Transaction> findLedgerByAccountIdAndDateRange(
             @Param("accountId") UUID accountId,
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate);
@@ -106,16 +97,18 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     /** Reward engine: fetch by effective date (settlement date when present, else transaction date). */
     @EntityGraph(attributePaths = { "tags.tag", "card.cardholder" })
     @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId " +
-            "AND COALESCE(t.settlementDate, t.date) BETWEEN :startDate AND :endDate")
+            "AND COALESCE(t.settlementDate, t.date) BETWEEN :startDate AND :endDate " +
+            "AND t.amount IS NOT NULL")
     List<Transaction> findForRewardEvaluation(
             @Param("accountId") UUID accountId,
             @Param("startDate") LocalDate startDate,
             @Param("endDate") LocalDate endDate);
 
-    /** {@link #findForRewardEvaluation} for several accounts at once (batched totals). */
+    /** {@link #findForRewardEvaluation} for several accounts at once (batched totals). Both skip foreign charges with no rupee amount yet. */
     @EntityGraph(attributePaths = { "tags.tag", "card.cardholder" })
     @Query("SELECT t FROM Transaction t WHERE t.account.id IN :accountIds " +
-            "AND COALESCE(t.settlementDate, t.date) BETWEEN :startDate AND :endDate")
+            "AND COALESCE(t.settlementDate, t.date) BETWEEN :startDate AND :endDate " +
+            "AND t.amount IS NOT NULL")
     List<Transaction> findForRewardEvaluationIn(
             @Param("accountIds") java.util.Collection<UUID> accountIds,
             @Param("startDate") LocalDate startDate,
@@ -161,7 +154,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
      * account, excluded ones included. One grouped query for a whole balance series.
      */
     @Query("SELECT t.date AS date, SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN t.amount ELSE -t.amount END) AS total "
-            + "FROM Transaction t WHERE t.account.id = :accountId AND t.date > :afterDate GROUP BY t.date")
+            + "FROM Transaction t WHERE t.account.id = :accountId AND t.date > :afterDate AND t.amount IS NOT NULL GROUP BY t.date")
     List<DailySumProjection> sumSignedByDateAfter(@Param("accountId") UUID accountId, @Param("afterDate") LocalDate afterDate);
 
     @Query("SELECT COALESCE(SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN t.amount ELSE -t.amount END), 0) FROM Transaction t WHERE t.account.id = :accountId AND t.date > :afterDate")
@@ -182,7 +175,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
 
     /** {@link #findTotalTransactionSumByAccountId} for several accounts at once; an account without transactions has no row. */
     @Query("SELECT t.account.id AS accountId, SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN t.amount ELSE -t.amount END) AS total "
-           + "FROM Transaction t WHERE t.account.id IN :accountIds GROUP BY t.account.id")
+           + "FROM Transaction t WHERE t.account.id IN :accountIds AND t.amount IS NOT NULL GROUP BY t.account.id")
     List<AccountSumProjection> findTotalTransactionSumsByAccountIds(@Param("accountIds") java.util.Collection<UUID> accountIds);
 
     interface AccountLastDateProjection {
@@ -311,7 +304,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     /** The user's bank-account (non-card) transactions dated in the window, newest first. */
     @Query("SELECT t FROM Transaction t WHERE t.user.id = :userId AND t.card IS NULL "
             + "AND t.account.type = com.financeos.domain.account.AccountType.bank_account "
-            + "AND t.date BETWEEN :minDate AND :maxDate ORDER BY t.date DESC, t.id")
+            + "AND t.date BETWEEN :minDate AND :maxDate AND t.amount IS NOT NULL ORDER BY t.date DESC, t.id")
     List<Transaction> findBankTransactionsBetween(
             @Param("userId") UUID userId,
             @Param("minDate") LocalDate minDate,
@@ -347,11 +340,16 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             @Param("fromDate") LocalDate fromDate,
             @Param("toDate") LocalDate toDate);
 
-    @Query("SELECT t FROM Transaction t JOIN t.reviewReasons r WHERE t.account.id = :accountId AND t.user.id = :userId AND t.source = com.financeos.domain.transaction.TransactionSource.gmail_transaction_alert AND t.date < :beforeDate AND r = com.financeos.domain.transaction.ReviewReason.UNRECONCILED")
+    /** Gmail cleanup: the account's alert rows before the date that no statement has a line for (unreconciled). */
+    @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId AND t.user.id = :userId AND t.source = com.financeos.domain.transaction.TransactionSource.gmail_transaction_alert AND t.date < :beforeDate "
+            + "AND NOT EXISTS (SELECT 1 FROM StatementTransaction st WHERE st.id.transactionId = t.id)")
     List<Transaction> findUnreconciledAlertsBeforeDate(
             @Param("accountId") UUID accountId,
             @Param("userId") UUID userId,
             @Param("beforeDate") LocalDate beforeDate);
+
+    /** Transactions tagged NOT_ON_STATEMENT by this statement. */
+    List<Transaction> findByNotOnStatementId(UUID notOnStatementId);
 
     /** Statement review digest: transactions still waiting for review inside a statement period, by reason. */
     @Query("SELECT COUNT(DISTINCT t.id) FROM Transaction t JOIN t.reviewReasons r WHERE t.account.id = :accountId AND t.reviewType = com.financeos.domain.transaction.ReviewType.NEEDS_REVIEW AND t.date BETWEEN :from AND :to AND r IN :reasons")
@@ -410,7 +408,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
      * the counterpart of a CC_PAYMENT link (a bill payment landing on the card) are not refunds, so they are left out.
      */
     @Query("SELECT t.card.id, SUM(CASE WHEN t.type = com.financeos.domain.transaction.TransactionType.CREDIT THEN -t.amount ELSE t.amount END) "
-            + "FROM Transaction t WHERE t.card.account.id = :accountId AND t.date >= :from AND t.date <= :to "
+            + "FROM Transaction t WHERE t.card.account.id = :accountId AND t.date >= :from AND t.date <= :to AND t.amount IS NOT NULL "
             + "AND NOT (t.type = com.financeos.domain.transaction.TransactionType.CREDIT AND EXISTS ("
             + "SELECT 1 FROM TransactionLinkMember m WHERE m.transaction = t "
             + "AND m.link.type = com.financeos.domain.transaction.link.LinkType.CC_PAYMENT)) "
@@ -439,7 +437,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
 
     /** The account's credit and debit totals (amounts are positive) for dates in {@code from}..{@code to}. */
     @Query("SELECT t.type AS type, SUM(t.amount) AS total FROM Transaction t "
-            + "WHERE t.account.id = :accountId AND t.date BETWEEN :from AND :to GROUP BY t.type")
+            + "WHERE t.account.id = :accountId AND t.date BETWEEN :from AND :to AND t.amount IS NOT NULL GROUP BY t.type")
     List<TypeTotalProjection> sumByTypeBetween(@Param("accountId") UUID accountId,
                                                @Param("from") LocalDate from, @Param("to") LocalDate to);
 
@@ -452,7 +450,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     /** Per category name (the fixed list), the account's totals of one direction for dates in {@code from}..{@code to}; uncategorised rows have no row here. */
     @Query("SELECT c.name AS name, SUM(t.amount) AS total FROM Transaction t "
             + "JOIN com.financeos.domain.category.TxnCategory c ON c.key = t.categoryKey "
-            + "WHERE t.account.id = :accountId AND t.type = :type AND t.date BETWEEN :from AND :to GROUP BY c.name")
+            + "WHERE t.account.id = :accountId AND t.type = :type AND t.date BETWEEN :from AND :to AND t.amount IS NOT NULL GROUP BY c.name")
     List<CategoryTotalProjection> sumByCategoryBetween(@Param("accountId") UUID accountId,
                                                        @Param("type") TransactionType type,
                                                        @Param("from") LocalDate from, @Param("to") LocalDate to);

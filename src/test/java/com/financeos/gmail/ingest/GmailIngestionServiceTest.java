@@ -152,7 +152,7 @@ class GmailIngestionServiceTest {
         Transaction txn = new Transaction();
         txn.setId(UUID.randomUUID());
         createdResult.setTransaction(txn);
-        when(gmailTransactionWriter.writeTransaction(connection, "msg-1", extSuccess, account, null)).thenReturn(createdResult);
+        when(gmailTransactionWriter.writeTransaction(eq(connection), eq("msg-1"), eq(extSuccess), eq(account), eq(null), any())).thenReturn(createdResult);
 
         SyncSummary summary = gmailIngestionService.syncConnection(connection);
 
@@ -368,7 +368,7 @@ class GmailIngestionServiceTest {
 
         GmailProcessedMessage createdResult = new GmailProcessedMessage();
         createdResult.setStatus(GmailProcessedStatus.CREATED);
-        when(gmailTransactionWriter.writeTransaction(connection, "msg-last4", extSuccess, account, null)).thenReturn(createdResult);
+        when(gmailTransactionWriter.writeTransaction(eq(connection), eq("msg-last4"), eq(extSuccess), eq(account), eq(null), any())).thenReturn(createdResult);
 
         gmailIngestionService.syncConnection(connection);
 

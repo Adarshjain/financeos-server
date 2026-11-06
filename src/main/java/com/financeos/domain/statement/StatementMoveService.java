@@ -12,10 +12,11 @@ import com.financeos.gmail.domain.GmailProcessedMessageRepository;
 import com.financeos.domain.transaction.ReviewReason;
 import com.financeos.domain.transaction.ReviewStatusManager;
 import com.financeos.domain.transaction.ReviewType;
-import com.financeos.domain.transaction.StatementDuplicateReconciler;
+import com.financeos.domain.transaction.match.StatementBatchMatcher;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionMatcher;
 import com.financeos.domain.transaction.TransactionRepository;
+import com.financeos.domain.transaction.TransactionService;
 import com.financeos.domain.transaction.TransactionSource;
 import com.financeos.domain.transaction.autolink.TransactionsIngestedEvent;
 import com.financeos.domain.transaction.link.LinkType;
@@ -23,7 +24,11 @@ import com.financeos.domain.transaction.link.TransactionLink;
 import com.financeos.domain.transaction.link.TransactionLinkMember;
 import com.financeos.domain.transaction.link.TransactionLinkRepository;
 import com.financeos.domain.transaction.link.TransactionLinkService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,16 +46,22 @@ import java.util.UUID;
  * Moves a statement and the transactions its lines point at to another account of the same type, in place: edits
  * (category, notes, splits, tags), links and loan/lending references stay because the rows are the same rows.
  * Rows another statement also has a line for stay where they are, as on delete. Everything runs in one transaction;
- * the duplicate pairing and auto-linking the normal import does afterwards runs for the target (merges and the
- * auto-link event fire after commit).
+ * the statement is then matched again on the target (StatementBatchMatcher) and auto-linking runs after commit.
  */
 @Service
 public class StatementMoveService {
 
     private static final int IN_CHUNK = 500;
 
-    /** What the move did: rows moved, and rows newly flagged as possible duplicates on the target. */
+    /** What the move did: rows moved; {@code duplicatesFlagged} is always 0 now (matching attaches, never flags). */
     public record Moved(int moved, int duplicatesFlagged) {}
+
+    /** Window and rule of the old possible-duplicate flags, still cleared on a move (old rows carry them). */
+    private static final int LEGACY_DUPLICATE_WINDOW_DAYS = 2;
+
+    private static boolean isAlertOrManual(Transaction t) {
+        return t.getSource() == TransactionSource.gmail_transaction_alert || t.getSource() == TransactionSource.manual;
+    }
 
     private final AccountRepository accountRepository;
     private final StatementRepository statementRepository;
@@ -60,12 +71,21 @@ public class StatementMoveService {
     private final TransactionLinkService transactionLinkService;
     private final TransactionMatcher transactionMatcher;
     private final ReviewStatusManager reviewStatusManager;
-    private final StatementDuplicateReconciler duplicateReconciler;
+    private final StatementBatchMatcher batchMatcher;
     private final CardRepository cardRepository;
     private final AppNotificationRepository appNotificationRepository;
     private final GmailProcessedMessageRepository gmailMessageRepository;
     private final ApplicationEventPublisher eventPublisher;
     private final AuditLogger auditLogger;
+    private TransactionService transactionService;
+
+    private static final Logger log = LoggerFactory.getLogger(StatementMoveService.class);
+
+    /** Folds a moved statement's own row into the target transaction its line now attaches to. */
+    @Autowired
+    public void setTransactionService(@Lazy TransactionService transactionService) {
+        this.transactionService = transactionService;
+    }
 
     public StatementMoveService(AccountRepository accountRepository,
                                 StatementRepository statementRepository,
@@ -75,7 +95,7 @@ public class StatementMoveService {
                                 TransactionLinkService transactionLinkService,
                                 TransactionMatcher transactionMatcher,
                                 ReviewStatusManager reviewStatusManager,
-                                StatementDuplicateReconciler duplicateReconciler,
+                                StatementBatchMatcher batchMatcher,
                                 CardRepository cardRepository,
                                 AppNotificationRepository appNotificationRepository,
                                 GmailProcessedMessageRepository gmailMessageRepository,
@@ -89,7 +109,7 @@ public class StatementMoveService {
         this.transactionLinkService = transactionLinkService;
         this.transactionMatcher = transactionMatcher;
         this.reviewStatusManager = reviewStatusManager;
-        this.duplicateReconciler = duplicateReconciler;
+        this.batchMatcher = batchMatcher;
         this.cardRepository = cardRepository;
         this.appNotificationRepository = appNotificationRepository;
         this.gmailMessageRepository = gmailMessageRepository;
@@ -146,13 +166,92 @@ public class StatementMoveService {
             accountRepository.save(target);
         }
 
-        int flagged = pairWithTargetRows(target.getId(), statement, moving);
+        // Alerts this statement tagged as not on it (on the source) lose the tag; the re-run tags again on the target.
+        untagNotOnStatement(statement.getId());
+
+        // The statement's lines are matched again on the target, as an import there would.
+        StatementBatchMatcher.Result rematch = batchMatcher.rerun(statement, target);
+        int movedCount = moving.size();
+        Set<UUID> folded = foldReplacedOwnRows(statement.getId(), rematch);
+        moving.removeIf(t -> folded.contains(t.getId()));
         if (!moving.isEmpty()) {
             eventPublisher.publishEvent(TransactionsIngestedEvent.of(userId, moving)); // auto-linking runs after commit
         }
         auditLogger.mutation("Statement", statement.getId(), "MOVE", "user:" + UserContext.getCurrentUserId(),
-                "manual", List.of("account"), moving.size(), null, "INR");
-        return new Moved(moving.size(), flagged);
+                "manual", List.of("account"), movedCount, null, "INR");
+        return new Moved(movedCount, 0);
+    }
+
+    /**
+     * Each own line-only row whose line now sits on a target transaction is merged into it and deleted: the target
+     * keeps its own fields and takes the user's choices it lacks (category, description, exclusion, tags, links).
+     * Returns the deleted rows' ids. Also used by the history re-match job, so both fold the same way.
+     */
+    public Set<UUID> foldReplacedOwnRows(UUID statementId, StatementBatchMatcher.Result rematch) {
+        Set<UUID> folded = new HashSet<>();
+        if (rematch == null || rematch.replacedOwnRows() == null || rematch.replacedOwnRows().isEmpty()) return folded;
+        Set<UUID> ids = new HashSet<>(rematch.replacedOwnRows().keySet());
+        ids.addAll(rematch.replacedOwnRows().values());
+        Map<UUID, Transaction> byId = new HashMap<>();
+        for (Transaction t : transactionRepository.findAllById(ids)) {
+            byId.put(t.getId(), t);
+        }
+        for (Map.Entry<UUID, UUID> e : rematch.replacedOwnRows().entrySet()) {
+            UUID ownId = e.getKey();
+            UUID keepId = e.getValue();
+            Transaction own = byId.get(ownId);
+            Transaction keep = byId.get(keepId);
+            if (own == null || keep == null) continue;
+            if (own.isExcludeSetByUser() && !keep.isExcludeSetByUser()) {
+                keep.setExcludeSetByUser(true);
+                keep.setTransactionExcluded(own.isTransactionExcluded());
+            }
+            if (transactionService != null && transactionService.mergeStatementDuplicate(keepId, ownId)) {
+                folded.add(ownId);
+            } else {
+                // Not folded (e.g. incompatible loan links): the line goes back to the own row and the target's attach
+                // is undone, so the payment is not on the ledger twice.
+                undoAttach(statementId, own, keep, rematch.replacedTargetsBefore() == null ? null
+                        : rematch.replacedTargetsBefore().get(keepId));
+                log.warn("Moved statement row not folded into its target match; line kept on the own row: own={}, target={}", ownId, keepId);
+            }
+        }
+        return folded;
+    }
+
+    /** As statement deletion does: the tag and its statement id go; NEEDS_REVIEW with no reason left → AUTO_REVIEWED. */
+    private void untagNotOnStatement(UUID statementId) {
+        List<Transaction> untagged = transactionRepository.findByNotOnStatementId(statementId);
+        if (untagged == null || untagged.isEmpty()) return;
+        for (Transaction t : untagged) {
+            if (t.getReviewReasons() != null) {
+                t.getReviewReasons().remove(ReviewReason.NOT_ON_STATEMENT);
+            }
+            t.setNotOnStatementId(null);
+            if ((t.getReviewReasons() == null || t.getReviewReasons().isEmpty()) && t.getReviewType() == ReviewType.NEEDS_REVIEW) {
+                reviewStatusManager.transitionTo(t, ReviewType.AUTO_REVIEWED);
+            }
+        }
+        transactionRepository.saveAll(untagged);
+    }
+
+    /** Moves the statement's line from {@code keep} back to {@code own} and restores {@code keep}'s fields before the attach. */
+    private void undoAttach(UUID statementId, Transaction own, Transaction keep, StatementBatchMatcher.Prior before) {
+        List<StatementTransaction> onKeep = statementTransactionRepository.findByIdStatementId(statementId).stream()
+                .filter(st -> keep.getId().equals(st.getId().getTransactionId())).toList();
+        if (!onKeep.isEmpty()) {
+            statementTransactionRepository.deleteAll(onKeep);
+            statementTransactionRepository.flush();
+            List<StatementTransaction> back = new ArrayList<>();
+            for (StatementTransaction st : onKeep) {
+                back.add(new StatementTransaction(statementId, own.getId(), st.getLineIndex(), st.getBalanceAfter(), st.getChainValid()));
+            }
+            statementTransactionRepository.saveAll(back);
+        }
+        if (before != null) {
+            before.restore(keep);
+            transactionRepository.save(keep);
+        }
     }
 
     /** Rows on the source account that this statement has a line for and no other statement does. */
@@ -173,7 +272,7 @@ public class StatementMoveService {
     /** Flagged rows staying in the source that look like a moved row. */
     private List<Transaction> sourcePartnersToRecheck(UUID sourceId, List<Transaction> moving, Set<UUID> movingIds) {
         List<Transaction> partners = new ArrayList<>();
-        for (Transaction survivor : window(sourceId, moving, StatementDuplicateReconciler.WINDOW_DAYS)) {
+        for (Transaction survivor : window(sourceId, moving, LEGACY_DUPLICATE_WINDOW_DAYS)) {
             if (movingIds.contains(survivor.getId()) || !survivor.getReviewReasons().contains(ReviewReason.DUPLICATE_SUSPECT)) {
                 continue;
             }
@@ -205,13 +304,13 @@ public class StatementMoveService {
         if (transactionMatcher.areDuplicates(a, b, 0)) {
             return true;
         }
-        if (StatementDuplicateReconciler.isAlertOrManual(a) == StatementDuplicateReconciler.isAlertOrManual(b)
+        if (isAlertOrManual(a) == isAlertOrManual(b)
                 || a.getDate() == null || b.getDate() == null || a.getAmount() == null || b.getAmount() == null
                 || a.getType() != b.getType() || a.getAmount().compareTo(b.getAmount()) != 0) {
             return false;
         }
         boolean sameCard = a.getCard() == null || b.getCard() == null || a.getCard().getId().equals(b.getCard().getId());
-        return sameCard && Math.abs(java.time.temporal.ChronoUnit.DAYS.between(a.getDate(), b.getDate())) <= StatementDuplicateReconciler.WINDOW_DAYS;
+        return sameCard && Math.abs(java.time.temporal.ChronoUnit.DAYS.between(a.getDate(), b.getDate())) <= LEGACY_DUPLICATE_WINDOW_DAYS;
     }
 
     /** The mail the statement came from and the alert mails of moved rows now belong to the target's ledger. */
@@ -238,7 +337,7 @@ public class StatementMoveService {
         if (partners.isEmpty()) {
             return;
         }
-        List<Transaction> remaining = window(sourceId, partners, StatementDuplicateReconciler.WINDOW_DAYS).stream().filter(t -> !movedIds.contains(t.getId())).toList();
+        List<Transaction> remaining = window(sourceId, partners, LEGACY_DUPLICATE_WINDOW_DAYS).stream().filter(t -> !movedIds.contains(t.getId())).toList();
         List<Transaction> cleared = new ArrayList<>();
         for (Transaction partner : partners) {
             boolean stillHasLookAlike = remaining.stream()
@@ -280,64 +379,6 @@ public class StatementMoveService {
         for (UUID linkId : toDelete) {
             transactionLinkService.deleteLink(linkId);
         }
-    }
-
-    /**
-     * What the import does for new rows: flag look-alikes among the target's statement rows, then pair the moved
-     * rows with the target's alert/manual rows (certain pairs merge after commit, the rest are flagged).
-     */
-    private int pairWithTargetRows(UUID targetId, Statement statement, List<Transaction> moving) {
-        if (moving.isEmpty()) {
-            return 0;
-        }
-        List<Transaction> existing = window(targetId, moving, StatementDuplicateReconciler.WINDOW_DAYS);
-        Set<UUID> movedIds = new HashSet<>();
-        for (Transaction m : moving) {
-            movedIds.add(m.getId());
-        }
-        Set<UUID> flagged = new HashSet<>();
-        List<Transaction> touched = new ArrayList<>();
-        for (Transaction row : moving) {
-            for (Transaction db : existing) {
-                if (movedIds.contains(db.getId()) || StatementDuplicateReconciler.isAlertOrManual(db)) {
-                    continue;
-                }
-                if (transactionMatcher.areDuplicates(row, db, 0)) {
-                    flagged.add(row.getId());
-                    reviewStatusManager.addReason(row, ReviewReason.DUPLICATE_SUSPECT);
-                    reviewStatusManager.addReason(db, ReviewReason.DUPLICATE_SUSPECT);
-                    touched.add(db);
-                }
-            }
-        }
-
-        LocalDate start = statement.getPeriodStart() != null ? statement.getPeriodStart() : minDate(moving);
-        LocalDate end = statement.getPeriodEnd() != null ? statement.getPeriodEnd() : maxDate(moving);
-        Set<UUID> pairedIds = new HashSet<>(movedIds);
-        Set<UUID> claimed = statementTransactionRepository.findLinkedTransactionIds(targetId, minDate(moving).minusDays(StatementDuplicateReconciler.WINDOW_DAYS),
-                maxDate(moving).plusDays(StatementDuplicateReconciler.WINDOW_DAYS));
-        if (claimed != null) {
-            pairedIds.addAll(claimed);
-        }
-        List<Transaction> statementRows = moving.stream().filter(t -> !StatementDuplicateReconciler.isAlertOrManual(t)).toList();
-        List<StatementDuplicateReconciler.Pair> certain = new ArrayList<>();
-        for (StatementDuplicateReconciler.Pair pair : duplicateReconciler.pair(statementRows, existing, start, end, pairedIds)) {
-            pairedIds.add(pair.existing().getId());
-            if (pair.certain()) {
-                certain.add(pair);
-            } else {
-                flagged.add(pair.statementRow().getId());
-                reviewStatusManager.addReason(pair.statementRow(), ReviewReason.DUPLICATE_SUSPECT);
-                reviewStatusManager.addReason(pair.existing(), ReviewReason.DUPLICATE_SUSPECT);
-                touched.add(pair.existing());
-            }
-        }
-        transactionRepository.saveAll(moving);
-        transactionRepository.saveAll(touched);
-        if (!certain.isEmpty()) {
-            duplicateReconciler.mergeCertainAfterCommit(certain);
-        }
-        return flagged.size();
     }
 
     /** The account's transactions dated within the span of these ones, widened by {@code slackDays} each side. */

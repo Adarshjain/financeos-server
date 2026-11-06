@@ -53,7 +53,8 @@ public class TransactionController {
                 transactionLinkService.linkSummariesFor(ids);
         java.util.Map<UUID, java.util.List<ObligationRef>> refMap = obligationRefService.refsFor(ids);
         java.util.Map<UUID, TransactionSuggestion> suggestionMap = suggestionService.suggestionsFor(ids);
-        Page<TransactionResponse> response = transactions.map(t -> TransactionResponse.from(t, t.getBalance(), linkMap, refMap, suggestionMap));
+        java.util.Map<UUID, TransactionResponse.NotOnStatement> notOnStatementMap = notOnStatementFor(transactions.getContent());
+        Page<TransactionResponse> response = transactions.map(t -> TransactionResponse.from(t, t.getBalance(), linkMap, refMap, suggestionMap, notOnStatementMap));
         return ResponseEntity.ok(response);
     }
 
@@ -68,7 +69,8 @@ public class TransactionController {
                 transactionLinkService.linkSummariesFor(ids);
         java.util.Map<UUID, java.util.List<ObligationRef>> refMap = obligationRefService.refsFor(ids);
         java.util.Map<UUID, TransactionSuggestion> suggestionMap = suggestionService.suggestionsFor(ids);
-        Page<TransactionResponse> response = transactions.map(t -> TransactionResponse.from(t, t.getBalance(), linkMap, refMap, suggestionMap));
+        java.util.Map<UUID, TransactionResponse.NotOnStatement> notOnStatementMap = notOnStatementFor(transactions.getContent());
+        Page<TransactionResponse> response = transactions.map(t -> TransactionResponse.from(t, t.getBalance(), linkMap, refMap, suggestionMap, notOnStatementMap));
         return ResponseEntity.ok(response);
     }
 
@@ -152,6 +154,18 @@ public class TransactionController {
         java.util.List<UUID> ids = java.util.List.of(transaction.getId());
         return TransactionResponse.from(transaction, null,
                 transactionLinkService.linkSummariesFor(ids), obligationRefService.refsFor(ids),
-                suggestionService.suggestionsFor(ids));
+                suggestionService.suggestionsFor(ids), notOnStatementFor(java.util.List.of(transaction)));
+    }
+
+    /** Set by Spring; hand-built tests need none (a tagged row then carries the statement id only). */
+    private com.financeos.domain.transaction.match.NotOnStatementLookup notOnStatementLookup;
+
+    @org.springframework.beans.factory.annotation.Autowired
+    public void setNotOnStatementLookup(com.financeos.domain.transaction.match.NotOnStatementLookup notOnStatementLookup) {
+        this.notOnStatementLookup = notOnStatementLookup;
+    }
+
+    private java.util.Map<UUID, TransactionResponse.NotOnStatement> notOnStatementFor(java.util.Collection<Transaction> transactions) {
+        return notOnStatementLookup == null ? java.util.Map.of() : notOnStatementLookup.forTransactions(transactions);
     }
 }

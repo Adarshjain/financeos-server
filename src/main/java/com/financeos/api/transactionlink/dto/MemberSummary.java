@@ -9,7 +9,7 @@ import java.util.UUID;
 public record MemberSummary(
         UUID transactionId,
         LocalDate date,
-        BigDecimal signedAmount,
+        @Nullable BigDecimal signedAmount,
         @Nullable String description,
         UUID accountId,
         boolean isAnchor,

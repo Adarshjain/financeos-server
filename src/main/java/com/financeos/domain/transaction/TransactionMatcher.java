@@ -64,7 +64,7 @@ public class TransactionMatcher {
             }
 
             // Exact amount and same direction check
-            if (candidate.getAmount().compareTo(line.amount().abs()) != 0) {
+            if (candidate.getAmount() == null || candidate.getAmount().compareTo(line.amount().abs()) != 0) {
                 continue;
             }
             TransactionType lineType = TransactionType.fromLlmDirection(line.direction());
@@ -155,7 +155,7 @@ public class TransactionMatcher {
      * matches the bank narration that names it ("UPI/DR/4123/SWIGGY/YESB"), while two narrations
      * that differ anywhere, such as in a reference number, never match.
      */
-    static boolean namesSameCounterparty(String s1, String s2) {
+    public static boolean namesSameCounterparty(String s1, String s2) {
         if (s1 == null || s2 == null) return false;
         List<String> words1 = words(s1);
         List<String> words2 = words(s2);

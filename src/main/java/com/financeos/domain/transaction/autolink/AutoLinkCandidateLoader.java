@@ -23,7 +23,9 @@ public class AutoLinkCandidateLoader {
 
     private static final String SELECT = "SELECT t.id, a.id, a.type, t.date, t.amount, t.type, "
             + "COALESCE(t.sourcedDescription, t.description) "
-            + "FROM Transaction t JOIN t.account a WHERE t.user.id = :userId ";
+            + "FROM Transaction t JOIN t.account a WHERE t.user.id = :userId "
+            // A foreign charge with no rupee amount yet is linked once its statement gives one.
+            + "AND t.amount IS NOT NULL ";
 
     /** The "nothing owns this transaction" conditions on alias {@code t}; shared with the NPS payment linking. */
     public static final String FREE = ""

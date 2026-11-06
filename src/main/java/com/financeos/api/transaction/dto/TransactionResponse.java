@@ -20,7 +20,8 @@ public record TransactionResponse(
                 /** The plastic the spend happened on — the user-facing requirement is "account name + last 4". */
                 @Nullable String cardLast4,
                 LocalDate date,
-                BigDecimal amount,
+                /** Signed rupee amount; null for a foreign charge until its statement gives the rupee amount. */
+                @Nullable BigDecimal amount,
                 @Nullable String description,
                 @Nullable String sourcedDescription,
                 /** The transaction's one category; null = uncategorised. */
@@ -56,7 +57,17 @@ public record TransactionResponse(
                 /** Loan/lending rows that reference this transaction via direct FK (empty when none). */
                 java.util.List<ObligationRef> obligationRefs,
                 /** The open link suggestion this row is the subject or a candidate of; null when none. */
-                @Nullable TransactionSuggestion suggestion) {
+                @Nullable TransactionSuggestion suggestion,
+                /** A foreign charge's own amount, signed like amount (-20.00 for a USD 20.00 debit); null for rupee transactions. */
+                @Nullable BigDecimal originalAmount,
+                /** ISO code of originalAmount (e.g. USD); null for rupee transactions. */
+                @Nullable String originalCurrency,
+                /** The statement this alert is missing from (review reason NOT_ON_STATEMENT); null when none. */
+                @Nullable NotOnStatement notOnStatement) {
+
+        /** The statement whose period holds the alert but has no line for it; the period is null if the statement is gone. */
+        public record NotOnStatement(UUID statementId, @Nullable LocalDate periodStart, @Nullable LocalDate periodEnd) {
+        }
 
         public static TransactionResponse from(Transaction transaction) {
                 return from(transaction, null, java.util.Collections.emptyMap());
@@ -81,9 +92,24 @@ public record TransactionResponse(
                         java.util.Map<UUID, java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary>> linkMap,
                         java.util.Map<UUID, java.util.List<ObligationRef>> obligationRefMap,
                         java.util.Map<UUID, TransactionSuggestion> suggestionMap) {
+                return from(transaction, balance, linkMap, obligationRefMap, suggestionMap, java.util.Collections.emptyMap());
+        }
+
+        /** {@code notOnStatementMap}: statement id → its period, batch-loaded for the page (see NotOnStatementLookup). */
+        public static TransactionResponse from(Transaction transaction, BigDecimal balance,
+                        java.util.Map<UUID, java.util.List<com.financeos.api.transactionlink.dto.TransactionLinkSummary>> linkMap,
+                        java.util.Map<UUID, java.util.List<ObligationRef>> obligationRefMap,
+                        java.util.Map<UUID, TransactionSuggestion> suggestionMap,
+                        java.util.Map<UUID, NotOnStatement> notOnStatementMap) {
+                UUID notOnStatementId = transaction.getNotOnStatementId();
+                NotOnStatement notOnStatement = notOnStatementId == null ? null
+                                : notOnStatementMap != null && notOnStatementMap.containsKey(notOnStatementId)
+                                                ? notOnStatementMap.get(notOnStatementId)
+                                                : new NotOnStatement(notOnStatementId, null, null);
                 // Convert internal representation (unsigned + type) to API representation
-                // (signed)
-                BigDecimal signedAmount = transaction.getType() == TransactionType.DEBIT
+                // (signed); null for a foreign charge whose rupee amount the statement has not given yet
+                BigDecimal signedAmount = transaction.getAmount() == null ? null
+                                : transaction.getType() == TransactionType.DEBIT
                                 ? transaction.getAmount().negate()
                                 : transaction.getAmount();
 
@@ -154,7 +180,13 @@ public record TransactionResponse(
                                 transaction.getIsInternational(),
                                 transactionLinks,
                                 refs,
-                                suggestionMap != null ? suggestionMap.get(transaction.getId()) : null);
+                                suggestionMap != null ? suggestionMap.get(transaction.getId()) : null,
+                                transaction.getOriginalAmount() == null ? null
+                                                : transaction.getType() == TransactionType.DEBIT
+                                                                ? transaction.getOriginalAmount().negate()
+                                                                : transaction.getOriginalAmount(),
+                                transaction.getOriginalCurrency(),
+                                notOnStatement);
         }
 
         /** The rule behind a RULE category: its id and what the rules page calls it (display name, else pattern). */

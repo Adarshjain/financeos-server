@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.lang.Nullable;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -55,7 +56,7 @@ public class RuleMatchService {
     public record MatchedTransaction(
             UUID id,
             LocalDate date,
-            BigDecimal amount,
+            @Nullable BigDecimal amount,
             TransactionType type,
             String sourcedDescription,
             String categoryKey,
@@ -87,7 +88,7 @@ public class RuleMatchService {
     public record AppliedTransaction(
             UUID id,
             LocalDate date,
-            BigDecimal amount,
+            @Nullable BigDecimal amount,
             TransactionType type,
             String description) {
     }

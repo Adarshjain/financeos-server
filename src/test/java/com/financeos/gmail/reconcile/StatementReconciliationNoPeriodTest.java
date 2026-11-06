@@ -6,7 +6,6 @@ import com.financeos.domain.account.card.CardRepository;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementPersistenceService;
 import com.financeos.domain.transaction.ReviewStatusManager;
-import com.financeos.domain.transaction.TransactionMatcher;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.user.User;
 import com.financeos.gmail.domain.GmailConnection;
@@ -16,7 +15,6 @@ import com.financeos.gmail.domain.GmailProcessedStatus;
 import org.mockito.ArgumentCaptor;
 import com.financeos.gmail.engine.GmailEngine;
 import com.financeos.gmail.ingest.AccountResolver;
-import com.financeos.gmail.ingest.GmailIngestProperties;
 import com.financeos.gmail.ingest.ParkedMessageSettler;
 import com.financeos.gmail.internal.GmailAttachment;
 import com.financeos.gmail.internal.GmailMessage;
@@ -65,8 +63,8 @@ class StatementReconciliationNoPeriodTest {
     @BeforeEach
     void setUp() throws Exception {
         service = new StatementReconciliationService(gmailEngine, statementParser, transactionRepository,
-                processed, new GmailIngestProperties(), mock(AccountRepository.class),
-                accountResolver, new TransactionMatcher(), new ReviewStatusManager(), statementPersistenceService,
+                processed, mock(AccountRepository.class),
+                accountResolver, new ReviewStatusManager(), statementPersistenceService,
                 mock(CardRepository.class), mock(ParkedMessageSettler.class));
         connection = new GmailConnection();
         connection.setId(UUID.randomUUID());

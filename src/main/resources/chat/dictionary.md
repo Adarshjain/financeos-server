@@ -25,6 +25,7 @@ Individual financial transactions (bank debits/credits, credit card swipes, manu
 - `transaction_date`: Date the transaction occurred (YYYY-MM-DD).
 - `settlement_date`: Bank posting date (used for rewards windows when present).
 - `amount`: Positive transaction amount in account currency.
+- Foreign-currency charges still waiting for their statement (no rupee amount yet) are not in this view; they appear once the statement fills their amount.
 - `direction`: `'DEBIT'` (outflow/spend) or `'CREDIT'` (inflow/income/refund).
 - `description`: User/bank transaction description.
 - `sourced_description`: Raw description from bank SMS or email statement.

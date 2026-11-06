@@ -477,19 +477,22 @@ public class GmailController {
         }
 
         List<Transaction> txns = transactionRepository.findUnreconciledAlertsBeforeDate(id, currentUser.getId(), before);
-        int deletedCount = 0;
-        for (Transaction txn : txns) {
-            Optional<GmailProcessedMessage> gpmOpt = processedMessageRepository.findByTransactionId(txn.getId());
-            if (gpmOpt.isPresent()) {
-                GmailProcessedMessage gpm = gpmOpt.get();
-                gpm.setStatus(GmailProcessedStatus.CLEANED_UP);
-                gpm.setTransaction(null);
-                processedMessageRepository.save(gpm);
-            }
-            transactionRepository.delete(txn);
-            deletedCount++;
+        // Several mails can point at one transaction (provider and issuer, a resend): all of them, in chunked queries.
+        List<UUID> ids = txns.stream().map(Transaction::getId).toList();
+        List<GmailProcessedMessage> mails = new java.util.ArrayList<>();
+        for (int i = 0; i < ids.size(); i += 900) {
+            mails.addAll(processedMessageRepository.findAllByTransactionIdIn(ids.subList(i, Math.min(ids.size(), i + 900))));
         }
+        for (GmailProcessedMessage gpm : mails) {
+            gpm.setStatus(GmailProcessedStatus.CLEANED_UP);
+            gpm.setTransaction(null);
+        }
+        if (!mails.isEmpty()) {
+            processedMessageRepository.saveAll(mails);
+            processedMessageRepository.flush();
+        }
+        transactionRepository.deleteAll(txns);
 
-        return ResponseEntity.ok(new CleanupResultResponse(deletedCount));
+        return ResponseEntity.ok(new CleanupResultResponse(txns.size()));
     }
 }

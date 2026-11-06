@@ -5,7 +5,6 @@ import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.card.CardRepository;
 import com.financeos.domain.statement.StatementPersistenceService;
 import com.financeos.domain.transaction.ReviewStatusManager;
-import com.financeos.domain.transaction.TransactionMatcher;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.user.User;
 import com.financeos.gmail.domain.GmailConnection;
@@ -68,7 +67,7 @@ class StatementReconciliationUndecryptableTest {
     void setUp() throws Exception {
         GmailIngestProperties properties = new GmailIngestProperties();
         service = new StatementReconciliationService(gmailEngine, statementParser, mock(TransactionRepository.class),
-                processedMessageRepository, properties, accountRepository, accountResolver, new TransactionMatcher(),
+                processedMessageRepository, accountRepository, accountResolver,
                 new ReviewStatusManager(), statementPersistenceService, mock(CardRepository.class),
                 new ParkedMessageSettler(processedMessageRepository, accountResolver, properties));
 

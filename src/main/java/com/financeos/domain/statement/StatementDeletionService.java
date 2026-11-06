@@ -44,8 +44,10 @@ import java.util.UUID;
  *       Deleted through {@link TransactionService#batchDelete}, so transfer links dissolve and
  *       loan/lending/dividend references are unlinked exactly as on a manual delete.</li>
  *   <li>Transactions it only matched (email alerts, manual entries, rows another statement
- *       created) stay. An email alert no longer backed by any statement goes back to review as
- *       {@link ReviewReason#UNRECONCILED}, the state it had before the statement arrived.</li>
+ *       created) stay; only their line link goes. An email alert no longer backed by any statement
+ *       goes back to Pending (no review reason is added).</li>
+ *   <li>Alerts it tagged {@link ReviewReason#NOT_ON_STATEMENT} lose the tag (back to
+ *       AUTO_REVIEWED when no other reason is left).</li>
  *   <li>A surviving transaction flagged {@link ReviewReason#DUPLICATE_SUSPECT} whose only
  *       look-alike was deleted loses that flag.</li>
  *   <li>The account's last statement date falls back to the latest remaining statement, and the
@@ -118,10 +120,21 @@ public class StatementDeletionService {
         // that is about to go.
         List<Transaction> flaggedPartners = duplicateSuspectPartners(account.getId(), plan.toDelete());
 
-        for (Transaction alert : plan.alertsToReopen()) {
-            reviewStatusManager.addReason(alert, ReviewReason.UNRECONCILED);
+        // Attached alerts go back to Pending: they keep their row, only the line link goes (below).
+        // Alerts this statement tagged as not on it lose the tag.
+        List<Transaction> untagged = transactionRepository.findByNotOnStatementId(statement.getId());
+        for (Transaction t : untagged) {
+            if (t.getReviewReasons() != null) {
+                t.getReviewReasons().remove(ReviewReason.NOT_ON_STATEMENT);
+            }
+            t.setNotOnStatementId(null);
+            if ((t.getReviewReasons() == null || t.getReviewReasons().isEmpty()) && t.getReviewType() == ReviewType.NEEDS_REVIEW) {
+                reviewStatusManager.transitionTo(t, ReviewType.AUTO_REVIEWED);
+            }
         }
-        transactionRepository.saveAll(plan.alertsToReopen());
+        if (!untagged.isEmpty()) {
+            transactionRepository.saveAll(untagged);
+        }
 
         statementTransactionRepository.deleteByStatementId(statement.getId());
         statementRepository.delete(statement);

@@ -55,14 +55,14 @@ class TransactionQueryBuilderAccountIdFilterTest {
 
     @Test
     void anIdMatchesTheAccountIdWithoutTheAccountsJoin() {
-        assertEquals(" WHERE t.user_id = :userId AND t.account_id IN (:f0i)", where("is", JSON.textNode(A)));
+        assertEquals(" WHERE t.user_id = :userId AND t.amount IS NOT NULL AND t.account_id IN (:f0i)", where("is", JSON.textNode(A)));
         assertEquals(List.of(A), params.get("f0i"));
         assertFalse(joins.contains(TransactionQueryBuilder.JOIN_ACCOUNTS));
     }
 
     @Test
     void aListOfIdsMatchesAnyOfThem() {
-        assertEquals(" WHERE t.user_id = :userId AND t.account_id IN (:f0i)", where("in", array(A, B)));
+        assertEquals(" WHERE t.user_id = :userId AND t.amount IS NOT NULL AND t.account_id IN (:f0i)", where("in", array(A, B)));
         assertEquals(List.of(A, B), params.get("f0i"));
     }
 
@@ -74,15 +74,15 @@ class TransactionQueryBuilderAccountIdFilterTest {
 
     @Test
     void negatedIdsExcludeThoseAccounts() {
-        assertEquals(" WHERE t.user_id = :userId AND (t.account_id NOT IN (:f0i) OR t.account_id IS NULL)", where("not_in", array(A, B)));
+        assertEquals(" WHERE t.user_id = :userId AND t.amount IS NOT NULL AND (t.account_id NOT IN (:f0i) OR t.account_id IS NULL)", where("not_in", array(A, B)));
         params.clear();
-        assertEquals(" WHERE t.user_id = :userId AND (t.account_id NOT IN (:f0i) OR t.account_id IS NULL)", where("is_not", JSON.textNode(A)));
+        assertEquals(" WHERE t.user_id = :userId AND t.amount IS NOT NULL AND (t.account_id NOT IN (:f0i) OR t.account_id IS NULL)", where("is_not", JSON.textNode(A)));
     }
 
     @Test
     void aMixedListMatchesByIdOrByName() {
         String sql = where("in", array(A, "Main Bank"));
-        assertEquals(" WHERE t.user_id = :userId AND (t.account_id IN (:f0i) OR a.name IN (:f0n))", sql);
+        assertEquals(" WHERE t.user_id = :userId AND t.amount IS NOT NULL AND (t.account_id IN (:f0i) OR a.name IN (:f0n))", sql);
         assertEquals(List.of(A), params.get("f0i"));
         assertEquals(List.of("Main Bank"), params.get("f0n"));
         assertTrue(joins.contains(TransactionQueryBuilder.JOIN_ACCOUNTS));
@@ -91,21 +91,21 @@ class TransactionQueryBuilderAccountIdFilterTest {
     @Test
     void aNegatedMixedListExcludesBoth() {
         String sql = where("not_in", array(A, "Main Bank"));
-        assertEquals(" WHERE t.user_id = :userId AND ((t.account_id NOT IN (:f0i) OR t.account_id IS NULL) AND (a.name NOT IN (:f0n) OR a.name IS NULL))",
+        assertEquals(" WHERE t.user_id = :userId AND t.amount IS NOT NULL AND ((t.account_id NOT IN (:f0i) OR t.account_id IS NULL) AND (a.name NOT IN (:f0n) OR a.name IS NULL))",
                 sql);
     }
 
     @Test
     void namesOnlyKeepTheStandardNamePredicate() {
-        assertEquals(" WHERE t.user_id = :userId AND a.name = :f0", where("is", JSON.textNode("Main Bank")));
+        assertEquals(" WHERE t.user_id = :userId AND t.amount IS NOT NULL AND a.name = :f0", where("is", JSON.textNode("Main Bank")));
         assertEquals("Main Bank", params.get("f0"));
         params.clear();
-        assertEquals(" WHERE t.user_id = :userId AND (a.name NOT IN (:f0) OR a.name IS NULL)",
+        assertEquals(" WHERE t.user_id = :userId AND t.amount IS NOT NULL AND (a.name NOT IN (:f0) OR a.name IS NULL)",
                 where("not_in", array("Main Bank", "Wallet")));
     }
 
     @Test
     void aUuidLookingNameOfTheWrongLengthIsAName() {
-        assertEquals(" WHERE t.user_id = :userId AND a.name = :f0", where("is", JSON.textNode("1-2-3-4-5")));
+        assertEquals(" WHERE t.user_id = :userId AND t.amount IS NOT NULL AND a.name = :f0", where("is", JSON.textNode("1-2-3-4-5")));
     }
 }

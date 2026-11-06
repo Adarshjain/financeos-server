@@ -76,6 +76,29 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
     List<Statement> findWithCreditCardDetailsByIdIn(@Param("ids") java.util.Collection<UUID> ids);
 
     /** The dates and verdict of a statement: all the billing cycles read of it. */
+    interface StatementIdPeriod {
+        UUID getId();
+        LocalDate getPeriodStart();
+        LocalDate getPeriodEnd();
+    }
+
+    /** The periods of these statements, no entities (the not-on-statement detail of a transaction page). */
+    @Query("SELECT s.id AS id, s.periodStart AS periodStart, s.periodEnd AS periodEnd FROM Statement s WHERE s.id IN :ids")
+    List<StatementIdPeriod> findPeriodsByIdIn(@Param("ids") java.util.Collection<UUID> ids);
+
+    /** A statement's id, account, period and verdict: what coverage and matching read. */
+    interface StatementCoveragePeriod {
+        UUID getId();
+        UUID getAccountId();
+        LocalDate getPeriodStart();
+        LocalDate getPeriodEnd();
+        com.financeos.domain.statement.StatementVerdict getVerdict();
+    }
+
+    /** Every statement's id and period of several accounts, no entities (statement coverage and alert matching). */
+    @Query("SELECT s.id AS id, s.account.id AS accountId, s.periodStart AS periodStart, s.periodEnd AS periodEnd, s.verdict AS verdict FROM Statement s WHERE s.account.id IN :accountIds")
+    List<StatementCoveragePeriod> findCoveragePeriodsByAccountIdIn(@Param("accountIds") java.util.Collection<UUID> accountIds);
+
     interface StatementPeriod {
         UUID getAccountId();
         LocalDate getPeriodStart();

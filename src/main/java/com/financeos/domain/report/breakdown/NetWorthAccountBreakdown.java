@@ -251,7 +251,7 @@ class NetWorthAccountBreakdown implements NetWorthItemBreakdown {
         row.put("date", date);
         row.put("description", description != null ? description : sourcedDescription);
         row.put("category", categoryNames.stream().sorted().collect(Collectors.joining(", ")));
-        row.put("amount", type == TransactionType.CREDIT ? amount : amount.negate());
+        row.put("amount", amount == null ? null : type == TransactionType.CREDIT ? amount : amount.negate());
         row.put("excluded", excluded);
         return row;
     }

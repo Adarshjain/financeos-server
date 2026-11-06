@@ -744,7 +744,8 @@ public class RewardCalculationService {
                     for (TransactionLinkMember member : link.getMembers()) {
                         if (member.isAnchor()) {
                             anchorId = member.getTransaction().getId();
-                        } else if (member.getTransaction().getType() == TransactionType.CREDIT) {
+                        } else if (member.getTransaction().getType() == TransactionType.CREDIT
+                                && member.getTransaction().getAmount() != null) {
                             creditSum = creditSum.add(member.getTransaction().getAmount());
                         }
                     }
@@ -801,6 +802,9 @@ public class RewardCalculationService {
 
     private void evaluateTransaction(Transaction txn, Map<UUID, BigDecimal> refundTotals,
                                      Set<UUID> neverEarnIds, Evaluation eval, Map<UUID, Pattern> regexCache) {
+        if (txn.getAmount() == null) {
+            return; // a foreign charge earns once its statement gives the rupee amount
+        }
         LocalDate effectiveDate = effectiveDate(txn);
 
         if (neverEarnIds.contains(txn.getId())) {
