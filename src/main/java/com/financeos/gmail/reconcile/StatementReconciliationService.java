@@ -44,6 +44,7 @@ import com.financeos.domain.transaction.ReviewReason;
 public class StatementReconciliationService {
 
     private static final Logger log = LoggerFactory.getLogger(StatementReconciliationService.class);
+    static final String NO_PERIOD_REASON = "No statement period found: not a statement (e.g. an EMI or other bank letter); not imported";
 
     private final GmailEngine gmailEngine;
     private final StatementParser statementParser;
@@ -156,6 +157,14 @@ public class StatementReconciliationService {
             log.info("No transaction lines parsed from statement: {}. Skipping as non-statement.", message.messageId());
             recordLedger(connection, message.messageId(), candidateAccount, GmailProcessedStatus.SKIPPED_NOT_TRANSACTION,
                     "No transaction lines parsed from statement; skipped as non-statement");
+            return new ReconSummary(0, 0, 0, List.of(), null, null, chosenAttachment.filename(), null, true);
+        }
+
+        // A statement prints its period. A PDF with dated rows but no period is a bank letter (an EMI letter's repayment
+        // schedule reads as rows): never imported as a statement.
+        if (result.periodStart() == null || result.periodEnd() == null) {
+            log.info("No statement period in {} ({} dated rows); skipped as not a statement", message.messageId(), allLines.size());
+            recordLedger(connection, message.messageId(), candidateAccount, GmailProcessedStatus.SKIPPED_NOT_TRANSACTION, NO_PERIOD_REASON);
             return new ReconSummary(0, 0, 0, List.of(), null, null, chosenAttachment.filename(), null, true);
         }
 

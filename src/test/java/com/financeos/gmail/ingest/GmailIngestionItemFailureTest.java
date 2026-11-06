@@ -164,6 +164,8 @@ class GmailIngestionItemFailureTest {
         c.setError(s.getError());
         c.setNextRetryAt(s.getNextRetryAt());
         c.setInternalDate(s.getInternalDate());
+        c.setSenderAddress(s.getSenderAddress());
+        c.setSubject(s.getSubject());
         c.setAccount(s.getAccount());
         c.setTransaction(s.getTransaction());
         return c;
@@ -342,5 +344,19 @@ class GmailIngestionItemFailureTest {
                 "jobId=11111111-2222-3333-4444-555555555555", "userId=" + userId, "itemType=gmail_message",
                 "itemId=m2", "ledgerId=" + row("m2").getId(), "errorClass=SQLException", "attempt=1",
                 "status=FAILED_RETRYABLE", ORA);
+    }
+
+    @Test
+    void aFailedRowKeepsTheSenderSubjectAndDateOfItsMessage() {
+        pending("m1", 0);
+        writerFailsWithConstraintFor("m1");
+
+        service.syncConnection(connection);
+
+        GmailProcessedMessage failed = row("m1");
+        assertThat(failed.getStatus()).isEqualTo(GmailProcessedStatus.FAILED_RETRYABLE);
+        assertThat(failed.getSenderAddress()).isEqualTo("alerts@bank.com");
+        assertThat(failed.getSubject()).isEqualTo("You spent Rs 450");
+        assertThat(failed.getInternalDate()).isEqualTo(RECEIVED);
     }
 }
