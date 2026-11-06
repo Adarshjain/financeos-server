@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * customer ID such as "043-XXXXXX". Only masked tokens count: a bare number in an email is far more
  * often a phone number, amount or date than an account.
  */
-final class MaskedNumberHints {
+public final class MaskedNumberHints {
 
     private static final Pattern TOKEN = Pattern.compile("(?<![A-Za-z0-9])[0-9Xx*•-]{5,}(?![A-Za-z0-9])");
     private static final Pattern MASK = Pattern.compile("[Xx*•]");
@@ -23,7 +23,7 @@ final class MaskedNumberHints {
     private MaskedNumberHints() {}
 
     /** The visible digits of each masked token (at most the last four), in order of first appearance. */
-    static List<String> find(String... texts) {
+    public static List<String> find(String... texts) {
         Set<String> found = new LinkedHashSet<>();
         for (String text : texts) {
             if (text == null) {

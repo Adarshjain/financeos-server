@@ -74,7 +74,7 @@ public class GeminiExtractor {
             properties.putObject("description").put("type", "string")
                     .put("description", "The counterparty only: the merchant, payee, or sender name (or UPI ID if no name is given). Never include boilerplate like 'payment to', 'paid to', 'received from', 'purchase at', and never include amounts, dates, or reference numbers");
             properties.putObject("accountLast4").put("type", "string")
-                    .put("description", "Last 4 digits of the user's account or card number the transaction was made on (digits only, e.g. 1234) — when the email shows both a card number and a parent account number, return the card's. Omit if not stated");
+                    .put("description", "Last 4 digits of the user's OWN account or card the money left (debit) or arrived in (credit), usually written \"your A/c\", \"your card\", \"from your account\" (digits only, e.g. 1234). Never return the other party's account in a transfer: the payee, beneficiary or \"to A/c\" on a debit, or the sender's/remitter's \"from A/c\" on a credit. When the email shows both a card number and a parent account number, return the card's. Omit if not stated");
             properties.putObject("confidence").put("type", "number")
                     .put("description", "Confidence in the extracted values, 0 to 1");
 
