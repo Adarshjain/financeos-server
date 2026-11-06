@@ -127,6 +127,23 @@ class JobWorkerTest {
         verify(jobService, times(1)).fail(eq(jobIdUserB), eq("RuntimeException"), contains("Simulated Failure"));
     }
 
+    @Test
+    void runJob_handlerThrowingStackOverflowError_failsTheJobAndReleasesTheSlot() throws Exception {
+        JobHandler handler = mock(JobHandler.class);
+        when(handler.execute(any())).thenThrow(new StackOverflowError());
+        when(handlerRegistry.get(JobType.PRICE_REFRESH)).thenReturn(handler);
+        Job job = pendingJob();
+        when(jobRepository.findByStatusOrderByCreatedAtAsc(eq(JobStatus.PENDING), any())).thenReturn(List.of(job));
+        when(jobService.claim(job.getId())).thenReturn(true);
+        JobWorker worker = workerWith(Runnable::run);
+
+        worker.poll();
+
+        verify(jobService).fail(eq(job.getId()), eq("StackOverflowError"), any());
+        verify(jobService, never()).succeed(any(), any());
+        assertThat(worker.getInFlightCount()).isEqualTo(0);
+    }
+
     private JobWorker workerWith(Executor executor) {
         return new JobWorker(
                 jobRepository,

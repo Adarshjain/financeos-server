@@ -175,7 +175,7 @@ public class JobWorker {
             } catch (JobCancelledException e) {
                 jobService.markCancelled(jobId);
                 log.info("Job completed-with-cancel: jobName={}, jobRunId={}", jobName, shortJobId);
-            } catch (Exception e) {
+            } catch (Throwable e) {
                 long durationMs = System.currentTimeMillis() - startMs;
                 String errorCode = e.getClass().getSimpleName();
                 String errorMessage = e.getMessage() != null ? e.getMessage() : e.toString();
@@ -200,6 +200,9 @@ public class JobWorker {
                         StructuredArguments.keyValue("errorClass", e.getClass().getName()),
                         StructuredArguments.keyValue("rootCause", rootCauseLine(e)),
                         e);
+                if (e instanceof VirtualMachineError && !(e instanceof StackOverflowError)) {
+                    throw (VirtualMachineError) e;
+                }
             }
         } finally {
             inFlight.decrementAndGet();
