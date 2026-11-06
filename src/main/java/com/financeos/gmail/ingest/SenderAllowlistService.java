@@ -189,7 +189,7 @@ public class SenderAllowlistService {
 
     @Transactional(readOnly = true)
     public List<GmailSender> getSenders(UUID userId) {
-        return gmailSenderRepository.findByUserId(userId);
+        return gmailSenderRepository.findByUserIdOrderByCreatedAtAscIdAsc(userId);
     }
 
     public GmailSender createSender(UUID userId, GmailSenderRequest request) {

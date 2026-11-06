@@ -11,6 +11,8 @@ import java.util.UUID;
 public interface GmailSenderRepository extends JpaRepository<GmailSender, UUID> {
     List<GmailSender> findByUserIdAndEnabledTrue(UUID userId);
     List<GmailSender> findByUserId(UUID userId);
+    /** The user's senders oldest first (id breaks ties), so lists show them in a stable order. */
+    List<GmailSender> findByUserIdOrderByCreatedAtAscIdAsc(UUID userId);
     Optional<GmailSender> findByUserIdAndSenderAddressIgnoreCase(UUID userId, String senderAddress);
 
     interface BankCoverage {
