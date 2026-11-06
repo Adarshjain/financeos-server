@@ -81,14 +81,14 @@ public class NpsLinkStore {
     }
 
     /** How far back an NPS-looking payment counts for the "Set up NPS?" suggestion. */
-    public static final int SETUP_DAYS = 400;
+    public static final int SETUP_YEARS = 10;
 
     /**
-     * The NPS-looking debits of the last {@value #SETUP_DAYS} days that are not marked "not NPS": what the "Set up
+     * The NPS-looking debits of the last {@value #SETUP_YEARS} years that are not marked "not NPS": what the "Set up
      * NPS?" suggestion counts. The cutoff is in the SQL; two batched queries, whatever the number of payments.
      */
     public List<Payment> loadSetupPayments(UUID userId, LocalDate today) {
-        LocalDate from = today.minusDays(SETUP_DAYS);
+        LocalDate from = today.minusYears(SETUP_YEARS);
         List<Payment> payments = payments(entityManager.createQuery(SETUP_PAYMENTS, Object[].class)
                 .setParameter("userId", userId).setParameter("from", from));
         if (payments.isEmpty()) {

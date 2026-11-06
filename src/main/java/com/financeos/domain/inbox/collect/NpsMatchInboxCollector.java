@@ -79,7 +79,7 @@ public class NpsMatchInboxCollector implements InboxCollector {
 
     /**
      * {@code nps_setup}: a user with no NPS account at all (any status) who paid NPS in the last
-     * {@value NpsLinkStore#SETUP_DAYS} days (a debit that is not marked "not NPS") gets one "Looks like you invest in
+     * {@value NpsLinkStore#SETUP_YEARS} years (a debit that is not marked "not NPS") gets one "Looks like you invest in
      * NPS" row. It stops once an account exists or the payments are marked not NPS.
      */
     private List<InboxItemResponse> setupRows(UUID userId, LocalDate today) {
