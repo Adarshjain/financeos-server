@@ -25,7 +25,9 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -53,6 +55,8 @@ class AdminFailuresRetryAllJobsTest {
     private Cookie admin;
     private User userA;
     private User userB;
+    /** Jobs the test itself saved; anything else for these users was created by a retry. */
+    private final Set<UUID> seeded = new HashSet<>();
 
     @BeforeEach
     void setUp() throws Exception {
@@ -85,9 +89,9 @@ class AdminFailuresRetryAllJobsTest {
         retryAll().andExpect(jsonPath("$.affected").value(1)).andExpect(jsonPath("$.skipped").value(0))
                 .andExpect(jsonPath("$.jobsEnqueued").value(1));
 
-        List<Job> pending = pendingJobs();
-        assertThat(pending).hasSize(1);
-        Job clone = pending.get(0);
+        List<Job> retried = retriedJobs();
+        assertThat(retried).hasSize(1);
+        Job clone = retried.get(0);
         assertThat(clone.getPayload()).isEqualTo("{\"c\":1}");
         assertThat(reload(newest).getDismissReason()).isEqualTo("Retried as " + clone.getId());
         for (Job older : List.of(oldest, middle)) {
@@ -107,7 +111,7 @@ class AdminFailuresRetryAllJobsTest {
 
         retryAll().andExpect(jsonPath("$.affected").value(4)).andExpect(jsonPath("$.skipped").value(0))
                 .andExpect(jsonPath("$.jobsEnqueued").value(4));
-        assertThat(pendingJobs()).hasSize(4);
+        assertThat(retriedJobs()).hasSize(4);
     }
 
     @Test
@@ -126,8 +130,8 @@ class AdminFailuresRetryAllJobsTest {
             assertThat(after.getDismissReason()).isEqualTo("Superseded by a later successful run");
         }
         assertThat(reload(other).getDismissReason()).startsWith("Retried as ");
-        assertThat(pendingJobs()).hasSize(1);
-        assertThat(pendingJobs().get(0).getPayload()).isEqualTo("{\"c\":2}");
+        assertThat(retriedJobs()).hasSize(1);
+        assertThat(retriedJobs().get(0).getPayload()).isEqualTo("{\"c\":2}");
     }
 
     @Test
@@ -156,7 +160,7 @@ class AdminFailuresRetryAllJobsTest {
                 .andExpect(status().isAccepted()).andReturn().getResponse().getContentAsString());
         Job clone = jobRepository.findById(UUID.fromString(res.get("jobId").asText())).orElseThrow();
         assertThat(clone.getDedupKey()).isEqualTo("conn-9");
-        assertThat(clone.getStatus()).isEqualTo(JobStatus.PENDING);
+        assertThat(clone.getId()).isNotEqualTo(failed.getId());
     }
 
     @Test
@@ -167,7 +171,7 @@ class AdminFailuresRetryAllJobsTest {
         JsonNode res = mapper.readTree(mockMvc.perform(post(BASE + "/jobs/" + failed.getId() + "/retry").cookie(admin))
                 .andExpect(status().isAccepted()).andReturn().getResponse().getContentAsString());
         assertThat(res.get("jobId").asText()).isEqualTo(active.getId().toString());
-        assertThat(pendingJobs()).hasSize(1);
+        assertThat(retriedJobs()).isEmpty();
         assertThat(reload(failed).getDismissReason()).isEqualTo("Retried as " + active.getId());
     }
 
@@ -177,7 +181,7 @@ class AdminFailuresRetryAllJobsTest {
         Job active = job(userA, JobType.GMAIL_SYNC, JobStatus.RUNNING, "{\"c\":1}", "conn-9", null);
 
         retryAll().andExpect(jsonPath("$.affected").value(1));
-        assertThat(pendingJobs()).isEmpty();
+        assertThat(retriedJobs()).isEmpty();
         assertThat(reload(failed).getDismissReason()).isEqualTo("Retried as " + active.getId());
     }
 
@@ -188,8 +192,12 @@ class AdminFailuresRetryAllJobsTest {
                 .andExpect(status().isOk());
     }
 
-    private List<Job> pendingJobs() {
-        return jobRepository.findAll().stream().filter(j -> j.getStatus() == JobStatus.PENDING
+    /**
+     * Jobs a retry created, in any status: other cached test contexts run a real JobWorker on the same database, so a
+     * new PENDING job may already be claimed (RUNNING, or finished) by the time the test looks.
+     */
+    private List<Job> retriedJobs() {
+        return jobRepository.findAll().stream().filter(j -> !seeded.contains(j.getId())
                 && (userA.getId().equals(j.getUserId()) || userB.getId().equals(j.getUserId()))).toList();
     }
 
@@ -219,7 +227,9 @@ class AdminFailuresRetryAllJobsTest {
             j.setStartedAt(finishedAt.minusSeconds(5));
             j.setFinishedAt(finishedAt);
         }
-        return jobRepository.save(j);
+        Job saved = jobRepository.save(j);
+        seeded.add(saved.getId());
+        return saved;
     }
 
     private User saveUser(String prefix) {
