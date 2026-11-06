@@ -475,7 +475,7 @@ public class GmailIngestionService {
                 List<Transaction> created = processMessage(service, connection, gpm, enabledSenders, recon, mergeOut, arrivalContexts, caught);
                 return new ProcessedMessage(created, toMessageResult(gpm, created, recon[0]));
             });
-        } catch (RuntimeException e) {
+        } catch (RuntimeException | StackOverflowError e) {
             // The transaction is over (rolled back); one failing message must never fail the whole sync.
             mergeOut[0] = null;
             Throwable cause = caught[0] != null ? caught[0] : e;

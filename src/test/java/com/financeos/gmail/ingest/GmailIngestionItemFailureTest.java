@@ -244,6 +244,23 @@ class GmailIngestionItemFailureTest {
     }
 
     @Test
+    void aStackOverflowOnOneMessageIsRecordedFailedAndTheNextMessageIsStillProcessed() {
+        pending("m1", 0);
+        pending("m2", 0);
+        when(writer.writeTransaction(eq(connection), eq("m1"), any(), eq(account), any())).thenThrow(new StackOverflowError());
+        writerCreatesFor("m2");
+
+        SyncSummary summary = service.syncConnection(connection);
+
+        GmailProcessedMessage failed = row("m1");
+        assertThat(failed.getStatus()).isEqualTo(GmailProcessedStatus.FAILED_RETRYABLE);
+        assertThat(failed.getAttemptCount()).isEqualTo(1);
+        assertThat(row("m2").getStatus()).isEqualTo(GmailProcessedStatus.CREATED);
+        assertThat(summary.failedRetryable()).isEqualTo(1);
+        assertThat(summary.created()).isEqualTo(1);
+    }
+
+    @Test
     void atTheMaxAttemptsADatabaseFailureBecomesPermanent() {
         pending("m1", 4);
         writerFailsWithConstraintFor("m1");
