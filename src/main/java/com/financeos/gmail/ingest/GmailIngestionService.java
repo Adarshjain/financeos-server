@@ -690,6 +690,16 @@ public class GmailIngestionService {
 
             // Statement path check
             if (hasStatementAttachment(message)) {
+                // A bank letter or document with a PDF is not a statement. Only a positive DOCUMENT verdict skips:
+                // a missing, failed or UNKNOWN classifier answer keeps the statement path so no real statement is dropped.
+                if (com.financeos.gmail.classify.EmailSubtype.DOCUMENT.name().equals(gpm.getClassifiedSubtype())) {
+                    recordPipelineKind(gpm, "OTHER");
+                    gpm.setStatus(GmailProcessedStatus.SKIPPED_NOT_TRANSACTION);
+                    gpm.setError("Not a statement: a bank letter or document");
+                    processedMessageRepository.save(gpm);
+                    log.info("gmail.classifier.gate skipped_statement_path=1 subtype={}", gpm.getClassifiedSubtype());
+                    return List.of();
+                }
                 recordPipelineKind(gpm, "STATEMENT");
                 ReconSummary recon = statementReconciliationService.reconcile(connection, message);
                 reconOut[0] = recon;
@@ -717,8 +727,26 @@ public class GmailIngestionService {
             }
 
             gpm.setExtractedLast4(normalizeLast4(extractionResult.accountLast4()));
+            List<String> resolveTexts = java.util.Arrays.asList(message.subject(), message.getStrippedText());
             AccountResolver.ResolvedCard resolved = accountResolver.resolve(
-                    extractionResult.accountLast4(), java.util.Arrays.asList(message.subject(), message.getStrippedText()), fromAddress).orElse(null);
+                    extractionResult.accountLast4(), resolveTexts, fromAddress).orElse(null);
+            if (resolved == null) {
+                // The AI may have read the payee's account: try the other masked numbers in the mail, only when exactly one resolves.
+                String gemini = normalizeLast4(extractionResult.accountLast4());
+                java.util.Map<String, AccountResolver.ResolvedCard> hits = new java.util.LinkedHashMap<>();
+                for (String candidate : com.financeos.gmail.reconcile.MaskedNumberHints.find(message.subject(), message.getStrippedText())) {
+                    if (candidate.length() != 4 || candidate.equals(gemini)) {
+                        continue;
+                    }
+                    accountResolver.resolve(candidate, resolveTexts, fromAddress).ifPresent(r -> hits.put(candidate, r));
+                }
+                if (hits.size() == 1) {
+                    var hit = hits.entrySet().iterator().next();
+                    resolved = hit.getValue();
+                    gpm.setExtractedLast4(hit.getKey());
+                    log.info("gmail.alert.last4_fallback used=1");
+                }
+            }
             Account account = resolved != null ? resolved.account() : null;
             com.financeos.domain.account.card.Card card = resolved != null ? resolved.card() : null;
             mergeOut[0] = mergeRequest(gpm, connection.getUser().getId(), account, shadowEngine);

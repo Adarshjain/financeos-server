@@ -379,4 +379,114 @@ class GmailIngestionClassifierShadowTest {
 
         verify(statementReconciliationService).reconcile(connection, m);
     }
+
+    private void classifyAttachment(com.financeos.gmail.classify.EmailKind kind, com.financeos.gmail.classify.EmailSubtype subtype) {
+        EmailClassifier fixed = mock(EmailClassifier.class);
+        when(fixed.classify(any())).thenReturn(new ClassificationResult(kind, subtype,
+                com.financeos.gmail.classify.ClassifierConfidence.MEDIUM, "axis", List.of("test"), EmailClassifier.VERSION));
+        ReflectionTestUtils.setField(service, "emailClassifier", fixed);
+    }
+
+    private static GmailMessage pdfMail(String id, String subject, String file) {
+        return new GmailMessage(id, Instant.now(), "alerts@hdfcbank.net", subject, "s", "attached", null,
+                List.of(new GmailAttachment("att", file, "application/pdf", new byte[]{1})));
+    }
+
+    @Test
+    void letterPdfClassifiedOtherDocumentNeverReconciles() {
+        classifyAttachment(com.financeos.gmail.classify.EmailKind.OTHER, com.financeos.gmail.classify.EmailSubtype.DOCUMENT);
+        GmailMessage m = pdfMail("L1", "Important Communication : Cancellation of your Axis Bank Credit Card", "ACCOUNT CANCELLATION.pdf");
+
+        GmailProcessedMessage row = run(m);
+
+        assertThat(row.getStatus()).isEqualTo(GmailProcessedStatus.SKIPPED_NOT_TRANSACTION);
+        assertThat(row.getPipelineKind()).isEqualTo("OTHER");
+        assertThat(row.getError()).isEqualTo("Not a statement: a bank letter or document");
+        verifyNoInteractions(statementReconciliationService);
+    }
+
+    @Test
+    void cardStatementPdfClassifiedStatementReconciles() {
+        classifyAttachment(com.financeos.gmail.classify.EmailKind.STATEMENT, com.financeos.gmail.classify.EmailSubtype.CARD_STATEMENT);
+        GmailMessage m = pdfMail("L2", "Credit Card Statement", "stmt.pdf");
+        when(statementReconciliationService.reconcile(eq(connection), eq(m))).thenReturn(new ReconSummary(0, 0, 0));
+
+        GmailProcessedMessage row = run(m);
+
+        verify(statementReconciliationService).reconcile(connection, m);
+        assertThat(row.getPipelineKind()).isEqualTo("STATEMENT");
+    }
+
+    @Test
+    void unknownOrFailedClassifierAnswerStillReconciles() {
+        classifyAttachment(com.financeos.gmail.classify.EmailKind.OTHER, com.financeos.gmail.classify.EmailSubtype.UNKNOWN);
+        GmailMessage m = pdfMail("L4", "HDFC Bank - October", "1234.pdf");
+        when(statementReconciliationService.reconcile(eq(connection), eq(m))).thenReturn(new ReconSummary(0, 0, 0));
+
+        run(m);
+
+        verify(statementReconciliationService).reconcile(connection, m);
+    }
+
+    @Test
+    void noClassifierResultStillReconciles() {
+        ReflectionTestUtils.setField(service, "emailClassifier", null);
+        GmailMessage m = pdfMail("L3", "Cancellation letter", "letter.pdf");
+        when(statementReconciliationService.reconcile(eq(connection), eq(m))).thenReturn(new ReconSummary(0, 0, 0));
+
+        run(m);
+
+        verify(statementReconciliationService).reconcile(connection, m);
+    }
+
+    private GmailProcessedMessage transferAlert(String id, String geminiLast4) {
+        GmailMessage m = new GmailMessage(id, Instant.now(), "alerts@hdfcbank.net", "Transaction alert", "s",
+                "INR 500 debited from your A/c XX1234 to A/c XX8180", null, List.of());
+        when(geminiExtractor.extract(m)).thenReturn(GeminiExtractionResult.success(
+                new com.financeos.gmail.ingest.gemini.ExtractedTransaction(true, new java.math.BigDecimal("500"), "INR", "DEBIT",
+                        java.time.LocalDate.now().toString(), "Someone", geminiLast4, 0.9), java.time.LocalDate.now()));
+        return run(m);
+    }
+
+    private static AccountResolver.ResolvedCard ownedAccount() {
+        var account = new com.financeos.domain.account.Account();
+        account.setId(UUID.randomUUID());
+        return new AccountResolver.ResolvedCard(account, null);
+    }
+
+    @Test
+    void payeeLast4FallsBackToTheOnlyOwnedMaskedNumber() {
+        var owned = ownedAccount();
+        when(accountResolver.resolve(any(), any(), any())).thenReturn(Optional.empty());
+        when(accountResolver.resolve(eq("1234"), any(), any())).thenReturn(Optional.of(owned));
+
+        GmailProcessedMessage row = transferAlert("F1", "8180");
+
+        assertThat(row.getStatus()).isNotEqualTo(GmailProcessedStatus.UNRESOLVED_ACCOUNT);
+        assertThat(row.getAccount()).isSameAs(owned.account());
+        assertThat(row.getExtractedLast4()).isEqualTo("1234");
+    }
+
+    @Test
+    void twoResolvableCandidatesStayUnresolved() {
+        when(accountResolver.resolve(any(), any(), any())).thenReturn(Optional.empty());
+        when(accountResolver.resolve(eq("1234"), any(), any())).thenReturn(Optional.of(ownedAccount()));
+        when(accountResolver.resolve(eq("8180"), any(), any())).thenReturn(Optional.of(ownedAccount()));
+
+        GmailProcessedMessage row = transferAlert("F2", "9999");
+
+        assertThat(row.getStatus()).isEqualTo(GmailProcessedStatus.UNRESOLVED_ACCOUNT);
+        assertThat(row.getAccount()).isNull();
+        assertThat(row.getExtractedLast4()).isEqualTo("9999");
+    }
+
+    @Test
+    void noOwnedCandidateStaysUnresolved() {
+        when(accountResolver.resolve(any(), any(), any())).thenReturn(Optional.empty());
+
+        GmailProcessedMessage row = transferAlert("F3", "8180");
+
+        assertThat(row.getStatus()).isEqualTo(GmailProcessedStatus.UNRESOLVED_ACCOUNT);
+        assertThat(row.getExtractedLast4()).isEqualTo("8180");
+    }
 }
