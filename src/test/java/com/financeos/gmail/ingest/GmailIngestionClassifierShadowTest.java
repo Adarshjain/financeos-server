@@ -523,6 +523,20 @@ class GmailIngestionClassifierShadowTest {
     }
 
     @Test
+    void gate_mandateActivationWithInitialDebitStillGetsTheAiRead() {
+        GmailMessage m = new GmailMessage("d5", Instant.now(), "Axis Bank <alerts@hdfcbank.net>",
+                "Auto Pay facility has been activated", "s",
+                "Auto Pay facility has been successfully activated on your Axis Bank Card no. XX9894 for INR 130.00 from Google Play "
+                        + "and initial amt of INR 35.00 has been debited. Google Play can initiate subsequent transactions "
+                        + "for a maximum amount of INR 130.00.", null, List.of());
+        when(geminiExtractor.extract(m)).thenReturn(GeminiExtractionResult.notTransaction());
+
+        run(m);
+
+        verify(geminiExtractor).extract(m);
+    }
+
+    @Test
     void gate_debitAlertAtMediumStillGetsTheAiRead() {
         classifyWith(com.financeos.gmail.classify.EmailKind.ALERT, com.financeos.gmail.classify.EmailSubtype.DEBIT,
                 com.financeos.gmail.classify.ClassifierConfidence.MEDIUM, "bank:axis", "amt");

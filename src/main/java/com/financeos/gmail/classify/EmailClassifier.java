@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 @Component
 public class EmailClassifier {
 
-    public static final int VERSION = 4;
+    public static final int VERSION = 5;
 
     private final BankSenderDomains bankSenderDomains;
 
@@ -163,6 +163,10 @@ public class EmailClassifier {
             "\\bauto ?pay facility\\b|\\bcancellation of auto ?pay\\b|\\bregistration of standing instructions?\\b"
                     + "|\\bauto ?pay (?:request|mandate)\\b.{0,40}?\\b(?:modified|modification|updated|changed)\\b"
                     + "|\\b(?:modification|change) (?:of|to) auto ?pay\\b");
+    /** A mandate set-up mail that also reports a real first debit ("initial amt of INR 35.00 has been debited"). */
+    private static final Pattern MANDATE_SETUP_DEBITED = Pattern.compile(
+            "\\b(?:initial|first) (?:amt|amount)\\b.{0,30}?\\b(?:debited|charged)\\b"
+                    + "|\\b(?:inr|rs)\\.? ?[\\d,]+(?:\\.\\d+)? has been (?:debited|charged)\\b");
     /** The bank could not reach the customer to confirm a charge: a security notice, not a debit. */
     private static final Pattern UNCONFIRMED_TXN = Pattern.compile("\\bunable to (?:reach|contact) you\\b.{0,40}?\\bconfirm\\b");
     /** A foreign remittance request that was only received; the money has not moved yet. */
@@ -255,7 +259,7 @@ public class EmailClassifier {
         }
 
         // 2b. Named notices and events whose wording the transaction-sentence rules mishandle.
-        if (MANDATE_SETUP_SUBJECT.matcher(subjectLower).find()) {
+        if (MANDATE_SETUP_SUBJECT.matcher(subjectLower).find() && !MANDATE_SETUP_DEBITED.matcher(lower).find()) {
             signals.add("kw:mandate");
             return result(EmailSubtype.SERVICE, ClassifierConfidence.MEDIUM, bankId, signals);
         }
