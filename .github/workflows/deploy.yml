@@ -16,7 +16,7 @@ env:
   APP_PORT: "8080"
   MGMT_PORT: "8081"
   # How long the deploy waits for running background jobs before giving up (and NOT restarting).
-  DRAIN_TIMEOUT_SECONDS: "1200"
+  DRAIN_TIMEOUT_SECONDS: "2400"
   # Empty when the secret is unset; slack-notify.sh then warns and exits 0.
   SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
   DEPLOY_COMPONENT: Server
