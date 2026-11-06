@@ -128,4 +128,28 @@ class EmailTextTest {
         assertThat(EmailText.normalise("Rs. 500 and Rs 20 and INR 7 and ₹9"))
                 .isEqualTo("INR 500 and INR 20 and INR 7 and INR 9");
     }
+
+    @Test
+    void thousandsOfEmptyBlocksCollapseWithoutOverflowingASmallStack() throws Exception {
+        String html = "<p>Activate your card</p>" + "<div><table><tr><td></td></tr></table></div>".repeat(5000) + "<p>Thanks</p>";
+        String[] out = new String[1];
+        Throwable[] failed = new Throwable[1];
+        Thread t = new Thread(null, () -> {
+            try {
+                out[0] = EmailText.normalise(EmailText.stripHtml(html));
+            } catch (Throwable e) {
+                failed[0] = e;
+            }
+        }, "small-stack", 512 * 1024);
+        t.start();
+        t.join();
+        assertThat(failed[0]).isNull();
+        assertThat(out[0]).isEqualTo("Activate your card " + EmailText.SECTION + " Thanks");
+    }
+
+    @Test
+    void sectionRunsCollapseToOneSeparator() {
+        String s = "a " + EmailText.SECTION + EmailText.SECTION + " " + EmailText.SECTION + " b" + EmailText.SECTION + "c";
+        assertThat(EmailText.normalise(s)).isEqualTo("a " + EmailText.SECTION + " b " + EmailText.SECTION + " c");
+    }
 }
