@@ -112,8 +112,8 @@ class GmailControllerTest {
         gpm.setTransaction(txn);
         gpm.setStatus(GmailProcessedStatus.CREATED);
 
-        when(processedMessageRepository.findByTransactionId(txn.getId()))
-                .thenReturn(Optional.of(gpm));
+        when(processedMessageRepository.findAllByTransactionIdIn(List.of(txn.getId())))
+                .thenReturn(List.of(gpm));
 
         ResponseEntity<CleanupResultResponse> response = controller.performCleanup(accountId, before);
 
@@ -124,8 +124,8 @@ class GmailControllerTest {
         assertThat(gpm.getStatus()).isEqualTo(GmailProcessedStatus.CLEANED_UP);
         assertThat(gpm.getTransaction()).isNull();
 
-        verify(processedMessageRepository).save(gpm);
-        verify(transactionRepository).delete(txn);
+        verify(processedMessageRepository).saveAll(List.of(gpm));
+        verify(transactionRepository).deleteAll(List.of(txn));
     }
 
     @Test

@@ -57,7 +57,7 @@ class TransactionQueryBuilderCategoryFilterTest {
 
         String where = where(new FilterClause("tag", "is", JSON.textNode("Food")), joins, params);
 
-        assertEquals(" WHERE t.user_id = :userId AND EXISTS (" + SEMI + "cx.name = :f0)", where);
+        assertEquals(" WHERE t.user_id = :userId AND t.amount IS NOT NULL AND EXISTS (" + SEMI + "cx.name = :f0)", where);
         assertEquals("Food", params.get("f0"));
         assertFalse(joins.contains(TransactionQueryBuilder.JOIN_TAGS));
         assertFalse(queryBuilder.fromClause(joins).contains("tags"));
@@ -69,7 +69,7 @@ class TransactionQueryBuilderCategoryFilterTest {
 
         String where = where(new FilterClause("tag", "is_not", JSON.textNode("Food")), new HashSet<>(), params);
 
-        assertEquals(" WHERE t.user_id = :userId AND NOT EXISTS (" + SEMI + "cx.name = :f0)", where);
+        assertEquals(" WHERE t.user_id = :userId AND t.amount IS NOT NULL AND NOT EXISTS (" + SEMI + "cx.name = :f0)", where);
         assertEquals("Food", params.get("f0"));
     }
 
@@ -81,8 +81,8 @@ class TransactionQueryBuilderCategoryFilterTest {
         String in = where(new FilterClause("tag", "in", array("Food", "Fuel")), new HashSet<>(), inParams);
         String notIn = where(new FilterClause("tag", "not_in", array("Food", "Fuel")), new HashSet<>(), notInParams);
 
-        assertEquals(" WHERE t.user_id = :userId AND EXISTS (" + SEMI + "cx.name IN (:f0))", in);
-        assertEquals(" WHERE t.user_id = :userId AND NOT EXISTS (" + SEMI + "cx.name IN (:f0))", notIn);
+        assertEquals(" WHERE t.user_id = :userId AND t.amount IS NOT NULL AND EXISTS (" + SEMI + "cx.name IN (:f0))", in);
+        assertEquals(" WHERE t.user_id = :userId AND t.amount IS NOT NULL AND NOT EXISTS (" + SEMI + "cx.name IN (:f0))", notIn);
         assertEquals(List.of("Food", "Fuel"), inParams.get("f0"));
         assertEquals(List.of("Food", "Fuel"), notInParams.get("f0"));
     }
@@ -95,7 +95,7 @@ class TransactionQueryBuilderCategoryFilterTest {
 
         String in = where(new FilterClause("tag", "in", array("Food", "Fuel")), joins, params);
 
-        assertEquals(" WHERE t.user_id = :userId AND (EXISTS (" + SEMI + "cx.name IN (:f0)) AND c.name IN (:f0r))", in);
+        assertEquals(" WHERE t.user_id = :userId AND t.amount IS NOT NULL AND (EXISTS (" + SEMI + "cx.name IN (:f0)) AND c.name IN (:f0r))", in);
         assertEquals(List.of("Food", "Fuel"), params.get("f0"));
         assertEquals(List.of("Food", "Fuel"), params.get("f0r"));
     }
@@ -108,7 +108,7 @@ class TransactionQueryBuilderCategoryFilterTest {
 
         String isNot = where(new FilterClause("tag", "is_not", JSON.textNode("Food")), joins, params);
 
-        assertEquals(" WHERE t.user_id = :userId AND (NOT EXISTS (" + SEMI + "cx.name = :f0)"
+        assertEquals(" WHERE t.user_id = :userId AND t.amount IS NOT NULL AND (NOT EXISTS (" + SEMI + "cx.name = :f0)"
                 + " AND (c.name <> :f0r OR c.name IS NULL))", isNot);
     }
 
@@ -119,7 +119,7 @@ class TransactionQueryBuilderCategoryFilterTest {
         String where = queryBuilder.buildWhere(List.of(new FilterClause("tag", "is", JSON.textNode("Food")),
                 new FilterClause("tag", "is_not", JSON.textNode("Fuel"))), userId, params, new HashSet<>());
 
-        assertEquals(" WHERE t.user_id = :userId AND EXISTS (" + SEMI + "cx.name = :f0) AND NOT EXISTS ("
+        assertEquals(" WHERE t.user_id = :userId AND t.amount IS NOT NULL AND EXISTS (" + SEMI + "cx.name = :f0) AND NOT EXISTS ("
                 + SEMI + "cx.name = :f1)", where);
         assertEquals("Food", params.get("f0"));
         assertEquals("Fuel", params.get("f1"));

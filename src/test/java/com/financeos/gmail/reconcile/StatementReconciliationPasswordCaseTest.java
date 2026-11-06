@@ -14,7 +14,6 @@ import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.account.card.CardRepository;
 import com.financeos.domain.statement.StatementPersistenceService;
 import com.financeos.domain.transaction.ReviewStatusManager;
-import com.financeos.domain.transaction.TransactionMatcher;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.user.User;
 import com.financeos.gmail.domain.GmailConnection;
@@ -47,8 +46,8 @@ class StatementReconciliationPasswordCaseTest {
     private String parsedWith(String pdfPassword, String savedPassword) throws Exception {
         GmailIngestProperties properties = new GmailIngestProperties();
         StatementReconciliationService service = new StatementReconciliationService(gmailEngine, statementParser,
-                mock(TransactionRepository.class), processed, properties, accountRepository, accountResolver,
-                new TransactionMatcher(), new ReviewStatusManager(), persistence, mock(CardRepository.class),
+                mock(TransactionRepository.class), processed, accountRepository, accountResolver,
+                new ReviewStatusManager(), persistence, mock(CardRepository.class),
                 new ParkedMessageSettler(processed, accountResolver, properties));
         User user = new User();
         user.setId(UUID.randomUUID());

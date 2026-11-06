@@ -78,7 +78,8 @@ public class TransactionExtractor {
                 return null;
             }
         }
-        String currency = ExtractParsing.parseCurrency(groups.contains("currency") ? m.group("currency") : null, t.currency());
+        String currency = ExtractParsing.templateCurrency(text, m.start("amount"), m.end("amount"),
+                groups.contains("currency") ? m.group("currency") : null, t.currency());
         LocalDate date = groups.contains("date") ? ExtractParsing.parseDate(m.group("date"), t.dateFormats(), sentOn) : null;
         String counterparty = groups.contains("counterparty")
                 ? ExtractParsing.cleanCounterparty(m.group("counterparty"), t.counterpartyStrip()) : null;

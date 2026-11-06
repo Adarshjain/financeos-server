@@ -242,7 +242,7 @@ class KpiUnderlyingServiceSqlTest {
         run("previous", null, null, null);
 
         Captured current = rawQueries().get(0);
-        assertTrue(current.sql().contains(" WHERE t.user_id = :userId AND t.transaction_date BETWEEN :f0a AND :f0b AND "
+        assertTrue(current.sql().contains(" WHERE t.user_id = :userId AND t.amount IS NOT NULL AND t.transaction_date BETWEEN :f0a AND :f0b AND "
                 + TransactionQueryBuilder.SIGNED_AMOUNT + " IS NOT NULL ORDER BY"), current.sql());
         assertEquals(MAY_1, current.params().get("f0a"));
         assertFalse(current.sql().contains(" = :f"), "SUM lists every row with the measure");

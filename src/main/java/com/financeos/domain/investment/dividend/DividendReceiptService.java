@@ -263,7 +263,7 @@ public class DividendReceiptService {
                 BigDecimal low = DividendMatcher.bandLow(d.getAmount());
                 BigDecimal high = DividendMatcher.bandHigh(d.getAmount());
                 for (Transaction t : pool) {
-                    if (t.getAmount().compareTo(low) < 0 || t.getAmount().compareTo(high) > 0
+                    if (t.getAmount() == null || t.getAmount().compareTo(low) < 0 || t.getAmount().compareTo(high) > 0
                             || t.getDate().isBefore(window.from()) || t.getDate().isAfter(window.to())) {
                         continue;
                     }

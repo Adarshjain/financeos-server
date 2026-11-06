@@ -27,7 +27,7 @@ public class NpsLinkStore {
     /** Cheap SQL prefilter (LOCATE, not LIKE: portable to the H2 tests); {@link NpsPaymentPatterns} decides. */
     private static final String PAYMENTS_FROM = "SELECT t.id, a.id, a.name, t.date, t.amount, t.description, t.sourcedDescription "
             + "FROM Transaction t JOIN t.account a WHERE t.user.id = :userId "
-            + "AND t.type = com.financeos.domain.transaction.TransactionType.DEBIT "
+            + "AND t.type = com.financeos.domain.transaction.TransactionType.DEBIT AND t.amount IS NOT NULL "
             + "AND (LOCATE('NPS', UPPER(t.description)) > 0 "
             + "OR LOCATE('NPS', UPPER(t.sourcedDescription)) > 0 "
             + "OR LOCATE('PROTEAN', UPPER(t.description)) > 0 "

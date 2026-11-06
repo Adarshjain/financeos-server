@@ -15,7 +15,6 @@ import com.financeos.gmail.domain.GmailProcessedMessage;
 import com.financeos.gmail.domain.GmailProcessedMessageRepository;
 import com.financeos.gmail.domain.GmailProcessedStatus;
 import com.financeos.gmail.engine.GmailEngine;
-import com.financeos.gmail.ingest.GmailIngestProperties;
 import com.financeos.gmail.ingest.ParkedMessageSettler;
 import com.financeos.gmail.ingest.SyncSummary;
 import com.financeos.gmail.internal.GmailAttachment;
@@ -36,9 +35,8 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.*;
 
-import com.financeos.domain.transaction.TransactionMatcher;
 import com.financeos.domain.transaction.ReviewStatusManager;
-import com.financeos.domain.transaction.ReviewReason;
+import com.financeos.domain.transaction.match.StatementBatchMatcher;
 
 @Service
 public class StatementReconciliationService {
@@ -50,10 +48,8 @@ public class StatementReconciliationService {
     private final StatementParser statementParser;
     private final TransactionRepository transactionRepository;
     private final GmailProcessedMessageRepository processedMessageRepository;
-    private final GmailIngestProperties ingestProperties;
     private final AccountRepository accountRepository;
     private final com.financeos.gmail.ingest.AccountResolver accountResolver;
-    private final TransactionMatcher transactionMatcher;
     private final ReviewStatusManager reviewStatusManager;
     private final StatementPersistenceService statementPersistenceService;
     private final com.financeos.domain.account.card.CardRepository cardRepository;
@@ -63,25 +59,20 @@ public class StatementReconciliationService {
     @org.springframework.beans.factory.annotation.Autowired(required = false)
     private org.springframework.context.ApplicationEventPublisher eventPublisher;
 
-    /** Optional so tests that build the service by hand need no reconciler. */
-    @org.springframework.beans.factory.annotation.Autowired(required = false)
-    private com.financeos.domain.transaction.StatementDuplicateReconciler duplicateReconciler;
+    /** Set by Spring; tests that build the service by hand and never reach matching need none. */
+    private StatementBatchMatcher batchMatcher;
 
-    @jakarta.annotation.PostConstruct
-    void warnWithoutReconciler() {
-        if (duplicateReconciler == null) {
-            log.warn("StatementDuplicateReconciler is not available: reconciled statements will not pair alert/manual duplicates");
-        }
+    @org.springframework.beans.factory.annotation.Autowired
+    public void setBatchMatcher(StatementBatchMatcher batchMatcher) {
+        this.batchMatcher = batchMatcher;
     }
 
     public StatementReconciliationService(GmailEngine gmailEngine,
                                           StatementParser statementParser,
                                           TransactionRepository transactionRepository,
                                           GmailProcessedMessageRepository processedMessageRepository,
-                                          GmailIngestProperties ingestProperties,
                                           AccountRepository accountRepository,
                                           com.financeos.gmail.ingest.AccountResolver accountResolver,
-                                          TransactionMatcher transactionMatcher,
                                           ReviewStatusManager reviewStatusManager,
                                           StatementPersistenceService statementPersistenceService,
                                           com.financeos.domain.account.card.CardRepository cardRepository,
@@ -90,10 +81,8 @@ public class StatementReconciliationService {
         this.statementParser = statementParser;
         this.transactionRepository = transactionRepository;
         this.processedMessageRepository = processedMessageRepository;
-        this.ingestProperties = ingestProperties;
         this.accountRepository = accountRepository;
         this.accountResolver = accountResolver;
-        this.transactionMatcher = transactionMatcher;
         this.reviewStatusManager = reviewStatusManager;
         this.statementPersistenceService = statementPersistenceService;
         this.cardRepository = cardRepository;
@@ -230,113 +219,44 @@ public class StatementReconciliationService {
             return new ReconSummary(0, 0, 0);
         }
 
-        int matchedCount = 0;
-        int createdCount = 0;
-        List<Transaction> createdTxns = new ArrayList<>();
-        List<StatementPersistenceService.TxnLink> links = new ArrayList<>();
-
-        // Find min and max dates of the lines to define query window
-        LocalDate minLineDate = candidateLines.stream().map(ParsedStatementLine::date).min(LocalDate::compareTo).get();
-        LocalDate maxLineDate = candidateLines.stream().map(ParsedStatementLine::date).max(LocalDate::compareTo).get();
-
-        int dateWindow = ingestProperties.getDateWindowDays();
-        int searchDays = Math.max(dateWindow, com.financeos.domain.transaction.StatementDuplicateReconciler.WINDOW_DAYS);
-        LocalDate searchStart = minLineDate.minusDays(searchDays);
-        LocalDate searchEnd = maxLineDate.plusDays(searchDays);
-
-        // Fetch all transactions for this account in the window
-        List<Transaction> allPeriodTxns = transactionRepository.findByAccountIdAndDateRange(resolvedAccount.getId(), searchStart, searchEnd);
-
-        // Separate NEEDS_REVIEW alerts from other transactions (AUTO_REVIEWED, manual, gmail_statement, etc.)
-        List<Transaction> alertsToPromote = new ArrayList<>();
-        List<Transaction> alreadyMatchedTxns = new ArrayList<>();
-
-        for (Transaction t : allPeriodTxns) {
-            if (t.getSource() == TransactionSource.gmail_transaction_alert && t.getReviewType() == ReviewType.NEEDS_REVIEW) {
-                alertsToPromote.add(t);
-            } else {
-                alreadyMatchedTxns.add(t);
-            }
+        // Match the whole statement at once; lines nothing pairs with become gmail_statement rows (Confirmed).
+        if (batchMatcher == null) {
+            throw new IllegalStateException("StatementBatchMatcher is not available");
         }
-
-        Set<UUID> consumedTxnIds = new HashSet<>();
-
-        // A row another statement already claimed belongs to that statement's line. It may only be
-        // re-matched when this statement also covers its date (overlapping statements); otherwise a
-        // same-amount payment just across the boundary would be swallowed by last month's row.
-        Set<UUID> claimedTxnIds = statementPersistenceService.findStatementLinkedTransactionIds(
-                resolvedAccount.getId(), searchStart, searchEnd);
-        for (Transaction t : allPeriodTxns) {
-            boolean outsideThisStatement = t.getDate().isBefore(minLineDate) || t.getDate().isAfter(maxLineDate);
-            if (outsideThisStatement && claimedTxnIds.contains(t.getId())) {
-                consumedTxnIds.add(t.getId());
-            }
-        }
-
-        // Loop over candidate statement lines and match/reconcile
+        List<StatementBatchMatcher.Line> batchLines = new ArrayList<>();
         for (int i = 0; i < candidateLines.size(); i++) {
-            ParsedStatementLine line = candidateLines.get(i);
-            com.financeos.domain.account.card.Card lineCard = resolveCard(resolvedAccount, line.cardLast4());
-            UUID lineCardId = lineCard != null ? lineCard.getId() : null;
-
-            // Check if there is already a transaction matching this line (safety against seams)
-            Transaction seamMatch = transactionMatcher.findBestMatch(line, lineCardId, alreadyMatchedTxns, dateWindow, consumedTxnIds);
-            if (seamMatch != null) {
-                consumedTxnIds.add(seamMatch.getId());
-                links.add(new StatementPersistenceService.TxnLink(seamMatch.getId(), i, line.balance(), line.chainValid()));
-                continue;
-            }
-
-            // Try to match against NEEDS_REVIEW alerts to promote
-            Transaction alertMatch = transactionMatcher.findBestMatch(line, lineCardId, alertsToPromote, dateWindow, consumedTxnIds);
-            if (alertMatch != null) {
-                consumedTxnIds.add(alertMatch.getId());
-                reviewStatusManager.clearReason(alertMatch, ReviewReason.UNRECONCILED, ReviewType.AUTO_REVIEWED);
-                transactionRepository.save(alertMatch);
-                matchedCount++;
-                links.add(new StatementPersistenceService.TxnLink(alertMatch.getId(), i, line.balance(), line.chainValid()));
-            } else {
-                // No match found -> materialize as a new gmail_statement transaction
-                String sourceMsgId = String.format("%s:%d", message.messageId(), i);
-                boolean alreadyCreated = transactionRepository.existsBySourceMessageId(sourceMsgId);
-                if (!alreadyCreated) {
-                    Transaction statementTxn = new Transaction();
-                    statementTxn.setUser(connection.getUser());
-                    statementTxn.setAccount(resolvedAccount);
-                    statementTxn.setCard(lineCard);
-                    statementTxn.setDate(line.date());
-                    statementTxn.setAmount(line.amount().abs());
-                    statementTxn.setSourcedDescription(line.description());
-                    statementTxn.setSource(TransactionSource.gmail_statement);
-                    statementTxn.setType(TransactionType.fromLlmDirection(line.direction()));
-                    reviewStatusManager.addReason(statementTxn, ReviewReason.UNRECONCILED);
-                    statementTxn.setSourceMessageId(sourceMsgId);
-                    statementTxn.setTransactionUnderMonitoring(false);
-                    statementTxn.setTransactionExcluded(false);
-
-                    transactionRepository.save(statementTxn);
-                    createdCount++;
-                    createdTxns.add(statementTxn);
-                    links.add(new StatementPersistenceService.TxnLink(statementTxn.getId(), i, line.balance(), line.chainValid()));
+            batchLines.add(StatementBatchMatcher.Line.of(i, candidateLines.get(i)));
+        }
+        Account account = resolvedAccount;
+        StatementBatchMatcher.Result matched = batchMatcher.match(stmt.get(), account, batchLines, unpaired -> {
+            Map<Integer, Transaction> made = new HashMap<>();
+            for (StatementBatchMatcher.Line batchLine : unpaired) {
+                ParsedStatementLine line = candidateLines.get(batchLine.lineIndex());
+                String sourceMsgId = String.format("%s:%d", message.messageId(), batchLine.lineIndex());
+                if (transactionRepository.existsBySourceMessageId(sourceMsgId)) {
+                    continue;
                 }
+                Transaction statementTxn = new Transaction();
+                statementTxn.setUser(connection.getUser());
+                statementTxn.setAccount(account);
+                statementTxn.setCard(resolveCard(account, line.cardLast4()));
+                statementTxn.setDate(line.date());
+                statementTxn.setAmount(line.amount().abs());
+                statementTxn.setSourcedDescription(line.description());
+                statementTxn.setSource(TransactionSource.gmail_statement);
+                statementTxn.setType(TransactionType.fromLlmDirection(line.direction()));
+                reviewStatusManager.transitionTo(statementTxn, ReviewType.AUTO_REVIEWED);
+                statementTxn.setSourceMessageId(sourceMsgId);
+                statementTxn.setTransactionUnderMonitoring(false);
+                statementTxn.setTransactionExcluded(false);
+                transactionRepository.save(statementTxn);
+                made.put(batchLine.lineIndex(), statementTxn);
             }
-        }
-
-        if (stmt.isPresent()) {
-            statementPersistenceService.linkTransactions(stmt.get().getId(), links);
-        }
-
-        // Rows this statement just created may repeat an alert or manual row that no line matched above:
-        // merge the certain pairs (statement row wins), flag the rest.
-        if (duplicateReconciler != null && !createdTxns.isEmpty()) {
-            LocalDate periodStart = result.periodStart() != null && result.periodEnd() != null ? result.periodStart() : minLineDate;
-            LocalDate periodEnd = result.periodStart() != null && result.periodEnd() != null ? result.periodEnd() : maxLineDate;
-            Set<UUID> excluded = new HashSet<>(consumedTxnIds);
-            excluded.addAll(claimedTxnIds);
-            var pairs = duplicateReconciler.pair(createdTxns, allPeriodTxns, periodStart, periodEnd, excluded);
-            duplicateReconciler.settleAfterCommit(pairs);
-            log.info("Statement reconcile paired {} created row(s) with alert/manual rows; merges run after commit", pairs.size());
-        }
+            return made;
+        });
+        int matchedCount = matched.matched();
+        List<Transaction> createdTxns = matched.createdTransactions();
+        int createdCount = createdTxns.size();
 
         // Record successful reconciliation run in the ledger
         updateLastStatementDate(resolvedAccount, result);

@@ -195,7 +195,7 @@ class GmailIngestionItemFailureTest {
 
     /** Message {@code ok}: the writer creates a transaction. */
     private void writerCreatesFor(String messageId) {
-        when(writer.writeTransaction(eq(connection), eq(messageId), any(), eq(account), any())).thenAnswer(inv -> {
+        when(writer.writeTransaction(eq(connection), eq(messageId), any(), eq(account), any(), any())).thenAnswer(inv -> {
             GmailProcessedMessage r = new GmailProcessedMessage();
             r.setStatus(GmailProcessedStatus.CREATED);
             Transaction t = new Transaction();
@@ -212,7 +212,7 @@ class GmailIngestionItemFailureTest {
 
     /** The writer's save fails the way the incident did, and Hibernate dooms the transaction. */
     private void writerFailsWithConstraintFor(String messageId) {
-        when(writer.writeTransaction(eq(connection), eq(messageId), any(), eq(account), any())).thenAnswer(inv -> {
+        when(writer.writeTransaction(eq(connection), eq(messageId), any(), eq(account), any(), any())).thenAnswer(inv -> {
             doomed = true;
             throw new DataIntegrityViolationException("could not execute statement", new SQLException(ORA));
         });
@@ -247,7 +247,7 @@ class GmailIngestionItemFailureTest {
     void aStackOverflowOnOneMessageIsRecordedFailedAndTheNextMessageIsStillProcessed() {
         pending("m1", 0);
         pending("m2", 0);
-        when(writer.writeTransaction(eq(connection), eq("m1"), any(), eq(account), any())).thenThrow(new StackOverflowError());
+        when(writer.writeTransaction(eq(connection), eq("m1"), any(), eq(account), any(), any())).thenThrow(new StackOverflowError());
         writerCreatesFor("m2");
 
         SyncSummary summary = service.syncConnection(connection);

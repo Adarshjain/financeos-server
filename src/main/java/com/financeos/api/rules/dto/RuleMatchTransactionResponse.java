@@ -15,7 +15,7 @@ import java.util.UUID;
 public record RuleMatchTransactionResponse(
         UUID id,
         LocalDate date,
-        BigDecimal amount,
+        @Nullable BigDecimal amount,
         String type,
         String sourcedDescription,
         @Nullable CategoryRef category,

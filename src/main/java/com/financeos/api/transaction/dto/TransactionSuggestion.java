@@ -17,6 +17,6 @@ public record TransactionSuggestion(UUID id, SuggestionKind kind, String label, 
 
     /** Exactly one of transactionId / lendingId is set. */
     public record Candidate(@Nullable UUID transactionId, @Nullable UUID lendingId, LocalDate date,
-                            @Nullable String description, @Nullable String accountName, BigDecimal amount) {
+                            @Nullable String description, @Nullable String accountName, @Nullable BigDecimal amount) {
     }
 }

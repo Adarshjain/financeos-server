@@ -2,24 +2,24 @@ package com.financeos.gmail.reconcile;
 
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
+import com.financeos.domain.account.AccountType;
 import com.financeos.domain.account.card.CardRepository;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementPersistenceService;
-import com.financeos.domain.statement.StatementPersistenceService.TxnLink;
+import com.financeos.domain.statement.StatementTransaction;
 import com.financeos.domain.transaction.ReviewReason;
 import com.financeos.domain.transaction.ReviewStatusManager;
 import com.financeos.domain.transaction.ReviewType;
 import com.financeos.domain.transaction.Transaction;
-import com.financeos.domain.transaction.TransactionMatcher;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.transaction.TransactionSource;
 import com.financeos.domain.transaction.TransactionType;
+import com.financeos.domain.transaction.match.MatchFixture;
 import com.financeos.domain.user.User;
 import com.financeos.gmail.domain.GmailConnection;
 import com.financeos.gmail.domain.GmailProcessedMessageRepository;
 import com.financeos.gmail.engine.GmailEngine;
 import com.financeos.gmail.ingest.AccountResolver;
-import com.financeos.gmail.ingest.GmailIngestProperties;
 import com.financeos.gmail.ingest.ParkedMessageSettler;
 import com.financeos.gmail.internal.GmailAttachment;
 import com.financeos.gmail.internal.GmailMessage;
@@ -27,7 +27,6 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentCaptor;
 
 import java.io.ByteArrayOutputStream;
 import java.math.BigDecimal;
@@ -44,12 +43,12 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
- * A row another statement already linked may only be re-matched when this statement also covers its date.
- * This statement's lines span 2 Oct – 20 Oct, so the search window (±3 days) reaches back to 29 Sep.
+ * A row another statement already has a line for is never a candidate; it only takes this statement's line when it is
+ * the same line (overlap: same date, amount and bank text). This card statement spans 2 Oct – 20 Oct, so with W = 3
+ * the candidate window reaches back to 29 Sep.
  */
 class StatementReconciliationClaimedRowsTest {
 
@@ -60,6 +59,8 @@ class StatementReconciliationClaimedRowsTest {
     private static final String MESSAGE_ID = "msg-oct";
 
     private final TransactionRepository transactionRepository = mock(TransactionRepository.class);
+    private final MatchFixture fixture = new MatchFixture(transactionRepository);
+    private UUID statementId;
     private final StatementPersistenceService statementPersistenceService = mock(StatementPersistenceService.class);
     private final StatementParser statementParser = mock(StatementParser.class);
     private final GmailEngine gmailEngine = mock(GmailEngine.class);
@@ -73,15 +74,17 @@ class StatementReconciliationClaimedRowsTest {
     @BeforeEach
     void setUp() throws Exception {
         service = new StatementReconciliationService(gmailEngine, statementParser, transactionRepository,
-                mock(GmailProcessedMessageRepository.class), new GmailIngestProperties(), mock(AccountRepository.class),
-                accountResolver, new TransactionMatcher(), new ReviewStatusManager(), statementPersistenceService,
+                mock(GmailProcessedMessageRepository.class), mock(AccountRepository.class),
+                accountResolver, new ReviewStatusManager(), statementPersistenceService,
                 mock(CardRepository.class), mock(ParkedMessageSettler.class));
+        service.setBatchMatcher(fixture.matcher);
 
         connection = new GmailConnection();
         connection.setId(UUID.randomUUID());
         connection.setUser(new User());
         account = new Account();
         account.setId(UUID.randomUUID());
+        account.setType(AccountType.credit_card);
         account.setIngestFromDate(LocalDate.of(2026, 1, 1));
 
         message = new GmailMessage(MESSAGE_ID, Instant.now(), "alerts@bank", "Statement", "", "", null,
@@ -91,6 +94,9 @@ class StatementReconciliationClaimedRowsTest {
         when(accountResolver.resolve("XXXX1234")).thenReturn(Optional.of(new AccountResolver.ResolvedCard(account, null)));
         Statement statement = new Statement();
         statement.setId(UUID.randomUUID());
+        statement.setPeriodStart(OCT_02);
+        statement.setPeriodEnd(OCT_20);
+        statementId = statement.getId();
         when(statementPersistenceService.createIfNew(any(), eq(account), any(), eq(MESSAGE_ID), anyString(), any()))
                 .thenReturn(Optional.of(statement));
         when(statementParser.parse(pdf, null)).thenReturn(StatementExtractionResult.success(List.of(
@@ -108,7 +114,7 @@ class StatementReconciliationClaimedRowsTest {
     }
 
     /** An alert row (alert text, so only the loose amount/date rule applies to it). */
-    private static Transaction alertRow(LocalDate date, ReviewType reviewType) {
+    private Transaction alertRow(LocalDate date, ReviewType reviewType) {
         Transaction t = new Transaction();
         t.setId(UUID.randomUUID());
         t.setSource(TransactionSource.gmail_transaction_alert);
@@ -117,6 +123,7 @@ class StatementReconciliationClaimedRowsTest {
         t.setAmount(new BigDecimal("500.00"));
         t.setType(TransactionType.DEBIT);
         t.setSourcedDescription("Ramesh Kumar");
+        t.setAccount(account);
         if (reviewType == ReviewType.NEEDS_REVIEW) {
             t.setReviewReasons(new HashSet<>(Set.of(ReviewReason.UNRECONCILED, ReviewReason.DUPLICATE_SUSPECT)));
         }
@@ -124,18 +131,18 @@ class StatementReconciliationClaimedRowsTest {
     }
 
     private ReconSummary reconcileWith(Transaction existing, boolean claimedByAnotherStatement) {
-        when(transactionRepository.findByAccountIdAndDateRange(account.getId(), SEP_30.minusDays(1), OCT_20.plusDays(3)))
-                .thenReturn(List.of(existing));
-        when(statementPersistenceService.findStatementLinkedTransactionIds(account.getId(), SEP_30.minusDays(1), OCT_20.plusDays(3)))
-                .thenReturn(claimedByAnotherStatement ? Set.of(existing.getId()) : Set.of());
+        fixture.store(existing);
+        if (claimedByAnotherStatement) {
+            fixture.links.add(new StatementTransaction(UUID.randomUUID(), existing.getId(), 0, null, null));
+        }
         return service.reconcile(connection, message);
     }
 
-    @SuppressWarnings("unchecked")
-    private List<TxnLink> linksWritten() {
-        ArgumentCaptor<List<TxnLink>> captor = ArgumentCaptor.forClass(List.class);
-        verify(statementPersistenceService).linkTransactions(any(), captor.capture());
-        return captor.getValue();
+    /** The transaction this statement's line links to. */
+    private UUID lineTxn(int lineIndex) {
+        return fixture.links.stream()
+                .filter(l -> l.getId().getStatementId().equals(statementId) && l.getLineIndex() == lineIndex)
+                .map(l -> l.getId().getTransactionId()).findFirst().orElseThrow();
     }
 
     @Test
@@ -146,7 +153,7 @@ class StatementReconciliationClaimedRowsTest {
 
         assertThat(summary.created()).isEqualTo(2);
         assertThat(summary.createdTransactions()).extracting(Transaction::getDate).containsExactly(OCT_02, OCT_20);
-        assertThat(linksWritten()).extracting(TxnLink::transactionId).doesNotContain(septemberPayment.getId());
+        assertThat(List.of(lineTxn(0), lineTxn(1))).doesNotContain(septemberPayment.getId());
     }
 
     @Test
@@ -167,18 +174,31 @@ class StatementReconciliationClaimedRowsTest {
         ReconSummary summary = reconcileWith(earlierAlert, false);
 
         assertThat(summary.created()).isEqualTo(1);
-        assertThat(linksWritten()).filteredOn(l -> l.lineIndex() == 0)
-                .extracting(TxnLink::transactionId).containsExactly(earlierAlert.getId());
+        assertThat(lineTxn(0)).isEqualTo(earlierAlert.getId());
+        assertThat(earlierAlert.getDate()).isEqualTo(OCT_02);
     }
 
     @Test
-    void claimedRowInsideThisStatementsSpanStillMatchesForOverlappingStatements() {
-        Transaction overlapRow = alertRow(OCT_05, ReviewType.AUTO_REVIEWED);
+    void claimedRowInsideThisStatementsSpanIsNotReusedUnlessItIsTheSameLine() {
+        Transaction otherLine = alertRow(OCT_05, ReviewType.AUTO_REVIEWED);
 
-        ReconSummary summary = reconcileWith(overlapRow, true);
+        ReconSummary summary = reconcileWith(otherLine, true);
+
+        assertThat(summary.created()).isEqualTo(2);
+        assertThat(lineTxn(0)).isNotEqualTo(otherLine.getId());
+    }
+
+    @Test
+    void sameLineAlreadyImportedByAnotherStatementIsAttachedNotCreated() {
+        Transaction uploaded = alertRow(OCT_02, ReviewType.AUTO_REVIEWED);
+        uploaded.setSource(TransactionSource.file_upload);
+        uploaded.setSourcedDescription("UPI  DR 498765432109 Ramesh KUMAR");
+
+        ReconSummary summary = reconcileWith(uploaded, true);
 
         assertThat(summary.created()).isEqualTo(1);
-        assertThat(linksWritten()).filteredOn(l -> l.lineIndex() == 0)
-                .extracting(TxnLink::transactionId).containsExactly(overlapRow.getId());
+        assertThat(summary.matched()).isEqualTo(1);
+        assertThat(lineTxn(0)).isEqualTo(uploaded.getId());
+        assertThat(fixture.statementsOf(uploaded)).hasSize(2);
     }
 }

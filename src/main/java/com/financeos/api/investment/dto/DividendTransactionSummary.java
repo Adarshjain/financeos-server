@@ -17,13 +17,13 @@ public record DividendTransactionSummary(
         LocalDate date,
         @Nullable String description,
         /** Signed like {@code TransactionResponse.amount}: DEBIT negative, CREDIT positive. */
-        BigDecimal signedAmount
+        @Nullable BigDecimal signedAmount
 ) {
     public static DividendTransactionSummary from(Transaction t) {
         if (t == null) {
             return null;
         }
-        BigDecimal signed = t.getType() == TransactionType.DEBIT ? t.getAmount().negate() : t.getAmount();
+        BigDecimal signed = t.getAmount() == null ? null : t.getType() == TransactionType.DEBIT ? t.getAmount().negate() : t.getAmount();
         String desc = t.getDescription() != null ? t.getDescription() : t.getSourcedDescription();
         return new DividendTransactionSummary(
                 t.getId(),

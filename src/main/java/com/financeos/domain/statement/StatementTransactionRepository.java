@@ -38,6 +38,17 @@ public interface StatementTransactionRepository extends JpaRepository<StatementT
     @Query("DELETE FROM StatementTransaction st WHERE st.id.statementId = :statementId")
     int deleteByStatementId(@Param("statementId") UUID statementId);
 
+    /** Every line link of the statement. */
+    List<StatementTransaction> findByIdStatementId(UUID statementId);
+
+    /** Every line link (any statement) of the account's transactions dated in the range. */
+    @Query("SELECT st FROM StatementTransaction st, Transaction t " +
+           "WHERE t.id = st.id.transactionId AND t.account.id = :accountId " +
+           "AND t.date BETWEEN :startDate AND :endDate")
+    List<StatementTransaction> findLinksForAccountInRange(@Param("accountId") UUID accountId,
+                                                          @Param("startDate") LocalDate startDate,
+                                                          @Param("endDate") LocalDate endDate);
+
     @Query("SELECT DISTINCT st.id.transactionId FROM StatementTransaction st, Transaction t " +
            "WHERE t.id = st.id.transactionId AND t.account.id = :accountId " +
            "AND t.date BETWEEN :startDate AND :endDate")

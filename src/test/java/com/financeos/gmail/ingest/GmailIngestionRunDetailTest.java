@@ -193,11 +193,13 @@ class GmailIngestionRunDetailTest {
         LocalDate floor = com.financeos.core.time.AppTime.today().minusDays(60);
         when(backfillDemandRepository.findById(userId)).thenReturn(Optional.of(new GmailBackfillDemand(user, floor)));
         cursor.setEarliestCoveredAt(Instant.now());
-        when(gmailEngine.listMessageIds(eq(connection), anyString())).thenReturn(List.of("a", "b"), List.of("b", "c"));
+        when(gmailEngine.listMessageIds(eq(connection), argThat(q -> !q.contains("has:attachment"))))
+                .thenReturn(List.of("a", "b"), List.of("b", "c"));
+        when(gmailEngine.listMessageIds(eq(connection), argThat(q -> q.contains("has:attachment")))).thenReturn(List.of());
 
         SyncSummary summary = service.syncConnection(connection);
 
-        verify(gmailEngine, times(2)).listMessageIds(eq(connection), anyString());
+        verify(gmailEngine, times(2)).listMessageIds(eq(connection), argThat(q -> !q.contains("has:attachment")));
         assertThat(summary.listed()).isEqualTo(3);
     }
 
@@ -211,7 +213,7 @@ class GmailIngestionRunDetailTest {
         Account account = optedIn("HDFC Regalia");
         when(accountResolver.resolve(eq("1234"), any(), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(account, null)));
         Transaction created = txn(account, "SWIGGY", "450");
-        when(gmailTransactionWriter.writeTransaction(connection, "alert-1", ext, account, null)).thenAnswer(inv -> {
+        when(gmailTransactionWriter.writeTransaction(eq(connection), eq("alert-1"), eq(ext), eq(account), eq(null), any())).thenAnswer(inv -> {
             row.setAccount(account);
             row.setStatus(GmailProcessedStatus.CREATED);
             row.setTransaction(created);

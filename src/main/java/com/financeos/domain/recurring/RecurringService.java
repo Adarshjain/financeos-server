@@ -59,7 +59,7 @@ public class RecurringService {
 
     private static final String DEBITS = "SELECT t.id, t.date, t.amount, COALESCE(t.sourcedDescription, t.description), "
             + "t.categoryKey, t.account.id FROM Transaction t "
-            + "WHERE t.user.id = :userId AND t.type = :debit AND t.isTransactionExcluded = false "
+            + "WHERE t.user.id = :userId AND t.type = :debit AND t.isTransactionExcluded = false AND t.amount IS NOT NULL "
             + "AND t.date >= :from AND t.date <= :to "
             + "AND (t.categoryKey IS NULL OR t.categoryKey NOT IN :skip) "
             + "AND NOT EXISTS (SELECT 1 FROM TransactionLinkMember m WHERE m.transaction = t) "

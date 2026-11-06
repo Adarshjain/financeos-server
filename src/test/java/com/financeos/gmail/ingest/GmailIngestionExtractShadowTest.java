@@ -35,7 +35,7 @@ import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
-/** Shadow offline-extraction wiring in {@link GmailIngestionService}: fields, mismatch, metrics, merge check; outcome unchanged. */
+/** Shadow offline-extraction wiring in {@link GmailIngestionService}: fields, mismatch, metrics; outcome unchanged. */
 class GmailIngestionExtractShadowTest {
 
     private static final String ALERT_BODY = "Rs. 725.00 has been debited from your HDFC Bank Credit Card ending 4821 towards BLUE LEAF CAFE.";
@@ -185,11 +185,6 @@ class GmailIngestionExtractShadowTest {
 
     private double fieldMismatch(String field) {
         var c = registry.find("financeos.gmail.extract.field_mismatch").tag("field", field).counter();
-        return c == null ? 0 : c.count();
-    }
-
-    private double merge(String kind) {
-        var c = registry.find("financeos.gmail.extract.merge").tag("kind", kind).counter();
         return c == null ? 0 : c.count();
     }
 
@@ -400,148 +395,13 @@ class GmailIngestionExtractShadowTest {
     }
 
     @Test
-    void metricsFailureStillKeepsFieldsAndRunsTheMergeCheck() {
-        UUID twin = UUID.randomUUID();
-        stubCandidates(twin, "alerts@hdfcbank.net");
+    void metricsFailureStillKeepsFields() {
         ObservabilityMetrics broken = mock(ObservabilityMetrics.class);
         doThrow(new IllegalStateException("metrics")).when(broken).recordGmailExtractCompare(any(), any(), any());
         ReflectionTestUtils.setField(service, "observabilityMetrics", broken);
 
         GmailProcessedMessage row = runWith(msg("mf1", "no-reply@cred.club"), Optional.of(base()), aiBase());
 
-        assertThat(row.getExtractTier()).isEqualTo("TEMPLATE");
-        assertThat(row.getExtractMergeTxn()).isEqualTo(twin);
-    }
-
-    @Test
-    void mergeQueryRunsOutsideTheMessageTransactionAndItsFailureCannotChangeTheOutcome() {
-        int[] openAtQuery = {-1};
-        when(processedMessageRepository.findMergeCandidates(any(), any(), any(), any(), any(), any())).thenAnswer(i -> {
-            openAtQuery[0] = openTx;
-            throw new IllegalStateException("db");
-        });
-
-        GmailProcessedMessage row = runWith(msg("tx1", "no-reply@cred.club"), Optional.of(base()), aiBase());
-
-        // exactly one open transaction (the merge check's own), never nested inside the message transaction
-        assertThat(openAtQuery[0]).isEqualTo(1);
-        assertThat(maxOpenTx).isEqualTo(1);
-        assertThat(row.getStatus()).isEqualTo(GmailProcessedStatus.UNRESOLVED_ACCOUNT);
-        assertThat(openTx).isZero();
-    }
-
-    // ---- merge check ----
-
-    private static GmailProcessedMessageRepository.MergeCandidate candidate(UUID txnId, String sender) {
-        return new GmailProcessedMessageRepository.MergeCandidate() {
-            public UUID getTransactionId() { return txnId; }
-            public String getSenderAddress() { return sender; }
-        };
-    }
-
-    private void stubCandidates(UUID txnId, String sender) {
-        when(processedMessageRepository.findMergeCandidates(eq(user.getId()), anyString(), any(), any(), any(), any()))
-                .thenReturn(List.of(candidate(txnId, sender)));
-    }
-
-    @Test
-    void providerMailFindsItsIssuerTwin() {
-        UUID twin = UUID.randomUUID();
-        stubCandidates(twin, "alerts@hdfcbank.net");
-        GmailMessage m = msg("c1", "no-reply@cred.club");
-
-        GmailProcessedMessage row = runWith(m, Optional.of(base()), aiBase());
-
-        assertThat(row.getExtractMergeTxn()).isEqualTo(twin);
-        assertThat(merge("provider_after_issuer")).isEqualTo(1.0);
-        verify(processedMessageRepository).findMergeCandidates(user.getId(), "c1", new BigDecimal("725.00"),
-                com.financeos.domain.transaction.TransactionType.DEBIT, DAY.minusDays(2), DAY.plusDays(2));
-    }
-
-    @Test
-    void issuerMailFindsTheProviderTwinIncludingSubdomains() {
-        UUID twin = UUID.randomUUID();
-        stubCandidates(twin, "orders@mail.amazonpay.in");
-
-        GmailProcessedMessage row = runWith(msg("c2", "alerts@hdfcbank.net"), Optional.of(base()), aiBase());
-
-        assertThat(row.getExtractMergeTxn()).isEqualTo(twin);
-        assertThat(merge("issuer_after_provider")).isEqualTo(1.0);
-    }
-
-    @Test
-    void twoIssuerMailsDoNotMerge() {
-        stubCandidates(UUID.randomUUID(), "alerts@icicibank.com");
-
-        GmailProcessedMessage row = runWith(msg("c3", "alerts@hdfcbank.net"), Optional.of(base()), aiBase());
-
-        assertThat(row.getExtractMergeTxn()).isNull();
-        assertThat(registry.find("financeos.gmail.extract.merge").counter()).isNull();
-    }
-
-    @Test
-    void twoProviderMailsDoNotMerge() {
-        stubCandidates(UUID.randomUUID(), "x@paytm.com");
-
-        GmailProcessedMessage row = runWith(msg("c4", "no-reply@cred.club"), Optional.of(base()), aiBase());
-
-        assertThat(row.getExtractMergeTxn()).isNull();
-    }
-
-    @Test
-    void searchWindowIsTwoDaysAndAmountExact() {
-        // The repository applies amount and date; the service must ask for exactly the engine's values.
-        runWith(msg("c5", "alerts@hdfcbank.net"), Optional.of(eng("99.50", "INR", Direction.CREDIT, DAY, "X", null)),
-                ai("99.50", "INR", "CREDIT", DAY, "X", null));
-
-        verify(processedMessageRepository).findMergeCandidates(user.getId(), "c5", new BigDecimal("99.50"),
-                com.financeos.domain.transaction.TransactionType.CREDIT, DAY.minusDays(2), DAY.plusDays(2));
-        verify(processedMessageRepository, never()).findMergeCandidatesForAccount(any(), any(), any(), any(), any(), any(), any());
-    }
-
-    @Test
-    void engineDateNullSkipsTheCheck() {
-        runWith(msg("c6", "no-reply@cred.club"), Optional.of(eng("725.00", "INR", Direction.DEBIT, null, "X", null)), aiBase());
-
-        verify(processedMessageRepository, never()).findMergeCandidates(any(), any(), any(), any(), any(), any());
-    }
-
-    @Test
-    void noEngineResultSkipsTheCheck() {
-        runWith(msg("c7", "no-reply@cred.club"), Optional.empty(), aiBase());
-
-        verify(processedMessageRepository, never()).findMergeCandidates(any(), any(), any(), any(), any(), any());
-    }
-
-    @Test
-    void resolvedAccountScopesTheQueryAndTheOutcomeIsUnchanged() {
-        UUID twin = UUID.randomUUID();
-        Account account = new Account();
-        account.setId(UUID.randomUUID());
-        GmailMessage m = msg("c8", "no-reply@cred.club");
-        when(engine.extract(m)).thenReturn(Optional.of(base()));
-        when(geminiExtractor.extract(m)).thenReturn(aiBase());
-        when(accountResolver.resolve(any(), any(), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(account, null)));
-        when(processedMessageRepository.findMergeCandidatesForAccount(eq(user.getId()), eq(account.getId()), eq("c8"), any(), any(), any(), any()))
-                .thenReturn(List.of(candidate(twin, "alerts@hdfcbank.net")));
-
-        GmailProcessedMessage row = run(m);
-
-        assertThat(row.getExtractMergeTxn()).isEqualTo(twin);
-        assertThat(row.getStatus()).isEqualTo(GmailProcessedStatus.ACCOUNT_NOT_OPTED_IN);
-        verify(processedMessageRepository, never()).findMergeCandidates(any(), any(), any(), any(), any(), any());
-        verifyNoInteractions(writer);
-    }
-
-    @Test
-    void throwingMergeQueryLeavesTheOutcomeUnchanged() {
-        when(processedMessageRepository.findMergeCandidates(any(), any(), any(), any(), any(), any()))
-                .thenThrow(new IllegalStateException("db"));
-
-        GmailProcessedMessage row = runWith(msg("c9", "no-reply@cred.club"), Optional.of(base()), aiBase());
-
-        assertThat(row.getStatus()).isEqualTo(GmailProcessedStatus.UNRESOLVED_ACCOUNT);
-        assertThat(row.getExtractMergeTxn()).isNull();
         assertThat(row.getExtractTier()).isEqualTo("TEMPLATE");
     }
 }

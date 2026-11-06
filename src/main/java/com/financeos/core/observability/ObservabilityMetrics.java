@@ -158,4 +158,9 @@ public class ObservabilityMetrics {
                 .tag("kind", kind)
                 .register(registry).increment();
     }
+
+    /** The AI said not a transaction but a complete bank-template read of a HIGH ALERT mail was written instead. */
+    public void recordGmailAlertTemplateOverride() {
+        Counter.builder("financeos.gmail.alert.template_override").register(registry).increment();
+    }
 }

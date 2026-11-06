@@ -25,7 +25,14 @@ public class StatementCoverage {
     private static final Duration TTL = Duration.ofSeconds(60);
     private static final DateTimeFormatter DMY = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    private record Range(LocalDate start, LocalDate end) {}
+    private record Range(UUID id, LocalDate start, LocalDate end) {}
+
+    /** A non-rejected statement's period on the account. */
+    public record Period(UUID statementId, LocalDate start, LocalDate end) {
+        public boolean contains(LocalDate date) {
+            return date != null && !date.isBefore(start) && !date.isAfter(end);
+        }
+    }
 
     private record Entry(Instant loadedAt, List<Range> statements, List<Range> skips, LocalDate latestEnd) {}
 
@@ -59,6 +66,36 @@ public class StatementCoverage {
         return Optional.empty();
     }
 
+    /** The account's non-rejected statements with a period, earliest first (cached like {@link #coveredBy}). */
+    public List<Period> statements(UUID accountId) {
+        if (accountId == null) {
+            return List.of();
+        }
+        List<Period> out = new ArrayList<>();
+        for (Range r : entry(accountId).statements()) {
+            out.add(new Period(r.id(), r.start(), r.end()));
+        }
+        out.sort(java.util.Comparator.comparing(Period::start).thenComparing(Period::end)
+                .thenComparing(p -> String.valueOf(p.statementId())));
+        return out;
+    }
+
+    /** The statements whose period holds the date (a period imported twice gives two); no-statement periods never count. */
+    public List<Period> statementsCovering(UUID accountId, LocalDate date) {
+        if (date == null) {
+            return List.of();
+        }
+        return statements(accountId).stream().filter(p -> p.contains(date)).toList();
+    }
+
+    /** The earliest statement starting after {@code end}: the one a payment posted late lands on. */
+    public Optional<Period> nextAfter(UUID accountId, LocalDate end) {
+        if (end == null) {
+            return Optional.empty();
+        }
+        return statements(accountId).stream().filter(p -> p.start().isAfter(end)).findFirst();
+    }
+
     /** Loads the accounts' periods in two queries, so the per-alert lookups of a batch hit the cache. */
     public void preload(java.util.Collection<UUID> accountIds) {
         List<UUID> missing = accountIds.stream().filter(id -> !fresh(cache.get(id))).distinct().toList();
@@ -67,8 +104,22 @@ public class StatementCoverage {
         }
     }
 
+    /**
+     * Drops the cache once the statement write is visible: after the surrounding transaction completes (a reader that
+     * cached the old periods meanwhile is cleared too), or now when no transaction is active.
+     */
     public void invalidateAll() {
-        cache.clear();
+        if (org.springframework.transaction.support.TransactionSynchronizationManager.isSynchronizationActive()) {
+            org.springframework.transaction.support.TransactionSynchronizationManager.registerSynchronization(
+                    new org.springframework.transaction.support.TransactionSynchronization() {
+                        @Override
+                        public void afterCompletion(int status) {
+                            cache.clear();
+                        }
+                    });
+        } else {
+            cache.clear();
+        }
     }
 
     private Entry entry(UUID accountId) {
@@ -87,18 +138,18 @@ public class StatementCoverage {
     private void load(List<UUID> accountIds) {
         Map<UUID, List<Range>> statements = new java.util.HashMap<>();
         Map<UUID, LocalDate> latest = new java.util.HashMap<>();
-        for (StatementRepository.StatementPeriod p : statementRepository.findPeriodsByAccountIdIn(accountIds)) {
+        for (StatementRepository.StatementCoveragePeriod p : statementRepository.findCoveragePeriodsByAccountIdIn(accountIds)) {
             if (p.getVerdict() == StatementVerdict.REJECTED || p.getPeriodEnd() == null) {
                 continue;
             }
             latest.merge(p.getAccountId(), p.getPeriodEnd(), (a, b) -> a.isAfter(b) ? a : b);
             if (p.getPeriodStart() != null) {
-                statements.computeIfAbsent(p.getAccountId(), k -> new ArrayList<>()).add(new Range(p.getPeriodStart(), p.getPeriodEnd()));
+                statements.computeIfAbsent(p.getAccountId(), k -> new ArrayList<>()).add(new Range(p.getId(), p.getPeriodStart(), p.getPeriodEnd()));
             }
         }
         Map<UUID, List<Range>> skips = new java.util.HashMap<>();
         for (StatementSkippedPeriodRepository.SkippedRange s : skipRepository.findRangesByAccountIds(accountIds)) {
-            skips.computeIfAbsent(s.getAccountId(), k -> new ArrayList<>()).add(new Range(s.getPeriodStart(), s.getPeriodEnd()));
+            skips.computeIfAbsent(s.getAccountId(), k -> new ArrayList<>()).add(new Range(null, s.getPeriodStart(), s.getPeriodEnd()));
         }
         Instant now = Instant.now();
         for (UUID id : accountIds) {

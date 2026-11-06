@@ -3,6 +3,7 @@ package com.financeos.gmail.ingest;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.card.Card;
 import com.financeos.domain.transaction.*;
+import com.financeos.domain.transaction.match.AlertMatcher;
 import com.financeos.domain.user.User;
 import com.financeos.gmail.domain.*;
 import com.financeos.gmail.ingest.gemini.GeminiExtractionResult;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Component
 public class GmailTransactionWriter {
@@ -23,13 +25,17 @@ public class GmailTransactionWriter {
     @org.springframework.beans.factory.annotation.Autowired(required = false)
     private org.springframework.context.ApplicationEventPublisher eventPublisher;
 
-    /** Optional so tests that build the writer by hand need none; without it no statement cutoff applies. */
+    /** Optional so tests that build the writer by hand need none; without it every alert is created Pending, unmatched. */
     @org.springframework.beans.factory.annotation.Autowired(required = false)
-    private com.financeos.domain.statement.StatementCoverage statementCoverage;
+    private AlertMatcher alertMatcher;
 
-    /** Stateless; replaced by the Spring bean when present. */
+    /** Optional so tests that build the writer by hand need none: counts real provider / issuer merges. */
     @org.springframework.beans.factory.annotation.Autowired(required = false)
-    private TransactionMatcher transactionMatcher = new TransactionMatcher();
+    private com.financeos.core.observability.ObservabilityMetrics observabilityMetrics;
+
+    /** What the alert matcher reads from the email besides the extraction: sender, send time and references. */
+    public record EmailContext(String senderAddress, Instant sentAt, Set<String> refs) {
+    }
 
     public GmailTransactionWriter(TransactionRepository transactionRepository,
                                   GmailProcessedMessageRepository processedMessageRepository,
@@ -55,24 +61,23 @@ public class GmailTransactionWriter {
             GeminiExtractionResult extractionResult,
             Account resolvedAccount,
             Card resolvedCard) {
+        return writeTransaction(connection, gmailMessageId, extractionResult, resolvedAccount, resolvedCard, null);
+    }
+
+    /**
+     * Writes one alert: before the account's ingest date it is skipped; else the alert matcher attaches it to the
+     * payment it already is (statement line, provider / issuer twin, resend, manual entry) or creates its transaction.
+     */
+    @Transactional
+    public GmailProcessedMessage writeTransaction(
+            GmailConnection connection,
+            String gmailMessageId,
+            GeminiExtractionResult extractionResult,
+            Account resolvedAccount,
+            Card resolvedCard,
+            EmailContext email) {
 
         User user = connection.getUser();
-
-        // 0. Statements are the source of truth: an alert inside a period a statement already covers writes nothing.
-        LocalDate alertDate = extractionResult.date();
-        if (statementCoverage != null && alertDate != null) {
-            java.util.Optional<String> covered = statementCoverage.coveredBy(resolvedAccount.getId(), alertDate);
-            if (covered.isPresent()) {
-                GmailProcessedMessage processed = findOrCreateLedgerEntry(connection, gmailMessageId);
-                processed.setAccount(resolvedAccount);
-                processed.setStatus(GmailProcessedStatus.SKIPPED_BEFORE_WATERMARK);
-                processed.setTransaction(null);
-                processed.setError(covered.get());
-                processed.setProcessedAt(Instant.now());
-                org.slf4j.LoggerFactory.getLogger(GmailTransactionWriter.class).info("gmail.alert.covered_by_statement=1");
-                return processedMessageRepository.save(processed);
-            }
-        }
 
         // 1. Watermark gate check: date >= ingest_from_date
         LocalDate txDate = extractionResult.date();
@@ -89,44 +94,26 @@ public class GmailTransactionWriter {
             }
         }
 
-        // 1b. An alert that arrives after its statement: the statement row already records the payment.
-        Transaction statementRow = findPairedStatementRow(resolvedAccount, resolvedCard, extractionResult);
-        if (statementRow != null) {
-            GmailProcessedMessage processed = findOrCreateLedgerEntry(connection, gmailMessageId);
-            processed.setAccount(resolvedAccount);
-            processed.setStatus(GmailProcessedStatus.SKIPPED_DUPLICATE);
-            processed.setTransaction(statementRow);
-            processed.setError(null);
-            processed.setProcessedAt(Instant.now());
-            return processedMessageRepository.save(processed);
+        // 2. Match (attach to an existing payment) or create. A capped date is kept without a tag.
+        AlertMatcher.Alert alert = new AlertMatcher.Alert(user, resolvedAccount, resolvedCard,
+                TransactionType.fromLlmDirection(extractionResult.direction()), extractionResult.amount().abs(),
+                extractionResult.currency(), txDate, extractionResult.description(), extractionResult.accountLast4(),
+                email == null ? Set.of() : email.refs(), email == null ? null : email.senderAddress(),
+                email == null ? null : email.sentAt(), gmailMessageId);
+        AlertMatcher.Outcome outcome = alertMatcher != null ? alertMatcher.matchOrCreate(alert) : createUnmatched(alert);
+
+        GmailProcessedMessage processed = findOrCreateLedgerEntry(connection, gmailMessageId);
+        if (!outcome.created()) {
+            return recordAttached(processed, resolvedAccount, outcome.attached());
         }
 
-        // 2. Map fields and persist
-        Transaction txn = new Transaction();
-        txn.setUser(user);
-        txn.setAccount(resolvedAccount);
-        txn.setCard(resolvedCard);
-        txn.setDate(txDate);
-        txn.setAmount(extractionResult.amount().abs()); // Store unsigned magnitude
-        txn.setSourcedDescription(extractionResult.description());
-        txn.setSource(TransactionSource.gmail_transaction_alert);
-        txn.setType(TransactionType.fromLlmDirection(extractionResult.direction()));
-        reviewStatusManager.addReason(txn, ReviewReason.UNRECONCILED);
-        if (extractionResult.dateCorrected()) {
-            reviewStatusManager.addReason(txn, ReviewReason.DATE_CORRECTED);
-        }
-        txn.setSourceMessageId(gmailMessageId);
-        txn.setTransactionUnderMonitoring(false);
-        txn.setTransactionExcluded(false);
-
-        txn = transactionRepository.save(txn);
+        Transaction txn = outcome.txn();
         if (eventPublisher != null) {
             eventPublisher.publishEvent(new com.financeos.domain.transaction.autolink.TransactionsIngestedEvent(user.getId(),
                     com.financeos.domain.transaction.autolink.LinkScope.of(txn.getDate(), txn.getDate())));
         }
 
         // 3. Record in ledger
-        GmailProcessedMessage processed = findOrCreateLedgerEntry(connection, gmailMessageId);
         processed.setAccount(resolvedAccount);
         processed.setStatus(GmailProcessedStatus.CREATED);
         processed.setTransaction(txn);
@@ -137,35 +124,45 @@ public class GmailTransactionWriter {
     }
 
     /**
-     * The closest statement-sourced row (Gmail statement or upload) on the same account with the alert's
-     * direction and exact amount, dated within a day, that no other mail already stands for. One query per alert.
+     * An alert that joined an existing transaction: the mail points at it and nothing is created. SKIPPED_DUPLICATE
+     * ("Already imported"), since RECONCILED is what a statement mail records.
      */
-    private Transaction findPairedStatementRow(Account account, Card card, GeminiExtractionResult alert) {
-        LocalDate date = alert.date();
-        java.util.List<Transaction> rows = transactionRepository.findUnpairedStatementRows(
-                account.getId(), TransactionType.fromLlmDirection(alert.direction()), alert.amount().abs(),
-                date.minusDays(1), date.plusDays(1),
-                java.util.List.of(TransactionSource.gmail_statement, TransactionSource.file_upload));
-        if (rows == null) return null;
-        Transaction alertRow = new Transaction();
-        alertRow.setSource(TransactionSource.gmail_transaction_alert);
-        alertRow.setSourcedDescription(alert.description());
-        return rows.stream()
-                // A row already in an uncertain duplicate pairing is waiting for the user, not a settled record.
-                .filter(r -> r.getReviewReasons() == null || !r.getReviewReasons().contains(ReviewReason.DUPLICATE_SUSPECT))
-                // Skip only for the same merchant; two different merchants for one amount are two payments.
-                .filter(r -> !hasMerchant(r) || !hasMerchant(alertRow)
-                        || transactionMatcher.sameCounterparty(r, alertRow))
-                .filter(r -> card == null || r.getCard() == null || card.getId().equals(r.getCard().getId()))
-                .min(java.util.Comparator
-                        .comparingLong((Transaction r) -> Math.abs(java.time.temporal.ChronoUnit.DAYS.between(date, r.getDate())))
-                        .thenComparing(Transaction::getCreatedAt, java.util.Comparator.nullsLast(java.util.Comparator.naturalOrder())))
-                .orElse(null);
+    public GmailProcessedMessage recordAttached(GmailProcessedMessage processed, Account account, AlertMatcher.Attached attached) {
+        processed.setAccount(account);
+        processed.setStatus(GmailProcessedStatus.SKIPPED_DUPLICATE);
+        processed.setTransaction(attached.txn());
+        processed.setError(attached.detail());
+        processed.setProcessedAt(Instant.now());
+        if (attached.kind() == AlertMatcher.Kind.ISSUER_EMAIL || attached.kind() == AlertMatcher.Kind.PROVIDER_EMAIL) {
+            processed.setExtractMergeTxn(attached.txn().getId());
+            if (observabilityMetrics != null) {
+                try {
+                    observabilityMetrics.recordGmailExtractMerge(attached.kind() == AlertMatcher.Kind.ISSUER_EMAIL
+                            ? "provider_after_issuer" : "issuer_after_provider");
+                } catch (Exception e) {
+                    org.slf4j.LoggerFactory.getLogger(GmailTransactionWriter.class).warn("Merge metric failed: {}", e.toString());
+                }
+            }
+        }
+        return processedMessageRepository.save(processed);
     }
 
-    private static boolean hasMerchant(Transaction t) {
-        String d = t.getSourcedDescription() != null ? t.getSourcedDescription() : t.getDescription();
-        return d != null && !d.isBlank();
+    /** Hand-built writers (tests) have no matcher: the alert is created Pending, as the matcher would on no match. */
+    private AlertMatcher.Outcome createUnmatched(AlertMatcher.Alert alert) {
+        Transaction txn = new Transaction();
+        txn.setUser(alert.user());
+        txn.setAccount(alert.account());
+        txn.setCard(alert.card());
+        txn.setDate(alert.date());
+        alert.applyAmounts(txn);
+        txn.setSourcedDescription(alert.text());
+        txn.setSource(TransactionSource.gmail_transaction_alert);
+        txn.setType(alert.type());
+        reviewStatusManager.transitionTo(txn, ReviewType.AUTO_REVIEWED);
+        txn.setSourceMessageId(alert.gmailMessageId());
+        txn.setTransactionUnderMonitoring(false);
+        txn.setTransactionExcluded(false);
+        return new AlertMatcher.Outcome(transactionRepository.save(txn), true, null);
     }
 
     private GmailProcessedMessage findOrCreateLedgerEntry(GmailConnection connection, String gmailMessageId) {

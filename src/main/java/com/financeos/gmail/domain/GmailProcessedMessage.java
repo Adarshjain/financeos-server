@@ -63,6 +63,10 @@ public class GmailProcessedMessage {
     @Column(name = "internal_date")
     private Instant internalDate;
 
+    /** Gmail listed the mail under has:attachment at discovery: drained first (statements before the alerts they cover). */
+    @Column(name = "has_attachment", nullable = false)
+    private boolean hasAttachment = false;
+
     @Column(name = "sender_address", length = 320)
     private String senderAddress;
 

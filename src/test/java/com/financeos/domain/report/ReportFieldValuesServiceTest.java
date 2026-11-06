@@ -116,7 +116,7 @@ class ReportFieldValuesServiceTest {
         ArgumentCaptor<String> sql = ArgumentCaptor.forClass(String.class);
         verify(em, times(1)).createNativeQuery(sql.capture());
         assertEquals("SELECT DISTINCT a.name AS v FROM transactions t LEFT JOIN accounts a ON a.id = t.account_id"
-                + " WHERE t.user_id = :userId ORDER BY 1 FETCH FIRST 500 ROWS ONLY", sql.getValue());
+                + " WHERE t.user_id = :userId AND t.amount IS NOT NULL ORDER BY 1 FETCH FIRST 500 ROWS ONLY", sql.getValue());
         assertEquals(List.of("account"), List.copyOf(values.keySet()));
     }
 
@@ -132,7 +132,7 @@ class ReportFieldValuesServiceTest {
         ArgumentCaptor<String> sql = ArgumentCaptor.forClass(String.class);
         verify(em).createNativeQuery(sql.capture());
         assertEquals("SELECT DISTINCT t.account_id AS i, a.name AS v FROM transactions t"
-                + " LEFT JOIN accounts a ON a.id = t.account_id WHERE t.user_id = :userId"
+                + " LEFT JOIN accounts a ON a.id = t.account_id WHERE t.user_id = :userId AND t.amount IS NOT NULL"
                 + " ORDER BY 2, 1 FETCH FIRST 500 ROWS ONLY", sql.getValue());
         assertEquals(List.of(new Option("id-1", "axis"), new Option("id-3", "Axis"), new Option("id-2", "Zeta")),
                 response.options().get("account"));

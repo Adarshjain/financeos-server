@@ -148,7 +148,7 @@ public class TransactionSuggestionService {
     }
 
     private static Candidate candidate(Transaction t, Map<UUID, String> last4) {
-        BigDecimal signed = t.getType() == TransactionType.DEBIT ? t.getAmount().negate() : t.getAmount();
+        BigDecimal signed = t.getAmount() == null ? null : t.getType() == TransactionType.DEBIT ? t.getAmount().negate() : t.getAmount();
         return new Candidate(t.getId(), null, t.getDate(), t.getDescription() != null ? t.getDescription() : t.getSourcedDescription(),
                 t.getAccount().getName(), signed);
     }

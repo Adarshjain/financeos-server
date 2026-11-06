@@ -68,6 +68,40 @@ public final class ExtractParsing {
         return fallback;
     }
 
+    private static final String FOREIGN_CODES = "USD|EUR|GBP|AED|SGD|IDR|THB|JPY|AUD|CAD|CHF|MYR|LKR|NPR|HKD|CNY|SAR|QAR|KWD|OMR|BHD|NZD|ZAR|VND|KRW|PHP";
+    private static final String CURRENCY_TOKEN = "(₹|Rs\\.?|INR|" + FOREIGN_CODES + "|[$€£])";
+    private static final Pattern TOKEN_BEFORE = Pattern.compile("(?i)(?<![A-Za-z])" + CURRENCY_TOKEN + "\\s*$");
+    private static final Pattern TOKEN_AFTER = Pattern.compile("(?i)^\\s*" + CURRENCY_TOKEN + "(?![A-Za-z])");
+    /** A foreign code is matched upper-case only, so "php" in a link or "cad" in a word is no currency. */
+    private static final Pattern FOREIGN_ANYWHERE = Pattern.compile("(?<![A-Za-z])(?:" + FOREIGN_CODES + ")(?![A-Za-z])|[$€£]");
+    private static final int NEAR = 8;
+
+    /**
+     * The currency of a template's amount, never a foreign charge read as INR: the template's currency group when it
+     * names one; else a currency token right beside the amount; else the template default only when no foreign code or
+     * symbol appears anywhere in the text. Null when unsure, so the pre-AI attach skips and the AI decides.
+     */
+    public static String templateCurrency(String text, int amountStart, int amountEnd, String group, String templateDefault) {
+        String fromGroup = parseCurrency(group, null);
+        if (fromGroup != null) {
+            return fromGroup;
+        }
+        if (text != null && amountStart >= 0 && amountEnd >= amountStart) {
+            Matcher before = TOKEN_BEFORE.matcher(text.substring(Math.max(0, amountStart - NEAR), amountStart));
+            if (before.find()) {
+                return parseCurrency(before.group(1), null);
+            }
+            Matcher after = TOKEN_AFTER.matcher(text.substring(amountEnd, Math.min(text.length(), amountEnd + NEAR)));
+            if (after.find()) {
+                return parseCurrency(after.group(1), null);
+            }
+        }
+        if (text == null || !FOREIGN_ANYWHERE.matcher(text).find()) {
+            return templateDefault;
+        }
+        return null;
+    }
+
     /** Digits of the text, last four (fewer if fewer are shown); null when there are none. */
     public static String parseLast4(String raw) {
         if (raw == null) {

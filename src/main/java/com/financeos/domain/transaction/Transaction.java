@@ -53,7 +53,8 @@ public class Transaction {
     @Column(name = "transaction_date", nullable = false)
     private LocalDate date;
 
-    @Column(nullable = false, precision = 19, scale = 4)
+    /** Rupee amount; null only for a foreign charge (see {@link #originalAmount}) until its statement line fills it. */
+    @Column(nullable = true, precision = 19, scale = 4)
     private BigDecimal amount;
 
     @Column(nullable = true)
@@ -180,6 +181,19 @@ public class Transaction {
 
     @Column(name = "source_message_id")
     private String sourceMessageId;
+
+    /** A foreign charge's own amount (e.g. 20.00 for USD 20.00); null for rupee transactions. */
+    @Column(name = "original_amount", precision = 19, scale = 4)
+    private BigDecimal originalAmount;
+
+    /** ISO code of {@link #originalAmount} (e.g. USD); null for rupee transactions. */
+    @Column(name = "original_currency", length = 3)
+    private String originalCurrency;
+
+    /** The statement whose period holds this alert but has no line for it (review reason NOT_ON_STATEMENT). */
+    @Column(name = "not_on_statement_id", length = 36)
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    private UUID notOnStatementId;
 
     @Column(name = "created_at")
     private Instant createdAt;

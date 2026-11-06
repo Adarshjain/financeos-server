@@ -24,6 +24,6 @@ public record UncategorizedTransactionResponse(
         TransactionSource source,
         @Nullable TransactionChannel channel,
         /** Negative for money out. */
-        BigDecimal amount,
+        @Nullable BigDecimal amount,
         TransactionType type) {
 }

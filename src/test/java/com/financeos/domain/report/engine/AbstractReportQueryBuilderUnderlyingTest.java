@@ -33,7 +33,7 @@ class AbstractReportQueryBuilderUnderlyingTest {
         String where = qb.buildWhere(List.of(new FilterClause("amount", UnderlyingOperators.PRESENT, null)),
                 userId, params, new HashSet<>());
 
-        assertEquals(" WHERE t.user_id = :userId AND " + TransactionQueryBuilder.SIGNED_AMOUNT + " IS NOT NULL", where);
+        assertEquals(" WHERE t.user_id = :userId AND t.amount IS NOT NULL AND " + TransactionQueryBuilder.SIGNED_AMOUNT + " IS NOT NULL", where);
         assertEquals(Map.of("userId", userId.toString()), params);
     }
 

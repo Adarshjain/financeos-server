@@ -18,6 +18,26 @@ public interface GmailProcessedMessageRepository extends JpaRepository<GmailProc
     Optional<GmailProcessedMessage> findByConnectionIdAndGmailMessageId(UUID connectionId, String gmailMessageId);
     boolean existsByConnectionIdAndGmailMessageId(UUID connectionId, String gmailMessageId);
 
+    /** Of these transactions, the ones an alert mail points at (a statement re-run leaves those rows linked). */
+    @Query("SELECT DISTINCT g.transaction.id FROM GmailProcessedMessage g WHERE g.transaction.id IN :transactionIds")
+    List<UUID> findTransactionIdsIn(@Param("transactionIds") Collection<UUID> transactionIds);
+
+    /** An alert mail that points at a transaction: who sent it and when (alert matching). */
+    interface AlertMail {
+        UUID getTransactionId();
+        String getGmailMessageId();
+        String getSenderAddress();
+        Instant getInternalDate();
+    }
+
+    /** The mails pointing at these transactions, one query (alert matching). */
+    @Query("SELECT g.transaction.id AS transactionId, g.gmailMessageId AS gmailMessageId, g.senderAddress AS senderAddress, "
+            + "g.internalDate AS internalDate FROM GmailProcessedMessage g WHERE g.transaction.id IN :transactionIds")
+    List<AlertMail> findAlertMailsByTransactionIdIn(@Param("transactionIds") Collection<UUID> transactionIds);
+
+    /** The mails pointing at any of these transactions, one query. */
+    List<GmailProcessedMessage> findAllByTransactionIdIn(Collection<UUID> transactionIds);
+
     @Query("SELECT g.gmailMessageId FROM GmailProcessedMessage g WHERE g.connection.id = :connectionId AND g.gmailMessageId IN :gmailMessageIds")
     List<String> findExistingMessageIds(@Param("connectionId") UUID connectionId, @Param("gmailMessageIds") Collection<String> gmailMessageIds);
 
@@ -51,7 +71,13 @@ public interface GmailProcessedMessageRepository extends JpaRepository<GmailProc
 
     long countByUserIdAndStatus(UUID userId, GmailProcessedStatus status);
 
-    @Query("SELECT g FROM GmailProcessedMessage g WHERE g.connection.id = :connectionId AND (g.status = com.financeos.gmail.domain.GmailProcessedStatus.DISCOVERED OR (g.status = com.financeos.gmail.domain.GmailProcessedStatus.FAILED_RETRYABLE AND g.nextRetryAt <= :now)) ORDER BY g.discoveredAt ASC, g.id ASC")
+    /**
+     * The next rows to process: mails with an attachment (marked at discovery) or known statements first, so across a
+     * whole backlog every statement lands before the alerts it covers; then by the mail's date, then discovery order.
+     */
+    @Query("SELECT g FROM GmailProcessedMessage g WHERE g.connection.id = :connectionId AND (g.status = com.financeos.gmail.domain.GmailProcessedStatus.DISCOVERED OR (g.status = com.financeos.gmail.domain.GmailProcessedStatus.FAILED_RETRYABLE AND g.nextRetryAt <= :now)) "
+            + "ORDER BY CASE WHEN g.hasAttachment = true OR g.pipelineKind = 'STATEMENT' THEN 0 ELSE 1 END ASC, "
+            + "CASE WHEN g.internalDate IS NULL THEN 1 ELSE 0 END ASC, g.internalDate ASC, g.discoveredAt ASC, g.id ASC")
     List<GmailProcessedMessage> findPendingForDrain(@Param("connectionId") UUID connectionId, @Param("now") Instant now, Pageable pageable);
 
     @Query("SELECT COUNT(g) FROM GmailProcessedMessage g WHERE g.connection.id = :connectionId AND (g.status = com.financeos.gmail.domain.GmailProcessedStatus.DISCOVERED OR (g.status = com.financeos.gmail.domain.GmailProcessedStatus.FAILED_RETRYABLE AND g.nextRetryAt <= :now))")
@@ -111,7 +137,6 @@ public interface GmailProcessedMessageRepository extends JpaRepository<GmailProc
     @Query("SELECT DISTINCT g.extractedLast4 FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.extractedLast4 IS NOT NULL AND g.status IN :statuses")
     List<String> findParkedLast4s(@Param("userId") UUID userId, @Param("statuses") Collection<GmailProcessedStatus> statuses);
 
-    Optional<GmailProcessedMessage> findByTransactionId(UUID transactionId);
 
     /** Inbox: every attention item for the user, notified or not; archived items and mail a NEW suggestion stands for are excluded. */
     @Query("SELECT COUNT(g) FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.status IN :statuses AND g.archivedAt IS NULL" + NOT_STANDING_FOR_SUGGESTION)
@@ -124,34 +149,4 @@ public interface GmailProcessedMessageRepository extends JpaRepository<GmailProc
     /** {@link #findAttentionItems}' rows for one account (the row's resolved account), same filter; archived excluded. */
     @Query("SELECT COUNT(g) FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.account.id = :accountId AND g.status IN :statuses AND g.archivedAt IS NULL")
     long countAttentionItemsForAccount(@Param("userId") UUID userId, @Param("accountId") UUID accountId, @Param("statuses") Collection<GmailProcessedStatus> statuses);
-
-    /** A Gmail-sourced transaction found by the shadow merge check, with the sender of the mail that made it. */
-    interface MergeCandidate {
-        UUID getTransactionId();
-        String getSenderAddress();
-    }
-
-    /** Twin candidates for the shadow merge check, any account of the user; one query, no per-row loads. */
-    @Query("SELECT g.transaction.id AS transactionId, g.senderAddress AS senderAddress FROM GmailProcessedMessage g " +
-           "WHERE g.user.id = :userId AND g.transaction IS NOT NULL AND g.gmailMessageId <> :gmailMessageId " +
-           "AND g.transaction.amount = :amount AND g.transaction.type = :type " +
-           "AND g.transaction.date BETWEEN :fromDate AND :toDate ORDER BY g.transaction.date ASC, g.transaction.id ASC")
-    List<MergeCandidate> findMergeCandidates(@Param("userId") UUID userId, @Param("gmailMessageId") String gmailMessageId,
-                                             @Param("amount") java.math.BigDecimal amount,
-                                             @Param("type") com.financeos.domain.transaction.TransactionType type,
-                                             @Param("fromDate") java.time.LocalDate fromDate,
-                                             @Param("toDate") java.time.LocalDate toDate);
-
-    /** {@link #findMergeCandidates} limited to one account. */
-    @Query("SELECT g.transaction.id AS transactionId, g.senderAddress AS senderAddress FROM GmailProcessedMessage g " +
-           "WHERE g.user.id = :userId AND g.transaction IS NOT NULL AND g.gmailMessageId <> :gmailMessageId " +
-           "AND g.transaction.account.id = :accountId " +
-           "AND g.transaction.amount = :amount AND g.transaction.type = :type " +
-           "AND g.transaction.date BETWEEN :fromDate AND :toDate ORDER BY g.transaction.date ASC, g.transaction.id ASC")
-    List<MergeCandidate> findMergeCandidatesForAccount(@Param("userId") UUID userId, @Param("accountId") UUID accountId,
-                                                       @Param("gmailMessageId") String gmailMessageId,
-                                                       @Param("amount") java.math.BigDecimal amount,
-                                                       @Param("type") com.financeos.domain.transaction.TransactionType type,
-                                                       @Param("fromDate") java.time.LocalDate fromDate,
-                                                       @Param("toDate") java.time.LocalDate toDate);
 }

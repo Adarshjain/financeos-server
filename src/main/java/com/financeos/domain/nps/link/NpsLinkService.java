@@ -78,6 +78,9 @@ public class NpsLinkService {
         if (txn.getType() != TransactionType.DEBIT) {
             throw new ValidationException("An NPS contribution is paid by a debit.");
         }
+        if (txn.getAmount() == null) {
+            throw new ValidationException("This foreign charge has no rupee amount until its statement arrives.");
+        }
         if (candidateLoader.freeIds(userId, List.of(txn.getId())).isEmpty()) {
             throw new ValidationException("This transaction is already linked to something else.");
         }

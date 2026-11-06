@@ -12124,6 +12124,7 @@ components:
             - UNRECONCILED
             - DUPLICATE_SUSPECT
             - DATE_CORRECTED
+            - NOT_ON_STATEMENT
         reviewType:
           type: string
           enum:
@@ -12723,6 +12724,8 @@ components:
           x-nullable: true
         amount:
           type: number
+          nullable: true
+          x-nullable: true
         date:
           type: string
           format: date
@@ -12741,7 +12744,6 @@ components:
           nullable: true
           x-nullable: true
       required:
-      - amount
       - date
     CapStatus:
       type: object
@@ -13400,6 +13402,7 @@ components:
             - UNRECONCILED
             - DUPLICATE_SUSPECT
             - DATE_CORRECTED
+            - NOT_ON_STATEMENT
           uniqueItems: true
         previousReviewType:
           type: string
@@ -15400,10 +15403,11 @@ components:
           format: uuid
         signedAmount:
           type: number
+          nullable: true
+          x-nullable: true
       required:
       - date
       - id
-      - signedAmount
     DraftResultRequest:
       type: object
       properties:
@@ -18741,6 +18745,8 @@ components:
       properties:
         amount:
           type: number
+          nullable: true
+          x-nullable: true
         date:
           type: string
           format: date
@@ -18755,7 +18761,6 @@ components:
           - DEBIT
           - CREDIT
       required:
-      - amount
       - date
       - description
       - transactionId
@@ -18973,11 +18978,12 @@ components:
           format: uuid
         signedAmount:
           type: number
+          nullable: true
+          x-nullable: true
       required:
       - accountId
       - date
       - id
-      - signedAmount
     LinkDividendTransactionRequest:
       type: object
       properties:
@@ -19660,6 +19666,8 @@ components:
           type: string
         signedAmount:
           type: number
+          nullable: true
+          x-nullable: true
         transactionId:
           type: string
           format: uuid
@@ -19668,7 +19676,6 @@ components:
       - date
       - isAnchor
       - roleLabel
-      - signedAmount
       - transactionId
     MergeTransactionsRequest:
       type: object
@@ -19698,6 +19705,7 @@ components:
             - UNRECONCILED
             - DUPLICATE_SUSPECT
             - DATE_CORRECTED
+            - NOT_ON_STATEMENT
           uniqueItems: true
         reviewType:
           type: string
@@ -19967,6 +19975,24 @@ components:
       - progress
       - threshold
       - windowEnd
+    NotOnStatement:
+      type: object
+      properties:
+        periodEnd:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        periodStart:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        statementId:
+          type: string
+          format: uuid
+      required:
+      - statementId
     NotificationEvaluateResponse:
       type: object
       properties:
@@ -24849,6 +24875,8 @@ components:
           type: string
         amount:
           type: number
+          nullable: true
+          x-nullable: true
         appliedRuleId:
           type: string
           format: uuid
@@ -24893,7 +24921,6 @@ components:
       required:
       - accountId
       - accountName
-      - amount
       - date
       - id
       - sourcedDescription
@@ -25109,6 +25136,8 @@ components:
           type: string
         amount:
           type: number
+          nullable: true
+          x-nullable: true
         date:
           type: string
           format: date
@@ -25120,7 +25149,6 @@ components:
       required:
       - accountId
       - accountName
-      - amount
       - date
       - description
       - id
@@ -26420,6 +26448,8 @@ components:
           format: uuid
         amount:
           type: number
+          nullable: true
+          x-nullable: true
         appliedRuleId:
           type: string
           format: uuid
@@ -26520,10 +26550,20 @@ components:
           type: string
           nullable: true
           x-nullable: true
+        notOnStatement:
+          $ref: "#/components/schemas/NotOnStatement"
         obligationRefs:
           type: array
           items:
             $ref: "#/components/schemas/ObligationRef"
+        originalAmount:
+          type: number
+          nullable: true
+          x-nullable: true
+        originalCurrency:
+          type: string
+          nullable: true
+          x-nullable: true
         reviewReasons:
           type: array
           items:
@@ -26532,6 +26572,7 @@ components:
             - UNRECONCILED
             - DUPLICATE_SUSPECT
             - DATE_CORRECTED
+            - NOT_ON_STATEMENT
         reviewType:
           type: string
           enum:
@@ -26575,7 +26616,6 @@ components:
           format: date-time
       required:
       - accountId
-      - amount
       - createdAt
       - date
       - id
@@ -26634,6 +26674,8 @@ components:
           type: string
         amount:
           type: number
+          nullable: true
+          x-nullable: true
         date:
           type: string
           format: date
@@ -26651,7 +26693,6 @@ components:
           - CREDIT
       required:
       - accountName
-      - amount
       - date
       - id
       - type
@@ -26727,6 +26768,8 @@ components:
           type: string
         amount:
           type: number
+          nullable: true
+          x-nullable: true
         cardLabel:
           type: string
           nullable: true
@@ -26775,7 +26818,6 @@ components:
       required:
       - accountId
       - accountName
-      - amount
       - date
       - id
       - source
@@ -27415,7 +27457,6 @@ components:
           format: uuid
         amount:
           type: number
-          x-required: true
         cardId:
           type: string
           format: uuid
@@ -27443,6 +27484,7 @@ components:
             - UNRECONCILED
             - DUPLICATE_SUSPECT
             - DATE_CORRECTED
+            - NOT_ON_STATEMENT
           uniqueItems: true
         reviewType:
           type: string
@@ -27461,7 +27503,6 @@ components:
             type: string
             format: uuid
       required:
-      - amount
       - date
     UpsertPriceRequest:
       type: object

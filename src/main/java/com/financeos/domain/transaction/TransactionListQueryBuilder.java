@@ -91,9 +91,9 @@ public class TransactionListQueryBuilder {
                      t.is_under_monitoring, t.is_excluded, t.review_type,
                      (CASE WHEN t.type = 'CREDIT' THEN t.amount ELSE -t.amount END) AS signed_amount,
                      (COALESCE(abd.opening_balance, 0) +
-                      SUM(CASE WHEN t.type = 'CREDIT' THEN t.amount ELSE -t.amount END)
+                      COALESCE(SUM(CASE WHEN t.type = 'CREDIT' THEN t.amount ELSE -t.amount END)
                           OVER (PARTITION BY t.account_id
-                                ORDER BY t.transaction_date ASC, t.created_at ASC, t.id ASC)) AS balance
+                                ORDER BY t.transaction_date ASC, t.created_at ASC, t.id ASC), 0)) AS balance
               FROM transactions t
               LEFT JOIN account_bank_details abd ON t.account_id = abd.account_id
               WHERE t.user_id = :userId@@T@@
@@ -101,7 +101,7 @@ public class TransactionListQueryBuilder {
             days AS (
               SELECT d.account_id, d.transaction_date,
                      (COALESCE(abd.opening_balance, 0) +
-                      SUM(d.net) OVER (PARTITION BY d.account_id ORDER BY d.transaction_date ASC)) AS day_end
+                      COALESCE(SUM(d.net) OVER (PARTITION BY d.account_id ORDER BY d.transaction_date ASC), 0)) AS day_end
               FROM (
                 SELECT t.account_id, t.transaction_date,
                        SUM(CASE WHEN t.type = 'CREDIT' THEN t.amount ELSE -t.amount END) AS net
@@ -249,7 +249,8 @@ public class TransactionListQueryBuilder {
                 String prop = order.getProperty();
                 String dir = order.getDirection().name();
                 String expr = getWhitelistedSortExpression(prop);
-                sortClauses.add(expr + " " + dir);
+                // Amount sorts put foreign charges with no rupee amount yet last, either direction.
+                sortClauses.add(expr + " " + dir + (prop.equalsIgnoreCase("amount") ? " NULLS LAST" : ""));
 
                 if (prop.equalsIgnoreCase("date")) hasDate = true;
                 if (prop.equalsIgnoreCase("createdAt")) hasCreatedAt = true;

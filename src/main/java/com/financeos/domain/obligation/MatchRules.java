@@ -36,6 +36,7 @@ public final class MatchRules {
     }
 
     private static boolean withinAmount(BigDecimal expected, BigDecimal tolerance, BigDecimal amount) {
+        if (amount == null) return false; // a foreign charge with no rupee amount yet fits nothing
         return amount.compareTo(expected.subtract(tolerance)) >= 0 && amount.compareTo(expected.add(tolerance)) <= 0;
     }
 

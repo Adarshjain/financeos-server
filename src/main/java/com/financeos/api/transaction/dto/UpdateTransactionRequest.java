@@ -15,7 +15,8 @@ public record UpdateTransactionRequest(
         UUID accountId,
         UUID cardId,
         @NotNull(message = "Date is required") LocalDate date,
-        @NotNull(message = "Amount is required") BigDecimal amount,
+        /** Signed rupee amount; required, except null on a foreign charge whose rupee amount is still unknown (kept unknown). */
+        BigDecimal amount,
         String description,
         List<UUID> tagIds,
         /**

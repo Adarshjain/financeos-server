@@ -72,7 +72,7 @@ class TransactionQueryBuilderCycleTest {
         String where = qb.buildWhere(List.of(op("date", "this_billing_cycle")), userId, params, joins);
 
         String expr = TransactionQueryBuilder.EFFECTIVE_DATE;
-        assertEquals(" WHERE t.user_id = :userId AND "
+        assertEquals(" WHERE t.user_id = :userId AND t.amount IS NOT NULL AND "
                 + "((t.account_id = :f0_c0a AND " + expr + " BETWEEN :f0_c0s AND :f0_c0e) OR "
                 + "(t.account_id = :f0_c1a AND " + expr + " BETWEEN :f0_c1s AND :f0_c1e))", where);
         assertEquals(cardA.toString(), params.get("f0_c0a"));
@@ -102,7 +102,7 @@ class TransactionQueryBuilderCycleTest {
     void noCardsMatchesNothing() {
         when(cycles.windows(eq(userId), anyInt(), any(LocalDate.class))).thenReturn(new CycleWindows(Map.of()));
         String where = qb.buildWhere(List.of(op("date", "this_billing_cycle")), userId, new HashMap<>(), new HashSet<>());
-        assertEquals(" WHERE t.user_id = :userId AND 1 = 0", where);
+        assertEquals(" WHERE t.user_id = :userId AND t.amount IS NOT NULL AND 1 = 0", where);
     }
 
     @Test

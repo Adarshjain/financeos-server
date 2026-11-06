@@ -188,4 +188,10 @@ class StatementReviewNotificationServiceTest {
         s.setCreditCardDetails(new StatementCreditCardDetails(s));
         assertEquals("Period 1 Sep – 30 Sep · Review and approve or merge the leftovers.", StatementReviewMessages.digest(s, 2).body());
     }
+
+    @org.junit.jupiter.api.Test
+    void countsAlertsNotOnTheStatementNotPendingUnreconciledOnes() {
+        assertEquals(java.util.List.of(com.financeos.domain.transaction.ReviewReason.NOT_ON_STATEMENT,
+                com.financeos.domain.transaction.ReviewReason.DUPLICATE_SUSPECT), StatementReviewNotificationService.DANGLING_REASONS);
+    }
 }

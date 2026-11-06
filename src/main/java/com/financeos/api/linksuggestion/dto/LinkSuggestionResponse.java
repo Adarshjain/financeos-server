@@ -18,7 +18,7 @@ public record LinkSuggestionResponse(
     public record TransactionSummary(
             UUID id,
             LocalDate date,
-            BigDecimal amount,
+            @Nullable BigDecimal amount,
             TransactionType type,
             @Nullable String description,
             String accountName

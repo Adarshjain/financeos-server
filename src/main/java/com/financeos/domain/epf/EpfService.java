@@ -867,6 +867,9 @@ public class EpfService {
         if (transaction.getType() != TransactionType.CREDIT) {
             throw new ValidationException("A withdrawal can only be linked to money coming in.");
         }
+        if (transaction.getAmount() == null) {
+            throw new ValidationException("This foreign charge has no rupee amount until its statement arrives.");
+        }
         boolean takenByOther = entryRepository.findWithEmployerByTransactionIdIn(List.of(transactionId)).stream()
                 .anyMatch(e -> !e.getId().equals(self.getId()));
         if (takenByOther) {
@@ -892,7 +895,8 @@ public class EpfService {
         for (EpfEntry e : unlinked) {
             boolean suggested = credit != null && EpfSuggestionMatcher.fits(e, credit);
             BigDecimal tdsGap = null;
-            if (credit != null && credit.getType() == TransactionType.CREDIT && nz(e.getTdsAmount()).signum() == 0) {
+            if (credit != null && credit.getType() == TransactionType.CREDIT && credit.getAmount() != null
+                    && nz(e.getTdsAmount()).signum() == 0) {
                 BigDecimal gross = EpfLedger.gross(e);
                 BigDecimal gap = gross.subtract(credit.getAmount());
                 if (gap.signum() > 0 && gap.compareTo(gross) < 0) {

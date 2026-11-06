@@ -10,7 +10,7 @@ import java.util.UUID;
 /** The account's Gmail block: its latest alert-created transaction and its open attention items. */
 public record AccountGmailSummaryResponse(@Nullable LastAlert lastAlert, long unmatchedCount) {
 
-    public record LastAlert(UUID transactionId, LocalDate date, String description, BigDecimal amount,
+    public record LastAlert(UUID transactionId, LocalDate date, String description, @Nullable BigDecimal amount,
                             TransactionType type) {
     }
 }

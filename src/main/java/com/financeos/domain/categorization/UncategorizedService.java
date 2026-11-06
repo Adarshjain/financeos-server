@@ -583,7 +583,9 @@ public class UncategorizedService {
             if (r == null) {
                 continue;
             }
-            BigDecimal signed = r.getType() == TransactionType.DEBIT ? r.getAmount().negate() : r.getAmount();
+            // A foreign charge waiting for its statement has no rupee amount: it stays null.
+            BigDecimal signed = r.getAmount() == null ? null
+                    : r.getType() == TransactionType.DEBIT ? r.getAmount().negate() : r.getAmount();
             content.add(new UncategorizedTransactionResponse(r.getId(), r.getDate(), r.getDescription(),
                     r.getSourcedDescription(), r.getAccountId(), r.getAccountName(), r.getAccountLast4(),
                     r.getCardholderName(), r.getCardLast4(), r.getSource(), r.getChannel(), signed, r.getType()));

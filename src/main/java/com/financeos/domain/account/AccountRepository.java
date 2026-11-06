@@ -35,6 +35,14 @@ public interface AccountRepository extends JpaRepository<Account, UUID>, Account
 
     List<Account> findByUserId(UUID userId);
 
+    /**
+     * Locks the account row (SELECT … FOR UPDATE) until the surrounding transaction ends, so a statement import and a
+     * Gmail sync matching the same account run one after the other.
+     */
+    @org.springframework.data.jpa.repository.Lock(jakarta.persistence.LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT a FROM Account a WHERE a.id = :id")
+    Optional<Account> lockById(@Param("id") UUID id);
+
     /** The account when {@code userId} owns it; empty for a missing id and for another user's account alike. */
     Optional<Account> findByIdAndUser_Id(UUID id, UUID userId);
 

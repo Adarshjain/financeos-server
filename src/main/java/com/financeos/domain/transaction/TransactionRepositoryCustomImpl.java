@@ -39,7 +39,9 @@ public class TransactionRepositoryCustomImpl implements TransactionRepositoryCus
         for (int i = 0; i < entries.size(); i++) {
             jpql.append(i == 0 ? "" : " OR ").append("(t.account.id = :a").append(i).append(" AND t.date > :d").append(i).append(")");
         }
-        jpql.append(" GROUP BY t.account.id, t.type");
+        // A foreign charge with no rupee amount yet adds nothing (and never makes a group's sum null).
+        jpql.insert(jpql.indexOf("WHERE ") + 6, "t.amount IS NOT NULL AND (");
+        jpql.append(") GROUP BY t.account.id, t.type");
         jakarta.persistence.Query query = entityManager.createQuery(jpql.toString());
         for (int i = 0; i < entries.size(); i++) {
             query.setParameter("a" + i, entries.get(i).getKey());
@@ -100,7 +102,7 @@ public class TransactionRepositoryCustomImpl implements TransactionRepositoryCus
     public List<DaySums> sumsByDayAfter(UUID accountId, LocalDate after) {
         jakarta.persistence.Query query = entityManager.createQuery(
                 "SELECT t.date, t.type, SUM(t.amount) FROM Transaction t "
-                        + "WHERE t.account.id = :a AND t.date > :d GROUP BY t.date, t.type ORDER BY t.date");
+                        + "WHERE t.account.id = :a AND t.date > :d AND t.amount IS NOT NULL GROUP BY t.date, t.type ORDER BY t.date");
         query.setParameter("a", accountId);
         query.setParameter("d", after);
         Map<LocalDate, BigDecimal[]> byDay = new java.util.TreeMap<>();

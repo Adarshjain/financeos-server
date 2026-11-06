@@ -79,7 +79,7 @@ public class EmergencyFundService {
             + " FROM transaction_link_members m JOIN transaction_links l ON l.id = m.link_id"
             + " GROUP BY m.transaction_id) lk ON lk.transaction_id = t.id"
             + " WHERE t.user_id = :userId AND t.account_id IN (:accountIds)"
-            + " AND t.type = 'DEBIT' AND " + EXCLUDED_FROM_OUTFLOW_SQL + " = :notExcluded"
+            + " AND t.type = 'DEBIT' AND t.amount IS NOT NULL AND " + EXCLUDED_FROM_OUTFLOW_SQL + " = :notExcluded"
             + " AND (lk.link_type IS NULL OR lk.link_type NOT IN (:excludedLinks))"
             + " AND t.transaction_date BETWEEN :fromDate AND :toDate"
             + " GROUP BY t.transaction_date";

@@ -8,7 +8,7 @@ import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.transaction.ReviewType;
 import com.financeos.domain.transaction.Transaction;
-import com.financeos.domain.transaction.StatementDuplicateReconciler;
+import com.financeos.domain.transaction.match.StatementBatchMatcher;
 import com.financeos.domain.transaction.TransactionMatcher;
 import com.financeos.domain.transaction.TransactionSource;
 import com.financeos.domain.transaction.TransactionType;
@@ -24,7 +24,6 @@ import com.financeos.domain.statement.StatementPersistenceService;
 import com.financeos.domain.statement.StatementSource;
 import com.financeos.domain.statement.StatementVerdict;
 import com.financeos.domain.transaction.ReviewStatusManager;
-import com.financeos.domain.transaction.ReviewReason;
 import com.financeos.domain.categorization.CategorizationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -96,18 +95,16 @@ public class FileIngestionService {
         this.accountService = accountService;
     }
 
-    /** Optional so tests that build the service by hand need no reconciler; without it nothing is ever auto-merged. */
-    @org.springframework.beans.factory.annotation.Autowired(required = false)
-    private StatementDuplicateReconciler duplicateReconciler;
+    /** Set by Spring; tests that build the service by hand and never reach matching need none. */
+    private StatementBatchMatcher batchMatcher;
 
-    @jakarta.annotation.PostConstruct
-    void warnWithoutReconciler() {
-        if (duplicateReconciler == null) {
-            log.warn("StatementDuplicateReconciler is not available: statement uploads will flag, never merge, duplicates of alert/manual rows");
-        }
+    @org.springframework.beans.factory.annotation.Autowired
+    public void setBatchMatcher(StatementBatchMatcher batchMatcher) {
+        this.batchMatcher = batchMatcher;
     }
 
-    private record PendingLink(Transaction txn, UUID statementId, int lineIndex, BigDecimal balanceAfter, Boolean chainValid, int fileIndex) {}
+    /** A parsed file whose statement was stored; its lines are matched after every file is read. */
+    private record PendingFile(int fileIndex, Statement statement, List<ParsedStatementLine> lines) {}
 
     public FileIngestionResult ingest(UUID accountId, List<UploadedFile> files) {
         return ingest(accountId, files, null);
@@ -169,10 +166,8 @@ public class FileIngestionService {
         }
 
         int filesProcessed = 0;
-        List<Transaction> newTransactionsToInsert = new ArrayList<>();
         List<FileIngestionResult.FileSummary> fileDetails = new ArrayList<>();
-        List<PendingLink> pendingLinks = new ArrayList<>();
-        Map<Integer, LocalDate[]> filePeriods = new java.util.LinkedHashMap<>();
+        List<PendingFile> pendingFiles = new ArrayList<>();
         LocalDate maxEffectiveEnd = null;
 
         // Loop over files to parse them (statement parsing runs here outside the write transaction)
@@ -274,31 +269,7 @@ public class FileIngestionService {
                 }
 
                 int currentFileIndex = fileDetails.size();
-                LocalDate periodStart = parseResult.periodStart();
-                LocalDate periodEnd = parseResult.periodEnd();
-                if (periodStart == null || periodEnd == null) {
-                    periodStart = lines.stream().map(ParsedStatementLine::date).min(LocalDate::compareTo).orElse(null);
-                    periodEnd = lines.stream().map(ParsedStatementLine::date).max(LocalDate::compareTo).orElse(null);
-                }
-                filePeriods.put(currentFileIndex, new LocalDate[]{periodStart, periodEnd});
-                UUID statementId = stmt.get().getId();
-                for (int j = 0; j < lines.size(); j++) {
-                    ParsedStatementLine line = lines.get(j);
-                    Transaction txn = new Transaction();
-                    txn.setUser(user);
-                    txn.setAccount(account);
-                    txn.setDate(line.date());
-                    txn.setAmount(line.amount().abs());
-                    txn.setSourcedDescription(line.description());
-                    txn.setSource(TransactionSource.file_upload);
-                    txn.setType(TransactionType.fromLlmDirection(line.direction()));
-                    reviewStatusManager.transitionTo(txn, ReviewType.AUTO_REVIEWED);
-                    txn.setTransactionUnderMonitoring(false);
-                    txn.setTransactionExcluded(false);
-
-                    newTransactionsToInsert.add(txn);
-                    pendingLinks.add(new PendingLink(txn, statementId, j, line.balance(), line.chainValid(), currentFileIndex));
-                }
+                pendingFiles.add(new PendingFile(currentFileIndex, stmt.get(), lines));
 
                 fileDetails.add(new FileIngestionResult.FileSummary(filename, "SUCCESS", lines.size(), null, warningMessage, 0, 0));
                 filesProcessed++;
@@ -310,164 +281,24 @@ public class FileIngestionService {
             }
         }
 
-        // Perform duplicate checking and save transactions in a short, dedicated database transaction
-        int totalDuplicatesFound = 0;
-        List<FileIngestionResult.DuplicateDetail> duplicateDetails = new ArrayList<>();
-        int duplicatesTruncated = 0;
-
-        if (!newTransactionsToInsert.isEmpty()) {
-            LocalDate minDate = newTransactionsToInsert.stream().map(Transaction::getDate).min(LocalDate::compareTo).get();
-            LocalDate maxDate = newTransactionsToInsert.stream().map(Transaction::getDate).max(LocalDate::compareTo).get();
-
-            // Load candidates inside a read-only transaction boundary
-            int pairWindow = StatementDuplicateReconciler.WINDOW_DAYS;
-            List<Transaction> dbTxns = dbHandler.findExistingTransactions(
-                    account.getId(), minDate.minusDays(pairWindow), maxDate.plusDays(pairWindow));
-            Set<Transaction> dbTxnsToUpdate = new HashSet<>();
-            Set<Transaction> duplicateNewTxns = new HashSet<>();
-            Map<Transaction, UUID> matchedDbTxnIds = new HashMap<>();
-
-            int dateWindow = 0; // Same day only as requested
-
-            for (int i = 0; i < newTransactionsToInsert.size(); i++) {
-                Transaction newTx = newTransactionsToInsert.get(i);
-
-                // Check duplicates against DB using shared TransactionMatcher
-                for (Transaction dbTx : dbTxns) {
-                    // Alert and manual rows are paired below, with the wider window and the merge rule.
-                    if (StatementDuplicateReconciler.isAlertOrManual(dbTx)) continue;
-                    if (transactionMatcher.areDuplicates(newTx, dbTx, dateWindow)) {
-                        duplicateNewTxns.add(newTx);
-                        reviewStatusManager.addReason(dbTx, ReviewReason.DUPLICATE_SUSPECT);
-                        dbTxnsToUpdate.add(dbTx);
-                        matchedDbTxnIds.putIfAbsent(newTx, dbTx.getId());
-                    }
-                }
-
-                // Check duplicates within the uploaded batch. Rows of one statement are distinct by
-                // definition, so only rows from different files (overlapping periods) can repeat.
-                for (int j = 0; j < newTransactionsToInsert.size(); j++) {
-                    if (pendingLinks.get(i).fileIndex() == pendingLinks.get(j).fileIndex()) continue;
-                    Transaction otherNewTx = newTransactionsToInsert.get(j);
-                    if (transactionMatcher.areDuplicates(newTx, otherNewTx, dateWindow)) {
-                        duplicateNewTxns.add(newTx);
-                        duplicateNewTxns.add(otherNewTx);
-                    }
-                }
+        // Match each statement as a whole, file by file (a later file of the same period attaches to the rows the
+        // earlier one created). Lines nothing pairs with become file_upload rows; identical lines of one file are all real.
+        int totalCreated = 0;
+        for (PendingFile pf : pendingFiles) {
+            if (batchMatcher == null) {
+                throw new IllegalStateException("StatementBatchMatcher is not available");
             }
-
-            // Pair the rows of each statement with the alert and manual rows that already record them.
-            StatementDuplicateReconciler reconciler = duplicateReconciler != null ? duplicateReconciler
-                    : new StatementDuplicateReconciler(transactionMatcher, null, null, null, reviewStatusManager);
-            Set<UUID> pairedIds = new HashSet<>();
-            Set<UUID> claimed = statementPersistenceService.findStatementLinkedTransactionIds(
-                    account.getId(), minDate.minusDays(pairWindow), maxDate.plusDays(pairWindow));
-            if (claimed != null) pairedIds.addAll(claimed);
-            List<StatementDuplicateReconciler.Pair> certainPairs = new ArrayList<>();
-            for (Map.Entry<Integer, LocalDate[]> fp : filePeriods.entrySet()) {
-                List<Transaction> fileRows = new ArrayList<>();
-                for (PendingLink pl : pendingLinks) {
-                    if (pl.fileIndex() == fp.getKey()) fileRows.add(pl.txn());
-                }
-                for (StatementDuplicateReconciler.Pair pair : reconciler.pair(fileRows, dbTxns, fp.getValue()[0], fp.getValue()[1], pairedIds)) {
-                    pairedIds.add(pair.existing().getId());
-                    if (pair.certain()) {
-                        certainPairs.add(pair);
-                    } else {
-                        duplicateNewTxns.add(pair.statementRow());
-                        reviewStatusManager.addReason(pair.existing(), ReviewReason.DUPLICATE_SUSPECT);
-                        dbTxnsToUpdate.add(pair.existing());
-                        matchedDbTxnIds.putIfAbsent(pair.statementRow(), pair.existing().getId());
-                    }
-                }
+            List<StatementBatchMatcher.Line> batchLines = new ArrayList<>();
+            for (int j = 0; j < pf.lines().size(); j++) {
+                batchLines.add(StatementBatchMatcher.Line.of(j, pf.lines().get(j)));
             }
-
-            // Flag duplicate new transactions
-            for (Transaction newTx : duplicateNewTxns) {
-                reviewStatusManager.addReason(newTx, ReviewReason.DUPLICATE_SUSPECT);
-            }
-
-            totalDuplicatesFound = duplicateNewTxns.size();
-
-            // Each new row gets its category once, here (rules, links, engine), before it is stored.
-            if (categoryAssigner != null) {
-                try {
-                    int assigned = categoryAssigner.assignOnArrival(newTransactionsToInsert);
-                    log.info("Categorised {} of {} uploaded transaction(s) on arrival", assigned, newTransactionsToInsert.size());
-                } catch (Exception e) {
-                    log.warn("Categorise-on-arrival failed for an upload: {}", e.getMessage());
-                }
-            }
-
-            // Persist changes inside a write transaction boundary
-            dbHandler.saveTransactions(newTransactionsToInsert, new ArrayList<>(dbTxnsToUpdate));
-
-            Map<UUID, List<StatementPersistenceService.TxnLink>> linksByStatement = new HashMap<>();
-            for (PendingLink pl : pendingLinks) {
-                linksByStatement.computeIfAbsent(pl.statementId(), k -> new ArrayList<>())
-                        .add(new StatementPersistenceService.TxnLink(pl.txn().getId(), pl.lineIndex(), pl.balanceAfter(), pl.chainValid()));
-            }
-            for (Map.Entry<UUID, List<StatementPersistenceService.TxnLink>> entry : linksByStatement.entrySet()) {
-                statementPersistenceService.linkTransactions(entry.getKey(), entry.getValue());
-            }
-
-            // Merge the certain pairs now that both rows are stored and the statement lines are linked.
-            if (!certainPairs.isEmpty()) {
-                try {
-                    reconciler.mergeCertainAfterCommit(certainPairs);
-                    log.info("Statement import queued {} certain duplicate(s) of alert/manual rows for merge after commit", certainPairs.size());
-                } catch (RuntimeException e) {
-                    // The import itself is stored: never fail it over the optional merge step.
-                    log.warn("Statement import could not settle {} certain duplicate(s): {}", certainPairs.size(), e.getClass().getSimpleName());
-                }
-            }
-
-            // Rebuild fileDetails for SUCCESS entries with created & duplicates counts
-            Map<Transaction, PendingLink> txnLinkMap = new HashMap<>();
-            Map<Integer, List<PendingLink>> linksByFileIndex = new HashMap<>();
-            for (PendingLink pl : pendingLinks) {
-                txnLinkMap.put(pl.txn(), pl);
-                linksByFileIndex.computeIfAbsent(pl.fileIndex(), k -> new ArrayList<>()).add(pl);
-            }
-
-            for (int k = 0; k < fileDetails.size(); k++) {
-                FileIngestionResult.FileSummary summary = fileDetails.get(k);
-                if ("SUCCESS".equals(summary.status())) {
-                    List<PendingLink> fileLinks = linksByFileIndex.getOrDefault(k, List.of());
-                    int createdForFile = fileLinks.size();
-                    int dupsForFile = 0;
-                    for (PendingLink pl : fileLinks) {
-                        if (duplicateNewTxns.contains(pl.txn())) {
-                            dupsForFile++;
-                        }
-                    }
-                    fileDetails.set(k, summary.withCounts(createdForFile, dupsForFile));
-                }
-            }
-
-            // Build duplicateDetails capped at 50
-            List<Transaction> sortedDupTxns = new ArrayList<>(duplicateNewTxns);
-            sortedDupTxns.sort(Comparator.comparing(Transaction::getDate, Comparator.nullsLast(LocalDate::compareTo))
-                    .thenComparing(Transaction::getAmount, Comparator.nullsLast(BigDecimal::compareTo)));
-
-            int limit = Math.min(sortedDupTxns.size(), 50);
-            for (int k = 0; k < limit; k++) {
-                Transaction dupTx = sortedDupTxns.get(k);
-                PendingLink pl = txnLinkMap.get(dupTx);
-                String filename = (pl != null && pl.fileIndex() < fileDetails.size())
-                        ? fileDetails.get(pl.fileIndex()).filename() : "unknown_file";
-                UUID matchedTxId = matchedDbTxnIds.get(dupTx);
-
-                duplicateDetails.add(new FileIngestionResult.DuplicateDetail(
-                        dupTx.getDate() != null ? dupTx.getDate().toString() : null,
-                        dupTx.getAmount(),
-                        dupTx.getSourcedDescription(),
-                        filename,
-                        dupTx.getId(),
-                        matchedTxId
-                ));
-            }
-            duplicatesTruncated = Math.max(0, duplicateNewTxns.size() - 50);
+            StatementBatchMatcher.Result matched = batchMatcher.match(pf.statement(), account, batchLines,
+                    unpaired -> createRows(user, account, pf.lines(), unpaired));
+            totalCreated += matched.created();
+            FileIngestionResult.FileSummary summary = fileDetails.get(pf.fileIndex());
+            fileDetails.set(pf.fileIndex(), summary.withCounts(matched.created(), 0));
+            log.info("Upload {} matched: {} line(s) attached to existing rows, {} created, {} alert(s) not on the statement",
+                    summary.filename(), matched.matched(), matched.created(), matched.tagged());
         }
 
         if (maxEffectiveEnd != null) {
@@ -484,12 +315,45 @@ public class FileIngestionService {
 
         return new FileIngestionResult(
                 filesProcessed,
-                newTransactionsToInsert.size(),
-                totalDuplicatesFound,
+                totalCreated,
+                0,
                 fileDetails,
-                duplicateDetails,
-                duplicatesTruncated
+                List.of(),
+                0
         );
+    }
+
+    /** The upload's own rows for the lines matching left unpaired: Confirmed, categorised on arrival, then saved. */
+    private Map<Integer, Transaction> createRows(User user, Account account, List<ParsedStatementLine> lines,
+                                                 List<StatementBatchMatcher.Line> unpaired) {
+        Map<Integer, Transaction> made = new java.util.LinkedHashMap<>();
+        for (StatementBatchMatcher.Line batchLine : unpaired) {
+            ParsedStatementLine line = lines.get(batchLine.lineIndex());
+            Transaction txn = new Transaction();
+            txn.setUser(user);
+            txn.setAccount(account);
+            txn.setDate(line.date());
+            txn.setAmount(line.amount().abs());
+            txn.setSourcedDescription(line.description());
+            txn.setSource(TransactionSource.file_upload);
+            txn.setType(TransactionType.fromLlmDirection(line.direction()));
+            reviewStatusManager.transitionTo(txn, ReviewType.AUTO_REVIEWED);
+            txn.setTransactionUnderMonitoring(false);
+            txn.setTransactionExcluded(false);
+            made.put(batchLine.lineIndex(), txn);
+        }
+        List<Transaction> rows = new ArrayList<>(made.values());
+        // Each new row gets its category once, here (rules, links, engine), before it is stored.
+        if (categoryAssigner != null && !rows.isEmpty()) {
+            try {
+                int assigned = categoryAssigner.assignOnArrival(rows);
+                log.info("Categorised {} of {} uploaded transaction(s) on arrival", assigned, rows.size());
+            } catch (Exception e) {
+                log.warn("Categorise-on-arrival failed for an upload: {}", e.getMessage());
+            }
+        }
+        dbHandler.saveTransactions(rows, List.of());
+        return made;
     }
 
     // The parser checks its rows against the statement's own opening and closing

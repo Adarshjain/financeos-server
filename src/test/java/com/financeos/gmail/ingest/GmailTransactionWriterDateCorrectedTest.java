@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-/** A capped email-alert date is written as the transaction date and flagged DATE_CORRECTED. */
+/** A capped email-alert date is written as the transaction date; the cap adds no review reason. */
 class GmailTransactionWriterDateCorrectedTest {
 
     private TransactionRepository transactionRepository;
@@ -63,7 +63,7 @@ class GmailTransactionWriterDateCorrectedTest {
     }
 
     @Test
-    void correctedDateIsStoredAndFlagged() {
+    void correctedDateIsStoredWithoutATag() {
         GeminiExtractionResult capped = extracted(LocalDate.of(2026, 9, 26)).withDateCappedTo(LocalDate.of(2026, 9, 21));
 
         GmailProcessedMessage result = writer.writeTransaction(connection, "msg-1", capped, account);
@@ -71,8 +71,8 @@ class GmailTransactionWriterDateCorrectedTest {
         Transaction txn = written();
         assertEquals(GmailProcessedStatus.CREATED, result.getStatus());
         assertEquals(LocalDate.of(2026, 9, 21), txn.getDate());
-        assertEquals(ReviewType.NEEDS_REVIEW, txn.getReviewType());
-        assertEquals(Set.of(ReviewReason.UNRECONCILED, ReviewReason.DATE_CORRECTED), txn.getReviewReasons());
+        assertEquals(ReviewType.AUTO_REVIEWED, txn.getReviewType());
+        assertEquals(Set.of(), txn.getReviewReasons());
     }
 
     @Test
@@ -81,7 +81,7 @@ class GmailTransactionWriterDateCorrectedTest {
 
         Transaction txn = written();
         assertEquals(LocalDate.of(2026, 9, 21), txn.getDate());
-        assertEquals(Set.of(ReviewReason.UNRECONCILED), txn.getReviewReasons());
+        assertEquals(Set.of(), txn.getReviewReasons());
     }
 
     @Test
