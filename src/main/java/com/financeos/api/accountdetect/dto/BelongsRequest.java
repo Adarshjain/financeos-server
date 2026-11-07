@@ -1,6 +1,8 @@
 package com.financeos.api.accountdetect.dto;
 
 import com.financeos.domain.account.card.CardholderRelationship;
+import com.financeos.api.account.dto.PastCardRequest;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -13,4 +15,6 @@ public record BelongsRequest(
         /** Required for ADDON; ignored otherwise. */
         CardholderRelationship relationship,
         /** Optional, ADDON only. */
-        @Size(max = 200) String holderName) {}
+        @Size(max = 200) String holderName,
+        /** Optional, OLDER_NUMBER only: the holder and dates of the closed card; absent = primary holder, dates from the mails. */
+        @Valid PastCardRequest pastCard) {}

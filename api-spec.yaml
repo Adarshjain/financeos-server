@@ -12583,6 +12583,8 @@ components:
           type: string
           maxLength: 200
           minLength: 0
+        pastCard:
+          $ref: "#/components/schemas/PastCardRequest"
         relationship:
           type: string
           enum:
