@@ -5,7 +5,8 @@
 # Requires SLACK_WEBHOOK_URL and DEPLOY_COMPONENT ("Server" / "Client").
 # Optional: DEPLOY_START_TS (epoch secs, for duration), DEPLOY_SHA / DEPLOY_SUBJECT (default:
 # checked-out commit), DEPLOY_LINK_URL + DEPLOY_LINK_LABEL (default: this Actions run),
-# DEPLOY_ACTOR (default: GITHUB_ACTOR), DEPLOY_FAILURE_HINT (extra line on failure).
+# DEPLOY_ACTOR (default: GITHUB_ACTOR), DEPLOY_FAILURE_HINT (extra line on failure),
+# DEPLOY_DETAIL (extra lines, e.g. one per VM, on any status but started).
 set -euo pipefail
 
 status="${1:?usage: slack-notify.sh <started|success|failure|cancelled>}"
@@ -43,6 +44,9 @@ text="$emoji *$title*$duration — \`$GITHUB_REPOSITORY\`"
 text="$text"$'\n'"\`$sha_short\` on \`$GITHUB_REF_NAME\` · by \`$actor\` · <$link_url|$link_label>"
 if [ -n "$subject" ]; then
   text="$text"$'\n'">$subject"
+fi
+if [ "$status" != "started" ] && [ -n "${DEPLOY_DETAIL:-}" ]; then
+  text="$text"$'\n'"$DEPLOY_DETAIL"
 fi
 if [ "$status" = "failure" ] && [ -n "${DEPLOY_FAILURE_HINT:-}" ]; then
   text="$text"$'\n'":warning: $DEPLOY_FAILURE_HINT"

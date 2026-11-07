@@ -5,10 +5,11 @@ on:
     branches: [main]
   workflow_dispatch:
 
-# A newer push cancels the run in flight (tests or deploy) and deploys only the latest commit.
+# One run at a time, and a running deploy is never cancelled (a cancel mid-swap could leave a VM on a half-done
+# deploy with no rollback). A newer push waits; of several waiting pushes only the latest one runs.
 concurrency:
   group: deploy
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 env:
   # Matches the existing manual layout on the VM — do not change without updating financeos.service.
@@ -136,8 +137,10 @@ jobs:
           echo "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
 
-      # Worker VM first, then the API VM. A worker that fails its health check stops the run before the API is
-      # touched (the API keeps serving on the previous JAR).
+      # Worker VM first, then the API VM. Each host rolls itself back to its previous JAR when the new one is not
+      # healthy, so a failed deploy leaves it serving the old build. A worker failure stops the run before the API
+      # is touched; an API that does not end on the new JAR gets the worker rolled back too, so both VMs always
+      # end on one build. deploy-host.sh writes result/version outputs for the Slack summary.
       # WORKER_HOST unset = single-VM deploy exactly as before.
       - name: Check for worker host
         id: worker
@@ -166,6 +169,14 @@ jobs:
           USER: ${{ secrets.DEPLOY_USER }}
         run: bash deploy/deploy-host.sh "$HOST" "$USER" api
 
+      - name: Roll back worker VM (API did not take the new JAR)
+        id: rollback-worker
+        if: (failure() || cancelled()) && steps.deploy-worker.outputs.result == 'deployed' && steps.deploy-api.outputs.result != 'deployed'
+        env:
+          HOST: ${{ secrets.WORKER_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+          DRAIN_TIMEOUT_SECONDS: "600"
+        run: bash deploy/deploy-host.sh "$HOST" "$USER" worker rollback
       # A failure or cancel after a drain started (e.g. the JAR swap) would leave that old server paused.
       # After a restart this is a no-op: a fresh JVM starts unpaused.
       - name: Resume job workers on failure
@@ -183,8 +194,44 @@ jobs:
         continue-on-error: true
         env:
           DEPLOY_START_TS: ${{ needs.build.outputs.start_ts }}
-          DEPLOY_FAILURE_HINT: Rollback is manual — `backend-1.0.0.jar.prev` is on the VM.
+          WORKER_ENABLED: ${{ steps.worker.outputs.enabled }}
+          WORKER_RESULT: ${{ steps.deploy-worker.outputs.result }}
+          WORKER_VERSION: ${{ steps.deploy-worker.outputs.version }}
+          WORKER_RB_RESULT: ${{ steps.rollback-worker.outputs.result }}
+          WORKER_RB_VERSION: ${{ steps.rollback-worker.outputs.version }}
+          WORKER_OUTCOME: ${{ steps.deploy-worker.outcome }}
+          API_OUTCOME: ${{ steps.deploy-api.outcome }}
+          API_RESULT: ${{ steps.deploy-api.outputs.result }}
+          API_VERSION: ${{ steps.deploy-api.outputs.version }}
         run: |
+          # One line per VM: what happened and the build it serves now; then whether both VMs agree.
+          line() {   # $1 label, $2 result, $3 version, $4 step outcome
+            if [ -z "$2" ] && { [ "$4" = "failure" ] || [ "$4" = "cancelled" ]; }; then
+              echo "$1 :warning: state unknown (step stopped mid-deploy): check this VM"; return
+            fi
+            case "$2" in
+              deployed)    echo "$1 :white_check_mark: \`$3\`" ;;
+              rolled_back) echo "$1 :leftwards_arrow_with_hook: rolled back, serving \`$3\`" ;;
+              aborted)     echo "$1 :pause_button: not changed, serving \`$3\`" ;;
+              down)        echo "$1 :rotating_light: DOWN on both JARs — manual fix needed (deploy/README.md)" ;;
+              *)           echo "$1 – not changed" ;;
+            esac
+          }
+          w_result="$WORKER_RESULT"; w_version="$WORKER_VERSION"
+          if [ -n "$WORKER_RB_RESULT" ]; then w_result="$WORKER_RB_RESULT"; w_version="$WORKER_RB_VERSION"; fi
+          detail=""
+          if [ "$WORKER_ENABLED" = "true" ]; then detail="$(line Worker "$w_result" "$w_version" "$WORKER_OUTCOME")"$'\n'; fi
+          detail="$detail$(line API "$API_RESULT" "$API_VERSION" "$API_OUTCOME")"
+          if [ "$WORKER_ENABLED" = "true" ] && [ -n "$w_version" ] && [ -n "$API_VERSION" ] && [ "$API_VERSION" != unknown ] && [ "$w_version" != unknown ]; then
+            if [ "$w_version" = "$API_VERSION" ]; then
+              detail="$detail"$'\n'"Both VMs on \`$API_VERSION\`."
+            else
+              detail="$detail"$'\n'":warning: VMs differ: worker \`$w_version\`, API \`$API_VERSION\`."
+            fi
+          elif [ "$WORKER_ENABLED" = "true" ] && { [ "$w_version" = unknown ] || [ "$API_VERSION" = unknown ]; }; then
+            detail="$detail"$'\n'":grey_question: Could not read both VMs' versions to compare them."
+          fi
+          export DEPLOY_DETAIL="$detail"
           status="${{ job.status }}"
           if [ "${{ needs.build.result }}" = "cancelled" ] || [ "${{ needs.test.result }}" = "cancelled" ] || [ "${{ needs.e2e.result }}" = "cancelled" ]; then
             status="cancelled"

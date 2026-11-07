@@ -97,18 +97,30 @@ git push origin main
 
 The workflow builds, runs all 323 tests, copies `backend-1.0.0.jar` (~88 MB) to the VM keeping the
 previous one as `.jar.prev`, restarts the service, then polls `/actuator/health` for up to 3 minutes,
-dumping journal logs on failure.
+dumping journal logs and rolling back on failure (see Rollback).
 
-## Rollback
+## Rollback (automatic)
 
-The workflow leaves the previous JAR in place:
+`deploy/deploy-host.sh` rolls a host back by itself: when the new JAR is not healthy within 3 minutes it puts
+`backend-1.0.0.jar.prev` back (the bad one stays as `.jar.bad`), restarts, and waits for health again. With two VMs
+the workflow also rolls the worker back when the API did not end on the new JAR, so both VMs always end on one
+build. The Slack result message has one line per VM (deployed / rolled back / not changed / DOWN) and says whether
+both VMs run the same build; the "Version mismatch" alert fires if they differ for 15+ minutes.
+
+Manual action is only needed when Slack says a VM is DOWN on both JARs. By hand, per VM:
 
 ```bash
-ssh -i ~/.ssh/oracle-oci ubuntu@129.159.22.124
-cd /home/ubuntu/financeos-server/target
-cp -f backend-1.0.0.jar.prev backend-1.0.0.jar
-sudo systemctl restart financeos
+DEPLOY_KEY=~/.ssh/oracle-oci   # or: ssh in and cp -f backend-1.0.0.jar.prev backend-1.0.0.jar && sudo systemctl restart financeos
+HOME_DIR=$(mktemp -d); mkdir -p "$HOME_DIR/.ssh"; cp "$DEPLOY_KEY" "$HOME_DIR/.ssh/deploy_key"
+HOME=$HOME_DIR deploy/deploy-host.sh 152.70.68.140 ubuntu worker rollback   # or 129.159.22.124 ... api rollback
 ```
+
+### Migrations must work with the previous build
+
+The worker deploys first and runs Flyway, so for 2-3 minutes of every deploy the API runs the previous JAR against
+the new schema, and a rollback runs the previous JAR against it for good. So a migration may only add (tables,
+nullable columns, indexes, data); renaming or dropping something the previous build reads waits for a later deploy
+once no running code uses it. Migrations stay idempotent (a rolled-back build may see them again).
 
 ## Two-VM layout
 
@@ -136,7 +148,7 @@ VMs would run schedulers and the worker's startup sweep would mark VM1's in-flig
 4. `deploy/first-cutover.sh`: copies VM1's JAR to VM2, pauses + drains VM1's jobs, starts the worker, then restarts
    VM1 as `api` (~2 min API downtime). On a worker failure it stops VM2 and resumes VM1.
 5. GitHub secret `WORKER_HOST` = `152.70.68.140` (`DEPLOY_USER`/`DEPLOY_SSH_KEY` are reused). From now on CI ships
-   the worker first (drain, swap, health on `localhost:8081`); if it is not healthy the run stops and the API is
+   the worker first (drain, swap, health on `localhost:8081`); if it is not healthy it is rolled back and the API is
    untouched. Then the API VM, same steps.
 6. Only after both VMs run the new JAR (the `role` label exists only there, so "API down" would fire before it):
    `GRAFANA_URL=... GRAFANA_SA_TOKEN=... SLACK_WEBHOOK_URL=... deploy/grafana/push-grafana-config.sh`

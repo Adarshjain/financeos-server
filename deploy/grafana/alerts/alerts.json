@@ -275,7 +275,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "summary": "Gmail sync hasn't succeeded in over 15 hours — new transactions from email are NOT coming in.",
+            "summary": "No successful Gmail sync in over 2 hours (it runs every 15 minutes): the worker is down, the job keeps failing, or Gmail access expired.",
             "description": "Check Grafana → Pipelines dashboard. Most common causes: the Gmail connection needs re-authorizing, or Gmail API quota ran out."
           },
           "notification_settings": {
@@ -286,7 +286,7 @@
               "refId": "A",
               "datasourceUid": "${DS_PROM}",
               "model": {
-                "expr": "(time() - financeos_job_last_success_timestamp_seconds{job=\"gmail-ingest\", role!=\"api\"}) > 54000",
+                "expr": "(time() - financeos_job_last_success_timestamp_seconds{job=\"gmail-ingest\", role!=\"api\"}) > 7200",
                 "instant": true,
                 "range": false
               },
@@ -374,7 +374,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "summary": "The app is responding slowly — slower requests are now taking over 2 seconds, and it has stayed that way for 15+ minutes.",
+            "summary": "The app is responding slowly: the average request has taken over 1 second for 15+ minutes (chat streaming and actuator excluded).",
             "description": "Check Grafana for slow SQL queries, database pool pressure, and slow external APIs (Gmail, price feeds)."
           },
           "notification_settings": {
@@ -385,7 +385,7 @@
               "refId": "A",
               "datasourceUid": "${DS_PROM}",
               "model": {
-                "expr": "(histogram_quantile(0.95, sum by (le) (rate(http_server_requests_seconds_bucket{service=\"financeos-server\"}[15m]))) > 2) and on() (sum(rate(http_server_requests_seconds_count{service=\"financeos-server\"}[15m])) > 0.02)",
+                "expr": "(sum(rate(http_server_requests_seconds_sum{service=\"financeos-server\", uri!~\"/actuator.*|/api/v1/chat/stream\"}[15m])) / sum(rate(http_server_requests_seconds_count{service=\"financeos-server\", uri!~\"/actuator.*|/api/v1/chat/stream\"}[15m])) > 1) and on() (sum(rate(http_server_requests_seconds_count{service=\"financeos-server\", uri!~\"/actuator.*|/api/v1/chat/stream\"}[15m])) > 0.02)",
                 "instant": true,
                 "range": false
               },
@@ -614,6 +614,39 @@
               "datasourceUid": "${DS_PROM}",
               "model": {
                 "expr": "max(financeos_jobs_pending_oldest_seconds{service=\"financeos-server\"}) > 900",
+                "instant": true,
+                "range": false
+              },
+              "relativeTimeRange": {
+                "from": 600,
+                "to": 0
+              }
+            }
+          ],
+          "execErrState": "Alerting",
+          "noDataState": "OK"
+        },
+        {
+          "uid": "financeos-alert-version-mismatch",
+          "title": "Version mismatch",
+          "condition": "A",
+          "for": "45m",
+          "labels": {
+            "severity": "warning"
+          },
+          "annotations": {
+            "summary": "The API and worker VMs have run different builds for 45+ minutes (longer than any normal deploy, drain included): a deploy finished on one VM only.",
+            "description": "Compare the version label per role in Grafana; re-run the latest Deploy workflow (it rolls a failed host back to its previous JAR), or deploy/deploy-host.sh <host> <user> <label> rollback."
+          },
+          "notification_settings": {
+            "receiver": "slack-financeos"
+          },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_PROM}",
+              "model": {
+                "expr": "count(count by (version) (jvm_memory_used_bytes{service=\"financeos-server\", role=~\"api|worker\"})) > 1",
                 "instant": true,
                 "range": false
               },
