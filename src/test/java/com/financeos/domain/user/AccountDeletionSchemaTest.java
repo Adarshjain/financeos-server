@@ -107,6 +107,7 @@ class AccountDeletionSchemaTest {
                 "counterparties", "lendings", "reward_rules", "reward_milestones", "reward_cap_buckets",
                 "jobs", "gmail_processed_messages", "gmail_sync_cursors", "dashboards", "reports",
                 "category_rules", "gmail_connections", "gmail_senders", "gmail_sender_removals", "account_empty_months", "gmail_backfill_demand",
+                "gmail_ignored_numbers", // V166: ON DELETE CASCADE from users
                 "llm_api_keys", "llm_task_prefs", "fno_trades", "user_notification_settings",
                 "inbox_item_state", "user_instrument_overrides", "instrument_prices", "instrument_aliases",
                 "user_instrument_repoints", "corporate_actions", "credit_limit_pools", "app_notifications",
