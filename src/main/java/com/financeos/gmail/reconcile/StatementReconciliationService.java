@@ -399,8 +399,10 @@ public class StatementReconciliationService {
         List<String> numbers = MaskedNumberHints.find(texts.toArray(String[]::new));
         Map<UUID, Account> accounts = new LinkedHashMap<>();
         Map<UUID, String> numberByAccount = new HashMap<>();
+        // Same tie-breaks as alerts: a number shared by several accounts goes to the one at the sender's bank, or the single bank the mail names.
+        List<String> mailTexts = List.of(Objects.toString(message.subject(), ""), Objects.toString(message.getStrippedText(), ""));
         for (String number : numbers) {
-            accountResolver.resolve(number).ifPresent(r -> {
+            accountResolver.resolve(number, mailTexts, message.from()).ifPresent(r -> {
                 accounts.putIfAbsent(r.account().getId(), r.account());
                 numberByAccount.putIfAbsent(r.account().getId(), number);
             });
