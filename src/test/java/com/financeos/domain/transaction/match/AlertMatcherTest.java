@@ -618,4 +618,115 @@ class AlertMatcherTest {
         assertThat(manual.getOriginalCurrency()).isNull();
         assertThat(fixture.txns).hasSize(2);
     }
+
+    // ------------------------------------------------------------ second notice from another address of one bank
+
+    private static final String ICICI_ALERT = "credit_cards@icicibank.com";
+    private static final String ICICI_SI = "cards@icicibank.com";
+
+    private AlertMatcher.Alert iciciAlert(Account a, LocalDate day, String sender, Instant sentAt, String last4) {
+        return new AlertMatcher.Alert(user, a, null, TransactionType.DEBIT, new BigDecimal("1180.00"), "INR", day, "NETFLIX", last4,
+                Set.of(), sender, sentAt, "m" + (++mailSeq));
+    }
+
+    /** A card statement with one line, and the first mail (credit_cards@) already attached to it. */
+    private AlertMatcher.Outcome lineWithFirstAlert(Account card, Statement oct, LocalDate day) {
+        importStatement(oct, card, line(0, day, "1180.00", "NETFLIX"));
+        AlertMatcher.Outcome first = receive(iciciAlert(card, day, ICICI_ALERT, at(day, 12, 0), "1234"));
+        assertThat(first.attached().kind()).isEqualTo(AlertMatcher.Kind.STATEMENT_LINE);
+        return first;
+    }
+
+    @Test
+    void aSecondNoticeFromAnotherAddressOfTheSameBankInTheSameMinuteAttaches() {
+        Account card = account(AccountType.credit_card);
+        LocalDate day = LocalDate.of(2026, 10, 10);
+        Statement oct = statement(card, LocalDate.of(2026, 10, 1), LocalDate.of(2026, 10, 31));
+        AlertMatcher.Outcome first = lineWithFirstAlert(card, oct, day);
+
+        AlertMatcher.Outcome second = receive(iciciAlert(card, day, ICICI_SI, at(day, 12, 0), "1234"));
+
+        assertThat(second.created()).isFalse();
+        assertThat(second.attached().kind()).isEqualTo(AlertMatcher.Kind.RESENT_ALERT);
+        assertThat(second.txn().getId()).isEqualTo(first.txn().getId());
+        assertThat(fixture.txns).hasSize(1);
+        assertThat(fixture.txns.get(0).getTags()).isNullOrEmpty();
+    }
+
+    @Test
+    void aSecondNoticeTwentySevenMinutesLaterAttaches() {
+        Account card = account(AccountType.credit_card);
+        LocalDate day = LocalDate.of(2026, 10, 10);
+        Statement oct = statement(card, LocalDate.of(2026, 10, 1), LocalDate.of(2026, 10, 31));
+        AlertMatcher.Outcome first = lineWithFirstAlert(card, oct, day);
+
+        AlertMatcher.Outcome second = receive(iciciAlert(card, day, ICICI_SI, at(day, 12, 27), "1234"));
+
+        assertThat(second.created()).isFalse();
+        assertThat(second.txn().getId()).isEqualTo(first.txn().getId());
+        assertThat(fixture.txns).hasSize(1);
+    }
+
+    @Test
+    void aSecondNoticeTwoHoursLaterDoesNotAttach() {
+        Account card = account(AccountType.credit_card);
+        LocalDate day = LocalDate.of(2026, 10, 10);
+        Statement oct = statement(card, LocalDate.of(2026, 10, 1), LocalDate.of(2026, 10, 31));
+        AlertMatcher.Outcome first = lineWithFirstAlert(card, oct, day);
+
+        AlertMatcher.Outcome second = receive(iciciAlert(card, day, ICICI_SI, at(day, 14, 0), "1234"));
+
+        assertThat(second.created()).isTrue();
+        assertThat(second.txn().getId()).isNotEqualTo(first.txn().getId());
+        assertThat(fixture.txns).hasSize(2);
+    }
+
+    @Test
+    void aMailFromAnotherBanksDomainDoesNotAttachAsASecondNotice() {
+        Account card = account(AccountType.credit_card);
+        LocalDate day = LocalDate.of(2026, 10, 10);
+        Statement oct = statement(card, LocalDate.of(2026, 10, 1), LocalDate.of(2026, 10, 31));
+        AlertMatcher.Outcome first = lineWithFirstAlert(card, oct, day);
+
+        AlertMatcher.Outcome other = receive(iciciAlert(card, day, "alerts@hdfcbank.net", at(day, 12, 1), "1234"));
+
+        assertThat(other.created()).isTrue();
+        assertThat(other.txn().getId()).isNotEqualTo(first.txn().getId());
+    }
+
+    @Test
+    void aThirdAddressOfTheDomainAttachesWithinTheHourButAnAddressAlreadyOnTheRowOnlyThroughTheTenMinuteRule() {
+        Account card = account(AccountType.credit_card);
+        LocalDate day = LocalDate.of(2026, 10, 10);
+        Statement oct = statement(card, LocalDate.of(2026, 10, 1), LocalDate.of(2026, 10, 31));
+        AlertMatcher.Outcome first = lineWithFirstAlert(card, oct, day);
+        receive(iciciAlert(card, day, ICICI_SI, at(day, 12, 5), "1234"));
+
+        // A third address: no mail of its own on the row, all domain mails within the hour: attaches.
+        AlertMatcher.Outcome third = receive(iciciAlert(card, day, "alerts@icicibank.com", at(day, 12, 20), "1234"));
+        assertThat(third.created()).isFalse();
+        assertThat(third.txn().getId()).isEqualTo(first.txn().getId());
+
+        // credit_cards@ is already on the row and 30 minutes past its own mail: only the ten-minute rule applies.
+        AlertMatcher.Outcome again = receive(iciciAlert(card, day, ICICI_ALERT, at(day, 12, 30), "1234"));
+        assertThat(again.created()).isTrue();
+        assertThat(fixture.txns).hasSize(2);
+    }
+
+    @Test
+    void aSecondNoticeForADifferentCardDoesNotAttach() {
+        Account card = account(AccountType.credit_card);
+        LocalDate day = LocalDate.of(2026, 10, 10);
+        Statement oct = statement(card, LocalDate.of(2026, 10, 1), LocalDate.of(2026, 10, 31));
+        AlertMatcher.Outcome first = lineWithFirstAlert(card, oct, day);
+        // The row's card is what the pair test compares: the first alert's card is on it.
+        com.financeos.domain.account.card.Card c = new com.financeos.domain.account.card.Card();
+        c.setLast4("1234");
+        first.txn().setCard(c);
+
+        AlertMatcher.Outcome other = receive(iciciAlert(card, day, ICICI_SI, at(day, 12, 0), "9999"));
+
+        assertThat(other.created()).isTrue();
+        assertThat(other.txn().getId()).isNotEqualTo(first.txn().getId());
+    }
 }

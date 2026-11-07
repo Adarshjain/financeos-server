@@ -53,6 +53,8 @@ public class AlertMatcher {
 
     /** Two identical alerts from one sender sent this close together are one payment sent twice. */
     public static final Duration RESEND_WINDOW = Duration.ofMinutes(10);
+    /** Two senders of one bank's domain (ICICI cards@ + credit_cards@) mail one standing-instruction charge this close together. */
+    public static final Duration SECOND_NOTICE_WINDOW = Duration.ofMinutes(60);
     /** A provider's mail and the issuer's mail for one payment are dated at most this far apart. */
     public static final int PROVIDER_WINDOW_DAYS = 2;
     /** Senders (domain or subdomain) whose mails duplicate the issuer's alert for the same payment. */
@@ -231,7 +233,8 @@ public class AlertMatcher {
         if (line != null) return new Decision(line, Kind.STATEMENT_LINE, null);
 
         // 2. The same bank's resend: the row may carry its statement line's date by now, so the pair test, not equality.
-        Transaction resent = cheapest(r, w, fw, ledger, t -> isResendOf(alert, ledger.mails(t)));
+        Transaction resent = cheapest(r, w, fw, ledger, t -> isResendOf(alert, ledger.mails(t))
+                || isSecondNoticeOf(alert, ledger.mails(t)));
         if (resent != null) return new Decision(resent, Kind.RESENT_ALERT, null);
 
         // 3. The other side of a provider / issuer pair.
@@ -281,6 +284,31 @@ public class AlertMatcher {
             if (m.getInternalDate().isAfter(last)) last = m.getInternalDate();
         }
         return sameSender && Duration.between(first, last).compareTo(RESEND_WINDOW) <= 0;
+    }
+
+    /**
+     * A second notice: the row holds mails of this sender's domain but none of this exact address, and they plus this
+     * one fall within an hour, measured from the earliest. Providers pair through their own step.
+     */
+    private static boolean isSecondNoticeOf(Alert alert, List<GmailProcessedMessageRepository.AlertMail> mails) {
+        if (alert.senderAddress() == null || alert.sentAt() == null || isProviderSender(alert.senderAddress())) return false;
+        String domain = domainOf(alert.senderAddress());
+        Instant first = alert.sentAt();
+        Instant last = alert.sentAt();
+        boolean sameDomain = false;
+        for (GmailProcessedMessageRepository.AlertMail m : mails) {
+            if (m.getSenderAddress() == null || m.getInternalDate() == null) continue;
+            if (m.getSenderAddress().equalsIgnoreCase(alert.senderAddress())) return false;
+            if (!domainOf(m.getSenderAddress()).equals(domain)) continue;
+            sameDomain = true;
+            if (m.getInternalDate().isBefore(first)) first = m.getInternalDate();
+            if (m.getInternalDate().isAfter(last)) last = m.getInternalDate();
+        }
+        return sameDomain && Duration.between(first, last).compareTo(SECOND_NOTICE_WINDOW) <= 0;
+    }
+
+    private static String domainOf(String address) {
+        return address.substring(address.lastIndexOf('@') + 1).trim().toLowerCase(Locale.ROOT);
     }
 
     /** The lowest-cost transaction that passes the pair test with window {@code w} and {@code also}; ties keep date then creation order. */
