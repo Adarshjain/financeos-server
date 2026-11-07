@@ -15,6 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Runs the real JPQL against the test database: pendingStats() is a plain SELECT and claim() an
  * UPDATE that needs @Modifying. A misplaced annotation breaks one or the other at runtime only.
+ * The context's JobWorker polls every 2 s and would claim the job first, so it is paused here.
  */
 @SpringBootTest
 @ActiveProfiles("test")
@@ -26,8 +27,23 @@ class JobRepositoryPendingStatsIntegrationTest {
     @Autowired
     private JobRepository jobRepository;
 
+    @Autowired
+    private JobWorker jobWorker;
+
     @Test
     void pendingStats_countsPendingJobs_andClaimRemovesThem() {
+        boolean wasPaused = jobWorker.isPaused();
+        jobWorker.pause();   // synchronized with polling: no poll can claim our job after this returns
+        try {
+            assertPendingStatsAndClaim();
+        } finally {
+            if (!wasPaused) {
+                jobWorker.resume();
+            }
+        }
+    }
+
+    private void assertPendingStatsAndClaim() {
         UUID userId = UUID.randomUUID();
         UserContext.setCurrentUserId(userId);
         Job job;
