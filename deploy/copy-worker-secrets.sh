@@ -59,9 +59,9 @@ REMOTE
 fi
 
 echo "== 5. Roles and pool size =="
-# Worker: reachable from Caddy over the private subnet (iptables on VM2 only admits 10.0.0.0/24 on 8080/8081;
-# localhost health checks keep working). Hikari: relaxed binding of spring.datasource.hikari.*.
-set_env s2 APP_ROLE=worker SERVER_ADDRESS=0.0.0.0 MANAGEMENT_SERVER_ADDRESS=0.0.0.0 \
+# Worker: HTTP and management stay on loopback (no one calls it from outside; CI checks health over SSH).
+# Hikari: relaxed binding of spring.datasource.hikari.*.
+set_env s2 APP_ROLE=worker SERVER_ADDRESS=127.0.0.1 MANAGEMENT_SERVER_ADDRESS=127.0.0.1 \
   SPRING_DATASOURCE_HIKARI_MAXIMUM_POOL_SIZE=6 SPRING_DATASOURCE_HIKARI_MINIMUM_IDLE=6
 s1 "cp -p $APP/.env $APP/.env.bak-\$(date +%Y%m%d-%H%M%S)"
 set_env s1 APP_ROLE=api

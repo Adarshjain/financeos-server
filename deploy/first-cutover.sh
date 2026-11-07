@@ -9,7 +9,6 @@
 # Preconditions (see README "Two-VM layout"):
 #   1. VM1 already runs the worker-split JAR (CI deploy with WORKER_HOST unset).
 #   2. deploy/copy-worker-secrets.sh has run (VM1 .env APP_ROLE=api, VM2 .env APP_ROLE=worker).
-#   3. Optional but recommended: deploy/update-caddy.sh has run, so VM1's restart fails over to VM2.
 #
 # Usage: deploy/first-cutover.sh
 set -euo pipefail
