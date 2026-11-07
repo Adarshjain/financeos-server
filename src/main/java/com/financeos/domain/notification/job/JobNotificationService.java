@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * "Your import finished / failed" for jobs the user started themselves (never cron jobs: a
- * 2-hourly Gmail sync would be noise). Event-driven only; the marker is {@code jobs.notified_at}
+ * 15-minute Gmail sync would be noise). Event-driven only; the marker is {@code jobs.notified_at}
  * and is set even when nothing can be sent.
  */
 @Service

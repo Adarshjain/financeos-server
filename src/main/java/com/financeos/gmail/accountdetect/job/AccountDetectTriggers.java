@@ -103,8 +103,8 @@ public class AccountDetectTriggers {
                 UUID connectionId = job == null ? null : syncConnectionId(job);
                 if (connectionId == null) return;
                 // Detect lists its own mail since its marker, so a skipped run loses nothing: the next run (new mail, a manual
-                // sync, or the quiet-time ceiling) picks it up. With a 2-hourly cron the ceiling still runs it every cron;
-                // it only stops piling up runs if syncs become more frequent.
+                // sync, or the quiet-time ceiling) picks it up. With the 15-minute sync this caps
+                // quiet-mailbox runs at one per 90 min.
                 if (!shouldRunAfterSync(event, job)) return;
                 enqueueForConnection(event.userId(), connectionId);
             });

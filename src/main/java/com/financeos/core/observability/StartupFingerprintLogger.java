@@ -79,7 +79,7 @@ public class StartupFingerprintLogger {
         boolean hasOpenAiKey = isNotEmpty(environment.getProperty("openai.api-key")) || isNotEmpty(environment.getProperty("OPENAI_API_KEY"));
         boolean hasGroqKey = isNotEmpty(environment.getProperty("groq.api-key")) || isNotEmpty(environment.getProperty("GROQ_API_KEY"));
 
-        String gmailCron = environment.getProperty("gmail.ingest.cron", "0 0 7,10-22/2 * * *");
+        String gmailCron = environment.getProperty("gmail.ingest.cron", "0 */15 * * * *");
         String priceCron = environment.getProperty("price.refresh-cron", "0 0 19 * * *");
 
         boolean cookieSecure = Boolean.parseBoolean(environment.getProperty("server.servlet.session.cookie.secure",

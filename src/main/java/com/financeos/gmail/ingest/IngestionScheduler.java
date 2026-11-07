@@ -34,16 +34,16 @@ public class IngestionScheduler {
 
     /**
      * Periodic cron task that syncs Gmail connections and processes transactions.
-     * Defaults to running every 2 hours from 10:00 to 22:00 in Asia/Kolkata (IST).
+     * Defaults to every 15 minutes, all day (runs on the worker VM, so it never competes with requests).
      */
-    @Scheduled(cron = "${gmail.ingest.cron:0 0 7,10-22/2 * * *}", zone = "${gmail.ingest.zone:Asia/Kolkata}")
+    @Scheduled(cron = "${gmail.ingest.cron:0 */15 * * * *}", zone = "${gmail.ingest.zone:Asia/Kolkata}")
     public void runIngestion() {
         if (!ingestProperties.isEnabled()) {
             log.info("Gmail Ingestion is disabled via configuration properties");
             return;
         }
 
-        // Mailboxes whose token Google rejected are skipped until the user reconnects (no 2-hourly failing jobs).
+        // Mailboxes whose token Google rejected are skipped until the user reconnects (no failing job every run).
         List<GmailConnection> activeConnections = connectionRepository.findByIsConnectedTrueAndAuthFailedAtIsNull();
         log.info("Found {} active Gmail connection(s) to enqueue for ingestion", activeConnections.size());
 
