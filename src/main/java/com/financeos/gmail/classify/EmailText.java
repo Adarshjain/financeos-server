@@ -22,6 +22,8 @@ public final class EmailText {
     private static final Pattern ENTITY = Pattern.compile("&(#[xX][0-9a-fA-F]{1,6}|#[0-9]{1,7}|[a-zA-Z]{2,8});");
     private static final Pattern WHITESPACE = Pattern.compile("[\\s\\p{Zs}\\u00A0\\u200B\\u200C\\u200D\\u2060\\uFEFF\\u00AD\\u034F]+");
     private static final Pattern CURRENCY = Pattern.compile("(?:\\binr\\b\\.?|\\brs\\b\\.?(?=\\s*\\d)|₹)\\s*", Pattern.CASE_INSENSITIVE);
+    /** "transaction ofINR 2": the bank glued the word and the currency, so INR has no word edge. */
+    private static final Pattern GLUED_CURRENCY = Pattern.compile("\\b(of)(?=INR\\s?\\d)", Pattern.CASE_INSENSITIVE);
     // A character class, not a repeated group: Java recurses once per group repeat, and a marketing mail with
     // thousands of empty blocks overflowed the 512k job-thread stack. Spaces are already single here, so same output.
     private static final Pattern SECTION_RUNS = Pattern.compile("[ \u2029]*\u2029[ \u2029]*");
@@ -233,6 +235,7 @@ public final class EmailText {
             to--;
         }
         collapsed = collapsed.substring(from, to);
+        collapsed = GLUED_CURRENCY.matcher(collapsed).replaceAll("$1 ");
         return CURRENCY.matcher(collapsed).replaceAll("INR ").trim();
     }
 }

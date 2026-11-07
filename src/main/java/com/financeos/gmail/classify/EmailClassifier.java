@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 @Component
 public class EmailClassifier {
 
-    public static final int VERSION = 5;
+    public static final int VERSION = 6;
 
     private final BankSenderDomains bankSenderDomains;
 

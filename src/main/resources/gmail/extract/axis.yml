@@ -29,6 +29,15 @@ templates:
   - id: axis.cc.reversal.v1
     senders: *senders
     subject: 'Transaction alert'
-    body: 'transaction of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) on Axis Bank Credit Card no\.?\s*(?<last4>[X*]*\d+) on (?<date>\d\d-\d\d-\d{2,4})[\d: ]*(?:IST)?\s*at (?<counterparty>.+?) has been reversed'
+    body: 'transaction of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) on (?:your |Axis Bank )?(?:Axis Bank )?Credit Card no\.?\s*(?<last4>[X*]*\d+) on (?<date>\d\d-\d\d-\d{2,4})[\d: ]*(?:IST)?\s*at (?<counterparty>.+?) has been reversed'
     direction: CREDIT
     dateFormats: [dd-MM-yyyy, dd-MM-yy]
+
+  # "Auto Pay facility has been successfully activated on your Axis Bank Card no. XX1234 for INR 130.00 from SHOP and initial amt of INR 35.00 has been debited."
+  # The 130.00 is the mandate limit; the initial amount is the only money that moved. No initial debit = no template match.
+  - id: axis.cc.autopay-initial.v1
+    senders: *senders
+    subject: 'Auto Pay facility'
+    body: '(?<date>\d\d-\d\d-\d{4})[^a-zA-Z]{0,20}Dear Customer,(?s:.{0,200}?)activated on your (?:Axis Bank )?(?:credit )?card no\.?\s*(?<last4>[X*]*\d+) for [A-Z]{3} [\d,]+(?:\.\d+)? from (?<counterparty>.+?) and initial amt of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) has been debited'
+    direction: DEBIT
+    dateFormats: [dd-MM-yyyy]

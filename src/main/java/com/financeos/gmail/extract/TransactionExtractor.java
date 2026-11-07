@@ -23,7 +23,7 @@ import java.util.regex.Matcher;
 public class TransactionExtractor {
 
     /** Bumped when extraction rules change; stored with the shadow result so runs can be compared across versions. */
-    public static final int VERSION = 3;
+    public static final int VERSION = 4;
 
     private final List<ExtractionTemplate> templates;
 

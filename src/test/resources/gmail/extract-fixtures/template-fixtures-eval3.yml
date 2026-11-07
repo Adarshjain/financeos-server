@@ -1,0 +1,17 @@
+# Made-up emails (masked names, references, card digits) for the prod-eval fixes: Auto Pay initial debit, ICICI payment through a channel.
+fixtures:
+  - template: axis.cc.autopay-initial.v1
+    from: 'alerts@axisbank.com'
+    subject: 'Auto Pay facility has been activated'
+    sent: '2024-05-07T12:07:33Z'
+    body: >-
+      07-05-2024 Dear Customer, Thank you for banking with us. We wish to inform you that Auto Pay facility has been successfully activated on your Axis Bank Card no. XX1234 for INR 150.00 from Sample Store and initial amt of INR 40.00 has been debited. Sample Store can initiate subsequent transactions for a maximum amount of INR 150.00. Manage Auto Pay with ID AbCd123456 via https://example.test/s/abc Always open to help you. Regards, Axis Bank Ltd.
+    expect: {amount: '40.00', currency: INR, direction: DEBIT, date: '2024-05-07', counterparty: 'Sample Store', last4: '1234'}
+
+  - template: icici.cc.payment.v3
+    from: 'credit_cards@icicibank.com'
+    subject: 'Payment received on your ICICI Bank Credit Card'
+    sent: '2024-06-11T06:47:27Z'
+    body: >-
+      Payment received on your ICICI Bank Credit Card Dear Customer, Jun 11, 2024 Greetings from ICICI Bank. We have received payment of INR 2,210.10 on your ICICI Bank Credit Card Account 1234 XXXX XXXX 5678 through Visa Money Transfer on June 09, 2024. For any clarification, write to us.
+    expect: {amount: '2210.10', currency: INR, direction: CREDIT, date: '2024-06-09', counterparty: null, last4: '5678'}

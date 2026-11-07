@@ -35,6 +35,8 @@ final class GenericExtractor {
     private static final Pattern LAST4 = Pattern.compile(
             "(?:\\bending(?: with| in)?|\\bcard(?: no\\.?| number)?|\\ba/c(?: no\\.?)?|\\baccount(?: no\\.?| number)?|\\bacct)"
                     + "[\\s:#]*[xX*•]*\\s?(\\d{3,6})\\b|[xX*•]{2,}\\s?(\\d{3,6})\\b", FLAGS);
+    /** "4315 XXXX XXXX 0005": after the first digit group, masked groups and a final digit group follow; the last group is the tail. */
+    private static final Pattern MASKED_TAIL = Pattern.compile("\\G(?:\\s?[xX*•]{2,})+\\s?(\\d{3,6})\\b");
     private static final Pattern VPA = Pattern.compile("\\b(?:vpa|upi id)\\s*:?\\s*([\\w.\\-]+@[\\w.\\-]+)", FLAGS);
     private static final Pattern PARTY = Pattern.compile(
             "\\b(?:at|towards|to|from|by)\\s+(?!(?:your|you|the|a/c|account|acct|card|credit|debit|vpa|upi|report|check|know|avoid|block|call|visit|click|login|log|contact|view|get|be|make|do|see|use|us|me)\\b)"
@@ -124,6 +126,12 @@ final class GenericExtractor {
         for (String scope : new String[]{sentence, text}) {
             Matcher m = LAST4.matcher(scope);
             if (m.find()) {
+                if (m.group(1) != null) {
+                    Matcher tail = MASKED_TAIL.matcher(scope).region(m.end(1), scope.length());
+                    if (tail.find()) {
+                        return ExtractParsing.parseLast4(tail.group(1));
+                    }
+                }
                 return ExtractParsing.parseLast4(m.group(1) != null ? m.group(1) : m.group(2));
             }
         }
