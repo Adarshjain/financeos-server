@@ -750,26 +750,38 @@ public class GmailIngestionService {
                 return List.of();
             }
 
-            // Transaction Alert path -> Gemini extraction
-            GeminiExtractionResult extractionResult = geminiExtractor.extract(message);
-            Optional<ExtractedTransaction> shadowEngine = extractInShadow(gpm, message, extractionResult, engineResult);
-            if (!extractionResult.isSuccess()) {
-                throw new RuntimeException("Extraction failed: " + extractionResult.failureReason());
-            }
-
-            if (!extractionResult.isTransaction()) {
-                List<Transaction> overridden = writeFromTemplateOverride(connection, gpm, message, fromAddress, engineResult,
-                        arrivalContexts);
-                if (overridden != null) {
-                    return overridden;
+            GeminiExtractionResult extractionResult;
+            Optional<ExtractedTransaction> shadowEngine;
+            if (ingestProperties.getReader() == GmailIngestProperties.Reader.INHOUSE) {
+                // In-house reader: the classifier and the engine decide, the AI is never called.
+                extractionResult = readInHouse(gpm, message, fromAddress, engineResult);
+                if (extractionResult == null) {
+                    return List.of();
                 }
-            }
-            recordPipelineKind(gpm, extractionResult.isTransaction() ? "ALERT" : "OTHER");
-            if (!extractionResult.isTransaction()) {
-                gpm.setStatus(GmailProcessedStatus.SKIPPED_NOT_TRANSACTION);
-                gpm.setError(null);
-                processedMessageRepository.save(gpm);
-                return List.of();
+                shadowEngine = engineResult == null ? Optional.empty() : engineResult;
+            } else {
+                // Transaction Alert path -> Gemini extraction
+                extractionResult = geminiExtractor.extract(message);
+                shadowEngine = extractInShadow(gpm, message, extractionResult, engineResult);
+                if (!extractionResult.isSuccess()) {
+                    throw new RuntimeException("Extraction failed: " + extractionResult.failureReason());
+                }
+
+                if (!extractionResult.isTransaction()) {
+                    List<Transaction> overridden = writeFromTemplateOverride(connection, gpm, message, fromAddress, engineResult,
+                            arrivalContexts);
+                    if (overridden != null) {
+                        return overridden;
+                    }
+                }
+                recordPipelineKind(gpm, extractionResult.isTransaction() ? "ALERT" : "OTHER");
+                if (!extractionResult.isTransaction()) {
+                    gpm.setStatus(GmailProcessedStatus.SKIPPED_NOT_TRANSACTION);
+                    gpm.setError(null);
+                    processedMessageRepository.save(gpm);
+                    recordReaderOutcome(gpm, "not_alert");
+                    return List.of();
+                }
             }
 
             gpm.setExtractedLast4(normalizeLast4(extractionResult.accountLast4()));
@@ -798,8 +810,12 @@ public class GmailIngestionService {
 
             if (account == null) {
                 gpm.setStatus(GmailProcessedStatus.UNRESOLVED_ACCOUNT);
-                gpm.setError("No single account matches card/account ending " + extractionResult.accountLast4());
+                gpm.setError(extractionResult.accountLast4() == null
+                        && ingestProperties.getReader() == GmailIngestProperties.Reader.INHOUSE
+                        ? "No card or account number in this email"
+                        : "No single account matches card/account ending " + extractionResult.accountLast4());
                 processedMessageRepository.save(gpm);
+                recordReaderOutcome(gpm, "unresolved");
                 return List.of();
             }
 
@@ -819,6 +835,7 @@ public class GmailIngestionService {
             gpm.setTransaction(result.getTransaction());
             gpm.setError(result.getError());
             processedMessageRepository.save(gpm);
+            recordReaderOutcome(gpm, result.getTransaction() != null ? "written" : "other");
 
             // An alert attached to an existing transaction created nothing: no arrival categorising, not counted as new.
             if (result.getTransaction() != null && result.getStatus() == GmailProcessedStatus.CREATED) {
@@ -836,6 +853,92 @@ public class GmailIngestionService {
             applyFailure(gpm, e, e.getMessage() != null ? e.getMessage() : e.toString());
             processedMessageRepository.save(gpm);
             return List.of();
+        }
+    }
+
+    static final String COULDNT_READ = "Couldn't read this email (in-house reader)";
+    static final String NOT_ALERT_INHOUSE = "Not a transaction alert (in-house classifier)";
+
+    /**
+     * INHOUSE reader for an alert mail: the classifier says whether it is an alert, the engine read gives the transaction.
+     * Returns the extraction to continue with (account resolution, writer), or null when the mail was settled here
+     * (not an alert: SKIPPED_NOT_TRANSACTION; nothing usable read: FAILED_PERMANENT). Never calls the AI.
+     */
+    private GeminiExtractionResult readInHouse(GmailProcessedMessage gpm, GmailMessage message, String fromAddress,
+                                               Optional<ExtractedTransaction> engineResult) {
+        String kind = gpm.getClassifiedKind();
+        if (kind != null && !com.financeos.gmail.classify.EmailKind.ALERT.name().equals(kind)) {
+            recordPipelineKind(gpm, "OTHER");
+            recordInHouseEngineRead(gpm, engineResult);
+            gpm.setStatus(GmailProcessedStatus.SKIPPED_NOT_TRANSACTION);
+            gpm.setError(NOT_ALERT_INHOUSE);
+            processedMessageRepository.save(gpm);
+            recordReaderOutcome(gpm, "not_alert");
+            return null;
+        }
+        ExtractedTransaction e = engineResult == null || engineResult.isEmpty() ? null : engineResult.get();
+        LocalDate sentOn = message.internalDate() == null ? null : message.internalDate().atZone(AppTime.zone()).toLocalDate();
+        LocalDate date = e == null ? null : e.date();
+        if (date == null) {
+            date = sentOn;
+        } else if (sentOn != null && date.isAfter(sentOn)) {
+            date = sentOn;
+        }
+        if (e == null || e.amount() == null || e.direction() == null || e.currency() == null || date == null) {
+            recordPipelineKind(gpm, "ALERT");
+            recordInHouseEngineRead(gpm, engineResult);
+            gpm.setStatus(GmailProcessedStatus.FAILED_PERMANENT);
+            gpm.setError(COULDNT_READ);
+            gpm.setNextRetryAt(null);
+            processedMessageRepository.save(gpm);
+            recordReaderOutcome(gpm, "couldnt_read");
+            log.info("gmail.reader.couldnt_read=1 reader=INHOUSE senderDomain={} bank={}",
+                    senderDomain(fromAddress), gpm.getClassifiedBank());
+            return null;
+        }
+        recordPipelineKind(gpm, "ALERT");
+        recordInHouseEngineRead(gpm, engineResult);
+        GeminiExtractionResult result = new GeminiExtractionResult(true, e.amount(), e.currency(), e.direction().name(),
+                date, e.counterparty(), e.last4(), e.confidence(), true, null);
+        return result;
+    }
+
+    /** Ledger columns for the engine's read, with no AI provider (the extract_* columns extractInShadow fills in AI mode). */
+    private void recordInHouseEngineRead(GmailProcessedMessage gpm, Optional<ExtractedTransaction> engine) {
+        if (transactionExtractor == null || engine == null) {
+            return;
+        }
+        gpm.setExtractVersion(TransactionExtractor.VERSION);
+        gpm.setExtractAiProvider(null);
+        String tier = "NONE";
+        if (engine.isPresent()) {
+            ExtractedTransaction e = engine.get();
+            tier = e.tier().name();
+            gpm.setExtractTemplate(truncate(e.templateId(), 64));
+            gpm.setExtractAmount(e.amount());
+            gpm.setExtractCurrency(truncate(e.currency(), 3));
+            gpm.setExtractDirection(e.direction() == null ? null : e.direction().name());
+            gpm.setExtractDate(e.date());
+            gpm.setExtractLast4(truncate(e.last4(), 4));
+            gpm.setExtractCounterparty(truncate(e.counterparty(), 255));
+        }
+        gpm.setExtractTier(tier);
+    }
+
+    private static String senderDomain(String fromAddress) {
+        int at = fromAddress == null ? -1 : fromAddress.lastIndexOf('@');
+        return at < 0 ? "unknown" : fromAddress.substring(at + 1);
+    }
+
+    private void recordReaderOutcome(GmailProcessedMessage gpm, String outcome) {
+        if (observabilityMetrics == null) {
+            return;
+        }
+        try {
+            String reader = ingestProperties.getReader() == GmailIngestProperties.Reader.INHOUSE ? "INHOUSE" : "AI";
+            observabilityMetrics.recordGmailReader(reader, outcome, gpm.getClassifiedBank());
+        } catch (Exception ex) {
+            log.warn("Reader metric failed: {}", ex.toString());
         }
     }
 

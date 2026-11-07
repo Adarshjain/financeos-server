@@ -18,4 +18,8 @@ public class GmailIngestProperties {
     private int backfillProcessBudget = 500;
     private int retryMaxAttempts = 5;
     private int staleProcessingMinutes = 60;
+    /** Who reads Gmail alert mails: the AI (default, unchanged) or only the in-house classifier and extractor. Env INGEST_READER. */
+    private Reader reader = Reader.AI;
+
+    public enum Reader { AI, INHOUSE }
 }
