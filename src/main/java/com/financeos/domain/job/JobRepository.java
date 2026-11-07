@@ -95,6 +95,10 @@ public interface JobRepository extends JpaRepository<Job, UUID> {
 
     List<Job> findByStatusOrderByCreatedAtAsc(JobStatus status, Pageable limit);
 
+    /** One row: [pending count, oldest pending createdAt (null when none)]. */
+    @Query("select count(j), min(j.createdAt) from Job j where j.status = com.financeos.domain.job.JobStatus.PENDING")
+    List<Object[]> pendingStats();
+
     @Modifying
     @Query("update Job j set j.status = 'RUNNING', j.startedAt = :startedAt, j.attempt = j.attempt + 1 where j.id = :id and j.status = 'PENDING'")
     int claim(@Param("id") UUID id, @Param("startedAt") Instant startedAt);

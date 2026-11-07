@@ -12,7 +12,9 @@ fi
 # Add official Fluent Bit apt repository keyring & source list
 curl -fsSL https://packages.fluentbit.io/fluentbit.key | gpg --dearmor | sudo tee /usr/share/keyrings/fluentbit-keyring.gpg >/dev/null
 
-CODENAME=$(lsb_release -cs 2>/dev/null || echo "jammy")
+# Minimal images (Ubuntu 24.04) have no lsb_release; os-release always exists.
+# shellcheck disable=SC1091
+CODENAME=$(. /etc/os-release && echo "${VERSION_CODENAME:-jammy}")
 echo "deb [signed-by=/usr/share/keyrings/fluentbit-keyring.gpg] https://packages.fluentbit.io/ubuntu/${CODENAME} ${CODENAME} main" | sudo tee /etc/apt/sources.list.d/fluentbit.list
 
 sudo apt-get update -y

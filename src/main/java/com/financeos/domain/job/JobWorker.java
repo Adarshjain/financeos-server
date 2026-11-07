@@ -44,6 +44,10 @@ public class JobWorker {
     @Value("${jobs.worker.enabled:true}")
     private boolean enabled = true;
 
+    /** On the api role jobs are only enqueued; the worker node's poll picks them up. */
+    @Value("${app.role:all}")
+    private String role = "all";
+
     public JobWorker(JobRepository jobRepository,
                      JobService jobService,
                      JobHandlerRegistry handlerRegistry,
@@ -85,7 +89,7 @@ public class JobWorker {
     }
 
     public void poke() {
-        if (!enabled) {
+        if (!enabled || "api".equalsIgnoreCase(role.trim())) {
             return;
         }
         jobExecutor.execute(this::pollInternal);

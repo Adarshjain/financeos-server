@@ -136,108 +136,47 @@ jobs:
           echo "$DEPLOY_SSH_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
 
-      - name: Upload JAR
+      # Worker VM first, then the API VM. A worker that fails its health check stops the run before the API is
+      # touched (the API keeps serving, and Caddy has the worker as failover only while it is healthy).
+      # WORKER_HOST unset = single-VM deploy exactly as before.
+      - name: Check for worker host
+        id: worker
+        env:
+          WORKER_HOST: ${{ secrets.WORKER_HOST }}
+        run: |
+          if [ -n "$WORKER_HOST" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "WORKER_HOST not set; deploying the API VM only."
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Deploy worker VM
+        id: deploy-worker
+        if: steps.worker.outputs.enabled == 'true'
+        env:
+          HOST: ${{ secrets.WORKER_HOST }}
+          USER: ${{ secrets.DEPLOY_USER }}
+        run: bash deploy/deploy-host.sh "$HOST" "$USER" worker
+
+      - name: Deploy API VM
+        id: deploy-api
         env:
           HOST: ${{ secrets.DEPLOY_HOST }}
           USER: ${{ secrets.DEPLOY_USER }}
-        run: |
-          scp -i ~/.ssh/deploy_key -o StrictHostKeyChecking=accept-new \
-            target/backend-1.0.0.jar "$USER@$HOST:$APP_DIR/target/backend-1.0.0.jar.new"
+        run: bash deploy/deploy-host.sh "$HOST" "$USER" api
 
-      # Pause the job worker (no new PENDING jobs are claimed; they stay queued for the next boot)
-      # and wait until nothing is running, so a restart never interrupts a job mid-flight.
-      - name: Drain background jobs
-        id: drain
-        env:
-          HOST: ${{ secrets.DEPLOY_HOST }}
-          USER: ${{ secrets.DEPLOY_USER }}
-        run: |
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=accept-new "$USER@$HOST" \
-            bash -s -- "$MGMT_PORT" "$DRAIN_TIMEOUT_SECONDS" <<'EOF'
-            set -uo pipefail
-            base="http://127.0.0.1:$1/actuator"
-            url="$base/jobs"
-            timeout="$2"
-            # Ask the actuator index which endpoints the running build exposes: builds older than the
-            # jobs endpoint answer an unknown actuator path with a 500, not a 404, so probing it can't
-            # tell "no endpoint" from "pause failed".
-            index=$(mktemp)
-            code=$(curl -s -m 10 -o "$index" -w '%{http_code}' "$base")
-            case "$code" in
-              200) ;;
-              000) echo "Server not reachable; nothing to drain."; exit 0 ;;
-              *)   echo "::error::Reading the actuator index failed (HTTP $code)."; exit 1 ;;
-            esac
-            if ! grep -q '"jobs"' "$index"; then
-              echo "::warning::Running build does not expose /actuator/jobs; restarting without a drain."
-              exit 0
-            fi
-            code=$(curl -s -m 10 -o /dev/null -w '%{http_code}' -X POST \
-                     -H 'Content-Type: application/json' -d '{"paused":true}' "$url")
-            if [ "$code" != "200" ]; then
-              echo "::error::Pausing the job worker failed (HTTP $code)."
-              exit 1
-            fi
-            elapsed=0
-            while :; do
-              running=$(curl -s -m 10 "$url" | grep -o '"running": *[0-9]*' | grep -o '[0-9]*$')
-              if [ "$running" = "0" ]; then
-                echo "No running jobs after ${elapsed}s; safe to restart."
-                exit 0
-              fi
-              if [ "$elapsed" -ge "$timeout" ]; then
-                curl -s -m 10 -o /dev/null -X POST -H 'Content-Type: application/json' \
-                  -d '{"paused":false}' "$url" || true
-                echo "::error::${running:-?} job(s) still running after ${timeout}s; worker resumed, deploy aborted. Re-run once they finish."
-                exit 1
-              fi
-              echo "Waiting on ${running:-?} running job(s)... (${elapsed}s)"
-              sleep 5
-              elapsed=$((elapsed + 5))
-            done
-          EOF
-
-      - name: Swap in new JAR and restart
-        env:
-          HOST: ${{ secrets.DEPLOY_HOST }}
-          USER: ${{ secrets.DEPLOY_USER }}
-        run: |
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=accept-new "$USER@$HOST" bash -se <<'EOF'
-            set -euo pipefail
-            cd /home/ubuntu/financeos-server/target
-            # Keep the outgoing JAR so a bad deploy can be rolled back by hand.
-            [ -f backend-1.0.0.jar ] && cp -f backend-1.0.0.jar backend-1.0.0.jar.prev
-            mv -f backend-1.0.0.jar.new backend-1.0.0.jar
-            sudo systemctl restart financeos
-          EOF
-
-      - name: Health check
-        env:
-          HOST: ${{ secrets.DEPLOY_HOST }}
-          USER: ${{ secrets.DEPLOY_USER }}
-        run: |
-          for i in $(seq 1 45); do
-            if ssh -i ~/.ssh/deploy_key "$USER@$HOST" \
-                 "curl -sf http://localhost:$MGMT_PORT/actuator/health" >/dev/null 2>&1; then
-              echo "Healthy after $((i * 4))s."
-              exit 0
-            fi
-            sleep 4
-          done
-          echo "::error::Service did not become healthy. Rolling back is manual: see deploy/README.md"
-          ssh -i ~/.ssh/deploy_key "$USER@$HOST" 'sudo journalctl -u financeos -n 80 --no-pager' || true
-          exit 1
-
-      # A failure or cancel after the drain started (e.g. the JAR swap) would leave the old server paused.
+      # A failure or cancel after a drain started (e.g. the JAR swap) would leave that old server paused.
       # After a restart this is a no-op: a fresh JVM starts unpaused.
-      - name: Resume job worker on failure
-        if: (failure() || cancelled()) && (steps.drain.outcome == 'success' || steps.drain.outcome == 'cancelled')
+      - name: Resume job workers on failure
+        if: failure() || cancelled()
         env:
-          HOST: ${{ secrets.DEPLOY_HOST }}
+          API_HOST: ${{ secrets.DEPLOY_HOST }}
+          WORKER_HOST: ${{ secrets.WORKER_HOST }}
           USER: ${{ secrets.DEPLOY_USER }}
         run: |
-          ssh -i ~/.ssh/deploy_key "$USER@$HOST" \
-            "curl -s -m 10 -X POST -H 'Content-Type: application/json' -d '{\"paused\":false}' http://127.0.0.1:$MGMT_PORT/actuator/jobs" || true
+          bash deploy/resume-jobs.sh "$API_HOST" "$USER"
+          if [ -n "$WORKER_HOST" ]; then bash deploy/resume-jobs.sh "$WORKER_HOST" "$USER"; fi
 
       - name: Notify Slack — result
         if: always()

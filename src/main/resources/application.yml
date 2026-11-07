@@ -102,6 +102,8 @@ management:
 
 # Application-specific configuration
 app:
+  # all (default) | api (no scheduled/background polling) | worker; unknown value fails startup
+  role: ${APP_ROLE:all}
   version: "@project.version@-@gitSha@"
   inbox:
     # How long GET /inbox and /inbox/summary reuse a user's built inbox; any write of theirs drops it. 0 disables.

@@ -154,7 +154,7 @@
               "refId": "A",
               "datasourceUid": "${DS_PROM}",
               "model": {
-                "expr": "sum(jvm_memory_used_bytes{service=\"financeos-server\", area=\"heap\"}) / sum(jvm_memory_max_bytes{service=\"financeos-server\", area=\"heap\"} > 0) > 0.9",
+                "expr": "sum by (role) (jvm_memory_used_bytes{service=\"financeos-server\", area=\"heap\"}) / sum by (role) (jvm_memory_max_bytes{service=\"financeos-server\", area=\"heap\"} > 0) > 0.9",
                 "instant": true,
                 "range": false
               },
@@ -176,8 +176,8 @@
             "severity": "critical"
           },
           "annotations": {
-            "summary": "The server VM itself is nearly out of RAM (under 80MB free) — Linux may start killing processes, including the app.",
-            "description": "SSH into the OCI VM and check what is using memory (`free -m`, `top`). If there is no swap, run deploy/add-swap.sh."
+            "summary": "A FinanceOS VM is nearly out of RAM (under 80MB free) - Linux may start killing processes, including the app. The \"host\" label says which VM.",
+            "description": "SSH into that VM (API: 129.159.22.124, worker: financeos-worker) and check what is using memory (`free -m`, `top`). If there is no swap, run deploy/add-swap.sh."
           },
           "notification_settings": {
             "receiver": "slack-financeos"
@@ -187,7 +187,7 @@
               "refId": "A",
               "datasourceUid": "${DS_PROM}",
               "model": {
-                "expr": "node_memory_MemAvailable_bytes < 83886080",
+                "expr": "min by (host) (node_memory_MemAvailable_bytes) < 83886080",
                 "instant": true,
                 "range": false
               },
@@ -286,7 +286,7 @@
               "refId": "A",
               "datasourceUid": "${DS_PROM}",
               "model": {
-                "expr": "(time() - financeos_job_last_success_timestamp_seconds{job=\"gmail-ingest\"}) > 54000",
+                "expr": "(time() - financeos_job_last_success_timestamp_seconds{job=\"gmail-ingest\", role!=\"api\"}) > 54000",
                 "instant": true,
                 "range": false
               },
@@ -319,7 +319,7 @@
               "refId": "A",
               "datasourceUid": "${DS_PROM}",
               "model": {
-                "expr": "(time() - financeos_job_last_success_timestamp_seconds{job=\"price-refresh\"}) > 93600",
+                "expr": "(time() - financeos_job_last_success_timestamp_seconds{job=\"price-refresh\", role!=\"api\"}) > 93600",
                 "instant": true,
                 "range": false
               },
@@ -487,6 +487,138 @@
               },
               "relativeTimeRange": {
                 "from": 900,
+                "to": 0
+              }
+            }
+          ],
+          "execErrState": "Alerting",
+          "noDataState": "OK"
+        },
+        {
+          "uid": "financeos-alert-api-down",
+          "title": "API down",
+          "condition": "A",
+          "for": "0m",
+          "labels": {
+            "severity": "critical"
+          },
+          "annotations": {
+            "summary": "No metrics from the API VM (role=api) for 5 minutes - the API process or its VM is down, or Fluent Bit stopped shipping.",
+            "description": "Caddy fails over to the worker VM while the API is down. SSH to the API VM: `systemctl status financeos fluent-bit`, `journalctl -u financeos -n 100`."
+          },
+          "notification_settings": {
+            "receiver": "slack-financeos"
+          },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_PROM}",
+              "model": {
+                "expr": "absent_over_time(jvm_memory_used_bytes{service=\"financeos-server\", role=\"api\"}[5m])",
+                "instant": true,
+                "range": false
+              },
+              "relativeTimeRange": {
+                "from": 300,
+                "to": 0
+              }
+            }
+          ],
+          "execErrState": "Alerting",
+          "noDataState": "Alerting"
+        },
+        {
+          "uid": "financeos-alert-worker-down",
+          "title": "Worker down",
+          "condition": "A",
+          "for": "0m",
+          "labels": {
+            "severity": "critical"
+          },
+          "annotations": {
+            "summary": "No metrics from the worker VM (role=worker) for 5 minutes - schedulers and the job worker are not running.",
+            "description": "SSH to financeos-worker: `systemctl status financeos fluent-bit`, `journalctl -u financeos -n 100`."
+          },
+          "notification_settings": {
+            "receiver": "slack-financeos"
+          },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_PROM}",
+              "model": {
+                "expr": "absent_over_time(jvm_memory_used_bytes{service=\"financeos-server\", role=\"worker\"}[5m])",
+                "instant": true,
+                "range": false
+              },
+              "relativeTimeRange": {
+                "from": 300,
+                "to": 0
+              }
+            }
+          ],
+          "execErrState": "Alerting",
+          "noDataState": "Alerting"
+        },
+        {
+          "uid": "financeos-alert-gc-pause-long",
+          "title": "GC pause long",
+          "condition": "A",
+          "for": "0m",
+          "labels": {
+            "severity": "warning"
+          },
+          "annotations": {
+            "summary": "Garbage collection paused the app for more than 15 s in the last 10 minutes on role {{ $labels.role }}.",
+            "description": "Usually the VM swapping or the heap too small. Check gc.log on that VM and Grafana memory panels."
+          },
+          "notification_settings": {
+            "receiver": "slack-financeos"
+          },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_PROM}",
+              "model": {
+                "expr": "sum by (role) (increase(jvm_gc_pause_seconds_sum{service=\"financeos-server\"}[10m])) > 15",
+                "instant": true,
+                "range": false
+              },
+              "relativeTimeRange": {
+                "from": 600,
+                "to": 0
+              }
+            }
+          ],
+          "execErrState": "Alerting",
+          "noDataState": "OK"
+        },
+        {
+          "uid": "financeos-alert-job-backlog",
+          "title": "Job backlog",
+          "condition": "A",
+          "for": "5m",
+          "labels": {
+            "severity": "warning"
+          },
+          "annotations": {
+            "summary": "The oldest pending background job has waited more than 15 minutes - the job worker is stuck, paused or down.",
+            "description": "Check the worker VM (`journalctl -u financeos`), and that /actuator/jobs on the worker is not paused after a failed deploy."
+          },
+          "notification_settings": {
+            "receiver": "slack-financeos"
+          },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_PROM}",
+              "model": {
+                "expr": "max(financeos_jobs_pending_oldest_seconds{service=\"financeos-server\"}) > 900",
+                "instant": true,
+                "range": false
+              },
+              "relativeTimeRange": {
+                "from": 600,
                 "to": 0
               }
             }

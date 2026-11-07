@@ -42,4 +42,22 @@ class JobJanitorTest {
         verify(jobRepository, times(1)).deleteFailedJobArtifactsOlderThan(any(Instant.class));
         verify(jobRepository, times(1)).deleteTerminalJobsOlderThan(any(), any(Instant.class));
     }
+
+    @Test
+    void markInterruptedOnStartup_skippedOnApiRole() {
+        org.springframework.test.util.ReflectionTestUtils.setField(jobJanitor, "role", "api");
+
+        jobJanitor.markInterruptedOnStartup();
+
+        verifyNoInteractions(jobRepository);
+    }
+
+    @Test
+    void markInterruptedOnStartup_runsOnWorkerRole() {
+        org.springframework.test.util.ReflectionTestUtils.setField(jobJanitor, "role", "worker");
+
+        jobJanitor.markInterruptedOnStartup();
+
+        verify(jobRepository, times(1)).markInterrupted(any(), any(), any(), any(), any(Instant.class));
+    }
 }
