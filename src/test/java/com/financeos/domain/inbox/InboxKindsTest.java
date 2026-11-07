@@ -52,6 +52,12 @@ class InboxKindsTest {
     }
 
     @Test
+    void theFailedImportsRowIsASummaryKey() {
+        assertTrue(InboxKinds.isSummaryKey(InboxKinds.KEY_JOBS_FAILED));
+        assertFalse(InboxKinds.isSummaryKey(InboxKinds.jobKey(ID)));
+    }
+
+    @Test
     void onlyTheTwoFixedSummaryKeysAreSummaryKeys() {
         assertTrue(InboxKinds.isSummaryKey("gmail-attention"));
         assertTrue(InboxKinds.isSummaryKey("review"));

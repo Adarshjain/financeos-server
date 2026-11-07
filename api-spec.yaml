@@ -10,7 +10,7 @@ servers:
 paths:
   /api/v1/account-suggestions:
     get:
-      operationId: list_3
+      operationId: list_4
       responses:
         "200":
           content:
@@ -2343,7 +2343,7 @@ paths:
       - category-list-controller
   /api/v1/chat/conversations:
     get:
-      operationId: list_2
+      operationId: list_3
       responses:
         "200":
           content:
@@ -4612,6 +4612,44 @@ paths:
           description: Error response
       tags:
       - statement-intake-controller
+  /api/v1/imports:
+    get:
+      operationId: list_2
+      parameters:
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 50
+      - in: query
+        name: kind
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageImportRecordResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - import-history-controller
   /api/v1/inbox:
     get:
       operationId: list_1
@@ -18324,6 +18362,51 @@ components:
       required:
       - rows
       - summary
+    ImportRecordResponse:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        accountName:
+          type: string
+        count:
+          type: integer
+          format: int32
+        createdAt:
+          type: string
+          format: date-time
+        errorMessage:
+          type: string
+        fileName:
+          type: string
+        id:
+          type: string
+        kind:
+          type: string
+        periodEnd:
+          type: string
+          format: date
+        periodStart:
+          type: string
+          format: date
+        source:
+          type: string
+        status:
+          type: string
+      required:
+      - accountId
+      - accountName
+      - count
+      - createdAt
+      - errorMessage
+      - fileName
+      - id
+      - kind
+      - periodEnd
+      - periodStart
+      - source
+      - status
     ImportRowPreviewDto:
       type: object
       properties:
@@ -22338,6 +22421,52 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/GmailAttentionItemResponse"
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        size:
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            $ref: "#/components/schemas/SortObject"
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+      required:
+      - content
+      - empty
+      - first
+      - last
+      - number
+      - numberOfElements
+      - pageable
+      - size
+      - sort
+      - totalElements
+      - totalPages
+    PageImportRecordResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/ImportRecordResponse"
         empty:
           type: boolean
         first:

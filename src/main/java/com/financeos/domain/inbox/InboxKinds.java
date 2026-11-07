@@ -36,9 +36,10 @@ public final class InboxKinds {
             GMAIL_RECONNECT, GMAIL_ATTENTION, REVIEW, JOB, REWARD_MILESTONE, REWARD_CAP, EPF_MATCH, UPLOAD_NEEDS_ACCOUNT,
             NPS_PASSWORD, NPS_NEW_ACCOUNT, NPS_MATCH, NPS_RECORD, NPS_SETUP);
 
-    /** The two summary rows have fixed keys; everything else is keyed by its subject. */
+    /** The summary rows have fixed keys; everything else is keyed by its subject. */
     public static final String KEY_GMAIL_ATTENTION = "gmail-attention";
     public static final String KEY_REVIEW = "review";
+    public static final String KEY_JOBS_FAILED = "jobs-failed";
 
     /**
      * Bills and EMIs show in the inbox once they fall due within this many days (or are overdue);
@@ -141,7 +142,7 @@ public final class InboxKinds {
 
     /** Summary rows are counts behind one link: they can be dismissed but not snoozed. */
     public static boolean isSummaryKey(String key) {
-        return KEY_GMAIL_ATTENTION.equals(key) || KEY_REVIEW.equals(key) || (key != null && key.startsWith(KEY_LINK_SUGGESTION_PREFIX));
+        return KEY_GMAIL_ATTENTION.equals(key) || KEY_REVIEW.equals(key) || KEY_JOBS_FAILED.equals(key) || (key != null && key.startsWith(KEY_LINK_SUGGESTION_PREFIX));
     }
 
     // ---------------------------------------------------------------- labels and landing pages

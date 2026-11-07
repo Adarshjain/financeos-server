@@ -83,32 +83,37 @@ class JobInboxCollectorTest {
     }
 
     @Test
-    void aFailedStatementImportStillNeedsALook() {
-        Job job = job(JobType.STATEMENT_INGEST, JobStatus.FAILED, JobTrigger.USER, TODAY.atTime(9, 0).atZone(IST).toInstant());
-        job.setErrorMessage("Could not read the file");
+    void oneFailedImportIsASingularSummaryRow() {
+        job(JobType.STATEMENT_INGEST, JobStatus.FAILED, JobTrigger.USER, TODAY.atTime(9, 0).atZone(IST).toInstant());
 
-        InboxItemResponse row = collector.collect(userId, TODAY).get(0);
+        List<InboxItemResponse> rows = collector.collect(userId, TODAY);
 
-        assertEquals("job:" + job.getId(), row.key());
+        assertEquals(1, rows.size());
+        InboxItemResponse row = rows.get(0);
+        assertEquals("jobs-failed", row.key());
+        assertEquals("job", row.kind());
+        assertEquals("summary", row.rowType());
         assertEquals("needs_look", row.section());
-        assertEquals("Statement import failed", row.title());
+        assertEquals("warning", row.severity());
+        assertEquals("1 import couldn't finish", row.title());
+        assertEquals(1, row.count());
+        assertEquals("/settings/activity?status=failed", row.href());
+        assertEquals(InboxRefsResponse.NONE, row.refs());
+        assertEquals(List.of(InboxRows.open(row.href()), InboxRows.dismiss()), row.actions());
     }
 
     @Test
-    void aFailedUserJobNeedsALookWithItsErrorAndAFailedFilterLink() {
-        Job job = job(JobType.RULE_APPLY, JobStatus.FAILED, JobTrigger.USER, TODAY.atTime(9, 0).atZone(IST).toInstant());
-        job.setErrorMessage("Rule regex did not compile");
+    void severalFailedJobsAreOneRowWithTheirCount() {
+        job(JobType.STATEMENT_INGEST, JobStatus.FAILED, JobTrigger.USER, TODAY.atTime(9, 0).atZone(IST).toInstant());
+        job(JobType.RULE_APPLY, JobStatus.FAILED, JobTrigger.USER, TODAY.minusDays(1).atTime(9, 0).atZone(IST).toInstant());
+        job(JobType.INVESTMENT_IMPORT_COMMIT, JobStatus.FAILED, JobTrigger.USER, TODAY.minusDays(2).atTime(9, 0).atZone(IST).toInstant());
 
-        InboxItemResponse row = collector.collect(userId, TODAY).get(0);
+        List<InboxItemResponse> rows = collector.collect(userId, TODAY);
 
-        assertEquals("warning", row.severity());
-        assertEquals("needs_look", row.section());
-        assertEquals("Rule apply failed", row.title());
-        assertEquals("Rule regex did not compile", row.subtitle());
-        assertEquals("/settings/activity?type=RULE_APPLY&status=FAILED", row.href());
-        assertEquals(LocalDate.of(2026, 10, 20), row.date(), "the finish date in the business zone");
-        assertEquals(InboxRefsResponse.ofJob(job.getId()), row.refs());
-        assertEquals(List.of(InboxRows.open(row.href()), InboxRows.dismiss()), row.actions());
+        assertEquals(1, rows.size());
+        assertEquals("jobs-failed", rows.get(0).key());
+        assertEquals("3 imports couldn't finish", rows.get(0).title());
+        assertEquals(3, rows.get(0).count());
     }
 
     @Test
@@ -120,10 +125,18 @@ class JobInboxCollectorTest {
     }
 
     @Test
-    void onlyJobsFinishedSinceMidnightSevenDaysAgoShow() {
-        Job atCutoff = job(JobType.RULE_APPLY, JobStatus.FAILED, JobTrigger.USER, CUTOFF);
+    void onlyJobsFinishedSinceMidnightSevenDaysAgoCount() {
+        job(JobType.RULE_APPLY, JobStatus.FAILED, JobTrigger.USER, CUTOFF);
         job(JobType.RULE_APPLY, JobStatus.FAILED, JobTrigger.USER, CUTOFF.minusSeconds(1));
 
-        assertEquals(List.of("job:" + atCutoff.getId()), collector.collect(userId, TODAY).stream().map(InboxItemResponse::key).toList());
+        List<InboxItemResponse> rows = collector.collect(userId, TODAY);
+
+        assertEquals(1, rows.size());
+        assertEquals(1, rows.get(0).count());
+    }
+
+    @Test
+    void noFailedJobsMeansNoRow() {
+        assertEquals(List.of(), collector.collect(userId, TODAY));
     }
 }
