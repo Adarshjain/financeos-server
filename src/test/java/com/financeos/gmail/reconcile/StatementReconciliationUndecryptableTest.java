@@ -35,6 +35,8 @@ import java.util.UUID;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.argThat;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
@@ -89,7 +91,7 @@ class StatementReconciliationUndecryptableTest {
 
     @Test
     void statementOlderThanTheNamedAccountsWindow_isSkippedNotFailed() {
-        when(accountResolver.resolve("1277")).thenReturn(Optional.of(new AccountResolver.ResolvedCard(equitas, null)));
+        when(accountResolver.resolve(eq("1277"), any(), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(equitas, null)));
 
         ReconSummary summary = service.reconcile(connection, mail(BEFORE_WINDOW, EQUITAS_BODY, "XXX1277.pdf"));
 
@@ -105,7 +107,7 @@ class StatementReconciliationUndecryptableTest {
 
     @Test
     void statementInsideTheWindow_stillFails_butNamesTheAccountWhosePasswordIsMissing() {
-        when(accountResolver.resolve("1277")).thenReturn(Optional.of(new AccountResolver.ResolvedCard(equitas, null)));
+        when(accountResolver.resolve(eq("1277"), any(), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(equitas, null)));
 
         ReconSummary summary = service.reconcile(connection, mail(INSIDE_WINDOW, EQUITAS_BODY, "XXX1277.pdf"));
 
@@ -120,9 +122,19 @@ class StatementReconciliationUndecryptableTest {
     }
 
     @Test
+    void theNumberIsResolvedWithTheMailsSenderAndText_soASharedLast4GetsTheSameBankTieBreaksAsAlerts() {
+        when(accountResolver.resolve(eq("1277"), any(), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(equitas, null)));
+
+        service.reconcile(connection, mail(INSIDE_WINDOW, EQUITAS_BODY, "XXX1277.pdf"));
+
+        verify(accountResolver).resolve(eq("1277"), argThat(texts -> texts.contains("Your Bank Account Statement")), eq("customer-support@equitas.bank.in"));
+        assertThat(savedRow().getAccount()).isSameAs(equitas);
+    }
+
+    @Test
     void namedAccountNotOptedIn_isParkedAsNotOptedIn() {
         equitas.setIngestFromDate(null);
-        when(accountResolver.resolve("1277")).thenReturn(Optional.of(new AccountResolver.ResolvedCard(equitas, null)));
+        when(accountResolver.resolve(eq("1277"), any(), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(equitas, null)));
 
         service.reconcile(connection, mail(BEFORE_WINDOW, EQUITAS_BODY, "XXX1277.pdf"));
 
@@ -134,7 +146,7 @@ class StatementReconciliationUndecryptableTest {
 
     @Test
     void numberInTheAttachmentNameAlone_isEnough() {
-        when(accountResolver.resolve("1277")).thenReturn(Optional.of(new AccountResolver.ResolvedCard(equitas, null)));
+        when(accountResolver.resolve(eq("1277"), any(), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(equitas, null)));
 
         service.reconcile(connection, mail(BEFORE_WINDOW, "Your e-statement is attached.", "XXX1277.pdf"));
 
@@ -143,7 +155,7 @@ class StatementReconciliationUndecryptableTest {
 
     @Test
     void numberMatchingNoAccount_isParkedUnresolvedWithItsDigits() {
-        when(accountResolver.resolve("1277")).thenReturn(Optional.empty());
+        when(accountResolver.resolve(eq("1277"), any(), any())).thenReturn(Optional.empty());
 
         ReconSummary summary = service.reconcile(connection, mail(BEFORE_WINDOW, EQUITAS_BODY, "XXX1277.pdf"));
 
@@ -160,8 +172,8 @@ class StatementReconciliationUndecryptableTest {
         other.setId(UUID.randomUUID());
         other.setName("Other");
         other.setIngestFromDate(LocalDate.of(2026, 10, 7));
-        when(accountResolver.resolve("1277")).thenReturn(Optional.of(new AccountResolver.ResolvedCard(equitas, null)));
-        when(accountResolver.resolve("2165")).thenReturn(Optional.of(new AccountResolver.ResolvedCard(other, null)));
+        when(accountResolver.resolve(eq("1277"), any(), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(equitas, null)));
+        when(accountResolver.resolve(eq("2165"), any(), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(other, null)));
 
         service.reconcile(connection, mail(BEFORE_WINDOW, "customer ID XXX1277, card **2165", "statement.pdf"));
 
