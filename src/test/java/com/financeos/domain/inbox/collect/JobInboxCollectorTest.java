@@ -46,7 +46,7 @@ class JobInboxCollectorTest {
     @BeforeEach
     void setUp() {
         AppTime.useClock(Clock.fixed(TODAY.atTime(10, 5).atZone(IST).toInstant(), IST));
-        when(repository.findByUserIdAndTypeInAndStatusIn(eq(userId), any(), any(), any())).thenAnswer(inv -> new PageImpl<>(jobs));
+        when(repository.findByUserIdAndTypeInAndStatusInAndDismissedAtIsNull(eq(userId), any(), any(), any())).thenAnswer(inv -> new PageImpl<>(jobs));
     }
 
     @AfterEach
@@ -74,7 +74,7 @@ class JobInboxCollectorTest {
         ArgumentCaptor<java.util.Collection<JobType>> types = ArgumentCaptor.forClass(java.util.Collection.class);
         ArgumentCaptor<java.util.Collection<JobStatus>> statuses = ArgumentCaptor.forClass(java.util.Collection.class);
         ArgumentCaptor<Pageable> page = ArgumentCaptor.forClass(Pageable.class);
-        verify(repository).findByUserIdAndTypeInAndStatusIn(eq(userId), types.capture(), statuses.capture(), page.capture());
+        verify(repository).findByUserIdAndTypeInAndStatusInAndDismissedAtIsNull(eq(userId), types.capture(), statuses.capture(), page.capture());
         assertEquals(JobNotificationService.NOTIFIED_TYPES, types.getValue());
         assertEquals(List.of(JobStatus.FAILED), List.copyOf(statuses.getValue()));
         assertEquals(0, page.getValue().getPageNumber());
@@ -97,7 +97,7 @@ class JobInboxCollectorTest {
         assertEquals("warning", row.severity());
         assertEquals("1 import couldn't finish", row.title());
         assertEquals(1, row.count());
-        assertEquals("/data-sources/sync?status=failed", row.href());
+        assertEquals("/data-sources/sync?status=FAILED", row.href());
         assertEquals(InboxRefsResponse.NONE, row.refs());
         assertEquals(List.of(InboxRows.open(row.href()), InboxRows.dismiss()), row.actions());
     }
@@ -112,8 +112,23 @@ class JobInboxCollectorTest {
 
         assertEquals(1, rows.size());
         assertEquals("jobs-failed", rows.get(0).key());
-        assertEquals("3 imports couldn't finish", rows.get(0).title());
+        assertEquals("3 tasks couldn't finish", rows.get(0).title());
         assertEquals(3, rows.get(0).count());
+    }
+
+    @Test
+    void onlyImportTypesAreWordedAsImportsPlural() {
+        job(JobType.STATEMENT_INGEST, JobStatus.FAILED, JobTrigger.USER, TODAY.atTime(9, 0).atZone(IST).toInstant());
+        job(JobType.BROKER_RECONCILE_COMMIT, JobStatus.FAILED, JobTrigger.USER, TODAY.atTime(8, 0).atZone(IST).toInstant());
+
+        assertEquals("2 imports couldn't finish", collector.collect(userId, TODAY).get(0).title());
+    }
+
+    @Test
+    void aSingleNonImportJobIsWordedAsATask() {
+        job(JobType.RULE_APPLY, JobStatus.FAILED, JobTrigger.USER, TODAY.atTime(9, 0).atZone(IST).toInstant());
+
+        assertEquals("1 task couldn't finish", collector.collect(userId, TODAY).get(0).title());
     }
 
     @Test

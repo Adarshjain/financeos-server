@@ -223,6 +223,34 @@ class ImportHistoryIntegrationTest {
     }
 
     @Test
+    void anUnknownKindIsRejected() throws Exception {
+        assertEquals(400, api.get("/api/v1/imports?kind=bogus").getStatus());
+    }
+
+    @Test
+    void aPageSizeOverOneHundredIsCapped() throws Exception {
+        for (int i = 0; i < 101; i++) {
+            statement(userId, bank, "file_upload", "f" + i + ".pdf", 1, i);
+        }
+        JsonNode page = get("?size=500");
+        assertEquals(101, page.get("totalElements").asInt());
+        assertEquals(100, page.get("content").size());
+    }
+
+    @Test
+    void dismissedFailedJobsAreNotListed() throws Exception {
+        UUID retried = job(userId, "STATEMENT_INGEST", "FAILED", null, "boom", 1);
+        UUID retriedBroker = job(userId, "BROKER_RECONCILE_COMMIT", "FAILED", null, "boom", 2);
+        job(userId, "STATEMENT_INGEST", "FAILED", null, "live", 3);
+        job(userId, "BROKER_RECONCILE_COMMIT", "FAILED", null, "live", 4);
+        jdbc.update("UPDATE jobs SET dismissed_at = ? WHERE id IN (?, ?)", at(10), retried.toString(), retriedBroker.toString());
+
+        JsonNode page = get("");
+        assertEquals(2, page.get("totalElements").asInt());
+        assertEquals(List.of("live", "live"), field(page, "errorMessage"));
+    }
+
+    @Test
     void anotherUsersRowsNeverAppear() throws Exception {
         String otherEmail = "imports-other-" + UUID.randomUUID() + "@example.test";
         ApiTestClient other = ApiTestClient.signUp(mockMvc, mapper, otherEmail);

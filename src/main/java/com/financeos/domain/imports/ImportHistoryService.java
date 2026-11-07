@@ -69,7 +69,7 @@ public class ImportHistoryService {
             + NULL_ID + " AS account_id, " + NULL_TEXT + " AS account_name, " + NULL_DATE + " AS period_start, "
             + NULL_DATE + " AS period_end, " + NULL_INT + " AS item_count, j.error_message AS error_message, "
             + "j.created_at AS created_at "
-            + "FROM jobs j WHERE j.user_id = :userId AND j.type = 'STATEMENT_INGEST' AND j.status = 'FAILED'";
+            + "FROM jobs j WHERE j.user_id = :userId AND j.type = 'STATEMENT_INGEST' AND j.status = 'FAILED' AND j.dismissed_at IS NULL";
 
     /** A file held for the user to pick an account or password. */
     private static final String HELD = "SELECT 'held:' || CAST(h.id AS VARCHAR(36)) AS rec_id, 'statement' AS rec_kind, "
@@ -102,6 +102,7 @@ public class ImportHistoryService {
             + NULL_DATE + " AS period_end, " + NULL_INT + " AS item_count, j.error_message AS error_message, "
             + "j.created_at AS created_at "
             + "FROM jobs j WHERE j.user_id = :userId AND j.status IN ('SUCCEEDED', 'FAILED') "
+            + "AND (j.status = 'SUCCEEDED' OR j.dismissed_at IS NULL) "
             + "AND j.type IN ('INVESTMENT_IMPORT_COMMIT', 'BROKER_RECONCILE_COMMIT')";
 
     @PersistenceContext

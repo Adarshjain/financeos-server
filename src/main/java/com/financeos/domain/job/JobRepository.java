@@ -25,6 +25,9 @@ public interface JobRepository extends JpaRepository<Job, UUID> {
 
     Page<Job> findByUserIdAndTypeInAndStatusIn(UUID userId, Collection<JobType> types, Collection<JobStatus> statuses, Pageable pageable);
 
+    /** As above, minus jobs the user dismissed (a retried failure is dismissed when its clone is queued). */
+    Page<Job> findByUserIdAndTypeInAndStatusInAndDismissedAtIsNull(UUID userId, Collection<JobType> types, Collection<JobStatus> statuses, Pageable pageable);
+
     Page<Job> findByUserIdAndCreatedAtGreaterThanEqual(UUID userId, Instant since, Pageable pageable);
 
     Page<Job> findByUserIdAndStatusInAndCreatedAtGreaterThanEqual(UUID userId, Collection<JobStatus> statuses, Instant since, Pageable pageable);
