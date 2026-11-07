@@ -16,10 +16,17 @@ public record CreateCardholderRequest(
         LocalDate openedOn,
         LocalDate issuedOn,
         /** The suggestion this add-on card is added from; null = none. */
-        UUID fromSuggestionId
+        UUID fromSuggestionId,
+        /** Set to add a holder that is already closed with a past card (needs {@code last4} and {@code issuedOn}). */
+        LocalDate closedOn
 ) {
     public CreateCardholderRequest(String personName, CardholderRelationship relationship, BigDecimal spendLimit,
+                                   String last4, LocalDate openedOn, LocalDate issuedOn, UUID fromSuggestionId) {
+        this(personName, relationship, spendLimit, last4, openedOn, issuedOn, fromSuggestionId, null);
+    }
+
+    public CreateCardholderRequest(String personName, CardholderRelationship relationship, BigDecimal spendLimit,
                                    String last4, LocalDate openedOn, LocalDate issuedOn) {
-        this(personName, relationship, spendLimit, last4, openedOn, issuedOn, null);
+        this(personName, relationship, spendLimit, last4, openedOn, issuedOn, null, null);
     }
 }

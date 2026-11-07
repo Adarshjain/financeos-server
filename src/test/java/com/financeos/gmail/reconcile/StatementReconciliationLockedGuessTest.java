@@ -125,6 +125,16 @@ class StatementReconciliationLockedGuessTest {
         when(cardRepository.findByAccountId(a.getId())).thenReturn(cards);
     }
 
+    /** The account's own primary card, as AccountService.ownLast4 reads it. */
+    private static void primaryCard(Account a, String last4) {
+        com.financeos.domain.account.card.Cardholder holder = new com.financeos.domain.account.card.Cardholder();
+        holder.setAccount(a);
+        Card c = new Card();
+        c.setLast4(last4);
+        holder.getCards().add(c);
+        a.getCardholders().add(holder);
+    }
+
     private static void bankLast4(Account a, String last4) {
         a.setBankDetails(new AccountBankDetails(a, BigDecimal.ZERO, last4));
     }
@@ -267,7 +277,7 @@ class StatementReconciliationLockedGuessTest {
         when(statementParser.parse(any(), eq(password))).thenReturn(StatementExtractionResult.success(
                 List.of(new ParsedStatementLine(LocalDate.of(2026, 5, 3), new BigDecimal("10.00"), "DEBIT", "x", null, null)),
                 "XXXX4321", LocalDate.of(2026, 5, 1), LocalDate.of(2026, 5, 31), null));
-        when(accountResolver.resolve("XXXX4321")).thenReturn(Optional.of(new AccountResolver.ResolvedCard(federal, null)));
+        when(accountResolver.resolve(eq("XXXX4321"), any(), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(federal, null)));
 
         service.reconcile(connection, mail("alerts@federalbank.co.in", "Federal Bank Account Statement", "statement.pdf", "Account XXXXXX4321"));
 
@@ -364,10 +374,39 @@ class StatementReconciliationLockedGuessTest {
     }
 
     @Test
-    void guessWithNoDigitsToKeepOnTheRow_isNeverSkipped() throws Exception {
+    void guessWithNoDigitsToKeepOnTheRow_isSkippedBeforeItsWindow() throws Exception {
         Account live = account("Live +", "hsbc", AccountType.credit_card, LocalDate.of(2026, 10, 7));
         card(live, "9724", "5754");
+        primaryCard(live, "9724");
         when(accountRepository.findByUserId(user.getId())).thenReturn(List.of(live));
+        when(gmailEngine.fetchAttachmentContent(any(), anyString(), anyString())).thenReturn(protectedPdf("secret"));
+
+        service.reconcile(connection, mail("hsbc@mail.hsbc.co.in", "Your HSBC Credit Card statement (HSBC LIVE+ CREDIT CARD)", "statement.pdf"));
+
+        GmailProcessedMessage row = savedRow();
+        assertThat(row.getStatus()).isEqualTo(GmailProcessedStatus.SKIPPED_BEFORE_WATERMARK);
+        assertThat(row.getAccount()).isSameAs(live);
+        // the account's own last4 (what AccountIngestChangedEvent carries), so an earlier ingest date reopens the row
+        assertThat(row.getExtractedLast4()).isEqualTo(com.financeos.domain.account.AccountService.ownLast4(live)).isEqualTo("9724");
+    }
+
+    @Test
+    void guessWithNoLast4AtAll_isNotSkipped() throws Exception {
+        Account live = account("Live +", "hsbc", AccountType.credit_card, LocalDate.of(2026, 10, 7));
+        when(accountRepository.findByUserId(user.getId())).thenReturn(List.of(live));
+        when(gmailEngine.fetchAttachmentContent(any(), anyString(), anyString())).thenReturn(protectedPdf("secret"));
+
+        service.reconcile(connection, mail("hsbc@mail.hsbc.co.in", "Your HSBC Credit Card statement (HSBC LIVE+ CREDIT CARD)", "statement.pdf"));
+
+        assertThat(savedRow().getStatus()).isEqualTo(GmailProcessedStatus.FAILED_PERMANENT);
+    }
+
+    @Test
+    void guessWithNoDigitsInsideItsWindowAndNotCovered_stillAsksForThePassword() throws Exception {
+        Account live = account("Live +", "hsbc", AccountType.credit_card, LocalDate.of(2026, 5, 1));
+        card(live, "9724", "5754");
+        when(accountRepository.findByUserId(user.getId())).thenReturn(List.of(live));
+        when(coverage.statements(live.getId())).thenReturn(List.of());
         when(gmailEngine.fetchAttachmentContent(any(), anyString(), anyString())).thenReturn(protectedPdf("secret"));
 
         service.reconcile(connection, mail("hsbc@mail.hsbc.co.in", "Your HSBC Credit Card statement (HSBC LIVE+ CREDIT CARD)", "statement.pdf"));
@@ -435,7 +474,7 @@ class StatementReconciliationLockedGuessTest {
         when(statementParser.parse(any(), eq(password))).thenReturn(StatementExtractionResult.success(
                 List.of(new ParsedStatementLine(LocalDate.of(2026, 5, 3), new BigDecimal("10.00"), "DEBIT", "x", null, null)),
                 "XXXX9999", LocalDate.of(2026, 5, 1), LocalDate.of(2026, 5, 31), null));
-        when(accountResolver.resolve("XXXX9999")).thenReturn(Optional.of(new AccountResolver.ResolvedCard(other, null)));
+        when(accountResolver.resolve(eq("XXXX9999"), any(), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(other, null)));
 
         service.reconcile(connection, mail("alerts@federalbank.co.in", "Federal Bank Account Statement", "statement.pdf", "Account XXXXXX4321"));
 

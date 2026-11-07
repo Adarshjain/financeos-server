@@ -91,7 +91,7 @@ class StatementReconciliationClaimedRowsTest {
                 List.of(new GmailAttachment("att-1", "statement.pdf", "application/pdf", null)));
         byte[] pdf = blankPdf();
         when(gmailEngine.fetchAttachmentContent(connection, MESSAGE_ID, "att-1")).thenReturn(pdf);
-        when(accountResolver.resolve("XXXX1234")).thenReturn(Optional.of(new AccountResolver.ResolvedCard(account, null)));
+        when(accountResolver.resolve(eq("XXXX1234"), any(), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(account, null)));
         Statement statement = new Statement();
         statement.setId(UUID.randomUUID());
         statement.setPeriodStart(OCT_02);

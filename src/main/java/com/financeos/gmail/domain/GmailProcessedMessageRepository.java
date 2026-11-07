@@ -15,6 +15,10 @@ import java.util.UUID;
 
 @Repository
 public interface GmailProcessedMessageRepository extends JpaRepository<GmailProcessedMessage, UUID> {
+    /** One ledger row of this user with its mailbox loaded; empty for another user's row ("View email"). */
+    @Query("SELECT g FROM GmailProcessedMessage g JOIN FETCH g.connection WHERE g.id = :id AND g.user.id = :userId")
+    Optional<GmailProcessedMessage> findOwnedWithConnection(@Param("id") UUID id, @Param("userId") UUID userId);
+
     Optional<GmailProcessedMessage> findByConnectionIdAndGmailMessageId(UUID connectionId, String gmailMessageId);
     boolean existsByConnectionIdAndGmailMessageId(UUID connectionId, String gmailMessageId);
 
@@ -103,6 +107,11 @@ public interface GmailProcessedMessageRepository extends JpaRepository<GmailProc
     @Query(value = "SELECT new com.financeos.gmail.domain.GmailAttentionRow(g, c.email, a.id, a.name) FROM GmailProcessedMessage g JOIN g.connection c LEFT JOIN g.account a WHERE g.user.id = :userId AND g.status IN :statuses AND g.archivedAt IS NULL" + NOT_STANDING_FOR_SUGGESTION,
            countQuery = "SELECT COUNT(g) FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.status IN :statuses AND g.archivedAt IS NULL" + NOT_STANDING_FOR_SUGGESTION)
     Page<GmailAttentionRow> findAttentionItems(@Param("userId") UUID userId, @Param("statuses") Collection<GmailProcessedStatus> statuses, Pageable pageable);
+
+    /** The mail of the unknown-number groups of one last 4 (same inclusion as {@link #findActiveUnresolvedNumbered}), with its mailbox; the caller picks the bank's group. */
+    @Query("SELECT new com.financeos.gmail.domain.GmailAttentionRow(g, c.email, a.id, a.name) FROM GmailProcessedMessage g JOIN g.connection c LEFT JOIN g.account a WHERE g.user.id = :userId"
+            + " AND g.status = com.financeos.gmail.domain.GmailProcessedStatus.UNRESOLVED_ACCOUNT AND g.extractedLast4 = :last4 AND g.archivedAt IS NULL" + NOT_STANDING_FOR_SUGGESTION)
+    List<GmailAttentionRow> findActiveUnresolvedRowsByLast4(@Param("userId") UUID userId, @Param("last4") String last4);
 
     /** Id, status and error of a row: enough to classify its {@link AttentionReason} without loading entities. */
     interface AttentionBrief {

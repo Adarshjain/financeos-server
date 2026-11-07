@@ -106,8 +106,10 @@ public class CardholderService {
             throw new ValidationException("Cannot add cardholder to a closed account. Reopen the account first.");
         }
 
-        List<Cardholder> existingCardholders = cardholderRepository.findByAccountId(accountId);
-        if (existingCardholders.stream().anyMatch(Cardholder::isPrimary)) {
+        // A primary holder without an open card (created by a past card) takes the first card instead of being refused.
+        Cardholder existingPrimary = cardholderRepository.findByAccountId(accountId).stream()
+                .filter(Cardholder::isPrimary).findFirst().orElse(null);
+        if (existingPrimary != null && existingPrimary.openCard().isPresent()) {
             throw new ValidationException("This account already has a primary cardholder. Issue a card to it instead.");
         }
 
@@ -119,17 +121,21 @@ public class CardholderService {
         UUID userId = UserContext.getCurrentUserId();
         User user = userRepository.getReferenceById(userId);
 
-        Cardholder cardholder = new Cardholder();
-        cardholder.setUser(user);
-        cardholder.setAccount(account);
-        cardholder.setRole(CardholderRole.PRIMARY);
-        cardholder.setPersonName(null);
-        cardholder.setRelationship(CardholderRelationship.SELF);
-        cardholder.setSpendLimit(null);
         LocalDate openedOn = request.issuedOn() != null ? request.issuedOn() : AppTime.today();
-        cardholder.setOpenedOn(openedOn);
-
-        Cardholder savedCh = cardholderRepository.save(cardholder);
+        Cardholder savedCh;
+        if (existingPrimary != null) {
+            savedCh = existingPrimary;
+        } else {
+            Cardholder cardholder = new Cardholder();
+            cardholder.setUser(user);
+            cardholder.setAccount(account);
+            cardholder.setRole(CardholderRole.PRIMARY);
+            cardholder.setPersonName(null);
+            cardholder.setRelationship(CardholderRelationship.SELF);
+            cardholder.setSpendLimit(null);
+            cardholder.setOpenedOn(openedOn);
+            savedCh = cardholderRepository.save(cardholder);
+        }
 
         Card card = new Card();
         card.setUser(user);
@@ -175,8 +181,18 @@ public class CardholderService {
     public CardholderResponse addAddon(UUID accountId, CreateCardholderRequest request) {
         Account account = getAccountAndValidateAccess(accountId);
         AccountSuggestion suggestion = claimSuggestion(request.fromSuggestionId(), accountId, request.last4());
-        if (account.isClosed()) {
+        boolean closedHolder = request.closedOn() != null;
+        if (account.isClosed() && !closedHolder) {
             throw new ValidationException("Cannot add cardholder to a closed account. Reopen the account first.");
+        }
+        if (closedHolder) {
+            if (request.last4() == null || request.last4().isBlank()) {
+                throw new ValidationException("A closed cardholder needs the card number it held.");
+            }
+            validatePastCardDates(account, null, request.issuedOn(), request.closedOn());
+            if (request.openedOn() != null && request.openedOn().isAfter(request.closedOn())) {
+                throw new ValidationException("Opened on cannot be after the closed date.");
+            }
         }
 
         UUID userId = UserContext.getCurrentUserId();
@@ -189,8 +205,12 @@ public class CardholderService {
         cardholder.setPersonName(request.personName());
         cardholder.setRelationship(request.relationship() != null ? request.relationship() : CardholderRelationship.OTHER);
         cardholder.setSpendLimit(request.spendLimit());
-        LocalDate openedOn = request.openedOn() != null ? request.openedOn() : AppTime.today();
+        LocalDate openedOn = request.openedOn() != null ? request.openedOn()
+                : closedHolder ? request.issuedOn() : AppTime.today();
         cardholder.setOpenedOn(openedOn);
+        if (closedHolder) {
+            cardholder.setClosedOn(request.closedOn());
+        }
 
         Cardholder savedCh = cardholderRepository.save(cardholder);
 
@@ -206,6 +226,9 @@ public class CardholderService {
             card.setCardholder(savedCh);
             card.setLast4(request.last4());
             card.setIssuedOn(request.issuedOn() != null ? request.issuedOn() : openedOn);
+            if (closedHolder) {
+                card.setClosedOn(request.closedOn());
+            }
             cardRepository.save(card);
             savedCh.getCards().add(card);
             addedCard = card;
@@ -300,27 +323,92 @@ public class CardholderService {
         return CardholderResponse.from(saved, count);
     }
 
+    /**
+     * A past card needs both dates, issued on or before closed, closed on or before today, and, on a closed account or
+     * for a closed holder, closed no later than the day that account or holder closed.
+     */
+    private void validatePastCardDates(Account account, Cardholder cardholder, LocalDate issuedOn, LocalDate closedOn) {
+        if (issuedOn == null) {
+            throw new ValidationException("A past card needs the date it was issued.");
+        }
+        if (closedOn.isAfter(AppTime.today())) {
+            throw new ValidationException("Closed on cannot be in the future.");
+        }
+        if (issuedOn.isAfter(closedOn)) {
+            throw new ValidationException("Issued on cannot be after the closed date.");
+        }
+        if (account.isClosed() && closedOn.isAfter(account.getClosedOn())) {
+            throw new ValidationException("Closed on cannot be after the account closed on " + account.getClosedOn() + ".");
+        }
+        if (cardholder != null && cardholder.isEffectivelyClosed() && closedOn.isAfter(cardholder.effectiveClosedOn())) {
+            throw new ValidationException("Closed on cannot be after the cardholder closed on " + cardholder.effectiveClosedOn() + ".");
+        }
+    }
+
+    /**
+     * Saves a number as a closed card of an account the caller has already checked is the user's: on the given holder
+     * (must belong to the account), else the primary holder, which is created (opened on the card's issue date) when the
+     * account has none. Parked mail is not touched here; the caller settles it. Allowed on closed accounts and holders.
+     */
+    public Card createPastCard(User user, Account account, UUID cardholderId, String last4, LocalDate issuedOn, LocalDate closedOn) {
+        if (account.getType() != AccountType.credit_card && account.getType() != AccountType.bank_account) {
+            throw new ValidationException("Cards can only be added to credit card and bank accounts.");
+        }
+        if (last4 == null || !last4.matches("^[0-9]{4}$")) {
+            throw new ValidationException("last4 must be exactly 4 digits");
+        }
+        if (closedOn == null) {
+            throw new ValidationException("A past card needs the date it was closed.");
+        }
+        Cardholder cardholder;
+        if (cardholderId != null) {
+            cardholder = cardholderRepository.findByIdAndAccountId(cardholderId, account.getId())
+                    .filter(h -> h.getUser().getId().equals(user.getId()))
+                    .orElseThrow(() -> new ResourceNotFoundException("Cardholder", cardholderId));
+        } else {
+            cardholder = cardholderRepository.findByAccountId(account.getId()).stream().filter(Cardholder::isPrimary).findFirst().orElse(null);
+        }
+        validatePastCardDates(account, cardholder, issuedOn, closedOn);
+        if (cardRepository.findOpenByAccountIdAndLast4(account.getId(), last4).isPresent()) {
+            throw new ValidationException("A card with last 4 digits " + last4 + " is already active on this account.");
+        }
+        if (cardholder == null) {
+            cardholder = new Cardholder();
+            cardholder.setUser(user);
+            cardholder.setAccount(account);
+            cardholder.setRole(CardholderRole.PRIMARY);
+            cardholder.setRelationship(CardholderRelationship.SELF);
+            cardholder.setOpenedOn(issuedOn);
+            cardholder = cardholderRepository.save(cardholder);
+        } else if (cardholder.getCards().stream().anyMatch(c -> last4.equals(c.getLast4())
+                && issuedOn.equals(c.getIssuedOn()) && closedOn.equals(c.getClosedOn()))) {
+            throw new ValidationException("This card is already on the account.");
+        }
+        Card card = new Card();
+        card.setUser(user);
+        card.setAccount(account);
+        card.setCardholder(cardholder);
+        card.setLast4(last4);
+        card.setIssuedOn(issuedOn);
+        card.setClosedOn(closedOn);
+        cardRepository.save(card);
+        cardholder.getCards().add(0, card);
+        return card;
+    }
+
     public CardholderResponse addCard(UUID accountId, UUID cardholderId, CreateCardRequest request) {
         Cardholder cardholder = getCardholderAndValidateAccess(accountId, cardholderId);
         AccountSuggestion suggestion = claimSuggestion(request.fromSuggestionId(), accountId, request.last4());
         Account account = cardholder.getAccount();
-        if (account.isClosed()) {
+        boolean pastCard = request.closedOn() != null;
+        if (account.isClosed() && !pastCard) {
             throw new ValidationException("Cannot add card to a closed account. Reopen the account first.");
         }
-        if (cardholder.isEffectivelyClosed()) {
+        if (cardholder.isEffectivelyClosed() && !pastCard) {
             throw new ValidationException("Cannot add card to a closed cardholder. Reopen the cardholder first.");
         }
-        boolean pastCard = request.closedOn() != null;
         if (pastCard) {
-            if (request.issuedOn() == null) {
-                throw new ValidationException("A past card needs the date it was issued.");
-            }
-            if (request.closedOn().isAfter(AppTime.today())) {
-                throw new ValidationException("Closed on cannot be in the future.");
-            }
-            if (request.issuedOn().isAfter(request.closedOn())) {
-                throw new ValidationException("Issued on cannot be after the closed date.");
-            }
+            validatePastCardDates(account, cardholder, request.issuedOn(), request.closedOn());
         } else if (cardholder.openCard().isPresent()) {
             throw new ValidationException("Cardholder already has an active card. To issue a new card number, replace it instead.");
         }

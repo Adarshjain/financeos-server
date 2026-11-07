@@ -600,6 +600,11 @@ public class AccountService {
 
     @Transactional(readOnly = true)
     public String extractLast4(Account account) {
+        return ownLast4(account);
+    }
+
+    /** The last4 an account's gmail rows are keyed by (reopened on an ingest-date change): bank details, else the primary card. */
+    public static String ownLast4(Account account) {
         if (account.getBankDetails() != null && account.getBankDetails().getLast4() != null) {
             return account.getBankDetails().getLast4();
         }

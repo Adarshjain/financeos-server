@@ -10,6 +10,7 @@ import static org.mockito.Mockito.when;
 
 import com.financeos.api.account.dto.CardholderResponse;
 import com.financeos.api.account.dto.CreateCardRequest;
+import com.financeos.api.account.dto.CreateCardholderRequest;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
 import com.financeos.core.time.AppTime;
@@ -154,11 +155,88 @@ class CardholderServicePastCardTest {
     }
 
     @Test
-    void pastCard_onAClosedAccount_isStillRejected() {
+    void pastCard_onAClosedAccount_isAllowedUpToTheDayItClosed() {
+        account.setClosedOn(LocalDate.of(2026, 1, 1));
+
+        CardholderResponse response = service.addCard(account.getId(), holder.getId(),
+                new CreateCardRequest("3003", LocalDate.of(2021, 5, 1), null, LocalDate.of(2025, 4, 30)));
+
+        assertThat(response.cards()).hasSize(2);
+        verify(eventPublisher).publishEvent(any(AccountIngestChangedEvent.class));
+    }
+
+    @Test
+    void pastCard_onAClosedAccount_cannotCloseAfterTheAccountDid() {
         account.setClosedOn(LocalDate.of(2026, 1, 1));
 
         assertThatThrownBy(() -> service.addCard(account.getId(), holder.getId(),
-                new CreateCardRequest("3003", LocalDate.of(2021, 5, 1), null, LocalDate.of(2025, 4, 30))))
+                new CreateCardRequest("3003", LocalDate.of(2021, 5, 1), null, LocalDate.of(2026, 3, 1))))
+                .isInstanceOf(ValidationException.class).hasMessageContaining("account closed");
+        verify(cardRepository, never()).save(any());
+    }
+
+    @Test
+    void activeCard_onAClosedAccount_isStillRejected() {
+        account.setClosedOn(LocalDate.of(2026, 1, 1));
+        holder.setCards(new ArrayList<>());
+
+        assertThatThrownBy(() -> service.addCard(account.getId(), holder.getId(),
+                new CreateCardRequest("3003", LocalDate.of(2021, 5, 1))))
                 .isInstanceOf(ValidationException.class).hasMessageContaining("closed account");
+    }
+
+    @Test
+    void pastCard_onAClosedCardholder_isAllowedUpToTheDayItClosed_butAnActiveCardIsNot() {
+        Cardholder addon = new Cardholder();
+        addon.setId(UUID.randomUUID());
+        addon.setUser(user);
+        addon.setAccount(account);
+        addon.setRole(CardholderRole.ADDON);
+        addon.setOpenedOn(LocalDate.of(2020, 1, 1));
+        addon.setClosedOn(LocalDate.of(2024, 1, 1));
+        addon.setCards(new ArrayList<>());
+        when(cardholderRepository.findByIdAndAccountId(addon.getId(), account.getId())).thenReturn(Optional.of(addon));
+
+        assertThat(service.addCard(account.getId(), addon.getId(),
+                new CreateCardRequest("3003", LocalDate.of(2021, 5, 1), null, LocalDate.of(2023, 4, 30))).cards()).hasSize(1);
+        assertThatThrownBy(() -> service.addCard(account.getId(), addon.getId(),
+                new CreateCardRequest("4004", LocalDate.of(2021, 5, 1), null, LocalDate.of(2024, 6, 1))))
+                .isInstanceOf(ValidationException.class).hasMessageContaining("cardholder closed");
+        assertThatThrownBy(() -> service.addCard(account.getId(), addon.getId(),
+                new CreateCardRequest("5005", LocalDate.of(2021, 5, 1))))
+                .isInstanceOf(ValidationException.class).hasMessageContaining("closed cardholder");
+    }
+
+    @Test
+    void closedAddon_onAClosedAccount_isAddedWithItsPastCard() {
+        account.setClosedOn(LocalDate.of(2026, 1, 1));
+        when(cardholderRepository.save(any(Cardholder.class))).thenAnswer(inv -> {
+            Cardholder c = inv.getArgument(0);
+            c.setId(UUID.randomUUID());
+            return c;
+        });
+
+        CardholderResponse response = service.addAddon(account.getId(), new CreateCardholderRequest(
+                "Asha", null, null, "3003", null, LocalDate.of(2021, 5, 1), null, LocalDate.of(2025, 4, 30)));
+
+        assertThat(response.cards()).hasSize(1);
+        assertThat(response.cards().get(0).closedOn()).isEqualTo(LocalDate.of(2025, 4, 30));
+        assertThat(response.closedOn()).isEqualTo(LocalDate.of(2025, 4, 30));
+    }
+
+    @Test
+    void activeAddon_onAClosedAccount_isStillRejected_andAClosedAddonNeedsItsNumberAndDates() {
+        account.setClosedOn(LocalDate.of(2026, 1, 1));
+
+        assertThatThrownBy(() -> service.addAddon(account.getId(),
+                new CreateCardholderRequest("Asha", null, null, "3003", null, null)))
+                .isInstanceOf(ValidationException.class).hasMessageContaining("closed account");
+        assertThatThrownBy(() -> service.addAddon(account.getId(), new CreateCardholderRequest(
+                "Asha", null, null, null, null, LocalDate.of(2021, 5, 1), null, LocalDate.of(2025, 4, 30))))
+                .isInstanceOf(ValidationException.class).hasMessageContaining("card number");
+        assertThatThrownBy(() -> service.addAddon(account.getId(), new CreateCardholderRequest(
+                "Asha", null, null, "3003", null, null, null, LocalDate.of(2025, 4, 30))))
+                .isInstanceOf(ValidationException.class).hasMessageContaining("issued");
+        verify(cardholderRepository, never()).save(any());
     }
 }
