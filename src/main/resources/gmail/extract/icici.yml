@@ -28,3 +28,10 @@ templates:
     body: 'Payment of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) towards ICICI Bank Credit Card (?<last4>[X*]*\d+) has been received (?:through \w+ )?on (?<date>[A-Z]+ \d{1,2}, \d{4})'
     direction: CREDIT
     dateFormats: ['MMMM d, yyyy', 'MMM d, yyyy']
+
+  # "We have received payment of INR 4114.10 on your ICICI Bank Credit Card Account 1234 XXXX XXXX 5678 through Visa Money Transfer on November 25, 2022."
+  - id: icici.cc.payment.v3
+    senders: *senders
+    body: 'received payment of (?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?) on your ICICI Bank Credit Card Account (?<last4>[X\d ]*\d+) through [A-Za-z ]+? on (?<date>[A-Z]+ \d{1,2}, \d{4})'
+    direction: CREDIT
+    dateFormats: ['MMMM d, yyyy', 'MMM d, yyyy']
