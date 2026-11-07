@@ -310,7 +310,18 @@ public class CardholderService {
         if (cardholder.isEffectivelyClosed()) {
             throw new ValidationException("Cannot add card to a closed cardholder. Reopen the cardholder first.");
         }
-        if (cardholder.openCard().isPresent()) {
+        boolean pastCard = request.closedOn() != null;
+        if (pastCard) {
+            if (request.issuedOn() == null) {
+                throw new ValidationException("A past card needs the date it was issued.");
+            }
+            if (request.closedOn().isAfter(AppTime.today())) {
+                throw new ValidationException("Closed on cannot be in the future.");
+            }
+            if (request.issuedOn().isAfter(request.closedOn())) {
+                throw new ValidationException("Issued on cannot be after the closed date.");
+            }
+        } else if (cardholder.openCard().isPresent()) {
             throw new ValidationException("Cardholder already has an active card. To issue a new card number, replace it instead.");
         }
 
@@ -328,10 +339,14 @@ public class CardholderService {
         card.setCardholder(cardholder);
         card.setLast4(request.last4());
         card.setIssuedOn(request.issuedOn() != null ? request.issuedOn() : AppTime.today());
+        if (pastCard) {
+            card.setClosedOn(request.closedOn());
+        }
 
         cardRepository.save(card);
         cardholder.getCards().add(0, card);
 
+        // Parked mail with these digits settles now: inside the account's window it is reprocessed, older mail is skipped.
         eventPublisher.publishEvent(new AccountIngestChangedEvent(userId, card.getLast4(), account.getIngestFromDate()));
         adopt(suggestion, accountId, card);
 

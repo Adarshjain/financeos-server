@@ -149,4 +149,69 @@ public interface GmailProcessedMessageRepository extends JpaRepository<GmailProc
     /** {@link #findAttentionItems}' rows for one account (the row's resolved account), same filter; archived excluded. */
     @Query("SELECT COUNT(g) FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.account.id = :accountId AND g.status IN :statuses AND g.archivedAt IS NULL")
     long countAttentionItemsForAccount(@Param("userId") UUID userId, @Param("accountId") UUID accountId, @Param("statuses") Collection<GmailProcessedStatus> statuses);
+
+    /** Active attention items that belong to no group: {@link #findAttentionItems} minus unresolved mail that carries a number (those show grouped). */
+    @Query(value = "SELECT new com.financeos.gmail.domain.GmailAttentionRow(g, c.email, a.id, a.name) FROM GmailProcessedMessage g JOIN g.connection c LEFT JOIN g.account a WHERE g.user.id = :userId AND g.status IN :statuses AND g.archivedAt IS NULL"
+            + " AND NOT (g.status = com.financeos.gmail.domain.GmailProcessedStatus.UNRESOLVED_ACCOUNT AND g.extractedLast4 IS NOT NULL)" + NOT_STANDING_FOR_SUGGESTION,
+           countQuery = "SELECT COUNT(g) FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.status IN :statuses AND g.archivedAt IS NULL"
+            + " AND NOT (g.status = com.financeos.gmail.domain.GmailProcessedStatus.UNRESOLVED_ACCOUNT AND g.extractedLast4 IS NOT NULL)" + NOT_STANDING_FOR_SUGGESTION)
+    Page<GmailAttentionRow> findUngroupedAttentionItems(@Param("userId") UUID userId, @Param("statuses") Collection<GmailProcessedStatus> statuses, Pageable pageable);
+
+    /** Briefs of {@link #findUngroupedAttentionItems}' rows (same inclusion), for the ungrouped per-reason counts and bulk actions. */
+    @Query("SELECT g.id AS id, g.status AS status, g.error AS error FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.status IN :statuses AND g.archivedAt IS NULL"
+            + " AND NOT (g.status = com.financeos.gmail.domain.GmailProcessedStatus.UNRESOLVED_ACCOUNT AND g.extractedLast4 IS NOT NULL)" + NOT_STANDING_FOR_SUGGESTION)
+    List<AttentionBrief> findUngroupedAttentionBriefs(@Param("userId") UUID userId, @Param("statuses") Collection<GmailProcessedStatus> statuses);
+
+    /** Count of {@link #findUngroupedAttentionItems}' rows. */
+    @Query("SELECT COUNT(g) FROM GmailProcessedMessage g WHERE g.user.id = :userId AND g.status IN :statuses AND g.archivedAt IS NULL"
+            + " AND NOT (g.status = com.financeos.gmail.domain.GmailProcessedStatus.UNRESOLVED_ACCOUNT AND g.extractedLast4 IS NOT NULL)" + NOT_STANDING_FOR_SUGGESTION)
+    long countUngroupedAttentionItems(@Param("userId") UUID userId, @Param("statuses") Collection<GmailProcessedStatus> statuses);
+
+    /** What the "unknown number" groups, their suggestions and the seen dates need from an unresolved mail; no entities loaded. */
+    interface NumberedMail {
+        UUID getId();
+        String getExtractedLast4();
+        String getClassifiedBank();
+        String getSenderAddress();
+        Instant getInternalDate();
+        Instant getDiscoveredAt();
+        String getPipelineKind();
+        String getClassifiedKind();
+        String getError();
+        java.math.BigDecimal getExtractAmount();
+        String getExtractDirection();
+        java.time.LocalDate getExtractDate();
+        Instant getArchivedAt();
+    }
+
+    String NUMBERED_MAIL_SELECT = "SELECT g.id AS id, g.extractedLast4 AS extractedLast4, g.classifiedBank AS classifiedBank, g.senderAddress AS senderAddress, "
+            + "g.internalDate AS internalDate, g.discoveredAt AS discoveredAt, g.pipelineKind AS pipelineKind, g.classifiedKind AS classifiedKind, g.error AS error, "
+            + "g.extractAmount AS extractAmount, g.extractDirection AS extractDirection, g.extractDate AS extractDate, g.archivedAt AS archivedAt FROM GmailProcessedMessage g ";
+
+    /** Active unresolved mail that carries a number: the input of the unknown-number groups (same inclusion as the list). */
+    @Query(NUMBERED_MAIL_SELECT + "WHERE g.user.id = :userId AND g.status = com.financeos.gmail.domain.GmailProcessedStatus.UNRESOLVED_ACCOUNT AND g.extractedLast4 IS NOT NULL AND g.archivedAt IS NULL" + NOT_STANDING_FOR_SUGGESTION)
+    List<NumberedMail> findActiveUnresolvedNumbered(@Param("userId") UUID userId);
+
+    /** Archived unresolved mail that carries a number (counts for the ignored numbers). */
+    @Query(NUMBERED_MAIL_SELECT + "WHERE g.user.id = :userId AND g.status = com.financeos.gmail.domain.GmailProcessedStatus.UNRESOLVED_ACCOUNT AND g.extractedLast4 IS NOT NULL AND g.archivedAt IS NOT NULL")
+    List<NumberedMail> findArchivedUnresolvedNumbered(@Param("userId") UUID userId);
+
+    /** Mail the extractor or the classifier tied to this last 4, any status: the seen dates of a number. */
+    @Query(NUMBERED_MAIL_SELECT + "WHERE g.user.id = :userId AND (g.extractedLast4 = :last4 OR g.extractLast4 = :last4)")
+    List<NumberedMail> findMentioning(@Param("userId") UUID userId, @Param("last4") String last4);
+
+    /** One account's not-opted-in mail count and span, open accounts only (a closed account's mail is skipped, not listed). */
+    interface ImportOffAccount {
+        UUID getAccountId();
+        String getAccountName();
+        long getTotal();
+        Instant getFirstMail();
+        Instant getLastMail();
+    }
+
+    @Query("SELECT a.id AS accountId, a.name AS accountName, COUNT(g) AS total, MIN(COALESCE(g.internalDate, g.discoveredAt)) AS firstMail, "
+            + "MAX(COALESCE(g.internalDate, g.discoveredAt)) AS lastMail FROM GmailProcessedMessage g JOIN g.account a "
+            + "WHERE g.user.id = :userId AND g.status = com.financeos.gmail.domain.GmailProcessedStatus.ACCOUNT_NOT_OPTED_IN "
+            + "AND (a.closedOn IS NULL OR a.closedOn > :today) GROUP BY a.id, a.name ORDER BY MAX(COALESCE(g.internalDate, g.discoveredAt)) DESC")
+    List<ImportOffAccount> findImportOffAccounts(@Param("userId") UUID userId, @Param("today") java.time.LocalDate today);
 }

@@ -73,6 +73,16 @@ public class AccountResolver {
         return false;
     }
 
+    /** A masked longer number whose trailing digits are exactly this card's 4 digits. */
+    private boolean endsWithLast4(String ext, String last4) {
+        if (ext == null || last4 == null) {
+            return false;
+        }
+        String cleanExt = ext.trim().replaceAll("\\s+", "");
+        String cleanDb = last4.trim();
+        return cleanDb.length() == 4 && cleanExt.length() > 4 && cleanExt.endsWith(cleanDb);
+    }
+
     private boolean isExact(String ext, String db) {
         if (ext == null || db == null) {
             return false;
@@ -250,17 +260,24 @@ public class AccountResolver {
             return tieBreakByBank(pass2Matches, accountLast4, emailTexts, fromAddress); // else ambiguity -> UNRESOLVED_ACCOUNT
         }
 
-        // Pass 3: Exact match against closed cards or cards of closed cardholders
-        List<ResolvedCard> pass3Matches = new ArrayList<>();
+        // Pass 3: closed cards or cards of closed cardholders. The mail's number may be a masked full number
+        // (######XXXXXX5554), so the card's last 4 also match as the number's trailing digits.
+        // The trailing-digit match carries no bank of its own, so it needs the card's bank to be unset, the sender's, or named in the text.
+        String senderBank = bankSenderDomains.bankIdFor(fromAddress);
+        Set<String> namedBanks = emailTexts == null || emailTexts.isEmpty()
+                ? Set.of() : BankCatalog.banksNamedIn(emailTexts.toArray(new String[0]));
+        Map<UUID, ResolvedCard> pass3ByAccount = new LinkedHashMap<>();
         for (Card card : allCards) {
             if (card.isClosed() || (card.getCardholder() != null && card.getCardholder().isEffectivelyClosed())) {
-                if (isExact(accountLast4, card.getLast4())) {
-                    pass3Matches.add(new ResolvedCard(card.getAccount(), card));
+                String cardBank = card.getAccount().getBank();
+                boolean bankOk = cardBank == null || cardBank.equals(senderBank) || namedBanks.contains(cardBank);
+                if (isExact(accountLast4, card.getLast4()) || (bankOk && endsWithLast4(accountLast4, card.getLast4()))) {
+                    pass3ByAccount.putIfAbsent(card.getAccount().getId(), new ResolvedCard(card.getAccount(), card));
                 }
             }
         }
-        if (pass3Matches.size() == 1) {
-            return Optional.of(pass3Matches.get(0));
+        if (pass3ByAccount.size() == 1) {
+            return Optional.of(pass3ByAccount.values().iterator().next());
         }
 
         return Optional.empty();

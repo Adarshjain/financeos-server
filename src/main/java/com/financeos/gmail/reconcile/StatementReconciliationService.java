@@ -67,6 +67,37 @@ public class StatementReconciliationService {
         this.batchMatcher = batchMatcher;
     }
 
+    /** Optional collaborators (set by Spring): tests that build the service by hand and do not need them leave them null. */
+    private com.financeos.domain.statement.StatementCoverage statementCoverage;
+    private com.financeos.gmail.accountdetect.unlock.UnlockProfileLoader unlockProfileLoader;
+    private com.financeos.domain.ingestion.StatementPasswordVault passwordVault;
+    private final com.financeos.gmail.accountdetect.unlock.StatementUnlocker ruleUnlocker =
+            com.financeos.gmail.accountdetect.unlock.StatementUnlocker.bundled();
+    private StatementAccountGuess accountGuess;
+
+    private com.financeos.domain.account.AccountIdentifierRepository identifierRepository;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setIdentifierRepository(com.financeos.domain.account.AccountIdentifierRepository identifierRepository) {
+        this.identifierRepository = identifierRepository;
+        this.accountGuess = new StatementAccountGuess(accountRepository, cardRepository, identifierRepository);
+    }
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setStatementCoverage(com.financeos.domain.statement.StatementCoverage statementCoverage) {
+        this.statementCoverage = statementCoverage;
+    }
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setUnlockProfileLoader(com.financeos.gmail.accountdetect.unlock.UnlockProfileLoader unlockProfileLoader) {
+        this.unlockProfileLoader = unlockProfileLoader;
+    }
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setPasswordVault(com.financeos.domain.ingestion.StatementPasswordVault passwordVault) {
+        this.passwordVault = passwordVault;
+    }
+
     public StatementReconciliationService(GmailEngine gmailEngine,
                                           StatementParser statementParser,
                                           TransactionRepository transactionRepository,
@@ -87,6 +118,7 @@ public class StatementReconciliationService {
         this.statementPersistenceService = statementPersistenceService;
         this.cardRepository = cardRepository;
         this.parkedMessageSettler = parkedMessageSettler;
+        this.accountGuess = new StatementAccountGuess(accountRepository, cardRepository, identifierRepository);
     }
 
 
@@ -120,16 +152,29 @@ public class StatementReconciliationService {
         Account candidateAccount = null;
         String correctPassword = null;
 
+        String ruleOpenedPassword = null;
         if (isProtected) {
+            // The mail often names its account outside the PDF: one that is out of window or already covered needs no password.
+            StatementAccountGuess.Guess guess = accountGuess.find(connection.getUser().getId(), message).orElse(null);
+            if (guess != null) {
+                ReconSummary skipped = skipWithoutOpening(connection, message, guess, chosenAttachment.filename());
+                if (skipped != null) {
+                    return skipped;
+                }
+            }
             List<Account> pwdAccounts = accountRepository.findByUserIdAndHasStatementPassword(connection.getUser().getId());
             PasswordMatch match = matchByPassword(pwdAccounts, chosenBytes, filename.endsWith(".pdf"));
             if (match != null) {
                 candidateAccount = match.account();
                 correctPassword = match.password();
+            } else if (filename.endsWith(".pdf")) {
+                // No saved password opens it: the bank's rules built from the user's name and birth date.
+                ruleOpenedPassword = tryBankRules(connection, message, chosenBytes, guess);
+                correctPassword = ruleOpenedPassword;
             }
 
-            if (candidateAccount == null) {
-                return settleUndecryptable(connection, message, chosenAttachment.filename());
+            if (candidateAccount == null && ruleOpenedPassword == null) {
+                return settleUndecryptable(connection, message, chosenAttachment.filename(), guess);
             }
         }
 
@@ -189,10 +234,21 @@ public class StatementReconciliationService {
                     "No single account matches statement number " + statementAccountNumber, chosenAttachment.filename(), statementLast4, false);
         }
 
+        if (ruleOpenedPassword != null && passwordVault != null
+                && resolvedAccount.getBank() != null
+                && resolvedAccount.getBank().equals(com.financeos.gmail.classify.BankSenderDomains.current().bankIdFor(message.from()))) {
+            // The password came from a rule, not a saved one: keep it on the account the statement belongs to (encrypted at rest by the account).
+            if (passwordVault.saveIfMissing(connection.getUser().getId(), resolvedAccount.getId(), ruleOpenedPassword)) {
+                log.info("Saved the rule-built statement password on account {}", resolvedAccount.getId());
+            }
+        }
+
         if (resolvedAccount.getIngestFromDate() == null) {
             log.info("Resolved account {} for statement is not opted-in (ingestFromDate is null). Parking message.", resolvedAccount.getId());
-            recordLedger(connection, message.messageId(), resolvedAccount, GmailProcessedStatus.ACCOUNT_NOT_OPTED_IN, statementLast4,
-                    "Account " + resolvedAccount.getName() + " is not opted in for Gmail ingestion");
+            boolean closed = resolvedAccount.isClosed(); // a closed account with import off is skipped quietly
+            recordLedger(connection, message.messageId(), resolvedAccount,
+                    closed ? GmailProcessedStatus.SKIPPED_BEFORE_WATERMARK : GmailProcessedStatus.ACCOUNT_NOT_OPTED_IN, statementLast4,
+                    closed ? null : "Account " + resolvedAccount.getName() + " is not opted in for Gmail ingestion");
             return new ReconSummary(0, 0, 0, List.of(), null, "Account not opted in", chosenAttachment.filename(), statementLast4, false);
         }
 
@@ -393,7 +449,7 @@ public class StatementReconciliationService {
      * rather than asking for a password nobody needs. The digits are kept on the row either way, so a
      * row parked here is settled or reopened like any other when its account changes.
      */
-    private ReconSummary settleUndecryptable(GmailConnection connection, GmailMessage message, String filename) {
+    private ReconSummary settleUndecryptable(GmailConnection connection, GmailMessage message, String filename, StatementAccountGuess.Guess guess) {
         List<String> texts = new ArrayList<>(List.of(Objects.toString(message.subject(), ""), message.getStrippedText()));
         message.attachments().forEach(att -> texts.add(att.filename()));
         List<String> numbers = MaskedNumberHints.find(texts.toArray(String[]::new));
@@ -412,8 +468,10 @@ public class StatementReconciliationService {
             Account account = accounts.values().iterator().next();
             String last4 = numberByAccount.get(account.getId());
             if (account.getIngestFromDate() == null) {
-                recordLedger(connection, message.messageId(), account, GmailProcessedStatus.ACCOUNT_NOT_OPTED_IN, last4,
-                        "Account " + account.getName() + " is not opted in for Gmail ingestion");
+                boolean closed = account.isClosed(); // a closed account with import off is skipped quietly
+                recordLedger(connection, message.messageId(), account,
+                        closed ? GmailProcessedStatus.SKIPPED_BEFORE_WATERMARK : GmailProcessedStatus.ACCOUNT_NOT_OPTED_IN, last4,
+                        closed ? null : "Account " + account.getName() + " is not opted in for Gmail ingestion");
                 return new ReconSummary(0, 0, 0, List.of(), null, "Account not opted in", filename, last4, false);
             }
             if (message.internalDate() != null && message.internalDate().isBefore(parkedMessageSettler.windowStart(account.getIngestFromDate()))) {
@@ -425,6 +483,15 @@ public class StatementReconciliationService {
             log.error("Encrypted statement for account {} could not be decrypted with any stored password. File: {}", account.getId(), filename);
             recordLedger(connection, message.messageId(), account, GmailProcessedStatus.FAILED_PERMANENT, last4, reason);
             return new ReconSummary(0, 0, 1, List.of(), GmailProcessedStatus.FAILED_PERMANENT, reason, filename, last4, false);
+        }
+
+        if (guess != null) {
+            // The mail's own words named exactly one account (already judged in window): the password is missing there.
+            Account account = guess.account();
+            String reason = "Encrypted statement could not be decrypted. Save the statement password on " + account.getName() + ".";
+            log.error("Encrypted statement for account {} could not be decrypted with any stored password. File: {}", account.getId(), filename);
+            recordLedger(connection, message.messageId(), account, GmailProcessedStatus.FAILED_PERMANENT, guess.last4(), reason);
+            return new ReconSummary(0, 0, 1, List.of(), GmailProcessedStatus.FAILED_PERMANENT, reason, filename, guess.last4(), false);
         }
 
         if (accounts.isEmpty() && numbers.size() == 1) {
@@ -442,6 +509,90 @@ public class StatementReconciliationService {
         return new ReconSummary(0, 0, 1, List.of(), GmailProcessedStatus.FAILED_PERMANENT, "Encrypted statement could not be decrypted with any stored password", filename, null, false);
     }
 
+    /**
+     * Judges a locked statement by the account its mail names, before any password is tried. Before the account's window (or
+     * its closing, or with no ingest date) the mail is skipped like a watermark skip; a statement month the account's own
+     * statements already cover in full is skipped as already held. Null when the statement is worth opening.
+     */
+    private ReconSummary skipWithoutOpening(GmailConnection connection, GmailMessage message, StatementAccountGuess.Guess guess, String filename) {
+        Account account = guess.account();
+        java.time.Instant sent = message.internalDate();
+        // A skipped row must stay reactivatable by last4 (an ingest date moved back, an opt-in): no digits, no skip.
+        if (sent == null || guess.last4() == null) {
+            return null;
+        }
+        LocalDate sentDate = sent.atZone(com.financeos.core.time.AppTime.zone()).toLocalDate();
+        // A final statement arrives shortly after closing: only a mail well after closing is skipped as closed.
+        boolean closedLongBefore = account.getClosedOn() != null && sentDate.isAfter(account.getClosedOn().plusDays(CLOSED_GRACE_DAYS));
+        if (closedLongBefore || account.getIngestFromDate() == null
+                || sent.isBefore(parkedMessageSettler.windowStart(account.getIngestFromDate()))) {
+            log.info("Locked statement {} for account {} is outside its ingest window; skipped without opening (matched by {})",
+                    message.messageId(), account.getId(), guess.corroboration());
+            recordLedger(connection, message.messageId(), account, GmailProcessedStatus.SKIPPED_BEFORE_WATERMARK, guess.last4(), null);
+            return new ReconSummary(0, 0, 0, List.of(), null, null, filename, guess.last4(), false);
+        }
+        if (statementCoverage != null && alreadyCovered(account, message, sentDate)) {
+            log.info("Locked statement {} for account {} is already covered by a statement; skipped without opening", message.messageId(), account.getId());
+            recordLedger(connection, message.messageId(), account, GmailProcessedStatus.SKIPPED_DUPLICATE, guess.last4(), null);
+            return new ReconSummary(0, 0, 0, List.of(), null, null, filename, guess.last4(), false);
+        }
+        return null;
+    }
+
+    /** Days after an account's closing that a mail may still be its final statement. */
+    static final int CLOSED_GRACE_DAYS = 45;
+
+    /**
+     * The calendar month before the mail was sent lies wholly inside the account's statements and so does the month the
+     * subject names (when it names one). Without a month in the subject the sent day must be covered too.
+     */
+    private boolean alreadyCovered(Account account, GmailMessage message, LocalDate sentDate) {
+        List<com.financeos.domain.statement.StatementCoverage.Period> periods = statementCoverage.statements(account.getId());
+        if (periods.isEmpty()) {
+            return false;
+        }
+        java.time.YearMonth before = java.time.YearMonth.from(sentDate).minusMonths(1);
+        java.util.Optional<java.time.YearMonth> named = StatementAccountGuess.monthInSubject(message.subject());
+        if (named.isPresent()) {
+            return StatementAccountGuess.covers(periods, named.get()) && StatementAccountGuess.covers(periods, before);
+        }
+        return StatementAccountGuess.covers(periods, before) && StatementAccountGuess.covers(periods, sentDate, sentDate);
+    }
+
+    /**
+     * Builds the bank's passwords from the user's name and birth date and returns the one that opens the PDF; null when none
+     * does or the profile lacks either. The password is never logged.
+     */
+    private String tryBankRules(GmailConnection connection, GmailMessage message, byte[] pdf, StatementAccountGuess.Guess guess) {
+        if (unlockProfileLoader == null) {
+            return null;
+        }
+        try {
+            com.financeos.gmail.accountdetect.unlock.UnlockProfile loaded = unlockProfileLoader.load(connection.getUser().getId());
+            if (loaded.displayName() == null || loaded.displayName().isBlank() || loaded.birthDate() == null || loaded.birthDate().isBlank()) {
+                return null;
+            }
+            // Saved passwords were already tried: the profile carries only the identity.
+            com.financeos.gmail.accountdetect.unlock.UnlockProfile profile =
+                    com.financeos.gmail.accountdetect.unlock.UnlockProfile.of(loaded.displayName(), loaded.birthDate());
+            String bank = com.financeos.gmail.classify.BankSenderDomains.current().bankIdFor(message.from());
+            if (bank == null) {
+                return null;
+            }
+            com.financeos.gmail.accountdetect.Vocab.Kind kind = guess == null ? null
+                    : guess.account().getType() == com.financeos.domain.account.AccountType.credit_card
+                    ? com.financeos.gmail.accountdetect.Vocab.Kind.CREDIT_CARD
+                    : com.financeos.gmail.accountdetect.Vocab.Kind.ACCOUNT;
+            List<String> numbers = MaskedNumberHints.find(message.subject(), message.getStrippedText()).stream()
+                    .filter(n -> n.length() == 4).toList();
+            return ruleUnlocker.openingPassword(pdf,
+                    new com.financeos.gmail.accountdetect.unlock.StatementUnlocker.Target(bank, kind, List.of(), numbers, null), profile);
+        } catch (RuntimeException e) {
+            log.warn("Bank password rules failed for message {}: {}", message.messageId(), e.getClass().getSimpleName());
+            return null;
+        }
+    }
+
     private void recordLedger(GmailConnection connection, String messageId, Account account, GmailProcessedStatus status, String extractedLast4, String error) {
         GmailProcessedMessage processed = processedMessageRepository
                 .findByConnectionIdAndGmailMessageId(connection.getId(), messageId)
@@ -454,6 +605,9 @@ public class StatementReconciliationService {
                 });
         processed.setAccount(account);
         processed.setStatus(status);
+        if (status == GmailProcessedStatus.ACCOUNT_NOT_OPTED_IN) {
+            processed.setArchivedAt(Instant.now()); // shown as one entry per account, not one row per email
+        }
         processed.setExtractedLast4(extractedLast4);
         processed.setError(error);
         processed.setProcessedAt(Instant.now());

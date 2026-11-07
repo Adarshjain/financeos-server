@@ -598,6 +598,36 @@ paths:
           description: Error response
       tags:
       - cardholder-controller
+  /api/v1/accounts/{accountId}/cards/seen-dates:
+    get:
+      operationId: seenDates
+      parameters:
+      - in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: last4
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CardSeenDatesResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - card-seen-dates-controller
   /api/v1/accounts/{accountId}/ingest:
     post:
       operationId: ingestFiles
@@ -3819,6 +3849,97 @@ paths:
           description: Error response
       tags:
       - gmail-attention-controller
+  /api/v1/gmail/attention/groups:
+    get:
+      operationId: groups_1
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AttentionGroupsResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - gmail-attention-groups-controller
+  /api/v1/gmail/attention/numbers/assign:
+    post:
+      operationId: assign
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AssignNumberGroupRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AssignNumberGroupResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - gmail-attention-groups-controller
+  /api/v1/gmail/attention/numbers/ignore:
+    post:
+      operationId: ignore
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NumberGroupRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AttentionCountResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - gmail-attention-groups-controller
+  /api/v1/gmail/attention/numbers/ignored/{id}:
+    delete:
+      operationId: unignore
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AttentionCountResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - gmail-attention-groups-controller
   /api/v1/gmail/attention/retry-all:
     post:
       operationId: retryAll
@@ -3853,6 +3974,12 @@ paths:
         schema:
           type: boolean
           default: false
+      - in: query
+        name: ungroupedOnly
+        required: false
+        schema:
+          type: boolean
+          default: false
       responses:
         "200":
           content:
@@ -3870,6 +3997,63 @@ paths:
           description: Error response
       tags:
       - gmail-attention-controller
+  /api/v1/gmail/attention/ungrouped:
+    get:
+      operationId: ungrouped
+      parameters:
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+      - in: query
+        name: includeRetryable
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - in: query
+        name: archived
+        required: false
+        schema:
+          type: boolean
+          default: false
+      - in: query
+        name: reason
+        required: false
+        schema:
+          type: string
+          enum:
+          - NO_ACCOUNT
+          - IMPORT_OFF
+          - NO_AI_KEY
+          - LOCKED_STATEMENT
+          - UNREADABLE_STATEMENT
+          - FAILED
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageGmailAttentionItemResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - gmail-attention-groups-controller
   /api/v1/gmail/attention/{ledgerId}/archive:
     post:
       operationId: archiveAttentionItem
@@ -11823,6 +12007,59 @@ components:
           x-nullable: true
       required:
       - accountId
+    AssignNumberGroupRequest:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+          x-required: true
+        bank:
+          type: string
+          nullable: true
+          x-nullable: true
+        kind:
+          type: string
+          enum:
+          - CUSTOMER_ID
+          - ACCOUNT_NUMBER
+          - CRN
+          - OTHER
+          nullable: true
+          x-nullable: true
+        last4:
+          type: string
+          pattern: "^[0-9]{4}$"
+          x-required: true
+      required:
+      - accountId
+      - last4
+    AssignNumberGroupResponse:
+      type: object
+      properties:
+        identifierId:
+          type: string
+          format: uuid
+        jobIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        reactivatedCount:
+          type: integer
+          format: int32
+        remainingCount:
+          type: integer
+          format: int32
+        skippedCount:
+          type: integer
+          format: int32
+      required:
+      - identifierId
+      - jobIds
+      - reactivatedCount
+      - remainingCount
+      - skippedCount
     AttentionBulkRequest:
       type: object
       properties:
@@ -11836,6 +12073,8 @@ components:
           - UNREADABLE_STATEMENT
           - FAILED
           x-required: true
+        ungroupedOnly:
+          type: boolean
       required:
       - reason
     AttentionBulkResponse:
@@ -11846,6 +12085,41 @@ components:
           format: int32
       required:
       - affected
+    AttentionCountResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+          format: int32
+        id:
+          type: string
+          format: uuid
+      required:
+      - count
+      - id
+    AttentionGroupsResponse:
+      type: object
+      properties:
+        ignored:
+          type: array
+          items:
+            $ref: "#/components/schemas/IgnoredNumberResponse"
+        importOff:
+          type: array
+          items:
+            $ref: "#/components/schemas/ImportOffGroup"
+        total:
+          type: integer
+          format: int32
+        unknownNumbers:
+          type: array
+          items:
+            $ref: "#/components/schemas/UnknownNumberGroup"
+      required:
+      - ignored
+      - importOff
+      - total
+      - unknownNumbers
     AttentionReasonCount:
       type: object
       properties:
@@ -13064,6 +13338,28 @@ components:
       - id
       - isOpen
       - last4
+    CardSeenDatesResponse:
+      type: object
+      properties:
+        firstSeen:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        lastSeen:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        mailCount:
+          type: integer
+          format: int32
+        transactionCount:
+          type: integer
+          format: int32
+      required:
+      - mailCount
+      - transactionCount
     CardStats:
       type: object
       properties:
@@ -14042,6 +14338,9 @@ components:
     CreateCardRequest:
       type: object
       properties:
+        closedOn:
+          type: string
+          format: date
         fromSuggestionId:
           type: string
           format: uuid
@@ -17733,6 +18032,29 @@ components:
       - size
       - totalElements
       - totalPages
+    IgnoredNumberResponse:
+      type: object
+      properties:
+        bank:
+          type: string
+          nullable: true
+          x-nullable: true
+        count:
+          type: integer
+          format: int32
+        createdAt:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        last4:
+          type: string
+      required:
+      - count
+      - createdAt
+      - id
+      - last4
     ImportCommitRequest:
       type: object
       properties:
@@ -17756,6 +18078,29 @@ components:
       - brokerAccountId
       - rows
       - source
+    ImportOffGroup:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        accountName:
+          type: string
+        count:
+          type: integer
+          format: int32
+        firstMail:
+          type: string
+          format: date-time
+        lastMail:
+          type: string
+          format: date-time
+      required:
+      - accountId
+      - accountName
+      - count
+      - firstMail
+      - lastMail
     ImportPreviewResponse:
       type: object
       properties:
@@ -21168,6 +21513,41 @@ components:
       - employer
       - self
       - tier
+    NumberGroupRequest:
+      type: object
+      properties:
+        bank:
+          type: string
+          nullable: true
+          x-nullable: true
+        last4:
+          type: string
+          pattern: "^[0-9]{4}$"
+          x-required: true
+      required:
+      - last4
+    NumberSuggestion:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        accountName:
+          type: string
+        example:
+          $ref: "#/components/schemas/SuggestionExample"
+        matched:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int32
+      required:
+      - accountId
+      - accountName
+      - example
+      - matched
+      - total
     OAuthStartResponse:
       type: object
       properties:
@@ -25990,6 +26370,21 @@ components:
       - perUnit
       - qtyHeld
       - symbol
+    SuggestionExample:
+      type: object
+      properties:
+        amount:
+          type: number
+        date:
+          type: string
+          format: date
+        description:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - amount
+      - date
     Summary:
       type: object
       properties:
@@ -27022,6 +27417,36 @@ components:
       - ruleDeleted
       - ruleRestored
       - skipped
+    UnknownNumberGroup:
+      type: object
+      properties:
+        bank:
+          type: string
+          nullable: true
+          x-nullable: true
+        count:
+          type: integer
+          format: int32
+        firstMail:
+          type: string
+          format: date-time
+        kinds:
+          type: array
+          items:
+            type: string
+        last4:
+          type: string
+        lastMail:
+          type: string
+          format: date-time
+        suggestion:
+          $ref: "#/components/schemas/NumberSuggestion"
+      required:
+      - count
+      - firstMail
+      - kinds
+      - last4
+      - lastMail
     UnlockVerifyRequest:
       type: object
       properties:

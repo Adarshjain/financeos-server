@@ -92,8 +92,12 @@ final class GenericExtractor {
         if (direction == null && chosen != text) {
             direction = direction(text);
         }
+        String last4 = last4(chosen, text);
+        if (outgoingToBeneficiary(text, last4)) {
+            direction = Direction.DEBIT;
+        }
         return new ExtractedTransaction(amount, currency, direction, date(chosen, text, sentOn),
-                counterparty(chosen, text), last4(chosen, text), Tier.GENERIC, null,
+                counterparty(chosen, text), last4, Tier.GENERIC, null,
                 ExtractedTransaction.GENERIC_CONFIDENCE);
     }
 
@@ -122,10 +126,26 @@ final class GenericExtractor {
         return hasD ? Direction.DEBIT : hasC ? Direction.CREDIT : null;
     }
 
+    /** Text right before an account number that marks it as the other side: beneficiary, payee, recipient, "transferred to A/c". */
+    private static final String ACCOUNT_TAIL = "(?:a/c|account|acct)\\b(?:\\s*(?:no\\.?|number|ending(?: with| in)?|#))?[\\s:]*[x*•]*";
+    /** Cut at an own-side cue (from / your / debited): a party word before one never covers the number after it. */
+    private static final Pattern BENEFICIARY_CONTEXT = Pattern.compile(
+            "(?:\\b(?:beneficiary|payee|recipient)\\b\\s*(?:(?!(?:from|your|debited)\\b)[\\w.&'-]+\\s+){0,3}?" + ACCOUNT_TAIL
+                    + "|\\b(?:transferred|transfer|sent|paid|remitted)\\s+to\\s+(?:the\\s+)?" + ACCOUNT_TAIL + ")$", FLAGS);
+    private static final Pattern CREDITED_TO_BENEFICIARY = Pattern.compile("\\bcredited to (?:the )?beneficiary\\b", FLAGS);
+
+    private static boolean beneficiarySide(String scope, Matcher m) {
+        int numberStart = m.start(1) >= 0 ? m.start(1) : m.start(2);
+        return BENEFICIARY_CONTEXT.matcher(scope.substring(Math.max(0, m.start() - 80), numberStart)).find();
+    }
+
     private static String last4(String sentence, String text) {
         for (String scope : new String[]{sentence, text}) {
             Matcher m = LAST4.matcher(scope);
-            if (m.find()) {
+            while (m.find()) {
+                if (beneficiarySide(scope, m)) {
+                    continue;
+                }
                 if (m.group(1) != null) {
                     Matcher tail = MASKED_TAIL.matcher(scope).region(m.end(1), scope.length());
                     if (tail.find()) {
@@ -136,6 +156,20 @@ final class GenericExtractor {
             }
         }
         return null;
+    }
+
+    /** "credited to the beneficiary account XX1234" and no account of the user's own: an outgoing transfer. */
+    private static boolean outgoingToBeneficiary(String text, String last4) {
+        if (last4 != null || !CREDITED_TO_BENEFICIARY.matcher(text).find()) {
+            return false;
+        }
+        Matcher m = LAST4.matcher(text);
+        while (m.find()) {
+            if (beneficiarySide(text, m)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static String counterparty(String sentence, String text) {

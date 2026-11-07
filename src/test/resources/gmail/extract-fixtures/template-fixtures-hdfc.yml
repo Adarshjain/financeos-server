@@ -215,3 +215,12 @@ fixtures:
     body: |-
       Dear SAMPLE NAME , This is to inform you that we have processed your request of FCYTTSELL for USD 792.0 @ 88.92 from your account 50100000001234 / Cust ID: 100000000 towards the purpose S0021 - PAYMENTS MADE ON ACCOUNT OF SALE OF SHARE UNDER EMPLOYEE STOCK OPTION on 27/02/2025 received at SAMPLE BRANCH - code:- 1000 Your transaction reference number is 000000RTT00000.
     expect: {amount: '792.0', currency: 'USD', direction: 'DEBIT', date: '2025-02-27', counterparty: null, last4: '1234'}
+
+  - template: hdfc.account.initiated.netbanking.v1
+    from: 'HDFC Bank InstaAlerts <alerts@hdfcbank.net>'
+    subject: 'View: Account update for your HDFC Bank A/c'
+    sent: '2026-12-31T05:30:00Z'
+    body: |-
+      Dear Customer,
+      This is to inform you that RTGS transaction of Rs. 800,000.00 has been initiated from your account No. XXXX1234 through NetBanking. In case you need any further clarification for the same, please do get in touch with your Home Branch.
+    expect: {amount: '800000.00', currency: 'INR', direction: 'DEBIT', date: null, counterparty: null, last4: '1234'}

@@ -29,19 +29,20 @@ public class GmailAttentionController {
 
     @GetMapping("/api/v1/gmail/attention/summary")
     public ResponseEntity<List<AttentionReasonCount>> summary(
-            @RequestParam(defaultValue = "false") boolean includeRetryable) {
-        return ResponseEntity.ok(service.summary(authService.getCurrentUser().getId(), includeRetryable));
+            @RequestParam(defaultValue = "false") boolean includeRetryable,
+            @RequestParam(defaultValue = "false") boolean ungroupedOnly) {
+        return ResponseEntity.ok(service.summary(authService.getCurrentUser().getId(), includeRetryable, ungroupedOnly));
     }
 
     @PostMapping("/api/v1/gmail/attention/retry-all")
     public ResponseEntity<AttentionBulkResponse> retryAll(@Valid @RequestBody AttentionBulkRequest request) {
         return ResponseEntity.ok(new AttentionBulkResponse(
-                service.retryAll(authService.getCurrentUser().getId(), request.reason())));
+                service.retryAll(authService.getCurrentUser().getId(), request.reason(), request.ungroupedOnly())));
     }
 
     @PostMapping("/api/v1/gmail/attention/archive-all")
     public ResponseEntity<AttentionBulkResponse> archiveAll(@Valid @RequestBody AttentionBulkRequest request) {
         return ResponseEntity.ok(new AttentionBulkResponse(
-                service.archiveAll(authService.getCurrentUser().getId(), request.reason())));
+                service.archiveAll(authService.getCurrentUser().getId(), request.reason(), request.ungroupedOnly())));
     }
 }

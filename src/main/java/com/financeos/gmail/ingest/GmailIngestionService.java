@@ -94,6 +94,10 @@ public class GmailIngestionService {
     @org.springframework.beans.factory.annotation.Autowired(required = false)
     private com.financeos.domain.transaction.match.AlertMatcher alertMatcher;
 
+    /** Archives mail that parks unresolved with a number the user ignores; optional so hand-built tests need none. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private com.financeos.gmail.attention.IgnoredNumberRules ignoredNumberRules;
+
     public GmailIngestionService(GmailEngine gmailEngine,
                                  GmailSyncCursorService cursorService,
                                  GmailSenderRepository gmailSenderRepository,
@@ -336,6 +340,27 @@ public class GmailIngestionService {
         }
     }
 
+    /** Mail of this batch that parked unresolved with a number the user ignores is archived at once (one query for the rules, one for the rows). */
+    private void archiveIgnoredNumbers(UUID userId, List<GmailProcessedMessage> batch, List<SyncSummary.MessageResult> results) {
+        if (ignoredNumberRules == null) {
+            return;
+        }
+        List<UUID> parked = new ArrayList<>();
+        for (int i = 0; i < batch.size() && i < results.size(); i++) {
+            if (results.get(i).status() == GmailProcessedStatus.UNRESOLVED_ACCOUNT) {
+                parked.add(batch.get(i).getId());
+            }
+        }
+        if (parked.isEmpty()) {
+            return;
+        }
+        try {
+            ignoredNumberRules.archiveIfIgnored(userId, parked);
+        } catch (Exception e) {
+            log.warn("Archiving ignored-number mail failed for user {}: {}", userId, e.getMessage());
+        }
+    }
+
     private void settleParkedMessages(UUID userId) {
         try {
             parkedMessageSettler.settleAll(userId);
@@ -408,6 +433,8 @@ public class GmailIngestionService {
                 default -> {}
             }
         }
+
+        archiveIgnoredNumbers(connection.getUser().getId(), pendingBatch, messageResults);
 
         // New transactions get their category once, on arrival (rules, links, engine), in one batch; then
         // the link pass runs once per batch that wrote transactions (no transaction is open here, so it fires at once).
@@ -718,9 +745,10 @@ public class GmailIngestionService {
 
             // Statement path check
             if (hasStatementAttachment(message)) {
-                // A bank letter or document with a PDF is not a statement. Only a positive DOCUMENT verdict skips:
-                // a missing, failed or UNKNOWN classifier answer keeps the statement path so no real statement is dropped.
-                if (com.financeos.gmail.classify.EmailSubtype.DOCUMENT.name().equals(gpm.getClassifiedSubtype())) {
+                // A bank letter or document with a PDF is not a statement. Only a positive non-statement verdict skips
+                // (never BILL_DUE, BALANCE or STATEMENT_NOTICE, which real statement mails can match): a missing, failed
+                // or UNKNOWN classifier answer keeps the statement path so no real statement is dropped.
+                if (isLetterNotStatement(gpm)) {
                     recordPipelineKind(gpm, "OTHER");
                     gpm.setStatus(GmailProcessedStatus.SKIPPED_NOT_TRANSACTION);
                     gpm.setError("Not a statement: a bank letter or document");
@@ -822,8 +850,16 @@ public class GmailIngestionService {
             gpm.setAccount(account);
 
             if (account.getIngestFromDate() == null) {
-                gpm.setStatus(GmailProcessedStatus.ACCOUNT_NOT_OPTED_IN);
-                gpm.setError("Account " + account.getName() + " is not opted in for Gmail ingestion");
+                if (account.isClosed()) {
+                    // A closed account with import off has nothing to turn on: skipped quietly, no notice.
+                    gpm.setStatus(GmailProcessedStatus.SKIPPED_BEFORE_WATERMARK);
+                    gpm.setError(null);
+                    gpm.setProcessedAt(Instant.now());
+                } else {
+                    gpm.setStatus(GmailProcessedStatus.ACCOUNT_NOT_OPTED_IN);
+                    gpm.setError("Account " + account.getName() + " is not opted in for Gmail ingestion");
+                    gpm.setArchivedAt(Instant.now()); // shown as one entry per account, not one row per email
+                }
                 processedMessageRepository.save(gpm);
                 return List.of();
             }
@@ -1027,6 +1063,18 @@ public class GmailIngestionService {
                 && !com.financeos.gmail.classify.EmailSubtype.DECLINED.name().equals(subtype)
                 && !com.financeos.gmail.classify.EmailSubtype.OTP.name().equals(subtype)
                 && !com.financeos.gmail.classify.EmailSubtype.SECURITY.name().equals(subtype);
+    }
+
+    /** A kind OTHER verdict that is positively a letter, notice or document, so its PDF is never read as a statement. */
+    static boolean isLetterNotStatement(GmailProcessedMessage gpm) {
+        String subtype = gpm.getClassifiedSubtype();
+        if (com.financeos.gmail.classify.EmailSubtype.DOCUMENT.name().equals(subtype)) {
+            return true;
+        }
+        String confidence = gpm.getClassifiedConfidence();
+        return com.financeos.gmail.classify.EmailSubtype.SERVICE.name().equals(subtype)
+                && com.financeos.gmail.classify.EmailKind.OTHER.name().equals(gpm.getClassifiedKind())
+                && (ClassifierConfidence.MEDIUM.name().equals(confidence) || ClassifierConfidence.HIGH.name().equals(confidence));
     }
 
     /** True only for kind OTHER at HIGH confidence (never ALERT, STATEMENT or a lower confidence). */

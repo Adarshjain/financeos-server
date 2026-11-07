@@ -26,7 +26,7 @@ public class BankSenderDomains {
 
     private static final Logger log = LoggerFactory.getLogger(BankSenderDomains.class);
 
-    /** The domains V134 seeds, in order (also what tests and DB-less callers use). */
+    /** The domains V134 seeds (plus V167's), in order (also what tests and DB-less callers use). */
     private static final Map<String, String> SEED = seed();
 
     private static final BankSenderDomains DEFAULTS = new BankSenderDomains(SEED);
@@ -137,7 +137,7 @@ public class BankSenderDomains {
         put(m, "idfc_first", "idfcfirstbank.com", "idfcfirst.bank.in");
         put(m, "federal", "federalbank.co.in", "federal.bank.in", "scapia.cards");
         put(m, "au", "aubank.in", "au.bank.in");
-        put(m, "equitas", "equitasbank.com");
+        put(m, "equitas", "equitasbank.com", "equitas.bank.in");
         put(m, "indusind", "indusind.com", "indusind.bank.in");
         put(m, "bank_of_baroda", "bankofbaroda.co.in", "bankofbaroda.bank.in", "bobcard.co.in", "bobfinancial.com");
         put(m, "canara", "canarabank.com");

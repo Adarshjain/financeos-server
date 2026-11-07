@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 @Component
 public class EmailClassifier {
 
-    public static final int VERSION = 7;
+    public static final int VERSION = 8;
 
     private final BankSenderDomains bankSenderDomains;
 
@@ -139,6 +139,15 @@ public class EmailClassifier {
     /** Security cues used only in step 4. They do not stop a real transaction sentence from being an alert. */
     private static final Pattern SECURITY_EXTRA = Pattern.compile(
             "\\blog(?:ged)? on\\b|\\bbiometric\\b|\\bdevice\\b|\\bpayee\\b|\\bmpin\\b|\\bsecure usage tips\\b|\\btwo[- ]step verification\\b|\\b2[- ]step verification\\b");
+    /** Credit-score / bureau report mails (with a password-protected PDF): documents, never statements. */
+    private static final Pattern CREDIT_REPORT_SUBJECT = Pattern.compile(
+            "\\bcibil\\b|\\bcredit (?:score|report)\\b|\\bexperian\\b|\\bequifax\\b|\\bcrif\\b");
+    /** "RTGS ... has been credited to the beneficiary account": the completion notice of a transfer whose "initiated from your account" mail is the transaction. */
+    private static final Pattern BENEFICIARY_COMPLETED = Pattern.compile(
+            "\\b(?:rtgs|neft|imps)\\b[\\s\\S]{0,200}?\\b(?:credited to (?:the )?beneficiary|transfer has been completed successfully)\\b");
+    /** An own-account debit sentence: such a mail is a real transaction even when it also names a beneficiary. */
+    private static final Pattern OWN_ACCOUNT_DEBIT = Pattern.compile(
+            "\\bdebited (?:from|in) (?:your |my )?(?:[a-z]+ ){0,3}?(?:a/c|account)\\b|\\b(?:a/c|account)\\b[\\s\\S]{0,25}?\\bis debited\\b");
     private static final Pattern SERVICE = Pattern.compile(
             "\\bkyc\\b|\\b(?:profile|address|e-?mail|mobile(?: number)?|contact details)\\b[^.]{0,40}?\\b(?:updated|changed|registered|verified)\\b"
                     + "|\\brequest (?:has been |is )?(?:received|registered|logged)\\b|\\bwelcome (?:to|aboard)\\b"
@@ -250,6 +259,12 @@ public class EmailClassifier {
             return result(attachmentKind != null ? EmailSubtype.DOCUMENT : EmailSubtype.SERVICE, ClassifierConfidence.MEDIUM, bankId, signals);
         }
 
+        // 0b. Credit-score / bureau reports with a PDF are documents, never statements.
+        if (attachmentKind != null && CREDIT_REPORT_SUBJECT.matcher(subjectLower).find() && !statementAttachment) {
+            signals.add("kw:credit-report");
+            return result(EmailSubtype.DOCUMENT, ClassifierConfidence.MEDIUM, bankId, signals);
+        }
+
         // 1. Statement attachment
         if (attachmentKind != null) {
             signals.add("att:" + attachmentKind);
@@ -272,6 +287,10 @@ public class EmailClassifier {
         if (UNCONFIRMED_TXN.matcher(lower).find()) {
             signals.add("kw:unconfirmed");
             return result(EmailSubtype.SECURITY, ClassifierConfidence.MEDIUM, bankId, signals);
+        }
+        if (BENEFICIARY_COMPLETED.matcher(lower).find() && !OWN_ACCOUNT_DEBIT.matcher(lower).find()) {
+            signals.add("kw:transfer-completed");
+            return result(EmailSubtype.SERVICE, ClassifierConfidence.MEDIUM, bankId, signals);
         }
         if (REMITTANCE_REQUEST_RECEIVED.matcher(lower).find()) {
             signals.add("kw:remittance-request");

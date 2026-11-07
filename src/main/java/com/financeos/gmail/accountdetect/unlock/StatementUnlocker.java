@@ -70,6 +70,35 @@ public class StatementUnlocker {
     }
 
     public Outcome unlock(byte[] pdf, Target target, UnlockProfile profile) {
+        Map<String, String> expanded = expandedCandidates(target, profile);
+        if (expanded.isEmpty()) return new Outcome(State.LOCKED, null, 0, null);
+        int tries = 0;
+        for (Map.Entry<String, String> c : expanded.entrySet()) {
+            if (tries >= MAX_TRIES) break;
+            tries++;
+            if (!opens(pdf, c.getKey())) continue;
+            StatementPdfReader.Result read = StatementPdfReader.read(pdf, "PDF_MAIL", target.bank(), target.fallback(), c.getKey(), HolderCheck.forName(profile.displayName()));
+            return new Outcome(State.UNLOCKED, c.getValue(), tries, read);
+        }
+        return new Outcome(State.FAILED, null, tries, null);
+    }
+
+    /**
+     * The password that opens the PDF, tried like {@link #unlock} (same candidates, order and bound) but without reading
+     * the statement; null when none opens or nothing can be built. The caller owns the password: never log it.
+     */
+    public String openingPassword(byte[] pdf, Target target, UnlockProfile profile) {
+        int tries = 0;
+        for (String password : expandedCandidates(target, profile).keySet()) {
+            if (tries >= MAX_TRIES) break;
+            tries++;
+            if (opens(pdf, password)) return password;
+        }
+        return null;
+    }
+
+    /** Candidate passwords (each followed by its lower and upper case forms) mapped to their rule label, in the order tried. */
+    private Map<String, String> expandedCandidates(Target target, UnlockProfile profile) {
         // password -> rule label; insertion order is the order tried
         Map<String, String> candidates = new LinkedHashMap<>();
         List<String> cards = target.cardLast4().stream().distinct().limit(MAX_CARD_NUMBERS).toList();
@@ -92,8 +121,6 @@ public class StatementUnlocker {
                 candidates.putIfAbsent(c.password(), c.rule());
             }
         }
-        if (candidates.isEmpty()) return new Outcome(State.LOCKED, null, 0, null);
-
         // each candidate is followed by its lowercase / uppercase forms (some PDFs need the other case); the rule label
         // follows the password that opens, so a stored rule re-renders to it
         Map<String, String> expanded = new LinkedHashMap<>();
@@ -103,15 +130,7 @@ public class StatementUnlocker {
                 if (!v.equals(c.getKey())) expanded.putIfAbsent(v, retag(c.getValue(), v, c.getKey()));
             }
         }
-        int tries = 0;
-        for (Map.Entry<String, String> c : expanded.entrySet()) {
-            if (tries >= MAX_TRIES) break;
-            tries++;
-            if (!opens(pdf, c.getKey())) continue;
-            StatementPdfReader.Result read = StatementPdfReader.read(pdf, "PDF_MAIL", target.bank(), target.fallback(), c.getKey(), HolderCheck.forName(profile.displayName()));
-            return new Outcome(State.UNLOCKED, c.getValue(), tries, read);
-        }
-        return new Outcome(State.FAILED, null, tries, null);
+        return expanded;
     }
 
     /** The rule for a case variant of a rendered password: lowercase tags every NAME token L, uppercase tags it U. */

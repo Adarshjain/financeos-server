@@ -44,6 +44,15 @@ public class AccountIdentifierService {
 
     @Transactional
     public CreationResult createOrUpdateIdentifier(User user, Account account, String rawValue, AccountIdentifierKind kind) {
+        return createOrUpdateIdentifier(user, account, rawValue, kind, null);
+    }
+
+    /**
+     * @param groupBank when set, only parked mail of that (bank, last4) group is reactivated or settled; mail of a bank
+     *                  different from the account's is never attached to it
+     */
+    @Transactional
+    public CreationResult createOrUpdateIdentifier(User user, Account account, String rawValue, AccountIdentifierKind kind, String groupBank) {
         String normalized = AccountIdentifier.normalize(rawValue);
         AccountIdentifier.validateNormalized(normalized);
 
@@ -80,12 +89,13 @@ public class AccountIdentifierService {
         if (account.getIngestFromDate() != null) {
             Instant minInstant = parkedMessageSettler.windowStart(account.getIngestFromDate());
 
-            List<GmailProcessedMessage> parked = processedMessageRepository.findParkedForReactivation(
+            List<GmailProcessedMessage> parked = new ArrayList<>(processedMessageRepository.findParkedForReactivation(
                     user.getId(),
                     normalized,
                     List.of(GmailProcessedStatus.UNRESOLVED_ACCOUNT),
                     minInstant
-            );
+            ));
+            parked.removeIf(m -> !ParkedMessageSettler.belongsTo(m, groupBank, account));
 
             if (!parked.isEmpty()) {
                 log.info("Re-activating {} parked rows for identifier {} on account {}", parked.size(), normalized, account.getId());
@@ -123,7 +133,7 @@ public class AccountIdentifierService {
         }
 
         // Parked email outside the reopened window would only be skipped again: settle it in place.
-        parkedMessageSettler.settle(user.getId(), normalized);
+        parkedMessageSettler.settle(user.getId(), normalized, groupBank);
 
         return new CreationResult(identifier, reactivatedCount, jobIds);
     }

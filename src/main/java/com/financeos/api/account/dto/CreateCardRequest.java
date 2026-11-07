@@ -12,9 +12,15 @@ public record CreateCardRequest(
         String last4,
         LocalDate issuedOn,
         /** The suggestion this card is added from; null = none. */
-        UUID fromSuggestionId
+        UUID fromSuggestionId,
+        /** Set to add a card that is already closed (a past card): needs {@code issuedOn}, both on or before today. */
+        LocalDate closedOn
 ) {
+    public CreateCardRequest(String last4, LocalDate issuedOn, UUID fromSuggestionId) {
+        this(last4, issuedOn, fromSuggestionId, null);
+    }
+
     public CreateCardRequest(String last4, LocalDate issuedOn) {
-        this(last4, issuedOn, null);
+        this(last4, issuedOn, null, null);
     }
 }
