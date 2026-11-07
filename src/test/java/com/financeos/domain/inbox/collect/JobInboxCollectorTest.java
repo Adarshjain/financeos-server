@@ -97,7 +97,7 @@ class JobInboxCollectorTest {
         assertEquals("warning", row.severity());
         assertEquals("1 import couldn't finish", row.title());
         assertEquals(1, row.count());
-        assertEquals("/settings/activity?status=failed", row.href());
+        assertEquals("/data-sources/sync?status=failed", row.href());
         assertEquals(InboxRefsResponse.NONE, row.refs());
         assertEquals(List.of(InboxRows.open(row.href()), InboxRows.dismiss()), row.actions());
     }

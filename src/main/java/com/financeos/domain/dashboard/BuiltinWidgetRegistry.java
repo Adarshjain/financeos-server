@@ -605,7 +605,7 @@ public class BuiltinWidgetRegistry {
                 "For each loan: what's left, how much principal you've repaid, the expected payoff date and the "
                         + "interest still to pay.",
                 CATEGORY_LOANS_LENDING, "What's left to repay", "Needs a loan", null,
-                50, KIND_COMPONENT, null, null, null, "/loans",
+                50, KIND_COMPONENT, null, null, null, "/accounts",
                 List.of(ParamSpec.uuidRef("loanId", REF_LOAN, false)), null,
                 BuiltinAvailability.requiresLoan("Add a loan first"));
     }
@@ -614,7 +614,7 @@ public class BuiltinWidgetRegistry {
         return new Entry(LENDING_BALANCES, "Lending balances",
                 "Who owes you and whom you owe, biggest first, with Settle up for each person.",
                 CATEGORY_LOANS_LENDING, "Who owes whom", "Needs a lending entry", null,
-                50, KIND_COMPONENT, null, null, null, "/loans/lendings", List.of(), null,
+                50, KIND_COMPONENT, null, null, null, "/lending", List.of(), null,
                 BuiltinAvailability.requiresLending("Record a lending first"));
     }
 

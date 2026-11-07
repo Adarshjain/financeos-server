@@ -104,13 +104,13 @@ class InboxKindsTest {
     @Test
     void everyKindLandsOnItsPage() {
         assertEquals("/upcoming", InboxKinds.landingHref(InboxKinds.BILL));
-        assertEquals("/loans", InboxKinds.landingHref(InboxKinds.EMI));
-        assertEquals("/loans/lendings", InboxKinds.landingHref(InboxKinds.LENDING));
+        assertEquals("/accounts", InboxKinds.landingHref(InboxKinds.EMI));
+        assertEquals("/lending", InboxKinds.landingHref(InboxKinds.LENDING));
         assertEquals("/transactions/import", InboxKinds.landingHref(InboxKinds.STATEMENT_EXPECTED));
-        assertEquals("/settings/gmail", InboxKinds.landingHref(InboxKinds.GMAIL_RECONNECT));
-        assertEquals("/settings/gmail?focus=attention", InboxKinds.landingHref(InboxKinds.GMAIL_ATTENTION));
+        assertEquals("/data-sources/connections", InboxKinds.landingHref(InboxKinds.GMAIL_RECONNECT));
+        assertEquals("/data-sources/connections?focus=attention", InboxKinds.landingHref(InboxKinds.GMAIL_ATTENTION));
         assertEquals("/transactions/review", InboxKinds.landingHref(InboxKinds.REVIEW));
-        assertEquals("/settings/activity", InboxKinds.landingHref(InboxKinds.JOB));
+        assertEquals("/data-sources/sync", InboxKinds.landingHref(InboxKinds.JOB));
         assertEquals("/rewards", InboxKinds.landingHref(InboxKinds.REWARD_MILESTONE));
         assertEquals("/rewards", InboxKinds.landingHref(InboxKinds.REWARD_CAP));
     }

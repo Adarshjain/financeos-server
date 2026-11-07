@@ -95,9 +95,9 @@ class NpsSetupInboxIntegrationTest {
         assertEquals("nps_setup", row.key());
         assertEquals("Looks like you invest in NPS", row.title());
         assertEquals("2 payments to NPS · last 26 Oct 2026", row.subtitle());
-        assertEquals("/investments/nps", row.href());
+        assertEquals("/investments/retirement/nps", row.href());
         assertEquals(List.of("open", "nps_setup_not_nps", "dismiss"), row.actions().stream().map(a -> a.type()).toList());
-        assertEquals("/investments/nps", row.actions().get(0).href());
+        assertEquals("/investments/retirement/nps", row.actions().get(0).href());
         assertEquals(InboxItemResponse.SECTION_NEEDS_LOOK, row.section());
     }
 

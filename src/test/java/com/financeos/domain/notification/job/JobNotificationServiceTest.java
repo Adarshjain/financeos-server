@@ -182,7 +182,7 @@ class JobNotificationServiceTest {
         PushMessage rule = JobMessages.forJob(job, mapper);
         assertEquals("Rule apply finished", rule.title());
         assertEquals("37 transactions categorised", rule.body());
-        assertEquals("/settings/activity?type=RULE_APPLY", rule.url());
+        assertEquals("/data-sources/sync?type=RULE_APPLY", rule.url());
 
         job.setType(JobType.STATEMENT_INGEST);
         job.setResult("not json");

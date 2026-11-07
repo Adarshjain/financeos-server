@@ -297,7 +297,7 @@ class NpsGmailIntegrationTest {
         assertEquals(1, locked.size());
         assertEquals("nps_password", locked.get(0).kind());
         assertEquals("3 NPS statements need a password", locked.get(0).title());
-        assertEquals("/investments/nps", locked.get(0).href());
+        assertEquals("/investments/retirement/nps", locked.get(0).href());
 
         JsonNode wrong = api.postJson(BASE + "/gmail-detections/password", Map.of("password", "nope"), 200);
         assertEquals(0, wrong.get("opened").asInt());

@@ -64,7 +64,7 @@ class LendingInboxCollectorTest {
 
         assertEquals(1, rows.size());
         InboxItemResponse row = rows.get(0);
-        String href = "/loans/lendings/" + rahul.getId() + "?export=1";
+        String href = "/lending/" + rahul.getId() + "?export=1";
         assertEquals("lending:" + rahul.getId(), row.key());
         assertEquals("lending", row.kind());
         assertEquals(InboxItemResponse.ROW_ITEM, row.rowType());
@@ -87,7 +87,7 @@ class LendingInboxCollectorTest {
 
         assertEquals("You owe Priya", row.title());
         assertEquals("Due today · borrowed on 5 Oct", row.subtitle());
-        assertEquals("/loans/lendings/" + priya.getId(), row.href());
+        assertEquals("/lending/" + priya.getId(), row.href());
         assertEquals(new BigDecimal("2500"), row.amount());
         assertEquals("warning", row.severity());
     }

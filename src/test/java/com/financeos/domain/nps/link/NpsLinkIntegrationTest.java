@@ -202,7 +202,7 @@ class NpsLinkIntegrationTest {
         assertEquals(Set2.of(a, b), Set2.of(rows.stream().map(r -> r.refs().transactionId()).toArray(UUID[]::new)));
         assertTrue(rows.stream().allMatch(r -> entry.equals(r.refs().npsEntryId())));
         assertEquals(List.of("nps_link", "nps_dismiss", "dismiss"), rows.get(0).actions().stream().map(x -> x.type()).toList());
-        assertTrue(rows.stream().allMatch(r -> "/investments/nps".equals(r.href())));
+        assertTrue(rows.stream().allMatch(r -> "/investments/retirement/nps".equals(r.href())));
     }
 
     @Test

@@ -122,7 +122,7 @@ class AttentionDatasourceTest {
     @Test
     void aLoneRowWithNoLinkLandsOnTheKindsPage() {
         inbox(item(InboxKinds.LENDING, "lending:1", INFO, SEV_INFO, null));
-        assertEquals("/loans/lendings", datasource.rows().get(0).get("href"));
+        assertEquals("/lending", datasource.rows().get(0).get("href"));
     }
 
     @Test
@@ -176,7 +176,7 @@ class AttentionDatasourceTest {
         Map<String, Object> row = datasource.rows().get(0);
 
         assertEquals(new BigDecimal(5), row.get("count"));
-        assertEquals("/settings/gmail?focus=attention", row.get("href"));
+        assertEquals("/data-sources/connections?focus=attention", row.get("href"));
     }
 
     @Test

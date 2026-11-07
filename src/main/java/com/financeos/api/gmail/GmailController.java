@@ -136,12 +136,12 @@ public class GmailController {
             @RequestParam(required = false) String state) {
 
         if (error != null) {
-            String redirectUrl = uiPath + "/settings/gmail?gmail=error&message=" + URLEncoder.encode(error, StandardCharsets.UTF_8);
+            String redirectUrl = uiPath + "/data-sources/connections?gmail=error&message=" + URLEncoder.encode(error, StandardCharsets.UTF_8);
             return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(redirectUrl)).build();
         }
 
         if (code == null) {
-            String redirectUrl = uiPath + "/settings/gmail?gmail=error&message=" + URLEncoder.encode("missing_code", StandardCharsets.UTF_8);
+            String redirectUrl = uiPath + "/data-sources/connections?gmail=error&message=" + URLEncoder.encode("missing_code", StandardCharsets.UTF_8);
             return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(redirectUrl)).build();
         }
 
@@ -151,10 +151,10 @@ public class GmailController {
 
             String redirectUrl = GmailOAuthService.RETURN_HOME.equals(oauthService.returnTarget(currentUser.getId(), state))
                     ? uiPath + "/"
-                    : uiPath + "/settings/gmail?gmail=success&email=" + URLEncoder.encode(connection.getEmail(), StandardCharsets.UTF_8);
+                    : uiPath + "/data-sources/connections?gmail=success&email=" + URLEncoder.encode(connection.getEmail(), StandardCharsets.UTF_8);
             return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(redirectUrl)).build();
         } catch (Exception e) {
-            String redirectUrl = uiPath + "/settings/gmail?gmail=error&message=" + URLEncoder.encode(e.getMessage() != null ? e.getMessage() : "callback_failed", StandardCharsets.UTF_8);
+            String redirectUrl = uiPath + "/data-sources/connections?gmail=error&message=" + URLEncoder.encode(e.getMessage() != null ? e.getMessage() : "callback_failed", StandardCharsets.UTF_8);
             return ResponseEntity.status(HttpStatus.FOUND).location(URI.create(redirectUrl)).build();
         }
     }

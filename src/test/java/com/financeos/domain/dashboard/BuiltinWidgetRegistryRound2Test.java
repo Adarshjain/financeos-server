@@ -94,8 +94,8 @@ class BuiltinWidgetRegistryRound2Test {
         assertShape("top_movers", c, 50, "investments", null, "/investments");
         assertShape("allocation", t, 50, "investments", "allocation", "/investments");
         assertShape("tax_harvest", c, 50, "investments", null, "/investments");
-        assertShape("loan_payoff", c, 50, "loans_lending", null, "/loans");
-        assertShape("lending_balances", c, 50, "loans_lending", null, "/loans/lendings");
+        assertShape("loan_payoff", c, 50, "loans_lending", null, "/accounts");
+        assertShape("lending_balances", c, 50, "loans_lending", null, "/lending");
         assertShape("account_tile", c, 25, "overview", null, null);
         assertShape("emergency_fund", c, 50, "overview", null, "/accounts");
         assertShape("shortcuts", c, 25, "shortcuts", null, null);

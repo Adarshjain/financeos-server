@@ -50,7 +50,7 @@ class GmailControllerReturnTargetTest {
     void defaultFlowKeepsTheSettingsRedirect() {
         when(oauth.returnTarget(userId, "s")).thenReturn(GmailOAuthService.RETURN_SETTINGS);
         ResponseEntity<Void> res = controller.handleCallback("code", null, "s");
-        assertEquals("https://ui.example/settings/gmail?gmail=success&email=me%40example.com",
+        assertEquals("https://ui.example/data-sources/connections?gmail=success&email=me%40example.com",
                 res.getHeaders().getLocation().toString());
     }
 

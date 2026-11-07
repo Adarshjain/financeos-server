@@ -176,19 +176,19 @@ public final class InboxKinds {
     public static String landingHref(String kind) {
         return switch (kind) {
             case BILL -> "/upcoming";
-            case EMI -> "/loans";
-            case LENDING -> "/loans/lendings";
+            case EMI -> "/accounts";
+            case LENDING -> "/lending";
             case STATEMENT_EXPECTED -> "/transactions/import";
             case STATEMENT_DETAILS_MISSING -> "/accounts";
-            case GMAIL_RECONNECT -> "/settings/gmail";
-            case GMAIL_ATTENTION -> "/settings/gmail?focus=attention";
+            case GMAIL_RECONNECT -> "/data-sources/connections";
+            case GMAIL_ATTENTION -> "/data-sources/connections?focus=attention";
             case REVIEW -> "/transactions/review";
-            case JOB -> "/settings/activity";
+            case JOB -> "/data-sources/sync";
             case REWARD_MILESTONE, REWARD_CAP -> "/rewards";
-            case EPF_MATCH -> "/investments/epf";
+            case EPF_MATCH -> "/investments/retirement/epf";
             case LINK_SUGGESTION -> "/transactions/review";
             case UPLOAD_NEEDS_ACCOUNT -> "/transactions/import";
-            case NPS_PASSWORD, NPS_NEW_ACCOUNT, NPS_MATCH, NPS_RECORD, NPS_SETUP -> "/investments/nps";
+            case NPS_PASSWORD, NPS_NEW_ACCOUNT, NPS_MATCH, NPS_RECORD, NPS_SETUP -> "/investments/retirement/nps";
             default -> "/inbox";
         };
     }

@@ -295,7 +295,7 @@ public class ObligationsService {
             LocalDate date = raw.date();
             String name = raw.counterpartyName();
             String title = raw.direction() == LendingDirection.borrowed ? "You owe " + name : name + " owes you";
-            String href = raw.counterpartyId() != null ? "/loans/lendings/" + raw.counterpartyId() : "/loans/lendings";
+            String href = raw.counterpartyId() != null ? "/lending/" + raw.counterpartyId() : "/lending";
             items.add(new ObligationItemDto(
                     KIND_LENDING_DUE, date, raw.amount(), status(today, date, 0),
                     null, null, null,

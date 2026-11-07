@@ -24,8 +24,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class GmailInboxCollector implements InboxCollector {
 
-    static final String SETTINGS_HREF = "/settings/gmail";
-    static final String ATTENTION_HREF = "/settings/gmail?focus=attention";
+    static final String SETTINGS_HREF = "/data-sources/connections";
+    static final String ATTENTION_HREF = "/data-sources/connections?focus=attention";
 
     private final GmailConnectionRepository connectionRepository;
     private final UnresolvedNumberService attentionService;

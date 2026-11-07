@@ -76,10 +76,10 @@ class GmailInboxCollectorTest {
         assertEquals("act_now", row.section());
         assertEquals("Reconnect Gmail", row.title());
         assertEquals("me@gmail.com stopped syncing · Google rejected its token", row.subtitle());
-        assertEquals("/settings/gmail", row.href());
+        assertEquals("/data-sources/connections", row.href());
         assertEquals(null, row.amount());
         assertEquals(LocalDate.of(2026, 10, 19), row.date());
-        assertEquals(List.of(InboxActionResponse.navigate("reconnect", "Reconnect", "/settings/gmail")), row.actions(),
+        assertEquals(List.of(InboxActionResponse.navigate("reconnect", "Reconnect", "/data-sources/connections")), row.actions(),
                 "a reconnect cannot be snoozed away");
         assertEquals(InboxRefsResponse.ofConnection(personal.getId()), row.refs());
         assertEquals("gmail-reconnect:" + work.getId(), rows.get(1).key());
@@ -101,9 +101,9 @@ class GmailInboxCollectorTest {
         assertEquals("needs_look", row.section());
         assertEquals("3 emails need attention", row.title());
         assertEquals("Unmatched account, not opted in, or failed to import", row.subtitle());
-        assertEquals("/settings/gmail?focus=attention", row.href());
+        assertEquals("/data-sources/connections?focus=attention", row.href());
         assertEquals(3, row.count());
-        assertEquals(List.of(InboxRows.open("/settings/gmail?focus=attention")), row.actions());
+        assertEquals(List.of(InboxRows.open("/data-sources/connections?focus=attention")), row.actions());
         verify(attentionService).attentionTotal(userId);
     }
 

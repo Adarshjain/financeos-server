@@ -30,7 +30,7 @@ public class JobInboxCollector implements InboxCollector {
     /** Enough to cover a busy week; older rows fall outside the window anyway. */
     static final int MAX_ROWS = 50;
     /** The Activity page, filtered to failures; it has no per-job deep link. */
-    static final String HREF = "/settings/activity?status=failed";
+    static final String HREF = "/data-sources/sync?status=failed";
     private static final List<JobStatus> FAILED = List.of(JobStatus.FAILED);
 
     private final JobRepository jobRepository;

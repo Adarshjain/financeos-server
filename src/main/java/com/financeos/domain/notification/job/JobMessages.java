@@ -38,7 +38,7 @@ public final class JobMessages {
         return switch (type) {
             case STATEMENT_INGEST -> "/transactions/import";
             case INVESTMENT_IMPORT_COMMIT, BROKER_RECONCILE_COMMIT -> "/investments";
-            default -> "/settings/activity?type=" + type.name();
+            default -> "/data-sources/sync?type=" + type.name();
         };
     }
 

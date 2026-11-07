@@ -156,7 +156,7 @@ class ObligationsServiceTest {
         ObligationItemDto lent = items.get(0);
         assertEquals("lending_due", lent.type());
         assertEquals("Asha owes you", lent.title());
-        assertEquals("/loans/lendings/" + lentCp, lent.href());
+        assertEquals("/lending/" + lentCp, lent.href());
         assertEquals("Asha", lent.accountName());
         assertEquals("Asha", lent.counterpartyName());
         assertEquals(lentCp, lent.counterpartyId());
@@ -179,7 +179,7 @@ class ObligationsServiceTest {
 
         ObligationItemDto i = upcoming(3, Set.of("lending_due")).get(0);
 
-        assertEquals("/loans/lendings", i.href());
+        assertEquals("/lending", i.href());
         assertEquals("overdue", i.status());
         assertEquals(-3L, i.daysUntil());
     }
