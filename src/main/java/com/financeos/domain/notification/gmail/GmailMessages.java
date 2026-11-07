@@ -31,12 +31,18 @@ public final class GmailMessages {
                     "Add an LLM API key in Settings to process " + n + (n == 1 ? " waiting email." : " waiting emails."),
                     "/settings/llm-keys", "gmail-attention");
         }
+        java.util.Set<String> numbers = new java.util.HashSet<>();
         int unresolved = 0;
         int notOptedIn = 0;
         int failed = 0;
         for (GmailProcessedMessage item : items) {
             if (item.getStatus() == GmailProcessedStatus.UNRESOLVED_ACCOUNT) {
-                unresolved++;
+                // Mail that names the same number at the same bank is one entry in the app, so one in the digest.
+                if (item.getExtractedLast4() == null || numbers.add(
+                        com.financeos.gmail.attention.NumberGroupKey.bankOf(item.getClassifiedBank(), item.getSenderAddress())
+                                + ":" + item.getExtractedLast4())) {
+                    unresolved++;
+                }
             } else if (item.getStatus() == GmailProcessedStatus.ACCOUNT_NOT_OPTED_IN) {
                 notOptedIn++;
             } else {
@@ -53,6 +59,7 @@ public final class GmailMessages {
         if (failed > 0) {
             parts.add(failed + " failed to import");
         }
+        n = unresolved + notOptedIn + failed;
         String title = n == 1 ? "1 email needs attention" : n + " emails need attention";
         return new PushMessage(title, String.join(" · ", parts), InboxKinds.inboxHref(InboxKinds.KEY_GMAIL_ATTENTION), "gmail-attention");
     }

@@ -122,9 +122,9 @@ templates:
     direction: DEBIT
     dateFormats: [dd/MM/yyyy]
 
-  # "Your RTGS transfer has been completed successfully ... Transaction Details: Amount: INR 10,00,000.00 Credited to beneficiary A/c ending: XX5678 Date & Time: 18-07-2026 at 18:15:50" (the beneficiary's account, not the owner's: no last4)
-  - id: hdfc.account.transfer.done.v1
+  # "This is to inform you that RTGS transaction of Rs. 800,000.00 has been initiated from your account No. XXXX1234 through NetBanking." (the transaction; the later "credited to the beneficiary" mail is a confirmation)
+  - id: hdfc.account.initiated.netbanking.v1
     senders: *senders
-    body: 'Your (?:RTGS|NEFT|IMPS) transfer has been completed successfully[\s\S]*?Amount:\s*(?<currency>[A-Z]{3}) (?<amount>[\d,]+(?:\.\d+)?)\s*Credited to beneficiary A/c ending:\s*[X*]*\d+\s*Date (?:&|&amp;|and) Time:\s*(?<date>\d\d-\d\d-\d{4})'
+    body: '(?:RTGS|NEFT|IMPS) transaction of (?:INR|Rs\.?) ?(?<amount>[\d,]+(?:\.\d+)?) has been initiated from your account No\.? (?<last4>[X*]*\d+) through NetBanking'
     direction: DEBIT
-    dateFormats: [dd-MM-yyyy]
+    currency: INR

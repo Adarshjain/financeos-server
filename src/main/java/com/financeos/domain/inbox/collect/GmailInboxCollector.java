@@ -8,10 +8,9 @@ import com.financeos.api.inbox.dto.InboxActionResponse;
 import com.financeos.api.inbox.dto.InboxItemResponse;
 import com.financeos.api.inbox.dto.InboxRefsResponse;
 import com.financeos.domain.inbox.InboxKinds;
-import com.financeos.domain.notification.gmail.GmailAttentionNotificationService;
 import com.financeos.gmail.domain.GmailConnection;
 import com.financeos.gmail.domain.GmailConnectionRepository;
-import com.financeos.gmail.domain.GmailProcessedMessageRepository;
+import com.financeos.gmail.attention.UnresolvedNumberService;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +28,12 @@ public class GmailInboxCollector implements InboxCollector {
     static final String ATTENTION_HREF = "/settings/gmail?focus=attention";
 
     private final GmailConnectionRepository connectionRepository;
-    private final GmailProcessedMessageRepository processedMessageRepository;
+    private final UnresolvedNumberService attentionService;
 
     public GmailInboxCollector(GmailConnectionRepository connectionRepository,
-                               GmailProcessedMessageRepository processedMessageRepository) {
+                               UnresolvedNumberService attentionService) {
         this.connectionRepository = connectionRepository;
-        this.processedMessageRepository = processedMessageRepository;
+        this.attentionService = attentionService;
     }
 
     @Override
@@ -48,9 +47,10 @@ public class GmailInboxCollector implements InboxCollector {
                     List.of(InboxActionResponse.navigate("reconnect", "Reconnect", SETTINGS_HREF)),
                     InboxRefsResponse.ofConnection(connection.getId())));
         }
-        long attention = processedMessageRepository.countByUserIdAndStatusIn(userId, GmailAttentionNotificationService.ATTENTION_STATUSES);
+        // The card header's number: unknown-number groups + import-off accounts + ungrouped emails.
+        int attention = attentionService.attentionTotal(userId);
         if (attention > 0) {
-            int n = (int) Math.min(attention, Integer.MAX_VALUE);
+            int n = attention;
             rows.add(InboxRows.summary(InboxKinds.KEY_GMAIL_ATTENTION, InboxKinds.GMAIL_ATTENTION, SEVERITY_WARNING,
                     SECTION_NEEDS_LOOK, n == 1 ? "1 email needs attention" : n + " emails need attention",
                     "Unmatched account, not opted in, or failed to import", ATTENTION_HREF, n,

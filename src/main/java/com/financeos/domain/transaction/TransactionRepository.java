@@ -567,4 +567,32 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
             + "FROM Transaction t JOIN t.account a LEFT JOIN a.bankDetails bd LEFT JOIN t.card c LEFT JOIN c.cardholder ch "
             + "WHERE t.user.id = :userId AND t.id IN :ids")
     List<GroupTransactionRow> findGroupTransactionRows(@Param("userId") UUID userId, @Param("ids") Collection<UUID> ids);
+
+    /** A transaction at a bank, enough to match a Gmail mail by amount, direction and date. */
+    interface BankTransactionBrief {
+        UUID getAccountId();
+        String getAccountName();
+        String getBank();
+        LocalDate getDate();
+        java.math.BigDecimal getAmount();
+        TransactionType getType();
+        String getDescription();
+    }
+
+    /** The user's transactions at one bank within a date span and one of these amounts, one query for all groups. */
+    @Query("SELECT a.id AS accountId, a.name AS accountName, a.bank AS bank, t.date AS date, t.amount AS amount, t.type AS type, t.description AS description "
+            + "FROM Transaction t JOIN t.account a WHERE t.user.id = :userId AND a.bank IN :banks AND t.date BETWEEN :fromDate AND :toDate AND t.amount IN :amounts")
+    List<BankTransactionBrief> findBankBriefs(@Param("userId") UUID userId, @Param("banks") Collection<String> banks,
+            @Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate, @Param("amounts") Collection<java.math.BigDecimal> amounts);
+
+    /** Span and count of an account's transactions whose bank text contains a text (LOCATE, not LIKE: Hibernate adds an empty ESCAPE that Oracle reads as NULL). */
+    interface SeenSpan {
+        LocalDate getFirstDate();
+        LocalDate getLastDate();
+        long getTotal();
+    }
+
+    @Query("SELECT MIN(t.date) AS firstDate, MAX(t.date) AS lastDate, COUNT(t) AS total FROM Transaction t "
+            + "WHERE t.user.id = :userId AND t.account.id = :accountId AND LOCATE(:text, t.sourcedDescription) > 0")
+    SeenSpan findSeenSpan(@Param("userId") UUID userId, @Param("accountId") UUID accountId, @Param("text") String text);
 }

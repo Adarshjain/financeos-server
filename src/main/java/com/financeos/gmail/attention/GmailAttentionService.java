@@ -52,8 +52,13 @@ public class GmailAttentionService {
 
     /** Active item counts per reason, reasons with no items left out; same inclusion as the list. */
     public List<AttentionReasonCount> summary(UUID userId, boolean includeRetryable) {
+        return summary(userId, includeRetryable, false);
+    }
+
+    /** With {@code ungroupedOnly}: counts of the mail the ungrouped list shows (no unknown-number or import-off mail). */
+    public List<AttentionReasonCount> summary(UUID userId, boolean includeRetryable, boolean ungroupedOnly) {
         Map<AttentionReason, Long> counts = new EnumMap<>(AttentionReason.class);
-        for (AttentionBrief b : repository.findAttentionBriefs(userId, statuses(includeRetryable))) {
+        for (AttentionBrief b : briefs(userId, includeRetryable, ungroupedOnly)) {
             counts.merge(AttentionReason.of(b.getStatus(), b.getError()), 1L, Long::sum);
         }
         List<AttentionReason> order = new ArrayList<>(counts.keySet());
@@ -62,9 +67,14 @@ public class GmailAttentionService {
 
     /** Resets every retryable active item of the reason and queues one sync per affected mailbox. */
     public int retryAll(UUID userId, AttentionReason reason) {
+        return retryAll(userId, reason, false);
+    }
+
+    /** With {@code ungroupedOnly}, mail that belongs to an unknown-number or import-off group is left alone. */
+    public int retryAll(UUID userId, AttentionReason reason, boolean ungroupedOnly) {
         int affected = 0;
         Set<UUID> enqueued = new HashSet<>();
-        for (List<UUID> batch : batches(userId, reason, false)) {
+        for (List<UUID> batch : batches(userId, reason, ungroupedOnly)) {
             Integer n = tx.execute(s -> {
                 int done = 0;
                 for (GmailProcessedMessage gpm : repository.findByUserIdAndIdIn(userId, batch)) {
@@ -91,8 +101,13 @@ public class GmailAttentionService {
 
     /** Archives every active item of the reason. */
     public int archiveAll(UUID userId, AttentionReason reason) {
+        return archiveAll(userId, reason, false);
+    }
+
+    /** With {@code ungroupedOnly}, mail that belongs to an unknown-number or import-off group is left alone. */
+    public int archiveAll(UUID userId, AttentionReason reason, boolean ungroupedOnly) {
         int affected = 0;
-        for (List<UUID> batch : batches(userId, reason, false)) {
+        for (List<UUID> batch : batches(userId, reason, ungroupedOnly)) {
             Integer n = tx.execute(s -> {
                 int done = 0;
                 Instant now = Instant.now();
@@ -110,8 +125,17 @@ public class GmailAttentionService {
         return affected;
     }
 
-    private List<List<UUID>> batches(UUID userId, AttentionReason reason, boolean includeRetryable) {
-        List<UUID> ids = repository.findAttentionBriefs(userId, statuses(includeRetryable)).stream()
+    /** Ungrouped mail is never import-off mail (archived on arrival, shown only as a group), so it leaves ACCOUNT_NOT_OPTED_IN out. */
+    private List<AttentionBrief> briefs(UUID userId, boolean includeRetryable, boolean ungroupedOnly) {
+        if (!ungroupedOnly) return repository.findAttentionBriefs(userId, statuses(includeRetryable));
+        List<GmailProcessedStatus> statuses = new ArrayList<>(List.of(
+                GmailProcessedStatus.UNRESOLVED_ACCOUNT, GmailProcessedStatus.FAILED_PERMANENT));
+        if (includeRetryable) statuses.add(GmailProcessedStatus.FAILED_RETRYABLE);
+        return repository.findUngroupedAttentionBriefs(userId, statuses);
+    }
+
+    private List<List<UUID>> batches(UUID userId, AttentionReason reason, boolean ungroupedOnly) {
+        List<UUID> ids = briefs(userId, false, ungroupedOnly).stream()
                 .filter(b -> AttentionReason.of(b.getStatus(), b.getError()) == reason)
                 .map(AttentionBrief::getId)
                 .toList();

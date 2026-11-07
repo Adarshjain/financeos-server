@@ -11,10 +11,9 @@ import com.financeos.api.inbox.dto.InboxActionResponse;
 import com.financeos.api.inbox.dto.InboxItemResponse;
 import com.financeos.api.inbox.dto.InboxRefsResponse;
 import com.financeos.core.time.AppTime;
-import com.financeos.domain.notification.gmail.GmailAttentionNotificationService;
 import com.financeos.gmail.domain.GmailConnection;
 import com.financeos.gmail.domain.GmailConnectionRepository;
-import com.financeos.gmail.domain.GmailProcessedMessageRepository;
+import com.financeos.gmail.attention.UnresolvedNumberService;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -31,8 +30,8 @@ class GmailInboxCollectorTest {
     private static final LocalDate TODAY = LocalDate.of(2026, 10, 20);
 
     private final GmailConnectionRepository connectionRepository = mock(GmailConnectionRepository.class);
-    private final GmailProcessedMessageRepository processedRepository = mock(GmailProcessedMessageRepository.class);
-    private final GmailInboxCollector collector = new GmailInboxCollector(connectionRepository, processedRepository);
+    private final UnresolvedNumberService attentionService = mock(UnresolvedNumberService.class);
+    private final GmailInboxCollector collector = new GmailInboxCollector(connectionRepository, attentionService);
     private final UUID userId = UUID.randomUUID();
 
     @BeforeEach
@@ -55,7 +54,7 @@ class GmailInboxCollectorTest {
     }
 
     private void attention(long count) {
-        when(processedRepository.countByUserIdAndStatusIn(userId, GmailAttentionNotificationService.ATTENTION_STATUSES)).thenReturn(count);
+        when(attentionService.attentionTotal(userId)).thenReturn((int) count);
     }
 
     @Test
@@ -105,7 +104,7 @@ class GmailInboxCollectorTest {
         assertEquals("/settings/gmail?focus=attention", row.href());
         assertEquals(3, row.count());
         assertEquals(List.of(InboxRows.open("/settings/gmail?focus=attention")), row.actions());
-        verify(processedRepository, never()).findUnnotifiedAttentionItems(any(), any());
+        verify(attentionService).attentionTotal(userId);
     }
 
     @Test
@@ -115,12 +114,6 @@ class GmailInboxCollectorTest {
 
         attention(0);
         assertEquals(List.of(), collector.collect(userId, TODAY));
-    }
-
-    @Test
-    void aCountBeyondIntRangeIsClampedInsteadOfOverflowing() {
-        attention(Integer.MAX_VALUE + 5L);
-        assertEquals(Integer.MAX_VALUE, collector.collect(userId, TODAY).get(0).count());
     }
 
     @Test

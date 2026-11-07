@@ -59,24 +59,6 @@ fixtures:
       Rs.1000.00 has been debited from account **1234 to account **5678 on 02-10-24.Your UPI transaction reference number is 100000000006.
     expect: {amount: '1000.00', currency: 'INR', direction: 'DEBIT', date: '2024-10-02', counterparty: null, last4: '1234'}
 
-  - template: hdfc.account.transfer.done.v1
-    from: 'HDFC Bank InstaAlerts <alerts@hdfcbank.bank.in>'
-    subject: 'View: Account update for your HDFC Bank A/c'
-    sent: '2026-07-18T13:00:00Z'
-    body: >-
-      Dear Customer, Greetings from HDFC Bank! Important Note: Your RTGS transfer has been completed successfully. We know timely updates matter, and we are happy to confirm this for you.
-      Transaction Details: Amount: INR 5,00,000.00 Credited to beneficiary A/c ending: XX5678 Date & Time: 18-07-2026 at 18:15:50 Reference Number: HDFCR00000000000000000
-    expect: {amount: '500000.00', currency: INR, direction: DEBIT, date: '2026-07-18', counterparty: null, last4: null}
-
-  - template: hdfc.account.transfer.done.v1
-    from: 'HDFC Bank InstaAlerts <alerts@hdfcbank.net>'
-    subject: 'View: Account update for your HDFC Bank A/c'
-    sent: '2026-07-19T13:00:00Z'
-    body: >-
-      Dear Customer, Greetings from HDFC Bank! Important Note: Your IMPS transfer has been completed successfully. We know timely updates matter.
-      Transaction Details: Amount: INR 2,500.00 Credited to beneficiary A/c ending: XX5678 Date & Time: 19-07-2026 at 10:15:50 Reference Number: 100000000000
-    expect: {amount: '2500.00', currency: INR, direction: DEBIT, date: '2026-07-19', counterparty: null, last4: null}
-
   - template: paytm.bill.payment.v1
     from: 'Paytm <noreply@paytm.com>'
     subject: 'Your Sample Bank Ltd 100000000 for Rs.3456 was Successful'
