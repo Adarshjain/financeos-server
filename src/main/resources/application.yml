@@ -183,6 +183,8 @@ gmail:
     cron: ${GMAIL_INGEST_CRON:0 0 7,10-22/2 * * *}
     first-backfill-days: ${GMAIL_INGEST_BACKFILL_DAYS:30}
     zone: ${GMAIL_INGEST_ZONE:Asia/Kolkata}
+    # AI (default) or INHOUSE: who reads Gmail alert mails. INHOUSE never calls the AI for them. Statements are unaffected.
+    reader: ${INGEST_READER:AI}
 
 # LLM Provider Layer configuration
 llm:

@@ -163,4 +163,13 @@ public class ObservabilityMetrics {
     public void recordGmailAlertTemplateOverride() {
         Counter.builder("financeos.gmail.alert.template_override").register(registry).increment();
     }
+
+    /** One Gmail alert mail's outcome by reader (AI / INHOUSE) and bank; tags are bounded. */
+    public void recordGmailReader(String reader, String outcome, String bank) {
+        Counter.builder("financeos.gmail.reader")
+                .tag("reader", reader)
+                .tag("outcome", outcome)
+                .tag("bank", bank == null || bank.isBlank() ? "unknown" : bank)
+                .register(registry).increment();
+    }
 }

@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 @Component
 public class EmailClassifier {
 
-    public static final int VERSION = 6;
+    public static final int VERSION = 7;
 
     private final BankSenderDomains bankSenderDomains;
 
@@ -80,7 +80,8 @@ public class EmailClassifier {
     private static final Pattern FUTURE_GUARD = Pattern.compile(
             "\\bwill\\b|\\bwould\\b(?! like to)|\\bto be (?:debited|charged|deducted)\\b|\\b(?:is|are|was) due\\b|\\bdue (?:on|by|date)\\b"
                     + "|\\b(?:payment|amount|minimum|total) due\\b|\\bscheduled\\b|\\bupcoming\\b"
-                    + "|\\b(?:pay|payable)\\b.{0,60}?\\b(?:by|before)\\b|\\balready (?:paid|made)\\b");
+                    + "|\\b(?:pay|payable)\\b.{0,60}?\\b(?:by|before)\\b|\\balready (?:paid|made)\\b"
+                    + "|\\bchosen to pay\\b");
     /** Hypothetical or illustrative wording: an example amount is never a transaction. */
     private static final Pattern NON_EVENT_GUARD = Pattern.compile(
             "\\bexamples?\\b|\\be\\.g\\b|\\bfor instance\\b|\\bimagine\\b");
@@ -127,7 +128,7 @@ public class EmailClassifier {
             "\\b(?:will|to) be (?:auto-?)?(?:debited|charged|deducted)\\b|\\bauto-?debit\\b|\\bstanding instruction\\b|\\be-?mandate\\b"
                     + "|\\bmandate\\b|\\bauto-?pay\\b|\\bupcoming (?:debit|payment|emi|charge)s?\\b|\\bscheduled (?:debit|payment)\\b");
     private static final Pattern BILL_DUE = Pattern.compile(
-            "\\bpayment due\\b|\\btotal (?:amount )?due\\b|\\bminimum (?:amount )?due\\b|\\bamount due\\b"
+            "\\bpayment due\\b|\\btotal (?:amount )?due\\b|\\bminimum (?:amount )?due\\b|\\bamount due\\b|\\bchosen to pay\\b.{0,60}?\\bdues\\b"
                     + "|\\bbill\\b.{0,80}?\\b(?:pay|payable)\\b|\\b(?:pay|payable)\\b.{0,30}?\\binr\\s?\\d.{0,60}?\\b(?:by|before)\\b");
     private static final Pattern STATEMENT_NOTICE = Pattern.compile("\\bstatement\\b[^.]{0,80}?\\b(?:ready|generated|available)\\b");
     private static final Pattern BALANCE = Pattern.compile("\\bavailable balance\\b|\\bbalance is\\b|\\bbalance in\\b|\\bbalance as of\\b|\\baccount balance\\b");
@@ -155,6 +156,10 @@ public class EmailClassifier {
     private static final Pattern SUPPORT_SUBJECT = Pattern.compile(
             "^\\s*(?:re|fwd?)\\s*:|^\\s*<auto>|service request|\\bticket\\b|query reference|auto acknowledgement|\\bescalation\\b");
     private static final Pattern SUPPORT_BODY = Pattern.compile("we acknowledge the receipt of your email|thank you for writing to us");
+    /** A reply ("Re:" / "Fwd:") that thanks the customer for writing and names a service request: a resolution note, even when it quotes a card transfer. */
+    private static final Pattern SUPPORT_REPLY_SUBJECT = Pattern.compile("^\\s*(?:re|fwd?)\\s*:");
+    private static final Pattern SUPPORT_REPLY_BODY = Pattern.compile(
+            "thank you for writing to [a-z]+ bank\\b.{0,600}?\\b(?:service request|reference number|request has been (?:raised|resolved))\\b");
     /** Selling wording that wins over the weak balance/bill cues, but only when no card/account is referenced. */
     private static final Pattern STRONG_PROMO = Pattern.compile(
             "\\blounge\\b|reduce your (?:card )?bill|\\bvoucher\\b|\\bearned\\b.{0,40}?\\bcashback\\b");
@@ -238,8 +243,9 @@ public class EmailClassifier {
         boolean realTransaction = txn != null && ACCOUNT_REF.matcher(txn.lowerSentence()).find();
         boolean statementAttachment = attachmentKind != null
                 && STATEMENT_WORDS.matcher(subjectLower + attachmentNames(message)).find();
+        boolean supportReply = SUPPORT_REPLY_SUBJECT.matcher(subjectLower).find() && SUPPORT_REPLY_BODY.matcher(lower).find();
         if ((SUPPORT_SUBJECT.matcher(subjectLower).find() || SUPPORT_BODY.matcher(lower).find())
-                && !realTransaction && !statementAttachment) {
+                && (!realTransaction || supportReply) && !statementAttachment) {
             signals.add("kw:support");
             return result(attachmentKind != null ? EmailSubtype.DOCUMENT : EmailSubtype.SERVICE, ClassifierConfidence.MEDIUM, bankId, signals);
         }
