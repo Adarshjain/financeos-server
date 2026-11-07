@@ -236,6 +236,7 @@ public class AccountDetectJobHandler implements JobHandler {
         AccountDetectState[] state = {store.save(initial)};
         String salt = state[0].getKeySalt();
 
+        long tLoad = System.nanoTime();
         List<AccountDetectStore.StoredFact> stored = store.facts(userId);
         Set<String> known = new HashSet<>();
         List<AccountDetectScan.Prior> prior = new ArrayList<>();
@@ -255,6 +256,7 @@ public class AccountDetectJobHandler implements JobHandler {
         UUID connectionId = connection.getId();
 
         Map<String, Long> timings = new LinkedHashMap<>();
+        timings.put("0 load stored", (System.nanoTime() - tLoad) / 1_000_000);
         AccountDetectScan.Result scan;
         try {
             MailSource source = sources.open(connection);
@@ -309,7 +311,9 @@ public class AccountDetectJobHandler implements JobHandler {
 
         AccountDetectState s = state[0];
         // read before detection: a statement saved meanwhile then differs from this on the next run
+        long tFp = System.nanoTime();
         String statementsFp = statementsFingerprint(userId);
+        timings.put("7 statements fp", (System.nanoTime() - tFp) / 1_000_000);
         LastDetection last = lastDetection.get(userId);
         if (nothingNew(firstScan, scan, headersMissing, incomplete) && last != null && statementsFp.equals(last.statementsFp())) {
             // Nothing was stored or replaced and the statements are as they were, so the detection is as the last run left it:
@@ -322,8 +326,10 @@ public class AccountDetectJobHandler implements JobHandler {
             s.setStatus(AccountDetectState.Status.IDLE);
             if (!stillScanned(userId, connectionId)) return mailboxGone();
             store.save(s);
+            long tSinkReuse = System.nanoTime();
             sink.accept(userId, last.detected().detection(), new DetectionContext(connection.getId(), false, false, last.mailsStored(), 0,
                     last.detected().statements(), AppTime.nowInstant()));
+            timings.put("12 sink", (System.nanoTime() - tSinkReuse) / 1_000_000);
             log.info("Account detect finished: nothing new, detection reused: listed={}, alreadyStored={}, mailsStored={}, durationMs={}, stageMs={}",
                     scan.listed(), scan.skippedKnown(), last.mailsStored(), System.currentTimeMillis() - started, timings);
             Map<String, Object> skipped = result("DONE", 0, last.mailsStored(), last.detected().detection().entities.size());
@@ -331,8 +337,10 @@ public class AccountDetectJobHandler implements JobHandler {
             return skipped;
         }
         List<AccountDetectStore.StoredFact> all;
+        long tAll = System.nanoTime();
         try {
             all = store.facts(userId);
+            timings.put("8 load all", (System.nanoTime() - tAll) / 1_000_000);
         } catch (Exception e) {
             if (stillScanned(userId, connectionId)) failed(s, "DETECT_" + e.getClass().getSimpleName());
             throw e;
@@ -355,7 +363,10 @@ public class AccountDetectJobHandler implements JobHandler {
         int statementCount;
         Detected detected;
         try {
-            Detected d = detect(all, DbStatements.load(jdbc, userId).statements());
+            long tDb = System.nanoTime();
+            List<StatementContent> dbStatements = DbStatements.load(jdbc, userId).statements();
+            timings.put("9 db statements", (System.nanoTime() - tDb) / 1_000_000);
+            Detected d = detect(all, dbStatements, timings);
             detected = d;
             detection = d.detection();
             mailsStored = all.size();
@@ -368,8 +379,10 @@ public class AccountDetectJobHandler implements JobHandler {
         if (!stillScanned(userId, connectionId)) return mailboxGone();
         store.save(s);
 
+        long tSink = System.nanoTime();
         sink.accept(userId, detection, new DetectionContext(connection.getId(), firstScan, firstScanCompleted, mailsStored, scan.mails().size(), statementCount, now));
         lastDetection.put(userId, new LastDetection(statementsFp, detected, mailsStored));   // only after a successful detection and sink
+        timings.put("12 sink", (System.nanoTime() - tSink) / 1_000_000);
         log.info("Account detect finished: firstScan={}, firstScanDone={}, listed={}, alreadyStored={}, newMails={}, partialMails={}, givenUpMails={}, mailsStored={}, entities={}, durationMs={}, stageMs={}",
                 firstScan, s.getFirstScanDoneAt() != null, scan.listed(), scan.skippedKnown(), scan.mails().size(), incomplete.partial().size(),
                 incomplete.givenUp(), mailsStored, detection.entities.size(), System.currentTimeMillis() - started, timings);
@@ -616,6 +629,11 @@ public class AccountDetectJobHandler implements JobHandler {
      * in that order, then app-parsed statements. Same as the v3 runner's detection (bootstrap stability included).
      */
     static Detected detect(List<AccountDetectStore.StoredFact> facts, List<StatementContent> dbStatements) {
+        return detect(facts, dbStatements, null);
+    }
+
+    /** As above; a non-null {@code timings} gets the detector's stage timings. */
+    static Detected detect(List<AccountDetectStore.StoredFact> facts, List<StatementContent> dbStatements, Map<String, Long> timings) {
         List<MailDerived> derived = new ArrayList<>(facts.size());
         List<StatementContent> statements = new ArrayList<>();
         for (AccountDetectStore.StoredFact f : facts) {
@@ -624,7 +642,7 @@ public class AccountDetectJobHandler implements JobHandler {
             statements.addAll(f.facts().statements());
         }
         statements.addAll(dbStatements);
-        return new Detected(Stability.detectStable(derived, statements, STABILITY_SEED).detection(), statements.size());
+        return new Detected(Stability.detectStable(derived, statements, STABILITY_SEED, timings).detection(), statements.size());
     }
 
     /** Sender tokens exactly like the v3 runner: every bank domain, then the user's own allow-listed sender addresses. */

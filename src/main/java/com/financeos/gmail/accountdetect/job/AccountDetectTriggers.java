@@ -1,6 +1,8 @@
 package com.financeos.gmail.accountdetect.job;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.job.Job;
 import com.financeos.domain.job.JobRepository;
 import com.financeos.domain.job.JobService;
@@ -27,6 +29,8 @@ import org.springframework.transaction.support.TransactionSynchronization;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
@@ -50,6 +54,9 @@ public class AccountDetectTriggers {
     private final ObjectMapper objectMapper;
     private final TransactionTemplate newTransaction;
     private final boolean enabled;
+    /** Longest quiet stretch (no run) after which an after-sync trigger runs even when the sync found no new mail. */
+    @Value("${financeos.account-detect.after-sync-max-quiet-minutes:90}")
+    private long afterSyncMaxQuietMinutes = 90;
 
     public AccountDetectTriggers(JobService jobService, JobRepository jobRepository, GmailConnectionRepository connectionRepository,
                                  UserRepository userRepository, AccountDetectStore store, ObjectMapper objectMapper, PlatformTransactionManager transactionManager,
@@ -94,10 +101,38 @@ public class AccountDetectTriggers {
             newTransaction.executeWithoutResult(s -> {
                 Job job = jobRepository.findById(event.jobId()).orElse(null);
                 UUID connectionId = job == null ? null : syncConnectionId(job);
-                if (connectionId != null) enqueueForConnection(event.userId(), connectionId);
+                if (connectionId == null) return;
+                // Detect lists its own mail since its marker, so a skipped run loses nothing: the next run (new mail, a manual
+                // sync, or the quiet-time ceiling) picks it up. With a 2-hourly cron the ceiling still runs it every cron;
+                // it only stops piling up runs if syncs become more frequent.
+                if (!shouldRunAfterSync(event, job)) return;
+                enqueueForConnection(event.userId(), connectionId);
             });
         } catch (Exception e) {
             log.warn("Account detect enqueue after Gmail sync failed: {}", e.getClass().getSimpleName());
+        }
+    }
+
+    private boolean shouldRunAfterSync(JobFinishedEvent event, Job job) {
+        if (event.trigger() == JobTrigger.USER || syncFoundNewMail(job)) return true;
+        Instant lastRun = store.state(event.userId()).map(AccountDetectState::getLastRunAt).orElse(null);
+        if (lastRun == null) return true;
+        long quietMinutes = Duration.between(lastRun, AppTime.nowInstant()).toMinutes();
+        if (quietMinutes >= afterSyncMaxQuietMinutes) return true;
+        log.info("Account detect after sync skipped: no new mail, last run {}m ago", quietMinutes);
+        return false;
+    }
+
+    /** True when the sync summary shows discovered or created mail; unreadable or missing result counts as new mail. */
+    private boolean syncFoundNewMail(Job job) {
+        String result = job.getResult();
+        if (result == null || result.isBlank()) return true;
+        try {
+            JsonNode n = objectMapper.readTree(result);
+            if (n == null || !n.isObject()) return true;
+            return n.path("discovered").asInt(0) > 0 || n.path("created").asInt(0) > 0;
+        } catch (Exception e) {
+            return true;
         }
     }
 

@@ -24,8 +24,15 @@ public final class Stability {
     private Stability() {}
 
     public static Result detectStable(List<MailDerived> mails, List<StatementContent> statements, long seed) {
+        return detectStable(mails, statements, seed, null);
+    }
+
+    /** As the 3-arg form; when {@code timings} is not null it gets "10 detect full" and "11 stability resamples" in ms. */
+    public static Result detectStable(List<MailDerived> mails, List<StatementContent> statements, long seed, Map<String, Long> timings) {
+        long t0 = System.nanoTime();
         Detection full = Detector.detect(mails, statements);
         Map<String, Conf> fullFacts = full.facts();
+        long t1 = System.nanoTime();
         Map<String, Integer> hits = new HashMap<>();
         Random rnd = new Random(seed);
         for (int r = 0; r < RESAMPLES; r++) {
@@ -38,6 +45,10 @@ public final class Stability {
                 Conf at = fullFacts.get(f.getKey());
                 if (at != null && f.getValue().atLeast(at)) hits.merge(f.getKey(), 1, Integer::sum);
             }
+        }
+        if (timings != null) {
+            timings.put("10 detect full", (t1 - t0) / 1_000_000);
+            timings.put("11 stability resamples", (System.nanoTime() - t1) / 1_000_000);
         }
         Map<String, Double> stab = new HashMap<>();
         for (String f : fullFacts.keySet()) stab.put(f, hits.getOrDefault(f, 0) / (double) RESAMPLES);
