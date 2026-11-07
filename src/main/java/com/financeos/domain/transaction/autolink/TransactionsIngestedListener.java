@@ -1,5 +1,6 @@
 package com.financeos.domain.transaction.autolink;
 
+import com.financeos.core.role.AppRole;
 import java.util.UUID;
 import java.util.concurrent.Executor;
 import java.util.concurrent.RejectedExecutionException;
@@ -26,6 +27,8 @@ public class TransactionsIngestedListener {
     private final AutoLinkService autoLinkService;
     private final Executor executor;
     private final boolean enabled;
+    private final AppRole role;
+    private final AutoLinkRequestStore requestStore;
     /** Users with a run queued but not started, with the union of the scopes of their events so far. */
     private final java.util.Map<UUID, LinkScope> pending = new java.util.concurrent.ConcurrentHashMap<>();
 
@@ -35,10 +38,17 @@ public class TransactionsIngestedListener {
 
     @Autowired
     public TransactionsIngestedListener(AutoLinkService autoLinkService, @Qualifier("jobExecutor") Executor executor,
-                                       @Value("${autolink.enabled:true}") boolean enabled) {
+                                       @Value("${autolink.enabled:true}") boolean enabled, AppRole role,
+                                       AutoLinkRequestStore requestStore) {
         this.autoLinkService = autoLinkService;
         this.executor = executor;
         this.enabled = enabled;
+        this.role = role;
+        this.requestStore = requestStore;
+    }
+
+    public TransactionsIngestedListener(AutoLinkService autoLinkService, Executor executor, boolean enabled) {
+        this(autoLinkService, executor, enabled, AppRole.ALL, null);
     }
 
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT, fallbackExecution = true)
@@ -47,7 +57,15 @@ public class TransactionsIngestedListener {
         if (!enabled || userId == null) {
             return;
         }
-        LinkScope scope = event.scope();
+        if (role == AppRole.API) {
+            requestStore.request(userId, event.scope());   // the worker's poller runs it; the api node never links
+            return;
+        }
+        dispatch(userId, event.scope());
+    }
+
+    /** Runs (or queues, or widens a queued run of) auto-link for the user in this JVM. Shared by events and the request poller. */
+    void dispatch(UUID userId, LinkScope scope) {
         // Already queued: widen that run's scope (it reads fresh data when it starts). Already running: flag one more run.
         if (pending.computeIfPresent(userId, (k, queued) -> queued.union(scope)) != null) {
             return;

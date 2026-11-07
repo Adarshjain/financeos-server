@@ -37,11 +37,15 @@ public class JobJanitor {
     @Value("${jobs.janitor.startup-sweep.enabled:true}")
     private boolean startupSweepEnabled = true;
 
+    /** The api role must not sweep: the worker node's RUNNING jobs are alive. */
+    @Value("${app.role:all}")
+    private String role = "all";
+
     @EventListener(ApplicationReadyEvent.class)
     @org.springframework.core.annotation.Order(org.springframework.core.Ordered.HIGHEST_PRECEDENCE)
     @Transactional
     public void markInterruptedOnStartup() {
-        if (!startupSweepEnabled) {
+        if (!startupSweepEnabled || "api".equalsIgnoreCase(role.trim())) {
             return;
         }
         int count = jobRepository.markInterrupted(

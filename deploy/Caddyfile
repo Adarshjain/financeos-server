@@ -5,8 +5,28 @@ financeos.duckdns.org {
 	tls {
 		dns duckdns {env.DUCKDNS_TOKEN}
 	}
-	# Spring listens on :8080 (0.0.0.0 until cutover, 127.0.0.1 after). Caddy sets X-Forwarded-For/Proto.
-	reverse_proxy 127.0.0.1:8080
+	# Two VMs, same JAR: this VM runs APP_ROLE=api (Spring on 127.0.0.1:8080), the worker VM runs
+	# APP_ROLE=worker (10.0.0.134:8080, subnet-only). `lb_policy first` sends everything to the API VM while
+	# it is healthy; the worker VM takes over (it serves HTTP too) while the API restarts or is down.
+	# Caddy sets X-Forwarded-For/Proto.
+	reverse_proxy 127.0.0.1:8080 10.0.0.134:8080 {
+		lb_policy first
+		# Requests that find no healthy upstream, or fail to connect, are retried for up to 10 s
+		# (covers the seconds between a restart and the next active check).
+		lb_try_duration 10s
+		lb_try_interval 250ms
+
+		# Active checks hit the management port of each upstream (health_port is per upstream host).
+		health_uri /actuator/health
+		health_port 8081
+		health_interval 5s
+		health_timeout 3s
+		health_status 2xx
+
+		# Passive: one failed proxied request takes that upstream out for 30 s.
+		fail_duration 30s
+		max_fails 1
+	}
 	log {
 		output file /var/log/caddy/access.log {
 			roll_size 10MiB
