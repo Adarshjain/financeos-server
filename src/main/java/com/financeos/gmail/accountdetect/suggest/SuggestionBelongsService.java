@@ -15,6 +15,7 @@ import com.financeos.domain.account.card.Card;
 import com.financeos.domain.account.card.CardRepository;
 import com.financeos.domain.account.card.Cardholder;
 import com.financeos.domain.account.card.CardholderService;
+import com.financeos.domain.account.card.PastCardService;
 import com.financeos.domain.user.UserRepository;
 import com.financeos.gmail.accountdetect.BankDirectory;
 import com.financeos.gmail.accountdetect.suggest.AccountSuggestion.State;
@@ -28,7 +29,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 /**
- * "This belongs to that account": saves a found number on an account the user already has (as an older card number, an
+ * "This belongs to that account": saves a found number on an account the user already has (as an older card number (a closed credit or debit card), an
  * add-on card, another open card, a debit card or an alias), in one transaction with the claim of the suggestion
  * (NEW to BELONGS, atomic). Any failure rolls everything back and the suggestion stays NEW. Parked mail is settled
  * after commit. Every query is filtered by user.
@@ -43,11 +44,12 @@ public class SuggestionBelongsService {
     private final AccountIdentifierService identifierService;
     private final UserRepository userRepository;
     private final ApplicationEventPublisher events;
+    private final PastCardService pastCardService;
 
     public SuggestionBelongsService(AccountSuggestionRepository repository, AccountRepository accountRepository,
                                     CardRepository cardRepository, CardholderService cardholderService,
                                     AccountIdentifierService identifierService, UserRepository userRepository,
-                                    ApplicationEventPublisher events) {
+                                    ApplicationEventPublisher events, PastCardService pastCardService) {
         this.repository = repository;
         this.accountRepository = accountRepository;
         this.cardRepository = cardRepository;
@@ -55,6 +57,7 @@ public class SuggestionBelongsService {
         this.identifierService = identifierService;
         this.userRepository = userRepository;
         this.events = events;
+        this.pastCardService = pastCardService;
     }
 
     @Transactional
@@ -68,8 +71,14 @@ public class SuggestionBelongsService {
         if (account.getBank() == null || !account.getBank().equals(s.getBank())) {
             throw new ValidationException("Only accounts at " + BankDirectory.displayName(s.getBank()) + " can hold this number");
         }
+        // an older number is a closed card: a debit card on a bank account, or a credit card on a credit card account
+        boolean olderDebit = req.as() == BelongsAs.OLDER_NUMBER && s.getKind() == AccountSuggestion.Kind.DEBIT_CARD;
+        if (req.as() == BelongsAs.OLDER_NUMBER && s.getKind() == AccountSuggestion.Kind.BANK_ACCOUNT
+                && account.getType() == AccountType.bank_account) {
+            throw new ValidationException("An account number can't be an old card.");
+        }
         boolean wantsBankAccount = req.as() == BelongsAs.DEBIT_CARD
-                || req.as() == BelongsAs.ALIAS;
+                || req.as() == BelongsAs.ALIAS || olderDebit;
         AccountType needed = wantsBankAccount ? AccountType.bank_account : AccountType.credit_card;
         if (account.getType() != needed) {
             throw new ValidationException(wantsBankAccount ? "This needs a bank account." : "This needs a credit card account.");
@@ -87,7 +96,7 @@ public class SuggestionBelongsService {
         if (repository.claimBelongs(id, userId, AppTime.nowInstant()) != 1) throw new ValidationException("This suggestion was already handled");
 
         UUID cardId = switch (req.as()) {
-            case OLDER_NUMBER -> olderNumber(account, s);
+            case OLDER_NUMBER -> olderNumber(account, s, req);
             case ADDON -> addon(account, s, req);
             case OPEN_CARD, DEBIT_CARD -> openCard(account, s);
             case ALIAS -> alias(account, s);
@@ -107,8 +116,13 @@ public class SuggestionBelongsService {
     }
 
     /** A CLOSED card on the primary holder (closed on the last mail's date, else today). The active card is untouched. */
-    private UUID olderNumber(Account account, AccountSuggestion s) {
+    private UUID olderNumber(Account account, AccountSuggestion s, BelongsRequest req) {
         requireNoCardWithNumber(account, s);
+        if (req.pastCard() != null) {
+            // the user's dates and holder, through the shared past-card path (held-elsewhere guard, parked-mail reactivation)
+            return pastCardService.addForNumber(account.getUser(), account, s.getLast4(), req.pastCard(), s.getBank()).card().getId();
+        }
+        pastCardService.requireNotHeldElsewhere(account.getUser(), account, s.getLast4());
         LocalDate today = AppTime.today();
         LocalDate closedOn = s.getLastSeenOn() != null && !s.getLastSeenOn().isAfter(today) ? s.getLastSeenOn() : today;
         LocalDate issuedOn = s.getFirstSeenOn() != null && !s.getFirstSeenOn().isAfter(closedOn) ? s.getFirstSeenOn() : null;

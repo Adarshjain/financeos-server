@@ -46,7 +46,7 @@ public class PastCardService {
      * already holds (open card, bank last 4 or identifier; an account at a different bank does not count) cannot become an
      * old card here: the mail would land on the other account.
      */
-    private void requireNotHeldElsewhere(User user, Account account, String last4) {
+    public void requireNotHeldElsewhere(User user, Account account, String last4) {
         String holder = null;
         for (Card c : cardRepository.findByUserIdAndLast4(user.getId(), last4)) {
             Account other = c.getAccount();
