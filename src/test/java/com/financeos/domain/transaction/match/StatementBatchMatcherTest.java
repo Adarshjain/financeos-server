@@ -439,6 +439,25 @@ class StatementBatchMatcherTest {
     }
 
     @Test
+    void aSameAmountRowOfAnOverlappingStatementADayApartIsADifferentPayment() {
+        // Tata Neu 2024: two uploaded statements overlap 11/08-17/08. The later one's ₹2 Dreamfolks lounge charge has no
+        // copy in the earlier one, whose own ₹2 Tata Payments card check is a day before it: two payments, not one.
+        Account card = account(AccountType.credit_card);
+        Statement later = statement(LocalDate.of(2024, 8, 11), LocalDate.of(2024, 9, 9));
+        Statement earlier = statement(LocalDate.of(2024, 7, 18), LocalDate.of(2024, 8, 17));
+        coverage(card, later, earlier);
+        run(later, card, line(0, LocalDate.of(2024, 8, 17), "2.00", "DreamfolksServicesPri Gurgaon"));
+
+        StatementBatchMatcher.Result r = run(earlier, card,
+                line(0, LocalDate.of(2024, 8, 16), "2.00", "TATA PAYMENTS LIMITED BBANGALORE"));
+
+        assertThat(r.overlapAttached()).isZero();
+        assertThat(r.created()).isEqualTo(1);
+        assertThat(fixture.txns).hasSize(2);
+        assertThat(lineTxn(earlier, 0)).isNotEqualTo(lineTxn(later, 0));
+    }
+
+    @Test
     void aStatementMovedOntoAnAccountHoldingTheSamePeriodFoldsItsOwnRowsIntoTheOtherImport() {
         // The same October was imported on the target card already (another import); the moved statement's own rows
         // came along. Every line overlaps a target row, so each own row is handed back to be folded: no duplicates.

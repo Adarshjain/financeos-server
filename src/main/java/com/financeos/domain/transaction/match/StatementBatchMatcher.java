@@ -335,7 +335,8 @@ public class StatementBatchMatcher {
 
         // Second overlap pass: the other import words its narration differently. A line pairs (pair test, cheapest
         // one-to-one) with a row linked only to other non-rejected statements of the account whose period holds the line,
-        // the row itself dated inside this statement's period.
+        // the row itself dated inside this statement's period. Same day only: two statements print the same date for one
+        // payment, so a same-amount row a day apart is a different payment (₹2 lounge vs ₹2 card check, Tata Neu).
         if (!afterOverlap.isEmpty() && statementCoverage != null && periodStart != null && periodEnd != null) {
             List<Transaction> otherRows = new ArrayList<>();
             otherStatementRows.values().forEach(otherRows::addAll);
@@ -360,7 +361,7 @@ public class StatementBatchMatcher {
                     List<Line> gl = g.getValue();
                     List<Transaction> gc = rowsByAmount.getOrDefault(g.getKey(), List.of());
                     if (gc.isEmpty()) continue;
-                    Map<Integer, Integer> pairs = pair(accountId, gl, gc, w, fw, (l, t) -> {
+                    Map<Integer, Integer> pairs = pair(accountId, gl, gc, 0, fw, (l, t) -> {
                         Set<UUID> sts = statementsByTxn.get(t.getId());
                         if (sts == null || sts.isEmpty()) return false;
                         for (UUID sid : sts) {
