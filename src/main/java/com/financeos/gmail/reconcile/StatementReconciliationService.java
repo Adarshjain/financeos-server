@@ -23,6 +23,8 @@ import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
+import com.financeos.core.observability.Events;
+import net.logstash.logback.argument.StructuredArguments;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -228,6 +230,26 @@ public class StatementReconciliationService {
                 ? statementAccountNumber.substring(statementAccountNumber.length() - 4) : statementAccountNumber;
 
         if (resolvedAccount == null) {
+            // The number read matches nothing: the statement's own text may still name exactly one account of the sender's bank.
+            resolvedAccount = resolveByEvidenceInText(connection.getUser().getId(), message, result.summaryText());
+        }
+
+        if (resolvedAccount == null) {
+            Account usual = usualAccountOfSender(connection.getUser().getId(), message);
+            if (usual != null && statementAccountNumber != null) {
+                // Statements from this sender always went to one account: a number that fits none is more likely misread than new.
+                String sentence = "This statement's account number (••" + statementLast4 + ") doesn't match " + usual.getName()
+                        + ", where statements from this sender usually go. It may have been misread.";
+                log.warn("statement-number-drift: messageId={}, read=••{}, usualAccount={}", message.messageId(), statementLast4, usual.getId(),
+                        StructuredArguments.keyValue("event", Events.STATEMENT_NUMBER_DRIFT),
+                        StructuredArguments.keyValue("gmailMessageId", message.messageId()),
+                        StructuredArguments.keyValue("last4Read", statementLast4),
+                        StructuredArguments.keyValue("usualAccountId", usual.getId()),
+                        StructuredArguments.keyValue("userId", connection.getUser().getId()));
+                recordLedger(connection, message.messageId(), null, GmailProcessedStatus.UNRESOLVED_ACCOUNT, statementLast4, sentence);
+                return new ReconSummary(0, 0, 1, List.of(), GmailProcessedStatus.UNRESOLVED_ACCOUNT, sentence,
+                        chosenAttachment.filename(), statementLast4, false);
+            }
             log.error("Could not resolve account for statement (accountNumber: {}). Ingestion failed.", statementAccountNumber);
             recordLedger(connection, message.messageId(), null, GmailProcessedStatus.UNRESOLVED_ACCOUNT, statementLast4,
                     "Failed to resolve account for statement accountNumber: " + statementAccountNumber);
@@ -325,6 +347,80 @@ public class StatementReconciliationService {
             eventPublisher.publishEvent(com.financeos.domain.transaction.autolink.TransactionsIngestedEvent.of(connection.getUser().getId(), createdTxns));
         }
         return new ReconSummary(createdCount, matchedCount, 0, createdTxns);
+    }
+
+    /** Statement mails from one sender must have reconciled to one account, this many times, before a stray number counts as drift. */
+    static final int DRIFT_MIN_PRIOR_STATEMENTS = 2;
+
+    /**
+     * The one account all of this user's earlier reconciled statements from this mail's sender went to (at least
+     * {@link #DRIFT_MIN_PRIOR_STATEMENTS} of them); null when there is no such history or the sender served several accounts.
+     */
+    private Account usualAccountOfSender(UUID userId, GmailMessage message) {
+        String sender = senderAddress(message.from());
+        if (sender.isEmpty() || userId == null) {
+            return null;
+        }
+        List<GmailProcessedMessageRepository.SenderAccountCount> prior =
+                processedMessageRepository.countReconciledStatementsBySender(userId, sender, message.messageId());
+        if (prior == null || prior.size() != 1 || prior.get(0).getTotal() < DRIFT_MIN_PRIOR_STATEMENTS) {
+            return null;
+        }
+        return accountRepository.findByIdAndUser_Id(prior.get(0).getAccountId(), userId).orElse(null);
+    }
+
+    private static String senderAddress(String from) {
+        if (from == null) {
+            return "";
+        }
+        int open = from.indexOf('<');
+        int close = from.indexOf('>');
+        String address = open != -1 && close > open ? from.substring(open + 1, close) : from;
+        return address.trim().toLowerCase(Locale.ROOT);
+    }
+
+    /**
+     * The user's saved evidence of one account at the sender's bank found in the statement's own text: that account's
+     * own full number, i.e. a saved all-digit identifier of 6+ digits whose last 4 equal the account's own last 4 (customer
+     * IDs and other identifiers are printed on every statement at the bank and never count). Exactly one account hit wins; none or
+     * several, or no known bank, leave it unresolved. Never a guess from the bank having a single account.
+     */
+    private Account resolveByEvidenceInText(UUID userId, GmailMessage message, String text) {
+        if (text == null || text.isBlank() || identifierRepository == null || userId == null) {
+            return null;
+        }
+        String bank = com.financeos.gmail.classify.BankSenderDomains.current().bankIdFor(message.from());
+        if (bank == null) {
+            return null;
+        }
+        Map<UUID, Account> atBank = new LinkedHashMap<>();
+        for (Account a : accountRepository.findByUserId(userId)) {
+            if (bank.equals(a.getBank())) {
+                atBank.put(a.getId(), a);
+            }
+        }
+        if (atBank.isEmpty()) {
+            return null;
+        }
+        Set<UUID> hits = new LinkedHashSet<>();
+        for (com.financeos.domain.account.AccountIdentifier id : identifierRepository.findByUserId(userId)) {
+            if (id.getAccount() == null || !atBank.containsKey(id.getAccount().getId()) || id.getValue() == null) {
+                continue;
+            }
+            String digits = id.getValue().replaceAll("[\\s-]", "");
+            String own = com.financeos.domain.account.AccountService.ownLast4(atBank.get(id.getAccount().getId()));
+            if (digits.length() >= 6 && digits.chars().allMatch(Character::isDigit)
+                    && own != null && digits.endsWith(own)
+                    && java.util.regex.Pattern.compile("(?<![\\d.,])" + java.util.regex.Pattern.quote(digits) + "(?!\\d|[.,]\\d)").matcher(text).find()) {
+                hits.add(id.getAccount().getId());
+            }
+        }
+        if (hits.size() != 1) {
+            return null;
+        }
+        Account found = atBank.get(hits.iterator().next());
+        log.info("gmail.statement.evidence_resolve account={} bank={}", found.getId(), bank);
+        return found;
     }
 
     private ChosenAttachment pickStatementAttachment(GmailConnection connection, GmailMessage message) {

@@ -26,6 +26,19 @@ public interface GmailProcessedMessageRepository extends JpaRepository<GmailProc
     @Query("SELECT DISTINCT g.transaction.id FROM GmailProcessedMessage g WHERE g.transaction.id IN :transactionIds")
     List<UUID> findTransactionIdsIn(@Param("transactionIds") Collection<UUID> transactionIds);
 
+    /** One account and how many statement mails from a sender reconciled to it. */
+    interface SenderAccountCount {
+        UUID getAccountId();
+        long getTotal();
+    }
+
+    /** The accounts this user's reconciled statement mails from one sender (lowercase address) went to, other than the given mail. */
+    @Query("SELECT g.account.id AS accountId, COUNT(g) AS total FROM GmailProcessedMessage g WHERE g.user.id = :userId "
+            + "AND g.senderAddress = :sender AND g.status = com.financeos.gmail.domain.GmailProcessedStatus.RECONCILED "
+            + "AND g.pipelineKind = 'STATEMENT' AND g.account IS NOT NULL AND g.gmailMessageId <> :messageId GROUP BY g.account.id")
+    List<SenderAccountCount> countReconciledStatementsBySender(@Param("userId") UUID userId, @Param("sender") String sender,
+                                                               @Param("messageId") String messageId);
+
     /** An alert mail that points at a transaction: who sent it and when (alert matching). */
     interface AlertMail {
         UUID getTransactionId();

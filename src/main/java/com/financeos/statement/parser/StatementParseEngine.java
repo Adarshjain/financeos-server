@@ -45,13 +45,7 @@ public final class StatementParseEngine {
         CollectedRows cr = RowCollector.collect(lines, dbg);
         StatementMeta meta = MetadataExtractor.extract(cr.metaZone(), cr.dateFmt());
         if (meta.accountNumber == null) {
-            for (Line ln : lines) {
-                Matcher m = Tokens.ACCOUNT_LABEL.matcher(ln.text());
-                if (m.find()) {
-                    meta.accountNumber = m.group(1);
-                    break;
-                }
-            }
+            meta.accountNumber = Tokens.bestAccountNumber(lines);
         }
         fillDocumentFacts(meta, lines);
         return new StatementIdentity(meta.issuerId, meta.bank, meta.accountNumber);
@@ -75,13 +69,7 @@ public final class StatementParseEngine {
 
         StatementMeta meta = MetadataExtractor.extract(cr.metaZone(), cr.dateFmt());
         if (meta.accountNumber == null) {
-            for (Line ln : lines) {
-                Matcher m = Tokens.ACCOUNT_LABEL.matcher(ln.text());
-                if (m.find()) {
-                    meta.accountNumber = m.group(1);
-                    break;
-                }
-            }
+            meta.accountNumber = Tokens.bestAccountNumber(lines);
         }
 
         TxnBuild tb = TransactionBuilder.build(cr.rows(), cr.dateFmt(), cr.dateFmt2(),

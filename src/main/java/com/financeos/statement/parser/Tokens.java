@@ -33,10 +33,55 @@ final class Tokens {
         HEADER_KEYWORDS = Collections.unmodifiableMap(m);
     }
 
+    /**
+     * "Account No: 123..." and its forms. The label is a whole word ("ACCOUNTS", "CARDS", "Mastercard" are not labels;
+     * "AccountNo"/"Account-No" are), and the number must not run on into a decimal or digit group: "ACCOUNTS 314842.12"
+     * is a balance, never an account number.
+     */
     static final Pattern ACCOUNT_LABEL = Pattern.compile(
-            "(?:account|a/c|a\\.c\\.|acct|card)[\\w\\-/]*\\s*(?:no|number|#)?\\.?\\s*[:.\\-]?\\s*"
-                    + "([0-9Xx*](?:[0-9Xx*\\-]{4,22})[0-9Xx*])",
+            "(?<![A-Za-z])(?:account|a/c|a\\.c\\.|acct|card)(?:no|number|num)?(?![A-Za-z])[\\-/_]*\\s*(?:no|number|num|#)?\\.?\\s*[:.\\-]?\\s*"
+                    + "([0-9Xx*](?:[0-9Xx*\\-]{4,22})[0-9Xx*])(?!\\d|[.,]\\d)",
             Pattern.CASE_INSENSITIVE);
+    private static final Pattern EXPLICIT_NUMBER_LABEL = Pattern.compile("(?i)(?:no|number|num|#|:)");
+
+    /** An account number read after a label; labelled = the label says "no/number/#/:" (not just the word "account"). */
+    record AccountCandidate(String number, boolean labelled) {
+    }
+
+    /** The best label candidate on one line: the first with an explicit number label, else the first; null when none. */
+    static AccountCandidate accountCandidate(String text) {
+        AccountCandidate first = null;
+        Matcher m = ACCOUNT_LABEL.matcher(text);
+        while (m.find()) {
+            String lead = text.substring(m.start(), m.start(1));
+            AccountCandidate c = new AccountCandidate(m.group(1), EXPLICIT_NUMBER_LABEL.matcher(lead).find());
+            if (c.labelled()) {
+                return c;
+            }
+            if (first == null) {
+                first = c;
+            }
+        }
+        return first;
+    }
+
+    /** Over lines: the first explicitly labelled number, else the first bare-label one; null when none. */
+    static String bestAccountNumber(List<Line> lines) {
+        String bare = null;
+        for (Line ln : lines) {
+            AccountCandidate c = accountCandidate(ln.text());
+            if (c == null) {
+                continue;
+            }
+            if (c.labelled()) {
+                return c.number();
+            }
+            if (bare == null) {
+                bare = c.number();
+            }
+        }
+        return bare;
+    }
     static final Pattern IFSC = Pattern.compile("\\b([A-Z]{4}0[A-Z0-9]{6})\\b");
     static final Pattern BANK_BRAND = Pattern.compile(
             "\\b(bank|hsbc|citi|amex|american express|barclays)\\b", Pattern.CASE_INSENSITIVE);

@@ -25,6 +25,8 @@ final class MetadataExtractor {
         String bankFallback = null;
         LocalDate[] bareRange = null;
         LocalDate statementDate = null;
+        boolean numberFromLabel = false;
+        boolean numberLabelled = false;
 
         for (int i = 0; i < preTable.size(); i++) {
             Line ln = preTable.get(i);
@@ -39,9 +41,12 @@ final class MetadataExtractor {
                     bankFallback = text.strip();
                 }
             }
-            Matcher am = Tokens.ACCOUNT_LABEL.matcher(text);
-            if (am.find() && meta.accountNumber == null) {
-                meta.accountNumber = am.group(1);
+            Tokens.AccountCandidate ac = Tokens.accountCandidate(text);
+            if (ac != null && (meta.accountNumber == null
+                    || (numberFromLabel && !numberLabelled && ac.labelled()))) {
+                meta.accountNumber = ac.number(); // best match: an explicitly labelled number beats a bare "account" mention
+                numberFromLabel = true;
+                numberLabelled = ac.labelled();
             }
             if (meta.accountNumber == null) {
                 Matcher cm = Tokens.CARD_MASK.matcher(text);

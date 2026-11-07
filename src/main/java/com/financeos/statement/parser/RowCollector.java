@@ -390,11 +390,13 @@ final class RowCollector {
 
         // Seed currentCardLast4 from statement header (document-stated number)
         String currentCardLast4 = null;
+        // Line by line, as before: the first header line with a usable number wins. The label match is the
+        // whole-word, money-aware one, so a summary line such as "SAVINGS ACCOUNTS 314842.12" no longer counts.
         for (int i = 0; i < first; i++) {
             String text = lines.get(i).text();
-            java.util.regex.Matcher am = Tokens.ACCOUNT_LABEL.matcher(text);
-            if (am.find()) {
-                String last4 = extractTrailingLast4(am.group(1));
+            Tokens.AccountCandidate labelled = Tokens.accountCandidate(text);
+            if (labelled != null) {
+                String last4 = extractTrailingLast4(labelled.number());
                 if (last4 != null) {
                     currentCardLast4 = last4;
                     break;
