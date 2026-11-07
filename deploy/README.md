@@ -113,53 +113,43 @@ sudo systemctl restart financeos
 ## Two-VM layout
 
 Same JAR on both VMs; `APP_ROLE` in each `.env` picks the role: `api` (no schedulers, no job worker),
-`worker` (everything), `all` (single-VM default). Caddy on the API VM fronts both.
+`worker` (everything), `all` (single-VM default). Caddy on the API VM fronts the API only; the worker takes no
+web traffic. Both talk only to the database; the API hands work over through the job queue and
+`autolink_requests`. A VM1 restart is still ~2 min of API downtime (no failover, by owner choice 2026-11-07).
 
 | VM | Role | Address | Notes |
 |---|---|---|---|
 | API (`129.159.22.124`) | `api` | Spring `127.0.0.1:8080`, mgmt `127.0.0.1:8081` | Caddy, TLS, cgroup v1 |
-| `financeos-worker` (`152.70.68.140`, private `10.0.0.134`) | `worker` | Spring + mgmt on `0.0.0.0`, iptables admits only `10.0.0.0/24` on 8080/8081 | Ubuntu 24.04, cgroup v2, Hikari pool 6 |
+| `financeos-worker` (`152.70.68.140`) | `worker` | Spring + mgmt on `127.0.0.1` | Ubuntu 24.04, cgroup v2, Hikari pool 6 |
 
 ### First rollout, in order (once)
 
 The first switch must not go worker-first through CI: until VM1 restarts it runs the old role=all process, so both
 VMs would run schedulers and the worker's startup sweep would mark VM1's in-flight jobs interrupted.
 
-1. OCI security list: ingress TCP 8080-8081 from `10.0.0.0/24` (inside the subnet).
-2. `ssh -i ~/.ssh/oracle-oci ubuntu@152.70.68.140 'bash -s' < deploy/setup-worker-vm.sh` (done 2026-11-07).
-3. Push to `main` with `WORKER_HOST` still unset: CI deploys VM1 only; `APP_ROLE` is unset there, so it runs as `all`.
-4. `deploy/copy-worker-secrets.sh` (streams `.env`, `wallet/`, Fluent Bit credentials, CI deploy key VM1 -> VM2; sets
-   `APP_ROLE=worker` + 0.0.0.0 binds + pool 6 on VM2 and `APP_ROLE=api` on VM1, backing up VM1's `.env`; installs the
-   new `fluent-bit.conf` (host label) on both and restarts Fluent Bit). VM1 keeps running as `all` until step 6.
-5. `scp -i ~/.ssh/oracle-oci deploy/Caddyfile ubuntu@129.159.22.124:/tmp/Caddyfile.new` then
-   `ssh -i ~/.ssh/oracle-oci ubuntu@129.159.22.124 'bash -s' < deploy/update-caddy.sh` (backup, `caddy validate`, reload).
-   The worker is still down, so its health check fails and all traffic stays on VM1.
-6. `deploy/first-cutover.sh`: copies VM1's JAR to VM2, pauses + drains VM1's jobs, starts the worker, then restarts
-   VM1 as `api` (Caddy serves from the worker during VM1's boot). On a worker failure it stops VM2 and resumes VM1.
-7. GitHub secret `WORKER_HOST` = `152.70.68.140` (`DEPLOY_USER`/`DEPLOY_SSH_KEY` are reused). From now on CI ships
+1. `ssh -i ~/.ssh/oracle-oci ubuntu@152.70.68.140 'bash -s' < deploy/setup-worker-vm.sh` (done 2026-11-07).
+2. Push to `main` with `WORKER_HOST` still unset: CI deploys VM1 only; `APP_ROLE` is unset there, so it runs as `all`.
+3. `deploy/copy-worker-secrets.sh` (streams `.env`, `wallet/`, Fluent Bit credentials, CI deploy key VM1 -> VM2; sets
+   `APP_ROLE=worker` + loopback binds + pool 6 on VM2 and `APP_ROLE=api` on VM1, backing up VM1's `.env`; installs
+   the new `fluent-bit.conf` (host label) on both and restarts Fluent Bit). VM1 keeps running as `all` until step 4,
+   so run step 4 right after (a CI deploy in between would restart VM1 as `api` with no worker).
+4. `deploy/first-cutover.sh`: copies VM1's JAR to VM2, pauses + drains VM1's jobs, starts the worker, then restarts
+   VM1 as `api` (~2 min API downtime). On a worker failure it stops VM2 and resumes VM1.
+5. GitHub secret `WORKER_HOST` = `152.70.68.140` (`DEPLOY_USER`/`DEPLOY_SSH_KEY` are reused). From now on CI ships
    the worker first (drain, swap, health on `localhost:8081`); if it is not healthy the run stops and the API is
    untouched. Then the API VM, same steps.
-8. Only after both VMs run the new JAR (the `role` label exists only there, so "API down" would fire before it):
+6. Only after both VMs run the new JAR (the `role` label exists only there, so "API down" would fire before it):
    `GRAFANA_URL=... GRAFANA_SA_TOKEN=... SLACK_WEBHOOK_URL=... deploy/grafana/push-grafana-config.sh`
    (new alerts: API down, Worker down, GC pause long, Job backlog; Host memory low and Heap high are per host/role).
 
 Known gaps: an auto-link request is deleted before it runs, so a worker crash mid-run leaves it to the nightly pass;
 user-triggered price-history backfill, history rematch and the NPS catalog bootstrap still run on the API node.
 
-### Failover
-
-`lb_policy first`: all traffic goes to the API VM while its `:8081/actuator/health` passes (checked every 5 s). When the
-API VM restarts, requests that cannot connect are retried onto the worker for up to 10 s, and a failed upstream is
-skipped for 30 s (passive) or until the active check passes. The worker serves HTTP too, so users stay up;
-it also runs the schedulers and jobs, so nothing is lost while the API is down. If both are down Caddy returns 502.
-
 ### Roll back to a single VM
 
 1. Stop the worker first so schedulers never run twice: `ssh ubuntu@152.70.68.140 'sudo systemctl disable --now financeos'`;
    clear the `WORKER_HOST` secret so CI deploys the API VM only.
 2. API VM: set `APP_ROLE=all` in `.env` (or delete the line), `sudo systemctl restart financeos`.
-3. Restore the old Caddyfile: `sudo cp /etc/caddy/Caddyfile.bak-<timestamp> /etc/caddy/Caddyfile && sudo systemctl reload caddy`
-   (or `git show <old-commit>:deploy/Caddyfile`, then `update-caddy.sh`).
 
 ## Failed items: find, fix, retry
 

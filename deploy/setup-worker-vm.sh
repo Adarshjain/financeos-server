@@ -8,7 +8,6 @@
 set -euo pipefail
 
 APP=/home/ubuntu/financeos-server
-SUBNET=10.0.0.0/24
 export DEBIAN_FRONTEND=noninteractive
 
 echo "== 1. Packages (Java 21 headless, curl, gnupg) =="
@@ -104,17 +103,7 @@ for u in rpcbind.service rpcbind.socket; do
   sudo systemctl mask "$u" >/dev/null 2>&1 || true
 done
 
-echo "== 8. Firewall: tcp 8080,8081 from $SUBNET, before the REJECT =="
-sudo apt-get install -y iptables-persistent netfilter-persistent
-RULE=(-p tcp -m multiport --dports "8080,8081" -s "$SUBNET" -j ACCEPT)
-if ! sudo iptables -C INPUT "${RULE[@]}" 2>/dev/null; then
-  pos=$(sudo iptables -L INPUT -n --line-numbers | awk '$2=="REJECT" {print $1; exit}')
-  if [ -n "$pos" ]; then sudo iptables -I INPUT "$pos" "${RULE[@]}"; else sudo iptables -A INPUT "${RULE[@]}"; fi
-fi
-sudo netfilter-persistent save
-sudo iptables -L INPUT -n --line-numbers
-
-echo "== 9. Fluent Bit (installed + enabled, not started; config and credentials come from copy-worker-secrets.sh) =="
+echo "== 8. Fluent Bit (installed + enabled, not started; config and credentials come from copy-worker-secrets.sh) =="
 if ! command -v fluent-bit >/dev/null 2>&1 && [ ! -x /opt/fluent-bit/bin/fluent-bit ]; then
   curl -fsSL https://packages.fluentbit.io/fluentbit.key | gpg --dearmor | sudo tee /usr/share/keyrings/fluentbit-keyring.gpg >/dev/null
   # Minimal images have no lsb_release; read the codename from os-release (noble on 24.04).

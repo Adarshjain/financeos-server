@@ -137,7 +137,7 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
 
       # Worker VM first, then the API VM. A worker that fails its health check stops the run before the API is
-      # touched (the API keeps serving, and Caddy has the worker as failover only while it is healthy).
+      # touched (the API keeps serving on the previous JAR).
       # WORKER_HOST unset = single-VM deploy exactly as before.
       - name: Check for worker host
         id: worker
