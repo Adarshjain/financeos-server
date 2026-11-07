@@ -301,6 +301,9 @@ class CardholderServiceTest {
 
         Cardholder existingPrimary = new Cardholder();
         existingPrimary.setRole(CardholderRole.PRIMARY);
+        Card active = new Card();
+        active.setLast4("1111");
+        existingPrimary.setCards(new java.util.ArrayList<>(List.of(active)));
 
         when(accountRepository.findById(bankAccount.getId())).thenReturn(Optional.of(bankAccount));
         when(cardholderRepository.findByAccountId(bankAccount.getId())).thenReturn(List.of(existingPrimary));
@@ -309,6 +312,38 @@ class CardholderServiceTest {
         assertThatThrownBy(() -> service.addPrimaryWithCard(bankAccount.getId(), req))
                 .isInstanceOf(ValidationException.class)
                 .hasMessage("This account already has a primary cardholder. Issue a card to it instead.");
+    }
+
+    @Test
+    void addPrimaryWithCard_addsTheCardToAPrimaryWithoutAnOpenCard_insteadOfRefusing() {
+        Account bankAccount = new Account("ICICI Savings", AccountType.bank_account);
+        bankAccount.setId(UUID.randomUUID());
+        bankAccount.setUser(user);
+
+        // a primary holder a past card created: it holds only a closed card
+        Cardholder existingPrimary = new Cardholder();
+        existingPrimary.setId(UUID.randomUUID());
+        existingPrimary.setRole(CardholderRole.PRIMARY);
+        existingPrimary.setUser(user);
+        existingPrimary.setAccount(bankAccount);
+        Card past = new Card();
+        past.setLast4("3003");
+        past.setCardholder(existingPrimary);
+        past.setClosedOn(LocalDate.of(2025, 4, 30));
+        existingPrimary.setCards(new java.util.ArrayList<>(List.of(past)));
+
+        when(accountRepository.findById(bankAccount.getId())).thenReturn(Optional.of(bankAccount));
+        when(cardholderRepository.findByAccountId(bankAccount.getId())).thenReturn(List.of(existingPrimary));
+        when(cardRepository.findOpenByAccountIdAndLast4(bankAccount.getId(), "9876")).thenReturn(Optional.empty());
+        when(userRepository.getReferenceById(userId)).thenReturn(user);
+
+        CardholderResponse response = service.addPrimaryWithCard(bankAccount.getId(), new CreateCardRequest("9876", LocalDate.of(2026, 3, 1)));
+
+        assertThat(response.id()).isEqualTo(existingPrimary.getId());
+        assertThat(response.currentLast4()).isEqualTo("9876");
+        assertThat(response.cards()).hasSize(2);
+        verify(cardholderRepository, org.mockito.Mockito.never()).save(any(Cardholder.class));
+        verify(eventPublisher).publishEvent(any(com.financeos.gmail.ingest.event.AccountIngestChangedEvent.class));
     }
 
     @Test

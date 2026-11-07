@@ -89,7 +89,7 @@ class StatementReconciliationNotOptedInTest {
         when(statementParser.parse(any(), any())).thenReturn(StatementExtractionResult.success(List.of(
                 new ParsedStatementLine(LocalDate.of(2026, 5, 3), new BigDecimal("-10.00"), "DEBIT", "x", null, null)),
                 "XXXX1234", LocalDate.of(2026, 5, 1), LocalDate.of(2026, 5, 31), null));
-        when(accountResolver.resolve("XXXX1234")).thenReturn(Optional.of(new AccountResolver.ResolvedCard(account, null)));
+        when(accountResolver.resolve(eq("XXXX1234"), any(), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(account, null)));
     }
 
     private void undecryptable() throws Exception {

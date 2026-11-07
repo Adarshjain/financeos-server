@@ -66,6 +66,10 @@ public class GmailController {
     /** Background account detection: its stored facts go on disconnect (null in unit tests). */
     private final com.financeos.gmail.accountdetect.job.AccountDetectTriggers accountDetectTriggers;
 
+    /** Saves an email's number as an old card; field-injected so the hand-built constructors stay as they are. */
+    @org.springframework.beans.factory.annotation.Autowired
+    private com.financeos.domain.account.card.PastCardService pastCardService;
+
     @Value("${app.ui-path:http://localhost:3001}")
     private String uiPath;
 
@@ -399,6 +403,12 @@ public class GmailController {
 
         if (!targetAccount.getUser().getId().equals(currentUser.getId())) {
             throw new ValidationException("You do not have permission to access this account.");
+        }
+
+        if (request.pastCard() != null) {
+            com.financeos.domain.account.card.PastCardService.Result card = pastCardService.addForNumber(
+                    currentUser, targetAccount, gpm.getExtractedLast4(), request.pastCard(), null);
+            return ResponseEntity.ok(new AssignAttentionResponse(null, card.reactivatedCount(), card.jobIds(), card.card().getId()));
         }
 
         AccountIdentifierService.CreationResult result = accountIdentifierService.createOrUpdateIdentifier(

@@ -29,6 +29,9 @@ public class AccountController {
     private final AuthService authService;
     private final AccountIdentifierService accountIdentifierService;
     private final AccountCoverageService coverageService;
+    /** Turns an identifier into an old card; field-injected so the hand-built constructor stays as it is. */
+    @org.springframework.beans.factory.annotation.Autowired
+    private com.financeos.domain.account.card.PastCardService pastCardService;
 
     public AccountController(AccountService accountService,
                              AccountRepository accountRepository,
@@ -163,5 +166,22 @@ public class AccountController {
         }
         accountIdentifierService.deleteIdentifier(currentUser.getId(), id, identifierId);
         return ResponseEntity.noContent().build();
+    }
+
+    /** The identifier becomes an old (closed) card of this account in one step; parked mail naming it is settled. */
+    @PostMapping("/{id}/identifiers/{identifierId}/to-past-card")
+    public ResponseEntity<PastCardResponse> identifierToPastCard(
+            @PathVariable UUID id,
+            @PathVariable UUID identifierId,
+            @Valid @RequestBody PastCardRequest request) {
+        User currentUser = authService.getCurrentUser();
+        Account account = accountRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Account", id));
+        if (!account.getUser().getId().equals(currentUser.getId())) {
+            throw new ValidationException("You do not have permission to access this account.");
+        }
+        com.financeos.domain.account.card.PastCardService.Result result =
+                pastCardService.convertIdentifier(currentUser, account, identifierId, request);
+        return ResponseEntity.ok(new PastCardResponse(result.card().getId(), result.reactivatedCount(), result.jobIds()));
     }
 }

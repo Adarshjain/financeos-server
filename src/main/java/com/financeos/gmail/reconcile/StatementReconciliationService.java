@@ -207,7 +207,8 @@ public class StatementReconciliationService {
         String statementAccountNumber = result.accountNumber();
 
         // Resolve by statement's account number using exactly-one rule (via AccountResolver)
-        com.financeos.gmail.ingest.AccountResolver.ResolvedCard last4Resolved = accountResolver.resolve(statementAccountNumber).orElse(null);
+        com.financeos.gmail.ingest.AccountResolver.ResolvedCard last4Resolved = accountResolver.resolve(statementAccountNumber,
+                List.of(Objects.toString(message.subject(), ""), Objects.toString(message.getStrippedText(), "")), message.from()).orElse(null);
         Account last4ResolvedAccount = last4Resolved != null ? last4Resolved.account() : null;
 
         if (candidateAccount != null) {
@@ -517,8 +518,10 @@ public class StatementReconciliationService {
     private ReconSummary skipWithoutOpening(GmailConnection connection, GmailMessage message, StatementAccountGuess.Guess guess, String filename) {
         Account account = guess.account();
         java.time.Instant sent = message.internalDate();
-        // A skipped row must stay reactivatable by last4 (an ingest date moved back, an opt-in): no digits, no skip.
-        if (sent == null || guess.last4() == null) {
+        // A skipped row must stay reactivatable by last4 (an ingest date moved back, an opt-in): the guess's digits, else the
+        // account's own last4 (what AccountIngestChangedEvent carries). With neither, no skip.
+        String last4 = guess.last4() != null ? guess.last4() : com.financeos.domain.account.AccountService.ownLast4(account);
+        if (sent == null || last4 == null) {
             return null;
         }
         LocalDate sentDate = sent.atZone(com.financeos.core.time.AppTime.zone()).toLocalDate();
@@ -528,13 +531,13 @@ public class StatementReconciliationService {
                 || sent.isBefore(parkedMessageSettler.windowStart(account.getIngestFromDate()))) {
             log.info("Locked statement {} for account {} is outside its ingest window; skipped without opening (matched by {})",
                     message.messageId(), account.getId(), guess.corroboration());
-            recordLedger(connection, message.messageId(), account, GmailProcessedStatus.SKIPPED_BEFORE_WATERMARK, guess.last4(), null);
-            return new ReconSummary(0, 0, 0, List.of(), null, null, filename, guess.last4(), false);
+            recordLedger(connection, message.messageId(), account, GmailProcessedStatus.SKIPPED_BEFORE_WATERMARK, last4, null);
+            return new ReconSummary(0, 0, 0, List.of(), null, null, filename, last4, false);
         }
         if (statementCoverage != null && alreadyCovered(account, message, sentDate)) {
             log.info("Locked statement {} for account {} is already covered by a statement; skipped without opening", message.messageId(), account.getId());
-            recordLedger(connection, message.messageId(), account, GmailProcessedStatus.SKIPPED_DUPLICATE, guess.last4(), null);
-            return new ReconSummary(0, 0, 0, List.of(), null, null, filename, guess.last4(), false);
+            recordLedger(connection, message.messageId(), account, GmailProcessedStatus.SKIPPED_DUPLICATE, last4, null);
+            return new ReconSummary(0, 0, 0, List.of(), null, null, filename, last4, false);
         }
         return null;
     }
@@ -556,7 +559,10 @@ public class StatementReconciliationService {
         if (named.isPresent()) {
             return StatementAccountGuess.covers(periods, named.get()) && StatementAccountGuess.covers(periods, before);
         }
-        return StatementAccountGuess.covers(periods, before) && StatementAccountGuess.covers(periods, sentDate, sentDate);
+        // A statement mail goes out as the cycle closes: a held statement ending within a day of the sent date is this one,
+        // even when a cycle change left days of the month before outside any period.
+        boolean endsNearSent = periods.stream().anyMatch(p -> !p.end().isBefore(sentDate.minusDays(1)) && !p.end().isAfter(sentDate.plusDays(1)));
+        return endsNearSent || (StatementAccountGuess.covers(periods, before) && StatementAccountGuess.covers(periods, sentDate, sentDate));
     }
 
     /**

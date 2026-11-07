@@ -1354,6 +1354,43 @@ paths:
           description: Error response
       tags:
       - account-controller
+  /api/v1/accounts/{id}/identifiers/{identifierId}/to-past-card:
+    post:
+      operationId: identifierToPastCard
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: path
+        name: identifierId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PastCardRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PastCardResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - account-controller
   /api/v1/accounts/{id}/payments-from:
     get:
       operationId: getPaymentsFrom
@@ -3891,6 +3928,49 @@ paths:
           description: Error response
       tags:
       - gmail-attention-groups-controller
+  /api/v1/gmail/attention/numbers/emails:
+    get:
+      operationId: numberEmails
+      parameters:
+      - in: query
+        name: bank
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: last4
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 10
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageNumberGroupEmailResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - gmail-attention-groups-controller
   /api/v1/gmail/attention/numbers/ignore:
     post:
       operationId: ignore
@@ -4213,6 +4293,31 @@ paths:
           description: Error response
       tags:
       - gmail-controller
+  /api/v1/gmail/messages/{ledgerId}/content:
+    get:
+      operationId: getGmailMessageContent
+      parameters:
+      - in: path
+        name: ledgerId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/GmailMessageContentResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - gmail-message-content-controller
   /api/v1/gmail/oauth/callback:
     get:
       operationId: handleCallback
@@ -11974,14 +12079,23 @@ components:
           - OTHER
           nullable: true
           x-nullable: true
+        pastCard:
+          $ref: "#/components/schemas/PastCardRequest"
       required:
       - accountId
     AssignAttentionResponse:
       type: object
       properties:
+        cardId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
         identifierId:
           type: string
           format: uuid
+          nullable: true
+          x-nullable: true
         jobIds:
           type: array
           items:
@@ -11991,7 +12105,6 @@ components:
           type: integer
           format: int32
       required:
-      - identifierId
       - jobIds
       - reactivatedCount
     AssignHeldUploadRequest:
@@ -12031,15 +12144,24 @@ components:
           type: string
           pattern: "^[0-9]{4}$"
           x-required: true
+        pastCard:
+          $ref: "#/components/schemas/PastCardRequest"
       required:
       - accountId
       - last4
     AssignNumberGroupResponse:
       type: object
       properties:
+        cardId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
         identifierId:
           type: string
           format: uuid
+          nullable: true
+          x-nullable: true
         jobIds:
           type: array
           items:
@@ -12055,7 +12177,6 @@ components:
           type: integer
           format: int32
       required:
-      - identifierId
       - jobIds
       - reactivatedCount
       - remainingCount
@@ -14356,6 +14477,9 @@ components:
     CreateCardholderRequest:
       type: object
       properties:
+        closedOn:
+          type: string
+          format: date
         fromSuggestionId:
           type: string
           format: uuid
@@ -17474,6 +17598,54 @@ components:
       required:
       - monthsDone
       - monthsTotal
+    GmailMessageContentAttachment:
+      type: object
+      properties:
+        filename:
+          type: string
+        mimeType:
+          type: string
+        size:
+          type: integer
+          format: int64
+      required:
+      - filename
+      - mimeType
+      - size
+    GmailMessageContentResponse:
+      type: object
+      properties:
+        attachments:
+          type: array
+          items:
+            $ref: "#/components/schemas/GmailMessageContentAttachment"
+        date:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
+        from:
+          type: string
+        html:
+          type: string
+          nullable: true
+          x-nullable: true
+        subject:
+          type: string
+        text:
+          type: string
+          nullable: true
+          x-nullable: true
+        to:
+          type: string
+        tooLarge:
+          type: boolean
+      required:
+      - attachments
+      - from
+      - subject
+      - to
+      - tooLarge
     GmailSenderRequest:
       type: object
       properties:
@@ -21513,6 +21685,24 @@ components:
       - employer
       - self
       - tier
+    NumberGroupEmailResponse:
+      type: object
+      properties:
+        amount:
+          type: number
+          nullable: true
+          x-nullable: true
+        direction:
+          type: string
+          nullable: true
+          x-nullable: true
+        item:
+          $ref: "#/components/schemas/GmailAttentionItemResponse"
+        kind:
+          type: string
+      required:
+      - item
+      - kind
     NumberGroupRequest:
       type: object
       properties:
@@ -22422,6 +22612,52 @@ components:
       - sort
       - totalElements
       - totalPages
+    PageNumberGroupEmailResponse:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/NumberGroupEmailResponse"
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        size:
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            $ref: "#/components/schemas/SortObject"
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+      required:
+      - content
+      - empty
+      - first
+      - last
+      - number
+      - numberOfElements
+      - pageable
+      - size
+      - sort
+      - totalElements
+      - totalPages
     PageRewardLineResponse:
       type: object
       properties:
@@ -22862,6 +23098,43 @@ components:
           type: boolean
       required:
       - password
+    PastCardRequest:
+      type: object
+      properties:
+        cardholderId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        closedOn:
+          type: string
+          format: date
+          x-required: true
+        issuedOn:
+          type: string
+          format: date
+          x-required: true
+      required:
+      - closedOn
+      - issuedOn
+    PastCardResponse:
+      type: object
+      properties:
+        cardId:
+          type: string
+          format: uuid
+        jobIds:
+          type: array
+          items:
+            type: string
+            format: uuid
+        reactivatedCount:
+          type: integer
+          format: int32
+      required:
+      - cardId
+      - jobIds
+      - reactivatedCount
     PaymentInfo:
       type: object
       properties:

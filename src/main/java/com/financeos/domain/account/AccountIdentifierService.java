@@ -83,6 +83,20 @@ public class AccountIdentifierService {
             identifier = accountIdentifierRepository.save(identifier);
         }
 
+        Reactivation r = reactivateParked(user, account, normalized, groupBank);
+        return new CreationResult(identifier, r.reactivatedCount(), r.jobIds());
+    }
+
+    public record Reactivation(int reactivatedCount, List<UUID> jobIds) {}
+
+    /**
+     * Parked mail naming this number: inside the account's window it is reactivated (and its connections synced), the rest
+     * is settled in place. Called after the number was saved on the account, as an identifier or as an old card.
+     *
+     * @param groupBank when set, only parked mail of that (bank, last4) group is touched
+     */
+    @Transactional
+    public Reactivation reactivateParked(User user, Account account, String normalized, String groupBank) {
         int reactivatedCount = 0;
         List<UUID> jobIds = new ArrayList<>();
 
@@ -135,7 +149,7 @@ public class AccountIdentifierService {
         // Parked email outside the reopened window would only be skipped again: settle it in place.
         parkedMessageSettler.settle(user.getId(), normalized, groupBank);
 
-        return new CreationResult(identifier, reactivatedCount, jobIds);
+        return new Reactivation(reactivatedCount, jobIds);
     }
 
     @Transactional(readOnly = true)

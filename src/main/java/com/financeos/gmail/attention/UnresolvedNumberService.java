@@ -1,8 +1,11 @@
 package com.financeos.gmail.attention;
 
+import com.financeos.api.account.dto.PastCardRequest;
 import com.financeos.api.gmail.dto.AssignNumberGroupResponse;
 import com.financeos.api.gmail.dto.AttentionCountResponse;
 import com.financeos.api.gmail.dto.AttentionGroupsResponse;
+import com.financeos.api.gmail.dto.GmailAttentionItemResponse;
+import com.financeos.api.gmail.dto.NumberGroupEmailResponse;
 import com.financeos.api.gmail.dto.AttentionGroupsResponse.IgnoredNumberResponse;
 import com.financeos.api.gmail.dto.AttentionGroupsResponse.ImportOffGroup;
 import com.financeos.api.gmail.dto.AttentionGroupsResponse.NumberSuggestion;
@@ -15,10 +18,12 @@ import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountIdentifierKind;
 import com.financeos.domain.account.AccountIdentifierService;
 import com.financeos.domain.account.AccountRepository;
+import com.financeos.domain.account.card.PastCardService;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.transaction.TransactionRepository.BankTransactionBrief;
 import com.financeos.domain.transaction.TransactionType;
 import com.financeos.domain.user.User;
+import com.financeos.gmail.domain.GmailAttentionRow;
 import com.financeos.gmail.domain.GmailIgnoredNumber;
 import com.financeos.gmail.domain.GmailIgnoredNumberRepository;
 import com.financeos.gmail.domain.GmailProcessedMessage;
@@ -26,6 +31,9 @@ import com.financeos.gmail.domain.GmailProcessedMessageRepository;
 import com.financeos.gmail.domain.GmailProcessedMessageRepository.NumberedMail;
 import com.financeos.gmail.domain.GmailProcessedStatus;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,19 +69,22 @@ public class UnresolvedNumberService {
     private final AccountRepository accountRepository;
     private final AccountIdentifierService accountIdentifierService;
     private final IgnoredNumberRules ignoredRules;
+    private final PastCardService pastCardService;
 
     public UnresolvedNumberService(GmailProcessedMessageRepository messageRepository,
                                    GmailIgnoredNumberRepository ignoredRepository,
                                    TransactionRepository transactionRepository,
                                    AccountRepository accountRepository,
                                    AccountIdentifierService accountIdentifierService,
-                                   IgnoredNumberRules ignoredRules) {
+                                   IgnoredNumberRules ignoredRules,
+                                   PastCardService pastCardService) {
         this.messageRepository = messageRepository;
         this.ignoredRepository = ignoredRepository;
         this.transactionRepository = transactionRepository;
         this.accountRepository = accountRepository;
         this.accountIdentifierService = accountIdentifierService;
         this.ignoredRules = ignoredRules;
+        this.pastCardService = pastCardService;
     }
 
     record Key(String bank, String last4) {}
@@ -145,6 +156,34 @@ public class UnresolvedNumberService {
                 .toList();
         long total = unknown.size() + importOff.size() + messageRepository.countUngroupedAttentionItems(userId, UNGROUPED_STATUSES);
         return new AttentionGroupsResponse(unknown, importOff, ignored, (int) Math.min(total, Integer.MAX_VALUE));
+    }
+
+    /**
+     * The emails of one unknown-number group, newest first, one page at a time. The group is the same one {@link #groups} counts:
+     * active unresolved mail with this number whose bank (classifier, else sender domain) is {@code bank}, a missing bank matching only
+     * a missing bank. Only the user's own mail is read.
+     */
+    @Transactional(readOnly = true)
+    public Page<NumberGroupEmailResponse> emails(UUID userId, String bank, String last4, Pageable pageable) {
+        String groupBank = blankToNull(bank);
+        List<GmailAttentionRow> rows = new ArrayList<>(messageRepository.findActiveUnresolvedRowsByLast4(userId, last4).stream()
+                .filter(r -> NumberGroupKey.sameBank(groupBank,
+                        NumberGroupKey.bankOf(r.message().getClassifiedBank(), r.message().getSenderAddress())))
+                .toList());
+        Comparator<GmailAttentionRow> newestFirst = Comparator.comparing(
+                (GmailAttentionRow r) -> r.message().getInternalDate() != null ? r.message().getInternalDate() : r.message().getDiscoveredAt(),
+                Comparator.nullsLast(Comparator.<Instant>naturalOrder())).reversed();
+        rows.sort(newestFirst);
+        int from = (int) Math.min(pageable.getOffset(), rows.size());
+        int to = Math.min(rows.size(), from + pageable.getPageSize());
+        List<NumberGroupEmailResponse> content = rows.subList(from, to).stream().map(r -> {
+            var m = r.message();
+            boolean read = m.getExtractAmount() != null;
+            return new NumberGroupEmailResponse(GmailAttentionItemResponse.from(r),
+                    NumberGroupKey.kindOf(m.getPipelineKind(), m.getClassifiedKind(), m.getError()),
+                    read ? m.getExtractAmount().abs() : null, read ? m.getExtractDirection() : null);
+        }).toList();
+        return new PageImpl<>(content, pageable, rows.size());
     }
 
     private static Key keyOf(NumberedMail m) {
@@ -246,6 +285,16 @@ public class UnresolvedNumberService {
      */
     @Transactional
     public AssignNumberGroupResponse assign(User user, String bank, String last4, UUID accountId, AccountIdentifierKind kind) {
+        return assign(user, bank, last4, accountId, kind, null);
+    }
+
+    /**
+     * As above; with {@code pastCard} the number is saved as an old (closed) card of the account instead of an identifier:
+     * the mail is settled the same way and counted the same, and the response carries the card id.
+     */
+    @Transactional
+    public AssignNumberGroupResponse assign(User user, String bank, String last4, UUID accountId, AccountIdentifierKind kind,
+                                            PastCardRequest pastCard) {
         Account account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new ResourceNotFoundException("Account", accountId));
         if (!account.getUser().getId().equals(user.getId())) {
@@ -253,6 +302,12 @@ public class UnresolvedNumberService {
         }
         String groupBank = blankToNull(bank);
         int before = parkedInGroup(user.getId(), last4, groupBank);
+        if (pastCard != null) {
+            PastCardService.Result card = pastCardService.addForNumber(user, account, last4, pastCard, groupBank);
+            int left = parkedInGroup(user.getId(), last4, groupBank);
+            int skippedMail = Math.max(0, before - left - card.reactivatedCount());
+            return new AssignNumberGroupResponse(null, card.reactivatedCount(), skippedMail, left, card.jobIds(), card.card().getId());
+        }
         AccountIdentifierService.CreationResult result = accountIdentifierService.createOrUpdateIdentifier(user, account, last4, kind, groupBank);
         int remaining = parkedInGroup(user.getId(), last4, groupBank);
         int skipped = Math.max(0, before - remaining - result.reactivatedCount());

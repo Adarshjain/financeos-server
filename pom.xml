@@ -180,6 +180,13 @@
             <version>5.2.5</version>
         </dependency>
 
+        <!-- HTML sanitizing for the live "View email" body (no jsoup/OWASP sanitizer was on the classpath) -->
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.18.3</version>
+        </dependency>
+
         <!-- OpenAPI 3 Documentation -->
         <dependency>
             <groupId>org.springdoc</groupId>

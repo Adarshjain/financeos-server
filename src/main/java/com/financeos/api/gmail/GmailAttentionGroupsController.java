@@ -5,6 +5,7 @@ import com.financeos.api.gmail.dto.AssignNumberGroupResponse;
 import com.financeos.api.gmail.dto.AttentionCountResponse;
 import com.financeos.api.gmail.dto.AttentionGroupsResponse;
 import com.financeos.api.gmail.dto.GmailAttentionItemResponse;
+import com.financeos.api.gmail.dto.NumberGroupEmailResponse;
 import com.financeos.api.gmail.dto.NumberGroupRequest;
 import com.financeos.domain.user.AuthService;
 import com.financeos.domain.user.User;
@@ -98,9 +99,23 @@ public class GmailAttentionGroupsController {
         return ResponseEntity.ok(rows.map(GmailAttentionItemResponse::from));
     }
 
+    /** The emails of one unknown-number group (its bank and number), newest first; the page count matches the group's count. */
+    @GetMapping("/api/v1/gmail/attention/numbers/emails")
+    public ResponseEntity<Page<NumberGroupEmailResponse>> numberEmails(
+            @RequestParam(required = false) String bank,
+            @RequestParam String last4,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        if (!last4.matches("^[0-9]{4}$")) {
+            throw new com.financeos.core.exception.ValidationException("last4 must be exactly 4 digits");
+        }
+        int safeSize = Math.max(1, Math.min(size, 50));
+        return ResponseEntity.ok(service.emails(authService.getCurrentUser().getId(), bank, last4, PageRequest.of(Math.max(0, page), safeSize)));
+    }
+
     @PostMapping("/api/v1/gmail/attention/numbers/assign")
     public ResponseEntity<AssignNumberGroupResponse> assign(@Valid @RequestBody AssignNumberGroupRequest request) {
-        return ResponseEntity.ok(service.assign(authService.getCurrentUser(), request.bank(), request.last4(), request.accountId(), request.kind()));
+        return ResponseEntity.ok(service.assign(authService.getCurrentUser(), request.bank(), request.last4(), request.accountId(), request.kind(), request.pastCard()));
     }
 
     @PostMapping("/api/v1/gmail/attention/numbers/ignore")
