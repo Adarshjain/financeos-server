@@ -658,6 +658,171 @@
           ],
           "execErrState": "Alerting",
           "noDataState": "OK"
+        },
+        {
+          "uid": "financeos-alert-op-regression",
+          "title": "Op p95 regression vs yesterday",
+          "condition": "A",
+          "for": "30m",
+          "labels": {
+            "severity": "warning"
+          },
+          "annotations": {
+            "summary": "The op \"{{ $labels.op }}\" is more than 1.5x slower (p95) than at this time yesterday, with at least 20 calls in the last hour.",
+            "description": "Open Grafana, Where the Time Goes dashboard, and compare the op's p95 and stage averages. A deploy in the last day is the usual cause."
+          },
+          "notification_settings": {
+            "receiver": "slack-financeos"
+          },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_PROM}",
+              "model": {
+                "expr": "(histogram_quantile(0.95, sum by (op, le) (rate(financeos_op_seconds_bucket{service=\"financeos-server\",op=~\"job\\\\..*|ext\\\\..*\"}[1h]))) > 1.5 * histogram_quantile(0.95, sum by (op, le) (rate(financeos_op_seconds_bucket{service=\"financeos-server\",op=~\"job\\\\..*|ext\\\\..*\"}[1h] offset 1d)))) and on (op) (sum by (op) (increase(financeos_op_seconds_count{service=\"financeos-server\",op=~\"job\\\\..*|ext\\\\..*\"}[1h])) >= 20)",
+                "instant": true,
+                "range": false
+              },
+              "relativeTimeRange": {
+                "from": 600,
+                "to": 0
+              }
+            }
+          ],
+          "execErrState": "Alerting",
+          "noDataState": "OK"
+        },
+        {
+          "uid": "financeos-alert-slow-op",
+          "title": "Slow op (p95 over 1s)",
+          "condition": "A",
+          "for": "15m",
+          "labels": {
+            "severity": "warning"
+          },
+          "annotations": {
+            "summary": "The op \"{{ $labels.op }}\" has a p95 over 1 second.",
+            "description": "Open Grafana, Where the Time Goes dashboard, p95 by op. job.* ops are excluded because background jobs are slow by design; the regression rule covers them."
+          },
+          "notification_settings": {
+            "receiver": "slack-financeos"
+          },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_PROM}",
+              "model": {
+                "expr": "histogram_quantile(0.95, sum by (op, le) (rate(financeos_op_seconds_bucket{service=\"financeos-server\",op=~\"ext\\\\..*\"}[15m]))) > 1 and on (op) (sum by (op) (increase(financeos_op_seconds_count{service=\"financeos-server\",op=~\"ext\\\\..*\"}[15m])) >= 5)",
+                "instant": true,
+                "range": false
+              },
+              "relativeTimeRange": {
+                "from": 600,
+                "to": 0
+              }
+            }
+          ],
+          "execErrState": "Alerting",
+          "noDataState": "OK"
+        },
+        {
+          "uid": "financeos-alert-many-queries-per-request",
+          "title": "Many DB queries per request",
+          "condition": "A",
+          "for": "15m",
+          "labels": {
+            "severity": "warning"
+          },
+          "annotations": {
+            "summary": "The route {{ $labels.route }} averages more than 50 database queries per request (an N+1 is likely).",
+            "description": "Open Grafana, Where the Time Goes dashboard, DB queries per request, then batch the per-row queries behind that route."
+          },
+          "notification_settings": {
+            "receiver": "slack-financeos"
+          },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_PROM}",
+              "model": {
+                "expr": "sum by (route) (rate(financeos_db_queries_sum{service=\"financeos-server\",route!=\"none\"}[30m])) / sum by (route) (rate(financeos_db_queries_count{service=\"financeos-server\",route!=\"none\"}[30m])) > 50 and on (route) (sum by (route) (increase(financeos_db_queries_count{service=\"financeos-server\",route!=\"none\"}[30m])) >= 10)",
+                "instant": true,
+                "range": false
+              },
+              "relativeTimeRange": {
+                "from": 600,
+                "to": 0
+              }
+            }
+          ],
+          "execErrState": "Alerting",
+          "noDataState": "OK"
+        },
+        {
+          "uid": "financeos-alert-ext-slow-or-failing",
+          "title": "Outside call slow or failing",
+          "condition": "A",
+          "for": "15m",
+          "labels": {
+            "severity": "warning"
+          },
+          "annotations": {
+            "summary": "The outside call \"{{ $labels.op }}\" is failing more than 20% of the time or its p95 is over 5 seconds.",
+            "description": "A provider (Gmail, a price feed, an LLM) is slow or erroring, including rate limits (HTTP 429). Open Grafana, Where the Time Goes dashboard, external call panels."
+          },
+          "notification_settings": {
+            "receiver": "slack-financeos"
+          },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_PROM}",
+              "model": {
+                "expr": "(sum by (op) (rate(financeos_op_seconds_count{service=\"financeos-server\",op=~\"ext\\\\..*\",outcome=\"error\"}[15m])) / sum by (op) (rate(financeos_op_seconds_count{service=\"financeos-server\",op=~\"ext\\\\..*\"}[15m])) > 0.2 and on (op) sum by (op) (increase(financeos_op_seconds_count{service=\"financeos-server\",op=~\"ext\\\\..*\"}[15m])) >= 5) or (histogram_quantile(0.95, sum by (op, le) (rate(financeos_op_seconds_bucket{service=\"financeos-server\",op=~\"ext\\\\..*\"}[15m]))) > 5)",
+                "instant": true,
+                "range": false
+              },
+              "relativeTimeRange": {
+                "from": 600,
+                "to": 0
+              }
+            }
+          ],
+          "execErrState": "Alerting",
+          "noDataState": "OK"
+        },
+        {
+          "uid": "financeos-alert-telemetry-series-budget",
+          "title": "Telemetry series budget",
+          "condition": "A",
+          "for": "30m",
+          "labels": {
+            "severity": "warning"
+          },
+          "annotations": {
+            "summary": "Grafana Cloud active series are over 8000 (the budget). A new label or op may be exploding cardinality.",
+            "description": "Check which metric grew (Grafana Explore, count by (__name__)) and fix the label that grew before the bill does."
+          },
+          "notification_settings": {
+            "receiver": "slack-financeos"
+          },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "grafanacloud-usage",
+              "model": {
+                "expr": "max(grafanacloud_instance_active_series) > 8000",
+                "instant": true,
+                "range": false
+              },
+              "relativeTimeRange": {
+                "from": 900,
+                "to": 0
+              }
+            }
+          ],
+          "execErrState": "Alerting",
+          "noDataState": "OK"
         }
       ]
     }

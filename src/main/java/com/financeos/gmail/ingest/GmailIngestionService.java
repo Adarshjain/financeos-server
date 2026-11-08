@@ -1,6 +1,8 @@
 package com.financeos.gmail.ingest;
 
 import com.financeos.core.observability.ObservabilityMetrics;
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Timing;
 import com.financeos.core.security.UserContextHelper;
 import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
@@ -151,16 +153,16 @@ public class GmailIngestionService {
         }
 
         // 1. Discovery phase
-        Discovery discovery = discoverMessages(connection, enabledSenders);
+        Discovery discovery = Timing.call(Ops.GMAILSYNC_DISCOVER, () -> discoverMessages(connection, enabledSenders));
 
         // 2. Stale PROCESSING sweep
-        sweepStaleProcessing(connection);
+        Timing.run(Ops.GMAILSYNC_SWEEP, () -> sweepStaleProcessing(connection));
 
         // 2b. Parked rows whose account now exists and that predate its window: settle without a refetch
-        settleParkedMessages(userId);
+        Timing.run(Ops.GMAILSYNC_SETTLE_PARKED, () -> settleParkedMessages(userId));
 
         // 3. Processing phase
-        return processPendingMessages(connection, enabledSenders, discovery);
+        return Timing.call(Ops.GMAILSYNC_PROCESS, () -> processPendingMessages(connection, enabledSenders, discovery));
     }
 
     /** What the discovery phase listed: new ledger rows, distinct ids Gmail returned, and the window searched. */
@@ -413,9 +415,11 @@ public class GmailIngestionService {
             log.warn("Failed to create single Gmail service instance for batch: {}", e.getMessage());
         }
 
+        Gmail finalService = service;
         for (GmailProcessedMessage row : pendingBatch) {
             processedCount++;
-            ProcessedMessage outcome = processSingleMessageInTx(service, connection, row, enabledSenders, arrivalContexts);
+            ProcessedMessage outcome = Timing.call(Ops.GMAILSYNC_MESSAGE,
+                    () -> processSingleMessageInTx(finalService, connection, row, enabledSenders, arrivalContexts));
             if (!outcome.createdTxns().isEmpty()) {
                 createdTxns.addAll(outcome.createdTxns());
             }
@@ -434,14 +438,15 @@ public class GmailIngestionService {
             }
         }
 
-        archiveIgnoredNumbers(connection.getUser().getId(), pendingBatch, messageResults);
+        List<GmailProcessedMessage> batch = pendingBatch;
+        Timing.run(Ops.GMAILSYNC_ARCHIVE_IGNORED, () -> archiveIgnoredNumbers(connection.getUser().getId(), batch, messageResults));
 
         // New transactions get their category once, on arrival (rules, links, engine), in one batch; then
         // the link pass runs once per batch that wrote transactions (no transaction is open here, so it fires at once).
         if (!createdTxns.isEmpty() && categoryAssigner != null) {
             try {
-                int assigned = categoryAssigner.assignOnArrivalById(connection.getUser().getId(),
-                        createdTxns.stream().map(Transaction::getId).toList(), arrivalContexts);
+                int assigned = Timing.call(Ops.GMAILSYNC_CATEGORISE, () -> categoryAssigner.assignOnArrivalById(connection.getUser().getId(),
+                        createdTxns.stream().map(Transaction::getId).toList(), arrivalContexts));
                 log.info("Categorised {} of {} new Gmail transaction(s) on arrival for connection {}",
                         assigned, createdTxns.size(), connection.getId());
             } catch (Exception e) {
@@ -688,9 +693,9 @@ public class GmailIngestionService {
         try {
             GmailMessage message;
             try {
-                message = service != null
+                message = Timing.call(Ops.GMAILSYNC_FETCH, t -> t instanceof MessageGoneException, () -> service != null
                         ? gmailEngine.fetchMessageDetails(service, gpm.getGmailMessageId())
-                        : gmailEngine.fetchMessageDetails(connection, gpm.getGmailMessageId());
+                        : gmailEngine.fetchMessageDetails(connection, gpm.getGmailMessageId()));
             } catch (MessageGoneException e) {
                 gpm.setStatus(GmailProcessedStatus.SKIPPED_MESSAGE_GONE);
                 gpm.setError(null);
@@ -702,7 +707,7 @@ public class GmailIngestionService {
             gpm.setSubject(truncate(message.subject(), 500));
             String fromAddress = extractEmailAddress(message.from());
             gpm.setSenderAddress(fromAddress);
-            classifyInShadow(gpm, message);
+            Timing.run(Ops.GMAILSYNC_CLASSIFY, () -> classifyInShadow(gpm, message));
             clearExtractShadow(gpm);
 
             // Allowlist check
@@ -717,7 +722,7 @@ public class GmailIngestionService {
             // Document mails (NPS statements and alerts) are read by their own handler: never a bank transaction.
             GmailDocumentHandler documentHandler = findDocumentHandler(fromAddress, message);
             if (documentHandler != null) {
-                GmailDocumentHandler.Handled handled = documentHandler.handle(connection, message);
+                GmailDocumentHandler.Handled handled = Timing.call(Ops.GMAILSYNC_DOCUMENT, () -> documentHandler.handle(connection, message));
                 gpm.setStatus(handled.status());
                 gpm.setError(handled.error() == null ? null : truncate(handled.error(), 2000));
                 processedMessageRepository.save(gpm);
@@ -759,7 +764,7 @@ public class GmailIngestionService {
                 recordPipelineKind(gpm, "STATEMENT");
                 ReconSummary recon;
                 try {
-                    recon = statementReconciliationService.reconcile(connection, message);
+                    recon = Timing.call(Ops.GMAILSYNC_STATEMENT_RECONCILE, () -> statementReconciliationService.reconcile(connection, message));
                 } finally {
                     if (statementCoverage != null) {
                         statementCoverage.invalidateAll();
@@ -773,7 +778,7 @@ public class GmailIngestionService {
             }
 
             // Offline engine first: a template read that is a payment already on the ledger needs no AI read.
-            Optional<ExtractedTransaction> engineResult = runEngine(message);
+            Optional<ExtractedTransaction> engineResult = Timing.call(Ops.GMAILSYNC_ENGINE, () -> runEngine(message));
             if (attachIfMatchedByEngine(gpm, message, fromAddress, engineResult)) {
                 return List.of();
             }
@@ -782,14 +787,14 @@ public class GmailIngestionService {
             Optional<ExtractedTransaction> shadowEngine;
             if (ingestProperties.getReader() == GmailIngestProperties.Reader.INHOUSE) {
                 // In-house reader: the classifier and the engine decide, the AI is never called.
-                extractionResult = readInHouse(gpm, message, fromAddress, engineResult);
+                extractionResult = Timing.call(Ops.GMAILSYNC_EXTRACT, () -> readInHouse(gpm, message, fromAddress, engineResult));
                 if (extractionResult == null) {
                     return List.of();
                 }
                 shadowEngine = engineResult == null ? Optional.empty() : engineResult;
             } else {
                 // Transaction Alert path -> Gemini extraction
-                extractionResult = geminiExtractor.extract(message);
+                extractionResult = Timing.call(Ops.GMAILSYNC_EXTRACT, () -> geminiExtractor.extract(message));
                 shadowEngine = extractInShadow(gpm, message, extractionResult, engineResult);
                 if (!extractionResult.isSuccess()) {
                     throw new RuntimeException("Extraction failed: " + extractionResult.failureReason());
@@ -814,8 +819,8 @@ public class GmailIngestionService {
 
             gpm.setExtractedLast4(normalizeLast4(extractionResult.accountLast4()));
             List<String> resolveTexts = java.util.Arrays.asList(message.subject(), message.getStrippedText());
-            AccountResolver.ResolvedCard resolved = accountResolver.resolve(
-                    extractionResult.accountLast4(), resolveTexts, fromAddress).orElse(null);
+            AccountResolver.ResolvedCard resolved = Timing.call(Ops.GMAILSYNC_RESOLVE_ACCOUNT, () -> accountResolver.resolve(
+                    extractionResult.accountLast4(), resolveTexts, fromAddress).orElse(null));
             if (resolved == null) {
                 // The AI may have read the payee's account: try the other masked numbers in the mail, only when exactly one resolves.
                 String gemini = normalizeLast4(extractionResult.accountLast4());
@@ -865,8 +870,8 @@ public class GmailIngestionService {
             }
 
             // Write transaction (checks ingestFromDate watermark inside writer)
-            GmailProcessedMessage result = gmailTransactionWriter.writeTransaction(
-                    connection, message.messageId(), extractionResult, account, card, emailContext(message, fromAddress));
+            GmailProcessedMessage result = Timing.call(Ops.GMAILSYNC_WRITE, () -> gmailTransactionWriter.writeTransaction(
+                    connection, message.messageId(), extractionResult, account, card, emailContext(message, fromAddress)));
             gpm.setStatus(result.getStatus());
             gpm.setTransaction(result.getTransaction());
             gpm.setError(result.getError());

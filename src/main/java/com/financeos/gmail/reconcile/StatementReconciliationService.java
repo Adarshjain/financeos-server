@@ -1,5 +1,7 @@
 package com.financeos.gmail.reconcile;
 
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Timing;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.statement.Statement;
@@ -165,13 +167,13 @@ public class StatementReconciliationService {
                 }
             }
             List<Account> pwdAccounts = accountRepository.findByUserIdAndHasStatementPassword(connection.getUser().getId());
-            PasswordMatch match = matchByPassword(pwdAccounts, chosenBytes, filename.endsWith(".pdf"));
+            PasswordMatch match = Timing.call(Ops.STATEMENT_PASSWORD_MATCH, () -> matchByPassword(pwdAccounts, chosenBytes, filename.endsWith(".pdf")));
             if (match != null) {
                 candidateAccount = match.account();
                 correctPassword = match.password();
             } else if (filename.endsWith(".pdf")) {
                 // No saved password opens it: the bank's rules built from the user's name and birth date.
-                ruleOpenedPassword = tryBankRules(connection, message, chosenBytes, guess);
+                ruleOpenedPassword = Timing.call(Ops.STATEMENT_BANK_RULES, () -> tryBankRules(connection, message, chosenBytes, guess));
                 correctPassword = ruleOpenedPassword;
             }
 
@@ -181,7 +183,8 @@ public class StatementReconciliationService {
         }
 
         // 3. Parse content with the statement parser
-        StatementExtractionResult result = statementParser.parse(chosenBytes, correctPassword);
+        String parsePassword = correctPassword;
+        StatementExtractionResult result = Timing.call(Ops.STATEMENT_PARSE, () -> statementParser.parse(chosenBytes, parsePassword));
         if (!result.success()) {
             log.error("Statement parse failed: {}", result.failureReason());
             recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED_PERMANENT, "Statement parse failed: " + result.failureReason());
@@ -276,8 +279,9 @@ public class StatementReconciliationService {
         }
 
         // 5. Create statement record if not a duplicate (before watermark filtering / matching)
-        Optional<Statement> stmt = statementPersistenceService.createIfNew(connection.getUser(), resolvedAccount,
-                StatementSource.gmail, message.messageId(), StatementPersistenceService.sha256Hex(chosenBytes), result.draft());
+        Account persistAccount = resolvedAccount;
+        Optional<Statement> stmt = Timing.call(Ops.STATEMENT_PERSIST, () -> statementPersistenceService.createIfNew(connection.getUser(), persistAccount,
+                StatementSource.gmail, message.messageId(), StatementPersistenceService.sha256Hex(chosenBytes), result.draft()));
         if (stmt.isEmpty()) {
             log.info("Statement already ingested for account {} (message {})", resolvedAccount.getId(), message.messageId());
             updateLastStatementDate(resolvedAccount, result);
@@ -307,7 +311,7 @@ public class StatementReconciliationService {
             batchLines.add(StatementBatchMatcher.Line.of(i, candidateLines.get(i)));
         }
         Account account = resolvedAccount;
-        StatementBatchMatcher.Result matched = batchMatcher.match(stmt.get(), account, batchLines, unpaired -> {
+        StatementBatchMatcher.Result matched = Timing.call(Ops.MATCH_STATEMENT_BATCH, () -> batchMatcher.match(stmt.get(), account, batchLines, unpaired -> {
             Map<Integer, Transaction> made = new HashMap<>();
             for (StatementBatchMatcher.Line batchLine : unpaired) {
                 ParsedStatementLine line = candidateLines.get(batchLine.lineIndex());
@@ -332,7 +336,7 @@ public class StatementReconciliationService {
                 made.put(batchLine.lineIndex(), statementTxn);
             }
             return made;
-        });
+        }));
         int matchedCount = matched.matched();
         List<Transaction> createdTxns = matched.createdTransactions();
         int createdCount = createdTxns.size();

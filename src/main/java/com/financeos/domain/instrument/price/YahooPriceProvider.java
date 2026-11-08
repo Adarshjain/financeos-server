@@ -1,6 +1,8 @@
 package com.financeos.domain.instrument.price;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.financeos.core.observability.ExtHttp;
+import com.financeos.core.observability.Ops;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financeos.domain.instrument.Instrument;
 import com.financeos.domain.instrument.InstrumentType;
@@ -251,7 +253,7 @@ public class YahooPriceProvider implements PriceProvider {
                     .timeout(Duration.ofMillis(timeoutMs))
                     .GET()
                     .build();
-            HttpResponse<Void> primeResp = httpClient.send(primeReq, HttpResponse.BodyHandlers.discarding());
+            HttpResponse<Void> primeResp = ExtHttp.send(Ops.PRICE_YAHOO, httpClient, primeReq, HttpResponse.BodyHandlers.discarding());
             if (primeResp.statusCode() == 429) {
                 noteRateLimited(primeResp, props);
                 return null;
@@ -266,7 +268,7 @@ public class YahooPriceProvider implements PriceProvider {
                         .timeout(Duration.ofMillis(timeoutMs))
                         .GET()
                         .build();
-                HttpResponse<Void> primeResp2 = httpClient.send(primeReq2, HttpResponse.BodyHandlers.discarding());
+                HttpResponse<Void> primeResp2 = ExtHttp.send(Ops.PRICE_YAHOO, httpClient, primeReq2, HttpResponse.BodyHandlers.discarding());
                 if (primeResp2.statusCode() == 429) {
                     noteRateLimited(primeResp2, props);
                     return null;
@@ -288,7 +290,7 @@ public class YahooPriceProvider implements PriceProvider {
                         .timeout(Duration.ofMillis(timeoutMs))
                         .GET()
                         .build();
-                HttpResponse<String> response = httpClient.send(crumbReq, HttpResponse.BodyHandlers.ofString());
+                HttpResponse<String> response = ExtHttp.send(Ops.PRICE_YAHOO, httpClient, crumbReq, HttpResponse.BodyHandlers.ofString());
                 if (response.statusCode() == 200 && response.body() != null) {
                     String body = response.body().trim();
                     if (!body.isBlank() && !body.contains("Too Many Requests") && !body.toLowerCase().contains("<html")) {
@@ -332,7 +334,7 @@ public class YahooPriceProvider implements PriceProvider {
                         .GET()
                         .build();
 
-                HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+                HttpResponse<String> response = ExtHttp.send(Ops.PRICE_YAHOO, httpClient, httpRequest, HttpResponse.BodyHandlers.ofString());
                 if (response.statusCode() == 200) {
                     return parseBatchQuoteResponse(response.body(), zoneId);
                 } else if (response.statusCode() == 401) {
@@ -409,7 +411,7 @@ public class YahooPriceProvider implements PriceProvider {
                         .GET()
                         .build();
 
-                HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+                HttpResponse<String> response = ExtHttp.send(Ops.PRICE_YAHOO, httpClient, httpRequest, HttpResponse.BodyHandlers.ofString());
                 if (response.statusCode() == 200) {
                     PriceQuote quote = parseChartResponse(response.body(), zoneId);
                     if (quote != null) {

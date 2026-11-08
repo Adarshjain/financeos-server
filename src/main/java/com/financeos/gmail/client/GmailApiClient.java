@@ -6,6 +6,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.http.BasicAuthentication;
 import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.gson.GsonFactory;
 import com.google.api.services.gmail.Gmail;
@@ -30,7 +31,7 @@ import java.util.List;
 public class GmailApiClient {
 
     private static final String APPLICATION_NAME = "FinanceOS";
-    private static final NetHttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+    private static final HttpTransport HTTP_TRANSPORT = TimedHttpTransport.wrap(new NetHttpTransport());
     private static final GsonFactory JSON_FACTORY = GsonFactory.getDefaultInstance();
 
     private final String clientId;

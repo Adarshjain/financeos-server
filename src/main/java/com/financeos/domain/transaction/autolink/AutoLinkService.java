@@ -1,5 +1,7 @@
 package com.financeos.domain.transaction.autolink;
 
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Timing;
 import com.financeos.core.security.UserContextHelper;
 import com.financeos.domain.notification.feed.AppNotificationKind;
 import com.financeos.domain.notification.feed.AppNotificationRefs;
@@ -171,7 +173,8 @@ public class AutoLinkService {
                 boolean failed = false;
                 for (AutoLinker linker : linkers) {
                     try {
-                        AutoLinkOutcome outcome = passTransaction.execute(status -> scope.isAll() ? linker.link(userId) : linker.link(userId, scope));
+                        AutoLinkOutcome outcome = Timing.call(Ops.autolink(linker.getClass().getSimpleName()),
+                                () -> passTransaction.execute(status -> scope.isAll() ? linker.link(userId) : linker.link(userId, scope)));
                         if (outcome != null) {
                             byKind = AutoLinkOutcome.merge(byKind, outcome.byKind());
                             if (outcome.partial()) {

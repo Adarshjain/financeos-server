@@ -1,6 +1,8 @@
 package com.financeos.domain.instrument.price;
 
 import com.financeos.domain.instrument.AssetClassifier;
+import com.financeos.core.observability.ExtHttp;
+import com.financeos.core.observability.Ops;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -77,7 +79,7 @@ public class AmfiFeedClient {
                     .GET()
                     .build();
 
-            HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = ExtHttp.send(Ops.PRICE_AMFI, httpClient, httpRequest, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() != 200) {
                 log.error("Failed to fetch AMFI NAV file. HTTP status: {}", response.statusCode());
                 return;

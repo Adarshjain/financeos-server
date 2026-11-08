@@ -1,5 +1,7 @@
 package com.financeos.domain.ingestion;
 
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Timing;
 import com.financeos.core.observability.Events;
 import net.logstash.logback.argument.StructuredArguments;
 import com.financeos.core.exception.ResourceNotFoundException;
@@ -199,7 +201,8 @@ public class FileIngestionService {
                         StructuredArguments.keyValue("parserChosen", statementParser.getClass().getSimpleName()),
                         StructuredArguments.keyValue("brokerHint", account.getType().name()));
 
-                Opened opened = open(currentSessionUserId, accountId, bytes, explicitPassword, password);
+                String accountPassword = password;
+                Opened opened = Timing.call(Ops.STATEMENT_OPEN, () -> open(currentSessionUserId, accountId, bytes, explicitPassword, accountPassword));
                 StatementExtractionResult parseResult = opened.result();
                 if (!parseResult.success()) {
                     fileDetails.add(FileIngestionResult.FileSummary.failed(filename, parseResult.failureReason(),
@@ -208,7 +211,8 @@ public class FileIngestionService {
                 }
                 if (detailsAiFiller != null && parseResult.draft() != null) {
                     // No transaction is open here; the filler never throws on LLM problems.
-                    parseResult = parseResult.withDraft(detailsAiFiller.fill(currentSessionUserId, parseResult.draft(), parseResult.summaryText()));
+                    StatementExtractionResult toFill = parseResult;
+                    parseResult = toFill.withDraft(Timing.call(Ops.STATEMENT_DETAILS_FILL, () -> detailsAiFiller.fill(currentSessionUserId, toFill.draft(), toFill.summaryText())));
                 }
 
                 List<ParsedStatementLine> lines = parseResult.lines();
@@ -230,8 +234,10 @@ public class FileIngestionService {
                     continue;
                 }
 
-                Optional<Statement> stmt = statementPersistenceService.createIfNew(user, account, StatementSource.file_upload,
-                        filename, sha256, parseResult.draft());
+                String storedName = filename;
+                StatementExtractionResult toStore = parseResult;
+                Optional<Statement> stmt = Timing.call(Ops.STATEMENT_PERSIST, () -> statementPersistenceService.createIfNew(user, account, StatementSource.file_upload,
+                        storedName, sha256, toStore.draft()));
                 if (stmt.isEmpty()) {
                     fileDetails.add(new FileIngestionResult.FileSummary(filename, "SKIPPED", 0, "Statement already ingested (same period or file)"));
                     filesProcessed++;
@@ -292,8 +298,8 @@ public class FileIngestionService {
             for (int j = 0; j < pf.lines().size(); j++) {
                 batchLines.add(StatementBatchMatcher.Line.of(j, pf.lines().get(j)));
             }
-            StatementBatchMatcher.Result matched = batchMatcher.match(pf.statement(), account, batchLines,
-                    unpaired -> createRows(user, account, pf.lines(), unpaired));
+            StatementBatchMatcher.Result matched = Timing.call(Ops.MATCH_STATEMENT_BATCH, () -> batchMatcher.match(pf.statement(), account, batchLines,
+                    unpaired -> createRows(user, account, pf.lines(), unpaired)));
             totalCreated += matched.created();
             FileIngestionResult.FileSummary summary = fileDetails.get(pf.fileIndex());
             fileDetails.set(pf.fileIndex(), summary.withCounts(matched.created(), 0));

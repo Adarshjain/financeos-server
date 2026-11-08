@@ -1,5 +1,7 @@
 package com.financeos.gmail.accountdetect;
 
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Timing;
 import com.financeos.gmail.accountdetect.Detection.Entity;
 import com.financeos.gmail.accountdetect.Vocab.Conf;
 
@@ -30,22 +32,24 @@ public final class Stability {
     /** As the 3-arg form; when {@code timings} is not null it gets "10 detect full" and "11 stability resamples" in ms. */
     public static Result detectStable(List<MailDerived> mails, List<StatementContent> statements, long seed, Map<String, Long> timings) {
         long t0 = System.nanoTime();
-        Detection full = Detector.detect(mails, statements);
+        Detection full = Timing.call(Ops.ACCOUNTDETECT_DETECT_FULL, () -> Detector.detect(mails, statements));
         Map<String, Conf> fullFacts = full.facts();
         long t1 = System.nanoTime();
         Map<String, Integer> hits = new HashMap<>();
         Random rnd = new Random(seed);
-        for (int r = 0; r < RESAMPLES; r++) {
-            List<MailDerived> m = new ArrayList<>();
-            for (MailDerived d : mails) if (rnd.nextDouble() < KEEP) m.add(d);
-            List<StatementContent> s = new ArrayList<>();
-            for (StatementContent c : statements) if (rnd.nextDouble() < KEEP) s.add(c);
-            // a resample supports a fact only when it reports it at the full run's confidence or higher
-            for (var f : Detector.detect(m, s).facts().entrySet()) {
-                Conf at = fullFacts.get(f.getKey());
-                if (at != null && f.getValue().atLeast(at)) hits.merge(f.getKey(), 1, Integer::sum);
+        Timing.run(Ops.ACCOUNTDETECT_RESAMPLES, () -> {
+            for (int r = 0; r < RESAMPLES; r++) {
+                List<MailDerived> m = new ArrayList<>();
+                for (MailDerived d : mails) if (rnd.nextDouble() < KEEP) m.add(d);
+                List<StatementContent> s = new ArrayList<>();
+                for (StatementContent c : statements) if (rnd.nextDouble() < KEEP) s.add(c);
+                // a resample supports a fact only when it reports it at the full run's confidence or higher
+                for (var f : Detector.detect(m, s).facts().entrySet()) {
+                    Conf at = fullFacts.get(f.getKey());
+                    if (at != null && f.getValue().atLeast(at)) hits.merge(f.getKey(), 1, Integer::sum);
+                }
             }
-        }
+        });
         if (timings != null) {
             timings.put("10 detect full", (t1 - t0) / 1_000_000);
             timings.put("11 stability resamples", (System.nanoTime() - t1) / 1_000_000);

@@ -28,6 +28,12 @@
     <dependencies>
         <!-- Logstash Logback Encoder -->
         <dependency>
+            <!-- micrometer-core ships it at runtime scope only; PerfRollupAggregator compiles against it -->
+            <groupId>org.hdrhistogram</groupId>
+            <artifactId>HdrHistogram</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+        <dependency>
             <groupId>net.logstash.logback</groupId>
             <artifactId>logstash-logback-encoder</artifactId>
             <version>8.0</version>

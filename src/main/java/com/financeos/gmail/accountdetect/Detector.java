@@ -1,5 +1,7 @@
 package com.financeos.gmail.accountdetect;
 
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Stages;
 import com.financeos.gmail.accountdetect.Detection.Entity;
 import com.financeos.gmail.accountdetect.MailDerived.AppHit;
 import com.financeos.gmail.accountdetect.MailDerived.EventHit;
@@ -138,6 +140,17 @@ public final class Detector {
     }
 
     public static Detection detect(List<MailDerived> mails, List<StatementContent> statements, Options opt) {
+        try (Stages stages = new Stages()) {
+            try {
+                return detect(mails, statements, opt, stages);
+            } catch (RuntimeException | Error e) {
+                stages.error(e);
+                throw e;
+            }
+        }
+    }
+
+    private static Detection detect(List<MailDerived> mails, List<StatementContent> statements, Options opt, Stages stages) {
         Detection out = new Detection();
         if (!opt.statementContent()) statements = List.of();
         List<StatementContent> docs = new ArrayList<>();
@@ -154,6 +167,7 @@ public final class Detector {
         statements = docs;
 
         // ---- 1. cluster roles by majority vote
+        stages.next(Ops.DETECTOR_CLUSTER_ROLES);
         Map<String, Role> clusterRole = clusterRoles(mails);
         for (Role r : clusterRole.values()) out.stat("clusters." + r);
         LocalDate end = null;
@@ -162,6 +176,7 @@ public final class Detector {
         if (end == null) return out;
 
         // ---- 2. occurrences in factual bank mails
+        stages.next(Ops.DETECTOR_OCCURRENCES);
         List<Occ> occs = new ArrayList<>();
         Map<String, SlotStat> slots = new HashMap<>();
         Map<Integer, List<Occ>> byMail = new HashMap<>();
@@ -204,6 +219,7 @@ public final class Detector {
         rejectedNumbers.forEach((k, v) -> out.dropped.merge(k, v.size(), Integer::sum));
 
         // ---- 3. slot classes by cardinality over the whole mailbox
+        stages.next(Ops.DETECTOR_SLOT_CLASSES);
         for (SlotStat st : slots.values()) {
             int n = st.mails.size();
             int d = st.mailsByValue.size();
@@ -290,6 +306,7 @@ public final class Detector {
         }
         for (SlotStat st : slots.values()) out.stat("slots." + st.cls);
 
+        stages.next(Ops.DETECTOR_STATEMENT_TIE);
         // ---- 3b. tie each statement document to an entity by its content: bank + header last4 + period; without a
         // last4, through the bank's billing mails dated period end +0..7 days, only when they name exactly one own number
         Set<StatementContent> periodLinked = java.util.Collections.newSetFromMap(new java.util.IdentityHashMap<>());
@@ -352,6 +369,7 @@ public final class Detector {
         statements = resolved;
 
         // ---- 4. evidence per (bank, last4)
+        stages.next(Ops.DETECTOR_EVIDENCE);
         Map<String, Ev> ev = new TreeMap<>();
         Map<String, Set<SlotClass>> classesSeen = new HashMap<>();
         for (Occ o : occs) {
@@ -469,6 +487,7 @@ public final class Detector {
         }
 
         // ---- 5. entities + existence confidence
+        stages.next(Ops.DETECTOR_ENTITIES);
         for (var en : ev.entrySet()) {
             Ev e = en.getValue();
             String key = en.getKey();
@@ -569,9 +588,13 @@ public final class Detector {
             out.entities.add(ent);
         }
 
+        stages.next(Ops.DETECTOR_VARIANTS);
         variants(mails, statements, weakLinked, clusterRole, opt, appIndependent, out);
+        stages.next(Ops.DETECTOR_LIFECYCLE);
         lifecycle(mails, statements, weakLinked, clusterRole, opt, out, end);
+        stages.next(Ops.DETECTOR_LIMITS);
         limits(mails, statements, weakLinked, clusterRole, opt, out);
+        stages.next(Ops.DETECTOR_FINISH);
         notInYourName(out);
         Contract.enforce(out);
         Contract.verify(out);

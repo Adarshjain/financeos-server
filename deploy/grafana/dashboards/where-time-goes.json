@@ -1,0 +1,385 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 1,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "refresh": "1m",
+  "schemaVersion": 39,
+  "tags": [
+    "financeos",
+    "observability",
+    "performance"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": true,
+          "text": "Prometheus",
+          "value": "Prometheus"
+        },
+        "name": "DS_PROM",
+        "query": "prometheus",
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "selected": true,
+          "text": "Tempo",
+          "value": "Tempo"
+        },
+        "name": "DS_TEMPO",
+        "query": "tempo",
+        "type": "datasource"
+      },
+      {
+        "name": "role",
+        "type": "query",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROM}"
+        },
+        "query": {
+          "query": "label_values(financeos_op_seconds_count{service=\"financeos-server\"}, role)",
+          "refId": "v"
+        },
+        "definition": "label_values(financeos_op_seconds_count{service=\"financeos-server\"}, role)",
+        "refresh": 2,
+        "includeAll": true,
+        "multi": true,
+        "allValue": ".*",
+        "current": {
+          "selected": true,
+          "text": "All",
+          "value": "$__all"
+        },
+        "sort": 1
+      },
+      {
+        "name": "version",
+        "type": "query",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROM}"
+        },
+        "query": {
+          "query": "label_values(financeos_op_seconds_count{service=\"financeos-server\"}, version)",
+          "refId": "v"
+        },
+        "definition": "label_values(financeos_op_seconds_count{service=\"financeos-server\"}, version)",
+        "refresh": 2,
+        "includeAll": true,
+        "multi": true,
+        "allValue": ".*",
+        "current": {
+          "selected": true,
+          "text": "All",
+          "value": "$__all"
+        },
+        "sort": 1
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "title": "Where the Time Goes — FinanceOS",
+  "uid": "financeos-where-time-goes",
+  "panels": [
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "expr": "topk(15, sum by (op) (rate(financeos_op_seconds_sum{service=\"financeos-server\",role=~\"$role\",version=~\"$version\"}[$__rate_interval])))",
+          "legendFormat": "{{op}}",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "expr": "topk(15, sum by (op) (rate(financeos_stage_seconds_sum{service=\"financeos-server\",role=~\"$role\",version=~\"$version\"}[$__rate_interval])))",
+          "legendFormat": "{{op}}",
+          "refId": "B"
+        }
+      ],
+      "title": "Top ops by total time (seconds of work per second)",
+      "type": "timeseries",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "description": "Rate of summed time per op: where the server spends its time. Query A is job.* and ext.*, query B is stage.*."
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 2,
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "expr": "histogram_quantile(0.95, sum by (le, op) (rate(financeos_op_seconds_bucket{service=\"financeos-server\",role=~\"$role\",version=~\"$version\",op=~\"job\\\\..*|ext\\\\..*\"}[$__rate_interval])))",
+          "legendFormat": "{{op}}",
+          "refId": "A"
+        }
+      ],
+      "title": "p95 by op (job and ext)",
+      "type": "timeseries",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      }
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 3,
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "expr": "1000 * sum by (op) (rate(financeos_stage_seconds_sum{service=\"financeos-server\",role=~\"$role\",version=~\"$version\"}[$__rate_interval])) / sum by (op) (rate(financeos_stage_seconds_count{service=\"financeos-server\",role=~\"$role\",version=~\"$version\"}[$__rate_interval]))",
+          "legendFormat": "{{op}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Stage average duration by op (ms)",
+      "type": "timeseries",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "ms"
+        },
+        "overrides": []
+      }
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 4,
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "expr": "topk(15, histogram_quantile(0.95, sum by (le, uri) (rate(http_server_requests_seconds_bucket{service=\"financeos-server\",role=~\"$role\",version=~\"$version\",uri!~\"/actuator.*\"}[$__rate_interval]))))",
+          "legendFormat": "{{uri}}",
+          "refId": "A"
+        }
+      ],
+      "title": "Slowest HTTP routes by p95",
+      "type": "timeseries",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      }
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 16
+      },
+      "id": 5,
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "expr": "topk(15, sum by (route) (rate(financeos_db_queries_sum{service=\"financeos-server\",role=~\"$role\",version=~\"$version\",route!=\"none\"}[$__rate_interval])) / sum by (route) (rate(financeos_db_queries_count{service=\"financeos-server\",role=~\"$role\",version=~\"$version\",route!=\"none\"}[$__rate_interval])))",
+          "legendFormat": "avg {{route}}",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "expr": "topk(15, histogram_quantile(0.95, sum by (le, route) (rate(financeos_db_queries_bucket{service=\"financeos-server\",role=~\"$role\",version=~\"$version\",route!=\"none\"}[$__rate_interval]))))",
+          "legendFormat": "p95 {{route}}",
+          "refId": "B"
+        }
+      ],
+      "title": "DB queries per request by route (avg and p95)",
+      "type": "timeseries"
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 16
+      },
+      "id": 6,
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "expr": "sum by (type) (rate(financeos_job_wait_seconds_sum{service=\"financeos-server\",role=~\"$role\",version=~\"$version\"}[$__rate_interval])) / sum by (type) (rate(financeos_job_wait_seconds_count{service=\"financeos-server\",role=~\"$role\",version=~\"$version\"}[$__rate_interval]))",
+          "legendFormat": "avg {{type}}",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "expr": "max by (type) (financeos_job_wait_seconds_max{service=\"financeos-server\",role=~\"$role\",version=~\"$version\"})",
+          "legendFormat": "max {{type}}",
+          "refId": "B"
+        }
+      ],
+      "title": "Job wait time (PENDING until claimed)",
+      "type": "timeseries",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      }
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      },
+      "id": 7,
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "expr": "histogram_quantile(0.95, sum by (le, op) (rate(financeos_op_seconds_bucket{service=\"financeos-server\",role=~\"$role\",version=~\"$version\",op=~\"ext\\\\..*\"}[$__rate_interval])))",
+          "legendFormat": "{{op}}",
+          "refId": "A"
+        }
+      ],
+      "title": "External call latency p95 by op",
+      "type": "timeseries",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "s"
+        },
+        "overrides": []
+      }
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 24
+      },
+      "id": 8,
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROM}"
+          },
+          "expr": "sum by (op) (rate(financeos_op_seconds_count{service=\"financeos-server\",role=~\"$role\",version=~\"$version\",op=~\"ext\\\\..*\",outcome=\"error\"}[$__rate_interval])) / sum by (op) (rate(financeos_op_seconds_count{service=\"financeos-server\",role=~\"$role\",version=~\"$version\",op=~\"ext\\\\..*\"}[$__rate_interval]))",
+          "legendFormat": "{{op}}",
+          "refId": "A"
+        }
+      ],
+      "title": "External call error rate by op",
+      "type": "timeseries",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "description": "Error means a failed call or an HTTP status of 400 or more; outcome=rejected (an expected failure) is not counted."
+    },
+    {
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 32
+      },
+      "id": 9,
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "tempo",
+            "uid": "${DS_TEMPO}"
+          },
+          "expr": "{ resource.service.name = \"financeos-server\" && duration > 2s }",
+          "legendFormat": "",
+          "refId": "A",
+          "queryType": "traceql"
+        }
+      ],
+      "title": "Slow traces (over 2s)",
+      "type": "table",
+      "description": "Open a trace to see where its time went."
+    }
+  ]
+}

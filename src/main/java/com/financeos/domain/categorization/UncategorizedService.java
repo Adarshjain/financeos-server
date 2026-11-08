@@ -1,5 +1,7 @@
 package com.financeos.domain.categorization;
 
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Timing;
 import com.financeos.api.transaction.dto.ApplyUncategorizedRequest;
 import com.financeos.api.transaction.dto.ApplyUncategorizedResponse;
 import com.financeos.api.transaction.dto.CategoryCountsResponse;
@@ -387,8 +389,8 @@ public class UncategorizedService {
     private GroupIndex build(UUID userId, Fingerprint fingerprint) {
         long seq = buildSeq.incrementAndGet();
         long started = System.nanoTime();
-        List<TransactionRepository.UncategorizedRow> rows = transactionRepository.findUncategorizedRows(userId);
-        Map<TextKey, Analysis> analysed = analyseAll(rows);
+        List<TransactionRepository.UncategorizedRow> rows = Timing.call(Ops.UNCATEGORIZED_LOAD_ROWS, () -> transactionRepository.findUncategorizedRows(userId));
+        Map<TextKey, Analysis> analysed = Timing.call(Ops.UNCATEGORIZED_ANALYSE, () -> analyseAll(rows));
         Map<String, Group> byKey = new LinkedHashMap<>();
         for (TransactionRepository.UncategorizedRow row : rows) {
             TransactionType type = row.getType();

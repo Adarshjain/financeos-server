@@ -1,5 +1,7 @@
 package com.financeos.domain.search;
 
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Timing;
 import com.financeos.api.search.dto.GlobalSearchResponse;
 import com.financeos.api.search.dto.SearchAccountHit;
 import com.financeos.api.search.dto.SearchCategoryHit;
@@ -125,6 +127,10 @@ public class GlobalSearchService {
             throw new ValidationException(
                     "Search text must be " + MIN_LENGTH + " to " + MAX_LENGTH + " characters.");
         }
+        return Timing.call(Ops.SEARCH_QUERY, () -> runSearch(text));
+    }
+
+    private GlobalSearchResponse runSearch(String text) {
         long started = System.nanoTime();
         String lowered = text.toLowerCase(Locale.ROOT);
         String escaped = SqlPredicates.escapeLike(lowered);

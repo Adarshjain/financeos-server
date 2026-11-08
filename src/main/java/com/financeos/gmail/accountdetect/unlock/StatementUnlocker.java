@@ -1,5 +1,7 @@
 package com.financeos.gmail.accountdetect.unlock;
 
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Timing;
 import com.financeos.gmail.accountdetect.StatementPdfReader;
 import com.financeos.gmail.accountdetect.HolderCheck;
 import com.financeos.gmail.accountdetect.MailDerived;
@@ -70,6 +72,10 @@ public class StatementUnlocker {
     }
 
     public Outcome unlock(byte[] pdf, Target target, UnlockProfile profile) {
+        return Timing.call(Ops.STATEMENT_UNLOCK, () -> tryUnlock(pdf, target, profile));
+    }
+
+    private Outcome tryUnlock(byte[] pdf, Target target, UnlockProfile profile) {
         Map<String, String> expanded = expandedCandidates(target, profile);
         if (expanded.isEmpty()) return new Outcome(State.LOCKED, null, 0, null);
         int tries = 0;

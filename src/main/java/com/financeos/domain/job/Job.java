@@ -61,6 +61,10 @@ public class Job {
     @Column(name = "error_detail")
     private String errorDetail;
 
+    /** W3C traceparent of the span that enqueued this job (null without tracing); the worker continues that trace. */
+    @Column(name = "trace_parent", length = 64)
+    private String traceParent;
+
     @Column(name = "dismissed_at")
     private Instant dismissedAt;
 

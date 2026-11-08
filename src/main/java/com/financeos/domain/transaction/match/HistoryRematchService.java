@@ -1,5 +1,7 @@
 package com.financeos.domain.transaction.match;
 
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Timing;
 import com.financeos.core.security.UserContextHelper;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
@@ -215,12 +217,12 @@ public class HistoryRematchService {
         List<Doubt> doubts = new ArrayList<>();
 
         List<ForeignItem> foreign = new ArrayList<>();
-        counts.put("foreignConverted", repairForeign(accountId, foreign, doubts));
+        counts.put("foreignConverted", Timing.call(Ops.MATCH_REMATCH_FOREIGN, () -> repairForeign(accountId, foreign, doubts)));
         entityManager.flush();
 
         Map<String, Integer> reasonsCleared = new LinkedHashMap<>();
         List<ReviewChange> reviewChanges = new ArrayList<>();
-        int[] cleared = clearLegacyReasons(accountId, reasonsCleared, reviewChanges);
+        int[] cleared = Timing.call(Ops.MATCH_REMATCH_REASONS, () -> clearLegacyReasons(accountId, reasonsCleared, reviewChanges));
         counts.put("reasonsClearedRows", cleared[0]);
         counts.put("reviewTypeChanged", cleared[1]);
         entityManager.flush();
@@ -228,7 +230,7 @@ public class HistoryRematchService {
         List<MergeItem> merges = new ArrayList<>();
         List<RefusedMerge> refused = new ArrayList<>();
         List<TagItem> tags = new ArrayList<>();
-        int[] rematch = rematchStatements(account, merges, refused, tags);
+        int[] rematch = Timing.call(Ops.MATCH_REMATCH_STATEMENTS, () -> rematchStatements(account, merges, refused, tags));
         counts.put("statements", rematch[0]);
         counts.put("merged", rematch[1]);
         counts.put("refusedMerges", rematch[2]);
@@ -236,7 +238,7 @@ public class HistoryRematchService {
         entityManager.flush();
 
         List<RequeueItem> requeued = new ArrayList<>();
-        int[] rq = requeueCoveredSkips(accountId, requeued);
+        int[] rq = Timing.call(Ops.MATCH_REMATCH_REQUEUE, () -> requeueCoveredSkips(accountId, requeued));
         counts.put("requeued", rq[0]);
         counts.put("requeuedTemplateRead", rq[1]);
         counts.put("requeuedNeedsAi", rq[0] - rq[1]);

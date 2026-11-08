@@ -1,5 +1,7 @@
 package com.financeos.domain.instrument.price;
 
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Timing;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.domain.holding.HoldingRepository;
 import com.financeos.domain.instrument.*;
@@ -90,7 +92,7 @@ public class PriceRefreshService {
      */
     @Transactional(propagation = org.springframework.transaction.annotation.Propagation.NOT_SUPPORTED)
     public PriceRefreshResult refresh(Optional<UUID> instrumentId) {
-        List<Instrument> targets = scoped(() -> {
+        List<Instrument> targets = Timing.call(Ops.PRICES_LOAD_TARGETS, () -> scoped(() -> {
             if (instrumentId.isPresent()) {
                 UUID id = instrumentId.get();
                 Instrument inst = instrumentRepository.findById(id)
@@ -99,7 +101,7 @@ public class PriceRefreshService {
             }
             List<UUID> activeIds = holdingRepository.findDistinctActiveInstrumentIdsHeld();
             return activeIds.isEmpty() ? List.<Instrument>of() : instrumentRepository.findAllById(activeIds);
-        });
+        }));
 
         int refreshedCount = 0;
         int skippedCount = 0;
@@ -129,10 +131,10 @@ public class PriceRefreshService {
             }
         }
 
-        scoped(() -> {
+        Timing.run(Ops.PRICES_CLASSIFY, () -> scoped(() -> {
             classify(targets);
             return null;
-        });
+        }));
 
         for (Map.Entry<PriceProvider, List<Instrument>> entry : grouped.entrySet()) {
             PriceProvider provider = entry.getKey();
@@ -140,7 +142,7 @@ public class PriceRefreshService {
 
             Map<UUID, PriceQuote> quotes = Collections.emptyMap();
             try {
-                quotes = provider.fetch(providerTargets);
+                quotes = Timing.call(Ops.PRICES_FETCH, () -> provider.fetch(providerTargets));
             } catch (Exception e) {
                 log.error("Provider {} fetch thrown an unexpected error", provider.source(), e);
             }
@@ -151,8 +153,8 @@ public class PriceRefreshService {
                     if (quote != null && quote.close() != null && quote.asOf() != null) {
                         // Each instrument's DB write is its own transaction: one failing (even at commit)
                         // cannot mark a shared transaction rollback-only and lose the other prices.
-                        Object outcome = writeTx == null ? storePrice(inst, provider, quote)
-                                : writeTx.execute(status -> storePrice(inst, provider, quote));
+                        Object outcome = Timing.call(Ops.PRICES_STORE, () -> writeTx == null ? storePrice(inst, provider, quote)
+                                : writeTx.execute(status -> storePrice(inst, provider, quote)));
                         if (outcome instanceof PriceRefreshResult.SkippedItem skippedItem) {
                             skippedCount++;
                             skippedItems.add(skippedItem);
@@ -310,20 +312,22 @@ public class PriceRefreshService {
         if (provider == null) {
             return 0;
         }
-        List<UUID> activeIds = holdingRepository.findDistinctActiveInstrumentIdsHeld();
-        List<Instrument> targets = activeIds.isEmpty() ? List.<Instrument>of()
-                : instrumentRepository.findAllById(activeIds).stream().filter(provider::supports).toList();
+        List<Instrument> targets = Timing.call(Ops.PRICES_LOAD_TARGETS, () -> {
+            List<UUID> activeIds = holdingRepository.findDistinctActiveInstrumentIdsHeld();
+            return activeIds.isEmpty() ? List.<Instrument>of()
+                    : instrumentRepository.findAllById(activeIds).stream().filter(provider::supports).toList();
+        });
         if (targets.isEmpty()) {
             return 0;
         }
         ZoneId zone = AppTime.zone();
         LocalDate today = AppTime.today();
         // Fetched with no transaction open (the entry points are NOT_SUPPORTED); only the writes run in one.
-        Map<UUID, PriceQuote> quotes = liveOnly ? provider.fetchLive(targets) : provider.fetch(targets);
+        Map<UUID, PriceQuote> quotes = Timing.call(Ops.PRICES_FETCH, () -> liveOnly ? provider.fetchLive(targets) : provider.fetch(targets));
         if (writeTx == null) {
-            return storeFeed(source, liveOnly, targets, quotes, today, zone);
+            return Timing.call(Ops.PRICES_STORE, () -> storeFeed(source, liveOnly, targets, quotes, today, zone));
         }
-        Integer written = writeTx.execute(status -> storeFeed(source, liveOnly, targets, quotes, today, zone));
+        Integer written = Timing.call(Ops.PRICES_STORE, () -> writeTx.execute(status -> storeFeed(source, liveOnly, targets, quotes, today, zone)));
         return written == null ? 0 : written;
     }
 

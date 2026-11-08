@@ -14,6 +14,10 @@ management:
       show-details: always
       show-components: always
   metrics:
+    # SLO buckets only (no percentiles-histogram) keep the series count small: 4 buckets per route for http
+    distribution:
+      slo:
+        http.server.requests: 100ms,500ms,1s,2s
     web:
       server:
         max-uri-tags: 60
@@ -22,11 +26,6 @@ management:
       env: prod
       role: ${app.role:all}
       version: ${app.version:unknown}
-  distribution:
-    percentiles-histogram:
-      http.server.requests: true
-    slo:
-      http.server.requests: 100ms,500ms,1s,2s
   tracing:
     enabled: ${TRACING_ENABLED:false}
     sampling:

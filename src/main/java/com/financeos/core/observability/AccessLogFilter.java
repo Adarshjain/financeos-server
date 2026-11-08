@@ -58,6 +58,7 @@ public class AccessLogFilter extends OncePerRequestFilter {
 
         String userId = MDC.get("userId");
         String requestId = MDC.get("requestId");
+        String traceId = MDC.get("traceId");
 
         long reqBytes = request.getContentLengthLong();
         if (reqBytes < 0) {
@@ -82,21 +83,21 @@ public class AccessLogFilter extends OncePerRequestFilter {
 
         if (isHealthCheck) {
             if (accessLog.isDebugEnabled()) {
-                accessLog.debug(logMessage, buildArgs(method, route, status, durationMs, userId, requestId, reqBytes, clientIp, userAgent, errorCode, errorId, slow));
+                accessLog.debug(logMessage, buildArgs(method, route, status, durationMs, userId, requestId, traceId, reqBytes, clientIp, userAgent, errorCode, errorId, slow));
             }
         } else if (slow) {
             if (accessLog.isWarnEnabled()) {
-                accessLog.warn(logMessage, buildArgs(method, route, status, durationMs, userId, requestId, reqBytes, clientIp, userAgent, errorCode, errorId, slow));
+                accessLog.warn(logMessage, buildArgs(method, route, status, durationMs, userId, requestId, traceId, reqBytes, clientIp, userAgent, errorCode, errorId, slow));
             }
         } else {
             if (accessLog.isInfoEnabled()) {
-                accessLog.info(logMessage, buildArgs(method, route, status, durationMs, userId, requestId, reqBytes, clientIp, userAgent, errorCode, errorId, slow));
+                accessLog.info(logMessage, buildArgs(method, route, status, durationMs, userId, requestId, traceId, reqBytes, clientIp, userAgent, errorCode, errorId, slow));
             }
         }
     }
 
     private Object[] buildArgs(String method, String route, int status, long durationMs,
-                               String userId, String requestId, long reqBytes,
+                               String userId, String requestId, String traceId, long reqBytes,
                                String clientIp, String userAgent, String errorCode,
                                String errorId, boolean slow) {
         return new Object[] {
@@ -108,6 +109,7 @@ public class AccessLogFilter extends OncePerRequestFilter {
                 StructuredArguments.keyValue("durationMs", durationMs),
                 StructuredArguments.keyValue("userId", userId),
                 StructuredArguments.keyValue("requestId", requestId),
+                StructuredArguments.keyValue("traceId", traceId),
                 StructuredArguments.keyValue("reqBytes", reqBytes),
                 StructuredArguments.keyValue("clientIp", clientIp),
                 StructuredArguments.keyValue("userAgent", userAgent),

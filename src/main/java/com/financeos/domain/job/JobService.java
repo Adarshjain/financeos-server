@@ -3,6 +3,7 @@ package com.financeos.domain.job;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
+import com.financeos.core.observability.Timing;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;
@@ -59,6 +60,7 @@ public class JobService {
         job.setDedupKey(dedupKey);
         job.setAttempt(0);
         job.setCancelRequested(false);
+        job.setTraceParent(Timing.currentTraceParent());
 
         if (payload != null) {
             try {

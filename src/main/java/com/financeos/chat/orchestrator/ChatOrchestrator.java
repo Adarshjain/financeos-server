@@ -1,5 +1,7 @@
 package com.financeos.chat.orchestrator;
 
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Timing;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -131,7 +133,9 @@ public class ChatOrchestrator {
             LlmRequest request = new LlmRequest(currentUserId, "data-chat", prompt, currentSchema, 0.0);
             LlmResponse response;
             try {
-                response = llmClient.complete(request);
+                response = Timing.call(Ops.CHAT_LLM,
+                        t -> t instanceof com.financeos.llm.LlmException le && le.getKind() == com.financeos.llm.LlmException.Kind.NO_KEYS,
+                        () -> llmClient.complete(request));
             } catch (com.financeos.llm.LlmException e) {
                 if (e.getKind() == com.financeos.llm.LlmException.Kind.NO_KEYS) {
                     log.warn("Chat failed: no active LLM keys for user");
@@ -210,7 +214,7 @@ public class ChatOrchestrator {
                 String stepError = null;
 
                 try {
-                    resultJson = sqlExecutor.execute(sql);
+                    resultJson = Timing.call(Ops.CHAT_SQL, () -> sqlExecutor.execute(sql));
                     JsonNode node = objectMapper.readTree(resultJson);
                     rowCount = node.path("rowCount").asInt();
                 } catch (ChatSqlRejectedException e) {
@@ -342,7 +346,9 @@ public class ChatOrchestrator {
                     resultText = errorJson(stepError);
                     stepSuccess = false;
                 } else {
-                    toolResult = toolOpt.get().execute(argsNode);
+                    ChatTool tool = toolOpt.get();
+                    var toolArgs = argsNode;
+                    toolResult = Timing.call(Ops.CHAT_TOOL, () -> tool.execute(toolArgs));
                     if (toolResult.success()) {
                         resultText = toolResult.result().toString();
                         stepSuccess = true;

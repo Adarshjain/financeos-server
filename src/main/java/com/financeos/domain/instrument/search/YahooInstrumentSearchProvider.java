@@ -1,6 +1,8 @@
 package com.financeos.domain.instrument.search;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.financeos.core.observability.ExtHttp;
+import com.financeos.core.observability.Ops;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financeos.api.instrument.dto.InstrumentCandidate;
 import com.financeos.domain.instrument.InstrumentType;
@@ -104,7 +106,7 @@ public class YahooInstrumentSearchProvider implements InstrumentSearchProvider {
                         .GET()
                         .build();
 
-                HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+                HttpResponse<String> response = ExtHttp.send(Ops.PRICE_YAHOO_SEARCH, httpClient, httpRequest, HttpResponse.BodyHandlers.ofString());
                 if (response.statusCode() == 200) {
                     return parseQuotes(response.body(), isinQuery, requestedType, zoneId);
                 } else {

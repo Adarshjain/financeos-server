@@ -1,5 +1,7 @@
 package com.financeos.chat.api;
 
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Timing;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.financeos.chat.history.ChatConversation;
@@ -124,7 +126,7 @@ public class ChatStreamService {
                 out.send("conversation", node.toString());
             }
 
-            ChatAnswer answer = orchestrator.run(prepared.transcript(), sink);
+            ChatAnswer answer = Timing.call(Ops.CHAT_ORCHESTRATE, () -> orchestrator.run(prepared.transcript(), sink));
 
             if (disconnected.getAsBoolean() || Thread.currentThread().isInterrupted()) {
                 Thread.interrupted();

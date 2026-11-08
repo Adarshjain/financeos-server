@@ -1,5 +1,7 @@
 package com.financeos.core.tx;
 
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Timing;
 import com.financeos.core.security.UserFilterEnabler;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -31,9 +33,9 @@ public class TransactionalSectionRunner implements SectionRunner {
 
     @Override
     public <T> T run(Supplier<T> section) {
-        return template.execute(status -> {
+        return Timing.call(Ops.SECTION_RUN, () -> template.execute(status -> {
             userFilterEnabler.enable();
             return section.get();
-        });
+        }));
     }
 }

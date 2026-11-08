@@ -2,6 +2,8 @@ package com.financeos.llm;
 
 import com.financeos.core.observability.Events;
 import com.financeos.core.observability.ObservabilityMetrics;
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Timing;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.llm.LlmKey;
 import com.financeos.domain.llm.LlmKeyRepository;
@@ -244,7 +246,9 @@ public class FailoverLlmClient implements LlmClient {
             for (int attempt = 1; attempt <= attemptsPerProvider; attempt++) {
                 long startTime = System.currentTimeMillis();
                 try {
-                    LlmResponse response = provider.complete(request, apiKey, model, LlmCallOptions.orNone(target.options()));
+                    final String callKey = apiKey;
+                    LlmResponse response = Timing.call(Ops.llm(providerId),
+                            () -> provider.complete(request, callKey, model, LlmCallOptions.orNone(target.options())));
                     long latencyMs = System.currentTimeMillis() - startTime;
                     int responseChars = response != null && response.jsonText() != null ? response.jsonText().length() : 0;
 

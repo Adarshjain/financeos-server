@@ -1,5 +1,7 @@
 package com.financeos.domain.ingestion;
 
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Timing;
 import com.financeos.domain.ingestion.held.HeldUpload;
 import com.financeos.domain.ingestion.held.HeldUploadService;
 import com.financeos.domain.job.JobArtifact;
@@ -69,7 +71,7 @@ public class AutoIngestService {
             StatementParseException failure = null;
             boolean locked = false;
             try {
-                identity = identifier.identify(bytes, blankToNull(typedPassword));
+                identity = Timing.call(Ops.STATEMENT_IDENTIFY, t -> t instanceof StatementParseException, () -> identifier.identify(bytes, blankToNull(typedPassword)));
             } catch (StatementParseException e) {
                 failure = e;
                 locked = e.isPasswordProblem();
@@ -84,7 +86,7 @@ public class AutoIngestService {
                 candidates.remove(typedPassword);
                 for (String pwd : candidates) {
                     try {
-                        identity = identifier.identify(bytes, pwd);
+                        identity = Timing.call(Ops.STATEMENT_UNLOCK_SAVED, t -> t instanceof StatementParseException, () -> identifier.identify(bytes, pwd));
                         failure = null;
                         locked = false;
                         break;
@@ -128,7 +130,7 @@ public class AutoIngestService {
                 JobArtifact a = artifacts.get(idx);
                 files.add(new UploadedFile(a.getFilename(), a.getContentType(), a.getData()));
             }
-            FileIngestionResult r = ingestionService.ingest(group.getKey(), files, ctx, blankToNull(typedPassword));
+            FileIngestionResult r = Timing.call(Ops.STATEMENT_INGEST_ACCOUNT, () -> ingestionService.ingest(group.getKey(), files, ctx, blankToNull(typedPassword)));
             processed += r.filesProcessed();
             created += r.totalCreated();
             duplicates += r.totalDuplicatesFound();

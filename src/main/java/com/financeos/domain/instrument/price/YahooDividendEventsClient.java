@@ -1,6 +1,8 @@
 package com.financeos.domain.instrument.price;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.financeos.core.observability.ExtHttp;
+import com.financeos.core.observability.Ops;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,7 +78,7 @@ public class YahooDividendEventsClient {
                         .GET()
                         .build();
 
-                HttpResponse<String> response = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+                HttpResponse<String> response = ExtHttp.send(Ops.PRICE_YAHOO, httpClient, httpRequest, HttpResponse.BodyHandlers.ofString());
                 if (response.statusCode() == 200) {
                     List<DividendEvent> events = parseDividendEventsJson(response.body(), zoneId);
                     return new FetchResult(events, true);

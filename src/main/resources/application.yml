@@ -99,6 +99,29 @@ management:
     health:
       show-details: never
       show-components: never
+  metrics:
+    distribution:
+      # financeos.op (Timing): fixed buckets only, no percentile histogram, to keep the series count small
+      slo:
+        financeos.op: 50ms,100ms,250ms,500ms,1s,2500ms,5s,10s,30s
+  tracing:
+    # Off unless TRACING_ENABLED=true (prod.yml reads the same variable); exporter errors only reach the logs
+    enabled: ${TRACING_ENABLED:false}
+    propagation:
+      type: w3c
+
+# Timing (core/observability/Timing)
+financeos:
+  timing:
+    # an op at or over this logs one INFO "Slow op" line
+    slow-log-ms: ${TIMING_SLOW_LOG_MS:1000}
+    # false: JDBC spans are dropped at export (slow-SQL log, query counts and metrics keep working)
+    sql-spans: ${TIMING_SQL_SPANS:true}
+
+# SQL text keeps its placeholders; parameter values are never put on spans or logs
+jdbc:
+  datasource-proxy:
+    include-parameter-values: false
 
 # Application-specific configuration
 app:

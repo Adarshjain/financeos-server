@@ -1,5 +1,7 @@
 package com.financeos.domain.user;
 
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Timing;
 import com.financeos.api.auth.dto.LoginRequest;
 import com.financeos.api.auth.dto.SignupRequest;
 import com.financeos.core.exception.DuplicateResourceException;
@@ -212,7 +214,7 @@ public class AuthService {
             }
 
             long startTokenTime = System.currentTimeMillis();
-            var tokenResponse = googleOAuthClient.exchangeCodeForTokens(code);
+            var tokenResponse = Timing.call(Ops.GOOGLE_TOKEN_EXCHANGE, () -> googleOAuthClient.exchangeCodeForTokens(code));
             long tokenLatency = System.currentTimeMillis() - startTokenTime;
 
             log.info("Google OAuth token exchanged: flowId={}, latencyMs={}", effectiveFlowId, tokenLatency,

@@ -1,5 +1,7 @@
 package com.financeos.gmail.oauth;
 
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Timing;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.oauth.OAuthStateService;
@@ -158,7 +160,7 @@ public class GmailOAuthService {
             }
 
             long tokenStart = System.currentTimeMillis();
-            GmailApiClient.TokenResponse tokenResponse = gmailApiClient.exchangeCodeForTokens(code);
+            GmailApiClient.TokenResponse tokenResponse = Timing.call(Ops.GOOGLE_TOKEN_EXCHANGE, () -> gmailApiClient.exchangeCodeForTokens(code));
             long tokenLatency = System.currentTimeMillis() - tokenStart;
 
             log.info("Gmail OAuth token exchanged: flowId={}, latencyMs={}", flowId, tokenLatency,

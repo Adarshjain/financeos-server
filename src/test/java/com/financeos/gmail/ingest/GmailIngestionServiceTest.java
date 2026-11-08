@@ -163,6 +163,49 @@ class GmailIngestionServiceTest {
     }
 
     @Test
+    void testSyncRecordsNamedStageOps() {
+        io.micrometer.core.instrument.MeterRegistry meters = new io.micrometer.core.instrument.simple.SimpleMeterRegistry();
+        io.micrometer.observation.ObservationRegistry registry = io.micrometer.observation.ObservationRegistry.create();
+        registry.observationConfig().observationHandler(new io.micrometer.core.instrument.observation.DefaultMeterObservationHandler(meters));
+        com.financeos.core.observability.Timing.install(registry, meters, null, null, 60_000L);
+        try {
+            when(gmailEngine.listMessageIds(eq(connection), anyString())).thenReturn(List.of("msg-t"));
+            when(processedMessageRepository.findExistingMessageIds(eq(connection.getId()), anyCollection())).thenReturn(List.of());
+            GmailProcessedMessage row = new GmailProcessedMessage();
+            row.setId(UUID.randomUUID());
+            row.setConnection(connection);
+            row.setUser(user);
+            row.setGmailMessageId("msg-t");
+            row.setStatus(GmailProcessedStatus.DISCOVERED);
+            row.setDiscoveredAt(Instant.now());
+            when(processedMessageRepository.countByConnectionIdAndStatusIn(eq(connection.getId()), anyCollection())).thenReturn(1L, 0L);
+            when(processedMessageRepository.findPendingForDrain(eq(connection.getId()), any(), any())).thenReturn(List.of(row));
+            when(processedMessageRepository.findById(row.getId())).thenReturn(Optional.of(row));
+            GmailMessage msg = new GmailMessage("msg-t", Instant.now(), "alerts@bank.com", "Alert Subject", "snippet", "body", null, List.of());
+            when(gmailEngine.fetchMessageDetails(connection, "msg-t")).thenReturn(msg);
+            GeminiExtractionResult ext = new GeminiExtractionResult(true, new java.math.BigDecimal("500.00"), "INR", "debit", LocalDate.now(), "Store", "4321", 0.95, true, null);
+            when(geminiExtractor.extract(msg)).thenReturn(ext);
+            Account unOpted = new Account("SBI", com.financeos.domain.account.AccountType.bank_account);
+            when(accountResolver.resolve(eq("4321"), any(), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(unOpted, null)));
+
+            gmailIngestionService.syncConnection(connection);
+
+            for (String op : List.of(com.financeos.core.observability.Ops.GMAILSYNC_DISCOVER, com.financeos.core.observability.Ops.GMAILSYNC_SWEEP,
+                    com.financeos.core.observability.Ops.GMAILSYNC_SETTLE_PARKED, com.financeos.core.observability.Ops.GMAILSYNC_PROCESS,
+                    com.financeos.core.observability.Ops.GMAILSYNC_MESSAGE, com.financeos.core.observability.Ops.GMAILSYNC_FETCH,
+                    com.financeos.core.observability.Ops.GMAILSYNC_CLASSIFY, com.financeos.core.observability.Ops.GMAILSYNC_EXTRACT,
+                    com.financeos.core.observability.Ops.GMAILSYNC_RESOLVE_ACCOUNT)) {
+                io.micrometer.core.instrument.Timer t = meters.find("financeos.op").tag("op", op).timer();
+                assertThat(t).as(op).isNotNull();
+                assertThat(t.count()).as(op).isGreaterThanOrEqualTo(1);
+            }
+            assertThat(com.financeos.core.observability.Ops.GMAILSYNC_FETCH).isEqualTo("stage.gmailsync.fetch");
+        } finally {
+            com.financeos.core.observability.Timing.reset();
+        }
+    }
+
+    @Test
     void testOptInParking() {
         when(gmailEngine.listMessageIds(eq(connection), anyString())).thenReturn(List.of("msg-2"));
         when(processedMessageRepository.findExistingMessageIds(eq(connection.getId()), anyCollection())).thenReturn(List.of());

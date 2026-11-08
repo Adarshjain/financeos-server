@@ -1,5 +1,7 @@
 package com.financeos.gmail.accountdetect.scan;
 
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Stages;
 import com.financeos.gmail.accountdetect.Detector;
 import com.financeos.gmail.accountdetect.FeatureExtractor;
 import com.financeos.gmail.accountdetect.MailDerived;
@@ -116,10 +118,23 @@ public final class AccountDetectScan {
 
     public Result run(MailSource src, Collection<String> tokens, Instant after, Set<String> knownIds, List<Prior> prior, String salt,
                       ChunkSink sink, Progress progress, Consumer<String> out, Map<String, Long> timings) throws Exception {
+        try (Stages stages = new Stages()) {
+            try {
+                return run(src, tokens, after, knownIds, prior, salt, sink, progress, out, timings, stages);
+            } catch (Exception | Error e) {
+                stages.error(e);
+                throw e;
+            }
+        }
+    }
+
+    private Result run(MailSource src, Collection<String> tokens, Instant after, Set<String> knownIds, List<Prior> prior, String salt,
+                       ChunkSink sink, Progress progress, Consumer<String> out, Map<String, Long> timings, Stages stages) throws Exception {
         Set<String> known = knownIds == null ? Set.of() : knownIds;
         List<Prior> priors = prior == null ? List.of() : prior;
 
         // ---- 1. inventory: list per sender token
+        stages.next(Ops.ACCOUNTDETECT_LIST);
         long t0 = System.currentTimeMillis();
         MailSource.Listing listing = src.list(tokens, after);
         List<String> ids = new ArrayList<>();
@@ -130,12 +145,14 @@ public final class AccountDetectScan {
                 + (known.isEmpty() ? "" : " already stored=" + skipped));
 
         // ---- 2. headers for everything new (metadata batches, paced under quota)
+        stages.next(Ops.ACCOUNTDETECT_METADATA);
         t0 = System.currentTimeMillis();
         Map<String, MailFeature> headers = src.metadata(ids, out);
         timings.put("2 metadata", System.currentTimeMillis() - t0);
         out.accept("STAGE 2 metadata: fetched=" + headers.size() + " of " + ids.size() + " (" + metaNote(src) + ")");
 
         // ---- 3. roles from headers (with the stored mails' votes), choose which bodies to fetch
+        stages.next(Ops.ACCOUNTDETECT_CLUSTER_SELECT);
         t0 = System.currentTimeMillis();
         List<String> order = new ArrayList<>(headers.keySet());
         Map<String, MailDerived> headerDerived = new HashMap<>();
@@ -168,6 +185,7 @@ public final class AccountDetectScan {
         timings.put("3 cluster+select", System.currentTimeMillis() - t0);
         out.accept("STAGE 3 clusters=" + byCluster.size() + " mails by cluster role=" + mailsByRole + " bodies wanted=" + wantBody.size());
 
+        stages.end();
         Map<String, ScannedMail> done = new HashMap<>();
         int total = order.size();
         long deriveMs = 0;
@@ -176,6 +194,7 @@ public final class AccountDetectScan {
             // header-only mails are final now: hand them over first
             List<String> headerOnly = order.stream().filter(id -> !wanted.contains(id)).toList();
             for (int i = 0; i < headerOnly.size(); i += 500) {
+                stages.next(Ops.ACCOUNTDETECT_DERIVE);
                 long d0 = System.currentTimeMillis();
                 List<ScannedMail> chunk = new ArrayList<>();
                 for (String id : headerOnly.subList(i, Math.min(headerOnly.size(), i + 500))) {
@@ -184,6 +203,7 @@ public final class AccountDetectScan {
                     chunk.add(sm);
                 }
                 deriveMs += System.currentTimeMillis() - d0;
+                stages.end();
                 sink.accept(chunk);
                 if (progress != null) progress.update(done.size(), total);
             }
@@ -199,11 +219,13 @@ public final class AccountDetectScan {
         if (wantBody.isEmpty()) src.full(List.of(), out);   // keeps the report's retry line
         for (int c = 0; c < wantBody.size(); c += chunkSize) {
             List<String> chunkIds = wantBody.subList(c, Math.min(wantBody.size(), c + chunkSize));
+            stages.next(Ops.ACCOUNTDETECT_FULL_BODIES);
             t0 = System.currentTimeMillis();
             Map<String, GmailMessage> full = src.full(chunkIds, out);
             timings.merge("4 full bodies", System.currentTimeMillis() - t0, Long::sum);
             fullFetched += full.size();
 
+            stages.next(Ops.ACCOUNTDETECT_MAIL_PDFS);
             t0 = System.currentTimeMillis();
             Map<String, List<ScannedMail.Pdf>> pdfsByMail = new HashMap<>();
             Map<String, List<StatementContent>> contentByMail = new HashMap<>();
@@ -296,6 +318,7 @@ public final class AccountDetectScan {
             }
             timings.merge("5a mail PDFs", System.currentTimeMillis() - t0, Long::sum);
 
+            stages.next(Ops.ACCOUNTDETECT_DERIVE);
             long d0 = System.currentTimeMillis();
             List<ScannedMail> chunk = new ArrayList<>();
             for (String id : chunkIds) {
@@ -309,6 +332,7 @@ public final class AccountDetectScan {
                 chunk.add(sm);
             }
             deriveMs += System.currentTimeMillis() - d0;
+            stages.end();
             if (sink != null) {
                 sink.accept(chunk);
                 if (progress != null) progress.update(done.size(), total);
@@ -319,6 +343,7 @@ public final class AccountDetectScan {
         out.accept("  opened mail PDFs, shape flags: " + pdfFlags);
 
         // ---- 6. derive what is left (header-only mails when nothing was handed over), in listing order
+        stages.next(Ops.ACCOUNTDETECT_DERIVE);
         long d0 = System.currentTimeMillis();
         List<ScannedMail> mails = new ArrayList<>();
         for (String id : order) {
@@ -327,6 +352,7 @@ public final class AccountDetectScan {
             mails.add(sm);
         }
         timings.put("6 derive", deriveMs + System.currentTimeMillis() - d0);
+        stages.end();
         if (sink == null && progress != null) progress.update(mails.size(), total);
         List<String> headersMissing = ids.stream().filter(id -> !headers.containsKey(id)).toList();
         return new Result(mails, new ArrayList<>(statements), mailPdfHashes, listing.ids().size(), skipped, headersMissing);

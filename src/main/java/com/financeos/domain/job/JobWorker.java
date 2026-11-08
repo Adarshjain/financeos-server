@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financeos.core.observability.Events;
 import com.financeos.core.observability.JobRunContext;
 import com.financeos.core.observability.ObservabilityMetrics;
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Timing;
 import com.financeos.core.security.UserContext;
 import net.logstash.logback.argument.StructuredArguments;
 import org.slf4j.Logger;
@@ -15,6 +17,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.Executor;
@@ -122,9 +126,13 @@ public class JobWorker {
                 final JobType type = job.getType();
                 final JobTrigger trigger = job.getTriggerSource();
                 final String payload = job.getPayload();
+                final String traceParent = job.getTraceParent();
+                if (job.getCreatedAt() != null) {
+                    Timing.recordJobWait(type != null ? type.name() : null, Duration.between(job.getCreatedAt(), Instant.now()));
+                }
 
                 try {
-                    jobExecutor.execute(() -> runJob(jobId, userId, type, trigger, payload));
+                    jobExecutor.execute(() -> runJob(jobId, userId, type, trigger, payload, traceParent));
                 } catch (RejectedExecutionException e) {
                     inFlight.decrementAndGet();
                     jobService.fail(jobId, "EXECUTOR_REJECTED", "Worker queue full; job not executed");
@@ -135,11 +143,14 @@ public class JobWorker {
         }
     }
 
-    private void runJob(UUID jobId, UUID userId, JobType type, JobTrigger trigger, String payload) {
+    private void runJob(UUID jobId, UUID userId, JobType type, JobTrigger trigger, String payload, String traceParent) {
         String shortJobId = jobId.toString().substring(0, 8);
         String jobName = getJobName(type);
 
-        try (JobRunContext ctx = JobRunContext.start(shortJobId)) {
+        try (JobRunContext ctx = JobRunContext.start(shortJobId);
+             Timing.Span span = Timing.start(Ops.job(type != null ? type.name() : null), traceParent)) {
+            span.attr(Timing.Attr.JOB_ID, jobId).attr(Timing.Attr.JOB_TYPE, type != null ? type.name().toLowerCase() : null)
+                    .attr(Timing.Attr.USER_ID, userId);
             MDC.put("jobId", jobId.toString());
             MDC.put("jobName", jobName);
             if (userId != null) {
@@ -180,6 +191,7 @@ public class JobWorker {
                 jobService.markCancelled(jobId);
                 log.info("Job completed-with-cancel: jobName={}, jobRunId={}", jobName, shortJobId);
             } catch (Throwable e) {
+                span.error(e);
                 long durationMs = System.currentTimeMillis() - startMs;
                 String errorCode = e.getClass().getSimpleName();
                 String errorMessage = e.getMessage() != null ? e.getMessage() : e.toString();

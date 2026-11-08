@@ -1,6 +1,8 @@
 package com.financeos.domain.instrument.price;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.financeos.core.observability.ExtHttp;
+import com.financeos.core.observability.Ops;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -94,7 +96,7 @@ public class PriceHistoryClient {
                     .header("Accept", "application/json, text/plain, */*")
                     .timeout(Duration.ofMillis(timeoutMs))
                     .GET().build();
-            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = ExtHttp.send(Ops.PRICE_YAHOO, httpClient, request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 429) {
                 yahooPriceProvider.noteRateLimited(response);
                 return Result.of(Status.RATE_LIMITED);
@@ -128,7 +130,7 @@ public class PriceHistoryClient {
                     .header("Accept", "application/json")
                     .timeout(Duration.ofMillis(props.getTimeoutMs() > 0 ? props.getTimeoutMs() : 30000L))
                     .GET().build();
-            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = ExtHttp.send(Ops.PRICE_MFAPI, httpClient, request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() == 429) {
                 return Result.of(Status.RATE_LIMITED);
             }

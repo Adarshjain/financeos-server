@@ -1,6 +1,8 @@
 package com.financeos.domain.instrument.price;
 
 import com.financeos.domain.nps.NpsSchemeNameParser;
+import com.financeos.core.observability.ExtHttp;
+import com.financeos.core.observability.Ops;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -250,7 +252,7 @@ public class NpsTrustFeedClient {
                     .header("Accept", "text/plain, text/tab-separated-values, */*")
                     .GET()
                     .build();
-            HttpResponse<String> response = httpClient.send(request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = ExtHttp.send(Ops.PRICE_NPS, httpClient, request, HttpResponse.BodyHandlers.ofString());
             if (response.statusCode() != 200) {
                 log.error("NPS Trust download {} returned HTTP {}", url, response.statusCode());
                 return null;

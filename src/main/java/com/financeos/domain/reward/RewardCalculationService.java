@@ -1,5 +1,7 @@
 package com.financeos.domain.reward;
 
+import com.financeos.core.observability.Ops;
+import com.financeos.core.observability.Timing;
 import com.financeos.api.reward.dto.RewardLineResponse;
 import com.financeos.api.reward.dto.RewardReportResponse;
 import com.financeos.api.reward.dto.RewardTotalResponse;
@@ -105,7 +107,7 @@ public class RewardCalculationService {
     public RewardReportResponse report(UUID accountId, LocalDate from, LocalDate to) {
         long startMs = System.currentTimeMillis();
         Evaluation eval = evaluate(accountId, from, to, true, "manual");
-        RewardReportResponse response = buildReport(eval, from, to).withWindow(from, to, false, false);
+        RewardReportResponse response = Timing.call(Ops.REWARDS_BUILD_REPORT, () -> buildReport(eval, from, to)).withWindow(from, to, false, false);
         long durationMs = System.currentTimeMillis() - startMs;
 
         log.info("Reward report viewed: cardId={}, durationMs={}", accountId, durationMs,
@@ -129,7 +131,7 @@ public class RewardCalculationService {
                 .orElseThrow(() -> new ResourceNotFoundException("Account", accountId));
         RewardYear year = currentRewardYear(account, AppTime.today());
         Evaluation eval = evaluate(account, year.from(), year.to(), true, "manual");
-        return buildReport(eval, year.from(), year.to()).withWindow(year.from(), year.to(), true, year.fallback());
+        return Timing.call(Ops.REWARDS_BUILD_REPORT, () -> buildReport(eval, year.from(), year.to())).withWindow(year.from(), year.to(), true, year.fallback());
     }
 
     private record RewardYear(LocalDate from, LocalDate to, boolean fallback) {
@@ -194,11 +196,11 @@ public class RewardCalculationService {
             LocalDate from = year.from();
             LocalDate to = year.to();
             boolean fallback = year.fallback();
-            Evaluation eval = prepare(new CardInputs(card,
+            Evaluation eval = Timing.call(Ops.REWARDS_PREPARE, () -> prepare(new CardInputs(card,
                     rulesByCard.getOrDefault(card.getId(), List.of()),
                     milestonesByCard.getOrDefault(card.getId(), List.of()),
                     cardholdersByCard.getOrDefault(card.getId(), List.of()),
-                    statementsByCard.getOrDefault(card.getId(), List.of())), from, to);
+                    statementsByCard.getOrDefault(card.getId(), List.of())), from, to));
             planned.add(new Planned(card, from, to, fallback, eval));
         }
 
@@ -213,7 +215,7 @@ public class RewardCalculationService {
             LocalDate maxTo = needTxns.stream().map(p -> p.eval().expandedTo).max(Comparator.naturalOrder()).orElseThrow();
             Map<UUID, Planned> byCard = new HashMap<>();
             needTxns.forEach(p -> byCard.put(p.card().getId(), p));
-            for (Transaction txn : transactionRepository.findForRewardEvaluationIn(byCard.keySet(), minFrom, maxTo)) {
+            for (Transaction txn : Timing.call(Ops.REWARDS_LOAD_TRANSACTIONS, () -> transactionRepository.findForRewardEvaluationIn(byCard.keySet(), minFrom, maxTo))) {
                 Planned p = byCard.get(txn.getAccount().getId());
                 LocalDate effective = effectiveDate(txn);
                 if (p != null && !effective.isBefore(p.eval().expandedFrom) && !effective.isAfter(p.eval().expandedTo)) {
@@ -223,14 +225,14 @@ public class RewardCalculationService {
             txnsByCard.replaceAll((k, v) -> sortedForEvaluation(v));
         }
         List<UUID> allTxnIds = txnsByCard.values().stream().flatMap(List::stream).map(Transaction::getId).toList();
-        LinkEffects links = allTxnIds.isEmpty() ? new LinkEffects(Map.of(), Set.of()) : loadLinkEffects(allTxnIds);
+        LinkEffects links = allTxnIds.isEmpty() ? new LinkEffects(Map.of(), Set.of()) : Timing.call(Ops.REWARDS_LOAD_LINKS, () -> loadLinkEffects(allTxnIds));
 
         List<RewardTotalResponse> totals = new ArrayList<>();
         for (Planned p : planned) {
             run(p.eval(), txnsByCard.getOrDefault(p.card().getId(), List.of()), links);
             List<Map.Entry<RewardReportResponse.MilestoneStatus, LocalDate>> ms =
                     evaluateMilestonesWithAchievedOn(p.eval(), p.from(), p.to());
-            RewardReportResponse.Summary summary = buildReport(p.eval(), p.from(), p.to()).summary();
+            RewardReportResponse.Summary summary = Timing.call(Ops.REWARDS_BUILD_REPORT, () -> buildReport(p.eval(), p.from(), p.to())).summary();
             totals.add(new RewardTotalResponse(p.card().getId(), p.from(), p.to(), p.fallback(),
                     summary.points(), summary.grossValueInr(), p.card().getPointValueInr(),
                     summary.milestonesPts(), summary.milestonesInr(),
@@ -592,14 +594,14 @@ public class RewardCalculationService {
         }
         UUID accountId = account.getId();
 
-        CardInputs inputs = new CardInputs(account,
+        CardInputs inputs = Timing.call(Ops.REWARDS_LOAD_INPUTS, () -> new CardInputs(account,
                 rewardRuleRepository.findByAccountIdOrderByPriorityDesc(accountId),
                 includeMilestones ? rewardMilestoneRepository.findByAccountIdOrderByCreatedAtAsc(accountId) : List.of(),
                 cardholderRepository != null ? cardholderRepository.findByAccountId(accountId) : List.of(),
-                statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(accountId));
-        Evaluation eval = prepare(inputs, from, to);
-        List<Transaction> transactions = transactionRepository.findForRewardEvaluation(
-                accountId, eval.expandedFrom, eval.expandedTo);
+                statementRepository.findByAccountIdOrderByPeriodEndDescNullsLast(accountId)));
+        Evaluation eval = Timing.call(Ops.REWARDS_PREPARE, () -> prepare(inputs, from, to));
+        List<Transaction> transactions = Timing.call(Ops.REWARDS_LOAD_TRANSACTIONS, () -> transactionRepository.findForRewardEvaluation(
+                accountId, eval.expandedFrom, eval.expandedTo));
         run(eval, transactions);
         logRecompute(eval, accountId, from, to, trigger, startMs);
         return eval;
@@ -769,22 +771,24 @@ public class RewardCalculationService {
     private void run(Evaluation eval, List<Transaction> transactions) {
         transactions = sortedForEvaluation(transactions);
         List<UUID> ids = transactions.stream().map(Transaction::getId).toList();
-        run(eval, transactions, ids.isEmpty() ? new LinkEffects(Map.of(), Set.of()) : loadLinkEffects(ids));
+        run(eval, transactions, ids.isEmpty() ? new LinkEffects(Map.of(), Set.of()) : Timing.call(Ops.REWARDS_LOAD_LINKS, () -> loadLinkEffects(ids)));
     }
 
     /** {@code transactions} already sorted by {@link #sortedForEvaluation}; {@code links} cover at least their ids. */
     private void run(Evaluation eval, List<Transaction> transactions, LinkEffects links) {
-        Map<UUID, BigDecimal> refundTotals = links.refundTotals();
-        Set<UUID> neverEarnIds = links.neverEarnIds();
+        Timing.run(Ops.REWARDS_RUN, () -> {
+            Map<UUID, BigDecimal> refundTotals = links.refundTotals();
+            Set<UUID> neverEarnIds = links.neverEarnIds();
 
-        Map<UUID, Pattern> regexCache = new HashMap<>();
-        for (Transaction txn : transactions) {
-            if (txn.getType() != TransactionType.DEBIT) {
-                continue;
+            Map<UUID, Pattern> regexCache = new HashMap<>();
+            for (Transaction txn : transactions) {
+                if (txn.getType() != TransactionType.DEBIT) {
+                    continue;
+                }
+                eval.txnById.put(txn.getId(), txn);
+                evaluateTransaction(txn, refundTotals, neverEarnIds, eval, regexCache);
             }
-            eval.txnById.put(txn.getId(), txn);
-            evaluateTransaction(txn, refundTotals, neverEarnIds, eval, regexCache);
-        }
+        });
     }
 
     private void logRecompute(Evaluation eval, UUID accountId, LocalDate from, LocalDate to, String trigger, long startMs) {
