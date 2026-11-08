@@ -96,6 +96,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
 
     /** Reward engine: fetch by effective date (settlement date when present, else transaction date). */
     @EntityGraph(attributePaths = { "tags.tag", "card.cardholder" })
+    @org.springframework.data.jpa.repository.QueryHints({@jakarta.persistence.QueryHint(name = org.hibernate.jpa.HibernateHints.HINT_FETCH_SIZE, value = "500"), @jakarta.persistence.QueryHint(name = org.hibernate.jpa.HibernateHints.HINT_READ_ONLY, value = "true")})
     @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId " +
             "AND COALESCE(t.settlementDate, t.date) BETWEEN :startDate AND :endDate " +
             "AND t.amount IS NOT NULL")
@@ -106,6 +107,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
 
     /** {@link #findForRewardEvaluation} for several accounts at once (batched totals). Both skip foreign charges with no rupee amount yet. */
     @EntityGraph(attributePaths = { "tags.tag", "card.cardholder" })
+    @org.springframework.data.jpa.repository.QueryHints({@jakarta.persistence.QueryHint(name = org.hibernate.jpa.HibernateHints.HINT_FETCH_SIZE, value = "500"), @jakarta.persistence.QueryHint(name = org.hibernate.jpa.HibernateHints.HINT_READ_ONLY, value = "true")})
     @Query("SELECT t FROM Transaction t WHERE t.account.id IN :accountIds " +
             "AND COALESCE(t.settlementDate, t.date) BETWEEN :startDate AND :endDate " +
             "AND t.amount IS NOT NULL")
