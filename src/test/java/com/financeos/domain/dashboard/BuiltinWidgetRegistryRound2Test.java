@@ -90,10 +90,10 @@ class BuiltinWidgetRegistryRound2Test {
         assertShape("cap_headroom", t, 50, "cards_rewards", "cap_list", "/rewards");
         assertShape("rewards_earned", t, 50, "cards_rewards", "rewards_fy", "/rewards");
         assertShape("spend_heatmap", t, 100, "spending", "heatmap", "/transactions");
-        assertShape("portfolio_snapshot", c, 50, "investments", null, "/investments");
-        assertShape("top_movers", c, 50, "investments", null, "/investments");
-        assertShape("allocation", t, 50, "investments", "allocation", "/investments");
-        assertShape("tax_harvest", c, 50, "investments", null, "/investments");
+        assertShape("portfolio_snapshot", c, 50, "investments", null, "/investments/holdings");
+        assertShape("top_movers", c, 50, "investments", null, "/investments/holdings");
+        assertShape("allocation", t, 50, "investments", "allocation", "/investments/holdings");
+        assertShape("tax_harvest", c, 50, "investments", null, "/investments/holdings");
         assertShape("loan_payoff", c, 50, "loans_lending", null, "/accounts");
         assertShape("lending_balances", c, 50, "loans_lending", null, "/lending");
         assertShape("account_tile", c, 25, "overview", null, null);

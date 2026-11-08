@@ -30,7 +30,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class EpfMatchInboxCollector implements InboxCollector {
 
-    static final String HREF = "/investments/retirement/epf";
+    static final String HREF = "/investments/epf";
     private static final DateTimeFormatter DATE = DateTimeFormatter.ofPattern("d MMM yyyy", Locale.ENGLISH);
 
     private final EpfEntryRepository entryRepository;

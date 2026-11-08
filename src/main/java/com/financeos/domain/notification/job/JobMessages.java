@@ -37,7 +37,7 @@ public final class JobMessages {
     public static String url(JobType type) {
         return switch (type) {
             case STATEMENT_INGEST -> "/transactions/import";
-            case INVESTMENT_IMPORT_COMMIT, BROKER_RECONCILE_COMMIT -> "/investments";
+            case INVESTMENT_IMPORT_COMMIT, BROKER_RECONCILE_COMMIT -> "/investments/holdings";
             default -> "/data-sources/sync?type=" + type.name();
         };
     }

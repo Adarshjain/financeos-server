@@ -29,7 +29,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class NpsMatchInboxCollector implements InboxCollector {
 
-    static final String HREF = "/investments/retirement/nps";
+    static final String HREF = "/investments/nps";
     private static final java.time.format.DateTimeFormatter SETUP_DATE =
             java.time.format.DateTimeFormatter.ofPattern("dd MMM yyyy", java.util.Locale.ENGLISH);
 

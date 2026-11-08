@@ -24,7 +24,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class NpsGmailInboxCollector implements InboxCollector {
 
-    static final String HREF = "/investments/retirement/nps";
+    static final String HREF = "/investments/nps";
     private static final DateTimeFormatter MONTH = DateTimeFormatter.ofPattern("MMM yyyy", Locale.ENGLISH);
 
     private final NpsGmailDetections detections;

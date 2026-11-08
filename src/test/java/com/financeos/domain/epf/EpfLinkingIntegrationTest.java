@@ -300,7 +300,7 @@ class EpfLinkingIntegrationTest extends EpfIntegrationBase {
         assertEquals("warning", row.severity());
         assertEquals("EPF withdrawal ₹12,34,567 may match a bank credit", row.title());
         assertEquals("NEFT EPFO · EPF Bank · 3 Jun 2026 · +₹12,34,567", row.subtitle());
-        assertEquals("/investments/retirement/epf", row.href());
+        assertEquals("/investments/epf", row.href());
         assertEquals(List.of("epf_link", "dismiss"), row.actions().stream().map(a -> a.type()).toList());
         assertEquals(List.of("Link", "Not this one"), row.actions().stream().map(a -> a.label()).toList());
         assertEquals(entry, row.refs().epfEntryId());

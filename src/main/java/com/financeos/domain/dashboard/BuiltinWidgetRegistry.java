@@ -559,7 +559,7 @@ public class BuiltinWidgetRegistry {
                 "Current value, amount invested, unrealised gain and XIRR across all brokers, plus the change "
                         + "since the last evening price update.",
                 CATEGORY_INVESTMENTS, "Value and day change", NEEDS_HOLDINGS, null,
-                50, KIND_COMPONENT, null, null, null, "/investments", List.of(), null,
+                50, KIND_COMPONENT, null, null, null, "/investments/holdings", List.of(), null,
                 BuiltinAvailability.requiresHoldings(ADD_HOLDINGS));
     }
 
@@ -569,7 +569,7 @@ public class BuiltinWidgetRegistry {
                 "Your holdings that moved most since the previous evening price update. Mutual fund NAVs update "
                         + "a day late.",
                 CATEGORY_INVESTMENTS, "Biggest moves today", NEEDS_HOLDINGS, null,
-                50, KIND_COMPONENT, null, null, null, "/investments", List.of(n), null,
+                50, KIND_COMPONENT, null, null, null, "/investments/holdings", List.of(n), null,
                 BuiltinAvailability.requiresHoldings(ADD_HOLDINGS));
     }
 
@@ -585,7 +585,7 @@ public class BuiltinWidgetRegistry {
                 "How your portfolio splits across equity, debt, hybrid, gold and international, at current market "
                         + "value.",
                 CATEGORY_INVESTMENTS, "By asset class", NEEDS_HOLDINGS, VIEW_ALLOCATION,
-                50, KIND_TEMPLATE, ReportType.CHART, "positions", def, "/investments", List.of(), null,
+                50, KIND_TEMPLATE, ReportType.CHART, "positions", def, "/investments/holdings", List.of(), null,
                 BuiltinAvailability.requiresHoldings(ADD_HOLDINGS));
     }
 
@@ -594,7 +594,7 @@ public class BuiltinWidgetRegistry {
                 "Capital gains booked this financial year, how much of the \u20b91.25L LTCG exemption is left, and "
                         + "which lots are worth selling \u2014 or waiting on \u2014 to use it. Not tax advice.",
                 CATEGORY_INVESTMENTS, "Gains this FY", NEEDS_HOLDINGS, null,
-                50, KIND_COMPONENT, null, null, null, "/investments", List.of(), null,
+                50, KIND_COMPONENT, null, null, null, "/investments/holdings", List.of(), null,
                 BuiltinAvailability.requiresHoldings(ADD_HOLDINGS));
     }
 

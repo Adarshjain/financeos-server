@@ -168,14 +168,14 @@ class JobNotificationServiceTest {
         PushMessage imp = JobMessages.forJob(job, mapper);
         assertEquals("Investment import finished", imp.title());
         assertEquals("12 rows imported · 2 skipped · 1 failed", imp.body());
-        assertEquals("/investments", imp.url());
+        assertEquals("/investments/holdings", imp.url());
 
         job.setType(JobType.BROKER_RECONCILE_COMMIT);
         job.setResult("{\"committed\":1,\"skipped\":0,\"failed\":[],\"skippedItems\":[]}");
         PushMessage rec = JobMessages.forJob(job, mapper);
         assertEquals("Broker reconciliation finished", rec.title());
         assertEquals("1 row imported", rec.body());
-        assertEquals("/investments", rec.url());
+        assertEquals("/investments/holdings", rec.url());
 
         job.setType(JobType.RULE_APPLY);
         job.setResult("{\"appliedCount\":37}");

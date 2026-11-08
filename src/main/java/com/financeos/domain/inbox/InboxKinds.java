@@ -185,10 +185,10 @@ public final class InboxKinds {
             case REVIEW -> "/transactions/review";
             case JOB -> "/data-sources/sync";
             case REWARD_MILESTONE, REWARD_CAP -> "/rewards";
-            case EPF_MATCH -> "/investments/retirement/epf";
+            case EPF_MATCH -> "/investments/epf";
             case LINK_SUGGESTION -> "/transactions/review";
             case UPLOAD_NEEDS_ACCOUNT -> "/transactions/import";
-            case NPS_PASSWORD, NPS_NEW_ACCOUNT, NPS_MATCH, NPS_RECORD, NPS_SETUP -> "/investments/retirement/nps";
+            case NPS_PASSWORD, NPS_NEW_ACCOUNT, NPS_MATCH, NPS_RECORD, NPS_SETUP -> "/investments/nps";
             default -> "/inbox";
         };
     }

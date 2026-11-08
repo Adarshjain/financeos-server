@@ -41,7 +41,7 @@ class NpsGmailInboxCollectorTest {
         assertEquals(InboxKinds.npsPasswordKey(2), p.key());
         assertEquals("2 NPS statements need a password", p.title());
         assertEquals(InboxItemResponse.SECTION_NEEDS_LOOK, p.section());
-        assertEquals("/investments/retirement/nps", p.href());
+        assertEquals("/investments/nps", p.href());
         assertEquals(List.of("nps_password", "dismiss"), p.actions().stream().map(a -> a.type()).toList());
 
         InboxItemResponse a = rows.get(1);
@@ -51,7 +51,7 @@ class NpsGmailInboxCollectorTest {
         assertEquals("3 statements · Jan 2025 – Mar 2025", a.subtitle());
         assertEquals(key, a.refs().npsPendingId());
         assertEquals(LocalDate.of(2025, 3, 31), a.date());
-        assertEquals("/investments/retirement/nps", a.href());
+        assertEquals("/investments/nps", a.href());
         assertEquals(List.of("nps_add_self", "nps_add_child", "nps_ignore"), a.actions().stream().map(x -> x.type()).toList());
         assertTrue(InboxKinds.ALL.contains(InboxKinds.NPS_PASSWORD) && InboxKinds.ALL.contains(InboxKinds.NPS_NEW_ACCOUNT));
     }
