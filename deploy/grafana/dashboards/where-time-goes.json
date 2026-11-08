@@ -371,10 +371,11 @@
             "type": "tempo",
             "uid": "${DS_TEMPO}"
           },
-          "expr": "{ resource.service.name = \"financeos-server\" && duration > 2s }",
-          "legendFormat": "",
+          "query": "{ trace:rootService =~ \"financeos-.*\" && trace:duration > 2s }",
           "refId": "A",
-          "queryType": "traceql"
+          "queryType": "traceql",
+          "tableType": "traces",
+          "limit": 50
         }
       ],
       "title": "Slow traces (over 2s)",
