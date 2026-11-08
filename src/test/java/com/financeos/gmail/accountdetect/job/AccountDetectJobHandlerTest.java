@@ -484,6 +484,48 @@ class AccountDetectJobHandlerTest {
     }
 
     @Test
+    void theSecondLoadReusesTheStoredFactsAndEqualsAFreshFullLoadAfterNewMailsAndAReplacedPartial() throws Exception {
+        ScannedMail x = statementMailWithOpenPdf();
+        List<FixtureMailSource.Mail> all = FixtureMailSource.load(BOX);
+        List<Instant> dates = all.stream().map(FixtureMailSource.Mail::date).sorted().toList();
+        Instant cutoff = dates.get(dates.size() - 25);
+        source = new FixtureMailSource(all.stream().filter(m -> m.date().isBefore(cutoff)).toList());
+        source.failFull.add(x.messageId());
+        run();
+        assertThat(facts(x.messageId()).pending()).isTrue();
+
+        // second run: 25 newer mails are stored and the partial one is replaced
+        source = new FixtureMailSource(all);
+        store.factsLoads = 0;
+        assertThat(run().get("status")).isEqualTo("DONE");
+        assertThat(store.factsLoads).isEqualTo(1);   // "0 load stored" only; the second load reads just the written ids
+        assertThat(source.fullRequested).contains(x.messageId());
+        assertThat(facts(x.messageId()).pending()).isFalse();
+
+        List<AccountDetectStore.StoredFact> fresh = store.facts(userId);
+        List<AccountDetectStore.StoredFact> stored = fresh.stream().filter(f -> !source.metadataRequested.contains(f.messageId()) && !f.messageId().equals(x.messageId())).toList();
+        assertThat(stored).isNotEmpty().hasSizeLessThan(fresh.size());
+        // merged = the old rows with the written ids replaced or added, in the store's order
+        List<AccountDetectStore.StoredFact> written = fresh.stream().filter(f -> !stored.contains(f)).toList();
+        assertThat(AccountDetectJobHandler.mergeWritten(stored, written))
+                .extracting(AccountDetectStore.StoredFact::messageId).containsExactlyElementsOf(fresh.stream().map(AccountDetectStore.StoredFact::messageId).toList());
+        // and the detection equals one over a fresh full load
+        assertThat(summary(detections.get(1))).isEqualTo(summary(AccountDetectJobHandler.detect(fresh, List.of()).detection()));
+    }
+
+    @Test
+    void mergeWrittenReplacesByMessageIdAndSortsNullDatesFirstThenById() {
+        Instant d1 = Instant.parse("2025-01-01T00:00:00Z");
+        Instant d2 = Instant.parse("2025-02-01T00:00:00Z");
+        FactsCodec.Facts f = FactsCodec.decode(FactsCodec.encode(null, List.of(), false, null, 0));
+        List<AccountDetectStore.StoredFact> stored = List.of(new AccountDetectStore.StoredFact("b", d2, f), new AccountDetectStore.StoredFact("a", d1, f),
+                new AccountDetectStore.StoredFact("z", null, f));
+        List<AccountDetectStore.StoredFact> written = List.of(new AccountDetectStore.StoredFact("a", d2, f), new AccountDetectStore.StoredFact("c", null, f));
+        assertThat(AccountDetectJobHandler.mergeWritten(stored, written)).extracting(AccountDetectStore.StoredFact::messageId)
+                .containsExactly("c", "z", "a", "b");
+    }
+
+    @Test
     void aMailWhoseHeadersCouldNotBeReadHoldsTheMarkerUntilARunReadsIt() throws Exception {
         List<FixtureMailSource.Mail> all = FixtureMailSource.load(BOX);
         List<Instant> dates = all.stream().map(FixtureMailSource.Mail::date).sorted().toList();

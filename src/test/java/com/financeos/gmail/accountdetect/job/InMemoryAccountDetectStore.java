@@ -33,13 +33,29 @@ class InMemoryAccountDetectStore extends AccountDetectStore {
         return state;
     }
 
+    int factsLoads;   // full loads of a user's facts
+
     @Override
     public List<StoredFact> facts(UUID userId) {
+        factsLoads++;
         List<AccountDetectFact> rs = new ArrayList<>(rows.getOrDefault(userId, List.of()));
         rs.sort(Comparator.comparing(AccountDetectFact::getInternalDate, Comparator.nullsFirst(Comparator.naturalOrder()))
                 .thenComparing(AccountDetectFact::getMessageId));
         List<StoredFact> out = new ArrayList<>();
         for (AccountDetectFact f : rs) out.add(new StoredFact(f.getMessageId(), f.getInternalDate(), FactsCodec.decode(f.getFacts())));
+        return out;
+    }
+
+    @Override
+    public List<StoredFact> facts(UUID userId, java.util.Collection<String> messageIds) {
+        Set<String> want = new HashSet<>(messageIds);
+        return factsOrdered(userId).stream().filter(f -> want.contains(f.messageId())).toList();
+    }
+
+    private List<StoredFact> factsOrdered(UUID userId) {
+        int before = factsLoads;
+        List<StoredFact> out = facts(userId);
+        factsLoads = before;
         return out;
     }
 

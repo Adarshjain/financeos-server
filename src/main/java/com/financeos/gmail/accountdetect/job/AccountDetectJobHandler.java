@@ -40,6 +40,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -252,6 +253,7 @@ public class AccountDetectJobHandler implements JobHandler {
                 prior.add(new AccountDetectScan.Prior(f.facts().derived(), f.facts().bodyFetched(), f.facts().headerVote()));
             }
         }
+        Set<String> written = java.util.concurrent.ConcurrentHashMap.newKeySet();   // message ids this run stored or replaced
         Instant after = firstScan || state[0].getMarkerAt() == null ? null : state[0].getMarkerAt().minus(MARKER_OVERLAP);
         UUID connectionId = connection.getId();
 
@@ -270,6 +272,7 @@ public class AccountDetectJobHandler implements JobHandler {
                     chunk -> {
                         requireStillScanned(userId, connectionId);
                         store.saveAll(userId, chunk, partialRuns);
+                        for (ScannedMail m : chunk) written.add(m.messageId());
                     },
                     (seen, total) -> {
                         requireStillScanned(userId, connectionId);
@@ -306,6 +309,7 @@ public class AccountDetectJobHandler implements JobHandler {
         if (!headersMissing.isEmpty()) {
             if (!stillScanned(userId, connectionId)) return mailboxGone();
             store.saveAll(userId, headersMissing, partialRuns);
+            for (ScannedMail m : headersMissing) written.add(m.messageId());
         }
         Incomplete incomplete = incomplete(scan, headersMissing, partialRuns);
 
@@ -339,8 +343,8 @@ public class AccountDetectJobHandler implements JobHandler {
         List<AccountDetectStore.StoredFact> all;
         long tAll = System.nanoTime();
         try {
-            all = store.facts(userId);
-            timings.put("8 load all", (System.nanoTime() - tAll) / 1_000_000);
+            all = mergeWritten(stored, written.isEmpty() ? List.of() : store.facts(userId, written));
+            timings.put("8 load written", (System.nanoTime() - tAll) / 1_000_000);
         } catch (Exception e) {
             if (stillScanned(userId, connectionId)) failed(s, "DETECT_" + e.getClass().getSimpleName());
             throw e;
@@ -387,6 +391,20 @@ public class AccountDetectJobHandler implements JobHandler {
                 firstScan, s.getFirstScanDoneAt() != null, scan.listed(), scan.skippedKnown(), scan.mails().size(), incomplete.partial().size(),
                 incomplete.givenUp(), mailsStored, detection.entities.size(), System.currentTimeMillis() - started, timings);
         return result("DONE", scan.mails().size(), mailsStored, detection.entities.size());
+    }
+
+    /**
+     * The facts as a fresh full load would give them: {@code stored} with the rows written this run replaced (by message id) or
+     * added, in the store's order (internal date ascending, nulls first, then message id), which the seeded resamples walk.
+     */
+    static List<AccountDetectStore.StoredFact> mergeWritten(List<AccountDetectStore.StoredFact> stored, List<AccountDetectStore.StoredFact> reloaded) {
+        Map<String, AccountDetectStore.StoredFact> byId = new LinkedHashMap<>();
+        for (AccountDetectStore.StoredFact f : stored) byId.put(f.messageId(), f);
+        for (AccountDetectStore.StoredFact f : reloaded) byId.put(f.messageId(), f);
+        List<AccountDetectStore.StoredFact> all = new ArrayList<>(byId.values());
+        all.sort(Comparator.comparing(AccountDetectStore.StoredFact::internalDate, Comparator.nullsFirst(Comparator.naturalOrder()))
+                .thenComparing(AccountDetectStore.StoredFact::messageId));
+        return all;
     }
 
     /** The user's name, birth date and saved statement passwords (empty when they cannot be read: PDFs then stay locked). */

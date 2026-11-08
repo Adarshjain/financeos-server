@@ -1,8 +1,11 @@
 package com.financeos.gmail.accountdetect.job;
 
+import jakarta.persistence.QueryHint;
+import org.hibernate.jpa.HibernateHints;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -14,8 +17,14 @@ import java.util.UUID;
 public interface AccountDetectFactRepository extends JpaRepository<AccountDetectFact, UUID> {
 
     /** All of one user's facts in a stable order: internal date, then message id. */
+    @QueryHints({@QueryHint(name = HibernateHints.HINT_FETCH_SIZE, value = "500"), @QueryHint(name = HibernateHints.HINT_READ_ONLY, value = "true")})
     @Query("select f from AccountDetectFact f where f.userId = :userId order by f.internalDate asc nulls first, f.messageId asc")
     List<AccountDetectFact> findAllForUser(@Param("userId") UUID userId);
+
+    /** The user's facts for these message ids (at most 1000 per call: Oracle's IN-list limit), in the same order as {@link #findAllForUser}. */
+    @QueryHints({@QueryHint(name = HibernateHints.HINT_FETCH_SIZE, value = "500"), @QueryHint(name = HibernateHints.HINT_READ_ONLY, value = "true")})
+    @Query("select f from AccountDetectFact f where f.userId = :userId and f.messageId in :messageIds order by f.internalDate asc nulls first, f.messageId asc")
+    List<AccountDetectFact> findForUserAndMessageIds(@Param("userId") UUID userId, @Param("messageIds") java.util.Collection<String> messageIds);
 
     @Query("select f.messageId from AccountDetectFact f where f.userId = :userId")
     List<String> findMessageIdsForUser(@Param("userId") UUID userId);

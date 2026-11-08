@@ -69,16 +69,46 @@ public class GmailMailSource implements MailSource, AccountDetectScan.Describabl
     public Listing list(Collection<String> tokens, Instant after) throws Exception {
         AtomicInteger listCalls = new AtomicInteger();
         String suffix = after == null ? "" : " after:" + after.getEpochSecond();
-        ExecutorService pool = Executors.newFixedThreadPool(8);
+        List<String> queries = listQueries(tokens, suffix);
+        ExecutorService pool = Executors.newFixedThreadPool(Math.max(1, Math.min(8, queries.size())));
         try {
             List<Future<List<String>>> lf = new ArrayList<>();
-            for (String t : tokens) lf.add(pool.submit(() -> listAll(svc, "from:" + t + suffix, listCalls)));
+            for (String q : queries) lf.add(pool.submit(() -> listAll(svc, q, listCalls)));
             Set<String> ids = new LinkedHashSet<>();
             for (Future<List<String>> f : lf) ids.addAll(await(f));
             return new Listing(new ArrayList<>(ids), listCalls.get());
         } finally {
             pool.shutdownNow();
         }
+    }
+
+    static final int MAX_TOKENS_PER_QUERY = 25;
+    static final int MAX_QUERY_LENGTH = 1000;
+
+    /**
+     * Batches the sender tokens into {@code from:(a OR b ...)} queries (the syntax Gmail sync uses): at most
+     * {@value #MAX_TOKENS_PER_QUERY} tokens and {@value #MAX_QUERY_LENGTH} characters each, whichever is hit first; a token
+     * too long for that goes alone. Null and blank tokens are skipped; the suffix ends every query.
+     */
+    static List<String> listQueries(Collection<String> tokens, String suffix) {
+        List<String> out = new ArrayList<>();
+        StringBuilder cur = new StringBuilder();
+        int count = 0;
+        for (String raw : tokens) {
+            if (raw == null || raw.isBlank()) continue;
+            String t = raw.trim();
+            int added = (count == 0 ? 0 : 4) + t.length();   // " OR " between tokens
+            if (count > 0 && (count >= MAX_TOKENS_PER_QUERY || "from:(".length() + cur.length() + added + 1 + suffix.length() > MAX_QUERY_LENGTH)) {
+                out.add("from:(" + cur + ")" + suffix);
+                cur.setLength(0);
+                count = 0;
+            }
+            if (count > 0) cur.append(" OR ");
+            cur.append(t);
+            count++;
+        }
+        if (count > 0) out.add("from:(" + cur + ")" + suffix);
+        return out;
     }
 
     private static List<String> listAll(Gmail svc, String query, AtomicInteger calls) throws IOException {

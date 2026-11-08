@@ -48,6 +48,23 @@ public class AccountDetectStore {
         return out;
     }
 
+    /** The user's facts for these message ids, decoded, ordered like {@link #facts(UUID)}; ids are looked up in chunks of at most 900. */
+    @Transactional(readOnly = true)
+    public List<StoredFact> facts(UUID userId, java.util.Collection<String> messageIds) {
+        List<AccountDetectFact> rows = new ArrayList<>();
+        List<String> ids = new ArrayList<>(new java.util.LinkedHashSet<>(messageIds));
+        for (int i = 0; i < ids.size(); i += ID_CHUNK) {
+            rows.addAll(factRepository.findForUserAndMessageIds(userId, ids.subList(i, Math.min(ids.size(), i + ID_CHUNK))));
+        }
+        rows.sort(java.util.Comparator.comparing(AccountDetectFact::getInternalDate, java.util.Comparator.nullsFirst(java.util.Comparator.naturalOrder()))
+                .thenComparing(AccountDetectFact::getMessageId));
+        List<StoredFact> out = new ArrayList<>(rows.size());
+        for (AccountDetectFact f : rows) out.add(new StoredFact(f.getMessageId(), f.getInternalDate(), FactsCodec.decode(f.getFacts())));
+        return out;
+    }
+
+    static final int ID_CHUNK = 900;
+
     /** A stored mail whose protected statement PDF is still closed, with what the retry needs to try it again. */
     public record LockedFact(String messageId, java.time.Instant internalDate, String attachmentId, String unlockHint, FactsCodec.Facts facts) {}
 
