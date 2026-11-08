@@ -144,12 +144,12 @@ class TransactionCountAndShellCountsIntegrationTest {
         GmailConnection healthy = connection(user, true, null);
         connection(user, false, Instant.now()); // disconnected on purpose: not counted
         message(healthy, user, GmailProcessedStatus.UNRESOLVED_ACCOUNT);
-        message(healthy, user, GmailProcessedStatus.ACCOUNT_NOT_OPTED_IN);
+        message(healthy, user, GmailProcessedStatus.ACCOUNT_NOT_OPTED_IN); // no account to turn import on for: not counted
         message(broken, user, GmailProcessedStatus.FAILED_PERMANENT);
         message(healthy, user, GmailProcessedStatus.CREATED); // not an attention status
 
-        assertEquals(4, client.getJson("/api/v1/shell/counts", 200).get("dataSources").get("connections").asInt());
-        // the Inbox shows the same: 1 reconnect row + a summary row of 3 emails
+        assertEquals(3, client.getJson("/api/v1/shell/counts", 200).get("dataSources").get("connections").asInt());
+        // the Inbox shows the same: 1 reconnect row + a summary row of 2 emails (Needs attention total)
         JsonNode items = client.getJson("/api/v1/inbox", 200).get("items");
         int emails = 0;
         int reconnect = 0;
@@ -157,7 +157,7 @@ class TransactionCountAndShellCountsIntegrationTest {
             if ("gmail-attention".equals(item.get("key").asText())) emails = item.get("count").asInt();
             if ("gmail_reconnect".equals(item.get("kind").asText())) reconnect++;
         }
-        assertEquals(4, emails + reconnect);
+        assertEquals(3, emails + reconnect);
     }
 
     @Test
