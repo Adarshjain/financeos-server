@@ -79,6 +79,14 @@ public class CardBillService {
         this.eventPublisher = eventPublisher;
     }
 
+    private BillPaymentService billPaymentService;
+
+    /** Optional (plain unit tests build the service without a context; lazy: the payment service sits beside this one): records and undoes bill payments. */
+    @Autowired(required = false)
+    public void setBillPaymentService(@org.springframework.context.annotation.Lazy BillPaymentService billPaymentService) {
+        this.billPaymentService = billPaymentService;
+    }
+
     public CardBillService(AccountRepository accountRepository,
                            StatementRepository statementRepository,
                            TransactionRepository transactionRepository,
@@ -621,11 +629,88 @@ public class CardBillService {
         return buildEnriched(statement.getAccount(), statement, today, null);
     }
 
-    /** Undo a manual mark; reminders resume from the start of the sequence. */
+    /**
+     * "Mark as paid" that also records the payment as transactions. {@link BillPaymentMode#NONE} (or null) is exactly
+     * {@link #markPaid(UUID, UUID, BigDecimal, LocalDate)}. EXISTING pays from the given free bank debit (its amount and
+     * date are the payment's; a request amount must equal it). NEW pays {@code amount} (default: what is left) on
+     * {@code paidOn} (default today), creating the bank debit on {@code fromAccountId} when given, else only the card-side
+     * credit. No manual mark is set: the credits pay the bill, so the bill and the card balance agree.
+     */
+    @Transactional
+    public CardBill markPaid(UUID userId, UUID statementId, BigDecimal amount, LocalDate paidOn, BillPaymentMode mode,
+                             UUID fromTransactionId, UUID fromAccountId) {
+        if (mode == null || mode == BillPaymentMode.NONE) {
+            return markPaid(userId, statementId, amount, paidOn);
+        }
+        if (billPaymentService == null) {
+            throw new ValidationException("Recording a payment is not available");
+        }
+        LocalDate today = AppTime.today();
+        if (amount != null && amount.signum() <= 0) {
+            throw new ValidationException("Paid amount must be greater than zero");
+        }
+        if (paidOn != null && paidOn.isAfter(today)) {
+            throw new ValidationException("Paid date cannot be in the future");
+        }
+        Statement statement = loadOwnedCardStatement(userId, statementId);
+        BillPaymentService.Source source;
+        if (mode == BillPaymentMode.EXISTING) {
+            if (fromTransactionId == null) {
+                throw new ValidationException("Pick the debit that paid the bill");
+            }
+            source = new BillPaymentService.Source.ExistingDebit(fromTransactionId, amount);
+        } else {
+            BigDecimal pay = amount;
+            if (pay == null) {
+                BigDecimal remaining = build(statement.getAccount(), statement, today).remainingAmount();
+                if (remaining == null || remaining.signum() <= 0) {
+                    throw new ValidationException("Nothing is left to pay on this bill");
+                }
+                pay = remaining;
+            }
+            source = fromAccountId != null
+                    ? new BillPaymentService.Source.NewDebit(fromAccountId, pay, paidOn)
+                    : new BillPaymentService.Source.CardOnly(pay, paidOn);
+        }
+        billPaymentService.record(userId, statementId, source, BillPaymentOrigin.USER);
+        CardBill bill = build(statement.getAccount(), statement, today);
+        if (bill.isPaid()) {
+            StatementCreditCardDetails d = statement.getCreditCardDetails();
+            d.setLastNotifiedKind(BillNotificationKinds.PAID);
+            d.setLastNotifiedOn(today);
+            statementRepository.save(statement);
+            if (eventPublisher != null) {
+                eventPublisher.publishEvent(new ReminderResolveEvent(userId, ReminderKeys.bill(statementId)));
+            }
+        }
+        return buildEnriched(statement.getAccount(), statement, today, null);
+    }
+
+    /**
+     * Bank debits that could be this bill's payment ({@code amount} null = what is left), payee signal first then nearest
+     * to the due date. Empty without a payment service or a positive amount.
+     */
+    public List<BillPaymentService.CandidateView> paymentCandidates(UUID userId, UUID statementId, @Nullable BigDecimal amount) {
+        Statement statement = loadOwnedCardStatement(userId, statementId);
+        if (billPaymentService == null) {
+            return List.of();
+        }
+        BigDecimal wanted = amount != null ? amount
+                : build(statement.getAccount(), statement, AppTime.today()).remainingAmount();
+        if (wanted == null || wanted.signum() <= 0) {
+            return List.of();
+        }
+        return billPaymentService.candidates(userId, statementId, wanted);
+    }
+
+    /** Undo a manual mark and any payment recorded for the bill; reminders resume from the start of the sequence. */
     @Transactional
     public CardBill unmarkPaid(UUID userId, UUID statementId) {
         LocalDate today = AppTime.today();
         Statement statement = loadOwnedCardStatement(userId, statementId);
+        if (billPaymentService != null) {
+            billPaymentService.undo(userId, statementId);
+        }
         StatementCreditCardDetails d = statement.getCreditCardDetails();
         d.setPaidMarkedOn(null);
         d.setPaidMarkedAmount(null);

@@ -20,6 +20,12 @@ public final class PairRules {
     private PairRules() {
     }
 
+    /**
+     * The card window for a card credit the app created to pay a bill (a {@code bill_payments} row): the issuer posts the
+     * payment up to a week after the bank debit it is dated by, so the statement's line may sit that far from it.
+     */
+    public static final int BILL_PAYMENT_DAYS = 7;
+
     /** Hard rules with the default foreign window. Any false means: not the same payment. */
     public static boolean canPair(MatchRecord r, MatchRecord t, int w) {
         return canPair(r, t, w, MatchWindow.DEFAULT_FOREIGN_DAYS);

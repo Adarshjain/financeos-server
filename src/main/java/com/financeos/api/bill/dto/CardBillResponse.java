@@ -1,5 +1,7 @@
 package com.financeos.api.bill.dto;
 
+import com.financeos.domain.notification.bill.BillPaymentOrigin;
+import com.financeos.domain.notification.bill.BillPaymentService;
 import com.financeos.domain.notification.bill.BillStatus;
 import com.financeos.domain.notification.bill.CardBill;
 import com.financeos.domain.notification.bill.PaidSource;
@@ -38,8 +40,18 @@ public record CardBillResponse(
         @Nullable BigDecimal unbilledAmount,
         @Nullable LocalDate nextStatementExpectedOn,
         /** Statement figures still empty: PERIOD_END, DUE_DATE, TOTAL_DUE, MINIMUM_DUE; empty when complete. */
-        List<String> missingDetails
+        List<String> missingDetails,
+        /** Payments recorded for this bill (by the matcher or "Mark paid"), oldest first; empty when none. */
+        List<PaymentResponse> payments
 ) {
+    /** One payment of the bill: the card-side credit, the bank debit it came from (when known) and who recorded it. */
+    public record PaymentResponse(UUID transactionId, @Nullable UUID bankTransactionId, @Nullable String bankAccountName,
+                                  LocalDate date, BigDecimal amount, BillPaymentOrigin origin) {
+        public static PaymentResponse from(BillPaymentService.PaymentView v) {
+            return new PaymentResponse(v.transactionId(), v.bankTransactionId(), v.bankAccountName(), v.date(), v.amount(), v.origin());
+        }
+    }
+
     public record BillDigestResponse(
             @Nullable BigDecimal totalPurchases,
             @Nullable BigDecimal paymentsReceived,
@@ -55,6 +67,10 @@ public record CardBillResponse(
     }
 
     public static CardBillResponse from(CardBill bill) {
+        return from(bill, List.of());
+    }
+
+    public static CardBillResponse from(CardBill bill, List<BillPaymentService.PaymentView> payments) {
         CardBill.Digest d = bill.digest();
         return new CardBillResponse(
                 bill.accountId(), bill.accountName(), bill.last4(), bill.statementId(),
@@ -65,6 +81,7 @@ public record CardBillResponse(
                 d == null ? null : new BillDigestResponse(d.totalPurchases(), d.paymentsReceived(), d.financeCharges(),
                         d.feesAndCharges(), d.rewardPointsEarned(), d.rewardPointsBalance(), d.creditLimit(),
                         d.utilizationPct(), d.transactionCount()),
-                bill.unbilledAmount(), bill.nextStatementExpectedOn(), bill.missingDetails());
+                bill.unbilledAmount(), bill.nextStatementExpectedOn(), bill.missingDetails(),
+                payments.stream().map(PaymentResponse::from).toList());
     }
 }

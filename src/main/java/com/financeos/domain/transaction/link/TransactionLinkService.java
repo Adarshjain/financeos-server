@@ -54,6 +54,14 @@ public class TransactionLinkService {
         this.autoLinkStore = autoLinkStore;
     }
 
+    private com.financeos.domain.notification.bill.BillPaymentService billPaymentService;
+
+    /** Optional (setter, lazy: the bill payment service uses this one) so tests that build the service by hand need none; set by Spring. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setBillPaymentService(@org.springframework.context.annotation.Lazy com.financeos.domain.notification.bill.BillPaymentService billPaymentService) {
+        this.billPaymentService = billPaymentService;
+    }
+
     private com.financeos.domain.categorization.CategoryLinkHooks categoryLinkHooks;
 
     /** Optional (setter) so tests that build the service by hand need no hooks; set by Spring. */
@@ -324,6 +332,10 @@ public class TransactionLinkService {
         transactionLinkRepository.delete(link);
         if (categoryLinkHooks != null) {
             categoryLinkHooks.released(released);
+        }
+        if (billPaymentService != null && link.getType() == LinkType.CC_PAYMENT) {
+            // A payment of a bill that this link joined: an AUTO one is taken back, a USER one only forgotten.
+            billPaymentService.onLinkRemoved(userId, linkId, released.stream().map(Transaction::getId).toList());
         }
 
         log.info("Txn link removed: linkId={}, type={}", linkId, link.getType(),

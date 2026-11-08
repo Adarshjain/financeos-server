@@ -23,7 +23,7 @@ rules:
   - id: card-bill-payee
     category: card_bill
     direction: DEBIT
-    counterparty: ['^cred(?: club)?$', '^cred ?cc ?bill ?payment', '^cred\.club@', '^ccbbpsno', '\bcredit ?cards?\b', '^(?:hdfc|icici|axis|sbi|hsbc|yes|idfc|kotak|indusind|au|rbl|equitas|federal|bob)\w*\s?(?:bank )?(?:cc|credit card|card)\s?(?:bill|payment|pay)?\b', '^billdesk\b.*\bcard\b', '^(?:cc|card)\s?(?:bill|payment)\b']
+    counterparty: ['^(?:p2m[- ])?cred(?: club)?(?:[- ]?payment)?(?: on\b.*)?$', '^(?:p2m[- ])?club[- ]?payment(?: on\b.*)?$', '^cred ?cc ?bill ?payment', '^cred\.club@', '^ccbbpsno', '\bcredit ?cards?\b', '^(?:hdfc|icici|axis|sbi|hsbc|yes|idfc|kotak|indusind|au|rbl|equitas|federal|bob)\w*\s?(?:bank )?(?:cc|credit card|card)\s?(?:bill|payment|pay)?\b', '^billdesk\b.*\bcard\b', '^(?:cc|card)\s?(?:bill|payment)\b']
   - id: autopay-card-bill
     category: card_bill
     any: ['\b(?:autopay|auto pay|auto-debit|standing instruction)\b.{0,60}\bcredit card (?:bill|payment|dues?|outstanding)\b', '\bbilldesk\b.{0,60}\bcredit card (?:bill|payment|dues?|outstanding)\b', '\bcredit card (?:bill|payment|dues?|outstanding)\b.{0,60}\b(?:autopay|billdesk)\b']

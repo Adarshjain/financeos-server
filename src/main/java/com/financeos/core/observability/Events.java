@@ -72,6 +72,7 @@ public final class Events {
     // Ingestion & Parsing Events (Phase 5B)
     public static final String INGEST_ITEM_FAILED = "ingest.item_failed";
     public static final String STATEMENT_NUMBER_DRIFT = "statement.number_drift";
+    public static final String BILL_PAYMENT_UNMERGED = "bill_payment.unmerged";
     public static final String INGEST_FILE_RECEIVED = "ingest.file.received";
     public static final String PARSE_STARTED = "parse.started";
     public static final String PARSE_COMPLETED = "parse.completed";

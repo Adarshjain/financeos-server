@@ -2267,6 +2267,38 @@ paths:
           description: Error response
       tags:
       - bill-controller
+  /api/v1/bills/{statementId}/payment-candidates:
+    get:
+      operationId: paymentCandidates
+      parameters:
+      - in: path
+        name: statementId
+        required: true
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: amount
+        required: false
+        schema:
+          type: number
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/PaymentCandidateResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - bill-controller
   /api/v1/categorize:
     post:
       operationId: categorize
@@ -13270,6 +13302,10 @@ components:
           format: date
           nullable: true
           x-nullable: true
+        payments:
+          type: array
+          items:
+            $ref: "#/components/schemas/PaymentResponse"
         periodEnd:
           type: string
           format: date
@@ -13318,6 +13354,7 @@ components:
       - missingDetails
       - muted
       - paidSource
+      - payments
       - status
     CardBreakdown:
       type: object
@@ -20109,6 +20146,8 @@ components:
           format: date
           nullable: true
           x-nullable: true
+        payment:
+          $ref: "#/components/schemas/Payment"
     MarkNotificationsReadRequest:
       type: object
       properties:
@@ -23137,6 +23176,56 @@ components:
       - cardId
       - jobIds
       - reactivatedCount
+    Payment:
+      type: object
+      properties:
+        fromAccountId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        fromTransactionId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        mode:
+          type: string
+          enum:
+          - NONE
+          - EXISTING
+          - NEW
+          nullable: true
+          x-nullable: true
+    PaymentCandidateResponse:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        accountName:
+          type: string
+        amount:
+          type: number
+        date:
+          type: string
+          format: date
+        description:
+          type: string
+          nullable: true
+          x-nullable: true
+        payeeSignal:
+          type: boolean
+        transactionId:
+          type: string
+          format: uuid
+      required:
+      - accountId
+      - accountName
+      - amount
+      - date
+      - payeeSignal
+      - transactionId
     PaymentInfo:
       type: object
       properties:
@@ -23157,6 +23246,36 @@ components:
       - amount
       - id
       - paymentDate
+    PaymentResponse:
+      type: object
+      properties:
+        amount:
+          type: number
+        bankAccountName:
+          type: string
+          nullable: true
+          x-nullable: true
+        bankTransactionId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        date:
+          type: string
+          format: date
+        origin:
+          type: string
+          enum:
+          - AUTO
+          - USER
+        transactionId:
+          type: string
+          format: uuid
+      required:
+      - amount
+      - date
+      - origin
+      - transactionId
     PerCardCapUsage:
       type: object
       properties:

@@ -109,6 +109,14 @@ public class StatementBatchMatcher {
         this.processedMessageRepository = processedMessageRepository;
     }
 
+    private com.financeos.domain.notification.bill.BillPaymentStore billPaymentStore;
+
+    /** A card credit the app created to pay a bill pairs with a statement line up to {@link PairRules#BILL_PAYMENT_DAYS} days away. */
+    @Autowired(required = false)
+    public void setBillPaymentStore(com.financeos.domain.notification.bill.BillPaymentStore billPaymentStore) {
+        this.billPaymentStore = billPaymentStore;
+    }
+
     private org.springframework.context.ApplicationEventPublisher eventPublisher;
 
     /** Foreign charges the statement filled get the ingest event (auto-linking, recurring) they skipped with no amount. */
@@ -291,6 +299,9 @@ public class StatementBatchMatcher {
         }
         // Foreign charges post up to the foreign window late, so the ledger reaches that far.
         int reach = Math.max(w, fw);
+        if (billPaymentStore != null) {
+            reach = Math.max(reach, PairRules.BILL_PAYMENT_DAYS);
+        }
         lo = lo.minusDays(reach);
         hi = hi.plusDays(reach);
 
@@ -406,10 +417,11 @@ public class StatementBatchMatcher {
             candsByGroup.computeIfAbsent(groupKey(t.getType(), t.getAmount()), k -> new ArrayList<>()).add(t);
         }
         List<Line> unpaired = new ArrayList<>();
+        Set<UUID> billPaymentCredits = billPaymentCredits(candidates);
         for (Map.Entry<String, List<Line>> g : linesByGroup.entrySet()) {
             List<Line> gl = g.getValue();
             List<Transaction> gc = candsByGroup.getOrDefault(g.getKey(), List.of());
-            Map<Integer, Integer> pairs = pair(accountId, gl, gc, w, fw, (l, t) -> true);
+            Map<Integer, Integer> pairs = pair(accountId, gl, gc, w, fw, (l, t) -> true, billPaymentCredits);
             for (int i = 0; i < gl.size(); i++) {
                 Integer j = pairs.get(i);
                 if (j == null) {
@@ -520,12 +532,25 @@ public class StatementBatchMatcher {
      */
     private static Map<Integer, Integer> pair(UUID accountId, List<Line> lines, List<Transaction> cands, int w, int foreignW,
                                               java.util.function.BiPredicate<Line, Transaction> allowed) {
+        return pair(accountId, lines, cands, w, foreignW, allowed, Set.of());
+    }
+
+    /** The candidates that are the card credit of a bill payment the app recorded (they pair within the wider window). */
+    private Set<UUID> billPaymentCredits(List<Transaction> candidates) {
+        if (billPaymentStore == null) return Set.of();
+        List<UUID> credits = candidates.stream().filter(t -> t.getType() == TransactionType.CREDIT).map(Transaction::getId).toList();
+        return credits.isEmpty() ? Set.of() : billPaymentStore.cardTxnIdsAmong(credits);
+    }
+
+    private static Map<Integer, Integer> pair(UUID accountId, List<Line> lines, List<Transaction> cands, int w, int foreignW,
+                                              java.util.function.BiPredicate<Line, Transaction> allowed, Set<UUID> widened) {
         if (lines.isEmpty() || cands.isEmpty()) return Map.of();
         List<MatchRecord> lr = lines.stream().map(l -> MatchRecord.of(accountId, l)).toList();
         List<MatchRecord> cr = cands.stream().map(MatchRecord::of).toList();
         int n = Math.max(lines.size(), cands.size());
         return Assignment.pairs(lines.size(), cands.size(), (i, j) -> {
-            if (!PairRules.canPair(lr.get(i), cr.get(j), w, foreignW) || !allowed.test(lines.get(i), cands.get(j))) return null;
+            int window = widened.contains(cands.get(j).getId()) ? Math.max(w, PairRules.BILL_PAYMENT_DAYS) : w;
+            if (!PairRules.canPair(lr.get(i), cr.get(j), window, foreignW) || !allowed.test(lines.get(i), cands.get(j))) return null;
             // Tie-break (date / creation order alignment) never outweighs one unit of cost: sum of |i-j| < n*n + 1.
             return (long) PairRules.cost(lr.get(i), cr.get(j)) * ((long) n * n + 1) + Math.abs(i - j);
         });
