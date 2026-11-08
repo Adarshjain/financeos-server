@@ -31,6 +31,7 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
     @Query("SELECT MAX(s.periodEnd) FROM Statement s WHERE s.account.id = :accountId")
     LocalDate findLatestPeriodEnd(@Param("accountId") UUID accountId);
 
+    @EntityGraph(attributePaths = {"creditCardDetails"})
     @Query("SELECT s FROM Statement s WHERE s.account.id = :accountId ORDER BY s.periodEnd DESC NULLS LAST, s.createdAt DESC")
     List<Statement> findByAccountIdOrderByPeriodEndDescNullsLast(@Param("accountId") UUID accountId);
 
@@ -39,6 +40,7 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
     @Query("SELECT s FROM Statement s WHERE s.account.id IN :accountIds ORDER BY s.periodEnd DESC NULLS LAST, s.createdAt DESC")
     List<Statement> findByAccountIdInOrderByPeriodEndDescNullsLast(@Param("accountIds") java.util.Collection<UUID> accountIds);
 
+    @EntityGraph(attributePaths = {"creditCardDetails"})
     List<Statement> findByAccountIdOrderByPeriodEndAsc(UUID accountId);
 
     /** Statements whose review digest has not run yet, ingested inside [from, to] (old enough to be fully linked, new enough to matter). */
