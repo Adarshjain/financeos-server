@@ -28,6 +28,13 @@ public interface JobRepository extends JpaRepository<Job, UUID> {
     /** As above, minus jobs the user dismissed (a retried failure is dismissed when its clone is queued). */
     Page<Job> findByUserIdAndTypeInAndStatusInAndDismissedAtIsNull(UUID userId, Collection<JobType> types, Collection<JobStatus> statuses, Pageable pageable);
 
+    /** Undismissed jobs of these types and statuses started by {@code trigger} that finished at or after {@code since}. */
+    @Query("select count(j) from Job j where j.userId = :userId and j.type in :types and j.status in :statuses "
+            + "and j.dismissedAt is null and j.triggerSource = :trigger and j.finishedAt >= :since")
+    long countFinishedSince(@Param("userId") UUID userId, @Param("types") Collection<JobType> types,
+                            @Param("statuses") Collection<JobStatus> statuses, @Param("trigger") JobTrigger trigger,
+                            @Param("since") Instant since);
+
     Page<Job> findByUserIdAndCreatedAtGreaterThanEqual(UUID userId, Instant since, Pageable pageable);
 
     Page<Job> findByUserIdAndStatusInAndCreatedAtGreaterThanEqual(UUID userId, Collection<JobStatus> statuses, Instant since, Pageable pageable);

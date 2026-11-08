@@ -6,6 +6,11 @@ import com.financeos.api.transaction.dto.TransactionSearchRequest;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.inbox.InboxMemo;
 import com.financeos.domain.inbox.InboxService;
+import com.financeos.domain.inbox.collect.FailedJobsCounter;
+import com.financeos.domain.notification.gmail.GmailAttentionNotificationService;
+import com.financeos.gmail.domain.GmailConnectionRepository;
+import com.financeos.gmail.domain.GmailProcessedMessageRepository;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.notification.feed.NotificationFeedService;
 import com.financeos.domain.report.definition.FilterClause;
 import com.financeos.domain.transaction.TransactionService;
@@ -37,14 +42,22 @@ public class ShellController {
     private final TransactionService transactionService;
     private final NotificationFeedService feedService;
     private final AppLockController appLockController;
+    private final GmailConnectionRepository gmailConnectionRepository;
+    private final GmailProcessedMessageRepository gmailProcessedMessageRepository;
+    private final FailedJobsCounter failedJobsCounter;
 
     public ShellController(InboxService inboxService, InboxMemo inboxMemo, TransactionService transactionService,
-            NotificationFeedService feedService, AppLockController appLockController) {
+            NotificationFeedService feedService, AppLockController appLockController,
+            GmailConnectionRepository gmailConnectionRepository,
+            GmailProcessedMessageRepository gmailProcessedMessageRepository, FailedJobsCounter failedJobsCounter) {
         this.inboxService = inboxService;
         this.inboxMemo = inboxMemo;
         this.transactionService = transactionService;
         this.feedService = feedService;
         this.appLockController = appLockController;
+        this.gmailConnectionRepository = gmailConnectionRepository;
+        this.gmailProcessedMessageRepository = gmailProcessedMessageRepository;
+        this.failedJobsCounter = failedJobsCounter;
     }
 
     @GetMapping("/counts")
@@ -57,7 +70,20 @@ public class ShellController {
                 part("inbox", () -> inboxMemo.get(userId, () -> inboxService.list(userId)).summary()),
                 part("needsReview", () -> transactionService.countTransactions(NEEDS_REVIEW)),
                 part("notifications", () -> feedService.unreadCount(userId)),
-                part("appLock", () -> appLockController.statusOf(request.getSession(true)))));
+                part("appLock", () -> appLockController.statusOf(request.getSession(true))),
+                part("dataSources", () -> dataSources(userId))));
+    }
+
+    /** Gmail emails still waiting on the user plus mailboxes to reconnect (as the Inbox rows count them), and failed jobs. */
+    private DataSourcesCountsResponse dataSources(UUID userId) {
+        long emails = gmailProcessedMessageRepository.countByUserIdAndStatusIn(userId,
+                GmailAttentionNotificationService.ATTENTION_STATUSES);
+        long reconnect = gmailConnectionRepository.countByUserIdAndIsConnectedTrueAndAuthFailedAtIsNotNull(userId);
+        return new DataSourcesCountsResponse(clamp(emails + reconnect), clamp(failedJobsCounter.count(userId, AppTime.today())));
+    }
+
+    private static int clamp(long n) {
+        return (int) Math.min(n, Integer.MAX_VALUE);
     }
 
     /** A part that failed is null (the client treats each of these requests as independent). */

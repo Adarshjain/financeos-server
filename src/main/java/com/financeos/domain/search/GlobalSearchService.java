@@ -1,5 +1,6 @@
 package com.financeos.domain.search;
 
+import com.financeos.api.epf.dto.EpfEmployerResponse;
 import com.financeos.core.observability.Ops;
 import com.financeos.core.observability.Timing;
 import com.financeos.api.search.dto.GlobalSearchResponse;
@@ -12,10 +13,15 @@ import com.financeos.api.search.dto.SearchLoanHit;
 import com.financeos.api.search.dto.SearchOpenBill;
 import com.financeos.api.search.dto.SearchPersonHit;
 import com.financeos.api.search.dto.SearchReportHit;
+import com.financeos.api.search.dto.SearchRetirementHit;
+import com.financeos.api.search.dto.SearchTagHit;
+import com.financeos.api.search.dto.SearchUpcomingHit;
 import com.financeos.api.search.dto.SearchTransactionHit;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.account.AccountType;
+import com.financeos.domain.epf.EpfEmployerStatus;
+import com.financeos.domain.epf.EpfService;
 import com.financeos.domain.notification.bill.BillStatus;
 import com.financeos.domain.notification.bill.CardBill;
 import com.financeos.domain.notification.bill.CardBillService;
@@ -36,7 +42,7 @@ import java.util.Locale;
 import java.util.UUID;
 
 /**
- * Global search: nine small capped queries (5 rows each, no counts), run in order inside one read-only
+ * Global search: twelve small capped queries (5 rows each, no counts), run in order inside one read-only
  * transaction. Every query is scoped by {@code user_id}; small groups list prefix matches first, then
  * alphabetically; transactions list newest first (served by idx_txn_user_date).
  */
@@ -112,11 +118,85 @@ public class GlobalSearchService {
                AND (LOWER(r.merchant_key) LIKE :q""" + LIKE + " OR LOWER(r.display_name) LIKE :q" + LIKE + ")"
             + PREFIX_ORDER.formatted("r.merchant_key", "r.id");
 
+    /**
+     * EPF (one row when the user has EPF data) and NPS (one row per account) in one query. Keyword matches
+     * ("epf", "provident fund", "nps", "vatsalya") test the typed text against the constant. Only last 4 of the
+     * UAN and the stored pran_last4 are matched; the encrypted PRAN is never selected. "Current employer" is the
+     * newest-joined employer that has not left, been settled or transferred out.
+     */
+    private static final String RETIREMENT_SQL = """
+            SELECT kind, account_id, title, subtitle, pran_last4, holder_name, matched_scheme FROM (
+                SELECT 'EPF' AS kind, CAST(NULL AS VARCHAR2(36)) AS account_id, 'EPF' AS title,
+                       CAST(NULL AS VARCHAR2(200)) AS subtitle,
+                       CAST(NULL AS VARCHAR2(4)) AS pran_last4, CAST(NULL AS VARCHAR2(200)) AS holder_name,
+                       CAST(NULL AS VARCHAR2(200)) AS matched_scheme
+                  FROM users u
+                 WHERE u.id = :userId
+                   AND (EXISTS (SELECT 1 FROM epf_employer e WHERE e.user_id = :userId)
+                        OR EXISTS (SELECT 1 FROM epf_entry x WHERE x.user_id = :userId))
+                   AND ('epf' LIKE :q""" + LIKE + " OR 'provident fund' LIKE :q" + LIKE + """
+
+                        OR EXISTS (SELECT 1 FROM epf_employer e
+                                    WHERE e.user_id = :userId
+                                      AND (LOWER(e.name) LIKE :q""" + LIKE + """
+
+                                           OR LOWER(SUBSTR(e.uan, -4)) LIKE :q""" + LIKE + """
+)))
+                UNION ALL
+                SELECT 'NPS', a.id,
+                       CASE WHEN a.relation = 'CHILD' AND a.sector = 'VATSALYA' THEN 'NPS Vatsalya' ELSE 'NPS' END,
+                       CAST(NULL AS VARCHAR2(200 CHAR)), a.pran_last4,
+                       CASE WHEN a.relation = 'CHILD' THEN a.holder_name END,
+                       (SELECT MIN(i.name) FROM nps_scheme s JOIN instruments i ON i.id = s.instrument_id
+                         WHERE LOWER(i.name) LIKE :q""" + LIKE + """
+
+                           AND (EXISTS (SELECT 1 FROM nps_allocation al
+                                         WHERE al.account_id = a.id AND al.scheme_code = s.scheme_code)
+                                OR EXISTS (SELECT 1 FROM nps_entry_line l JOIN nps_entry en ON en.id = l.entry_id
+                                            WHERE en.account_id = a.id AND en.user_id = :userId
+                                              AND l.scheme_code = s.scheme_code)))
+                  FROM nps_account a
+                 WHERE a.user_id = :userId
+                   AND ('nps' LIKE :q""" + LIKE + """
+
+                        OR ('vatsalya' LIKE :q""" + LIKE + """
+ AND a.relation = 'CHILD' AND a.sector = 'VATSALYA')
+                        OR LOWER(a.holder_name) LIKE :q""" + LIKE + """
+
+                        OR LOWER(a.pran_last4) LIKE :q""" + LIKE + """
+
+                        OR EXISTS (SELECT 1 FROM nps_scheme s JOIN instruments i ON i.id = s.instrument_id
+                                    WHERE LOWER(i.name) LIKE :q""" + LIKE + """
+
+                                      AND (EXISTS (SELECT 1 FROM nps_allocation al
+                                                    WHERE al.account_id = a.id AND al.scheme_code = s.scheme_code)
+                                           OR EXISTS (SELECT 1 FROM nps_entry_line l JOIN nps_entry en ON en.id = l.entry_id
+                                                       WHERE en.account_id = a.id AND en.user_id = :userId
+                                                         AND l.scheme_code = s.scheme_code))))
+            )""" + PREFIX_ORDER.formatted("title", "account_id");
+
+    /** What Upcoming lists as "recurring": the tracked series (loan-backed ones are already searchable as loans). */
+    private static final String UPCOMING_SQL = "SELECT id, display_name, next_due_on, amount, kind FROM recurring_series"
+            + " WHERE user_id = :userId AND status = 'TRACKED' AND loan_id IS NULL"
+            + " AND (LOWER(display_name) LIKE :q" + LIKE + " OR LOWER(merchant_key) LIKE :q" + LIKE + ")"
+            + PREFIX_ORDER.formatted("display_name", "id");
+
+    private static final String TAGS_SQL = """
+            SELECT g.id, g.name,
+                   (SELECT COUNT(*) FROM transaction_tags tt
+                      JOIN transactions t ON t.id = tt.transaction_id AND t.user_id = :userId
+                     WHERE tt.tag_id = g.id) AS txn_count
+              FROM tags g
+             WHERE g.user_id = :userId AND LOWER(g.name) LIKE :q""" + LIKE
+            + PREFIX_ORDER.formatted("g.name", "g.id");
+
     private final NamedParameterJdbcTemplate jdbc;
 
     private final CardBillService cardBillService;
+    private final EpfService epfService;
 
-    public GlobalSearchService(NamedParameterJdbcTemplate jdbc, CardBillService cardBillService) {
+    public GlobalSearchService(NamedParameterJdbcTemplate jdbc, CardBillService cardBillService, EpfService epfService) {
+        this.epfService = epfService;
         this.jdbc = jdbc;
         this.cardBillService = cardBillService;
     }
@@ -173,12 +253,25 @@ public class GlobalSearchService {
         List<SearchRuleHit> rules = jdbc.query(RULES_SQL, params, (rs, n) -> new SearchRuleHit(
                 UUID.fromString(rs.getString("id")), rs.getString("merchant_key"), rs.getString("category_name")));
 
+        List<SearchRetirementHit> retirement = withEpfEmployer(jdbc.query(RETIREMENT_SQL, params, (rs, n) -> new SearchRetirementHit(
+                rs.getString("kind"), rs.getString("account_id") == null ? null : UUID.fromString(rs.getString("account_id")),
+                rs.getString("title"), rs.getString("subtitle"), rs.getString("pran_last4"),
+                rs.getString("holder_name"), rs.getString("matched_scheme"))));
+
+        List<SearchUpcomingHit> upcoming = jdbc.query(UPCOMING_SQL, params, (rs, n) -> new SearchUpcomingHit(
+                UUID.fromString(rs.getString("id")), rs.getString("display_name"),
+                rs.getDate("next_due_on").toLocalDate(), rs.getBigDecimal("amount"), rs.getString("kind")));
+
+        List<SearchTagHit> tags = jdbc.query(TAGS_SQL, params, (rs, n) -> new SearchTagHit(
+                UUID.fromString(rs.getString("id")), rs.getString("name"), rs.getLong("txn_count")));
+
         log.debug("Global search: accounts={} transactions={} holdings={} people={} loans={} reports={} dashboards={}"
-                        + " categories={} rules={} in {} ms",
+                        + " categories={} rules={} retirement={} upcoming={} tags={} in {} ms",
                 accounts.size(), transactions.size(), holdings.size(), people.size(), loans.size(), reports.size(),
-                dashboards.size(), categories.size(), rules.size(), (System.nanoTime() - started) / 1_000_000);
+                dashboards.size(), categories.size(), rules.size(), retirement.size(), upcoming.size(), tags.size(),
+                (System.nanoTime() - started) / 1_000_000);
         return new GlobalSearchResponse(accounts, transactions, holdings, people, loans, reports, dashboards,
-                categories, rules);
+                categories, rules, retirement, upcoming, tags);
     }
 
     /**
@@ -221,5 +314,20 @@ public class GlobalSearchService {
                 + " WHERE t.user_id = :userId AND (LOWER(t.description) LIKE :q" + LIKE
                 + " OR LOWER(t.sourced_description) LIKE :q" + LIKE + amountClause + ")"
                 + " ORDER BY t.transaction_date DESC, t.id DESC FETCH FIRST 5 ROWS ONLY";
+    }
+
+    /** Sets the EPF hit's subtitle to the employer the EPF screen calls current; read only when EPF matched. */
+    private List<SearchRetirementHit> withEpfEmployer(List<SearchRetirementHit> hits) {
+        if (hits.stream().noneMatch(h -> "EPF".equals(h.kind()))) {
+            return hits;
+        }
+        String current = epfService.getEmployers().stream()
+                .filter(e -> e.status() == EpfEmployerStatus.CURRENT)
+                .map(EpfEmployerResponse::name)
+                .findFirst().orElse(null);
+        return hits.stream()
+                .map(h -> "EPF".equals(h.kind()) ? new SearchRetirementHit(h.kind(), h.accountId(), h.title(), current,
+                        h.pranLast4(), h.holderName(), h.matchedScheme()) : h)
+                .toList();
     }
 }

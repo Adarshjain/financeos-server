@@ -12,5 +12,8 @@ public record GlobalSearchResponse(
         List<SearchReportHit> reports,
         List<SearchDashboardHit> dashboards,
         List<SearchCategoryHit> categories,
-        List<SearchRuleHit> rules) {
+        List<SearchRuleHit> rules,
+        List<SearchRetirementHit> retirement,
+        List<SearchUpcomingHit> upcoming,
+        List<SearchTagHit> tags) {
 }

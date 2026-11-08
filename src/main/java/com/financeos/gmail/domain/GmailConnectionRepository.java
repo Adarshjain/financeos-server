@@ -30,5 +30,7 @@ public interface GmailConnectionRepository extends JpaRepository<GmailConnection
     /** A user's mailboxes whose token died and that the user still wants connected. */
     List<GmailConnection> findByUserIdAndIsConnectedTrueAndAuthFailedAtIsNotNull(UUID userId);
 
+    long countByUserIdAndIsConnectedTrueAndAuthFailedAtIsNotNull(UUID userId);
+
     List<GmailConnection> findByUserId(UUID userId);
 }

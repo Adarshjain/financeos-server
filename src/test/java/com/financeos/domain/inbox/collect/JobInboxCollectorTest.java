@@ -27,9 +27,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 
 class JobInboxCollectorTest {
 
@@ -39,14 +36,21 @@ class JobInboxCollectorTest {
     private static final Instant CUTOFF = TODAY.minusDays(7).atStartOfDay(IST).toInstant();
 
     private final JobRepository repository = mock(JobRepository.class);
-    private final JobInboxCollector collector = new JobInboxCollector(repository);
+    private final JobInboxCollector collector = new JobInboxCollector(new FailedJobsCounter(repository));
     private final UUID userId = UUID.randomUUID();
     private final List<Job> jobs = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
         AppTime.useClock(Clock.fixed(TODAY.atTime(10, 5).atZone(IST).toInstant(), IST));
-        when(repository.findByUserIdAndTypeInAndStatusInAndDismissedAtIsNull(eq(userId), any(), any(), any())).thenAnswer(inv -> new PageImpl<>(jobs));
+        when(repository.countFinishedSince(eq(userId), any(), any(), any(), any())).thenAnswer(inv -> {
+            java.util.Collection<JobType> types = inv.getArgument(1);
+            java.util.Collection<JobStatus> statuses = inv.getArgument(2);
+            JobTrigger trigger = inv.getArgument(3);
+            Instant since = inv.getArgument(4);
+            return jobs.stream().filter(j -> types.contains(j.getType()) && statuses.contains(j.getStatus())
+                    && j.getTriggerSource() == trigger && j.getFinishedAt() != null && !j.getFinishedAt().isBefore(since)).count();
+        });
     }
 
     @AfterEach
@@ -68,18 +72,16 @@ class JobInboxCollectorTest {
 
     @Test
     @SuppressWarnings("unchecked")
-    void asksOnlyForFailedJobsOfTheNotifiedTypesNewestFirstCappedAtFifty() {
+    void asksOnlyForUserStartedFailedJobsOfTheNotifiedTypesSinceTheCutoff() {
+        job(JobType.RULE_APPLY, JobStatus.FAILED, JobTrigger.USER, TODAY.atTime(9, 0).atZone(IST).toInstant());
         collector.collect(userId, TODAY);
 
         ArgumentCaptor<java.util.Collection<JobType>> types = ArgumentCaptor.forClass(java.util.Collection.class);
         ArgumentCaptor<java.util.Collection<JobStatus>> statuses = ArgumentCaptor.forClass(java.util.Collection.class);
-        ArgumentCaptor<Pageable> page = ArgumentCaptor.forClass(Pageable.class);
-        verify(repository).findByUserIdAndTypeInAndStatusInAndDismissedAtIsNull(eq(userId), types.capture(), statuses.capture(), page.capture());
-        assertEquals(JobNotificationService.NOTIFIED_TYPES, types.getValue());
+        verify(repository, org.mockito.Mockito.atLeastOnce()).countFinishedSince(eq(userId), types.capture(), statuses.capture(),
+                eq(JobTrigger.USER), eq(CUTOFF));
+        assertEquals(JobNotificationService.NOTIFIED_TYPES, types.getAllValues().get(0));
         assertEquals(List.of(JobStatus.FAILED), List.copyOf(statuses.getValue()));
-        assertEquals(0, page.getValue().getPageNumber());
-        assertEquals(50, page.getValue().getPageSize());
-        assertEquals(Sort.by(Sort.Direction.DESC, "finishedAt"), page.getValue().getSort());
     }
 
     @Test

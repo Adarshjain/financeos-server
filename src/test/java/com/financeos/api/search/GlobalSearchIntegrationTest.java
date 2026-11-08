@@ -514,4 +514,191 @@ class GlobalSearchIntegrationTest {
         assertEquals(1, search(other, "zqmerchant-other").get("rules").size());
         assertEquals(0, search(api, "zqmerchant-other").get("rules").size());
     }
+
+    // ---------- retirement, upcoming, tags ----------
+
+    private UUID epfEmployer(UUID owner, String name, String uan, String joinedOn, String leftOn) {
+        UUID id = UUID.randomUUID();
+        Timestamp now = Timestamp.from(Instant.now());
+        jdbc.update("INSERT INTO epf_employer (id, user_id, name, uan, joined_on, left_on, created_at, updated_at)"
+                        + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)", id.toString(), owner.toString(), name, uan,
+                java.sql.Date.valueOf(joinedOn), leftOn == null ? null : java.sql.Date.valueOf(leftOn), now, now);
+        return id;
+    }
+
+    private void npsScheme(String name) {
+        if (!jdbc.queryForList("SELECT 1 FROM instruments WHERE name = ? AND type = 'nps_scheme'", name).isEmpty()) {
+            return;
+        }
+        UUID instrumentId = UUID.randomUUID();
+        instrumentIds.add(instrumentId);
+        Timestamp now = Timestamp.from(Instant.now());
+        jdbc.update("INSERT INTO instruments (id, type, name, symbol, currency, created_at, updated_at)"
+                        + " VALUES (?, 'nps_scheme', ?, ?, 'INR', ?, ?)", instrumentId.toString(), name,
+                "SC" + UUID.randomUUID().toString().substring(0, 8), now, now);
+        String code = "SC" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+        jdbc.update("INSERT INTO nps_scheme (scheme_code, instrument_id, variant, updated_at) VALUES (?, ?, 'NONE', ?)",
+                code, instrumentId.toString(), now);
+    }
+
+    private String schemeCode(String name) {
+        npsScheme(name);
+        return jdbc.queryForObject("SELECT s.scheme_code FROM nps_scheme s JOIN instruments i ON i.id = s.instrument_id"
+                + " WHERE i.name = ?", String.class, name);
+    }
+
+    private UUID npsAccount(UUID owner, String last4, String holder, String relation, String sector, String schemeName) {
+        UUID id = UUID.randomUUID();
+        Timestamp now = Timestamp.from(Instant.now());
+        jdbc.update("INSERT INTO nps_account (id, user_id, pran_encrypted, pran_last4, holder_name, relation, sector,"
+                        + " cra, tier2_active, status, read_gmail, created_at, updated_at)"
+                        + " VALUES (?, ?, 'enc', ?, ?, ?, ?, 'PROTEAN', 0, 'ACTIVE', 1, ?, ?)",
+                id.toString(), owner.toString(), last4, holder, relation, sector, now, now);
+        if (schemeName != null) {
+            jdbc.update("INSERT INTO nps_allocation (id, account_id, tier, scheme_code, percent, as_of, source)"
+                            + " VALUES (?, ?, 'I', ?, 100, ?, 'MANUAL')", UUID.randomUUID().toString(), id.toString(),
+                    schemeCode(schemeName), java.sql.Date.valueOf(AppTime.today()));
+        }
+        return id;
+    }
+
+    private UUID series(UUID owner, String merchantKey, String displayName, String kind, String status, UUID loanId) {
+        UUID id = UUID.randomUUID();
+        Timestamp now = Timestamp.from(Instant.now());
+        jdbc.update("INSERT INTO recurring_series (id, user_id, merchant_key, display_name, kind, period, amount,"
+                        + " last_paid_on, next_due_on, status, missed_cycles, loan_id, created_at, updated_at)"
+                        + " VALUES (?, ?, ?, ?, ?, 'MONTHLY', 499, ?, ?, ?, 0, ?, ?, ?)",
+                id.toString(), owner.toString(), merchantKey, displayName, kind,
+                java.sql.Date.valueOf(AppTime.today().minusDays(20)), java.sql.Date.valueOf(AppTime.today().plusDays(10)),
+                status, loanId == null ? null : loanId.toString(), now, now);
+        return id;
+    }
+
+    private UUID tagRow(UUID owner, String name) {
+        UUID id = UUID.randomUUID();
+        jdbc.update("INSERT INTO tags (id, user_id, name) VALUES (?, ?, ?)", id.toString(), owner.toString(), name);
+        return id;
+    }
+
+    @Test
+    void epfHitMatchesKeywordsEmployersAndUanLast4WithCurrentEmployerSubtitle() throws Exception {
+        epfEmployer(userId, "Acme Corp " + tag, "100200301234", "2020-01-01", "2022-01-01");
+        epfEmployer(userId, "Globex " + tag, "100200301234", "2022-02-01", null);
+        epfEmployer(otherUserId, "Hooli " + tag, "999999995678", "2022-02-01", null);
+
+        for (String q : List.of("epf", "provident", "acme corp " + tag, "globex " + tag, "1234")) {
+            JsonNode r = search(api, q).get("retirement");
+            assertEquals(1, r.size(), q);
+            assertEquals("EPF", r.get(0).get("kind").asText());
+            assertEquals("EPF", r.get(0).get("title").asText());
+            assertEquals("Globex " + tag, r.get(0).get("subtitle").asText());
+        }
+        assertEquals(0, search(api, "hooli " + tag).get("retirement").size());
+        assertEquals(0, search(api, "5678").get("retirement").size());
+        assertEquals(1, search(other, "hooli " + tag).get("retirement").size());
+    }
+
+    @Test
+    void epfHitIsAbsentWithoutEpfData() throws Exception {
+        assertEquals(0, search(api, "epf").get("retirement").size());
+    }
+
+    @Test
+    void npsHitsMatchKeywordsHolderPranLast4AndSchemeNamesAndNeverExposeAFullPran() throws Exception {
+        UUID self = npsAccount(userId, "4821", "Self Holder", "SELF", "ALL_CITIZEN", "Zq Equity Fund " + tag);
+        UUID child = npsAccount(userId, "9033", "Kiddo " + tag, "CHILD", "VATSALYA", null);
+        npsAccount(otherUserId, "7777", "Stranger " + tag, "SELF", "ALL_CITIZEN", "Zq Equity Fund " + tag);
+
+        JsonNode nps = search(api, "nps").get("retirement");
+        assertEquals(2, nps.size());
+        assertEquals(List.of("NPS", "NPS Vatsalya"), texts(nps, "title").stream().sorted().toList());
+
+        JsonNode vats = search(api, "vatsalya").get("retirement");
+        assertEquals(1, vats.size());
+        assertEquals(child.toString(), vats.get(0).get("accountId").asText());
+        assertEquals("NPS Vatsalya", vats.get(0).get("title").asText());
+        assertEquals("NPS", vats.get(0).get("kind").asText());
+        assertEquals("9033", vats.get(0).get("pranLast4").asText());
+        assertEquals("Kiddo " + tag, vats.get(0).get("holderName").asText());
+
+        JsonNode byHolder = search(api, "kiddo " + tag).get("retirement");
+        assertEquals(1, byHolder.size());
+        assertEquals(child.toString(), byHolder.get(0).get("accountId").asText());
+
+        JsonNode byPran = search(api, "4821").get("retirement");
+        assertEquals(1, byPran.size());
+        assertEquals(self.toString(), byPran.get(0).get("accountId").asText());
+        assertEquals("NPS", byPran.get(0).get("title").asText());
+        assertTrue(byPran.get(0).get("holderName").isNull());
+        assertTrue(byPran.get(0).get("matchedScheme").isNull());
+        assertTrue(!byPran.toString().contains("enc"));
+
+        JsonNode byScheme = search(api, "zq equity fund " + tag).get("retirement");
+        assertEquals(1, byScheme.size());
+        assertEquals(self.toString(), byScheme.get(0).get("accountId").asText());
+        assertEquals("Zq Equity Fund " + tag, byScheme.get(0).get("matchedScheme").asText());
+
+        assertEquals(0, search(api, "stranger " + tag).get("retirement").size());
+        assertEquals(0, search(api, "7777").get("retirement").size());
+    }
+
+    @Test
+    void upcomingHitsAreTrackedNonLoanSeriesOfTheUserOnly() throws Exception {
+        UUID loanId = loan(api, "Backing loan " + tag, "L", null);
+        UUID tracked = series(userId, "zqflix" + tag, "Zqflix " + tag, "SUBSCRIPTION", "TRACKED", null);
+        series(userId, "zqproposed" + tag, "Zqproposed " + tag, "OTHER", "PROPOSED", null);
+        series(userId, "zqdismissed" + tag, "Zqdismissed " + tag, "OTHER", "DISMISSED", null);
+        series(userId, "zqloan" + tag, "Zqloan " + tag, "EMI", "TRACKED", loanId);
+        series(otherUserId, "zqflix-other" + tag, "Zqflix other " + tag, "SUBSCRIPTION", "TRACKED", null);
+
+        JsonNode hits = search(api, "zqflix").get("upcoming");
+        assertEquals(1, hits.size());
+        assertEquals(tracked.toString(), hits.get(0).get("id").asText());
+        assertEquals("Zqflix " + tag, hits.get(0).get("name").asText());
+        assertEquals(AppTime.today().plusDays(10).toString(), hits.get(0).get("nextDueOn").asText());
+        assertEquals(499, hits.get(0).get("amount").asInt());
+        assertEquals("SUBSCRIPTION", hits.get(0).get("kind").asText());
+        assertEquals(1, search(api, "zqflix" + tag).get("upcoming").size());
+        assertEquals(0, search(api, "zqproposed").get("upcoming").size());
+        assertEquals(0, search(api, "zqdismissed").get("upcoming").size());
+        assertEquals(0, search(api, "zqloan").get("upcoming").size());
+        assertEquals(0, search(api, "zqflix-other").get("upcoming").size());
+        assertEquals(1, search(other, "zqflix-other").get("upcoming").size());
+    }
+
+    @Test
+    void tagHitsCarryTheUsersOwnTransactionCount() throws Exception {
+        UUID mine = tagRow(userId, "zqtrip" + tag);
+        UUID theirs = tagRow(otherUserId, "zqtrip-other" + tag);
+        UUID t1 = txn(api, bank, "Tagged one " + tag, -5, 1);
+        UUID t2 = txn(api, bank, "Tagged two " + tag, -6, 2);
+        for (UUID t : List.of(t1, t2)) {
+            jdbc.update("INSERT INTO transaction_tags (transaction_id, tag_id) VALUES (?, ?)", t.toString(), mine.toString());
+        }
+        tagRow(userId, "zqempty" + tag);
+
+        JsonNode hits = search(api, "zqtrip").get("tags");
+        assertEquals(1, hits.size());
+        assertEquals(mine.toString(), hits.get(0).get("id").asText());
+        assertEquals("zqtrip" + tag, hits.get(0).get("name").asText());
+        assertEquals(2, hits.get(0).get("transactionCount").asInt());
+        assertEquals(0, search(api, "zqempty").get("tags").get(0).get("transactionCount").asInt());
+        assertEquals(0, search(api, "zqtrip-other").get("tags").size());
+        assertEquals(1, search(other, "zqtrip-other").get("tags").size());
+        assertEquals(theirs.toString(), search(other, "zqtrip-other").get("tags").get(0).get("id").asText());
+    }
+
+    @Test
+    void newGroupsAreCappedAtFiveAndAbsentForAOneCharacterQuery() throws Exception {
+        for (int i = 0; i < 7; i++) {
+            tagRow(userId, "Capnew tag " + tag + i);
+            series(userId, "capnew" + tag + i, "Capnew series " + tag + i, "OTHER", "TRACKED", null);
+            npsAccount(userId, "10" + (10 + i), "Capnew holder " + tag + i, "CHILD", "VATSALYA", null);
+        }
+        JsonNode r = search(api, "capnew");
+        assertEquals(5, r.get("tags").size());
+        assertEquals(5, r.get("upcoming").size());
+        assertEquals(5, search(api, "nps").get("retirement").size());
+        api.getJson("/api/v1/search?q=e", 400);
+    }
 }

@@ -15458,6 +15458,18 @@ components:
       required:
       - id
       - layout
+    DataSourcesCountsResponse:
+      type: object
+      properties:
+        connections:
+          type: integer
+          format: int32
+        failedJobs:
+          type: integer
+          format: int32
+      required:
+      - connections
+      - failedJobs
     DateOperators:
       type: object
       properties:
@@ -17496,14 +17508,26 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/SearchReportHit"
+        retirement:
+          type: array
+          items:
+            $ref: "#/components/schemas/SearchRetirementHit"
         rules:
           type: array
           items:
             $ref: "#/components/schemas/SearchRuleHit"
+        tags:
+          type: array
+          items:
+            $ref: "#/components/schemas/SearchTagHit"
         transactions:
           type: array
           items:
             $ref: "#/components/schemas/SearchTransactionHit"
+        upcoming:
+          type: array
+          items:
+            $ref: "#/components/schemas/SearchUpcomingHit"
       required:
       - accounts
       - categories
@@ -17512,8 +17536,11 @@ components:
       - loans
       - people
       - reports
+      - retirement
       - rules
+      - tags
       - transactions
+      - upcoming
     GmailAttentionItemResponse:
       type: object
       properties:
@@ -26015,6 +26042,37 @@ components:
       - id
       - name
       - type
+    SearchRetirementHit:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        holderName:
+          type: string
+          nullable: true
+          x-nullable: true
+        kind:
+          type: string
+        matchedScheme:
+          type: string
+          nullable: true
+          x-nullable: true
+        pranLast4:
+          type: string
+          nullable: true
+          x-nullable: true
+        subtitle:
+          type: string
+          nullable: true
+          x-nullable: true
+        title:
+          type: string
+      required:
+      - kind
+      - title
     SearchRuleHit:
       type: object
       properties:
@@ -26029,6 +26087,21 @@ components:
       - categoryName
       - id
       - matchText
+    SearchTagHit:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        transactionCount:
+          type: integer
+          format: int64
+      required:
+      - id
+      - name
+      - transactionCount
     SearchTransactionHit:
       type: object
       properties:
@@ -26055,6 +26128,27 @@ components:
       - date
       - description
       - id
+    SearchUpcomingHit:
+      type: object
+      properties:
+        amount:
+          type: number
+        id:
+          type: string
+          format: uuid
+        kind:
+          type: string
+        name:
+          type: string
+        nextDueOn:
+          type: string
+          format: date
+      required:
+      - amount
+      - id
+      - kind
+      - name
+      - nextDueOn
     SellEstimateResponse:
       type: object
       properties:
@@ -26217,6 +26311,8 @@ components:
       properties:
         appLock:
           $ref: "#/components/schemas/AppLockStatusResponse"
+        dataSources:
+          $ref: "#/components/schemas/DataSourcesCountsResponse"
         inbox:
           $ref: "#/components/schemas/InboxSummaryResponse"
         needsReview:
