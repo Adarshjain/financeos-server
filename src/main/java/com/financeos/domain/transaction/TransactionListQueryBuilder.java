@@ -78,12 +78,12 @@ public class TransactionListQueryBuilder {
     public record QueryResult(String sql, Map<String, Object> params) {}
 
     /**
-     * The windowed CTE chain (running balance, per-day balance, bank anchors, first-mismatch flag). {@code t} and
-     * {@code s} are optional extra predicates on the transactions and on the statement lines; every figure is a
+     * The windowed CTE chain (running balance, per-day balance, bank anchors, first-mismatch flag). {@code t} is an
+     * optional extra predicate on the transactions (also those the statement lines belong to); every figure is a
      * prefix computation per account, so restricting accounts and dates up to the page's last date leaves the
      * rows inside the restriction unchanged.
      */
-    private static String balanceCte(String t, String s) {
+    private static String balanceCte(String t) {
         return """
             WITH big AS (
               SELECT t.id, t.account_id, t.card_id, t.transaction_date, t.created_at, t.type, t.source,
@@ -112,26 +112,27 @@ public class TransactionListQueryBuilder {
               LEFT JOIN account_bank_details abd ON d.account_id = abd.account_id
             ),
             sl AS (
-              SELECT x.transaction_id, x.balance_after, x.line_index, x.statement_id, x.period_end
+              SELECT x.transaction_id, x.balance_after, x.line_index, x.statement_id, x.period_end,
+                     x.account_id, x.transaction_date
               FROM (
                 SELECT st.transaction_id, st.balance_after, st.line_index, st.statement_id, s.period_end,
+                       t.account_id, t.transaction_date,
                        ROW_NUMBER() OVER (PARTITION BY st.transaction_id
                                           ORDER BY s.period_end DESC NULLS LAST, st.statement_id DESC) AS rn
                 FROM statement_transactions st
                 JOIN statements s ON s.id = st.statement_id
-                WHERE s.user_id = :userId@@S@@
+                JOIN transactions t ON t.id = st.transaction_id
+                WHERE s.user_id = :userId AND t.user_id = :userId@@T@@
               ) x WHERE x.rn = 1 AND x.balance_after IS NOT NULL
             ),
             anch AS (
-              SELECT t.id, t.account_id, t.transaction_date,
+              SELECT sl.transaction_id AS id, sl.account_id, sl.transaction_date,
                      (CASE WHEN acc.type = 'credit_card' THEN -sl.balance_after ELSE sl.balance_after END) AS printed,
-                     ROW_NUMBER() OVER (PARTITION BY t.account_id, t.transaction_date
+                     ROW_NUMBER() OVER (PARTITION BY sl.account_id, sl.transaction_date
                                         ORDER BY sl.period_end DESC NULLS LAST, sl.statement_id DESC,
-                                                 sl.line_index DESC NULLS LAST, t.id DESC) AS rn
+                                                 sl.line_index DESC NULLS LAST, sl.transaction_id DESC) AS rn
               FROM sl
-              JOIN transactions t ON t.id = sl.transaction_id
-              JOIN accounts acc ON acc.id = t.account_id
-              WHERE t.user_id = :userId@@T@@
+              JOIN accounts acc ON acc.id = sl.account_id
             ),
             mm AS (
               SELECT a.id, a.account_id, a.transaction_date, a.printed,
@@ -150,13 +151,11 @@ public class TransactionListQueryBuilder {
                 FROM mm
               ) m
             )
-            """.replace("@@T@@", t).replace("@@S@@", s);
+            """.replace("@@T@@", t);
     }
 
     /** Predicate on {@code t}'s alias for the balance of just these accounts, up to a date. */
     private static final String BALANCE_TXN_RESTRICTION = " AND t.account_id IN (:balAccts) AND t.transaction_date <= :balMax";
-    private static final String BALANCE_STMT_RESTRICTION = " AND EXISTS (SELECT 1 FROM transactions tx WHERE tx.id = st.transaction_id"
-            + " AND tx.account_id IN (:balAccts) AND tx.transaction_date <= :balMax)";
 
     /**
      * The page without any window work: ids and account ids of the matching rows in sort order. The running
@@ -193,7 +192,7 @@ public class TransactionListQueryBuilder {
         params.put("balIds", ids);
         // wrapped like the full list query: a top-level WITH over these window CTEs misreads the anchors on H2
         String sql = "SELECT x.id, x.balance, x.bank_balance FROM ( "
-                + balanceCte(BALANCE_TXN_RESTRICTION, BALANCE_STMT_RESTRICTION)
+                + balanceCte(BALANCE_TXN_RESTRICTION)
                 + "SELECT big.id, big.balance, flags.bank_balance FROM big LEFT JOIN flags ON flags.id = big.id"
                 + " ) x WHERE x.id IN (:balIds)";
         return new QueryResult(sql, params);
@@ -216,7 +215,7 @@ public class TransactionListQueryBuilder {
         // line of the day); mm = anchor vs our day end; flags = the first mismatching day of each run (previous compared
         // day matched, or none) with the printed balance. Only anchor rows are windowed, one per account/day.
         // Printed balances of credit cards state the amount owed, our balance is negative then, so they are negated.
-        String innerSql = balanceCte("", "")
+        String innerSql = balanceCte("")
                 + "SELECT big.*, flags.bank_balance FROM big LEFT JOIN flags ON flags.id = big.id";
         params.put("userId", userId.toString());
 

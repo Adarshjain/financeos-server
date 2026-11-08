@@ -181,7 +181,7 @@ public class TransactionRepositoryCustomImpl implements TransactionRepositoryCus
             // Oracle caps an IN list at 1000 entries: a page beyond 900 rows is balanced in chunks.
             for (int from = 0; from < ids.size(); from += 900) {
                 List<String> chunk = ids.subList(from, Math.min(ids.size(), from + 900));
-                TransactionListQueryBuilder.QueryResult balanceResult = queryBuilder.buildBalanceQuery(userId, accountIds, maxDate, chunk);
+                TransactionListQueryBuilder.QueryResult balanceResult = queryBuilder.buildBalanceQuery(userId, padInList(accountIds), maxDate, padInList(chunk));
                 Query balanceQuery = entityManager.createNativeQuery(balanceResult.sql());
                 balanceResult.params().forEach(balanceQuery::setParameter);
                 for (Object row : balanceQuery.getResultList()) {
@@ -199,6 +199,21 @@ public class TransactionRepositoryCustomImpl implements TransactionRepositoryCus
         }
 
         return new PageImpl<>(projections, pageable, total);
+    }
+
+    /**
+     * An IN list repeated up to the next power of two (at most 1000, Oracle's cap): the SQL text only depends on
+     * the list's length, so fewer distinct lengths mean fewer statements for Oracle to hard-parse, which is the
+     * larger part of the balance query's time on a small ledger.
+     */
+    static List<String> padInList(java.util.Collection<String> values) {
+        List<String> padded = new ArrayList<>(values);
+        int target = Math.min(1000, Integer.highestOneBit(Math.max(1, padded.size()) * 2 - 1));
+        String last = padded.get(padded.size() - 1);
+        while (padded.size() < target) {
+            padded.add(last);
+        }
+        return padded;
     }
 
     private static BigDecimal toDecimal(Object value) {
