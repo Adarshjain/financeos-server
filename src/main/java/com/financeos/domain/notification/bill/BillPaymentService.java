@@ -353,7 +353,7 @@ public class BillPaymentService {
         }
         Map<UUID, Transaction> byId = new HashMap<>();
         for (int i = 0; i < txnIds.size(); i += 500) {
-            transactionRepository.findAllByIdInAndUserId(txnIds.subList(i, Math.min(i + 500, txnIds.size())), userId)
+            transactionRepository.findAllWithAccountByIdInAndUserId(txnIds.subList(i, Math.min(i + 500, txnIds.size())), userId)
                     .forEach(t -> byId.put(t.getId(), t));
         }
         Map<UUID, List<PaymentView>> out = new LinkedHashMap<>();

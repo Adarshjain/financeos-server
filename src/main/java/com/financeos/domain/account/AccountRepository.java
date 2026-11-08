@@ -65,7 +65,8 @@ public interface AccountRepository extends JpaRepository<Account, UUID>, Account
     boolean existsByUser_Id(UUID userId);
 
     /** Every account (open or closed) of {@code userId} that draws on the shared limit {@code poolId}. */
-    @Query("SELECT d.account FROM AccountCreditCardDetails d WHERE d.limitPool.id = :poolId AND d.account.user.id = :userId")
+    @org.springframework.data.jpa.repository.EntityGraph(attributePaths = {"bankDetails", "creditCardDetails", "creditCardDetails.limitPool", "brokerDetails"})
+    @Query("SELECT a FROM Account a JOIN a.creditCardDetails d WHERE d.limitPool.id = :poolId AND a.user.id = :userId")
     List<Account> findLimitPoolMembers(@Param("poolId") UUID poolId, @Param("userId") UUID userId);
 
     /** The shared limit when {@code userId} owns it; empty for a missing id and another user's pool alike. */

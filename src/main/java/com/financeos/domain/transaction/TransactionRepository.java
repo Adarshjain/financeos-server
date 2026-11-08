@@ -52,6 +52,14 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     @EntityGraph(attributePaths = { "tags.tag", "appliedRule", "account", "card", "card.cardholder", "reviewReasons" })
     List<Transaction> findAllByIdInAndUserId(List<UUID> ids, UUID userId);
 
+    /**
+     * The transactions' own columns plus their account with its detail rows: for readers that only show the date, the amount and
+     * the account name (a bill's payments). The details are fetched here because Account's one-to-one details are eager and
+     * would otherwise cost up to three queries per distinct account.
+     */
+    @EntityGraph(attributePaths = { "account", "account.bankDetails", "account.creditCardDetails", "account.brokerDetails" })
+    List<Transaction> findAllWithAccountByIdInAndUserId(List<UUID> ids, UUID userId);
+
     @EntityGraph(attributePaths = { "tags.tag", "appliedRule", "account" })
     Page<Transaction> findByAccountId(UUID accountId, Pageable pageable);
 
