@@ -42,6 +42,9 @@ public final class StatementParseEngine {
         }
         WordSource extractor = type == FileType.PDF ? new PdfWordExtractor() : new ExcelGridExtractor();
         List<Line> lines = extractor.extract(bytes, password);
+        if (CardSectionLayout.present(lines)) {
+            lines = CardSectionLayout.normalize(lines);
+        }
         CollectedRows cr = RowCollector.collect(lines, dbg);
         StatementMeta meta = MetadataExtractor.extract(cr.metaZone(), cr.dateFmt());
         if (meta.accountNumber == null) {
@@ -64,8 +67,21 @@ public final class StatementParseEngine {
         }
         WordSource extractor = type == FileType.PDF ? new PdfWordExtractor() : new ExcelGridExtractor();
         List<Line> lines = extractor.extract(bytes, password);
+        boolean cardSection = CardSectionLayout.present(lines);
+        if (cardSection) {
+            lines = CardSectionLayout.normalize(lines);
+        }
 
-        CollectedRows cr = RowCollector.collect(lines, dbg);
+        CollectedRows cr;
+        try {
+            cr = RowCollector.collect(lines, dbg);
+        } catch (StatementParseException e) {
+            ParsedStatement empty = explicitlyEmpty(lines, e);
+            if (empty == null) {
+                throw e;
+            }
+            return empty;
+        }
 
         StatementMeta meta = MetadataExtractor.extract(cr.metaZone(), cr.dateFmt());
         if (meta.accountNumber == null) {
@@ -108,7 +124,7 @@ public final class StatementParseEngine {
             ftb.append(ln.text());
         }
         String fullText = ftb.toString().toLowerCase(Locale.ROOT);
-        boolean isCreditCard = fullText.contains("credit card") || fullText.contains("credit limit");
+        boolean isCreditCard = cardSection || fullText.contains("credit card") || fullText.contains("credit limit");
 
         // Line is a record with structural equals; the Python original keys this
         // set by id(ln), so identity semantics are required here.
@@ -165,6 +181,9 @@ public final class StatementParseEngine {
         } else {
             results = SignAssigner.assignSignsNoBalance(tb.txns(), cr.headerWords(), isCreditCard ? -1 : 1);
             mode = "heuristic (no balance column validated)";
+            if (isCreditCard) {
+                applyCardCreditWords(results);
+            }
 
             Double opening = meta.openingBalance;
             if (opening == null) {
@@ -429,6 +448,12 @@ public final class StatementParseEngine {
             verdict = "REJECT";
         }
 
+        // A card-section statement (Jupiter Edge) prints its totals as images: nothing to cross-check, but the rows
+        // were read from a recognised layout, so it is reviewable rather than rejected.
+        if (cardSection && "REJECT".equals(verdict) && !results.isEmpty()) {
+            verdict = "NEEDS REVIEW";
+        }
+
         if (zeroWithAmountText > 0 && "AUTO-INGEST".equals(verdict)) {
             verdict = "NEEDS REVIEW";
         }
@@ -454,6 +479,86 @@ public final class StatementParseEngine {
         }
         fillDocumentFacts(meta, lines);
         return new ParsedStatement(meta, statementType, summaryFields, derived, parseInfo, results, summary.toString());
+    }
+
+    // Card rows with no Cr/Dr mark and no credit/debit column are debits, unless the narration says the
+    // money came back to the card.
+    // Anywhere in the narration: a payment to the card.
+    private static final java.util.regex.Pattern CARD_PAYMENT_WORDS = java.util.regex.Pattern.compile(
+            "\\b(?:repayment|payment\\s+(?:received|credited)|payment\\s*-?\\s*thank\\s+you)\\b",
+            java.util.regex.Pattern.CASE_INSENSITIVE);
+    // Only as the narration's first word: a refund / reversal, or a cashback that is credited (a merchant
+    // named "CASHBACK STORE" is a purchase).
+    private static final java.util.regex.Pattern CARD_LEADING_CREDIT = java.util.regex.Pattern.compile(
+            "^\\W*(?:refund(?:ed)?|reversal|reversed|cashback\\s+credit(?:ed)?)\\b", java.util.regex.Pattern.CASE_INSENSITIVE);
+    private static final java.util.regex.Pattern REFUND_WORD = java.util.regex.Pattern.compile("(?i)\\brefund");
+    private static final java.util.regex.Pattern REVERSAL_WORD = java.util.regex.Pattern.compile("(?i)\\brevers");
+
+    static boolean isCardCreditNarration(String description) {
+        if (CARD_PAYMENT_WORDS.matcher(description).find()) {
+            return true;
+        }
+        // a refund that was reversed (or a reversal of a refund) is the charge again, not money back
+        if (REFUND_WORD.matcher(description).find() && REVERSAL_WORD.matcher(description).find()) {
+            return false;
+        }
+        return CARD_LEADING_CREDIT.matcher(description).find();
+    }
+
+    private static void applyCardCreditWords(List<RowResult> results) {
+        for (RowResult r : results) {
+            if ("default".equals(r.signSource) && r.amount != null && r.description != null
+                    && isCardCreditNarration(r.description)) {
+                r.amount = Math.abs(r.amount);
+                r.signSource = "keyword";
+            }
+        }
+    }
+
+    // Phrases a statement prints in place of its table when the period had no activity.
+    private static final java.util.regex.Pattern NO_TRANSACTIONS_SENTENCE = java.util.regex.Pattern.compile(
+            "\\b(?:not\\s+made\\s+any\\s+transactions?|no\\s+transactions?\\s+(?:were\\s+)?(?:found|made|recorded|during|in|for|available|on)"
+                    + "|there\\s+(?:are|were)\\s+no\\s+transactions?)\\b",
+            java.util.regex.Pattern.CASE_INSENSITIVE);
+
+    /**
+     * A statement with a period, an account number and an explicit "no transactions" sentence but no table is a
+     * valid empty statement. Anything else (no sentence, no period, no number) keeps failing as before.
+     */
+    private static ParsedStatement explicitlyEmpty(List<Line> lines, StatementParseException original) {
+        if (original.getMessage() == null || !original.getMessage().contains("no date-anchored rows")) {
+            return null;
+        }
+        // the sentence wraps over several printed lines, so match on the joined text
+        StringBuilder joined = new StringBuilder();
+        for (Line ln : lines) {
+            joined.append(ln.text()).append(' ');
+        }
+        if (!NO_TRANSACTIONS_SENTENCE.matcher(joined).find()) {
+            return null;
+        }
+        StatementMeta meta = MetadataExtractor.extract(lines, null);
+        if (meta.accountNumber == null) {
+            meta.accountNumber = Tokens.bestAccountNumber(lines);
+        }
+        if (meta.periodStart == null || meta.periodEnd == null || meta.accountNumber == null) {
+            return null;
+        }
+        fillDocumentFacts(meta, lines);
+        Derived derived = new Derived();
+        derived.topMerchants = new ArrayList<>();
+        ParseInfo info = new ParseInfo();
+        info.mode = "explicitly empty statement";
+        info.totalCredits = 0.0;
+        info.totalDebits = 0.0;
+        info.cardChecks = new LinkedHashMap<>();
+        info.verdict = "AUTO-INGEST";
+        StringBuilder summary = new StringBuilder();
+        for (Line ln : lines) {
+            summary.append(ln.text()).append('\n');
+        }
+        return new ParsedStatement(meta, "bank_account", new LinkedHashMap<>(), derived, info, new ArrayList<>(),
+                summary.toString());
     }
 
     /** What the document says about itself, into the added meta fields only; never affects rows, signs or the other fields. */

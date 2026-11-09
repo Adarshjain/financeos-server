@@ -49,6 +49,12 @@ final class MetadataExtractor {
                 numberLabelled = ac.labelled();
             }
             if (meta.accountNumber == null) {
+                Matcher sec = Tokens.CARD_SECTION_HEADER.matcher(text);
+                if (sec.find()) {
+                    meta.accountNumber = sec.group(1); // "RuPay Transactions - 2183": the card's last four
+                }
+            }
+            if (meta.accountNumber == null) {
                 Matcher cm = Tokens.CARD_MASK.matcher(text);
                 if (cm.find() && Pattern.compile("[Xx*]").matcher(cm.group(1)).find()) {
                     meta.accountNumber = cm.group(1); // masked card, not 4 number columns
@@ -144,6 +150,9 @@ final class MetadataExtractor {
                 }
             }
         }
+        if (meta.accountNumber == null) {
+            meta.accountNumber = numberUnderLabel(preTable);
+        }
         if (meta.bank == null) {
             meta.bank = bankFallback;
         }
@@ -157,6 +166,58 @@ final class MetadataExtractor {
             meta.periodEnd = statementDate;
         }
         return meta;
+    }
+
+    private static final Pattern LABEL_WORD = Pattern.compile("(?i)a/c|a\\.c\\.|acct\\.?|account|ac#|a/c#");
+    private static final Pattern NO_WORD = Pattern.compile("(?i)no\\.?|number|num|#|ac#|a/c#");
+    private static final Pattern NUMBER_VALUE = Pattern.compile("[0-9Xx*]{6,24}");
+
+    /**
+     * A column layout: the label ("SAVINGS A/C NO", "Account Number") on one line and its value on the line below,
+     * under the label. Of the numbers on the next two lines, the one whose x-range overlaps the label words is
+     * taken, so the neighbouring column's value (an IFSC) is never read as the account number.
+     */
+    static String numberUnderLabel(List<Line> lines) {
+        for (int i = 0; i + 1 < lines.size(); i++) {
+            List<Word> words = lines.get(i).words();
+            for (int w = 0; w < words.size(); w++) {
+                String t = Tokens.norm(words.get(w).text());
+                if (!LABEL_WORD.matcher(t).matches()) {
+                    continue;
+                }
+                int end = w;
+                boolean numberLabel = t.endsWith("#");
+                if (w + 1 < words.size() && NO_WORD.matcher(Tokens.norm(words.get(w + 1).text())).matches()) {
+                    end = w + 1;
+                    numberLabel = true;
+                }
+                if (!numberLabel) {
+                    continue;
+                }
+                double x0 = words.get(w).x0();
+                double x1 = words.get(end).x1();
+                String best = null;
+                double bestOverlap = 0;
+                for (int j = i + 1; j <= Math.min(i + 2, lines.size() - 1); j++) {
+                    if (lines.get(j).page() != lines.get(i).page()) {
+                        break;
+                    }
+                    for (Word v : lines.get(j).words()) {
+                        String vt = Tokens.norm(v.text());
+                        double overlap = Math.min(x1, v.x1()) - Math.max(x0, v.x0());
+                        if (NUMBER_VALUE.matcher(vt).matches() && vt.chars().anyMatch(Character::isDigit)
+                                && overlap > bestOverlap) {
+                            best = vt;
+                            bestOverlap = overlap;
+                        }
+                    }
+                    if (best != null) {
+                        return best;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     // The date printed right after a "Statement Date" label on the same line.

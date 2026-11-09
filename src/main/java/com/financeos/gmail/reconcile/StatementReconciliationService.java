@@ -5,6 +5,7 @@ import com.financeos.core.observability.Timing;
 import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.statement.Statement;
+import com.financeos.domain.statement.StatementDraft;
 import com.financeos.domain.statement.StatementPersistenceService;
 import com.financeos.domain.statement.StatementSource;
 import com.financeos.domain.transaction.ReviewType;
@@ -184,14 +185,14 @@ public class StatementReconciliationService {
 
         // 3. Parse content with the statement parser
         String parsePassword = correctPassword;
-        StatementExtractionResult result = Timing.call(Ops.STATEMENT_PARSE, () -> statementParser.parse(chosenBytes, parsePassword));
-        if (!result.success()) {
-            log.error("Statement parse failed: {}", result.failureReason());
-            recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED_PERMANENT, "Statement parse failed: " + result.failureReason());
-            return new ReconSummary(0, 0, 1, List.of(), GmailProcessedStatus.FAILED_PERMANENT, "Statement parse failed: " + result.failureReason(), chosenAttachment.filename(), null, false);
+        StatementExtractionResult parsed = Timing.call(Ops.STATEMENT_PARSE, () -> statementParser.parse(chosenBytes, parsePassword));
+        if (!parsed.success()) {
+            log.error("Statement parse failed: {}", parsed.failureReason());
+            recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED_PERMANENT, "Statement parse failed: " + parsed.failureReason());
+            return new ReconSummary(0, 0, 1, List.of(), GmailProcessedStatus.FAILED_PERMANENT, "Statement parse failed: " + parsed.failureReason(), chosenAttachment.filename(), null, false);
         }
 
-        List<ParsedStatementLine> allLines = result.lines();
+        List<ParsedStatementLine> allLines = parsed.lines();
         if (allLines.isEmpty()) {
             log.info("No transaction lines parsed from statement: {}. Skipping as non-statement.", message.messageId());
             recordLedger(connection, message.messageId(), candidateAccount, GmailProcessedStatus.SKIPPED_NOT_TRANSACTION,
@@ -201,6 +202,9 @@ public class StatementReconciliationService {
 
         // A statement prints its period. A PDF with dated rows but no period is a bank letter (an EMI letter's repayment
         // schedule reads as rows): never imported as a statement.
+        // Exception: old card statements print only a "Statement Date". A card bill (credit_card with a payment due date and a
+        // total amount due) gets a one-month cycle ending on it; the derived period is the one persisted, deduped and matched.
+        final StatementExtractionResult result = withDerivedCardPeriod(parsed);
         if (result.periodStart() == null || result.periodEnd() == null) {
             log.info("No statement period in {} ({} dated rows); skipped as not a statement", message.messageId(), allLines.size());
             recordLedger(connection, message.messageId(), candidateAccount, GmailProcessedStatus.SKIPPED_NOT_TRANSACTION, NO_PERIOD_REASON);
@@ -770,6 +774,22 @@ public class StatementReconciliationService {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    /** A card bill that prints only its statement date: start = end minus one month plus a day (18 Jul..17 Aug). Else unchanged. */
+    private static StatementExtractionResult withDerivedCardPeriod(StatementExtractionResult parsed) {
+        StatementDraft draft = parsed.draft();
+        if (parsed.periodStart() != null || parsed.periodEnd() == null || draft == null
+                || !"credit_card".equals(draft.statementType()) || draft.cardFields() == null
+                || draft.cardFields().get("payment_due_date") == null || draft.cardFields().get("total_amount_due") == null) {
+            return parsed;
+        }
+        LocalDate start = parsed.periodEnd().minusMonths(1).plusDays(1);
+        StatementDraft derived = new StatementDraft(draft.statementType(), start, draft.periodEnd() != null ? draft.periodEnd() : parsed.periodEnd(),
+                draft.openingBalance(), draft.closingBalance(), draft.bankName(), draft.accountNumberMasked(), draft.transactionCount(),
+                draft.linesSkipped(), draft.totalDebits(), draft.totalCredits(), draft.parseMode(), draft.chainValidationPct(),
+                draft.checksumOk(), draft.verdict(), draft.cardFields());
+        return parsed.withDraft(derived);
     }
 
     private void updateLastStatementDate(Account account, StatementExtractionResult result) {

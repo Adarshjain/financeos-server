@@ -21,15 +21,19 @@ final class SignAssigner {
                 int found = -1;
                 for (int i = 0; i < centers.size(); i++) {
                     double[] c = centers.get(i);
-                    if (Math.abs(c[0] - a.x1) <= Tokens.COL_TOL) {
+                    // right-aligned columns match by right edge; a left-aligned one (short "₹0" under "₹3,948")
+                    // by its left edge
+                    if (Math.abs(c[0] - a.x1) <= Tokens.COL_TOL
+                            || (!Double.isNaN(a.x0) && Math.abs(c[2] - a.x0) <= Tokens.COL_TOL)) {
                         c[0] = (c[0] * c[1] + a.x1) / (c[1] + 1);
+                        c[2] = (c[2] * c[1] + a.x0) / (c[1] + 1);
                         c[1] += 1;
                         found = i;
                         break;
                     }
                 }
                 if (found == -1) {
-                    centers.add(new double[]{a.x1, 1});
+                    centers.add(new double[]{a.x1, 1, a.x0});
                     found = centers.size() - 1;
                 }
                 centerOf.put(a, found);

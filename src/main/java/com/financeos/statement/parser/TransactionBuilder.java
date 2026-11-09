@@ -161,7 +161,9 @@ final class TransactionBuilder {
                 if (amt != null && narrationAmounts.contains(w)) {
                     // figure printed inside the narration, not an amount column
                 } else if (amt != null) {
-                    amounts.add(new AmountCell(amt.value(), amt.sign() != 0 ? amt.sign() : pendingSign, w.x1(), tok));
+                    AmountCell cell = new AmountCell(amt.value(), amt.sign() != 0 ? amt.sign() : pendingSign, w.x1(), tok);
+                    cell.x0 = w.x0();
+                    amounts.add(cell);
                     pendingSign = 0;
                 } else if (Tokens.isCurrencyToken(tok) && Tokens.parseAmount(nxt) != null) {
                     // currency glyph rendered as its own word before the amount
@@ -360,10 +362,12 @@ final class TransactionBuilder {
     // 10000.00" in a card-swipe narration) are recorded as narration, not amounts.
     private static List<RawRow> splitBlock(RawRow dated, List<Line> block, Set<Word> narrationAmounts) {
         double right = Double.NEGATIVE_INFINITY;
+        double rightX0 = 0;
         for (Line ln : block) {
             for (Word w : ln.words()) {
-                if (Tokens.parseAmount(Tokens.norm(w.text())) != null) {
-                    right = Math.max(right, w.x1());
+                if (Tokens.parseAmount(Tokens.norm(w.text())) != null && w.x1() > right) {
+                    right = w.x1();
+                    rightX0 = w.x0();
                 }
             }
         }
@@ -371,7 +375,10 @@ final class TransactionBuilder {
         double amountLeft = Double.POSITIVE_INFINITY;
         for (int i = 0; i < block.size(); i++) {
             List<Word> amts = amountWords(block.get(i));
-            if (amts.size() >= 2 && Math.abs(amts.get(amts.size() - 1).x1() - right) <= Tokens.COL_TOL) {
+            // a balance column is right-aligned, or (Jupiter) left-aligned so a short "₹0" ends well left of the edge
+            Word lastAmt = amts.isEmpty() ? null : amts.get(amts.size() - 1);
+            if (amts.size() >= 2 && (Math.abs(lastAmt.x1() - right) <= Tokens.COL_TOL
+                    || Math.abs(lastAmt.x0() - rightX0) <= Tokens.COL_TOL)) {
                 closers.add(i);
                 for (Word w : amts) {
                     amountLeft = Math.min(amountLeft, w.x0());

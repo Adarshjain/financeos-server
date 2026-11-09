@@ -39,7 +39,7 @@ final class Tokens {
      * is a balance, never an account number.
      */
     static final Pattern ACCOUNT_LABEL = Pattern.compile(
-            "(?<![A-Za-z])(?:account|a/c|a\\.c\\.|acct|card)(?:no|number|num)?(?![A-Za-z])[\\-/_]*\\s*(?:no|number|num|#)?\\.?\\s*[:.\\-]?\\s*"
+            "(?<![A-Za-z])(?:account|a/c|a\\.c\\.|acct|card|ac(?=\\s{0,2}#))(?:no|number|num)?(?![A-Za-z])[\\-/_]*\\s*(?:no|number|num|#)?\\.?\\s*[:.\\-]?\\s*"
                     + "([0-9Xx*](?:[0-9Xx*\\-]{4,22})[0-9Xx*])(?!\\d|[.,]\\d)",
             Pattern.CASE_INSENSITIVE);
     private static final Pattern EXPLICIT_NUMBER_LABEL = Pattern.compile("(?i)(?:no|number|num|#|:)");
@@ -115,6 +115,15 @@ final class Tokens {
     static final Pattern AMOUNT = Pattern.compile(
             "^\\(?(?:(-)?(?:[₹$€£C`]|Rs\\.?|INR))?\\s?(-?\\d{1,3}(?:,\\d{2,3})*\\.\\d{1,2}|-?\\d+\\.\\d{1,2})\\)?\\s*(Cr|CR|cr|Dr|DR|dr)?\\.?$");
 
+    // A whole-rupee amount needs its currency glyph glued on ("₹3,848", "Rs.2,000"): without one a bare
+    // integer is a reference or a count, so AMOUNT insists on decimals.
+    static final Pattern WHOLE_AMOUNT = Pattern.compile(
+            "^(-)?(?:₹|Rs\\.?|INR)\\s?(\\d{1,3}(?:,\\d{2,3})*|\\d+)(Cr|CR|cr|Dr|DR|dr)?$");
+
+    /** "<network> Transactions - 2183": the card-section header of a card statement; group 1 = the last four digits. */
+    static final Pattern CARD_SECTION_HEADER = Pattern.compile(
+            "(?i)\\b(?:rupay|visa|master\\s?card|amex|american express|diners(?: club)?)\\s+transactions?\\s*[-\u2013:]\\s*(\\d{4})\\b");
+
     static final Pattern LOOSE_AMOUNT = Pattern.compile(
             "^(?:[₹$€£C`]|Rs\\.?|INR)?\\s?(\\d{1,3}(?:,\\d{2,3})+)$");
 
@@ -173,6 +182,14 @@ final class Tokens {
         }
         Matcher m = AMOUNT.matcher(t);
         if (!m.matches()) {
+            Matcher w = WHOLE_AMOUNT.matcher(t);
+            if (!trailingMinus && w.matches()) {
+                double v = Double.parseDouble(w.group(2).replace(",", ""));
+                if (w.group(1) != null) {
+                    return new Amount(v, -1);
+                }
+                return new Amount(v, w.group(3) == null ? 0 : w.group(3).equalsIgnoreCase("cr") ? 1 : -1);
+            }
             return null;
         }
         double value = Double.parseDouble(m.group(2).replace(",", ""));

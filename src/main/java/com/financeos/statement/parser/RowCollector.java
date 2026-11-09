@@ -30,6 +30,8 @@ final class RowCollector {
     // Lines one transaction block may span after a page break (HSBC UPI/NEFT
     // narrations run 6-7 lines before the amount line).
     private static final int CARRY_WINDOW = 10;
+    // Vertical gap (pt) between the last row's block and a dateless line below it that makes that line footer text.
+    private static final double FOOTER_GAP = 30.0;
     // ICICI prints "Statement period : ..." beside the table, between its rows.
     private static final Pattern LABELLED_PERIOD = Pattern.compile("(?:statement|billing)\\s+(?:period|cycle)");
 
@@ -250,8 +252,13 @@ final class RowCollector {
         // must happen BEFORE the table extent is fixed - a junk candidate on a
         // late page would otherwise stretch the table over the real summary lines.
         List<String> candTexts = new ArrayList<>();
+        // A dated summary line right above the column header ("on 1 Sep 2023 ... ₹0 ₹2") must not vote on the
+        // rows' date format; it stays a candidate, so a real row ending a section (header repeats) is kept.
+        boolean voteWithoutAboveHeader = !aboveHeader.isEmpty() && aboveHeader.size() < cand.size();
         for (int i : cand) {
-            candTexts.add(anchors[i].text());
+            if (!(voteWithoutAboveHeader && aboveHeader.contains(i))) {
+                candTexts.add(anchors[i].text());
+            }
         }
         String dateFmt = Dates.inferDateFormat(candTexts);
         if (dateFmt == null) {
@@ -360,6 +367,12 @@ final class RowCollector {
                         || text.contains("page ") || text.contains("statement") || text.contains("generated on")) {
                     break;
                 }
+                // Legend/footer text far below the block (a blank band, not a wrapped narration line)
+                // is not part of the last row.
+                if (!carried && lines.get(j).page() == lines.get(j - 1).page()
+                        && lines.get(j).top() - lines.get(j - 1).top() > FOOTER_GAP && !lineHasAmount(lines.get(j))) {
+                    break;
+                }
                 if (!carried) {
                     last = j;
                 } else if (lineHasAmount(lines.get(j))) {
@@ -415,6 +428,11 @@ final class RowCollector {
         // whole-word, money-aware one, so a summary line such as "SAVINGS ACCOUNTS 314842.12" no longer counts.
         for (int i = 0; i < first; i++) {
             String text = lines.get(i).text();
+            java.util.regex.Matcher section = Tokens.CARD_SECTION_HEADER.matcher(text);
+            if (section.find()) {
+                currentCardLast4 = section.group(1);
+                break;
+            }
             Tokens.AccountCandidate labelled = Tokens.accountCandidate(text);
             if (labelled != null) {
                 String last4 = extractTrailingLast4(labelled.number());
