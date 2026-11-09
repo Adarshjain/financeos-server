@@ -25,6 +25,17 @@ public record StatementDraft(
         BigDecimal chainValidationPct,
         Boolean checksumOk,
         StatementVerdict verdict,
-        Map<String, Object> cardFields
+        Map<String, Object> cardFields,
+        // credit_card only: the parse's own balance checks passed (prev + charges + spends - payments == due, or purchases and payments both match the lines); null when not a card or not computed
+        Boolean cardChecksOk
 ) {
+    public StatementDraft(String statementType, LocalDate periodStart, LocalDate periodEnd, BigDecimal openingBalance,
+                          BigDecimal closingBalance, String bankName, String accountNumberMasked, int transactionCount,
+                          int linesSkipped, BigDecimal totalDebits, BigDecimal totalCredits, String parseMode,
+                          BigDecimal chainValidationPct, Boolean checksumOk, StatementVerdict verdict,
+                          Map<String, Object> cardFields) {
+        this(statementType, periodStart, periodEnd, openingBalance, closingBalance, bankName, accountNumberMasked,
+                transactionCount, linesSkipped, totalDebits, totalCredits, parseMode, chainValidationPct, checksumOk,
+                verdict, cardFields, null);
+    }
 }

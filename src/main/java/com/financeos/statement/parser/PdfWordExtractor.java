@@ -126,6 +126,38 @@ class PdfWordExtractor implements WordSource {
 
     private static Line finishRow(List<Word> row) {
         row.sort(Comparator.comparingDouble(Word::x0));
-        return new Line(row);
+        return new Line(joinSplitAmounts(row));
+    }
+
+    // Letter-spaced figures extract as "2" + ",430.00" or "1" + ".00" (kerning gap after the first
+    // digit). Rejoin them here, for every line, so the row collector, the summary harvester and the
+    // transaction builder all see one amount word. Only touching pieces that form a valid amount join.
+    private static final java.util.regex.Pattern SPLIT_HEAD = java.util.regex.Pattern.compile("\\d{1,3}");
+    private static final java.util.regex.Pattern SPLIT_TAIL =
+            java.util.regex.Pattern.compile("(?:,\\d{2,3})*(?:,\\d{2,3}\\.\\d{1,2}|\\.\\d{1,2})");
+    private static final double SPLIT_GAP = 1.5;
+
+    private static List<Word> joinSplitAmounts(List<Word> row) {
+        List<Word> out = null;
+        for (int i = 0; i < row.size(); i++) {
+            Word w = row.get(i);
+            if (i + 1 < row.size()) {
+                Word nx = row.get(i + 1);
+                if (SPLIT_HEAD.matcher(w.text()).matches() && SPLIT_TAIL.matcher(nx.text()).matches()
+                        && nx.x0() - w.x1() <= SPLIT_GAP
+                        && Tokens.parseAmount(w.text() + nx.text()) != null) {
+                    if (out == null) {
+                        out = new ArrayList<>(row.subList(0, i));
+                    }
+                    out.add(new Word(w.text() + nx.text(), w.x0(), nx.x1(), w.top(), w.page()));
+                    i++;
+                    continue;
+                }
+            }
+            if (out != null) {
+                out.add(w);
+            }
+        }
+        return out == null ? row : out;
     }
 }

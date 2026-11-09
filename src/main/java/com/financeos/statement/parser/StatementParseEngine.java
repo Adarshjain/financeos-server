@@ -141,6 +141,21 @@ public final class StatementParseEngine {
         int rowsDropped = tb.droppedRows();
         if (oracle.balanceCol() != null && oracle.score() >= 0.6) {
             SignOutcome so = SignAssigner.assignSigns(tb.txns(), oracle.balanceCol(), meta.openingBalance);
+            // Opening balance printed in a multi-label summary row (Slice) is missed by the
+            // metadata pass but harvested as previous_balance. Use it only when it makes
+            // strictly more rows chain, so a wrong hint can never be adopted.
+            Double hint = meta.openingBalance == null ? (Double) summaryFields.get("previous_balance") : null;
+            if (hint != null && !isCreditCard && hint < 0) {
+                hint = null; // harvested with the card-dues sign (Cr = negative): not an account opening balance
+            }
+            if (hint != null) {
+                SignOutcome hinted = SignAssigner.assignSigns(tb.txns(), oracle.balanceCol(), hint);
+                if (hinted.results().stream().filter(r -> r.chainValid).count()
+                        > so.results().stream().filter(r -> r.chainValid).count()) {
+                    so = hinted;
+                    meta.openingBalance = hint;
+                }
+            }
             rowsDropped += so.pruned();
             if (meta.openingBalance == null) {
                 meta.openingBalance = so.openingUsed();
@@ -327,8 +342,15 @@ public final class StatementParseEngine {
         LinkedHashMap<String, Boolean> cardChecks = new LinkedHashMap<>();
         if (isCreditCard) {
             if (summaryFields.containsKey("total_purchases")) {
-                cardChecks.put("purchases == sum(debits)",
-                        Math.abs((Double) summaryFields.get("total_purchases") - debits) <= tolCard);
+                // "Purchases" excludes the fees/interest/GST rows that "Other debits & charges" totals,
+                // so the debit rows add up to purchases + cash advance + charges.
+                double purchases = (Double) summaryFields.get("total_purchases");
+                Double cashAdv = (Double) summaryFields.get("cash_advance");
+                Double otherChg = (Double) summaryFields.get("fees_and_charges");
+                boolean plainMatch = Math.abs(purchases - debits) <= tolCard;
+                boolean withCharges = Math.abs(purchases + (cashAdv != null ? cashAdv : 0.0)
+                        + (otherChg != null ? otherChg : 0.0) - debits) <= tolCard;
+                cardChecks.put("purchases == sum(debits)", plainMatch || withCharges);
             }
             if (summaryFields.containsKey("payments_received")) {
                 Double cr2 = (Double) summaryFields.get("credits_received");
@@ -452,6 +474,9 @@ public final class StatementParseEngine {
         }
     }
 
+    private static final java.util.regex.Pattern TERMS_HEADING = java.util.regex.Pattern.compile(
+            "(?i)schedule\\s+of\\s+charges|finance\\s+charge\\s+calculation|terms\\s+(?:and|&)\\s+conditions");
+
     // A page is prose (terms & conditions) when a meaningful share of its lines run
     // long; genuine summary pages are short label/value rows.
     private static boolean isProsePage(List<Line> lines, int page) {
@@ -464,6 +489,14 @@ public final class StatementParseEngine {
             nonEmpty++;
             if (ln.words().size() > 15) {
                 longLines++;
+            }
+            // two-column terms pages ("Finance Charge calculation | Schedule of charges") keep their
+            // lines short, but their worked examples still carry label-like words next to figures.
+            // Only a heading at the top of the page counts: a footer line must not turn a summary
+            // page into prose.
+            if (nonEmpty <= 2 && ln.words().size() <= 8 && TERMS_HEADING.matcher(ln.text()).find()
+                    && ln.words().stream().noneMatch(w -> Tokens.looseAmount(w.text()) != null)) {
+                return true;
             }
         }
         return nonEmpty > 0 && (double) longLines / nonEmpty > 0.3;

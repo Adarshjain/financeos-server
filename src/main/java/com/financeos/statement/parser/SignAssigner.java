@@ -307,8 +307,8 @@ final class SignAssigner {
                 }
             }
             for (AmountCell a : t0.amounts) {
-                if (a.col == balanceCol) {
-                    continue;
+                if (a.col == balanceCol || a.value == 0) {
+                    continue; // a printed "0.00" in the unused debit/credit column says nothing about the opening
                 }
                 List<Integer> vs = r.votes().getOrDefault(a.col, List.of());
                 int voteSum = 0;

@@ -158,7 +158,7 @@ public class StatementDetailsAiFiller {
                 StructuredArguments.keyValue("fields", filled));
         return new StatementDraft(draft.statementType(), start, end, draft.openingBalance(), closing, draft.bankName(),
                 draft.accountNumberMasked(), draft.transactionCount(), draft.linesSkipped(), draft.totalDebits(),
-                draft.totalCredits(), draft.parseMode(), draft.chainValidationPct(), draft.checksumOk(), draft.verdict(), newCard);
+                draft.totalCredits(), draft.parseMode(), draft.chainValidationPct(), draft.checksumOk(), draft.verdict(), newCard, draft.cardChecksOk());
     }
 
     private List<String> nameTokens(UUID userId) {

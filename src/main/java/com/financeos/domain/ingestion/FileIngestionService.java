@@ -168,6 +168,8 @@ public class FileIngestionService {
         }
 
         int filesProcessed = 0;
+        int refreshCreated = 0;
+        Set<UUID> handledStatementIds = new HashSet<>();
         List<FileIngestionResult.FileSummary> fileDetails = new ArrayList<>();
         List<PendingFile> pendingFiles = new ArrayList<>();
         LocalDate maxEffectiveEnd = null;
@@ -223,6 +225,38 @@ public class FileIngestionService {
                 }
 
                 String sha256 = StatementPersistenceService.sha256Hex(bytes);
+                // A re-upload that fully reconciles corrects the stored statement and adds its missing lines in one transaction.
+                // A statement this call already created or refreshed is left to the old path (its lines are not linked yet).
+                List<ParsedStatementLine> parsedLines = lines;
+                StatementDraft parsedDraft = parseResult.draft();
+                RefreshOutcome outcome = inTransaction(() -> {
+                    Optional<StatementPersistenceService.Refreshed> refreshed = statementPersistenceService.refreshReconciled(
+                            accountId, sha256, parsedDraft, parsedLines, handledStatementIds);
+                    if (refreshed == null || refreshed.isEmpty()) {
+                        return null;
+                    }
+                    StatementPersistenceService.Refreshed r = refreshed.get();
+                    StatementBatchMatcher.Result matched = null;
+                    if (!r.missingLines().isEmpty()) {
+                        List<StatementBatchMatcher.Line> batchLines = new ArrayList<>();
+                        for (int idx : r.missingLines()) {
+                            batchLines.add(StatementBatchMatcher.Line.of(idx, parsedLines.get(idx)));
+                        }
+                        matched = batchMatcher.match(r.statement(), account, batchLines,
+                                unpaired -> createRows(user, account, parsedLines, unpaired));
+                    }
+                    return new RefreshOutcome(r, matched);
+                });
+                if (outcome != null) {
+                    int created = outcome.matched() == null ? 0 : outcome.matched().created();
+                    int attached = outcome.matched() == null ? 0 : outcome.matched().matched();
+                    handledStatementIds.add(outcome.refreshed().statement().getId());
+                    refreshCreated += created;
+                    fileDetails.add(refreshSummary(filename, lines.size(), outcome.refreshed(), created, attached));
+                    filesProcessed++;
+                    continue;
+                }
+
                 Optional<List<String>> filled = statementPersistenceService.refreshFromReupload(accountId, sha256, parseResult.draft());
                 if (filled.isPresent()) {
                     List<String> fields = filled.get();
@@ -244,6 +278,7 @@ public class FileIngestionService {
                     continue;
                 }
 
+                handledStatementIds.add(stmt.get().getId());
                 String warningMessage = null;
                 String fragment = accountService.extractLast4(account);
                 if (parseResult.accountNumber() != null && fragment != null) {
@@ -289,7 +324,7 @@ public class FileIngestionService {
 
         // Match each statement as a whole, file by file (a later file of the same period attaches to the rows the
         // earlier one created). Lines nothing pairs with become file_upload rows; identical lines of one file are all real.
-        int totalCreated = 0;
+        int totalCreated = refreshCreated;
         for (PendingFile pf : pendingFiles) {
             if (batchMatcher == null) {
                 throw new IllegalStateException("StatementBatchMatcher is not available");
@@ -360,6 +395,58 @@ public class FileIngestionService {
         }
         dbHandler.saveTransactions(rows, List.of());
         return made;
+    }
+
+    private record RefreshOutcome(StatementPersistenceService.Refreshed refreshed, StatementBatchMatcher.Result matched) {}
+
+    private org.springframework.transaction.support.TransactionTemplate transactionTemplate;
+
+    /** Optional: without it (plain unit tests) the refresh runs without an enclosing transaction. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setTransactionManager(org.springframework.transaction.PlatformTransactionManager manager) {
+        this.transactionTemplate = new org.springframework.transaction.support.TransactionTemplate(manager);
+    }
+
+    private <T> T inTransaction(java.util.function.Supplier<T> work) {
+        return transactionTemplate == null ? work.get() : transactionTemplate.execute(status -> work.get());
+    }
+
+    /** What a refreshed file did, as its summary (and the structured log line); nothing changed = SKIPPED. */
+    private FileIngestionResult.FileSummary refreshSummary(String filename, int linesParsed,
+                                                           StatementPersistenceService.Refreshed r, int created, int attached) {
+        int added = created + attached;
+        int extra = r.extraTransactionIds().size();
+        log.info("Statement refreshed from re-upload: statementId={}, fields={}, rowsAdded={}, extraRows={}, keptEdited={}", r.statement().getId(),
+                r.changedFields(), added, extra, r.keptEdited(),
+                StructuredArguments.keyValue("event", Events.STATEMENT_REFRESHED),
+                StructuredArguments.keyValue("statementId", r.statement().getId()),
+                StructuredArguments.keyValue("fields", r.changedFields()),
+                StructuredArguments.keyValue("rowsAdded", added),
+                StructuredArguments.keyValue("extraRows", extra),
+                StructuredArguments.keyValue("keptEdited", r.keptEdited()),
+                StructuredArguments.keyValue("extraTransactionIds", r.extraTransactionIds()));
+        String extraNote = extra == 0 ? null : extra + (extra == 1 ? " row" : " rows")
+                + " already on this statement are not in the file (kept; check them)";
+        String keptNote = r.keptEdited() == 0 ? null : r.keptEdited() + (r.keptEdited() == 1 ? " row" : " rows") + " kept (edited)";
+        if (keptNote != null) {
+            extraNote = extraNote == null ? keptNote : keptNote + "; " + extraNote;
+        }
+        if (r.changedFields().isEmpty() && added == 0) {
+            String message = "Statement already ingested; nothing new to fill" + (extraNote == null ? "" : "; " + extraNote);
+            return new FileIngestionResult.FileSummary(filename, "SKIPPED", 0, message, null, 0, 0, List.of());
+        }
+        List<String> parts = new ArrayList<>();
+        if (!r.changedFields().isEmpty()) {
+            parts.add("updated " + String.join(", ", r.changedFields().stream().map(f -> f.replace('_', ' ')).toList()));
+        }
+        if (added > 0) {
+            parts.add("added " + added + (added == 1 ? " missing row" : " missing rows"));
+        }
+        if (extraNote != null) {
+            parts.add(extraNote);
+        }
+        return new FileIngestionResult.FileSummary(filename, "SUCCESS", linesParsed, null,
+                "Statement refreshed from this file: " + String.join("; ", parts), created, 0, r.changedFields());
     }
 
     // The parser checks its rows against the statement's own opening and closing

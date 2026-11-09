@@ -85,7 +85,8 @@ public class StatementParser {
                 bd(parseInfo.chainValidationPct),
                 parseInfo.checksumOk,
                 mapVerdict(parseInfo.verdict),
-                cardFields(parsed.summaryFields())
+                cardFields(parsed.summaryFields()),
+                cardChecksOk(parsed.statementType(), parseInfo)
         );
         String firstLine = null;
         if (!lines.isEmpty()) {
@@ -117,6 +118,16 @@ public class StatementParser {
             }
         }
         return result;
+    }
+
+    /** Same rule the engine's verdict uses: the full balance equation holds, or purchases and payments both match the lines. */
+    private static Boolean cardChecksOk(String statementType, ParseInfo info) {
+        if (!"credit_card".equals(statementType) || info.cardChecks == null) {
+            return null;
+        }
+        Map<String, Boolean> c = info.cardChecks;
+        return Boolean.TRUE.equals(c.get("prev + charges + spends - payments == due"))
+                || (Boolean.TRUE.equals(c.get("purchases == sum(debits)")) && Boolean.TRUE.equals(c.get("payments == sum(credits)")));
     }
 
     private static BigDecimal bd(Double value) {

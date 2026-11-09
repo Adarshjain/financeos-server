@@ -24,6 +24,7 @@ final class RowCollector {
     // Page-break furniture inside a running table: the carried-forward marker ends a
     // page, a page number and the brought-forward marker start the next.
     private static final Pattern PAGE_CARRY = Pattern.compile("carried forward|balance c/f");
+    private static final Pattern DESCRIPTION_WORD = Pattern.compile("\\p{L}{3,}");
     private static final Pattern PAGE_NUMBER = Pattern.compile("^page \\d+( of \\d+)?$");
     private static final Pattern PAGE_FURNITURE = Pattern.compile("^page \\d+( of \\d+)?$|brought forward|balance b/f");
     // Lines one transaction block may span after a page break (HSBC UPI/NEFT
@@ -194,6 +195,8 @@ final class RowCollector {
             pages.add(lines.get(i).page());
         }
         List<Integer> keptCand = new ArrayList<>();
+        // Per page, how many dated rows share each row's date x (within 15pt).
+        Map<Integer, Map<Integer, Integer>> sizesByPage = new LinkedHashMap<>();
         for (int page : pages) {
             List<Integer> pc = new ArrayList<>();
             for (int i : cand) {
@@ -211,12 +214,30 @@ final class RowCollector {
                 }
                 sizes.put(i, size);
             }
+            sizesByPage.put(page, sizes);
+        }
+        // x of every date column that holds 2+ rows on some page. A page's only dated line,
+        // sitting off all of those columns and made of figures and dates alone (HDFC's "Smart
+        // EMI Loan Summary" row: loan number, date, amounts), is no transaction. A lone row
+        // with any description text is a real table that merely shifted, and is kept.
+        List<Double> multiRowColX = new ArrayList<>();
+        for (Map<Integer, Integer> sizes : sizesByPage.values()) {
+            sizes.forEach((i, size) -> {
+                if (size >= 2) {
+                    multiRowColX.add(ax(lines, anchors, i));
+                }
+            });
+        }
+        for (Map<Integer, Integer> sizes : sizesByPage.values()) {
             int biggest = Collections.max(sizes.values());
             // Keep every column with >=2 rows (main date column plus an indented
             // sub-transaction column); singletons survive only if nothing bigger
             // exists on the page.
-            for (int i : pc) {
-                if (sizes.get(i) >= 2 || sizes.get(i) == biggest) {
+            for (int i : sizes.keySet()) {
+                boolean offColumn = sizes.size() == 1 && !multiRowColX.isEmpty()
+                        && multiRowColX.stream().noneMatch(x -> Math.abs(x - ax(lines, anchors, i)) <= 15)
+                        && lines.get(i).words().stream().noneMatch(w -> DESCRIPTION_WORD.matcher(w.text()).find());
+                if ((sizes.get(i) >= 2 || sizes.get(i) == biggest) && !offColumn) {
                     keptCand.add(i);
                 }
             }

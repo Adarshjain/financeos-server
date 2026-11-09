@@ -187,8 +187,16 @@ final class Tokens {
         return new Amount(value, sign);
     }
 
+    // Some issuers print a zero amount without the leading digit (BoB: "₹ .00DR", ".00").
+    // Only the summary-label path (looseAmount) accepts it; transaction rows stay strict.
+    private static final Pattern BARE_FRACTION = Pattern.compile(
+            "^(\\(?(?:[\u20b9$\u20ac\u00a3C`]|Rs\\.?|INR)?\\s?)(\\.\\d{1,2}(?!\\d))");
+
     static Double looseAmount(String token) {
         Amount a = parseAmount(token);
+        if (a == null) {
+            a = parseAmount(BARE_FRACTION.matcher(token.strip()).replaceFirst("$10$2"));
+        }
         if (a != null) {
             return a.value();
         }
