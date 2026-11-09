@@ -41,15 +41,20 @@ public class NpsCatalogService {
     private final InstrumentRepository instrumentRepository;
     private final InstrumentPriceRepository priceRepository;
     private final TransactionTemplate tx;
+    private final NpsEntryRepository entryRepository;
+    private final NpsHistoryBackfill historyBackfill;
 
     public NpsCatalogService(NpsTrustFeedClient feedClient, NpsSchemeRepository schemeRepository,
                              InstrumentRepository instrumentRepository, InstrumentPriceRepository priceRepository,
-                             PlatformTransactionManager transactionManager) {
+                             PlatformTransactionManager transactionManager, NpsEntryRepository entryRepository,
+                             NpsHistoryBackfill historyBackfill) {
         this.feedClient = feedClient;
         this.schemeRepository = schemeRepository;
         this.instrumentRepository = instrumentRepository;
         this.priceRepository = priceRepository;
         this.tx = new TransactionTemplate(transactionManager);
+        this.entryRepository = entryRepository;
+        this.historyBackfill = historyBackfill;
     }
 
     /** Downloads the daily file (no transaction open), then upserts the catalog and NAVs in one. Returns the NAV rows written. */
@@ -60,7 +65,26 @@ public class NpsCatalogService {
             return 0;
         }
         Integer written = tx.execute(status -> apply(rows));
+        requestHeldHistory();
         return written == null ? 0 : written;
+    }
+
+    /**
+     * Asks for NAV history of every scheme held in any ledger, back to its earliest entry; schemes whose history
+     * is already there are skipped. Runs outside a transaction, so the listener takes the event on
+     * {@code fallbackExecution}. Repairs schemes imported before history was requested at import.
+     */
+    private void requestHeldHistory() {
+        try {
+            Map<String, LocalDate> coverFrom = new HashMap<>();
+            for (Object[] row : entryRepository.findEarliestPostedDatesForAllLines()) {
+                coverFrom.put((String) row[0], (LocalDate) row[1]);
+            }
+            int requested = historyBackfill.requestFor(coverFrom);
+            log.info("NPS history backfill requested for {} of {} held schemes", requested, coverFrom.size());
+        } catch (Exception e) {
+            log.warn("NPS history backfill request failed: {}", e.getMessage());
+        }
     }
 
     /** Whether no scheme is in the catalog yet (a fresh database). */

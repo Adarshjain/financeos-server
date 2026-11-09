@@ -45,7 +45,7 @@ public class PriceHistoryBackfillListener {
         executor.initialize();
     }
 
-    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
+    @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT, fallbackExecution = true)
     public void onPriceRefresh(PriceRefreshEvent event) {
         Set<UUID> ids = event.instrumentIds();
         if (!priceProperties.getHistory().isEnabled() || ids == null || ids.isEmpty()) {

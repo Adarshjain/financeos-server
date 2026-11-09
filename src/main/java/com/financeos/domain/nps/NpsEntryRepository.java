@@ -53,6 +53,10 @@ public interface NpsEntryRepository extends JpaRepository<NpsEntry, UUID> {
             + "WHERE l.schemeCode IN :codes GROUP BY l.schemeCode")
     List<Object[]> findEarliestPostedDates(@Param("codes") Collection<String> codes);
 
+    /** The earliest posted date of any entry, per scheme held in any ledger (scheme, date). */
+    @Query("SELECT l.schemeCode, MIN(e.postedDate) FROM NpsEntry e JOIN e.lines l GROUP BY l.schemeCode")
+    List<Object[]> findEarliestPostedDatesForAllLines();
+
     /** One account's entries of one tier with their lines, in one query. */
     @Query("SELECT DISTINCT e FROM NpsEntry e LEFT JOIN FETCH e.lines "
             + "WHERE e.user.id = :userId AND e.account.id = :accountId AND e.tier = :tier")

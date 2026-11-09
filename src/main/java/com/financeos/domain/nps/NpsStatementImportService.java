@@ -76,13 +76,15 @@ public class NpsStatementImportService {
     private final UserRepository userRepository;
     private final InstrumentRepository instrumentRepository;
     private final NpsLinkDismissalRepository dismissalRepository;
+    private final NpsHistoryBackfill historyBackfill;
 
     public NpsStatementImportService(NpsAccountRepository accountRepository, NpsEntryRepository entryRepository,
                                      NpsStatementRepository statementRepository,
                                      NpsAllocationRepository allocationRepository, NpsSchemeRepository schemeRepository,
                                      NpsSchemeResolver resolver, InstrumentPriceRepository priceRepository,
                                      UserRepository userRepository, InstrumentRepository instrumentRepository,
-                                     NpsLinkDismissalRepository dismissalRepository) {
+                                     NpsLinkDismissalRepository dismissalRepository,
+                                     NpsHistoryBackfill historyBackfill) {
         this.accountRepository = accountRepository;
         this.entryRepository = entryRepository;
         this.statementRepository = statementRepository;
@@ -93,6 +95,7 @@ public class NpsStatementImportService {
         this.userRepository = userRepository;
         this.instrumentRepository = instrumentRepository;
         this.dismissalRepository = dismissalRepository;
+        this.historyBackfill = historyBackfill;
     }
 
     // ------------------------------------------------------------------ apply
@@ -163,8 +166,28 @@ public class NpsStatementImportService {
                 incomplete, new ArrayList<>(warnings));
         if (dryRun) {
             TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+        } else {
+            requestHistory(ctx.codes.values(), parsed.periodStart());
         }
         return new Outcome(result, rows);
+    }
+
+    /**
+     * Asks for NAV history of the statement's schemes back to their earliest ledger entry (the statement's start
+     * for a scheme with only a holding); the event fires once this transaction commits.
+     */
+    void requestHistory(java.util.Collection<String> schemeCodes, LocalDate periodStart) {
+        Set<String> codes = new LinkedHashSet<>(schemeCodes);
+        if (codes.isEmpty()) {
+            return;
+        }
+        Map<String, LocalDate> coverFrom = new HashMap<>();
+        codes.forEach(code -> coverFrom.put(code, periodStart));
+        for (Object[] row : entryRepository.findEarliestPostedDates(codes)) {
+            LocalDate earliest = (LocalDate) row[1];
+            coverFrom.merge((String) row[0], earliest, (a, b) -> b.isBefore(a) ? b : a);
+        }
+        historyBackfill.requestFor(coverFrom);
     }
 
     /** What one apply works with. */

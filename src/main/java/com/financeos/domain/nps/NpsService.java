@@ -75,6 +75,7 @@ public class NpsService {
     private final NpsGmailDetections gmailDetections;
     private final NpsGmailHeldQueue heldQueue;
     private final NpsStatementImportService statementImportService;
+    private final NpsHistoryBackfill historyBackfill;
 
     public NpsService(NpsAccountRepository accountRepository, NpsEntryRepository entryRepository,
                       NpsAllocationRepository allocationRepository, NpsSchemeRepository schemeRepository,
@@ -82,7 +83,7 @@ public class NpsService {
                       EpfEmployerRepository employerRepository, UserRepository userRepository,
                       ApplicationEventPublisher eventPublisher, NpsStatementRepository statementRepository,
                       NpsGmailDetections gmailDetections, NpsGmailHeldQueue heldQueue,
-                      NpsStatementImportService statementImportService) {
+                      NpsStatementImportService statementImportService, NpsHistoryBackfill historyBackfill) {
         this.accountRepository = accountRepository;
         this.entryRepository = entryRepository;
         this.allocationRepository = allocationRepository;
@@ -96,6 +97,7 @@ public class NpsService {
         this.gmailDetections = gmailDetections;
         this.heldQueue = heldQueue;
         this.statementImportService = statementImportService;
+        this.historyBackfill = historyBackfill;
     }
 
     private static UUID currentUserId() {
@@ -827,18 +829,9 @@ public class NpsService {
         if (codes.isEmpty()) {
             return;
         }
-        Set<UUID> needing = new HashSet<>();
-        for (NpsScheme scheme : schemeRepository.findAllById(codes)) {
-            boolean covered = priceRepository
-                    .findFirstByInstrumentIdAndUserIdIsNullAndAsOfLessThanEqualOrderByAsOfDesc(
-                            scheme.getInstrumentId(), entry.getPostedDate()).isPresent();
-            if (!covered) {
-                needing.add(scheme.getInstrumentId());
-            }
-        }
-        if (!needing.isEmpty()) {
-            eventPublisher.publishEvent(new PriceRefreshEvent(needing));
-        }
+        Map<String, LocalDate> coverFrom = new HashMap<>();
+        codes.forEach(code -> coverFrom.put(code, entry.getPostedDate()));
+        historyBackfill.requestFor(coverFrom);
     }
 
     // ------------------------------------------------------------------ schemes
