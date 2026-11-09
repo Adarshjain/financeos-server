@@ -33,6 +33,14 @@ public final class StatementPdfReader {
         }
     }
 
+    /**
+     * Version of what this reader makes of a PDF (kind, last4, period, limit). Stored with each mail's facts; a PDF fact stored
+     * with an older version (absent = 0) is read again by the account-detect run. Bump it whenever a change to this class or to
+     * {@link DocumentReader} / DocumentFacts can change what a stored PDF reads as.
+     * 1: loan documents (loan-statement heading or loan number) are no card or account statement.
+     */
+    public static final int READER_VERSION = 1;
+
     static final int MAX_PAGES = DocumentReader.MAX_PAGES;
     static final int HEADER_LINES = DocumentFacts.HEADER_LINES;
 

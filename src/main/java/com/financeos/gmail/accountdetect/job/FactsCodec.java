@@ -10,6 +10,7 @@ import com.financeos.gmail.accountdetect.MailDerived.LimitHit;
 import com.financeos.gmail.accountdetect.MailDerived.Slot;
 import com.financeos.gmail.accountdetect.MailDerived.VariantHit;
 import com.financeos.gmail.accountdetect.StatementContent;
+import com.financeos.gmail.accountdetect.StatementPdfReader;
 import com.financeos.gmail.accountdetect.Vocab.EventType;
 import com.financeos.gmail.accountdetect.Vocab.Kind;
 import com.financeos.gmail.accountdetect.Vocab.LabelKind;
@@ -46,9 +47,18 @@ public final class FactsCodec {
      * @param incompleteRuns  0 = complete; 1..{@link #GIVE_UP_AFTER_RUNS}-1 = partial, re-read next run;
      *                        {@link #GIVE_UP_AFTER_RUNS} = partial for good (flagged, not re-read)
      */
-    public record Facts(MailDerived derived, List<StatementContent> statements, boolean bodyFetched, Role headerVote, int incompleteRuns) {
+    public record Facts(MailDerived derived, List<StatementContent> statements, boolean bodyFetched, Role headerVote, int incompleteRuns, int readerVersion) {
+        public Facts(MailDerived derived, List<StatementContent> statements, boolean bodyFetched, Role headerVote, int incompleteRuns) {
+            this(derived, statements, bodyFetched, headerVote, incompleteRuns, StatementPdfReader.READER_VERSION);
+        }
+
         public Facts(MailDerived derived, List<StatementContent> statements, boolean bodyFetched) {
             this(derived, statements, bodyFetched, derived == null ? null : derived.roleVote(), 0);
+        }
+
+        /** Its statement PDF was read by an older reader than the current one (a version absent in storage counts as 0). */
+        public boolean readerStale() {
+            return readerVersion < StatementPdfReader.READER_VERSION;
         }
 
         /** A read failed and the next run reads the mail again. */
@@ -62,7 +72,7 @@ public final class FactsCodec {
         }
     }
 
-    record J(int v, boolean body, M mail, List<S> statements, String hv, Integer inc) {}
+    record J(int v, boolean body, M mail, List<S> statements, String hv, Integer inc, Integer rv) {}
 
     record M(String bank, String cluster, String role, String date, String clusterKind, List<SlotJ> slots, List<VarJ> variants,
              List<EvJ> events, List<AppJ> apps, int layout, List<LimJ> limits) {}
@@ -86,6 +96,11 @@ public final class FactsCodec {
     }
 
     public static String encode(MailDerived m, List<StatementContent> statements, boolean bodyFetched, Role headerVote, int incompleteRuns) {
+        return encode(m, statements, bodyFetched, headerVote, incompleteRuns, StatementPdfReader.READER_VERSION);
+    }
+
+    /** Same, recording the version of the PDF reader that read the statements (see {@link StatementPdfReader#READER_VERSION}). */
+    public static String encode(MailDerived m, List<StatementContent> statements, boolean bodyFetched, Role headerVote, int incompleteRuns, int readerVersion) {
         M mail = m == null ? null : new M(m.bank(), m.clusterId(), m.roleVote().name(), str(m.date()), m.clusterKind() == null ? null : m.clusterKind().name(),
                 m.slots().stream().filter(s -> !s.label().rejected() || s.label() == LabelKind.REJECT_PREPAID)
                         .map(s -> new SlotJ(s.slotKey(), s.last4(), s.label().name())).toList(),
@@ -99,7 +114,7 @@ public final class FactsCodec {
                 s.addOnLast4(), s.mentionsClosure(), str(s.periodEnd()), s.originCluster(), str(s.originDate()), s.limitAmount(), s.unlockRule(), s.holder())).toList();
         try {
             String hv = headerVote == null || (m != null && headerVote == m.roleVote()) ? null : headerVote.name();
-            return MAPPER.writeValueAsString(new J(VERSION, bodyFetched, mail, ss, hv, incompleteRuns > 0 ? incompleteRuns : null));
+            return MAPPER.writeValueAsString(new J(VERSION, bodyFetched, mail, ss, hv, incompleteRuns > 0 ? incompleteRuns : null, readerVersion));
         } catch (Exception e) {
             throw new IllegalStateException("could not encode account-detect facts", e);
         }
@@ -126,7 +141,7 @@ public final class FactsCodec {
                 s.limitBucket(), list(s.addOns()), s.closure(), date(s.periodEnd()), s.originCluster(), date(s.originDate()), null,
                 s.limitAmount(), s.unlockRule(), s.holder())).toList();
         Role hv = j.hv() != null ? Role.valueOf(j.hv()) : d == null ? null : d.roleVote();
-        return new Facts(d, ss, j.body(), hv, j.inc() == null ? 0 : j.inc());
+        return new Facts(d, ss, j.body(), hv, j.inc() == null ? 0 : j.inc(), j.rv() == null ? 0 : j.rv());
     }
 
     private static <T> List<T> list(List<T> l) {

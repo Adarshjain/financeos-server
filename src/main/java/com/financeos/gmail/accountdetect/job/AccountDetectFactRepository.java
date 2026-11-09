@@ -37,6 +37,10 @@ public interface AccountDetectFactRepository extends JpaRepository<AccountDetect
     @Query("select f from AccountDetectFact f where f.userId = :userId and f.hasPdf = true and f.unlockState in (com.financeos.gmail.accountdetect.job.AccountDetectFact.UnlockState.NONE, com.financeos.gmail.accountdetect.job.AccountDetectFact.UnlockState.UNLOCKED) and f.pdfAttachmentId is not null and f.holderCheckedGen < :gen order by f.internalDate desc nulls last, f.messageId asc")
     List<AccountDetectFact> findOpenedPdfForUser(@Param("userId") UUID userId, @Param("gen") int gen);
 
+    /** Bookkeeping of the user's open or unlocked statement PDFs, newest first; the encrypted facts column is not selected. */
+    @Query("select new com.financeos.gmail.accountdetect.job.AccountDetectStore$PdfRow(f.messageId, f.internalDate, f.pdfAttachmentId, f.unlockState) from AccountDetectFact f where f.userId = :userId and f.hasPdf = true and f.unlockState in (com.financeos.gmail.accountdetect.job.AccountDetectFact.UnlockState.NONE, com.financeos.gmail.accountdetect.job.AccountDetectFact.UnlockState.UNLOCKED) and f.pdfAttachmentId is not null order by f.internalDate desc nulls last, f.messageId asc")
+    List<AccountDetectStore.PdfRow> findPdfRowsForUser(@Param("userId") UUID userId);
+
     /** Facts a retry pass still has to look at: locked ones not tried at the current unlock generation, opened ones not rechecked at the holder generation. */
     @Query("select count(f) from AccountDetectFact f, AccountDetectState s where s.userId = :userId and f.userId = s.userId and f.pdfAttachmentId is not null and ("
             + "(f.unlockState in (com.financeos.gmail.accountdetect.job.AccountDetectFact.UnlockState.LOCKED, com.financeos.gmail.accountdetect.job.AccountDetectFact.UnlockState.FAILED) and f.unlockTriedGen < s.unlockGen) or "

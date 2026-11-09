@@ -78,6 +78,31 @@ class InMemoryAccountDetectStore extends AccountDetectStore {
     }
 
     @Override
+    public List<PdfRow> pdfRows(UUID userId) {
+        List<PdfRow> out = new ArrayList<>();
+        for (AccountDetectFact f : rows(userId)) {
+            if (!Boolean.TRUE.equals(f.getHasPdf()) || f.getPdfAttachmentId() == null) continue;
+            if (f.getUnlockState() != AccountDetectFact.UnlockState.NONE && f.getUnlockState() != AccountDetectFact.UnlockState.UNLOCKED) continue;
+            out.add(new PdfRow(f.getMessageId(), f.getInternalDate(), f.getPdfAttachmentId(), f.getUnlockState()));
+        }
+        out.sort(Comparator.comparing(PdfRow::internalDate, Comparator.nullsLast(Comparator.reverseOrder())).thenComparing(PdfRow::messageId));
+        return out;
+    }
+
+    @Override
+    public void applyReread(UUID userId, String messageId, AccountDetectFact.UnlockState state, String rule, List<com.financeos.gmail.accountdetect.StatementContent> statements) {
+        for (AccountDetectFact f : rows(userId)) {
+            if (!f.getMessageId().equals(messageId)) continue;
+            FactsCodec.Facts facts = FactsCodec.decode(f.getFacts());
+            if (state != null) {
+                f.setUnlockState(state);
+                f.setUnlockRule(rule);
+            }
+            f.setFacts(FactsCodec.encode(facts.derived(), statements == null ? facts.statements() : statements, facts.bodyFetched(), facts.headerVote(), facts.incompleteRuns()));
+        }
+    }
+
+    @Override
     public void deleteForUser(UUID userId) {
         rows.remove(userId);
         states.remove(userId);

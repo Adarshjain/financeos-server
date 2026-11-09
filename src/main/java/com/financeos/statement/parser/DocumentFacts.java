@@ -86,6 +86,43 @@ public final class DocumentFacts {
     private static final Pattern CLOSED_STATUS = Pattern.compile(
             "(?i)(?:account|a/c|card)\\s+status\\s*[:\\-]?\\s*(?:permanently\\s+)?(?:closed|cancelled|terminated)\\b|this\\s+(?:card|account)\\s+(?:is|has been)\\s+(?:permanently\\s+)?closed");
 
+    /**
+     * A line that is itself the document's heading: up to four capitalised words (a product: "DEBIT CARD EMI", "Home"), then
+     * "Loan [Account] Statement", nothing after but punctuation. Sentences that merely mention it do not match.
+     */
+    private static final Pattern LOAN_TITLE = Pattern.compile("(?:[A-Z][A-Za-z&\\-]*\\s+){0,4}(?i:loan\\s+(?:account\\s+)?statement)[\\s:.\\-]*");
+    /** A loan number with its value: "Loan No: 0036 0825 XXXX 7708", "Loan Account Number 1234567890", "LAN: ..." (8 or more digit or mask characters). */
+    private static final Pattern LOAN_NO = Pattern.compile("(?i)(?:\\bloan\\s+(?:account\\s+)?(?:no|number|#)|\\blan\\b)\\.?\\s*[:\\-]?\\s*((?:[\\dxX*]\\s?){8,})");
+    private static final int LOAN_NO_LINES = 20;
+
+    /**
+     * A loan document: some short line of it is a loan-statement heading, or one of its first lines gives a loan number and no
+     * other card or account number is named there. A card statement that only has an EMI / loan-on-card section (its own loan
+     * numbers in a sub-table, the card number up top) is not one.
+     */
+    static boolean loanDocument(List<String> lines, Vocabulary vocab) {
+        for (String l : lines) {
+            if (LOAN_TITLE.matcher(l.trim()).matches()) return true;
+        }
+        Set<String> loanNumbers = new LinkedHashSet<>(), others = new LinkedHashSet<>();
+        for (int i = 0; i < Math.min(LOAN_NO_LINES, lines.size()); i++) {
+            String l = lines.get(i);
+            Matcher m = LOAN_NO.matcher(l);
+            int from = -1, to = -1;
+            if (m.find()) {
+                String digits = m.group(1).replaceAll("\\s", "");
+                if (digits.length() >= 4) loanNumbers.add(digits.substring(digits.length() - 4).toUpperCase(Locale.ROOT));
+                from = m.start();
+                to = m.end();
+            }
+            for (DocNumber n : vocab.scan(l)) {
+                if (n.start() >= from && n.start() < to) continue;   // the loan's own number; the rest of the line still speaks
+                if (!n.rejected() && !vocab.placeholder(n.last4()) && !isYear(n) && (n.masked() || n.cardLabel() || n.accountLabel())) others.add(n.last4().toUpperCase(Locale.ROOT));
+            }
+        }
+        return !loanNumbers.isEmpty() && loanNumbers.containsAll(others);
+    }
+
     /** A line that reads as a label or a label row with values, not a sentence of terms or marketing. */
     private static boolean structural(String line) {
         int words = line.trim().split("\\s+").length;
@@ -127,7 +164,7 @@ public final class DocumentFacts {
             if (has(lines, scan, p)) loanGroups++;
         boolean card = cardCore && cardGroups >= 2;
         boolean account = acctCore && acctGroups >= 2;
-        boolean loan = loanGroups >= 3 && !card;
+        boolean loan = (loanGroups >= 3 && !card) || loanDocument(lines, vocab);
 
         // ---- date / period
         DocumentDates.Found found = DocumentDates.find(lines, 90);
@@ -170,8 +207,12 @@ public final class DocumentFacts {
         Set<String> seenCard = new LinkedHashSet<>(), seenAcct = new LinkedHashSet<>();
         int hMasked = 0, hLabelled = 0, hPlain = 0, hRejected = 0;
         for (int i = 0; i < header.size(); i++) {
+            Matcher loanNo = LOAN_NO.matcher(header.get(i));
+            int loanFrom = -1, loanTo = -1;   // a loan's own number (an EMI sub-table) is no card's; the rest of its line still counts
+            if (loanNo.find()) { loanFrom = loanNo.start(); loanTo = loanNo.end(); }
             for (DocNumber n : numsByLine.get(i)) {
                 if (n.rejected()) { hRejected++; continue; }
+                if (n.start() >= loanFrom && n.start() < loanTo) continue;
                 if (n.masked()) hMasked++; else if (n.labelled()) hLabelled++; else hPlain++;
                 if (vocab.placeholder(n.last4()) || secondary[i] || isYear(n)) continue;
                 boolean cardLike = n.masked() || n.cardLabel();
@@ -180,10 +221,10 @@ public final class DocumentFacts {
             }
         }
         List<DocNumber> pool = kind == DocKind.ACCOUNT ? (acctNums.isEmpty() ? cardNums : acctNums) : (cardNums.isEmpty() ? (kind == null ? acctNums : List.of()) : cardNums);
-        String own = pool.size() == 1 ? pool.get(0).last4() : null;
+        String own = pool.size() == 1 && !loan ? pool.get(0).last4() : null;   // a loan document names no card or account
         if (own == null && pool.isEmpty() && kind == DocKind.ACCOUNT) own = accountNumberBelowItsLabel(header, vocab);
         flags.add("own:" + (own != null ? "found" : pool.size() > 1 ? "ambiguous" : "none"));
-        if (own == null && pool.isEmpty() && kind != null) {
+        if (own == null && pool.isEmpty() && kind != null && !loan) {
             if (hints == null && engine != null) hints = engine.get();
             if (hints != null && hints.masked4() != null && !vocab.placeholder(hints.masked4())) { own = hints.masked4(); flags.add("own:engine"); }
         }

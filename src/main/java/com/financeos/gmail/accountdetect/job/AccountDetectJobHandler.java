@@ -315,13 +315,24 @@ public class AccountDetectJobHandler implements JobHandler {
         }
         Incomplete incomplete = incomplete(scan, headersMissing, partialRuns);
 
+        // stored PDF facts read by an older reader are read again (before the "nothing new" check: a changed reader is news)
+        boolean rereadChanged = false;
+        try {
+            if (profiles != null) rereadChanged = rereadStalePdfs(ctx, userId, connection, written, stored, salt).changed() > 0;
+        } catch (JobCancelledException e) {
+            throw e;
+        } catch (Exception e) {
+            log.warn("Account detect PDF re-read failed: {}: {}", e.getClass().getSimpleName(), e.getMessage());   // facts stay as they were, the run goes on
+        }
+        if (!stillScanned(userId, connectionId)) return mailboxGone();
+
         AccountDetectState s = state[0];
         // read before detection: a statement saved meanwhile then differs from this on the next run
         long tFp = System.nanoTime();
         String statementsFp = Timing.call(Ops.ACCOUNTDETECT_STATEMENTS_FP, () -> statementsFingerprint(userId));
         timings.put("7 statements fp", (System.nanoTime() - tFp) / 1_000_000);
         LastDetection last = lastDetection.get(userId);
-        if (nothingNew(firstScan, scan, headersMissing, incomplete) && last != null && statementsFp.equals(last.statementsFp())) {
+        if (!rereadChanged && nothingNew(firstScan, scan, headersMissing, incomplete) && last != null && statementsFp.equals(last.statementsFp())) {
             // Nothing was stored or replaced and the statements are as they were, so the detection is as the last run left it:
             // no second load of every fact and no detector run. The sink still runs on it (the plan depends on the user's
             // accounts and today's date). The marker and run stamps still advance.
@@ -441,6 +452,110 @@ public class AccountDetectJobHandler implements JobHandler {
         }
         if (connection.getAuthFailedAt() != null) return result("SKIPPED_PAUSED_AUTH", 0, 0, 0);   // nothing is stamped: all stays pending
         return retryPass(userId, connection, state);
+    }
+
+    record Reread(int tried, int changed, int failed) {}
+
+    /** Consecutive failed fetches (Gmail failing or the mail gone) after which a re-read pass stops, stamping none of them. */
+    static final int REREAD_STOP_AFTER_NULLS = 3;
+
+    /**
+     * Reads again the statement PDFs whose stored facts come from an older {@link StatementPdfReader#READER_VERSION} (newest
+     * first, at most {@link #retryCap} mails per run; the rest wait for the next run). The stale ones are picked from the facts
+     * the run already loaded ({@code stored}); only light bookkeeping rows are read besides. Each mail is read as a fresh scan
+     * would read it: the message is fetched and every PDF in it goes through {@link AccountDetectScan#readMailPdf} (open, or
+     * protected and tried with the user's saved passwords and the rule table), and its statements are replaced by that result.
+     * A mail with old statements keeps them when a PDF of it cannot be opened or nothing is read now. Every mail looked at is
+     * stamped with the current version, so it is tried once per reader version, except fetch failures: those are stamped only when
+     * a later fetch succeeds, and {@value #REREAD_STOP_AFTER_NULLS} in a row stop the pass with none of them stamped (Gmail is
+     * failing; the next run tries again). A Gmail error stops the pass too. Ids whose statements changed are added to
+     * {@code written}. Logs counts only; passwords live inside the unlock call.
+     */
+    private Reread rereadStalePdfs(JobExecutionContext ctx, UUID userId, GmailConnection connection, Set<String> written,
+                                   List<AccountDetectStore.StoredFact> stored, String salt) throws Exception {
+        Map<String, AccountDetectStore.StoredFact> staleById = new LinkedHashMap<>();
+        for (AccountDetectStore.StoredFact f : stored) {
+            if (f.facts().readerStale() && f.facts().derived() != null && !f.facts().pending() && !written.contains(f.messageId())) staleById.put(f.messageId(), f);
+        }
+        if (staleById.isEmpty()) return new Reread(0, 0, 0);
+        List<AccountDetectStore.PdfRow> rows = store.pdfRows(userId).stream().filter(r -> staleById.containsKey(r.messageId())).toList();
+        if (rows.isEmpty()) return new Reread(0, 0, 0);
+        UnlockProfile profile = profileOf(userId);
+        java.util.function.UnaryOperator<String> holderCheck = HolderCheck.forName(profile.displayName());
+        MailSource source = sources.open(connection);
+        MailSource.Attachments fetcher = source.attachments();
+        int tried = 0, changed = 0, failed = 0, nulls = 0;
+        List<AccountDetectStore.PdfRow> pendingNull = new ArrayList<>();
+        for (AccountDetectStore.PdfRow row : rows.subList(0, Math.min(rows.size(), retryCap))) {
+            ctx.checkCancelled();
+            List<StatementContent> old = staleById.get(row.messageId()).facts().statements();
+            AccountDetectScan.MailReread rr;
+            try {
+                rr = AccountDetectScan.rereadMail(source, fetcher, row.messageId(), staleById.get(row.messageId()).facts().derived(), salt,
+                        (pdf, target) -> unlocker.unlock(pdf, target, profile), holderCheck);
+            } catch (GmailEngineException e) {
+                log.warn("Account detect PDF re-read stopped by a Gmail error: {}", e.getErrorType());
+                pendingNull.clear();
+                break;   // nothing stamped for this one; the rest stay stale for the next run
+            } catch (JobCancelledException e) {
+                throw e;
+            } catch (Exception e) {
+                log.warn("Account detect PDF re-read: one mail failed: {}", e.getClass().getSimpleName());
+                rr = null;
+            }
+            if (rr != null && rr.fetchFailed()) {
+                pendingNull.add(row);
+                if (++nulls >= REREAD_STOP_AFTER_NULLS) {
+                    log.warn("Account detect PDF re-read stopped: {} fetches in a row failed", nulls);
+                    pendingNull.clear();   // Gmail looks down: none of these is stamped
+                    break;
+                }
+                continue;
+            }
+            // a fetch succeeded: the isolated failures before it were that mail's own (gone), kept as stored and stamped
+            for (AccountDetectStore.PdfRow p : pendingNull) {
+                store.applyReread(userId, p.messageId(), null, null, null);
+                tried++;
+                failed++;
+            }
+            pendingNull.clear();
+            nulls = 0;
+            tried++;
+            List<StatementContent> contents = new ArrayList<>();
+            boolean unreadable = rr == null;
+            AccountDetectFact.UnlockState state = null;
+            String rule = null;
+            if (rr != null) {
+                for (AccountDetectScan.PdfRead pr : rr.pdfs()) {
+                    if (pr.result().content() != null) contents.add(pr.result().content());
+                    String st = pr.pdf().status();
+                    if ("PROTECTED".equals(st) || "FAILED".equals(st) || ScannedMail.UNLOCK_FAILED.equals(st)) unreadable = true;
+                    if (ScannedMail.UNLOCKED.equals(st) && state == null) {
+                        state = AccountDetectFact.UnlockState.UNLOCKED;
+                        rule = pr.pdf().unlockRule();
+                    }
+                }
+            }
+            // old statements are not lost to a PDF that cannot be opened now, or to a reading that finds nothing
+            if (!old.isEmpty() && (unreadable || contents.isEmpty())) {
+                failed++;
+                store.applyReread(userId, row.messageId(), null, null, null);
+                continue;
+            }
+            store.applyReread(userId, row.messageId(), state, rule, contents);
+            if (!contents.equals(old)) {
+                changed++;
+                written.add(row.messageId());
+                lastDetection.remove(userId);   // facts changed: the cached detection is stale whatever happens next
+            }
+        }
+        for (AccountDetectStore.PdfRow p : pendingNull) {   // a trailing isolated failure (fewer than the stop count)
+            store.applyReread(userId, p.messageId(), null, null, null);
+            tried++;
+            failed++;
+        }
+        log.info("Account detect PDF re-read: readerVersion={}, stale={}, tried={}, changed={}, failed={}", StatementPdfReader.READER_VERSION, rows.size(), tried, changed, failed);
+        return new Reread(tried, changed, failed);
     }
 
     private static final String HOLDER_UNKNOWN = null;

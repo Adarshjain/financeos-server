@@ -102,6 +102,33 @@ public class AccountDetectStore {
         return out;
     }
 
+    /** The bookkeeping of a stored mail's statement PDF (no facts: nothing is decoded). */
+    public record PdfRow(String messageId, java.time.Instant internalDate, String attachmentId, AccountDetectFact.UnlockState unlockState) {}
+
+    /** The user's mails with an open (or earlier unlocked) statement PDF, newest first; their facts are not read. */
+    @Transactional(readOnly = true)
+    public List<PdfRow> pdfRows(UUID userId) {
+        return factRepository.findPdfRowsForUser(userId);
+    }
+
+    /**
+     * Records a PDF's re-read: the mail's statements become {@code statements} (null keeps the stored ones: the PDF could not be
+     * fetched or opened), the unlock state and rule are set when {@code state} is given, and the facts carry the current reader
+     * version either way, so a PDF that cannot be re-read is not tried again until the reader changes again.
+     */
+    @Transactional
+    public void applyReread(UUID userId, String messageId, AccountDetectFact.UnlockState state, String rule, List<StatementContent> statements) {
+        AccountDetectFact f = factRepository.findByUserAndMessage(userId, messageId).orElse(null);
+        if (f == null) return;
+        FactsCodec.Facts facts = FactsCodec.decode(f.getFacts());
+        if (state != null) {
+            f.setUnlockState(state);
+            f.setUnlockRule(rule);
+        }
+        f.setFacts(FactsCodec.encode(facts.derived(), statements == null ? facts.statements() : statements, facts.bodyFetched(), facts.headerVote(), facts.incompleteRuns()));
+        factRepository.save(f);
+    }
+
     /** Whether any retry work is left: a locked fact not tried at the current unlock generation, or an opened one not rechecked at the holder generation. */
     @Transactional(readOnly = true)
     public boolean retryPending(UUID userId) {
@@ -146,7 +173,7 @@ public class AccountDetectStore {
             statements.add(s.withHolder(holder));
         }
         if (!changed) return false;
-        f.setFacts(FactsCodec.encode(facts.derived(), statements, facts.bodyFetched(), facts.headerVote(), facts.incompleteRuns()));
+        f.setFacts(FactsCodec.encode(facts.derived(), statements, facts.bodyFetched(), facts.headerVote(), facts.incompleteRuns(), facts.readerVersion()));
         factRepository.save(f);
         return true;
     }
