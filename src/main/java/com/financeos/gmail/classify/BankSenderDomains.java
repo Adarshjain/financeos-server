@@ -142,13 +142,16 @@ public class BankSenderDomains {
         put(m, "bank_of_baroda", "bankofbaroda.co.in", "bankofbaroda.bank.in", "bobcard.co.in", "bobfinancial.com");
         put(m, "canara", "canarabank.com");
         put(m, "indian_bank", "indianbank.co.in");
-        put(m, "csb", "csb.co.in");
+        put(m, "csb", "csb.co.in", "csb.bank.in");
         put(m, "slice", "sliceit.com");
         put(m, "unity", "theunitybank.com");
         put(m, "amex", "americanexpress.com", "aexp.com");
         put(m, "hsbc", "hsbc.co.in", "hsbc.bank.in");
         put(m, "sbm", "sbmbank.co.in");
         put(m, "kotak", "kotak.com", "kotak.bank.in");
+        // fintech brands that mail statements for accounts at their partner banks (see BankPartners)
+        put(m, "jupiter", "jupiter.money");
+        put(m, "fi", "fi.money");
         return Collections.unmodifiableMap(m);
     }
 

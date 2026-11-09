@@ -103,8 +103,11 @@ public class AccountResolver {
             return Optional.empty();
         }
         Map<UUID, ResolvedCard> byAccount = new LinkedHashMap<>();
+        boolean anyExact = candidates.stream().anyMatch(c -> senderBank.equals(c.account().getBank()));
         for (ResolvedCard c : candidates) {
-            if (!senderBank.equals(c.account().getBank())) {
+            // an exact bank match beats a partner-brand match (a brand's mail covers its partner banks' accounts)
+            if (anyExact ? !senderBank.equals(c.account().getBank())
+                    : !com.financeos.gmail.accountdetect.BankPartners.covers(c.account().getBank(), senderBank)) {
                 continue;
             }
             ResolvedCard existing = byAccount.get(c.account().getId());
@@ -270,7 +273,8 @@ public class AccountResolver {
         for (Card card : allCards) {
             if (card.isClosed() || (card.getCardholder() != null && card.getCardholder().isEffectivelyClosed())) {
                 String cardBank = card.getAccount().getBank();
-                boolean bankOk = cardBank == null || cardBank.equals(senderBank) || namedBanks.contains(cardBank);
+                boolean bankOk = cardBank == null || cardBank.equals(senderBank)
+                        || com.financeos.gmail.accountdetect.BankPartners.covers(cardBank, senderBank) || namedBanks.contains(cardBank);
                 if (isExact(accountLast4, card.getLast4()) || (bankOk && endsWithLast4(accountLast4, card.getLast4()))) {
                     pass3ByAccount.putIfAbsent(card.getAccount().getId(), new ResolvedCard(card.getAccount(), card));
                 }

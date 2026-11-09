@@ -87,7 +87,12 @@ public class SenderAllowlistService {
      * senders without a floor are left to follow the demand floor.
      */
     public List<GmailSender> addBankSenders(UUID userId, String bankId, LocalDate fromDate) {
-        List<String> domains = bankSenderDomains.domainsFor(bankId);
+        List<String> ownDomains = bankSenderDomains.domainsFor(bankId);
+        // fintech brands whose mail covers this bank's accounts (federal: fi, jupiter; csb: jupiter) are added too
+        List<String> domains = new ArrayList<>(ownDomains);
+        for (String brand : com.financeos.gmail.accountdetect.BankPartners.brandsFor(bankId)) {
+            domains.addAll(bankSenderDomains.domainsFor(brand));
+        }
         if (domains.isEmpty()) {
             return List.of();
         }

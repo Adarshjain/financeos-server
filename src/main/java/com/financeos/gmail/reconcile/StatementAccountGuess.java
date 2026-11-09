@@ -71,12 +71,16 @@ final class StatementAccountGuess {
         }
         List<Account> candidates = new ArrayList<>();
         for (Account a : accounts) {
-            if (bank.equals(a.getBank()) && (a.getType() == AccountType.bank_account || a.getType() == AccountType.credit_card)) {
+            if (com.financeos.gmail.accountdetect.BankPartners.covers(a.getBank(), bank) && (a.getType() == AccountType.bank_account || a.getType() == AccountType.credit_card)) {
                 candidates.add(a);
             }
         }
         if (candidates.isEmpty()) {
             return Optional.empty();
+        }
+        // an exact bank match beats a partner-brand match
+        if (candidates.stream().anyMatch(a -> bank.equals(a.getBank()))) {
+            candidates = new ArrayList<>(candidates.stream().filter(a -> bank.equals(a.getBank())).toList());
         }
 
         String subject = lower(message.subject());

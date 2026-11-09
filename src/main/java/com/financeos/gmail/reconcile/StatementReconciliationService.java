@@ -262,7 +262,8 @@ public class StatementReconciliationService {
 
         if (ruleOpenedPassword != null && passwordVault != null
                 && resolvedAccount.getBank() != null
-                && resolvedAccount.getBank().equals(com.financeos.gmail.classify.BankSenderDomains.current().bankIdFor(message.from()))) {
+                && com.financeos.gmail.accountdetect.BankPartners.covers(resolvedAccount.getBank(),
+                com.financeos.gmail.classify.BankSenderDomains.current().bankIdFor(message.from()))) {
             // The password came from a rule, not a saved one: keep it on the account the statement belongs to (encrypted at rest by the account).
             if (passwordVault.saveIfMissing(connection.getUser().getId(), resolvedAccount.getId(), ruleOpenedPassword)) {
                 log.info("Saved the rule-built statement password on account {}", resolvedAccount.getId());
@@ -399,7 +400,7 @@ public class StatementReconciliationService {
         }
         Map<UUID, Account> atBank = new LinkedHashMap<>();
         for (Account a : accountRepository.findByUserId(userId)) {
-            if (bank.equals(a.getBank())) {
+            if (com.financeos.gmail.accountdetect.BankPartners.covers(a.getBank(), bank)) {
                 atBank.put(a.getId(), a);
             }
         }
@@ -692,7 +693,11 @@ public class StatementReconciliationService {
             List<String> numbers = MaskedNumberHints.find(message.subject(), message.getStrippedText()).stream()
                     .filter(n -> n.length() == 4).toList();
             return ruleUnlocker.openingPassword(pdf,
-                    new com.financeos.gmail.accountdetect.unlock.StatementUnlocker.Target(bank, kind, List.of(), numbers, null), profile);
+                    new com.financeos.gmail.accountdetect.unlock.StatementUnlocker.Target(
+                            // a partner brand's mail (fi, jupiter) unlocks by the rules of the account's own bank
+                            guess != null && guess.account().getBank() != null
+                                    && com.financeos.gmail.accountdetect.BankPartners.covers(guess.account().getBank(), bank)
+                                    ? guess.account().getBank() : bank, kind, List.of(), numbers, null), profile);
         } catch (RuntimeException e) {
             log.warn("Bank password rules failed for message {}: {}", message.messageId(), e.getClass().getSimpleName());
             return null;

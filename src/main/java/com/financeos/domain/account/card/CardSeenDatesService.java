@@ -57,8 +57,8 @@ public class CardSeenDatesService {
         int mails = 0;
         for (NumberedMail m : messageRepository.findMentioning(owner, last4)) {
             String bank = NumberGroupKey.bankOf(m.getClassifiedBank(), m.getSenderAddress());
-            if (account.getBank() != null && bank != null && !account.getBank().equals(bank)) {
-                continue; // another bank's number
+            if (!NumberGroupKey.attachable(bank, account.getBank())) {
+                continue; // another bank's number (a partner brand's mail counts for its partner banks)
             }
             if (m.getInternalDate() == null) {
                 continue;

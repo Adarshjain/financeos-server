@@ -31,8 +31,12 @@ public final class NumberGroupKey {
         return a == null ? b == null : a.equals(b);
     }
 
-    /** False when the mail's bank and the account's bank are both known and differ: the mail belongs to another bank's number. */
+    /**
+     * False when the mail's bank and the account's bank are both known and differ: the mail belongs to another bank's
+     * number. A partner brand's mail (fi, jupiter) belongs to its partner bank's accounts.
+     */
     public static boolean attachable(String mailBank, String accountBank) {
-        return mailBank == null || accountBank == null || mailBank.equals(accountBank);
+        return mailBank == null || accountBank == null
+                || com.financeos.gmail.accountdetect.BankPartners.covers(accountBank, mailBank);
     }
 }

@@ -56,7 +56,9 @@ class BankSenderDomainsTest {
 
     @Test
     void everyMappedIdExistsInTheCatalog() {
-        domains.all().values().forEach(id -> assertThat(BankCatalog.isKnown(id)).as(id).isTrue());
+        // fintech brands (fi, jupiter) are not catalog banks: their mail covers partner banks (BankPartners)
+        domains.all().values().stream().filter(id -> !java.util.Set.of("fi", "jupiter").contains(id))
+                .forEach(id -> assertThat(BankCatalog.isKnown(id)).as(id).isTrue());
     }
 
     @Test

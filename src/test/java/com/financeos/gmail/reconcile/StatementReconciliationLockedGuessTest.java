@@ -286,6 +286,25 @@ class StatementReconciliationLockedGuessTest {
     }
 
     @Test
+    void partnerBrandMail_unlocksByThePartnerBanksRule_andSavesThePassword() throws Exception {
+        String password = PasswordRender.renderOne("NAME4U+DDMM", "Adarsh Jain", "1990-05-17", null);
+        Account federal = account("Fi Money", "federal", AccountType.bank_account, LocalDate.of(2021, 12, 1));
+        bankLast4(federal, "3974");
+        when(accountRepository.findByUserId(user.getId())).thenReturn(List.of(federal));
+        when(coverage.statements(federal.getId())).thenReturn(List.of());
+        when(profileLoader.load(user.getId())).thenReturn(UnlockProfile.of("Adarsh Jain", "1990-05-17"));
+        when(gmailEngine.fetchAttachmentContent(any(), anyString(), anyString())).thenReturn(protectedPdf(password));
+        when(statementParser.parse(any(), eq(password))).thenReturn(StatementExtractionResult.success(
+                List.of(new ParsedStatementLine(LocalDate.of(2023, 5, 3), new BigDecimal("10.00"), "DEBIT", "x", null, null)),
+                "XXXX3974", LocalDate.of(2023, 5, 1), LocalDate.of(2023, 5, 31), null));
+        when(accountResolver.resolve(eq("XXXX3974"), any(), any())).thenReturn(Optional.of(new AccountResolver.ResolvedCard(federal, null)));
+
+        service.reconcile(connection, mail("no-reply@fi.money", "Your Fi account statement", "statement.pdf", "Account XXXXXX3974"));
+
+        verify(vault).saveIfMissing(user.getId(), federal.getId(), password);
+    }
+
+    @Test
     void noBirthDate_rulesAreSkipped() throws Exception {
         String password = PasswordRender.renderOne("NAME4U+DDMM", "Adarsh Jain", "1990-05-17", null);
         Account federal = account("Federal", "federal", AccountType.bank_account, LocalDate.of(2026, 1, 1));
