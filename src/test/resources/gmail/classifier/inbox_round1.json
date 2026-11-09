@@ -527,7 +527,7 @@
   "bank": "hdfc"
  },
  {
-  "name": "jupiter transaction otp with colon is otp",
+  "name": "jupiter transaction otp with colon is otp", "bank": "jupiter",
   "from": "Jupiter <noreply@jupiter.money>",
   "subject": "Transaction OTP",
   "kind": "OTHER",
@@ -696,7 +696,7 @@
   "bank": "federal"
  },
  {
-  "name": "jupiter voucher is promotion",
+  "name": "jupiter voucher is promotion", "bank": "jupiter",
   "from": "Jupiter <noreply@jupiter.money>",
   "subject": "Your Amazon Pay Voucher is here!",
   "kind": "OTHER",

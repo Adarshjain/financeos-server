@@ -170,7 +170,10 @@ class EmailClassifierTest {
             try (InputStream in = getClass().getResourceAsStream("/gmail/classifier/" + file)) {
                 for (JsonNode c : mapper.readTree(in)) {
                     if (c.has("bank")) {
-                        assertThat(BankCatalog.isKnown(c.get("bank").asText())).as(c.get("name").asText()).isTrue();
+                        String bank = c.get("bank").asText();
+                        // fintech brands (fi, jupiter) are sender banks, not catalog banks (see BankPartners)
+                        assertThat(BankCatalog.isKnown(bank) || java.util.Set.of("fi", "jupiter").contains(bank))
+                                .as(c.get("name").asText()).isTrue();
                     }
                 }
             }
