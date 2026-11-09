@@ -115,10 +115,10 @@ class AccountSuggestionIntegrationTest {
         assertThat(row("axis:CREDIT_CARD:4444").getState()).isEqualTo(State.NEW);
         assertThat(row("axis:CREDIT_CARD:4444").getVariant()).isEqualTo("Magnus");
 
-        // a row no longer reported stays as it is
+        // a NEW row no longer reported is retired; answered rows stay as they are
         service.apply(userId, detection());
-        assertThat(repository.findByUserId(userId)).hasSize(4);
-        assertThat(row("axis:CREDIT_CARD:4444").getState()).isEqualTo(State.NEW);
+        assertThat(repository.findByUserId(userId)).hasSize(3);
+        assertThat(repository.findByUserId(userId)).noneMatch(s -> s.getKey().equals("axis:CREDIT_CARD:4444"));
     }
 
     @Test
@@ -441,8 +441,8 @@ class AccountSuggestionIntegrationTest {
         assertThat(items.get(0).get("kind").asText()).isEqualTo("CREDIT_CARD");
         assertThat(items.get(0).get("parentSuggestionId").isNull()).isTrue();
 
-        // the next apply, even one that does not report the child, drops the stale link
-        service.apply(userId, detection(primary));
+        // the next apply drops the stale link (an unreported NEW child is retired, so the child stays reported)
+        service.apply(userId, detection(primary, addon));
         assertThat(row("hdfc:CREDIT_CARD:8888").getParentSuggestionId()).isNull();
         assertThat(row("hdfc:CREDIT_CARD:8888").getKind()).isEqualTo(AccountSuggestion.Kind.CREDIT_CARD);
         service.apply(userId, detection(primary, addon));

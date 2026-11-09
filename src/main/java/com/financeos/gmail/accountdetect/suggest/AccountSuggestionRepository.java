@@ -34,6 +34,12 @@ public interface AccountSuggestionRepository extends JpaRepository<AccountSugges
             + "AND s.state = com.financeos.gmail.accountdetect.suggest.AccountSuggestion.State.NEW")
     int claimBelongs(@Param("id") UUID id, @Param("userId") UUID userId, @Param("now") java.time.Instant now);
 
+    /** Deletes these rows only while still NEW and the user's own (an answer given since they were read wins). */
+    @Modifying
+    @Query("DELETE FROM AccountSuggestion s WHERE s.userId = :userId AND s.id IN :ids "
+            + "AND s.state = com.financeos.gmail.accountdetect.suggest.AccountSuggestion.State.NEW")
+    int deleteNewByIds(@Param("userId") UUID userId, @Param("ids") java.util.Collection<UUID> ids);
+
     /** The user's suggestions, all of them (e2e reset). */
     @Modifying
     @Query("DELETE FROM AccountSuggestion s WHERE s.userId = :userId")

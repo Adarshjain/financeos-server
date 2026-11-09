@@ -62,6 +62,20 @@ public record ExistingAccounts(List<Acc> accounts) {
         return viaAccount;
     }
 
+    /**
+     * The user has an open account or card with this number at a known bank other than {@code bank}: a weak sighting of
+     * the number at {@code bank} is then most likely the same number seen as the other party of a transfer.
+     */
+    public boolean hasOpenAtOtherBank(String bank, String last4) {
+        if (last4 == null || bank == null) return false;
+        for (Acc a : accounts) {
+            if (!a.open() || a.bank() == null || a.bank().isBlank() || a.bank().equals(bank)) continue;
+            if (last4.equals(a.bankLast4())) return true;
+            for (CardRef c : a.cards()) if (c.open() && last4.equals(c.last4())) return true;
+        }
+        return false;
+    }
+
     /** A card (open or closed) with this number at the same known bank. */
     public Match matchCard(String bank, String last4) {
         return match(bank, last4, AccountSuggestion.Kind.CREDIT_CARD);

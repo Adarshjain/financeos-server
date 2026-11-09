@@ -488,6 +488,7 @@ public final class Detector {
 
         // ---- 5. entities + existence confidence
         stages.next(Ops.DETECTOR_ENTITIES);
+        Set<String> documented = new HashSet<>();   // entity keys named by a statement document or a statement header
         for (var en : ev.entrySet()) {
             Ev e = en.getValue();
             String key = en.getKey();
@@ -542,6 +543,7 @@ public final class Detector {
             }
             // payment apps never count toward existence: only bank-side channels do (Contract)
             ent.existsConf = Contract.existsMax(ent);
+            if (e.doc || header) documented.add(key);
             if (e.counterparty > 0) out.ownSeenAsCounterparty.add(key);
 
             // kind: majority with >= 80% agreement
@@ -587,6 +589,7 @@ public final class Detector {
             }
             out.entities.add(ent);
         }
+        dropWeakCrossBank(out, documented);
 
         stages.next(Ops.DETECTOR_VARIANTS);
         variants(mails, statements, weakLinked, clusterRole, opt, appIndependent, out);
@@ -615,6 +618,33 @@ public final class Detector {
 
     private static boolean ownish(SlotClass c, Occ o) {
         return c == SlotClass.OWN || c == SlotClass.LOCAL || (c == SlotClass.UNSCORED && o.label() != LabelKind.NONE);
+    }
+
+    /**
+     * A number seen only weakly at bank X (no statement document or header, existence LOW or unset) that is a solid own
+     * number at another bank (existence HIGH, or named by a statement) is the other party of a transfer, not an own
+     * account at X. Computed after every entity exists, so the order of the keys never matters; a same-last4 entity with
+     * statement evidence or MEDIUM+ existence is a real collision and stays.
+     */
+    private static void dropWeakCrossBank(Detection out, Set<String> documented) {
+        List<Entity> weak = new ArrayList<>();
+        for (Entity x : out.entities) {
+            boolean lowExists = x.existsConf == null || x.existsConf == Conf.LOW;
+            if (lowExists && !documented.contains(x.key())) weak.add(x);
+        }
+        for (Entity x : weak) {
+            boolean solidElsewhere = false;
+            for (Entity y : out.entities) {
+                if (y == x || y.bank.equals(x.bank) || !y.last4.equals(x.last4)) continue;
+                if (y.existsConf == Conf.HIGH || documented.contains(y.key())) {
+                    solidElsewhere = true;
+                    break;
+                }
+            }
+            if (!solidElsewhere) continue;
+            out.entities.remove(x);
+            out.drop("own number at another bank, seen in bank X's mails");
+        }
     }
 
     /** STATEMENT_CONTENT counts as BILLING unless the number also has alerts or service evidence. */

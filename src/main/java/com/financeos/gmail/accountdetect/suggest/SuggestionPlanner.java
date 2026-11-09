@@ -32,6 +32,8 @@ import java.util.UUID;
  *       Never for a row the user answered "not part" ({@code declinedParentKeys}), and a MAYBE row stays MAYBE.</li>
  *   <li>Band: MAYBE when existsConf or kindConf is below MEDIUM (checked first: a LOW guess is never a confident row);
  *       else OLDER when CLOSED / REPLACED / UPGRADED at MEDIUM+ or last seen over 12 months ago; else FOUND.</li>
+ *   <li>Cross-bank: a plan whose band is MAYBE is not emitted when the user already has an open account or card at a
+ *       different bank with the same last4.</li>
  * </ul>
  */
 public final class SuggestionPlanner {
@@ -118,6 +120,9 @@ public final class SuggestionPlanner {
                 }
                 candidates = existing.candidates(e.bank, e.last4, kind);
             }
+            // a weak guess at one bank for a number the user already has at another bank is that bank's number seen
+            // as the other party of a transfer (user-created accounts may have no mail evidence of their own)
+            if (band == Band.MAYBE && match == null && existing.hasOpenAtOtherBank(e.bank, e.last4)) continue;
             out.add(new Plan(key, e, kind, base, band, match, parentAccount, parentKey, debitNeedsBank, candidates,
                     truncate(e.variant, AccountSuggestion.VARIANT_MAX), candidatesJson(e.variantCandidates)));
         }

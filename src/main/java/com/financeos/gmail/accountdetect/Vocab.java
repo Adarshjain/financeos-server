@@ -34,7 +34,7 @@ public final class Vocab {
     }
 
     /** What the words right before a number call it. REJECT_* never become numbers. */
-    public enum LabelKind { CREDIT_CARD, DEBIT_CARD, CARD, ACCOUNT, LOAN, NONE, REJECT_ID, REJECT_REF, REJECT_OTP, REJECT_AADHAAR, REJECT_VPA, REJECT_PREPAID;
+    public enum LabelKind { CREDIT_CARD, DEBIT_CARD, CARD, ACCOUNT, LOAN, NONE, REJECT_ID, REJECT_REF, REJECT_OTP, REJECT_AADHAAR, REJECT_VPA, REJECT_PREPAID, REJECT_DEST;
         public boolean rejected() {
             return name().startsWith("REJECT_");
         }

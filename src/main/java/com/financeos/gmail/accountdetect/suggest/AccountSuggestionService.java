@@ -39,7 +39,8 @@ import java.util.UUID;
  * Writes a detection into the user's suggestions and answers them. Every query is filtered by user explicitly.
  *
  * <p>Re-runs upsert by (user, key): ADDED, NOT_MINE and BELONGS rows are never touched; NEW rows get fresh facts and
- * become MATCHED once the user has the number; MATCHED rows keep that state; rows no longer reported stay as they are.
+ * become MATCHED once the user has the number; MATCHED rows keep that state; NEW rows a run no longer reports are deleted (every run
+ * carries a full detection over all stored facts), while ADDED, NOT_MINE, BELONGS and MATCHED rows never change that way.
  */
 @Service
 public class AccountSuggestionService {
@@ -111,6 +112,12 @@ public class AccountSuggestionService {
         for (AccountSuggestion saved : repository.saveAllAndFlush(liveRows)) {
             byKey.put(saved.getKey(), saved);
         }
+        // every run covers all stored facts: a NEW row this run did not report is stale and goes (answered rows stay);
+        // dropped from the map first so no live child links to it
+        List<AccountSuggestion> stale = byKey.values().stream()
+                .filter(s -> s.getState() == State.NEW && !liveKeys.contains(s.getKey()))
+                .toList();
+        for (AccountSuggestion s : stale) byKey.remove(s.getKey());
         Instant now = AppTime.nowInstant();
         int marked = 0;
         for (SuggestionPlanner.Plan p : live) {
@@ -135,7 +142,7 @@ public class AccountSuggestionService {
                 marked++;
             }
         }
-        // rows this run did not report keep their facts, but a link to a parent that left NEW is dropped
+        // rows this run did not report keep their facts, but a link to a parent that left NEW (or was just retired) is dropped
         Map<UUID, AccountSuggestion> byId = new HashMap<>();
         for (AccountSuggestion s : byKey.values()) byId.put(s.getId(), s);
         List<AccountSuggestion> toSave = new ArrayList<>(liveRows);
@@ -151,6 +158,7 @@ public class AccountSuggestionService {
             toSave.add(s);
         }
         repository.saveAll(toSave);
+        if (!stale.isEmpty()) repository.deleteNewByIds(userId, stale.stream().map(AccountSuggestion::getId).toList());
         return marked;
     }
 

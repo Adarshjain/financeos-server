@@ -130,10 +130,13 @@ public final class FeatureExtractor {
         List<Num> out = new ArrayList<>();
         if (seg == null || seg.isBlank()) return out;
         Matcher m = NUMBER.matcher(seg);
+        boolean priorNumber = false;   // an earlier masked number in this segment (the source of a transfer)
         while (m.find()) {
             boolean masked = m.group(2) != null;
             String digits = masked ? m.group(2) : m.group(3);
             if (digits.length() < 4) continue;
+            boolean hadPrior = priorNumber;
+            if (masked) priorNumber = true;
             String last4 = digits.substring(digits.length() - 4);
             int end = m.end();
             String after = seg.substring(end, Math.min(seg.length(), end + 3));
@@ -147,6 +150,10 @@ public final class FeatureExtractor {
             if (!masked && partOfDate(seg, m.start(), end)) continue;   // a year: "31/10/2024", "31-Oct-2024", "Oct 2024"
             // the leading digits of a spaced card number ("4893 99XX XXXX 2496"): the number's last4 comes after the mask
             if (!masked && digits.length() <= 6 && LEADING_GROUP.matcher(seg.substring(end, Math.min(seg.length(), end + 12))).find()) continue;
+            if (masked && transferDestination(seg, m.start(), end, hadPrior)) {
+                out.add(new Num(last4, LabelKind.REJECT_DEST, labelToks, true, m.start()));
+                continue;
+            }
             String shape = m.group().replaceAll("[\\s-]", "");
             List<String> near = before.subList(Math.max(0, before.size() - 4), before.size());
             LabelKind kind = kindFrom(before);
@@ -189,6 +196,30 @@ public final class FeatureExtractor {
             out.add(new Num(last4, kind, labelToks, masked, m.start()));
         }
         return out;
+    }
+
+    private static final String DEST_TAIL = "(?:a/c|account|acct)\\b(?:\\s*(?:no\\.?|number|ending(?: with| in)?|#))?[\\s:]*$";
+    /** Always the other side of a transfer: beneficiary / payee / recipient, "transferred (sent, paid) to [the] A/c". */
+    private static final Pattern DEST_ALWAYS = Pattern.compile("(?:\\b(?:beneficiary|payee|recipient)\\b\\s*(?:(?!(?:from|your|debited)\\b)[\\w.&'-]+\\s+){0,3}?"
+            + "|\\b(?:transferred|transfer|sent|paid|remitted)\\s+to\\s+(?:the\\s+)?)" + DEST_TAIL);
+    /** The other side only when another number came first in the sentence: "credited to [the] A/c", "to [the] A/c", "and A/c N is credited". */
+    private static final Pattern DEST_AFTER_SOURCE = Pattern.compile("\\b(?:credited\\s+to\\s+(?:the\\s+)?|to\\s+(?:the\\s+)?)" + DEST_TAIL);
+    private static final Pattern DEST_AND = Pattern.compile("\\band\\s+" + DEST_TAIL);
+    private static final Pattern PARTY_AFTER = Pattern.compile("(?i)^\\s*(?:\\(\\s*)?(?:of|for)?\\s*(?:the\\s+)?(?:beneficiary|payee|recipient)\\b");
+    private static final Pattern IS_CREDITED = Pattern.compile("^\\s*(?:is\\s+|has\\s+been\\s+)?credited\\b", Pattern.CASE_INSENSITIVE);
+
+    /**
+     * A masked number that is the destination of a transfer from another number: never a slot. "your" before the number
+     * means the user's own ("credited to your account **1234"), so it never matches these patterns.
+     */
+    static boolean transferDestination(String seg, int start, int end, boolean priorNumber) {
+        // "... to A/c XX1234 of beneficiary NAME": the layout's counterparty slot already carries it as a contradiction
+        if (PARTY_AFTER.matcher(seg.substring(end, Math.min(seg.length(), end + 40))).find()) return false;
+        String before = seg.substring(Math.max(0, start - 100), start).toLowerCase(Locale.ROOT);
+        if (DEST_ALWAYS.matcher(before).find()) return true;
+        if (!priorNumber) return false;
+        if (DEST_AFTER_SOURCE.matcher(before).find()) return true;
+        return DEST_AND.matcher(before).find() && IS_CREDITED.matcher(seg.substring(end)).find();
     }
 
     private static final String MON = "(?:jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)[a-z]*\\.?";

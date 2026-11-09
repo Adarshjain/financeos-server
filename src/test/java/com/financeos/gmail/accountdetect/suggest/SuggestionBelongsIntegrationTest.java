@@ -91,8 +91,12 @@ class SuggestionBelongsIntegrationTest {
         return suggest(entity(bank, last4, kind, Conf.HIGH), bank + ":" + (kind == Kind.ACCOUNT ? "BANK_ACCOUNT" : kind == Kind.DEBIT_CARD ? "DEBIT_CARD" : "CREDIT_CARD") + ":" + last4);
     }
 
+    /** Every run reports everything found so far (a run that stops reporting a NEW row retires it). */
+    private final java.util.List<Detection.Entity> reported = new java.util.ArrayList<>();
+
     private UUID suggest(Detection.Entity e, String key) {
-        service.apply(userId, detection(e));
+        reported.add(e);
+        service.apply(userId, detection(reported.toArray(new Detection.Entity[0])));
         return row(key).getId();
     }
 
