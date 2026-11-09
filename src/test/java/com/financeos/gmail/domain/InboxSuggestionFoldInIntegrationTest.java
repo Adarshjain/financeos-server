@@ -116,7 +116,9 @@ class InboxSuggestionFoldInIntegrationTest {
         suggestions.apply(user.getId(), detection(entity("hdfc", "1111", Kind.CREDIT_CARD, Conf.HIGH)));
         assertThat(listed()).doesNotContain(noBank);
 
-        suggestions.apply(user.getId(), detection(entity("icici", "1111", Kind.CREDIT_CARD, Conf.HIGH)));
+        // every run reports the full detection: a NEW row it leaves out is retired
+        suggestions.apply(user.getId(), detection(entity("hdfc", "1111", Kind.CREDIT_CARD, Conf.HIGH),
+                entity("icici", "1111", Kind.CREDIT_CARD, Conf.HIGH)));
         assertThat(listed()).contains(noBank);
         assertThat(count()).isEqualTo(1).isEqualTo(pageTotal());
 
