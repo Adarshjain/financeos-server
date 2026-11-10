@@ -792,6 +792,39 @@
           "noDataState": "OK"
         },
         {
+          "uid": "financeos-alert-statement-parse-acceptance",
+          "title": "Statement parse acceptance dropped",
+          "condition": "A",
+          "for": "30m",
+          "labels": {
+            "severity": "warning"
+          },
+          "annotations": {
+            "summary": "For one bank, fewer than half of the statements read in the last 24 hours were accepted automatically (at least 10 files, not counting problems the user caused such as locked or unsupported files). The statement parser may have broken for that bank's layout.",
+            "description": "The issuer label names the bank. In Grafana Explore, run sum by (issuer, outcome, kind, verdict) (increase(financeos_statement_parse_total[24h])) to see whether files failed, were blocked or only need review, then re-run the parser corpus for that bank."
+          },
+          "notification_settings": {
+            "receiver": "slack-financeos"
+          },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_PROM}",
+              "model": {
+                "expr": "(sum by (issuer) (increase(financeos_statement_parse_total{service=\"financeos-server\", issuer!=\"unknown\", kind!~\"LOCKED|UNSUPPORTED_TYPE|EMPTY_FILE|TOO_MANY_PAGES|NO_TEXT_LAYER|NOT_A_STATEMENT\", outcome=~\"parsed|blocked|failed\"}[24h])) >= 10) and ((((sum by (issuer) (increase(financeos_statement_parse_total{service=\"financeos-server\", issuer!=\"unknown\", kind!~\"LOCKED|UNSUPPORTED_TYPE|EMPTY_FILE|TOO_MANY_PAGES|NO_TEXT_LAYER|NOT_A_STATEMENT\", outcome=\"parsed\", verdict=\"AUTO_INGEST\"}[24h]))) or (0 * sum by (issuer) (increase(financeos_statement_parse_total{service=\"financeos-server\", issuer!=\"unknown\", kind!~\"LOCKED|UNSUPPORTED_TYPE|EMPTY_FILE|TOO_MANY_PAGES|NO_TEXT_LAYER|NOT_A_STATEMENT\", outcome=~\"parsed|blocked|failed\"}[24h])))) / sum by (issuer) (increase(financeos_statement_parse_total{service=\"financeos-server\", issuer!=\"unknown\", kind!~\"LOCKED|UNSUPPORTED_TYPE|EMPTY_FILE|TOO_MANY_PAGES|NO_TEXT_LAYER|NOT_A_STATEMENT\", outcome=~\"parsed|blocked|failed\"}[24h]))) < 0.5)",
+                "instant": true,
+                "range": false
+              },
+              "relativeTimeRange": {
+                "from": 900,
+                "to": 0
+              }
+            }
+          ],
+          "execErrState": "Alerting",
+          "noDataState": "OK"
+        },
+        {
           "uid": "financeos-alert-telemetry-series-budget",
           "title": "Telemetry series budget",
           "condition": "A",

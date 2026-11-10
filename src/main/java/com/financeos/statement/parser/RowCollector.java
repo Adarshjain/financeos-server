@@ -141,7 +141,7 @@ final class RowCollector {
             }
         }
         if (cand.isEmpty()) {
-            throw new StatementParseException(
+            throw new StatementParseException(StatementParseException.Kind.NO_TABLE,
                     "ERROR: no date-anchored rows found — cannot locate a transaction table. "
                             + "Run with --debug and share the output.");
         }
@@ -262,7 +262,7 @@ final class RowCollector {
         }
         String dateFmt = Dates.inferDateFormat(candTexts);
         if (dateFmt == null) {
-            throw new StatementParseException("ERROR: could not infer a date format for the transaction rows.");
+            throw new StatementParseException(StatementParseException.Kind.DATE_FORMAT, "ERROR: could not infer a date format for the transaction rows.");
         }
 
         List<Integer> keep = new ArrayList<>();
@@ -311,7 +311,7 @@ final class RowCollector {
         }
         cand = keep;
         if (cand.isEmpty()) {
-            throw new StatementParseException("ERROR: no transaction rows conform to the inferred date format.");
+            throw new StatementParseException(StatementParseException.Kind.DATE_FORMAT, "ERROR: no transaction rows conform to the inferred date format.");
         }
 
         // A dated line in a box above the transaction table (HSBC's "Your Upcoming

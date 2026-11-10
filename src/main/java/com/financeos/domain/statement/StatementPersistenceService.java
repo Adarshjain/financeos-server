@@ -88,6 +88,7 @@ public class StatementPersistenceService {
         statement.setChainValidationPct(draft.chainValidationPct());
         statement.setChecksumOk(draft.checksumOk());
         statement.setVerdict(draft.verdict());
+        recordParse(statement, draft);
 
         Map<String, Object> cardFields = draft.cardFields();
         if ("credit_card".equals(draft.statementType()) && cardFields != null && !cardFields.isEmpty()) {
@@ -374,7 +375,9 @@ public class StatementPersistenceService {
         if ("credit_card".equals(draft.statementType())) {
             overwriteCardDetails(target, draft.cardFields() == null ? Map.of() : draft.cardFields(), changed);
         }
-        if (!changed.isEmpty()) {
+        // The new parse is applied here (header and card figures overwritten, links re-indexed below), so the statement's version is replaced. The snapshot itself is written by the caller after commit (StatementParseRecords#saveQuietly).
+        boolean recorded = recordParse(target, draft);
+        if (!changed.isEmpty() || recorded) {
             statementRepository.save(target);
         }
 
@@ -468,6 +471,19 @@ public class StatementPersistenceService {
             statementTransactionRepository.saveAll(reindexed);
         }
         return Optional.of(new Refreshed(target, List.copyOf(changed), List.copyOf(toAdd), List.copyOf(extra), usedLines.size()));
+    }
+
+    /**
+     * Stamps the statement with the parser version of the draft and when it was recorded; false when the draft carries
+     * no parser version (not from the parser), in which case the stored record is left as it is.
+     */
+    private static boolean recordParse(Statement statement, StatementDraft draft) {
+        if (draft.parserVersion() == null) {
+            return false;
+        }
+        statement.setParserVersion(draft.parserVersion());
+        statement.setParseRecordedAt(java.time.Instant.now());
+        return true;
     }
 
     private static String lineKey(LocalDate date, BigDecimal amount, TransactionType type) {

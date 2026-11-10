@@ -57,6 +57,12 @@ public final class StatementParseEngine {
         return new StatementIdentity(meta.issuerId, meta.bank, meta.accountNumber);
     }
 
+    /**
+     * Version of the parser's output. Bump it whenever a change can alter the output for any real statement (that is,
+     * whenever the corpus diff is not empty); it is stored with each statement beside the parse snapshot.
+     */
+    public static final int PARSER_VERSION = 1;
+
     public static ParsedStatement parse(byte[] bytes, String password, Consumer<String> debug) {
         Consumer<String> dbg = debug != null ? debug : s -> {
         };
@@ -534,7 +540,7 @@ public final class StatementParseEngine {
      * valid empty statement. Anything else (no sentence, no period, no number) keeps failing as before.
      */
     private static ParsedStatement explicitlyEmpty(List<Line> lines, StatementParseException original) {
-        if (original.getMessage() == null || !original.getMessage().contains("no date-anchored rows")) {
+        if (original.kind() != StatementParseException.Kind.NO_TABLE) {
             return null;
         }
         // the sentence wraps over several printed lines, so match on the joined text

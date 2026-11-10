@@ -3,6 +3,7 @@ package com.financeos.gmail.reconcile;
 import com.financeos.domain.statement.StatementDraft;
 import com.financeos.domain.statement.StatementVerdict;
 import com.financeos.statement.parser.ParseInfo;
+import com.financeos.statement.parser.ParseSnapshot;
 import com.financeos.statement.parser.ParsedStatement;
 import com.financeos.statement.parser.RowResult;
 import com.financeos.statement.parser.StatementMeta;
@@ -40,10 +41,10 @@ public class StatementParser {
             parsed = StatementParseEngine.parse(bytes, password, null);
         } catch (StatementParseException e) {
             com.financeos.core.observability.ParseLogger.failed(log, "StatementParser", "extract-text", 1, "Statement parse failure: " + e.getMessage(), e);
-            return StatementExtractionResult.failure(e.getMessage());
+            return StatementExtractionResult.failure(e.getMessage(), e.kind());
         } catch (Exception e) {
             com.financeos.core.observability.ParseLogger.failed(log, "StatementParser", "extract-text", 1, "Statement parse failure: " + e.getMessage(), e);
-            return StatementExtractionResult.failure("Statement parse failure: " + e.getMessage());
+            return StatementExtractionResult.failure("Statement parse failure: " + e.getMessage(), StatementParseException.Kind.OTHER);
         }
 
         StatementMeta meta = parsed.meta();
@@ -89,7 +90,9 @@ public class StatementParser {
                 mapVerdict(parseInfo.verdict),
                 cardFields(parsed.summaryFields()),
                 cardChecksOk(parsed.statementType(), parseInfo),
-                statedNone(parseInfo)
+                statedNone(parseInfo),
+                StatementParseEngine.PARSER_VERSION,
+                snapshotOf(parsed)
         );
         String firstLine = null;
         if (!lines.isEmpty()) {
@@ -104,7 +107,18 @@ public class StatementParser {
 
         com.financeos.core.observability.ParseLogger.completed(log, "StatementParser", lines.size(), firstLine, startTimeMs);
         return StatementExtractionResult.success(lines, meta.accountNumber, periodStart, periodEnd, draft)
-                .withSummaryText(parsed.summaryText());
+                .withSummaryText(parsed.summaryText())
+                .withIssuerId(meta.issuerId);
+    }
+
+    /** The compact parse snapshot; null when it cannot be rendered (never fails the parse). The text is never logged. */
+    private static String snapshotOf(ParsedStatement parsed) {
+        try {
+            return ParseSnapshot.json(parsed);
+        } catch (RuntimeException e) {
+            log.warn("Parse snapshot could not be rendered: {}", e.getClass().getSimpleName());
+            return null;
+        }
     }
 
     private static LinkedHashMap<String, Object> cardFields(Map<String, Object> summaryFields) {

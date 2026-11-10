@@ -98,6 +98,14 @@ public class StatementDeletionService {
         this.auditLogger = auditLogger;
     }
 
+    /** Optional so hand-built test instances need none. */
+    private StatementParseRecords parseRecords;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setParseRecords(StatementParseRecords parseRecords) {
+        this.parseRecords = parseRecords;
+    }
+
     private com.financeos.domain.statement.file.StatementFileStore fileStore;
 
     /** Optional so hand-built test instances need none. */
@@ -145,6 +153,10 @@ public class StatementDeletionService {
         }
 
         statementTransactionRepository.deleteByStatementId(statement.getId());
+        // The parse record goes with its statement (the database cascades too; this covers schemas without the foreign key).
+        if (parseRecords != null) {
+            parseRecords.delete(statement.getId());
+        }
         statementRepository.delete(statement);
         if (fileStore != null && statement.getFileId() != null) {
             // The original file goes with its statement unless another statement still references it; the pending

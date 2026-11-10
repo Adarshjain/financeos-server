@@ -59,10 +59,11 @@ class ExcelGridExtractor implements WordSource {
                     ? WorkbookFactory.create(new ByteArrayInputStream(bytes), password)
                     : WorkbookFactory.create(new ByteArrayInputStream(bytes));
         } catch (EncryptedDocumentException e) {
-            throw new StatementParseException(
+            throw new StatementParseException(StatementParseException.Kind.LOCKED,
                     "ERROR: Excel is password-protected and the password is missing or wrong.", e);
-        } catch (IOException e) {
-            throw new StatementParseException("ERROR: failed to read Excel file.", e);
+        } catch (IOException | RuntimeException e) {
+            // POI's own runtime exceptions (not an OOXML file, malformed workbook ...) are an unreadable file too.
+            throw new StatementParseException(StatementParseException.Kind.UNREADABLE, "ERROR: failed to read Excel file.", e);
         }
     }
 

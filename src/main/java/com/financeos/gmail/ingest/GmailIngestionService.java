@@ -546,7 +546,18 @@ public class GmailIngestionService {
         return outcome;
     }
 
+    /** Writes the parse record of a newly created statement after the commit; never throws. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setParseRecords(com.financeos.domain.statement.StatementParseRecords parseRecords) {
+        this.parseRecords = parseRecords;
+    }
+
+    private com.financeos.domain.statement.StatementParseRecords parseRecords;
+
     private void keepStatementFile(com.financeos.gmail.reconcile.StatementFileHandoff handoff) {
+        if (handoff != null && handoff.statementId() != null && parseRecords != null) {
+            parseRecords.saveQuietly(handoff.statementId(), handoff.parserVersion(), handoff.parseSnapshot());
+        }
         if (handoff == null || statementFileAttacher == null) {
             return;
         }

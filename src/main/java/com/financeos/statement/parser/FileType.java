@@ -10,7 +10,7 @@ public enum FileType {
 
     public static FileType detect(byte[] bytes) {
         if (bytes == null || bytes.length < 8) {
-            throw new StatementParseException("ERROR: file too small or empty");
+            throw new StatementParseException(StatementParseException.Kind.EMPTY_FILE, "ERROR: file too small or empty");
         }
         if (bytes[0] == 'P' && bytes[1] == 'K' && bytes[2] == 3 && bytes[3] == 4) {
             return XLSX;
@@ -22,7 +22,7 @@ public enum FileType {
         if (pdfHeaderOffset(bytes) >= 0) {
             return PDF;
         }
-        throw new StatementParseException("ERROR: unsupported file type (expected PDF or Excel)");
+        throw new StatementParseException(StatementParseException.Kind.UNSUPPORTED_TYPE, "ERROR: unsupported file type (expected PDF or Excel)");
     }
 
     /** Offset of the {@code %PDF-} header within the first 1024 bytes, or -1. */

@@ -104,6 +104,20 @@ public class StatementReconciliationService {
         this.passwordVault = passwordVault;
     }
 
+    /** Parse-outcome metric; optional so hand-built test instances need none. */
+    private com.financeos.statement.StatementParseMetrics parseMetrics;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setParseMetrics(com.financeos.statement.StatementParseMetrics parseMetrics) {
+        this.parseMetrics = parseMetrics;
+    }
+
+    private void recordParse(String path, StatementExtractionResult result, Optional<com.financeos.domain.statement.StatementImportGate.Blocked> blocked) {
+        if (parseMetrics != null) {
+            parseMetrics.record(path, result, blocked);
+        }
+    }
+
     public StatementReconciliationService(GmailEngine gmailEngine,
                                           StatementParser statementParser,
                                           TransactionRepository transactionRepository,
@@ -188,6 +202,7 @@ public class StatementReconciliationService {
         String parsePassword = correctPassword;
         StatementExtractionResult parsed = Timing.call(Ops.STATEMENT_PARSE, () -> statementParser.parse(chosenBytes, parsePassword));
         if (!parsed.success()) {
+            recordParse("gmail", parsed, Optional.empty());
             log.error("Statement parse failed: {}", parsed.failureReason());
             recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED_PERMANENT, "Statement parse failed: " + parsed.failureReason());
             return new ReconSummary(0, 0, 1, List.of(), GmailProcessedStatus.FAILED_PERMANENT, "Statement parse failed: " + parsed.failureReason(), chosenAttachment.filename(), null, false);
@@ -195,6 +210,7 @@ public class StatementReconciliationService {
 
         List<ParsedStatementLine> allLines = parsed.lines();
         if (allLines.isEmpty()) {
+            recordParse("gmail", parsed, Optional.empty());
             log.info("No transaction lines parsed from statement: {}. Skipping as non-statement.", message.messageId());
             recordLedger(connection, message.messageId(), candidateAccount, GmailProcessedStatus.SKIPPED_NOT_TRANSACTION,
                     "No transaction lines parsed from statement; skipped as non-statement");
@@ -207,6 +223,9 @@ public class StatementReconciliationService {
         // total amount due) gets a one-month cycle ending on it; the derived period is the one persisted, deduped and matched.
         final StatementExtractionResult result = withDerivedCardPeriod(parsed);
         if (result.periodStart() == null || result.periodEnd() == null) {
+            // Never reaches the gate below: counted as what it is, a file that is no statement.
+            recordParse("gmail", result, Optional.of(StatementImportGate.check(result).orElseGet(() ->
+                    new StatementImportGate.Blocked(StatementImportGate.Reason.NOT_A_STATEMENT, NO_PERIOD_REASON))));
             log.info("No statement period in {} ({} dated rows); skipped as not a statement", message.messageId(), allLines.size());
             recordLedger(connection, message.messageId(), candidateAccount, GmailProcessedStatus.SKIPPED_NOT_TRANSACTION, NO_PERIOD_REASON);
             return new ReconSummary(0, 0, 0, List.of(), null, null, chosenAttachment.filename(), null, true);
@@ -214,6 +233,7 @@ public class StatementReconciliationService {
 
         // A parse whose own figures contradict its rows creates no statement and no rows.
         Optional<StatementImportGate.Blocked> blocked = StatementImportGate.check(result);
+        recordParse("gmail", result, blocked);
         if (blocked.isPresent() && blocked.get().reason() == StatementImportGate.Reason.CONTRADICTED) {
             String reason = "Statement rows don't add up to its own totals; nothing imported";
             log.warn("Statement in {} blocked: rows contradict the statement's own totals", message.messageId());
@@ -317,7 +337,9 @@ public class StatementReconciliationService {
             updateLastStatementDate(resolvedAccount, result);
             recordLedger(connection, message.messageId(), resolvedAccount, GmailProcessedStatus.RECONCILED, null);
             return new ReconSummary(0, 0, 0).withFileHandoff(new StatementFileHandoff(connection.getUser().getId(),
-                    resolvedAccount.getId(), stmt.get().getId(), statementSha, chosenBytes, chosenAttachment.filename()));
+                    resolvedAccount.getId(), stmt.get().getId(), statementSha, chosenBytes, chosenAttachment.filename(),
+                    result.draft() == null ? null : result.draft().parserVersion(),
+                    result.draft() == null ? null : result.draft().parseSnapshot()));
         }
 
         // Match the whole statement at once; lines nothing pairs with become gmail_statement rows (Confirmed).
@@ -370,7 +392,8 @@ public class StatementReconciliationService {
         }
         return new ReconSummary(createdCount, matchedCount, 0, createdTxns).withFileHandoff(new StatementFileHandoff(
                 connection.getUser().getId(), resolvedAccount.getId(), stmt.get().getId(), statementSha, chosenBytes,
-                chosenAttachment.filename()));
+                chosenAttachment.filename(), result.draft() == null ? null : result.draft().parserVersion(),
+                result.draft() == null ? null : result.draft().parseSnapshot()));
     }
 
     /** Statement mails from one sender must have reconciled to one account, this many times, before a stray number counts as drift. */
@@ -803,7 +826,8 @@ public class StatementReconciliationService {
         StatementDraft derived = new StatementDraft(draft.statementType(), start, draft.periodEnd() != null ? draft.periodEnd() : parsed.periodEnd(),
                 draft.openingBalance(), draft.closingBalance(), draft.bankName(), draft.accountNumberMasked(), draft.transactionCount(),
                 draft.linesSkipped(), draft.totalDebits(), draft.totalCredits(), draft.parseMode(), draft.chainValidationPct(),
-                draft.checksumOk(), draft.verdict(), draft.cardFields(), draft.cardChecksOk(), draft.statedNone());
+                draft.checksumOk(), draft.verdict(), draft.cardFields(), draft.cardChecksOk(), draft.statedNone(),
+                draft.parserVersion(), draft.parseSnapshot());
         return parsed.withDraft(derived);
     }
 

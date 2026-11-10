@@ -64,6 +64,14 @@ public class Statement {
     @Column(name = "file_backfill_outcome", length = 30)
     private String fileBackfillOutcome;
 
+    /** StatementParseEngine.PARSER_VERSION of the parse stored here; null for statements parsed before this was kept. */
+    @Column(name = "parser_version")
+    private Integer parserVersion;
+
+    /** When the parse record (version + snapshot) was last written. The snapshot itself is {@link StatementParseRecord}. */
+    @Column(name = "parse_recorded_at")
+    private Instant parseRecordedAt;
+
     @Column(name = "statement_type", length = 20)
     private String statementType;
 

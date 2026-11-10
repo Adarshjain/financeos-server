@@ -27,13 +27,13 @@ class PdfWordExtractor implements WordSource {
         try {
             int pageCount = document.getNumberOfPages();
             if (pageCount > ParserLimits.maxPdfPages()) {
-                throw new StatementParseException("ERROR: too many pages (" + pageCount + ")");
+                throw new StatementParseException(StatementParseException.Kind.TOO_MANY_PAGES, "ERROR: too many pages (" + pageCount + ")");
             }
             for (int pno = 0; pno < pageCount; pno++) {
                 lines.addAll(groupIntoRows(extractPageWords(document, pno)));
             }
         } catch (IOException e) {
-            throw new StatementParseException("ERROR: failed to read PDF text.", e);
+            throw new StatementParseException(StatementParseException.Kind.UNREADABLE, "ERROR: failed to read PDF text.", e);
         } finally {
             try {
                 document.close();
@@ -42,7 +42,7 @@ class PdfWordExtractor implements WordSource {
         }
 
         if (lines.isEmpty()) {
-            throw new StatementParseException("ERROR: no text layer found (scanned/image PDF?).");
+            throw new StatementParseException(StatementParseException.Kind.NO_TEXT_LAYER, "ERROR: no text layer found (scanned/image PDF?).");
         }
         return WordSource.stripRepeatedFurniture(lines);
     }
@@ -54,13 +54,13 @@ class PdfWordExtractor implements WordSource {
                     ? Loader.loadPDF(bytes, password)
                     : Loader.loadPDF(bytes);
         } catch (InvalidPasswordException e) {
-            throw new StatementParseException(PASSWORD_ERROR, e);
+            throw new StatementParseException(StatementParseException.Kind.LOCKED, PASSWORD_ERROR, e);
         } catch (IOException e) {
             String blob = (e.getClass().getSimpleName() + " " + e.getMessage()).toLowerCase();
             if (blob.contains("password") || blob.contains("decrypt")) {
-                throw new StatementParseException(PASSWORD_ERROR, e);
+                throw new StatementParseException(StatementParseException.Kind.LOCKED, PASSWORD_ERROR, e);
             }
-            throw new StatementParseException("ERROR: failed to read PDF.", e);
+            throw new StatementParseException(StatementParseException.Kind.UNREADABLE, "ERROR: failed to read PDF.", e);
         }
     }
 

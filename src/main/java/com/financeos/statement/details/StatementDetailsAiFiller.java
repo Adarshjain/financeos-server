@@ -171,7 +171,7 @@ public class StatementDetailsAiFiller {
         return new StatementDraft(draft.statementType(), start, end, draft.openingBalance(), closing, draft.bankName(),
                 draft.accountNumberMasked(), draft.transactionCount(), draft.linesSkipped(), draft.totalDebits(),
                 draft.totalCredits(), draft.parseMode(), draft.chainValidationPct(), draft.checksumOk(), draft.verdict(), newCard, draft.cardChecksOk(),
-                draft.statedNone());
+                draft.statedNone(), draft.parserVersion(), draft.parseSnapshot());
     }
 
     private List<String> nameTokens(UUID userId) {

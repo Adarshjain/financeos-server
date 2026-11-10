@@ -85,6 +85,28 @@ public class FileIngestionService {
         this.detailsAiFiller = detailsAiFiller;
     }
 
+    /** Parse records (version + encrypted snapshot), written after the statement's transaction; optional so hand-built test instances need none. */
+    private com.financeos.domain.statement.StatementParseRecords parseRecords;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setParseRecords(com.financeos.domain.statement.StatementParseRecords parseRecords) {
+        this.parseRecords = parseRecords;
+    }
+
+    /** Parse-outcome metric; optional so hand-built test instances need none. */
+    private com.financeos.statement.StatementParseMetrics parseMetrics;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setParseMetrics(com.financeos.statement.StatementParseMetrics parseMetrics) {
+        this.parseMetrics = parseMetrics;
+    }
+
+    private void recordParse(String path, StatementExtractionResult result, Optional<com.financeos.domain.statement.StatementImportGate.Blocked> blocked) {
+        if (parseMetrics != null) {
+            parseMetrics.record(path, result, blocked);
+        }
+    }
+
     public FileIngestionService(AccountRepository accountRepository,
                                 UserRepository userRepository,
                                 StatementParser statementParser,
@@ -215,8 +237,9 @@ public class FileIngestionService {
                 Opened opened = Timing.call(Ops.STATEMENT_OPEN, () -> open(currentSessionUserId, accountId, bytes, explicitPassword, accountPassword));
                 StatementExtractionResult parseResult = opened.result();
                 if (!parseResult.success()) {
+                    recordParse("upload", parseResult, Optional.empty());
                     fileDetails.add(FileIngestionResult.FileSummary.failed(filename, parseResult.failureReason(),
-                            FileIngestionResult.ErrorCode.classify(parseResult.failureReason(), opened.passwordTried())));
+                            FileIngestionResult.ErrorCode.classify(parseResult.failureKind(), parseResult.failureReason(), opened.passwordTried())));
                     continue;
                 }
                 if (detailsAiFiller != null && parseResult.draft() != null) {
@@ -227,6 +250,7 @@ public class FileIngestionService {
 
                 List<ParsedStatementLine> lines = parseResult.lines();
                 if (lines == null || lines.isEmpty()) {
+                    recordParse("upload", parseResult, Optional.empty());
                     fileDetails.add(new FileIngestionResult.FileSummary(filename, "SUCCESS", 0, "No transactions found"));
                     filesProcessed++;
                     continue;
@@ -235,6 +259,7 @@ public class FileIngestionService {
                 // A parse that contradicts its own totals, or a file that is no statement, creates nothing.
                 Optional<com.financeos.domain.statement.StatementImportGate.Blocked> blocked =
                         com.financeos.domain.statement.StatementImportGate.check(parseResult);
+                recordParse("upload", parseResult, blocked);
                 if (blocked.isPresent()) {
                     fileDetails.add(FileIngestionResult.FileSummary.failed(filename, blocked.get().message(),
                             FileIngestionResult.ErrorCode.OTHER));
@@ -268,6 +293,10 @@ public class FileIngestionService {
                     int created = outcome.matched() == null ? 0 : outcome.matched().created();
                     int attached = outcome.matched() == null ? 0 : outcome.matched().matched();
                     handledStatementIds.add(outcome.refreshed().statement().getId());
+                    // The refresh applied the new parse and has committed: its record replaces the old one (none for a fill-only refresh, which is another path).
+                    if (parsedDraft != null && parseRecords != null) {
+                        parseRecords.saveQuietly(outcome.refreshed().statement().getId(), parsedDraft.parserVersion(), parsedDraft.parseSnapshot());
+                    }
                     // Only the statement's own file: a refresh matched by period from other bytes must not get this one.
                     if (sha256.equals(outcome.refreshed().statement().getFileSha256())) {
                         attachFile(currentSessionUserId, outcome.refreshed().statement().getId(), bytes, filename);
@@ -302,6 +331,9 @@ public class FileIngestionService {
                 }
 
                 handledStatementIds.add(stmt.get().getId());
+                if (toStore.draft() != null && parseRecords != null) {
+                    parseRecords.saveQuietly(stmt.get().getId(), toStore.draft().parserVersion(), toStore.draft().parseSnapshot());
+                }
                 attachFile(currentSessionUserId, stmt.get().getId(), bytes, filename);
                 String warningMessage = null;
                 String fragment = accountService.extractLast4(account);

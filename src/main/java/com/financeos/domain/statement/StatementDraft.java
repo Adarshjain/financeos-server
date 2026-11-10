@@ -30,7 +30,10 @@ public record StatementDraft(
         // credit_card only: the parse's own balance checks passed (prev + charges + spends - payments == due, or purchases and payments both match the lines); null when not a card or not computed
         Boolean cardChecksOk,
         // card field keys the statement itself prints as none ("Payment Due Date: Nil"): left empty on purpose, never filled by AI
-        Set<String> statedNone
+        Set<String> statedNone,
+        // the parser's PARSER_VERSION that produced this draft, and the compact JSON snapshot of what it read (ParseSnapshot); null when not from the parser
+        Integer parserVersion,
+        String parseSnapshot
 ) {
     public StatementDraft {
         statedNone = statedNone == null ? Set.of() : Set.copyOf(statedNone);
@@ -40,10 +43,20 @@ public record StatementDraft(
                           BigDecimal closingBalance, String bankName, String accountNumberMasked, int transactionCount,
                           int linesSkipped, BigDecimal totalDebits, BigDecimal totalCredits, String parseMode,
                           BigDecimal chainValidationPct, Boolean checksumOk, StatementVerdict verdict,
+                          Map<String, Object> cardFields, Boolean cardChecksOk, Set<String> statedNone) {
+        this(statementType, periodStart, periodEnd, openingBalance, closingBalance, bankName, accountNumberMasked,
+                transactionCount, linesSkipped, totalDebits, totalCredits, parseMode, chainValidationPct, checksumOk,
+                verdict, cardFields, cardChecksOk, statedNone, null, null);
+    }
+
+    public StatementDraft(String statementType, LocalDate periodStart, LocalDate periodEnd, BigDecimal openingBalance,
+                          BigDecimal closingBalance, String bankName, String accountNumberMasked, int transactionCount,
+                          int linesSkipped, BigDecimal totalDebits, BigDecimal totalCredits, String parseMode,
+                          BigDecimal chainValidationPct, Boolean checksumOk, StatementVerdict verdict,
                           Map<String, Object> cardFields, Boolean cardChecksOk) {
         this(statementType, periodStart, periodEnd, openingBalance, closingBalance, bankName, accountNumberMasked,
                 transactionCount, linesSkipped, totalDebits, totalCredits, parseMode, chainValidationPct, checksumOk,
-                verdict, cardFields, cardChecksOk, Set.of());
+                verdict, cardFields, cardChecksOk, Set.of(), null, null);
     }
 
     public StatementDraft(String statementType, LocalDate periodStart, LocalDate periodEnd, BigDecimal openingBalance,

@@ -76,7 +76,7 @@ public class AutoIngestService {
                 failure = e;
                 locked = e.isPasswordProblem();
             } catch (RuntimeException e) {
-                failure = new StatementParseException("ERROR: failed to read file.", e);
+                failure = new StatementParseException(StatementParseException.Kind.UNREADABLE, "ERROR: failed to read file.", e);
             }
             if (locked) {
                 if (saved == null) {
@@ -103,7 +103,7 @@ public class AutoIngestService {
             }
             if (failure != null) {
                 summaries[i] = FileIngestionResult.FileSummary.failed(filename, failure.getMessage(),
-                        FileIngestionResult.ErrorCode.classify(failure.getMessage(), false));
+                        FileIngestionResult.ErrorCode.classify(failure.kind(), failure.getMessage(), false));
                 continue;
             }
 

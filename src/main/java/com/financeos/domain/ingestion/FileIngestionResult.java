@@ -81,6 +81,25 @@ public record FileIngestionResult(
             }
             return OTHER;
         }
+
+        /**
+         * Maps a typed parse failure to the same code the message wording gives: LOCKED follows the password rule;
+         * every kind the message rule treats as unreadable (no text, too many pages, empty or unsupported file,
+         * library read failure) is UNREADABLE; no table / date format is OTHER. A null or OTHER kind falls back to
+         * the message rule.
+         */
+        public static ErrorCode classify(com.financeos.statement.parser.StatementParseException.Kind kind,
+                                         @Nullable String message, boolean passwordTried) {
+            if (kind == null) {
+                return classify(message, passwordTried);
+            }
+            return switch (kind) {
+                case LOCKED -> passwordTried ? WRONG_PASSWORD : PASSWORD_REQUIRED;
+                case UNSUPPORTED_TYPE, EMPTY_FILE, TOO_MANY_PAGES, NO_TEXT_LAYER, UNREADABLE -> UNREADABLE;
+                case NO_TABLE, DATE_FORMAT -> OTHER;
+                case OTHER -> classify(message, passwordTried);
+            };
+        }
     }
 
     public record DuplicateDetail(
