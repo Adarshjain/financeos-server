@@ -81,6 +81,9 @@ Put a class in `layout/profiles/` that builds a `LayoutProfile` (see `AxisCardDt
   new block that takes the date of the block before (a date printed once for the rows of a day). `narrationDropsDates()`: a
   narration word that is a date in the profile's formats (a value date) is not narration.
 
+- Amount grammar also takes a figure printed with no digit before the point (`.00`), everywhere amounts are read.
+- A line read by a summary rule is never counted as an unread row. `summaryLineInTable(regex)`: a line inside the table area that matches (an account-summary row printed under the rows of a page, whose first copy the summary rule already read) is no row, continuation or unread line; the summary rules still read it where it prints outside the table.
+
 ## Acceptance rule (before a profile goes ACTIVE)
 
 Run the corpus twice, `-Dcorpus.reader=v1` and `-Dcorpus.reader=layout`, then `CorpusDiff` with

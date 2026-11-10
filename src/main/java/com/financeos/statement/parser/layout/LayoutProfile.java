@@ -128,6 +128,7 @@ public final class LayoutProfile {
     private final double continuationAbove;
     private final List<EndMarker> endMarkers;
     private final List<Pattern> skipLines;
+    private final List<Pattern> summaryLinesInTable;
     private final Pattern sectionHeader;
     private final boolean continuesWithoutHeader;
     private final Set<String> notPrinted;
@@ -162,6 +163,7 @@ public final class LayoutProfile {
         this.continuationAbove = b.continuationAbove;
         this.endMarkers = List.copyOf(b.endMarkers);
         this.skipLines = List.copyOf(b.skipLines);
+        this.summaryLinesInTable = List.copyOf(b.summaryLinesInTable);
         this.sectionHeader = b.sectionHeader;
         this.continuesWithoutHeader = b.continuesWithoutHeader;
         this.notPrinted = Set.copyOf(b.notPrinted);
@@ -250,6 +252,7 @@ public final class LayoutProfile {
     public double continuationAbove() { return continuationAbove; }
     public List<EndMarker> endMarkers() { return endMarkers; }
     public List<Pattern> skipLines() { return skipLines; }
+    public List<Pattern> summaryLinesInTable() { return summaryLinesInTable; }
     public Pattern sectionHeader() { return sectionHeader; }
     public Order order() { return order; }
     public boolean continuesWithoutHeader() { return continuesWithoutHeader; }
@@ -301,6 +304,7 @@ public final class LayoutProfile {
         private double continuationAbove;
         private final List<EndMarker> endMarkers = new ArrayList<>();
         private final List<Pattern> skipLines = new ArrayList<>();
+        private final List<Pattern> summaryLinesInTable = new ArrayList<>();
         private Pattern sectionHeader;
         private Order order = Order.ASC;
         private boolean continuesWithoutHeader = true;
@@ -480,6 +484,12 @@ public final class LayoutProfile {
 
         public Builder endMarker(String regex, EndScope scope) {
             endMarkers.add(new EndMarker(Pattern.compile(regex, Pattern.CASE_INSENSITIVE), scope));
+            return this;
+        }
+
+        /** A summary line printed inside the table area (still read by its summary rule): never a row, continuation or unread line. */
+        public Builder summaryLineInTable(String regex) {
+            summaryLinesInTable.add(Pattern.compile(regex, Pattern.CASE_INSENSITIVE));
             return this;
         }
 

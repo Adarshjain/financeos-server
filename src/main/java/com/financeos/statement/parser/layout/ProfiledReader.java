@@ -237,6 +237,11 @@ public final class ProfiledReader {
         }
         st.summaryMaxPage = maxBody < 0 ? -1 : StatementParseEngine.harvestWindow(lines, maxBody);
         harvestSummary(st, meta, summaryFields);
+        for (int i = 0; i < lines.size(); i++) {
+            if ((st.kind[i] == Kind.BODY || st.kind[i] == Kind.STRAY) && matchesAny(p.summaryLinesInTable(), spans(lines.get(i)).text())) {
+                st.consumed[i] = true;
+            }
+        }
         if (p.accountNumberFromSectionHeader() && meta.accountNumber == null) {
             meta.accountNumber = st.sectionNumber;
         }
@@ -465,8 +470,8 @@ public final class ProfiledReader {
     private static void countStray(State st) {
         Map<Integer, List<Resolved>> colsByPage = new HashMap<>();
         for (int i = 0; i < st.lines.size(); i++) {
-            if (st.kind[i] != Kind.STRAY) {
-                continue;
+            if (st.kind[i] != Kind.STRAY || st.consumed[i]) {
+                continue; // a line a summary rule read is not an unread row
             }
             Line ln = st.lines.get(i);
             Table tbl = st.table[i];

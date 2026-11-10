@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/** The amount grammar of a printed figure, kept in BigDecimal: decimal point required, optional currency, Cr/Dr, minus (also "C-,123.45": a minus and a stray comma after the glyph). */
+/** The amount grammar of a printed figure, kept in BigDecimal: decimal point required (a figure may print no digit before it, ".00"), optional currency, Cr/Dr, minus (also "C-,123.45": a minus and a stray comma after the glyph). */
 final class Amounts {
 
     private Amounts() {
@@ -15,7 +15,7 @@ final class Amounts {
     }
 
     private static final Pattern AMOUNT = Pattern.compile(
-            "^\\(?(?:(-)?(?:[₹$€£C`]|Rs\\.?|INR))?\\s?((?:-,?)?)(\\d{1,3}(?:,\\d{2,3})*\\.\\d{1,2}|\\d+\\.\\d{1,2})\\)?\\s*(Cr|CR|cr|Dr|DR|dr)?\\.?$");
+            "^\\(?(?:(-)?(?:[₹$€£C`]|Rs\\.?|INR))?\\s?((?:-,?)?)(\\d{1,3}(?:,\\d{2,3})*\\.\\d{1,2}|\\d+\\.\\d{1,2}|\\.\\d{1,2})\\)?\\s*(Cr|CR|cr|Dr|DR|dr)?\\.?$");
 
     static String norm(String t) {
         String s = t.strip();
