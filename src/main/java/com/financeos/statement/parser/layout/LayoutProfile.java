@@ -29,7 +29,7 @@ public final class LayoutProfile {
 
     public enum Order { ASC, DESC, AUTO }
 
-    public enum RowShape { SINGLE_LINE, CUSTOM }
+    public enum RowShape { SINGLE_LINE, BLOCK, CUSTOM }
 
     public enum EndScope { PAGE, FOR_GOOD }
 
@@ -122,6 +122,8 @@ public final class LayoutProfile {
     private final boolean accountNumberFromSectionHeader;
     private final RowShape rowShape;
     private final RowStrategy rowStrategy;
+    private final double blockTrailingGap;
+    private final boolean narrationDropsDates;
     private final double continuationBelow;
     private final double continuationAbove;
     private final List<EndMarker> endMarkers;
@@ -152,7 +154,9 @@ public final class LayoutProfile {
         this.continuationColumns = List.copyOf(b.continuationColumns);
         this.labelGeometry = List.copyOf(b.labelGeometry);
         this.accountNumberFromSectionHeader = b.accountNumberFromSectionHeader;
-        this.rowShape = b.rowStrategy != null ? RowShape.CUSTOM : RowShape.SINGLE_LINE;
+        this.rowShape = b.rowStrategy != null ? RowShape.CUSTOM : b.blockRows ? RowShape.BLOCK : RowShape.SINGLE_LINE;
+        this.blockTrailingGap = b.blockTrailingGap;
+        this.narrationDropsDates = b.narrationDropsDates;
         this.rowStrategy = b.rowStrategy;
         this.continuationBelow = b.continuationBelow;
         this.continuationAbove = b.continuationAbove;
@@ -239,6 +243,9 @@ public final class LayoutProfile {
     public boolean accountNumberFromSectionHeader() { return accountNumberFromSectionHeader; }
     public RowShape rowShape() { return rowShape; }
     public RowStrategy rowStrategy() { return rowStrategy; }
+    /** Negative: blocks run to the next dated line; otherwise the y gap up to which lines after the amount line still belong to the block. */
+    public double blockTrailingGap() { return blockTrailingGap; }
+    public boolean narrationDropsDates() { return narrationDropsDates; }
     public double continuationBelow() { return continuationBelow; }
     public double continuationAbove() { return continuationAbove; }
     public List<EndMarker> endMarkers() { return endMarkers; }
@@ -287,6 +294,9 @@ public final class LayoutProfile {
         private final List<LabelAt> labelGeometry = new ArrayList<>();
         private boolean accountNumberFromSectionHeader;
         private RowStrategy rowStrategy;
+        private boolean blockRows;
+        private double blockTrailingGap = -1;
+        private boolean narrationDropsDates;
         private double continuationBelow;
         private double continuationAbove;
         private final List<EndMarker> endMarkers = new ArrayList<>();
@@ -429,6 +439,40 @@ public final class LayoutProfile {
         public Builder continuation(double maxBelow, double maxAbove) {
             this.continuationBelow = maxBelow;
             this.continuationAbove = maxAbove;
+            return this;
+        }
+
+        /**
+         * A row is a block of lines: it starts at a line with a date in the DATE column and runs until the next dated line
+         * (or the table end); its narration is every line's NARRATION cell, its amounts come from the one line of the block
+         * that has amounts in the AMOUNT / DEBIT / CREDIT / BALANCE columns (the date line itself for a single-line row).
+         * A block with no amount line, or with two, is unread.
+         */
+        public Builder blockRows() {
+            this.blockRows = true;
+            return this;
+        }
+
+        /**
+         * With {@link #blockRows()}: a block closes at its amount line, except that lines directly below it (each within
+         * trailingGap y units of the line before, on the same page) are still its narration. Any other undated line with
+         * narration then starts a new block that takes the date of the block before (a date printed once for several
+         * rows of the day). A dated line always starts a new block.
+         */
+        public Builder blockEndsAtAmountLine(double trailingGap) {
+            if (trailingGap < 0) {
+                throw new IllegalArgumentException("trailingGap must not be negative");
+            }
+            this.blockTrailingGap = trailingGap;
+            return this;
+        }
+
+        /**
+         * With {@link #blockRows()}: a narration word that is itself a date in one of the profile's date formats (a value
+         * date printed in the narration column) is not narration, as the generic reader drops it.
+         */
+        public Builder narrationDropsDates() {
+            this.narrationDropsDates = true;
             return this;
         }
 

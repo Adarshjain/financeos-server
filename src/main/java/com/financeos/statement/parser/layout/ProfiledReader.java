@@ -241,7 +241,11 @@ public final class ProfiledReader {
             meta.accountNumber = st.sectionNumber;
         }
 
-        List<Raw> raws = p.rowShape() == LayoutProfile.RowShape.CUSTOM ? customRows(st) : singleLineRows(st);
+        List<Raw> raws = switch (p.rowShape()) {
+            case CUSTOM -> customRows(st);
+            case BLOCK -> blockRows(st);
+            default -> singleLineRows(st);
+        };
         if (raws.isEmpty()) {
             throw new IllegalStateException("layout " + p.id() + " matched but read no rows");
         }
@@ -586,6 +590,127 @@ public final class ProfiledReader {
         return rows;
     }
 
+    /** One line of a block with the columns of its own page. */
+    private record BlockLine(Line line, List<Resolved> cols, int idx) {
+    }
+
+    private static final class Block {
+        final LocalDate date;
+        final List<BlockLine> lines = new ArrayList<>();
+        final List<BlockLine> amountLines = new ArrayList<>();
+
+        Block(LocalDate date) {
+            this.date = date;
+        }
+    }
+
+    /** An amount in the AMOUNT / DEBIT / CREDIT / BALANCE columns. */
+    private static boolean hasColumnAmount(Line ln, List<Resolved> cols) {
+        for (Word w : ln.words()) {
+            Role r = roleOf(cols, w);
+            if ((r == Role.AMOUNT || r == Role.DEBIT || r == Role.CREDIT || r == Role.BALANCE) && Amounts.isAmount(w.text())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean hasNarrationWord(Line ln, List<Resolved> cols) {
+        for (Word w : ln.words()) {
+            if (roleOf(cols, w) == Role.NARRATION) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /** Rows as blocks of lines (see LayoutProfile.Builder#blockRows). */
+    private static List<Raw> blockRows(State st) {
+        List<Raw> rows = new ArrayList<>();
+        Map<Integer, List<Resolved>> colsByPage = new HashMap<>();
+        boolean perAmountLine = st.p.blockTrailingGap() >= 0;
+        Line prev = null;
+        Block cur = null;
+        LocalDate lastDate = null;
+        for (int i = 0; i < st.lines.size(); i++) {
+            if (st.kind[i] != Kind.BODY || st.consumed[i]) {
+                continue;
+            }
+            Line ln = st.lines.get(i);
+            Table tbl = st.table[i];
+            List<Resolved> cols = colsByPage.computeIfAbsent(tbl.page(), k -> resolve(st.p, tbl));
+            LocalDate date = dateOf(st, ln, cols);
+            if (perAmountLine && cur != null && !cur.amountLines.isEmpty() && date == null
+                    && !(prev != null && prev.page() == ln.page() && ln.top() - prev.top() <= st.p.blockTrailingGap())) {
+                finishBlock(st, cur, rows); // below the amount line and not directly under it: a new row
+                cur = null;
+            }
+            prev = ln;
+            if (date != null) {
+                finishBlock(st, cur, rows);
+                cur = new Block(date);
+                lastDate = date;
+            } else if (cur == null) {
+                if (perAmountLine && lastDate != null && hasNarrationWord(ln, cols)) {
+                    cur = new Block(lastDate);
+                } else {
+                    if (hasAmountToken(ln, cols)) {
+                        st.unread++;
+                    }
+                    continue;
+                }
+            }
+            BlockLine bl = new BlockLine(ln, cols, i);
+            cur.lines.add(bl);
+            if (hasColumnAmount(ln, cols)) {
+                cur.amountLines.add(bl);
+            }
+        }
+        finishBlock(st, cur, rows);
+        return rows;
+    }
+
+    private static void finishBlock(State st, Block b, List<Raw> rows) {
+        if (b == null) {
+            return;
+        }
+        if (b.amountLines.size() != 1) {
+            st.unread++; // no amount line, or two: never guessed
+            return;
+        }
+        BlockLine amountLine = b.amountLines.get(0);
+        Raw r = readRow(st, amountLine.line(), amountLine.cols(), st.last4[amountLine.idx()], b.date);
+        if (r == null) {
+            return;
+        }
+        List<String> text = new ArrayList<>();
+        for (BlockLine bl : b.lines) {
+            List<Word> ws = bl.line().words();
+            List<String> t = new ArrayList<>();
+            for (int i = 0; i < ws.size(); i++) {
+                if (roleOf(bl.cols(), ws.get(i)) == Role.NARRATION && NarrationRules.keep(ws, i)
+                        && !(st.p.narrationDropsDates()
+                        && st.dates.parse(Amounts.norm(ws.get(i).text()), st.periodStart, st.periodEnd) != null)) {
+                    t.add(ws.get(i).text());
+                }
+            }
+            if (bl != amountLine) {
+                for (Word w : ws) {
+                    if (roleOf(bl.cols(), w) == null && Amounts.isAmount(w.text())) {
+                        st.unread++; // a figure outside every column of a line that is not the amount line
+                        break;
+                    }
+                }
+            }
+            if (!t.isEmpty()) {
+                text.add(String.join(" ", t));
+            }
+        }
+        r.description = String.join(" ", text);
+        r.line = b.lines.get(0).line();
+        rows.add(r);
+    }
+
     /** An amount token outside any IGNORE column (IGNORE swallows every token of its range: dates, times, amounts, signs). */
     private static boolean hasAmountToken(Line ln, List<Resolved> cols) {
         for (Word w : ln.words()) {
@@ -642,11 +767,16 @@ public final class ProfiledReader {
 
     /** A row from one dated line, or null when the line has no date (or, with a date, no usable amount: dropped). */
     private static Raw readRow(State st, Line ln, List<Resolved> cols, String last4) {
-        LayoutProfile p = st.p;
         LocalDate date = dateOf(st, ln, cols);
         if (date == null) {
             return null;
         }
+        return readRow(st, ln, cols, last4, date);
+    }
+
+    /** As above for a given date: the amounts (and the narration of this line) are read from ln. */
+    private static Raw readRow(State st, Line ln, List<Resolved> cols, String last4, LocalDate date) {
+        LayoutProfile p = st.p;
         List<String> narration = new ArrayList<>();
         Map<Role, List<Word>> amountWords = new EnumMap<>(Role.class);
         boolean strayAmount = false;

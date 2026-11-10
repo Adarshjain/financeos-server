@@ -71,6 +71,15 @@ Put a class in `layout/profiles/` that builds a `LayoutProfile` (see `AxisCardDt
 - Amount grammar also takes a minus and a stray comma right after the currency glyph (`C-,123.45`, `-,123.45`), everywhere
   amounts are read (rows, `nthAmountBelow`, `capture`); it reads as a negative-marked figure.
 - `requiresNot(regex)`: the profile does not match when the document text matches (mirror of `requires`).
+- `blockRows()`: a row is a block: it starts at a line with a date in the DATE column and runs until the next dated line (or
+  the table end; blocks run over page breaks). Narration is every line's NARRATION cell (same word rules as a single-line row);
+  amounts, balance and sign come from the one line of the block with an amount in the AMOUNT / DEBIT / CREDIT / BALANCE
+  columns (the date line itself for a single-line row). No amount line, or two: unread, no row. Year-less dates already take
+  their year from the period (`dateFormats("d MMM")`).
+- `blockEndsAtAmountLine(trailingGap)` (with `blockRows()`): the block closes at its amount line, but lines directly under it
+  (each within trailingGap y units of the line before) are still its narration; a later dateless line with narration starts a
+  new block that takes the date of the block before (a date printed once for the rows of a day). `narrationDropsDates()`: a
+  narration word that is a date in the profile's formats (a value date) is not narration.
 
 ## Acceptance rule (before a profile goes ACTIVE)
 
