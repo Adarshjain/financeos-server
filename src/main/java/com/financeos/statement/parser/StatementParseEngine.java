@@ -43,7 +43,9 @@ public final class StatementParseEngine {
         WordSource extractor = type == FileType.PDF ? new PdfWordExtractor() : new ExcelGridExtractor();
         List<Line> lines = extractor.extract(bytes, password);
         if (CardSectionLayout.present(lines)) {
-            lines = CardSectionLayout.normalize(lines);
+            lines = Tokens.wholeRupeeAsAmounts(CardSectionLayout.normalize(lines), true);
+        } else {
+            lines = Tokens.wholeRupeeAsAmounts(lines, false);
         }
         CollectedRows cr = RowCollector.collect(lines, dbg);
         StatementMeta meta = MetadataExtractor.extract(cr.metaZone(), cr.dateFmt());
@@ -69,7 +71,9 @@ public final class StatementParseEngine {
         List<Line> lines = extractor.extract(bytes, password);
         boolean cardSection = CardSectionLayout.present(lines);
         if (cardSection) {
-            lines = CardSectionLayout.normalize(lines);
+            lines = Tokens.wholeRupeeAsAmounts(CardSectionLayout.normalize(lines), true);
+        } else {
+            lines = Tokens.wholeRupeeAsAmounts(lines, false);
         }
 
         CollectedRows cr;

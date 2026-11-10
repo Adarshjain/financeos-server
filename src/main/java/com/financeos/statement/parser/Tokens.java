@@ -1,5 +1,6 @@
 package com.financeos.statement.parser;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -174,6 +175,51 @@ final class Tokens {
         return t;
     }
 
+    /**
+     * Re-prints glyph-led whole-rupee figures ("₹100", "Rs.2,000") as "₹100.00" so the strict AMOUNT rules read
+     * them as amounts. In a document that prints paise somewhere, only a line made of nothing but such figures
+     * (Fi's "₹0 ₹1,020 ₹1,000 ₹0 ₹20" summary strip) is converted; a figure inside text ("Credit Limit ₹5,60,000")
+     * is not an amount. {@code force} (a recognised whole-rupee layout) converts everywhere.
+     */
+    static List<Line> wholeRupeeAsAmounts(List<Line> lines, boolean force) {
+        boolean wholeDoc = force;
+        if (!wholeDoc) {
+            wholeDoc = true;
+            scan:
+            for (Line ln : lines) {
+                for (Word w : ln.words()) {
+                    if (parseAmount(norm(w.text())) != null) {
+                        wholeDoc = false;
+                        break scan;
+                    }
+                }
+            }
+        }
+        List<Line> out = new ArrayList<>(lines.size());
+        for (Line ln : lines) {
+            if (!wholeDoc && !(ln.words().size() >= 2
+                    && ln.words().stream().allMatch(w -> WHOLE_AMOUNT.matcher(norm(w.text())).matches()))) {
+                out.add(ln);
+                continue;
+            }
+            List<Word> words = null;
+            for (int i = 0; i < ln.words().size(); i++) {
+                Word w = ln.words().get(i);
+                String t = norm(w.text());
+                Matcher m = WHOLE_AMOUNT.matcher(t);
+                if (m.matches()) {
+                    if (words == null) {
+                        words = new ArrayList<>(ln.words());
+                    }
+                    words.set(i, new Word(t.substring(0, m.end(2)) + ".00" + t.substring(m.end(2)),
+                            w.x0(), w.x1(), w.top(), w.page()));
+                }
+            }
+            out.add(words == null ? ln : new Line(words));
+        }
+        return out;
+    }
+
     static Amount parseAmount(String token) {
         String t = token.strip();
         boolean trailingMinus = t.endsWith("-") && t.length() > 1;
@@ -182,14 +228,6 @@ final class Tokens {
         }
         Matcher m = AMOUNT.matcher(t);
         if (!m.matches()) {
-            Matcher w = WHOLE_AMOUNT.matcher(t);
-            if (!trailingMinus && w.matches()) {
-                double v = Double.parseDouble(w.group(2).replace(",", ""));
-                if (w.group(1) != null) {
-                    return new Amount(v, -1);
-                }
-                return new Amount(v, w.group(3) == null ? 0 : w.group(3).equalsIgnoreCase("cr") ? 1 : -1);
-            }
             return null;
         }
         double value = Double.parseDouble(m.group(2).replace(",", ""));

@@ -207,14 +207,20 @@ class StatementLayoutFixesTest {
 
 	// --- 4. whole-rupee amounts, apostrophe dates ---
 
+	// parseAmount stays strict; whole-rupee layouts re-print "₹100" as "₹100.00" first (Tokens.wholeRupeeAsAmounts).
+	private static Amount wholeParse(String token) {
+		List<Line> out = Tokens.wholeRupeeAsAmounts(List.of(new Line(List.of(new Word(token, 10, 40, 10, 1)))), true);
+		return Tokens.parseAmount(out.get(0).words().get(0).text());
+	}
+
 	@Test
 	void glyphAttachedWholeRupeeAmountsParse() {
-		assertEquals(3848.0, Tokens.parseAmount("₹3,848").value(), 0.001);
-		assertEquals(100.0, Tokens.parseAmount("₹100").value(), 0.001);
-		assertEquals(2000.0, Tokens.parseAmount("Rs.2,000").value(), 0.001);
-		assertEquals(0, Tokens.parseAmount("₹0").sign());
-		assertNull(Tokens.parseAmount("100"), "a bare integer is a reference, not an amount");
-		assertNull(Tokens.parseAmount("S39127543"));
+		assertEquals(3848.0, wholeParse("₹3,848").value(), 0.001);
+		assertEquals(100.0, wholeParse("₹100").value(), 0.001);
+		assertEquals(2000.0, wholeParse("Rs.2,000").value(), 0.001);
+		assertEquals(0, wholeParse("₹0").sign());
+		assertNull(wholeParse("100"), "a bare integer is a reference, not an amount");
+		assertNull(wholeParse("S39127543"));
 	}
 
 	@Test
