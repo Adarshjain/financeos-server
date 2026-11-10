@@ -15,9 +15,6 @@ import com.financeos.statement.parser.layout.LayoutProfile.ValueType;
  * "date | serial number | narration | reward points | amount [CR]" and a "# International Spends" footnote after the
  * last row. The summary is a statement-summary box (label row over value row) and an equation row.
  * The 2021-22 generation prints the same table without the Reward column and is another layout.
- * <p>
- * Not covered: the masked card number is printed with no label (only a section line under the header), which the
- * profile DSL cannot turn into the account number; the rows carry it as their card last four.
  */
 public final class IciciCardSdtdra2023 {
 
@@ -46,7 +43,9 @@ public final class IciciCardSdtdra2023 {
             .dateFormats("dd/MM/yyyy", "MMM d yyyy", "MMMM d yyyy")
             .suffix("CR", "DR", Direction.DEBIT)
             .continuation(11, 11)
-            .sectionHeader("\\b\\d{4}[x*]{4,}(\\d{4})\\b")
+            // the masked card number alone on the line under the header names the card of the rows (and is the account number)
+            .sectionHeader("\\b(\\d{4}[x*]{4,}\\d{4})\\b")
+            .accountNumberFromSectionHeader()
             .endMarker("#\\s*international\\s+spends", EndScope.FOR_GOOD)
             .summary(MetaTarget.PERIOD, "statement\\s+period").rightOnLine().type(ValueType.DATE_RANGE).done()
             .summary(MetaTarget.STATEMENT_DATE, "statement\\s+date").type(ValueType.DATE).done()

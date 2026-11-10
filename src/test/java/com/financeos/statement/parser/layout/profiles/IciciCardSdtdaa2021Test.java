@@ -158,6 +158,7 @@ class IciciCardSdtdaa2021Test {
         assertEquals(LocalDate.of(2026, 5, 14), o.meta().periodEnd);
         assertEquals(LocalDate.of(2026, 5, 15), o.meta().documentDate);
         assertEquals("ICICI Bank", o.meta().bank);
+        assertEquals("1234XXXXXXXX5678", o.meta().accountNumber);
         assertTrue(o.isCreditCard());
     }
 

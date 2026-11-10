@@ -43,6 +43,8 @@ class HdfcBankTdnwdcb2025Test {
         if (bankName) {
             l.add(ln(1, 134, "Joint", 38, "Holders", 80, ":", 130, "Not", 140, "Hdfc", 306, "Bank", 335, "Ltd", 360));
         }
+        l.add(ln(1, 117, "Account", 38, "Number", 80, ":", 109, "50100012345678", 114));
+        l.add(ln(1, 213, "RTGS/NEFT", 306, "IFSC", 360, ":", 380, "HDFC0001234", 390));
         l.add(ln(1, 183, "Statement", 38, "From", 88, ":", 112, "01/04/2026", 118, "To", 175, ":", 190, "30/04/2026", 198));
         l.add(TABLE_HEADER);
         // row 1: a debit, narration continues on two lines (the second one carries its own value date)
@@ -139,13 +141,14 @@ class HdfcBankTdnwdcb2025Test {
     }
 
     @Test
-    void aRowWithBothFiguresZeroHasNoDirectionAndIsDropped() {
+    void aRowWithBothFiguresZeroIsKeptAsAZeroRow() {
         List<Line> lines = statement(true);
         lines.set(lines.indexOf(lines.stream().filter(x -> x.top() == 328 && x.page() == 2).findFirst().orElseThrow()),
                 ln(2, 328, "10/04/2026", 52, "UPI-SHOPTWO", 111, "0.00", 342, "0.00", 428, "13,000.00", 519));
         ReadOutcome o = read(lines);
-        assertEquals(2, o.results().size());
-        assertEquals(1, o.rowsDropped());
+        assertEquals(3, o.results().size());
+        assertEquals(0.0, o.results().get(2).amount, 0.0);
+        assertEquals(0, o.rowsDropped());
     }
 
     @Test
@@ -158,6 +161,14 @@ class HdfcBankTdnwdcb2025Test {
         assertEquals(11499.50, o.meta().closingBalance, 0.001);
         assertEquals("HDFC Bank", o.meta().bank);
         assertFalse(o.isCreditCard());
+    }
+
+    @Test
+    void accountNumberIfscAndEveryRowsCardLast4AreFilled() {
+        ReadOutcome o = read(statement(true));
+        assertEquals("50100012345678", o.meta().accountNumber);
+        assertEquals("HDFC0001234", o.meta().ifsc);
+        assertTrue(o.results().stream().allMatch(r -> "5678".equals(r.cardLast4)));
     }
 
     @Test
