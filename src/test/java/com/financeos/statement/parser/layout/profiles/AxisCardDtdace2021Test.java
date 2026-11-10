@@ -67,7 +67,7 @@ class AxisCardDtdace2021Test {
         l.add(ln(0, 253, "Credit", 43, "Card", 70, "Number", 91, "Credit", 167, "L", 194, "imit", 198,
                 "Avai", 257, "lable", 274, "Credit", 296, "L", 323, "imit", 327, "Avai", 372, "lable", 389,
                 "Cash", 411, "L", 432, "imit", 436));
-        l.add(ln(0, 266, "451457******1234", 46, "100,000.00", 170, "97,000.00", 281, "20,000.00", 391));
+        l.add(ln(0, 266, "400000******1234", 46, "100,000.00", 170, "97,000.00", 281, "20,000.00", 391));
         l.add(ln(0, 282, "Previous", 34, "Balance", 70, "-", 103, "Payments", 109, "-", 149, "Credits", 154, "+", 185,
                 "Purchase", 192, "+", 230, "Cash", 237, "Advance", 258, "+", 293, "Other", 300, "Debit&Charges", 325,
                 "=Total", 386, "Payment", 413, "Due", 449));
@@ -80,7 +80,7 @@ class AxisCardDtdace2021Test {
     private static List<Line> statement(boolean splitWords) {
         List<Line> l = summaryBox(splitWords);
         l.add(header(0, 320));
-        l.add(ln(0, 331, "Card", 39, "No:", 59, "451457******1234", 118, "Name", 264, "TEST", 301, "USER", 334));
+        l.add(ln(0, 331, "Card", 39, "No:", 59, "400000******1234", 118, "Name", 264, "TEST", 301, "USER", 334));
         l.add(row(0, 342, "21/06/2026", "UPI TESTSHOP,CITY", "GROCERY", "2,000.00", "Dr", "20.00", "Cr"));
         l.add(row(0, 353, "22/06/2026", "BBPS PAYMENT RECEIVED", "", "1,000.00", "Cr", "0.00", "Dr"));
         l.add(row(0, 364, "23/06/2026", "MERCHANT ONE", "TRAVEL", "1,000.00", "Dr", "10.00", "Cr"));
@@ -184,7 +184,7 @@ class AxisCardDtdace2021Test {
     void aTableThatRunsOnAfterTheCashbackBoxOfItsFirstPageKeepsReading() {
         List<Line> l = summaryBox(true);
         l.add(header(0, 320));
-        l.add(ln(0, 331, "Card", 39, "No:", 59, "451457******1234", 118));
+        l.add(ln(0, 331, "Card", 39, "No:", 59, "400000******1234", 118));
         l.add(row(0, 342, "21/06/2026", "UPI TESTSHOP,CITY", "GROCERY", "2,000.00", "Dr", "20.00", "Cr"));
         l.add(row(0, 353, "22/06/2026", "BBPS PAYMENT RECEIVED", "", "1,000.00", "Cr", "0.00", "Dr"));
         addCashbackBox(l, 0);
@@ -205,7 +205,7 @@ class AxisCardDtdace2021Test {
         ReadOutcome o = read(statement(true));
         assertEquals(LocalDate.of(2026, 6, 20), o.meta().periodStart);
         assertEquals(LocalDate.of(2026, 7, 18), o.meta().periodEnd);
-        assertEquals("451457******1234", o.meta().accountNumber);
+        assertEquals("400000******1234", o.meta().accountNumber);
         assertEquals("Axis Bank", o.meta().bank);
         assertTrue(o.isCreditCard());
     }

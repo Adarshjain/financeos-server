@@ -38,7 +38,7 @@ class HdfcCardDttda2025Test {
     private static List<Line> statement(boolean rewardsColumn) {
         List<Line> l = new ArrayList<>();
         l.add(ln(0, 63, "Test", 26, "Card", 73, "HDFC", 110, "Bank", 140, "Credit", 167, "Card", 200, "Statement", 226));
-        l.add(ln(0, 98, "TEST", 26, "USER", 63, "Credit", 197, "Card", 216, "No.", 231, "451457XXXXXX1234", 318));
+        l.add(ln(0, 98, "TEST", 26, "USER", 63, "Credit", 197, "Card", 216, "No.", 231, "400000XXXXXX1234", 318));
         l.add(ln(0, 123, "Statement", 197, "Date", 229, "17", 338, "Jun,", 349, "2026", 362));
         l.add(ln(0, 141, "Billing", 197, "Period", 216, "18", 296, "May,", 305, "2026", 321, "-", 337, "17", 340,
                 "Jun,", 349, "2026", 362));
@@ -173,7 +173,7 @@ class HdfcCardDttda2025Test {
         assertEquals(LocalDate.of(2026, 5, 18), o.meta().periodStart);
         assertEquals(LocalDate.of(2026, 6, 17), o.meta().periodEnd);
         assertEquals(LocalDate.of(2026, 6, 17), o.meta().documentDate);
-        assertEquals("451457XXXXXX1234", o.meta().accountNumber);
+        assertEquals("400000XXXXXX1234", o.meta().accountNumber);
         assertEquals("HDFC Bank", o.meta().bank);
         assertTrue(o.isCreditCard());
     }

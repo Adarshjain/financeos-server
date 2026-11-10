@@ -41,7 +41,7 @@ class YesCardDtda2025Test {
         l.add(ln(0, 44, "Credit", 228, "Card", 272, "Statement", 308));
         l.add(ln(0, 228, "Overview", 189, summaryTitle, 423, "Summary", 475));
         l.add(ln(0, 240, "Statement", 73, "for", 124, "YES", 140, "BANK", 163, "Card", 195, "Number", 220,
-                "451457XXXXXX1234", 261, "Previous", 400, "Balance", 436, ":", 469));
+                "400000XXXXXX1234", 261, "Previous", 400, "Balance", 436, ":", 469));
         l.add(ln(0, 255, "Rs.", 400, "1,000.00", 418, "Dr", 452));
         l.add(ln(0, 262, "Statement", 128, "Period:", 169, "Credit", 325, "Limit:", 350));
         l.add(ln(0, 271, "20/06/2026", 102, "To", 145, "18/07/2026", 156, "Rs.", 316, "100,000.00", 330,
@@ -190,7 +190,7 @@ class YesCardDtda2025Test {
         assertEquals(LocalDate.of(2026, 6, 20), o.meta().periodStart);
         assertEquals(LocalDate.of(2026, 7, 18), o.meta().periodEnd);
         assertEquals(LocalDate.of(2026, 7, 18), o.meta().documentDate);
-        assertEquals("451457XXXXXX1234", o.meta().accountNumber);
+        assertEquals("400000XXXXXX1234", o.meta().accountNumber);
         assertEquals("Yes Bank", o.meta().bank);
         assertTrue(o.isCreditCard());
     }

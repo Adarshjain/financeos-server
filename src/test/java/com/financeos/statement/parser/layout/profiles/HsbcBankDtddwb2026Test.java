@@ -131,6 +131,6 @@ class HsbcBankDtddwb2026Test {
         assertEquals(110.0, r.get(0).amount, 0.001);
         assertEquals(LocalDate.of(2026, 3, 5), r.get(2).date);
         assertEquals("001-234567-006", o.meta().accountNumber);
-        assertEquals("3006", r.get(0).cardLast4);
+        assertEquals("7006", r.get(0).cardLast4);
     }
 }

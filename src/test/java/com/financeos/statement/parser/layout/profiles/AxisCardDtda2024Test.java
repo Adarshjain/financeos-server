@@ -49,7 +49,7 @@ class AxisCardDtda2024Test {
                 "18/07/2026", 303, "07/08/2026", 393, "18/07/2026", 510));
         l.add(ln(0, 253, "Credit", 51, "Card", 72, "Number", 89, "Credit", 172, "Limit", 194, "Available", 265,
                 "Credit", 298, "Limit", 319, "Available", 379, "Cash", 411, "Limit", 429));
-        l.add(ln(0, 266, "451457******1234", 51, "100,000.00", 173, "97,000.00", 283, "20,000.00", 396));
+        l.add(ln(0, 266, "400000******1234", 51, "100,000.00", 173, "97,000.00", 283, "20,000.00", 396));
         l.add(ln(0, 282, "Previous", 69, "Balance", 99, "-", 126, "Payments", 130, "-", 164, "Credits", 168, "+", 193,
                 "Purchase", 199, "+", 230, "Cash", 236, "Advance", 253, "+", 283, "Other", 289, "Debit&Charges", 310,
                 "=Total", 361, "Payment", 383, "Due", 414));
@@ -62,7 +62,7 @@ class AxisCardDtda2024Test {
             l.set(l.size() - 1, ln(0, 319, "DATE", 49, "TRANSACTION", 183, "DETAILS", 233, "MERCHANT", 386,
                     "CATEGORY", 427, "AMOUNT", 514, "(Rs.)", 547, headerExtra, 600));
         }
-        l.add(ln(0, 329, "Card", 83, "No:", 100, "451457******1234", 122, "Name", 260, "TEST", 287, "USER", 317));
+        l.add(ln(0, 329, "Card", 83, "No:", 100, "400000******1234", 122, "Name", 260, "TEST", 287, "USER", 317));
         l.add(ln(0, 339, "21/06/2026", 35, "UPI", 90, "TESTSHOP,CITY", 112, "GROCERY", 360, "2,000.00", 548, "Dr", 575));
         l.add(ln(0, 349, "22/06/2026", 35, "BBPS", 90, "PAYMENT", 120, "RECEIVED", 160, "1,000.00", 548, "Cr", 575));
         l.add(ln(0, 359, "23/06/2026", 35, "MERCHANT", 90, "ONE", 140, "TRAVEL", 360, "1,000.00", 548, "Dr", 575));
@@ -133,7 +133,7 @@ class AxisCardDtda2024Test {
         ReadOutcome o = read(statement("", false));
         assertEquals(LocalDate.of(2026, 6, 20), o.meta().periodStart);
         assertEquals(LocalDate.of(2026, 7, 18), o.meta().periodEnd);
-        assertEquals("451457******1234", o.meta().accountNumber);
+        assertEquals("400000******1234", o.meta().accountNumber);
         assertEquals("Axis Bank", o.meta().bank);
         assertTrue(o.isCreditCard());
     }

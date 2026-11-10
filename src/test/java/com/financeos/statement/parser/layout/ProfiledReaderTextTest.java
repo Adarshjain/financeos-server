@@ -133,7 +133,7 @@ class ProfiledReaderTextTest {
     private static List<Line> maskUnderHeader() {
         return List.of(
                 bankHeader(0, 100, 0),
-                ln(0, 106, "451457******1234", 120),
+                ln(0, 106, "400000******1234", 120),
                 bankRow(0, 110, 0, "05/01/2026", "SHOP", "10.00", null, "90.00"));
     }
 
@@ -142,7 +142,7 @@ class ProfiledReaderTextTest {
         LayoutProfile p = bank("mask").summary(MetaTarget.ACCOUNT_NUMBER, MASK).type(ValueType.MASKED_NUMBER)
                 .capture("(" + MASK + ")").done().build();
         var res = ProfiledReader.read(maskUnderHeader(), p);
-        assertEquals("451457******1234", res.outcome().meta().accountNumber);
+        assertEquals("400000******1234", res.outcome().meta().accountNumber);
         assertEquals(0, res.unreadAmountLines());
         assertEquals(1, res.outcome().results().size());
     }
@@ -158,10 +158,10 @@ class ProfiledReaderTextTest {
     void aSectionLineCanBeTheAccountNumberAndTheSourceOfEachRowsLast4() {
         LayoutProfile p = bank("sec").sectionHeader("card no (\\S+)$").accountNumberFromSectionHeader().build();
         List<Line> lines = List.of(bankHeader(0, 100, 0),
-                ln(0, 105, "Card", 50, "No", 90, "451457******1234", 120),
+                ln(0, 105, "Card", 50, "No", 90, "400000******1234", 120),
                 bankRow(0, 110, 0, "05/01/2026", "SHOP", "10.00", null, "90.00"));
         var o = ProfiledReader.read(lines, p).outcome();
-        assertEquals("451457******1234", o.meta().accountNumber);
+        assertEquals("400000******1234", o.meta().accountNumber);
         assertEquals("1234", o.results().get(0).cardLast4);
     }
 
@@ -170,7 +170,7 @@ class ProfiledReaderTextTest {
         LayoutProfile p = bank("sec").sectionHeader("card no (\\S+)$").accountNumberFromSectionHeader()
                 .summary(MetaTarget.ACCOUNT_NUMBER, "account").type(ValueType.TEXT).rightOnLine().done().build();
         List<Line> lines = List.of(ln(0, 50, "Account", 40, "99990000", 100), bankHeader(0, 100, 0),
-                ln(0, 105, "Card", 50, "No", 90, "451457******1234", 120),
+                ln(0, 105, "Card", 50, "No", 90, "400000******1234", 120),
                 bankRow(0, 110, 0, "05/01/2026", "SHOP", "10.00", null, "90.00"));
         assertEquals("99990000", ProfiledReader.read(lines, p).outcome().meta().accountNumber);
     }
