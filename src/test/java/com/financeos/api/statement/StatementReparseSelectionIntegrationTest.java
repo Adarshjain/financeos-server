@@ -366,6 +366,84 @@ class StatementReparseSelectionIntegrationTest {
         return ((java.time.ZonedDateTime) ts).toInstant();
     }
 
+    // ---- one-time re-examination of gmail WOULD_CHANGE recorded before the watermark rule ----
+
+    private void recorded(UUID id, String source, String outcome, String summary) {
+        jdbc.update("UPDATE statements SET source = ?, reparse_version = ?, reparse_outcome = ?, reparse_summary = ?, reparse_at = ?, reparse_attempts = 1 WHERE id = ?",
+                source, CURRENT, outcome, summary, OffsetDateTime.ofInstant(NOW, ZoneOffset.UTC), id.toString());
+    }
+
+    @Test
+    void aGmailWouldChangeWithRowsToAddAndNoDroppedMarkIsSelectedAgainWithApplyOff() {
+        recorded(neverExamined, "gmail", "WOULD_CHANGE", "changed=[] cleared=[] addRows=17 extras=0 relinked=0");
+
+        List<StatementRepository.ReparseCandidate> picked = find(1000, CURRENT, 0);
+
+        assertTrue(mine(picked).contains(neverExamined));
+        StatementRepository.ReparseCandidate c = picked.stream().filter(x -> neverExamined.toString().equals(x.getId())).findFirst().orElseThrow();
+        assertEquals("gmail", c.getSource());
+        assertEquals("WOULD_CHANGE", c.getReparseOutcome());
+        assertEquals("changed=[] cleared=[] addRows=17 extras=0 relinked=0", c.getReparseSummary());
+    }
+
+    @Test
+    void aGmailWouldChangeAlreadyCarryingDroppedIsNotSelectedAgainWithApplyOff() {
+        recorded(neverExamined, "gmail", "WOULD_CHANGE", "changed=[] cleared=[] addRows=17 extras=0 relinked=0 dropped=0");
+        recorded(examinedOlder, "gmail", "WOULD_CHANGE", "changed=[] cleared=[] addRows=2 extras=0 relinked=0 dropped=5");
+
+        List<UUID> picked = mine(find(1000, CURRENT, 0));
+
+        assertFalse(picked.contains(neverExamined));
+        assertFalse(picked.contains(examinedOlder));
+    }
+
+    @Test
+    void aGmailWouldChangeWithNoRowsToAddIsNotReexamined() {
+        recorded(neverExamined, "gmail", "WOULD_CHANGE", "changed=[period] cleared=[] addRows=0 extras=1 relinked=0");
+
+        assertFalse(mine(find(1000, CURRENT, 0)).contains(neverExamined));
+    }
+
+    @Test
+    void aGmailWouldChangeWithoutAnAddRowsFigureIsNotReexamined() {
+        recorded(neverExamined, "gmail", "WOULD_CHANGE", null);
+
+        assertFalse(mine(find(1000, CURRENT, 0)).contains(neverExamined));
+    }
+
+    @Test
+    void anUploadWouldChangeWithRowsToAddIsNotReexamined() {
+        recorded(neverExamined, "file_upload", "WOULD_CHANGE", "changed=[] cleared=[] addRows=17 extras=0 relinked=0");
+
+        assertFalse(mine(find(1000, CURRENT, 0)).contains(neverExamined));
+    }
+
+    @Test
+    void aGmailStatementWithAnotherOutcomeIsNotReexamined() {
+        for (String outcome : List.of("SAME", "WOULD_CLEAR", "APPLY_SKIPPED", "REFRESHED", "NO_TARGET")) {
+            recorded(neverExamined, "gmail", outcome, "changed=[] cleared=[] addRows=17 extras=0 relinked=0");
+            assertFalse(mine(find(1000, CURRENT, 0)).contains(neverExamined), outcome);
+        }
+    }
+
+    @Test
+    void aGmailWouldChangeStampedAtAnOtherVersionIsNotPickedByTheReexaminationClause() {
+        recorded(examinedNewer, "gmail", "WOULD_CHANGE", "changed=[] cleared=[] addRows=17 extras=0 relinked=0");
+        jdbc.update("UPDATE statements SET reparse_version = ? WHERE id = ?", CURRENT + 1, examinedNewer.toString());
+
+        assertFalse(mine(find(1000, CURRENT, 0)).contains(examinedNewer));
+    }
+
+    @Test
+    void theReexaminationStampLeavesTheStatementSettledAfterTheJobStampsAnythingWithDropped() {
+        recorded(neverExamined, "gmail", "WOULD_CHANGE", "changed=[] cleared=[] addRows=17 extras=0 relinked=0");
+        assertTrue(mine(find(1000, CURRENT, 0)).contains(neverExamined));
+
+        tx(() -> statementRepository.markReparse(neverExamined, CURRENT, NOW, "WOULD_CHANGE", "changed=[] cleared=[] addRows=3 extras=0 relinked=0 dropped=0"));
+
+        assertFalse(mine(find(1000, CURRENT, 0)).contains(neverExamined));
+    }
+
     /** The picked ids of these two users only (other tests' leftovers are ignored), in the order returned. */
     private List<UUID> mine(List<StatementRepository.ReparseCandidate> candidates) {
         Set<String> users = Set.of(userA.toString(), userB.toString());

@@ -14,6 +14,8 @@ import com.financeos.domain.statement.StatementPersistenceService;
 import com.financeos.domain.statement.StatementRepository;
 import com.financeos.domain.statement.file.StatementFileStore;
 import com.financeos.domain.user.UserRepository;
+import com.financeos.domain.statement.StatementSource;
+import com.financeos.gmail.reconcile.IngestWatermark;
 import com.financeos.gmail.reconcile.ParsedStatementLine;
 import com.financeos.gmail.reconcile.StatementExtractionResult;
 import com.financeos.statement.parser.FileType;
@@ -34,6 +36,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
@@ -261,10 +264,11 @@ public class StatementReparse {
             return Result.of(Outcome.FILE_MISSING);
         }
         byte[] bytes = loaded.get();
-        Optional<String> accountPassword = savedPassword(userId, accountId);
-        if (accountPassword == null) {
+        AccountRead accountRead = readAccount(userId, accountId);
+        if (accountRead == null) {
             return new Result(Outcome.NO_TARGET, "account");
         }
+        Optional<String> accountPassword = accountRead.password();
         StatementExtractionResult parsed = opener.open(userId, accountId, bytes, null, accountPassword.orElse(null), false).result();
         if (!parsed.success() && isLocked(parsed)) {
             // The upload path's passwords did not open it: the Gmail path's wider search (other accounts' passwords with
@@ -285,10 +289,24 @@ public class StatementReparse {
         if (blocked.isPresent()) {
             return new Result(Outcome.BLOCKED, blocked.get().reason().name());
         }
-        List<ParsedStatementLine> lines = parsed.lines();
-        if (lines == null || lines.isEmpty()) {
+        List<ParsedStatementLine> allLines = parsed.lines();
+        if (allLines == null || allLines.isEmpty()) {
             return Result.of(Outcome.EMPTY);
         }
+        // A gmail statement was ingested with the lines before the account's watermark dropped (its links index into the
+        // remaining list); the same rule is applied here against the watermark as it is now. Uploads apply none.
+        boolean gmail = StatementSource.gmail.name().equals(c.getSource());
+        LocalDate watermark = gmail ? accountRead.watermark() : null;
+        // The cutoff is the watermark, or the earliest linked row when that is earlier (the watermark moved later since
+        // the ingest): the compared set is then what was imported, so link indexes do not shift and no row is an extra.
+        LocalDate cutoff = watermark == null ? null : effectiveCutoff(watermark, statementId, userId);
+        List<ParsedStatementLine> lines = cutoff == null ? allLines : IngestWatermark.filter(allLines, cutoff);
+        int dropped = allLines.size() - lines.size();
+        // A gmail statement's summary always says dropped=n (even 0): that is what keeps the one-time re-examination of
+        // pre-rule WOULD_CHANGE rows from picking up a summary written by this version.
+        boolean preWatermarkWindow = watermark != null && cutoff.isBefore(watermark);
+        int preWatermark = preWatermarkWindow
+                ? (int) lines.stream().filter(l -> l.date().isBefore(watermark)).count() : -1;
         StatementDraft draft = parsed.draft();
         if (!StatementPersistenceService.fullyReconciles(draft)) {
             return new Result(Outcome.NOT_RECONCILED, draft == null ? "no draft"
@@ -335,7 +353,7 @@ public class StatementReparse {
             return Result.of(Outcome.SAME);
         }
         String summary = summarise(split.changed(), split.cleared(), would.missingLines().size(),
-                would.extraTransactionIds().size(), would.relinked());
+                would.extraTransactionIds().size(), would.relinked(), dropped, gmail, preWatermark);
         boolean onlyCleared = split.changed().isEmpty() && would.missingLines().isEmpty()
                 && would.extraTransactionIds().isEmpty() && would.relinked() == 0;
         // Clearing stored data (it may be AI-filled or user-entered) is a human decision: never applied by the job.
@@ -343,6 +361,11 @@ public class StatementReparse {
             return new Result(Outcome.WOULD_CLEAR, summary);
         }
         if (!apply) {
+            return new Result(Outcome.WOULD_CHANGE, summary);
+        }
+        // The cutoff reached back before the watermark (a linked row dated before its line): a missing line dated before
+        // the watermark would be created as a row the user excluded, so such a statement is never applied.
+        if (preWatermarkWindow && would.missingLines().stream().anyMatch(i -> lines.get(i).date().isBefore(watermark))) {
             return new Result(Outcome.WOULD_CHANGE, summary);
         }
         // Exactly the reconciling re-upload (refresh + matcher for the missing lines, one transaction), except that
@@ -372,25 +395,51 @@ public class StatementReparse {
         parseRecords.saveQuietly(statementId, finalDraft.parserVersion(), finalDraft.parseSnapshot());
         return new Result(Outcome.REFRESHED, summarise(done.split().changed(), done.split().cleared(),
                 done.applied().refreshed().missingLines().size(), done.applied().refreshed().extraTransactionIds().size(),
-                done.applied().refreshed().relinked()));
+                done.applied().refreshed().relinked(), dropped, gmail, preWatermark));
     }
 
-    /** The account's saved statement password (empty when none); null when the account is not this user's. */
-    private Optional<String> savedPassword(UUID userId, UUID accountId) {
-        Optional<Optional<String>> found = tx.execute(status -> {
+    /** The earlier of the watermark and the earliest linked transaction's date. */
+    private LocalDate effectiveCutoff(LocalDate watermark, UUID statementId, UUID userId) {
+        LocalDate earliest = tx.execute(status -> {
             userFilterEnabler.enable();
-            return accountRepository.findByIdAndUser_Id(accountId, userId).map(a -> Optional.ofNullable(
+            return statementRepository.findEarliestLinkedDate(statementId);
+        });
+        return earliest != null && earliest.isBefore(watermark) ? earliest : watermark;
+    }
+
+    /** What the job needs of the account: its saved statement password (empty when none) and its current ingest watermark. */
+    private record AccountRead(Optional<String> password, LocalDate watermark) {}
+
+    /** Null when the account is not this user's. */
+    private AccountRead readAccount(UUID userId, UUID accountId) {
+        Optional<AccountRead> found = tx.execute(status -> {
+            userFilterEnabler.enable();
+            return accountRepository.findByIdAndUser_Id(accountId, userId).map(a -> new AccountRead(Optional.ofNullable(
                     a.getBankDetails() != null ? a.getBankDetails().getStatementPassword()
-                            : a.getCreditCardDetails() != null ? a.getCreditCardDetails().getStatementPassword() : null));
+                            : a.getCreditCardDetails() != null ? a.getCreditCardDetails().getStatementPassword() : null),
+                    a.getIngestFromDate()));
         });
         return found == null || found.isEmpty() ? null : found.get();
     }
 
     /** {@code changed=[..] cleared=[..] addRows=n extras=n relinked=n}: names and counts only, trimmed to 500 characters. */
     static String summarise(List<String> changed, List<String> cleared, int addRows, int extras, int relinked) {
-        String s = "changed=[" + String.join(",", changed) + "] cleared=[" + String.join(",", cleared)
+        return summarise(changed, cleared, addRows, extras, relinked, 0, false, -1);
+    }
+
+    /**
+     * As above plus {@code dropped=n} (lines the Gmail watermark excluded) when n is above 0 or {@code alwaysDropped}
+     * (gmail statements), and {@code preWatermark=k} when k is 0 or more (compared lines dated before the current
+     * watermark, because the cutoff reached back to a linked row). The trim never cuts these suffixes.
+     */
+    static String summarise(List<String> changed, List<String> cleared, int addRows, int extras, int relinked,
+                            int dropped, boolean alwaysDropped, int preWatermark) {
+        String core = "changed=[" + String.join(",", changed) + "] cleared=[" + String.join(",", cleared)
                 + "] addRows=" + addRows + " extras=" + extras + " relinked=" + relinked;
-        return s.length() > SUMMARY_MAX ? s.substring(0, SUMMARY_MAX) : s;
+        String suffix = (dropped > 0 || alwaysDropped ? " dropped=" + dropped : "")
+                + (preWatermark >= 0 ? " preWatermark=" + preWatermark : "");
+        int room = SUMMARY_MAX - suffix.length();
+        return (core.length() > room ? core.substring(0, room) : core) + suffix;
     }
 
     /** Stamps without ever throwing (a failed stamp only means the statement is looked at again next run). */

@@ -328,9 +328,7 @@ public class StatementReconciliationService {
 
         // 6. Watermark gate check: drop lines dated before the account watermark
         LocalDate watermark = resolvedAccount.getIngestFromDate();
-        List<ParsedStatementLine> candidateLines = allLines.stream()
-                .filter(line -> watermark == null || !line.date().isBefore(watermark))
-                .toList();
+        List<ParsedStatementLine> candidateLines = IngestWatermark.filter(allLines, watermark);
 
         if (candidateLines.isEmpty()) {
             log.info("All statement lines were before watermark date: {}", watermark);

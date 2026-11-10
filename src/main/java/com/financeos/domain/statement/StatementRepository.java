@@ -44,6 +44,10 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
             + "ORDER BY rn, created_at, id FETCH FIRST :batch ROWS ONLY", nativeQuery = true)
     List<FileBackfillCandidate> findFileBackfillCandidates(@Param("batch") int batch, @Param("retryBefore") java.time.Instant retryBefore);
 
+    /** Date of the earliest transaction currently linked to the statement; null when none is linked. */
+    @Query("SELECT MIN(t.date) FROM StatementTransaction st, Transaction t WHERE st.id.statementId = :statementId AND t.id = st.id.transactionId")
+    java.time.LocalDate findEarliestLinkedDate(@Param("statementId") UUID statementId);
+
     /** One re-read candidate: ids and the file hash only, no entity graph. */
     interface ReparseCandidate {
         String getId();
@@ -51,6 +55,10 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
         String getAccountId();
         String getFileId();
         String getFileSha256();
+        /** The statement's source ({@code gmail}, {@code file_upload}). */
+        String getSource();
+        String getReparseOutcome();
+        String getReparseSummary();
     }
 
     /**
@@ -59,10 +67,14 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
      * with ERROR, PARSE_FAILED because the file is locked (summary LOCKED or LOCKED:cap: a password may have been
      * saved since), or an IN_PROGRESS stamp that was never settled, at or before {@code retryBefore}, fewer than
      * {@code maxAttempts} times; or (3) when {@code applyOn} is 1, whose recorded outcome at that version is WOULD_CHANGE
-     * (switching apply on applies recorded differences without a parser bump).
+     * (switching apply on applies recorded differences without a parser bump); or (4) a gmail statement stamped
+     * WOULD_CHANGE at that version with addRows above 0 and no {@code dropped=} in its summary: recorded before the job
+     * applied the Gmail ingest watermark, so re-examined once (the re-examination always writes {@code dropped=} or
+     * another outcome).
      */
-    @Query(value = "SELECT id AS id, user_id AS userId, account_id AS accountId, file_id AS fileId, file_sha256 AS fileSha256 FROM ("
-            + "SELECT id, user_id, account_id, file_id, file_sha256, created_at, "
+    @Query(value = "SELECT id AS id, user_id AS userId, account_id AS accountId, file_id AS fileId, file_sha256 AS fileSha256, "
+            + "source AS source, reparse_outcome AS reparseOutcome, reparse_summary AS reparseSummary FROM ("
+            + "SELECT id, user_id, account_id, file_id, file_sha256, source, reparse_outcome, reparse_summary, created_at, "
             + "ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY created_at, id) AS rn FROM statements "
             + "WHERE file_id IS NOT NULL AND ("
             + "(NVL(parser_version, 0) < :current AND NVL(reparse_version, 0) < :current) "
@@ -70,7 +82,10 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
             + "AND reparse_at <= :retryBefore AND NVL(reparse_attempts, 0) < :maxAttempts) "
             + "OR (NVL(parser_version, 0) < :current AND reparse_version = :current AND reparse_outcome = 'PARSE_FAILED' "
             + "AND reparse_summary LIKE 'LOCKED%' AND reparse_at <= :retryBefore AND NVL(reparse_attempts, 0) < :maxAttempts) "
-            + "OR (:applyOn = 1 AND reparse_version = :current AND reparse_outcome = 'WOULD_CHANGE'))) "
+            + "OR (:applyOn = 1 AND reparse_version = :current AND reparse_outcome = 'WOULD_CHANGE') "
+            + "OR (reparse_version = :current AND reparse_outcome = 'WOULD_CHANGE' AND source = 'gmail' "
+            + "AND reparse_summary LIKE '%addRows=%' AND reparse_summary NOT LIKE '%addRows=0%' "
+            + "AND reparse_summary NOT LIKE '%dropped=%'))) "
             + "ORDER BY rn, created_at, id FETCH FIRST :batch ROWS ONLY", nativeQuery = true)
     List<ReparseCandidate> findReparseCandidates(@Param("batch") int batch, @Param("current") int current,
                                                  @Param("retryBefore") java.time.Instant retryBefore,
