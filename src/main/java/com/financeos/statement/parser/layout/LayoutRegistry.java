@@ -6,6 +6,9 @@ import com.financeos.statement.parser.layout.profiles.AxisCardDtda2024;
 import com.financeos.statement.parser.layout.profiles.AxisCardDtdace2021;
 import com.financeos.statement.parser.layout.profiles.AxisCardDtdace2024;
 import com.financeos.statement.parser.layout.profiles.YesCardDtda2025;
+import com.financeos.statement.parser.layout.profiles.HdfcBankTdnwdcb2025;
+import com.financeos.statement.parser.layout.profiles.IciciCardSdtdaa2021;
+import com.financeos.statement.parser.layout.profiles.IciciCardSdtdra2023;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +40,10 @@ public final class LayoutRegistry {
                 new Entry("AxisCardDtdace2024a", AxisCardDtdace2024::buildA),
                 new Entry("AxisCardDtdace2024b", AxisCardDtdace2024::buildB),
                 new Entry("AxisCardDtdace2021", AxisCardDtdace2021::build),
-                new Entry("YesCardDtda2025", YesCardDtda2025::build)));
+                new Entry("YesCardDtda2025", YesCardDtda2025::build),
+                new Entry("HdfcBankTdnwdcb2025", HdfcBankTdnwdcb2025::build),
+                new Entry("IciciCardSdtdra2023", IciciCardSdtdra2023::build),
+                new Entry("IciciCardSdtdaa2021", IciciCardSdtdaa2021::build)));
     }
 
     /** Every profile the application knows, in matching order. Never throws; a profile that fails to build is skipped. */
