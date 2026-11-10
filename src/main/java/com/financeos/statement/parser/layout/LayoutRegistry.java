@@ -14,6 +14,7 @@ import com.financeos.statement.parser.layout.profiles.HdfcCardDttdra2026;
 import com.financeos.statement.parser.layout.profiles.YesCardDtda2025;
 import com.financeos.statement.parser.layout.profiles.FederalBankDtdab2021;
 import com.financeos.statement.parser.layout.profiles.HdfcBankTdnwdcb2025;
+import com.financeos.statement.parser.layout.profiles.HsbcBankDtddwb2026;
 import com.financeos.statement.parser.layout.profiles.IciciCardSdtdaa2021;
 import com.financeos.statement.parser.layout.profiles.IciciCardSdtdra2023;
 
@@ -57,7 +58,8 @@ public final class LayoutRegistry {
                 new Entry("HdfcCardDtdap2022", HdfcCardDtdap2022::build),
                 new Entry("HdfcCardDtda2018", HdfcCardDtda2018::build),
                 new Entry("HdfcCardDtda2024", HdfcCardDtda2024::build),
-                new Entry("FederalBankDtdab2021", FederalBankDtdab2021::build)));
+                new Entry("FederalBankDtdab2021", FederalBankDtdab2021::build),
+                new Entry("HsbcBankDtddwb2026", HsbcBankDtddwb2026::build)));
     }
 
     /** Every profile the application knows, in matching order. Never throws; a profile that fails to build is skipped. */
