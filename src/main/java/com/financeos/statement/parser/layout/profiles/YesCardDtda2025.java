@@ -34,6 +34,7 @@ public final class YesCardDtda2025 {
             .column(Role.NARRATION, LayoutProfile.at("TRANSACTION", -3), LayoutProfile.at("AMOUNT", -10))
             .fromLabel(Role.AMOUNT, "AMOUNT", -10, 48)
             .fromLabel(Role.MARKER, "AMOUNT", 48, 90)
+            .cardLast4FromAccountNumber()
             .dateFormats("dd/MM/yyyy")
             .suffix("Cr", "Dr", Direction.DEBIT)
             .continuation(12, 12)

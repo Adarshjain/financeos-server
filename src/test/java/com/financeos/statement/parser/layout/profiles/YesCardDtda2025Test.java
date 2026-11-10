@@ -140,6 +140,11 @@ class YesCardDtda2025Test {
     }
 
     @Test
+    void everyRowCarriesTheLast4OfTheCardNumberInTheOverview() {
+        assertTrue(read(statement("Statement")).results().stream().allMatch(x -> "1234".equals(x.cardLast4)));
+    }
+
+    @Test
     void theEndOfTheStatementLineEndsTheTableForGood() {
         ReadOutcome o = read(statement("Statement"));
         assertTrue(o.results().stream().noneMatch(x -> x.description.contains("AFTER")));

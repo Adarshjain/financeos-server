@@ -5,6 +5,9 @@ import com.financeos.statement.parser.layout.profiles.AxisCardDtda2022;
 import com.financeos.statement.parser.layout.profiles.AxisCardDtda2024;
 import com.financeos.statement.parser.layout.profiles.AxisCardDtdace2021;
 import com.financeos.statement.parser.layout.profiles.AxisCardDtdace2024;
+import com.financeos.statement.parser.layout.profiles.HdfcCardDttda2025;
+import com.financeos.statement.parser.layout.profiles.HdfcCardDttdra2025;
+import com.financeos.statement.parser.layout.profiles.HdfcCardDttdra2026;
 import com.financeos.statement.parser.layout.profiles.YesCardDtda2025;
 import com.financeos.statement.parser.layout.profiles.HdfcBankTdnwdcb2025;
 import com.financeos.statement.parser.layout.profiles.IciciCardSdtdaa2021;
@@ -43,7 +46,10 @@ public final class LayoutRegistry {
                 new Entry("YesCardDtda2025", YesCardDtda2025::build),
                 new Entry("HdfcBankTdnwdcb2025", HdfcBankTdnwdcb2025::build),
                 new Entry("IciciCardSdtdra2023", IciciCardSdtdra2023::build),
-                new Entry("IciciCardSdtdaa2021", IciciCardSdtdaa2021::build)));
+                new Entry("IciciCardSdtdaa2021", IciciCardSdtdaa2021::build),
+                new Entry("HdfcCardDttdra2025", HdfcCardDttdra2025::build),
+                new Entry("HdfcCardDttda2025", HdfcCardDttda2025::build),
+                new Entry("HdfcCardDttdra2026", HdfcCardDttdra2026::build)));
     }
 
     /** Every profile the application knows, in matching order. Never throws; a profile that fails to build is skipped. */
