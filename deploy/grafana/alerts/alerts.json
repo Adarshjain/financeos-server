@@ -792,7 +792,7 @@
           "noDataState": "OK"
         },
         {
-          "uid": "financeos-alert-statement-parse-acceptance",
+          "uid": "financeos-alert-stmt-parse-acceptance",
           "title": "Statement parse acceptance dropped",
           "condition": "A",
           "for": "30m",
