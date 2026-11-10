@@ -1,6 +1,7 @@
 package com.financeos.statement.parser.layout;
 
 import com.financeos.statement.parser.Line;
+import com.financeos.statement.parser.layout.profiles.AxisCardDtda2022;
 import com.financeos.statement.parser.layout.profiles.AxisCardDtda2024;
 
 import java.util.ArrayList;
@@ -28,7 +29,8 @@ public final class LayoutRegistry {
     /** The application's profiles, built on first use (not in a static initializer on the parsing path). */
     private static final class Holder {
         static final LayoutRegistry DEFAULTS = fromEntries(List.of(
-                new Entry("AxisCardDtda2024", AxisCardDtda2024::build)));
+                new Entry("AxisCardDtda2024", AxisCardDtda2024::build),
+                new Entry("AxisCardDtda2022", AxisCardDtda2022::build)));
     }
 
     /** Every profile the application knows, in matching order. Never throws; a profile that fails to build is skipped. */

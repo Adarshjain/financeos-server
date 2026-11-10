@@ -98,7 +98,7 @@ class AxisCardDtda2024Test {
 
     @Test
     void theSplitWordGenerationOfTheSameTableIsNotThisLayout() {
-        assertNull(LayoutRegistry.defaults().match(statement("", true), "axis"));
+        assertNull(new LayoutRegistry(List.of(PROFILE)).match(statement("", true), "axis"));
     }
 
     @Test
