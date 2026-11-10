@@ -62,6 +62,10 @@ Put a class in `layout/profiles/` that builds a `LayoutProfile` (see `AxisCardDt
 - SEPARATE_COLUMNS: a printed zero in the unused column is blank; both zero is a zero row (the generic reader keeps it);
   two real amounts, or two figures in one cell, are unread. Narration below such a row works with `continuation(below, 0)`.
 
+- Row descriptions follow the generic reader word for word (`NarrationRules`): amount-shaped tokens, a currency glyph before
+  an amount, a +/- sign marker beside an amount, and lone letters outside a text run are not narration; a +/- is
+  kept only inside a text run. A bare Cr/Dr inside the narration range stays as printed (the generic reader drops it). Continuation lines drop amounts, currency glyphs and lone letters outside a text run.
+
 ## Acceptance rule (before a profile goes ACTIVE)
 
 Run the corpus twice, `-Dcorpus.reader=v1` and `-Dcorpus.reader=layout`, then `CorpusDiff` with

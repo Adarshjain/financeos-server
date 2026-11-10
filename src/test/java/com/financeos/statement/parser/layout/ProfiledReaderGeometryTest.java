@@ -117,9 +117,9 @@ class ProfiledReaderGeometryTest {
 
     @Test
     void aMarkerLikeTokenInsideTheNarrationRangeIsNarration() {
-        var res = ProfiledReader.read(one(ln(0, 110, "05/01/2026", 50, "A", 120, "+", 150, "B", 170, "40.00", 405)), prefix());
+        var res = ProfiledReader.read(one(ln(0, 110, "05/01/2026", 50, "ALPHA", 120, "+", 150, "BETA", 158, "40.00", 405)), prefix());
         assertEquals(0, res.unreadAmountLines());
-        assertEquals("A + B", res.outcome().results().get(0).description);
+        assertEquals("ALPHA + BETA", res.outcome().results().get(0).description);
         assertEquals(-40.00, res.outcome().results().get(0).amount, 0.001);
     }
 

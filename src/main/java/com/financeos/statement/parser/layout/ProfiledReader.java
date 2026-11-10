@@ -626,7 +626,9 @@ public final class ProfiledReader {
             if (role == null) {
                 strayAmount |= Amounts.isAmount(w.text());
             } else if (role == Role.NARRATION) {
-                narration.add(w.text());
+                if (NarrationRules.keep(ws, i)) {
+                    narration.add(w.text());
+                }
             } else if (role == Role.DEBIT || role == Role.CREDIT || role == Role.AMOUNT || role == Role.BALANCE) {
                 amountWords.computeIfAbsent(role, k -> new ArrayList<>()).add(w);
                 if (role == Role.AMOUNT && Amounts.isAmount(w.text())) {
@@ -876,9 +878,10 @@ public final class ProfiledReader {
     private static String narrationText(State st, Line ln, Table table) {
         List<Resolved> cols = resolve(st.p, table);
         List<String> t = new ArrayList<>();
-        for (Word w : ln.words()) {
-            if (roleOf(cols, w) == Role.NARRATION) {
-                t.add(w.text());
+        List<Word> ws = ln.words();
+        for (int i = 0; i < ws.size(); i++) {
+            if (roleOf(cols, ws.get(i)) == Role.NARRATION && NarrationRules.keepContinuation(ws, i)) {
+                t.add(ws.get(i).text());
             }
         }
         return String.join(" ", t);
