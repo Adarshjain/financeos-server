@@ -44,6 +44,62 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
             + "ORDER BY rn, created_at, id FETCH FIRST :batch ROWS ONLY", nativeQuery = true)
     List<FileBackfillCandidate> findFileBackfillCandidates(@Param("batch") int batch, @Param("retryBefore") java.time.Instant retryBefore);
 
+    /** One re-read candidate: ids and the file hash only, no entity graph. */
+    interface ReparseCandidate {
+        String getId();
+        String getUserId();
+        String getAccountId();
+        String getFileId();
+        String getFileSha256();
+    }
+
+    /**
+     * What the re-read job picks, interleaved across users, oldest first: statements with a stored file and
+     * (1) a stored parse older than {@code current} not yet examined at that version; or (2) examined at that version
+     * with ERROR, or an IN_PROGRESS stamp that was never settled, at or before {@code retryBefore}, fewer than
+     * {@code maxAttempts} times; or (3) when {@code applyOn} is 1, whose recorded outcome at that version is WOULD_CHANGE
+     * (switching apply on applies recorded differences without a parser bump).
+     */
+    @Query(value = "SELECT id AS id, user_id AS userId, account_id AS accountId, file_id AS fileId, file_sha256 AS fileSha256 FROM ("
+            + "SELECT id, user_id, account_id, file_id, file_sha256, created_at, "
+            + "ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY created_at, id) AS rn FROM statements "
+            + "WHERE file_id IS NOT NULL AND ("
+            + "(NVL(parser_version, 0) < :current AND NVL(reparse_version, 0) < :current) "
+            + "OR (NVL(parser_version, 0) < :current AND reparse_version = :current AND reparse_outcome IN ('ERROR', 'IN_PROGRESS') "
+            + "AND reparse_at <= :retryBefore AND NVL(reparse_attempts, 0) < :maxAttempts) "
+            + "OR (:applyOn = 1 AND reparse_version = :current AND reparse_outcome = 'WOULD_CHANGE'))) "
+            + "ORDER BY rn, created_at, id FETCH FIRST :batch ROWS ONLY", nativeQuery = true)
+    List<ReparseCandidate> findReparseCandidates(@Param("batch") int batch, @Param("current") int current,
+                                                 @Param("retryBefore") java.time.Instant retryBefore,
+                                                 @Param("maxAttempts") int maxAttempts, @Param("applyOn") int applyOn);
+
+    /**
+     * Parks a statement before the job examines it (so one that kills the JVM is not picked first again): version,
+     * IN_PROGRESS, now, and the attempt count at this version (1 when the version rose). Not when stamped by a later version.
+     */
+    @org.springframework.data.jpa.repository.Modifying
+    @Query("UPDATE Statement s SET s.reparseAttempts = CASE WHEN s.reparseVersion = :version THEN COALESCE(s.reparseAttempts, 0) + 1 ELSE 1 END, "
+            + "s.reparseVersion = :version, s.reparseAt = :at, s.reparseOutcome = 'IN_PROGRESS', s.reparseSummary = NULL "
+            + "WHERE s.id = :id AND (s.reparseVersion IS NULL OR s.reparseVersion <= :version)")
+    int markReparseStarted(@Param("id") UUID id, @Param("version") int version, @Param("at") java.time.Instant at);
+
+    /**
+     * Stamps the outcome of a re-read without loading the statement; only over nothing, an older version's stamp, or
+     * this version's own IN_PROGRESS / WOULD_CHANGE (a settled outcome is never overwritten), touching nothing but the reparse columns.
+     */
+    @org.springframework.data.jpa.repository.Modifying
+    @Query("UPDATE Statement s SET s.reparseVersion = :version, s.reparseAt = :at, s.reparseOutcome = :outcome, s.reparseSummary = :summary "
+            + "WHERE s.id = :id AND (s.reparseVersion IS NULL OR s.reparseVersion < :version "
+            + "OR (s.reparseVersion = :version AND s.reparseOutcome IN ('IN_PROGRESS', 'WOULD_CHANGE')))")
+    int markReparse(@Param("id") UUID id, @Param("version") int version, @Param("at") java.time.Instant at,
+                    @Param("outcome") String outcome, @Param("summary") String summary);
+
+    /** The statement's data provably equals what parser {@code version} reads: records that, never lowering a version. */
+    @org.springframework.data.jpa.repository.Modifying
+    @Query("UPDATE Statement s SET s.parserVersion = :version, s.parseRecordedAt = :at "
+            + "WHERE s.id = :id AND (s.parserVersion IS NULL OR s.parserVersion < :version)")
+    int markParsedAtVersion(@Param("id") UUID id, @Param("version") int version, @Param("at") java.time.Instant at);
+
     @Query("SELECT s.fileId FROM Statement s WHERE s.id = :id")
     Optional<UUID> findFileIdById(@Param("id") UUID id);
 

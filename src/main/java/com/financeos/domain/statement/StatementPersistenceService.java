@@ -299,13 +299,18 @@ public class StatementPersistenceService {
     /**
      * What a true refresh did: the statement, the header fields that changed, the parsed lines (indexes into the list
      * given) no linked transaction accounts for, the linked transactions the parse does not have (reported, never
-     * deleted), and how many paired with an edited row.
+     * deleted), how many paired with an edited row, and how many existing links changed index, balance or chain flag ({@code relinked}).
      */
     public record Refreshed(Statement statement, List<String> changedFields, List<Integer> missingLines,
-                            List<UUID> extraTransactionIds, int keptEdited) {
+                            List<UUID> extraTransactionIds, int keptEdited, int relinked) {
+        public Refreshed(Statement statement, List<String> changedFields, List<Integer> missingLines,
+                         List<UUID> extraTransactionIds, int keptEdited) {
+            this(statement, changedFields, missingLines, extraTransactionIds, keptEdited, 0);
+        }
+
         public Refreshed(Statement statement, List<String> changedFields, List<Integer> missingLines,
                          List<UUID> extraTransactionIds) {
-            this(statement, changedFields, missingLines, extraTransactionIds, 0);
+            this(statement, changedFields, missingLines, extraTransactionIds, 0, 0);
         }
     }
 
@@ -470,7 +475,7 @@ public class StatementPersistenceService {
         if (!reindexed.isEmpty()) {
             statementTransactionRepository.saveAll(reindexed);
         }
-        return Optional.of(new Refreshed(target, List.copyOf(changed), List.copyOf(toAdd), List.copyOf(extra), usedLines.size()));
+        return Optional.of(new Refreshed(target, List.copyOf(changed), List.copyOf(toAdd), List.copyOf(extra), usedLines.size(), reindexed.size()));
     }
 
     /**

@@ -72,6 +72,25 @@ public class Statement {
     @Column(name = "parse_recorded_at")
     private Instant parseRecordedAt;
 
+    /** The parser version this statement was last re-read with by the re-read job; null while never re-read. */
+    @Column(name = "reparse_version")
+    private Integer reparseVersion;
+
+    @Column(name = "reparse_at")
+    private Instant reparseAt;
+
+    /** StatementReparse.Outcome name of the last re-read. */
+    @Column(name = "reparse_outcome", length = 30)
+    private String reparseOutcome;
+
+    /** Field names and counts only, never values. */
+    @Column(name = "reparse_summary", length = 500)
+    private String reparseSummary;
+
+    /** Attempts of the re-read job at {@link #reparseVersion}; reset when the version rises. */
+    @Column(name = "reparse_attempts")
+    private Integer reparseAttempts;
+
     @Column(name = "statement_type", length = 20)
     private String statementType;
 

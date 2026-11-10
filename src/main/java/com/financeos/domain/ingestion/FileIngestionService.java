@@ -146,38 +146,8 @@ public class FileIngestionService {
         return ingest(accountId, files, execCtx, null);
     }
 
-    /** What opening a file took: the parse result, whether a password was tried, and the one that worked (null = none or the account's own). */
-    private record Opened(StatementExtractionResult result, boolean passwordTried) {}
-
-    /**
-     * Parses with the explicit password (if any), else the account's; when the file is locked and that fails,
-     * tries the user's other saved statement passwords. A password that opens a file for an account with none
-     * is saved to that account. Passwords are never logged.
-     */
-    private Opened open(UUID userId, UUID accountId, byte[] bytes, String explicit, String accountPassword) {
-        boolean hasExplicit = explicit != null && !explicit.isBlank();
-        boolean hasAccount = accountPassword != null && !accountPassword.isBlank();
-        String first = hasExplicit ? explicit : hasAccount ? accountPassword : null;
-        StatementExtractionResult result = statementParser.parse(bytes, first);
-        boolean tried = first != null;
-        if (result.success() || !com.financeos.statement.parser.StatementParseException.isPasswordMessage(result.failureReason())) {
-            return new Opened(result, tried);
-        }
-        java.util.LinkedHashSet<String> others = new java.util.LinkedHashSet<>();
-        if (hasExplicit && hasAccount) others.add(accountPassword);
-        if (passwordVault != null) others.addAll(passwordVault.savedPasswords(userId));
-        others.remove(first);
-        for (String candidate : others) {
-            StatementExtractionResult attempt = statementParser.parse(bytes, candidate);
-            tried = true;
-            if (attempt.success()) {
-                if (!hasAccount && passwordVault != null) {
-                    passwordVault.saveIfMissing(userId, accountId, candidate);
-                }
-                return new Opened(attempt, true);
-            }
-        }
-        return new Opened(result, tried);
+    private StatementOpener.Opened open(UUID userId, UUID accountId, byte[] bytes, String explicit, String accountPassword) {
+        return new StatementOpener(statementParser, passwordVault).open(userId, accountId, bytes, explicit, accountPassword, true);
     }
 
     /** {@code explicitPassword}: a password the user just typed for these files; tried before the account's. */
@@ -234,7 +204,7 @@ public class FileIngestionService {
                         StructuredArguments.keyValue("brokerHint", account.getType().name()));
 
                 String accountPassword = password;
-                Opened opened = Timing.call(Ops.STATEMENT_OPEN, () -> open(currentSessionUserId, accountId, bytes, explicitPassword, accountPassword));
+                StatementOpener.Opened opened = Timing.call(Ops.STATEMENT_OPEN, () -> open(currentSessionUserId, accountId, bytes, explicitPassword, accountPassword));
                 StatementExtractionResult parseResult = opened.result();
                 if (!parseResult.success()) {
                     recordParse("upload", parseResult, Optional.empty());
@@ -271,24 +241,10 @@ public class FileIngestionService {
                 // A statement this call already created or refreshed is left to the old path (its lines are not linked yet).
                 List<ParsedStatementLine> parsedLines = lines;
                 StatementDraft parsedDraft = parseResult.draft();
-                RefreshOutcome outcome = inTransaction(() -> {
-                    Optional<StatementPersistenceService.Refreshed> refreshed = statementPersistenceService.refreshReconciled(
-                            accountId, sha256, parsedDraft, parsedLines, handledStatementIds);
-                    if (refreshed == null || refreshed.isEmpty()) {
-                        return null;
-                    }
-                    StatementPersistenceService.Refreshed r = refreshed.get();
-                    StatementBatchMatcher.Result matched = null;
-                    if (!r.missingLines().isEmpty()) {
-                        List<StatementBatchMatcher.Line> batchLines = new ArrayList<>();
-                        for (int idx : r.missingLines()) {
-                            batchLines.add(StatementBatchMatcher.Line.of(idx, parsedLines.get(idx)));
-                        }
-                        matched = batchMatcher.match(r.statement(), account, batchLines,
-                                unpaired -> createRows(user, account, parsedLines, unpaired));
-                    }
-                    return new RefreshOutcome(r, matched);
-                });
+                RefreshOutcome outcome = inTransaction(() -> reconciledRefresh()
+                        .apply(user, account, accountId, sha256, parsedDraft, parsedLines, handledStatementIds)
+                        .map(applied -> new RefreshOutcome(applied.refreshed(), applied.matched()))
+                        .orElse(null));
                 if (outcome != null) {
                     int created = outcome.matched() == null ? 0 : outcome.matched().created();
                     int attached = outcome.matched() == null ? 0 : outcome.matched().matched();
@@ -420,37 +376,13 @@ public class FileIngestionService {
         );
     }
 
-    /** The upload's own rows for the lines matching left unpaired: Confirmed, categorised on arrival, then saved. */
+    private ReconciledRefresh reconciledRefresh() {
+        return new ReconciledRefresh(statementPersistenceService, batchMatcher, reviewStatusManager, dbHandler, categoryAssigner);
+    }
+
     private Map<Integer, Transaction> createRows(User user, Account account, List<ParsedStatementLine> lines,
                                                  List<StatementBatchMatcher.Line> unpaired) {
-        Map<Integer, Transaction> made = new java.util.LinkedHashMap<>();
-        for (StatementBatchMatcher.Line batchLine : unpaired) {
-            ParsedStatementLine line = lines.get(batchLine.lineIndex());
-            Transaction txn = new Transaction();
-            txn.setUser(user);
-            txn.setAccount(account);
-            txn.setDate(line.date());
-            txn.setAmount(line.amount().abs());
-            txn.setSourcedDescription(line.description());
-            txn.setSource(TransactionSource.file_upload);
-            txn.setType(TransactionType.fromLlmDirection(line.direction()));
-            reviewStatusManager.transitionTo(txn, ReviewType.AUTO_REVIEWED);
-            txn.setTransactionUnderMonitoring(false);
-            txn.setTransactionExcluded(false);
-            made.put(batchLine.lineIndex(), txn);
-        }
-        List<Transaction> rows = new ArrayList<>(made.values());
-        // Each new row gets its category once, here (rules, links, engine), before it is stored.
-        if (categoryAssigner != null && !rows.isEmpty()) {
-            try {
-                int assigned = categoryAssigner.assignOnArrival(rows);
-                log.info("Categorised {} of {} uploaded transaction(s) on arrival", assigned, rows.size());
-            } catch (Exception e) {
-                log.warn("Categorise-on-arrival failed for an upload: {}", e.getMessage());
-            }
-        }
-        dbHandler.saveTransactions(rows, List.of());
-        return made;
+        return reconciledRefresh().createRows(user, account, lines, unpaired);
     }
 
     private void attachFile(UUID userId, UUID statementId, byte[] bytes, String filename) {
