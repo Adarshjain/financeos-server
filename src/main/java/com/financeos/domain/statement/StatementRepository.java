@@ -56,7 +56,8 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
     /**
      * What the re-read job picks, interleaved across users, oldest first: statements with a stored file and
      * (1) a stored parse older than {@code current} not yet examined at that version; or (2) examined at that version
-     * with ERROR, or an IN_PROGRESS stamp that was never settled, at or before {@code retryBefore}, fewer than
+     * with ERROR, PARSE_FAILED because the file is locked (summary LOCKED or LOCKED:cap: a password may have been
+     * saved since), or an IN_PROGRESS stamp that was never settled, at or before {@code retryBefore}, fewer than
      * {@code maxAttempts} times; or (3) when {@code applyOn} is 1, whose recorded outcome at that version is WOULD_CHANGE
      * (switching apply on applies recorded differences without a parser bump).
      */
@@ -67,6 +68,8 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
             + "(NVL(parser_version, 0) < :current AND NVL(reparse_version, 0) < :current) "
             + "OR (NVL(parser_version, 0) < :current AND reparse_version = :current AND reparse_outcome IN ('ERROR', 'IN_PROGRESS') "
             + "AND reparse_at <= :retryBefore AND NVL(reparse_attempts, 0) < :maxAttempts) "
+            + "OR (NVL(parser_version, 0) < :current AND reparse_version = :current AND reparse_outcome = 'PARSE_FAILED' "
+            + "AND reparse_summary LIKE 'LOCKED%' AND reparse_at <= :retryBefore AND NVL(reparse_attempts, 0) < :maxAttempts) "
             + "OR (:applyOn = 1 AND reparse_version = :current AND reparse_outcome = 'WOULD_CHANGE'))) "
             + "ORDER BY rn, created_at, id FETCH FIRST :batch ROWS ONLY", nativeQuery = true)
     List<ReparseCandidate> findReparseCandidates(@Param("batch") int batch, @Param("current") int current,

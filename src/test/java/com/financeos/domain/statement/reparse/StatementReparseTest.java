@@ -7,6 +7,7 @@ import com.financeos.domain.account.AccountBankDetails;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.ingestion.ReconciledRefresh;
 import com.financeos.domain.ingestion.StatementOpener;
+import com.financeos.domain.ingestion.StatementPasswordFinder;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementDraft;
 import com.financeos.domain.statement.StatementParseRecords;
@@ -118,6 +119,7 @@ class StatementReparseTest {
     private AccountRepository accounts;
     private UserRepository users;
     private StatementOpener opener;
+    private StatementPasswordFinder finder;
     private StatementPersistenceService persistence;
     private ReconciledRefresh refresh;
     private StatementParseRecords records;
@@ -138,6 +140,8 @@ class StatementReparseTest {
         accounts = mock(AccountRepository.class);
         users = mock(UserRepository.class);
         opener = mock(StatementOpener.class);
+        finder = mock(StatementPasswordFinder.class);
+        when(finder.find(any(), any(), any(), anyBoolean(), any())).thenReturn(new StatementPasswordFinder.Found(null, null, false));
         persistence = mock(StatementPersistenceService.class);
         refresh = mock(ReconciledRefresh.class);
         records = mock(StatementParseRecords.class);
@@ -167,7 +171,7 @@ class StatementReparseTest {
     private final StatementOpener.Opened DEFAULT_OPENED = opened(good(draft(StatementVerdict.AUTO_INGEST)));
 
     private StatementReparse job(boolean apply, int batch, long budgetSeconds, Clock clock, boolean enabled) {
-        return new StatementReparse(statements, store, accounts, users, opener, persistence, refresh, records, filter,
+        return new StatementReparse(statements, store, accounts, users, opener, finder, persistence, refresh, records, filter,
                 meters, tm, clock, V, enabled, apply, batch, budgetSeconds);
     }
 

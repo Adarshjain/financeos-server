@@ -78,7 +78,7 @@ public class StatementPasswordVault {
         return true;
     }
 
-    private static String passwordOf(Account a) {
+    static String passwordOf(Account a) {
         if (a.getCreditCardDetails() != null && a.getCreditCardDetails().getStatementPassword() != null) {
             return a.getCreditCardDetails().getStatementPassword();
         }

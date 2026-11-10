@@ -239,6 +239,81 @@ class StatementReparseSelectionIntegrationTest {
         }
     }
 
+    private void parkedFailure(UUID id, String summary, Instant at, Integer attempts) {
+        examinedAt(id, "PARSE_FAILED", at, attempts);
+        jdbc.update("UPDATE statements SET reparse_summary = ? WHERE id = ?", summary, id.toString());
+    }
+
+    @Test
+    void aLockedParseFailureIsRetriedOnlyAfter24Hours() {
+        parkedFailure(neverExamined, "LOCKED", NOW.minus(java.time.Duration.ofHours(2)), 1);
+        assertFalse(mine(find(1000, CURRENT)).contains(neverExamined));
+
+        parkedFailure(neverExamined, "LOCKED", NOW.minus(java.time.Duration.ofHours(25)), 1);
+        assertTrue(mine(find(1000, CURRENT)).contains(neverExamined));
+    }
+
+    @Test
+    void aCappedLockedParseFailureIsRetriedToo() {
+        parkedFailure(neverExamined, "LOCKED:cap", NOW.minus(java.time.Duration.ofHours(25)), 1);
+
+        assertTrue(mine(find(1000, CURRENT)).contains(neverExamined));
+    }
+
+    @Test
+    void aLockedParseFailureIsRetriedAtMostThreeTimesPerVersion() {
+        parkedFailure(neverExamined, "LOCKED", NOW.minus(java.time.Duration.ofHours(25)), 2);
+        assertTrue(mine(find(1000, CURRENT)).contains(neverExamined));
+
+        parkedFailure(neverExamined, "LOCKED", NOW.minus(java.time.Duration.ofHours(25)), 3);
+        assertFalse(mine(find(1000, CURRENT)).contains(neverExamined));
+    }
+
+    @Test
+    void aLockedParseFailureWithNoAttemptCountIsRetried() {
+        parkedFailure(neverExamined, "LOCKED", NOW.minus(java.time.Duration.ofHours(25)), null);
+
+        assertTrue(mine(find(1000, CURRENT)).contains(neverExamined));
+    }
+
+    @Test
+    void aLockedFailureAttemptsStartOverWhenTheParserVersionRises() {
+        parkedFailure(neverExamined, "LOCKED", NOW.minus(java.time.Duration.ofHours(25)), 3);
+        assertFalse(mine(find(1000, CURRENT)).contains(neverExamined));
+
+        // a newer parser version: not yet examined at it, so selected regardless of the old attempts
+        assertTrue(mine(find(1000, CURRENT + 1)).contains(neverExamined));
+        assertEquals(1, tx(() -> statementRepository.markReparseStarted(neverExamined, CURRENT + 1, NOW)));
+        assertEquals(1, versionOf("reparse_attempts", neverExamined));
+    }
+
+    @Test
+    void otherParseFailuresAreNeverRetried() {
+        for (String summary : List.of("UNREADABLE", "UNKNOWN", "UNSUPPORTED_TYPE", "EMPTY_FILE", "TOO_MANY_PAGES", "OTHER", "NOT LOCKED")) {
+            parkedFailure(neverExamined, summary, NOW.minus(java.time.Duration.ofHours(100)), 1);
+            assertFalse(mine(find(1000, CURRENT, 1)).contains(neverExamined), summary);
+        }
+    }
+
+    @Test
+    void aLockedFailureIsNotRetriedOnceTheStatementsParseIsCurrent() {
+        parkedFailure(neverExamined, "LOCKED", NOW.minus(java.time.Duration.ofHours(25)), 1);
+        jdbc.update("UPDATE statements SET parser_version = ? WHERE id = ?", CURRENT, neverExamined.toString());
+
+        assertFalse(mine(find(1000, CURRENT)).contains(neverExamined));
+    }
+
+    @Test
+    void theRetriedLockedFailureIsSettledByTheNextStamp() {
+        parkedFailure(neverExamined, "LOCKED", NOW.minus(java.time.Duration.ofHours(25)), 1);
+
+        assertEquals(1, tx(() -> statementRepository.markReparseStarted(neverExamined, CURRENT, NOW)));
+        assertEquals(2, versionOf("reparse_attempts", neverExamined));
+        assertEquals(1, tx(() -> statementRepository.markReparse(neverExamined, CURRENT, NOW, "SAME", null)));
+        assertEquals("SAME", outcome(neverExamined));
+        assertFalse(mine(find(1000, CURRENT)).contains(neverExamined));
+    }
+
     @Test
     void aRecordedWouldChangeIsSelectedOnlyWhenApplyIsOn() {
         examinedAt(neverExamined, "WOULD_CHANGE", NOW.minus(java.time.Duration.ofMinutes(1)), 1);

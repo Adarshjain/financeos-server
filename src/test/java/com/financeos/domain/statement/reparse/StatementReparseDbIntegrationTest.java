@@ -190,9 +190,16 @@ class StatementReparseDbIntegrationTest {
                         throw e.getCause();
                     }
                 });
-        return new StatementReparse(mine, fileStore, accountRepository, userRepository, opener, persistence,
+        return new StatementReparse(mine, fileStore, accountRepository, userRepository, opener, notFoundFinder(), persistence,
                 reconciledRefresh, parseRecords, filter, new SimpleMeterRegistry(), txManager, Clock.systemUTC(), V,
                 true, apply, 50, 60);
+    }
+
+    private static com.financeos.domain.ingestion.StatementPasswordFinder notFoundFinder() {
+        var f = mock(com.financeos.domain.ingestion.StatementPasswordFinder.class);
+        when(f.find(any(), any(), any(), anyBoolean(), any()))
+                .thenReturn(new com.financeos.domain.ingestion.StatementPasswordFinder.Found(null, null, false));
+        return f;
     }
 
     // ---- reading the database back ----

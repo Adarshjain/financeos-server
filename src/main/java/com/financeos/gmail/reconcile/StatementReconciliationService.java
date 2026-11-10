@@ -798,7 +798,7 @@ public class StatementReconciliationService {
     }
 
     /** True when this password opens the PDF (pdf) or the encrypted Excel file (otherwise). */
-    private static boolean opens(byte[] bytes, String password, boolean pdf) {
+    public static boolean opens(byte[] bytes, String password, boolean pdf) {
         if (pdf) {
             try (PDDocument doc = Loader.loadPDF(bytes, password)) {
                 return true;

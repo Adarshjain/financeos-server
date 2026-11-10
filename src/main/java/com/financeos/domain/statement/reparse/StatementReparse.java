@@ -6,6 +6,7 @@ import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.ingestion.ReconciledRefresh;
 import com.financeos.domain.ingestion.StatementOpener;
+import com.financeos.domain.ingestion.StatementPasswordFinder;
 import com.financeos.domain.statement.StatementDraft;
 import com.financeos.domain.statement.StatementImportGate;
 import com.financeos.domain.statement.StatementParseRecords;
@@ -15,7 +16,9 @@ import com.financeos.domain.statement.file.StatementFileStore;
 import com.financeos.domain.user.UserRepository;
 import com.financeos.gmail.reconcile.ParsedStatementLine;
 import com.financeos.gmail.reconcile.StatementExtractionResult;
+import com.financeos.statement.parser.FileType;
 import com.financeos.statement.parser.StatementParseEngine;
+import com.financeos.statement.parser.StatementParseException;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import org.slf4j.Logger;
@@ -52,7 +55,7 @@ public class StatementReparse {
 
     private static final Logger log = LoggerFactory.getLogger(StatementReparse.class);
     static final int SUMMARY_MAX = 500;
-    /** An ERROR (or an IN_PROGRESS never settled) is retried after this long, up to MAX_ATTEMPTS per parser version. */
+    /** An ERROR, a locked PARSE_FAILED (summary LOCKED*) or an IN_PROGRESS never settled is retried after this long, up to MAX_ATTEMPTS per parser version. */
     static final Duration RETRY_AFTER = Duration.ofHours(24);
     static final int MAX_ATTEMPTS = 3;
 
@@ -98,6 +101,7 @@ public class StatementReparse {
     private final AccountRepository accountRepository;
     private final UserRepository userRepository;
     private final StatementOpener opener;
+    private final StatementPasswordFinder passwordFinder;
     private final StatementPersistenceService persistence;
     private final ReconciledRefresh refresh;
     private final StatementParseRecords parseRecords;
@@ -110,11 +114,14 @@ public class StatementReparse {
     private final boolean apply;
     private final int batch;
     private final Duration budget;
+    /** Locked files opened by the wider password search in the current run, by source (the scheduler runs one at a time). */
+    private final Map<StatementPasswordFinder.Source, Integer> unlocked = new java.util.concurrent.ConcurrentHashMap<>();
 
     @Autowired
     public StatementReparse(StatementRepository statementRepository, StatementFileStore store,
                             AccountRepository accountRepository, UserRepository userRepository,
-                            StatementOpener opener, StatementPersistenceService persistence, ReconciledRefresh refresh,
+                            StatementOpener opener, StatementPasswordFinder passwordFinder,
+                            StatementPersistenceService persistence, ReconciledRefresh refresh,
                             StatementParseRecords parseRecords, UserFilterEnabler userFilterEnabler,
                             MeterRegistry registry,
                             PlatformTransactionManager txManager, ObjectProvider<Clock> clock,
@@ -122,7 +129,8 @@ public class StatementReparse {
                             @Value("${app.statement-reparse.apply:false}") boolean apply,
                             @Value("${app.statement-reparse.batch:5}") int batch,
                             @Value("${app.statement-reparse.budget-seconds:45}") long budgetSeconds) {
-        this(statementRepository, store, accountRepository, userRepository, opener, persistence, refresh, parseRecords,
+        this(statementRepository, store, accountRepository, userRepository, opener, passwordFinder, persistence, refresh,
+                parseRecords,
                 userFilterEnabler, registry, txManager,
                 clock.getIfAvailable(Clock::systemUTC), StatementParseEngine.PARSER_VERSION, enabled, apply, batch,
                 budgetSeconds);
@@ -130,7 +138,8 @@ public class StatementReparse {
 
     StatementReparse(StatementRepository statementRepository, StatementFileStore store,
                      AccountRepository accountRepository, UserRepository userRepository,
-                     StatementOpener opener, StatementPersistenceService persistence, ReconciledRefresh refresh,
+                     StatementOpener opener, StatementPasswordFinder passwordFinder,
+                     StatementPersistenceService persistence, ReconciledRefresh refresh,
                      StatementParseRecords parseRecords, UserFilterEnabler userFilterEnabler,
                      MeterRegistry registry,
                      PlatformTransactionManager txManager, Clock clock, int currentVersion,
@@ -140,6 +149,7 @@ public class StatementReparse {
         this.accountRepository = accountRepository;
         this.userRepository = userRepository;
         this.opener = opener;
+        this.passwordFinder = passwordFinder;
         this.persistence = persistence;
         this.refresh = refresh;
         this.parseRecords = parseRecords;
@@ -160,6 +170,7 @@ public class StatementReparse {
             return;
         }
         Map<Outcome, Integer> counts = new EnumMap<>(Outcome.class);
+        unlocked.clear();
         try {
             Instant deadline = clock.instant().plus(budget);
             List<StatementRepository.ReparseCandidate> candidates =
@@ -178,7 +189,8 @@ public class StatementReparse {
             log.warn("Statement re-read run failed: {}", e.toString());
         }
         if (!counts.isEmpty()) {
-            log.info("Statement re-read (parser version {}, apply={}) {}", currentVersion, apply, counts);
+            log.info("Statement re-read (parser version {}, apply={}) {} unlocked={}", currentVersion, apply, counts,
+                    new java.util.TreeMap<>(unlocked));
         }
     }
 
@@ -226,6 +238,21 @@ public class StatementReparse {
         return result;
     }
 
+    private static boolean isLocked(StatementExtractionResult parsed) {
+        return parsed.failureKind() == StatementParseException.Kind.LOCKED
+                || (parsed.failureKind() == StatementParseException.Kind.OTHER
+                && StatementParseException.isPasswordMessage(parsed.failureReason()));
+    }
+
+    /** As the parser decides: the %PDF- header within the first 1024 bytes (some banks put a preamble before it). */
+    private static boolean isPdf(byte[] bytes) {
+        return FileType.pdfHeaderOffset(bytes) >= 0;
+    }
+
+    private void unlockCounter(String source) {
+        Counter.builder("financeos.statement.reparse.unlock").tag("source", source).register(registry).increment();
+    }
+
     private Result examine(StatementRepository.ReparseCandidate c, UUID statementId, UUID userId) {
         UUID accountId = UUID.fromString(c.getAccountId());
         UUID fileId = UUID.fromString(c.getFileId());
@@ -239,6 +266,18 @@ public class StatementReparse {
             return new Result(Outcome.NO_TARGET, "account");
         }
         StatementExtractionResult parsed = opener.open(userId, accountId, bytes, null, accountPassword.orElse(null), false).result();
+        if (!parsed.success() && isLocked(parsed)) {
+            // The upload path's passwords did not open it: the Gmail path's wider search (other accounts' passwords with
+            // case variants, passwords built from the bank's rules). No transaction is open here; nothing is saved.
+            StatementPasswordFinder.Found found = passwordFinder.find(userId, accountId, bytes, isPdf(bytes),
+                    accountPassword.map(Set::of).orElse(Set.of()));
+            unlockCounter(found.opened() ? found.source().name() : found.capHit() ? "CAP" : "NONE");
+            if (!found.opened()) {
+                return new Result(Outcome.PARSE_FAILED, found.capHit() ? "LOCKED:cap" : "LOCKED");
+            }
+            unlocked.merge(found.source(), 1, Integer::sum);
+            parsed = opener.open(userId, accountId, bytes, found.password(), accountPassword.orElse(null), false).result();
+        }
         if (!parsed.success()) {
             return new Result(Outcome.PARSE_FAILED, parsed.failureKind() == null ? "UNKNOWN" : parsed.failureKind().name());
         }
