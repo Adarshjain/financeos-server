@@ -35,9 +35,11 @@ public final class LayoutProfile {
 
     public enum Position { RIGHT_ON_LINE, BELOW_BY_X, NTH_AMOUNT_BELOW, CAPTURE }
 
-    public enum ValueType { AMOUNT, DATE, DATE_RANGE, MASKED_NUMBER, INTEGER }
+    public enum ValueType { AMOUNT, DATE, DATE_RANGE, MASKED_NUMBER, INTEGER, TEXT }
 
-    public enum MetaTarget { PERIOD, PERIOD_START, PERIOD_END, STATEMENT_DATE, ACCOUNT_NUMBER, OPENING_BALANCE, CLOSING_BALANCE }
+    public enum MetaTarget {
+        PERIOD, PERIOD_START, PERIOD_END, STATEMENT_DATE, ACCOUNT_NUMBER, IFSC, HOLDER_NAME, OPENING_BALANCE, CLOSING_BALANCE
+    }
 
     /** A header label: its name (what columns refer to) and the regex that finds it in the header line. */
     public record HeaderLabel(String name, Pattern regex) {
@@ -80,7 +82,7 @@ public final class LayoutProfile {
      */
     public record Summary(String legacyKey, MetaTarget metaTarget, Pattern label, Position position, ValueType type,
                           int n, int maxLines, double xTolerance, Set<Integer> pages, boolean creditIsNegative,
-                          boolean creditIsZero, Pattern capture, int captureLines, boolean compact) {
+                          boolean creditIsZero, Pattern capture, int captureLines, boolean compact, int maxWords) {
     }
 
     /** What a custom row strategy returns for one row of the table. */
@@ -116,6 +118,7 @@ public final class LayoutProfile {
     private final boolean cardLast4FromAccountNumber;
     private final List<Column> continuationColumns;
     private final List<LabelAt> labelGeometry;
+    private final boolean accountNumberFromSectionHeader;
     private final RowShape rowShape;
     private final RowStrategy rowStrategy;
     private final double continuationBelow;
@@ -146,6 +149,7 @@ public final class LayoutProfile {
         this.cardLast4FromAccountNumber = b.cardLast4FromAccountNumber;
         this.continuationColumns = List.copyOf(b.continuationColumns);
         this.labelGeometry = List.copyOf(b.labelGeometry);
+        this.accountNumberFromSectionHeader = b.accountNumberFromSectionHeader;
         this.rowShape = b.rowStrategy != null ? RowShape.CUSTOM : RowShape.SINGLE_LINE;
         this.rowStrategy = b.rowStrategy;
         this.continuationBelow = b.continuationBelow;
@@ -229,6 +233,7 @@ public final class LayoutProfile {
     public boolean cardLast4FromAccountNumber() { return cardLast4FromAccountNumber; }
     public List<Column> continuationColumns() { return continuationColumns; }
     public List<LabelAt> labelGeometry() { return labelGeometry; }
+    public boolean accountNumberFromSectionHeader() { return accountNumberFromSectionHeader; }
     public RowShape rowShape() { return rowShape; }
     public RowStrategy rowStrategy() { return rowStrategy; }
     public double continuationBelow() { return continuationBelow; }
@@ -276,6 +281,7 @@ public final class LayoutProfile {
         private boolean cardLast4FromAccountNumber;
         private final List<Column> continuationColumns = new ArrayList<>();
         private final List<LabelAt> labelGeometry = new ArrayList<>();
+        private boolean accountNumberFromSectionHeader;
         private RowStrategy rowStrategy;
         private double continuationBelow;
         private double continuationAbove;
@@ -365,6 +371,12 @@ public final class LayoutProfile {
             labelGeometry.add(new LabelAt(label, minX, maxX));
             return this;
         }
+
+        /**
+         * The first section header's group 1 is the full card number: it fills the account number when no ACCOUNT_NUMBER
+         * summary found one, and each row's card last 4 becomes the last 4 digits of that group.
+         */
+        public Builder accountNumberFromSectionHeader() { this.accountNumberFromSectionHeader = true; return this; }
 
         /** Rows with no section header above them take the last 4 digits of the ACCOUNT_NUMBER summary value. */
         public Builder cardLast4FromAccountNumber() { this.cardLast4FromAccountNumber = true; return this; }
@@ -468,6 +480,7 @@ public final class LayoutProfile {
         private Pattern capture;
         private int captureLines;
         private boolean compact;
+        private int maxWords = 1;
 
         private SummaryBuilder(Builder parent, String legacyKey, MetaTarget metaTarget, String labelRegex) {
             this.parent = parent;
@@ -501,6 +514,9 @@ public final class LayoutProfile {
         /** The capture regex is also tried on each of the next n lines of the page (default 0). */
         public SummaryBuilder captureLines(int n) { this.captureLines = n; return this; }
 
+        /** TEXT with RIGHT_ON_LINE / BELOW_BY_X: take up to n words (default 1; lone punctuation words are skipped). */
+        public SummaryBuilder maxWords(int n) { this.maxWords = n; return this; }
+
         /** MASKED_NUMBER: remove the whitespace inside the captured value (default: kept as captured). */
         public SummaryBuilder compact() { this.compact = true; return this; }
 
@@ -518,11 +534,30 @@ public final class LayoutProfile {
         public SummaryBuilder creditIsZero() { this.creditIsZero = true; return this; }
 
         public Builder done() {
+            // only target / type pairs the reader can store: a wrongly typed value can never reach a throwing cast
+            if (metaTarget != null) {
+                java.util.Set<ValueType> ok = switch (metaTarget) {
+                    case PERIOD -> java.util.Set.of(ValueType.DATE_RANGE);
+                    case PERIOD_START, PERIOD_END, STATEMENT_DATE -> java.util.Set.of(ValueType.DATE);
+                    case ACCOUNT_NUMBER -> java.util.Set.of(ValueType.MASKED_NUMBER, ValueType.TEXT);
+                    case IFSC, HOLDER_NAME -> java.util.Set.of(ValueType.TEXT);
+                    case OPENING_BALANCE, CLOSING_BALANCE -> java.util.Set.of(ValueType.AMOUNT);
+                };
+                if (!ok.contains(type)) {
+                    throw new IllegalStateException(metaTarget + " cannot take a " + type + " value (allowed: " + ok + ")");
+                }
+            } else if ("payment_due_date".equals(legacyKey) ? type != ValueType.DATE
+                    : (type != ValueType.AMOUNT && type != ValueType.INTEGER)) {
+                throw new IllegalStateException("summary key " + legacyKey + " cannot take a " + type + " value");
+            }
+            if (position == Position.NTH_AMOUNT_BELOW && type != ValueType.AMOUNT) {
+                throw new IllegalStateException("nthAmountBelow reads amounts only");
+            }
             if ((metaTarget == MetaTarget.PERIOD_START || metaTarget == MetaTarget.PERIOD_END) && type != ValueType.DATE) {
                 throw new IllegalStateException(metaTarget + " takes a single DATE");
             }
             parent.summary.add(new Summary(legacyKey, metaTarget, label, position, type, n, maxLines, xTolerance,
-                    Set.copyOf(pages), creditIsNegative, creditIsZero, capture, captureLines, compact));
+                    Set.copyOf(pages), creditIsNegative, creditIsZero, capture, captureLines, compact, maxWords));
             return parent;
         }
     }

@@ -194,6 +194,8 @@ public final class ProfiledReader {
         LocalDate periodEnd;
         int unread;
         boolean[] scannable;
+        boolean[] consumed;
+        String sectionNumber;
         int summaryMaxPage;
         int dropped;
 
@@ -220,6 +222,7 @@ public final class ProfiledReader {
             }
         }
         // summary values are read from the table pages and the trailing non-prose summary pages only, never terms text
+        st.consumed = new boolean[lines.size()];
         st.scannable = new boolean[lines.size()];
         Map<Integer, List<Resolved>> geometry = new HashMap<>();
         for (int i = 0; i < lines.size(); i++) {
@@ -234,6 +237,9 @@ public final class ProfiledReader {
         }
         st.summaryMaxPage = maxBody < 0 ? -1 : StatementParseEngine.harvestWindow(lines, maxBody);
         harvestSummary(st, meta, summaryFields);
+        if (p.accountNumberFromSectionHeader() && meta.accountNumber == null) {
+            meta.accountNumber = st.sectionNumber;
+        }
 
         List<Raw> raws = p.rowShape() == LayoutProfile.RowShape.CUSTOM ? customRows(st) : singleLineRows(st);
         if (raws.isEmpty()) {
@@ -401,7 +407,14 @@ public final class ProfiledReader {
             if (p.sectionHeader() != null) {
                 Matcher m = p.sectionHeader().matcher(text);
                 if (m.find()) {
-                    last4 = m.groupCount() >= 1 ? m.group(1) : null;
+                    String g = m.groupCount() >= 1 ? m.group(1) : null;
+                    if (p.accountNumberFromSectionHeader() && g != null) {
+                        if (st.sectionNumber == null) {
+                            st.sectionNumber = g.strip();
+                        }
+                        g = lastFourDigits(g);
+                    }
+                    last4 = g;
                     st.kind[i] = Kind.SECTION;
                     continue;
                 }
@@ -515,7 +528,7 @@ public final class ProfiledReader {
         List<Pend> pending = new ArrayList<>();
         Map<Integer, List<Resolved>> colsByPage = new HashMap<>();
         for (int i = 0; i < st.lines.size(); i++) {
-            if (st.kind[i] != Kind.BODY) {
+            if (st.kind[i] != Kind.BODY || st.consumed[i]) {
                 continue;
             }
             Line ln = st.lines.get(i);
@@ -676,10 +689,32 @@ public final class ProfiledReader {
         }
         switch (p.sign()) {
             case SEPARATE_COLUMNS -> {
-                if (debit != null && credit == null && !ambiguous(amountWords, Role.CREDIT)) {
+                if ((hasAmountCell(amountWords, Role.DEBIT) && debit == null)
+                        || (hasAmountCell(amountWords, Role.CREDIT) && credit == null)) {
+                    st.unread++; // two figures in one cell
+                    return null;
+                }
+                if (debit != null && credit != null) {
+                    // a printed zero in the unused column is blank; both zero is a zero row (as the generic reader keeps it)
+                    boolean debitZero = debit.value().signum() == 0;
+                    boolean creditZero = credit.value().signum() == 0;
+                    if (debitZero && creditZero) {
+                        r.magnitude = BigDecimal.ZERO;
+                        r.sign = 1;
+                    } else if (debitZero) {
+                        r.magnitude = credit.value();
+                        r.sign = 1;
+                    } else if (creditZero) {
+                        r.magnitude = debit.value();
+                        r.sign = -1;
+                    } else {
+                        st.unread++; // both columns hold a real amount
+                        return null;
+                    }
+                } else if (debit != null) {
                     r.magnitude = debit.value();
                     r.sign = -1;
-                } else if (credit != null && debit == null && !ambiguous(amountWords, Role.DEBIT)) {
+                } else if (credit != null) {
                     r.magnitude = credit.value();
                     r.sign = 1;
                 } else {
@@ -775,6 +810,10 @@ public final class ProfiledReader {
             }
         }
         return found;
+    }
+
+    private static boolean hasAmountCell(Map<Role, List<Word>> words, Role role) {
+        return ambiguous(words, role);
     }
 
     private static boolean ambiguous(Map<Role, List<Word>> words, Role role) {
@@ -993,24 +1032,55 @@ public final class ProfiledReader {
             if (s.metaTarget() != null) {
                 switch (s.metaTarget()) {
                     case PERIOD -> {
-                        LocalDate[] range = (LocalDate[]) v;
-                        meta.periodStart = range[0];
-                        meta.periodEnd = range[1];
-                        st.periodStart = range[0];
-                        st.periodEnd = range[1];
+                        if (v instanceof LocalDate[] range) {
+                            meta.periodStart = range[0];
+                            meta.periodEnd = range[1];
+                            st.periodStart = range[0];
+                            st.periodEnd = range[1];
+                        }
                     }
                     case PERIOD_START -> {
-                        meta.periodStart = (LocalDate) v;
-                        st.periodStart = (LocalDate) v;
+                        if (v instanceof LocalDate d) {
+                            meta.periodStart = d;
+                            st.periodStart = d;
+                        }
                     }
                     case PERIOD_END -> {
-                        meta.periodEnd = (LocalDate) v;
-                        st.periodEnd = (LocalDate) v;
+                        if (v instanceof LocalDate d) {
+                            meta.periodEnd = d;
+                            st.periodEnd = d;
+                        }
                     }
-                    case STATEMENT_DATE -> meta.documentDate = (LocalDate) v;
-                    case ACCOUNT_NUMBER -> meta.accountNumber = (String) v;
-                    case OPENING_BALANCE -> meta.openingBalance = ((BigDecimal) v).doubleValue();
-                    case CLOSING_BALANCE -> meta.closingBalance = ((BigDecimal) v).doubleValue();
+                    case STATEMENT_DATE -> {
+                        if (v instanceof LocalDate d) {
+                            meta.documentDate = d;
+                        }
+                    }
+                    case ACCOUNT_NUMBER -> {
+                        if (v instanceof String t) {
+                            meta.accountNumber = t;
+                        }
+                    }
+                    case IFSC -> {
+                        if (v instanceof String t) {
+                            meta.ifsc = t;
+                        }
+                    }
+                    case HOLDER_NAME -> {
+                        if (v instanceof String t) {
+                            meta.holderName = t;
+                        }
+                    }
+                    case OPENING_BALANCE -> {
+                        if (v instanceof BigDecimal b) {
+                            meta.openingBalance = b.doubleValue();
+                        }
+                    }
+                    case CLOSING_BALANCE -> {
+                        if (v instanceof BigDecimal b) {
+                            meta.closingBalance = b.doubleValue();
+                        }
+                    }
                 }
             } else if (v instanceof BigDecimal bd) {
                 fields.put(s.legacyKey(), bd.doubleValue());
@@ -1091,6 +1161,7 @@ public final class ProfiledReader {
                 }
             }
             if (v != null) {
+                st.consumed[i] = true; // a summary line inside the table is not a continuation or an unread line
                 return v;
             }
         }
@@ -1156,6 +1227,8 @@ public final class ProfiledReader {
                 }
                 return d1 != null && d2 != null ? new LocalDate[]{d1, d2} : null;
             }
+            case TEXT:
+                return raw;
             case MASKED_NUMBER:
                 return s.compact() ? raw.replaceAll("\\s+", "") : raw;
             case INTEGER: {
@@ -1197,6 +1270,20 @@ public final class ProfiledReader {
             case DATE_RANGE: {
                 List<LocalDate> ds = datesIn(st, candidates);
                 return ds.size() >= 2 ? new LocalDate[]{ds.get(0), ds.get(ds.size() - 1)} : null;
+            }
+            case TEXT: {
+                List<String> parts = new ArrayList<>();
+                for (Word w : candidates) {
+                    String t = Amounts.norm(w.text());
+                    if (t.isEmpty() || t.matches("[:\\-|.]+")) {
+                        continue;
+                    }
+                    parts.add(t);
+                    if (parts.size() >= s.maxWords()) {
+                        break;
+                    }
+                }
+                return parts.isEmpty() ? null : String.join(" ", parts);
             }
             case MASKED_NUMBER:
                 for (Word w : candidates) {

@@ -47,6 +47,21 @@ Put a class in `layout/profiles/` that builds a `LayoutProfile` (see `AxisCardDt
   columns and its own acceptance diff. Chosen over alignment-aware columns or alternative column sets because it keeps
   every profile one static, reviewable description and the acceptance rule per variant.
 
+- `ValueType.TEXT`: the raw value as a String (RIGHT_ON_LINE / BELOW_BY_X: the next word(s), `.maxWords(n)`, default 1, lone
+  punctuation skipped; with `capture(regex)`: group 1). Targets: `ACCOUNT_NUMBER` (MASKED_NUMBER or TEXT), `IFSC`,
+  `HOLDER_NAME` (TEXT). The builder rejects target/type pairs the reader cannot store (legacy summary keys take AMOUNT or
+  INTEGER, `payment_due_date` DATE). Like for like with the generic reader: IFSC `(?-i:\b([A-Z]{4}0[A-Z0-9]{6})\b)` (the
+  capture flag is case-insensitive, so switch it off inline), holder name
+  `(?:customer name|account holder|a/c holder|holder name|name)\s*[:\-]\s*(.+)`, first line wins.
+- An unlabelled number (a masked card number alone on a line under the header): `summary(ACCOUNT_NUMBER, <mask regex>)
+  .capture("(<mask regex>)")`; the line is a summary line, never a continuation or unread.
+  `accountNumberFromSectionHeader()`: the section header's group 1 is the full number (ACCOUNT_NUMBER fallback; each row's
+  last 4 are its last 4 digits).
+- `cardLast4From` / `cardLast4FromAccountNumber` apply to rows of every strategy (a custom strategy's own last 4 wins).
+  A BANK profile reproduces the generic reader's "last 4 of the account number" with `cardLast4FromAccountNumber()`.
+- SEPARATE_COLUMNS: a printed zero in the unused column is blank; both zero is a zero row (the generic reader keeps it);
+  two real amounts, or two figures in one cell, are unread. Narration below such a row works with `continuation(below, 0)`.
+
 ## Acceptance rule (before a profile goes ACTIVE)
 
 Run the corpus twice, `-Dcorpus.reader=v1` and `-Dcorpus.reader=layout`, then `CorpusDiff` with
