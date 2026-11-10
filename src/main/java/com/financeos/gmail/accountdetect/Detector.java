@@ -765,7 +765,7 @@ public final class Detector {
      * Placeholder shapes used in sample text ("XXXX1234"): one digit repeated, or a straight ascending or descending
      * run. Bank-agnostic; a real number with this shape is lost (blank beats a confident wrong value).
      */
-    static boolean placeholder(String last4) {
+    public static boolean placeholder(String last4) {
         if (last4 == null || last4.length() != 4) return false;
         boolean same = true, up = true, down = true;
         for (int i = 1; i < 4; i++) {

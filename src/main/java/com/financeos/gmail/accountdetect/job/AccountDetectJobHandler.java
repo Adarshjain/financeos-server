@@ -334,7 +334,8 @@ public class AccountDetectJobHandler implements JobHandler {
         long tFp = System.nanoTime();
         // the outcome also depends on the user's open banks and numbers: opening or closing an account re-evaluates
         com.financeos.gmail.accountdetect.Detector.Options detectOptions = optionsFor(userId);
-        String statementsFp = Timing.call(Ops.ACCOUNTDETECT_STATEMENTS_FP, () -> statementsFingerprint(userId)) + "|" + knownFingerprint(detectOptions);
+        List<IngestAlertNumbers.Row> ingestAlerts = ingestAlerts(userId);
+        String statementsFp = Timing.call(Ops.ACCOUNTDETECT_STATEMENTS_FP, () -> statementsFingerprint(userId)) + "|" + knownFingerprint(detectOptions) + "|" + IngestAlertNumbers.fingerprint(ingestAlerts);
         timings.put("7 statements fp", (System.nanoTime() - tFp) / 1_000_000);
         LastDetection last = lastDetection.get(userId);
         if (!rereadChanged && nothingNew(firstScan, scan, headersMissing, incomplete) && last != null && statementsFp.equals(last.statementsFp())) {
@@ -389,7 +390,7 @@ public class AccountDetectJobHandler implements JobHandler {
             long tDb = System.nanoTime();
             List<StatementContent> dbStatements = Timing.call(Ops.ACCOUNTDETECT_DB_STATEMENTS, () -> DbStatements.load(jdbc, userId).statements());
             timings.put("9 db statements", (System.nanoTime() - tDb) / 1_000_000);
-            Detected d = detect(all, dbStatements, timings, detectOptions);
+            Detected d = detect(all, dbStatements, timings, detectOptions, ingestAlerts);
             detected = d;
             detection = d.detection();
             mailsStored = all.size();
@@ -688,7 +689,7 @@ public class AccountDetectJobHandler implements JobHandler {
         }
         lastDetection.remove(userId);   // facts changed: whatever happens next, the cached detection is stale
         List<AccountDetectStore.StoredFact> all = store.facts(userId);
-        Detected d = detect(all, DbStatements.load(jdbc, userId).statements(), null, optionsFor(userId));
+        Detected d = detect(all, DbStatements.load(jdbc, userId).statements(), null, optionsFor(userId), ingestAlerts(userId));
         if (!stillScanned(userId, connectionId)) return new LinkedHashMap<>(mailboxGone());
         Instant now = AppTime.nowInstant();
         sink.accept(userId, d.detection(), new DetectionContext(connectionId, false, false, all.size(), 0, d.statements(), now));
@@ -816,7 +817,20 @@ public class AccountDetectJobHandler implements JobHandler {
         }
     }
 
+    /**
+     * The user's unresolved, numbered ingest alerts (an extra evidence source). A load failure propagates: the run
+     * fails before the reuse path and the sink, because a detection sunk without this merge would delete the possible rows.
+     */
+    List<IngestAlertNumbers.Row> ingestAlerts(UUID userId) {
+        return IngestAlertNumbers.load(jdbc, userId);
+    }
+
     static Detected detect(List<AccountDetectStore.StoredFact> facts, List<StatementContent> dbStatements, Map<String, Long> timings, com.financeos.gmail.accountdetect.Detector.Options opt) {
+        return detect(facts, dbStatements, timings, opt, List.of());
+    }
+
+    static Detected detect(List<AccountDetectStore.StoredFact> facts, List<StatementContent> dbStatements, Map<String, Long> timings, com.financeos.gmail.accountdetect.Detector.Options opt,
+                           List<IngestAlertNumbers.Row> ingestAlerts) {
         List<MailDerived> derived = new ArrayList<>(facts.size());
         List<StatementContent> statements = new ArrayList<>();
         for (AccountDetectStore.StoredFact f : facts) {
@@ -825,7 +839,15 @@ public class AccountDetectJobHandler implements JobHandler {
             statements.addAll(f.facts().statements());
         }
         statements.addAll(dbStatements);
-        return new Detected(Stability.detectStable(derived, statements, STABILITY_SEED, timings, opt).detection(), statements.size());
+        Detection detection = Stability.detectStable(derived, statements, STABILITY_SEED, timings, opt).detection();
+        if (ingestAlerts != null && !ingestAlerts.isEmpty()) {
+            Map<String, com.financeos.gmail.accountdetect.Vocab.Kind> kindByMessage = new HashMap<>();
+            for (AccountDetectStore.StoredFact f : facts) {
+                if (f.facts().derived() != null && f.facts().derived().clusterKind() != null) kindByMessage.put(f.messageId(), f.facts().derived().clusterKind());
+            }
+            IngestAlertNumbers.merge(detection, ingestAlerts, kindByMessage, opt);
+        }
+        return new Detected(detection, statements.size());
     }
 
     /** Sender tokens exactly like the v3 runner: every bank domain, then the user's own allow-listed sender addresses. */

@@ -292,6 +292,20 @@ class AccountDetectJobHandlerTest {
         assertThat(detections.get(3)).isSameAs(detections.get(2));
     }
 
+    @Test
+    void anIngestAlertLoadFailureFailsTheRunAndNeverSinksWithoutTheMerge() throws Exception {
+        source = FixtureMailSource.of(BOX, m -> true);
+        JdbcTemplate jdbc = mock(JdbcTemplate.class);
+        org.mockito.Mockito.doThrow(new org.springframework.dao.TransientDataAccessResourceException("down")).when(jdbc)
+                .query(org.mockito.ArgumentMatchers.contains("gmail_processed_messages"), any(org.springframework.jdbc.core.RowCallbackHandler.class), any(Object[].class));
+        GmailSenderRepository senders = mock(GmailSenderRepository.class);
+        when(senders.findByUserId(userId)).thenReturn(List.of());
+        handler = new AccountDetectJobHandler(connections, senders, store, c -> source, guard, triggers,
+                (u, d, c) -> { detections.add(d); contexts.add(c); }, jdbc, 12, 50, 120);
+        org.junit.jupiter.api.Assertions.assertThrows(RuntimeException.class, () -> handler.execute(ctx));
+        assertThat(detections).isEmpty();
+    }
+
     @SuppressWarnings("unchecked")
     @Test
     void aCacheMissRunsTheFullDetectionEvenWhenNothingIsNew() throws Exception {
