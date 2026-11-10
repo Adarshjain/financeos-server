@@ -50,6 +50,13 @@ final class Amounts {
         return new Parsed(v.abs(), neg, m.group(3));
     }
 
+    private static final java.util.Set<String> CURRENCY = java.util.Set.of("C", "\u20b9", "$", "\u20ac", "\u00a3", "Rs", "Rs.", "INR", "`");
+
+    /** A currency glyph printed as its own word before an amount. */
+    static boolean isCurrencyToken(String token) {
+        return CURRENCY.contains(token);
+    }
+
     static boolean isAmount(String token) {
         return parse(token) != null;
     }

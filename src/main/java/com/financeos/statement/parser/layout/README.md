@@ -30,6 +30,23 @@ Put a class in `layout/profiles/` that builds a `LayoutProfile` (see `AxisCardDt
 - `IGNORE` columns swallow any token (dates, times, amounts, signs) and are never counted as unread.
 - A `FOR_GOOD` end marker on a heading keeps every sub-table below it out of the rows.
 
+- Card last 4 for rows: a section header above the row wins; otherwise `cardLast4From(regex)` (group 1 over the lines
+  before the first table header) and/or `cardLast4FromAccountNumber()`. The generic reader seeds its last 4 from the first
+  header line carrying a card number, which is the same number a profile's ACCOUNT_NUMBER summary captures.
+- `prefix(creditRegex, debitRegexOrNull, defaultDirection)`: the sign marker is the token right before the amount (or before
+  a currency glyph in front of it). Same adjacency and stray-token rules as `suffix`.
+- `continuationFromX(role, x0, x1)` / `continuationFromFirstDate(role, dx0, dx1)`: columns for header-less continuation pages
+  only. Absolute ranges are the robust choice (a template prints those pages with fixed geometry, and the roles shift by
+  different amounts, so no single offset works); the first-date anchor (leftmost full date token of the page) suits a
+  uniform page shift and falls back to the previous page's geometry when the page has no date. Default stays: reuse the
+  previous page's header-anchored columns.
+- A Cr/Dr-like token or amount inside an `IGNORE` column is ignored (an amount with its own marker, e.g. a cashback cell);
+  the row's marker is still the token adjacent to the AMOUNT-column amount.
+- Layout variants of one family (same labels, different x-arrangement) are separate profiles told apart by
+  `requiresLabelAt(label, minX, maxX)` (the x0 of that header label must lie in the range), each with its own relative
+  columns and its own acceptance diff. Chosen over alignment-aware columns or alternative column sets because it keeps
+  every profile one static, reviewable description and the acceptance rule per variant.
+
 ## Acceptance rule (before a profile goes ACTIVE)
 
 Run the corpus twice, `-Dcorpus.reader=v1` and `-Dcorpus.reader=layout`, then `CorpusDiff` with

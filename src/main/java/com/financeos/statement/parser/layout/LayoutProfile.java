@@ -23,7 +23,7 @@ public final class LayoutProfile {
 
     public enum Role { DATE, VALUE_DATE, NARRATION, REFERENCE, DEBIT, CREDIT, AMOUNT, MARKER, BALANCE, IGNORE }
 
-    public enum Sign { SEPARATE_COLUMNS, SUFFIX, MINUS_IS_CREDIT, BALANCE_DELTA }
+    public enum Sign { SEPARATE_COLUMNS, SUFFIX, PREFIX, MINUS_IS_CREDIT, BALANCE_DELTA }
 
     public enum Direction { DEBIT, CREDIT }
 
@@ -54,6 +54,20 @@ public final class LayoutProfile {
     }
 
     /** SUFFIX rule: the tokens that mean credit and debit, and the direction of an amount that carries neither. */
+    /**
+     * PREFIX rule: the marker is the token right before the amount (optionally with a currency glyph token between).
+     * credit / debit are full-match regexes (debit may be null: debits print nothing).
+     */
+    public record PrefixRule(Pattern credit, Pattern debit, Direction defaultDirection) {
+    }
+
+    /** A header geometry requirement: the x0 of the named header label must lie in [minX, maxX]. */
+    public record LabelAt(String label, double minX, double maxX) {
+    }
+
+    /** Edge label meaning "x0 of the leftmost date token of the page" (continuation columns only). */
+    public static final String FIRST_DATE = "$firstDate";
+
     public record SuffixRule(String creditToken, String debitToken, Direction defaultDirection) {
     }
 
@@ -97,6 +111,11 @@ public final class LayoutProfile {
     private final List<String> dateFormats;
     private final Sign sign;
     private final SuffixRule suffix;
+    private final PrefixRule prefix;
+    private final Pattern cardLast4From;
+    private final boolean cardLast4FromAccountNumber;
+    private final List<Column> continuationColumns;
+    private final List<LabelAt> labelGeometry;
     private final RowShape rowShape;
     private final RowStrategy rowStrategy;
     private final double continuationBelow;
@@ -122,6 +141,11 @@ public final class LayoutProfile {
         this.dateFormats = List.copyOf(b.dateFormats);
         this.sign = Objects.requireNonNull(b.sign, "sign");
         this.suffix = b.suffix;
+        this.prefix = b.prefix;
+        this.cardLast4From = b.cardLast4From;
+        this.cardLast4FromAccountNumber = b.cardLast4FromAccountNumber;
+        this.continuationColumns = List.copyOf(b.continuationColumns);
+        this.labelGeometry = List.copyOf(b.labelGeometry);
         this.rowShape = b.rowStrategy != null ? RowShape.CUSTOM : RowShape.SINGLE_LINE;
         this.rowStrategy = b.rowStrategy;
         this.continuationBelow = b.continuationBelow;
@@ -135,6 +159,21 @@ public final class LayoutProfile {
         this.summary = List.copyOf(b.summary);
         if (header.isEmpty()) {
             throw new IllegalStateException("a profile needs a header");
+        }
+        if (sign == Sign.PREFIX && prefix == null) {
+            throw new IllegalStateException("PREFIX sign rule needs prefix tokens");
+        }
+        if (!continuationColumns.isEmpty()) {
+            if (continuationColumns.stream().noneMatch(c -> c.role() == Role.DATE)) {
+                throw new IllegalStateException("continuation columns need a DATE column");
+            }
+            for (Column c : continuationColumns) {
+                for (Edge e : List.of(c.from(), c.to())) {
+                    if (e.label() != null && !FIRST_DATE.equals(e.label())) {
+                        throw new IllegalStateException("continuation columns are absolute or first-date relative");
+                    }
+                }
+            }
         }
         if (sign == Sign.SUFFIX && suffix == null) {
             throw new IllegalStateException("SUFFIX sign rule needs suffix tokens");
@@ -159,6 +198,11 @@ public final class LayoutProfile {
         }
         Set<String> names = new LinkedHashSet<>();
         header.forEach(h -> names.add(h.name()));
+        for (LabelAt g : labelGeometry) {
+            if (!names.contains(g.label())) {
+                throw new IllegalStateException("requiresLabelAt refers to unknown header label " + g.label());
+            }
+        }
         for (Column c : columns) {
             for (Edge e : List.of(c.from(), c.to())) {
                 if (e.label() != null && !names.contains(e.label())) {
@@ -180,6 +224,11 @@ public final class LayoutProfile {
     public List<String> dateFormats() { return dateFormats; }
     public Sign sign() { return sign; }
     public SuffixRule suffix() { return suffix; }
+    public PrefixRule prefix() { return prefix; }
+    public Pattern cardLast4From() { return cardLast4From; }
+    public boolean cardLast4FromAccountNumber() { return cardLast4FromAccountNumber; }
+    public List<Column> continuationColumns() { return continuationColumns; }
+    public List<LabelAt> labelGeometry() { return labelGeometry; }
     public RowShape rowShape() { return rowShape; }
     public RowStrategy rowStrategy() { return rowStrategy; }
     public double continuationBelow() { return continuationBelow; }
@@ -222,6 +271,11 @@ public final class LayoutProfile {
         private List<String> dateFormats = List.of("dd/MM/yyyy");
         private Sign sign;
         private SuffixRule suffix;
+        private PrefixRule prefix;
+        private Pattern cardLast4From;
+        private boolean cardLast4FromAccountNumber;
+        private final List<Column> continuationColumns = new ArrayList<>();
+        private final List<LabelAt> labelGeometry = new ArrayList<>();
         private RowStrategy rowStrategy;
         private double continuationBelow;
         private double continuationAbove;
@@ -288,6 +342,60 @@ public final class LayoutProfile {
         public Builder dateFormats(String... patterns) { this.dateFormats = List.of(patterns); return this; }
 
         public Builder sign(Sign sign) { this.sign = sign; return this; }
+
+        /**
+         * The sign marker is printed BEFORE the amount ("+" for credits): the token right before the amount, or before a
+         * currency glyph that precedes it. Tokens are full-match regexes (case-insensitive); debitRegex may be null when
+         * debits print nothing. Same adjacency and stray-token safety as SUFFIX; a marker-like word inside the
+         * NARRATION range is narration.
+         */
+        public Builder prefix(String creditRegex, String debitRegex, Direction defaultDirection) {
+            this.sign = Sign.PREFIX;
+            this.prefix = new PrefixRule(Pattern.compile(creditRegex, Pattern.CASE_INSENSITIVE),
+                    debitRegex == null ? null : Pattern.compile(debitRegex, Pattern.CASE_INSENSITIVE), defaultDirection);
+            return this;
+        }
+
+        /**
+         * Header geometry a layout variant is told apart by: the x0 of the named header label must lie in [minX, maxX]
+         * for the header to count. Variants of one family that arrange the same labels differently are separate profiles,
+         * each with its own relative columns and its own requiresLabelAt.
+         */
+        public Builder requiresLabelAt(String label, double minX, double maxX) {
+            labelGeometry.add(new LabelAt(label, minX, maxX));
+            return this;
+        }
+
+        /** Rows with no section header above them take the last 4 digits of the ACCOUNT_NUMBER summary value. */
+        public Builder cardLast4FromAccountNumber() { this.cardLast4FromAccountNumber = true; return this; }
+
+        /** Rows with no section header above them take the last 4 digits of group 1 over the lines before the table. */
+        public Builder cardLast4From(String regex) {
+            this.cardLast4From = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+            if (cardLast4From.matcher("").groupCount() < 1) {
+                throw new IllegalArgumentException("cardLast4From needs a group 1");
+            }
+            return this;
+        }
+
+        /** A column of header-less continuation pages (see continuationFromX / continuationFromFirstDate). */
+        public Builder continuationColumn(Role role, Edge from, Edge to) {
+            continuationColumns.add(new Column(role, from, to));
+            return this;
+        }
+
+        /**
+         * Column of header-less continuation pages at ABSOLUTE x-ranges. Use it when the template prints those pages
+         * with its own fixed geometry (roles shift by different amounts, so no single offset describes them).
+         */
+        public Builder continuationFromX(Role role, double x0, double x1) {
+            return continuationColumn(role, absolute(x0), absolute(x1));
+        }
+
+        /** Column of continuation pages relative to the x0 of the leftmost date token of that page (a uniform page shift). */
+        public Builder continuationFromFirstDate(Role role, double dx0, double dx1) {
+            return continuationColumn(role, at(FIRST_DATE, dx0), at(FIRST_DATE, dx1));
+        }
 
         public Builder suffix(String creditToken, String debitToken, Direction defaultDirection) {
             this.sign = Sign.SUFFIX;

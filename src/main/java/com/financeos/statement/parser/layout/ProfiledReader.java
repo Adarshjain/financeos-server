@@ -53,7 +53,8 @@ public final class ProfiledReader {
     private enum Kind { OUTSIDE, STRAY, HEADER, FURNITURE, SECTION, BODY }
 
     /** The header of one page: where it is and the x0 of each named label on it. */
-    private record Table(int page, int firstIdx, int headerIdx, Map<String, Double> labelX0) {
+    private record Table(int page, int firstIdx, int headerIdx, Map<String, Double> labelX0, boolean continuation,
+                         Double firstDateX) {
     }
 
     private record Spans(String text, List<int[]> ranges) {
@@ -143,7 +144,16 @@ public final class ProfiledReader {
             x0.put(h.name(), sps.get(line).wordAt(lines.get(first + line).words(), m.start()).x0());
             pos = Math.max(m.end(), pos + 1);
         }
-        return line == k - 1 ? new HeaderHit(first + k - 1, x0) : null; // the last label sits on the last line
+        if (line != k - 1) {
+            return null; // the last label sits on the last line
+        }
+        for (LayoutProfile.LabelAt g : p.labelGeometry()) {
+            Double x = x0.get(g.label());
+            if (x == null || x < g.minX() || x > g.maxX()) {
+                return null;
+            }
+        }
+        return new HeaderHit(first + k - 1, x0);
     }
 
     private static Map<Integer, Table> findHeaders(List<Line> lines, LayoutProfile p) {
@@ -155,7 +165,7 @@ public final class ProfiledReader {
             }
             HeaderHit h = headerAt(lines, i, p);
             if (h != null) {
-                tables.put(ln.page(), new Table(ln.page(), i, h.lastIdx(), h.labelX0()));
+                tables.put(ln.page(), new Table(ln.page(), i, h.lastIdx(), h.labelX0(), false, null));
             }
         }
         return tables;
@@ -229,6 +239,7 @@ public final class ProfiledReader {
         if (raws.isEmpty()) {
             throw new IllegalStateException("layout " + p.id() + " matched but read no rows");
         }
+        applyHeaderRegionLast4(st, raws, meta);
         orderRows(raws, p);
         countStray(st);
 
@@ -341,7 +352,11 @@ public final class ProfiledReader {
                     continue;
                 }
                 // a page that repeats the header waits for it; one that does not continues the table
-                cur = !tables.containsKey(ln.page()) && started && p.continuesWithoutHeader() ? last : null;
+                cur = null;
+                if (!tables.containsKey(ln.page()) && started && p.continuesWithoutHeader()) {
+                    cur = p.continuationColumns().isEmpty() ? last
+                            : new Table(ln.page(), -1, -1, last.labelX0(), true, firstDateX(st, ln.page()));
+                }
             }
             Table t = tables.get(ln.page());
             if (t != null && i >= t.firstIdx() && i < t.headerIdx()) {
@@ -439,12 +454,43 @@ public final class ProfiledReader {
     private record Resolved(Role role, double lo, double hi) {
     }
 
+    /** x0 of the leftmost date token of the page (a word that parses as a full date), or null. */
+    private static Double firstDateX(State st, int page) {
+        Double best = null;
+        for (Line ln : st.lines) {
+            if (ln.page() != page) {
+                continue;
+            }
+            for (Word w : ln.words()) {
+                if (st.dates.parse(Amounts.norm(w.text()), null, null) != null && (best == null || w.x0() < best)) {
+                    best = w.x0();
+                }
+            }
+        }
+        return best;
+    }
+
     private static List<Resolved> resolve(LayoutProfile p, Table t) {
         List<Resolved> out = new ArrayList<>();
+        boolean cont = t.continuation() && !p.continuationColumns().isEmpty();
+        if (cont && t.firstDateX() == null && p.continuationColumns().stream().anyMatch(
+                c -> LayoutProfile.FIRST_DATE.equals(c.from().label()) || LayoutProfile.FIRST_DATE.equals(c.to().label()))) {
+            cont = false; // no date on the page to anchor to: the previous page's geometry
+        }
+        if (cont) {
+            for (Column c : p.continuationColumns()) {
+                out.add(new Resolved(c.role(), contEdge(c.from(), t), contEdge(c.to(), t)));
+            }
+            return out;
+        }
         for (Column c : p.columns()) {
             out.add(new Resolved(c.role(), edge(c.from(), t), edge(c.to(), t)));
         }
         return out;
+    }
+
+    private static double contEdge(Edge e, Table t) {
+        return e.label() == null ? e.dx() : t.firstDateX() + e.dx();
     }
 
     private static double edge(Edge e, Table t) {
@@ -587,8 +633,28 @@ public final class ProfiledReader {
                 adjacent = Amounts.norm(ws.get(adjIdx).text());
             }
             for (int i = 0; i < ws.size(); i++) {
-                if (i != adjIdx && roleOf(cols, ws.get(i)) != Role.NARRATION
+                if (i != adjIdx && !exempt(roleOf(cols, ws.get(i)))
                         && markerLike(p, Amounts.norm(ws.get(i).text()))) {
+                    strayMarker = true;
+                }
+            }
+        }
+        if (p.sign() == Sign.PREFIX) {
+            // PREFIX: the marker is the token right before the amount (or before a currency glyph in front of it)
+            int markIdx = -1;
+            if (amountCells == 1) {
+                int k = amountIdx - 1;
+                if (k >= 0 && Amounts.isCurrencyToken(Amounts.norm(ws.get(k).text()))) {
+                    k--;
+                }
+                if (k >= 0 && prefixLike(p, Amounts.norm(ws.get(k).text()))) {
+                    markIdx = k;
+                    adjacent = Amounts.norm(ws.get(k).text());
+                }
+            }
+            for (int i = 0; i < ws.size(); i++) {
+                if (i != markIdx && !exempt(roleOf(cols, ws.get(i)))
+                        && prefixLike(p, Amounts.norm(ws.get(i).text()))) {
                     strayMarker = true;
                 }
             }
@@ -640,6 +706,23 @@ public final class ProfiledReader {
                     r.source = "default";
                 }
             }
+            case PREFIX -> {
+                if (amount == null) {
+                    st.dropped++;
+                    return null;
+                }
+                r.magnitude = amount.value();
+                if (adjacent != null && p.prefix().credit().matcher(adjacent).matches()) {
+                    r.sign = 1;
+                    r.source = "prefix";
+                } else if (adjacent != null && p.prefix().debit() != null && p.prefix().debit().matcher(adjacent).matches()) {
+                    r.sign = -1;
+                    r.source = "prefix";
+                } else {
+                    r.sign = p.prefix().defaultDirection() == Direction.CREDIT ? 1 : -1;
+                    r.source = "default";
+                }
+            }
             case MINUS_IS_CREDIT -> {
                 if (amount == null) {
                     st.dropped++;
@@ -660,6 +743,16 @@ public final class ProfiledReader {
             default -> throw new IllegalStateException();
         }
         return r;
+    }
+
+    /** Narration text and IGNORE cells (an amount with its own Cr/Dr, a cashback cell) never make a stray marker. */
+    private static boolean exempt(Role role) {
+        return role == Role.NARRATION || role == Role.IGNORE;
+    }
+
+    private static boolean prefixLike(LayoutProfile p, String token) {
+        return p.prefix().credit().matcher(token).matches()
+                || (p.prefix().debit() != null && p.prefix().debit().matcher(token).matches());
     }
 
     private static boolean markerLike(LayoutProfile p, String token) {
@@ -793,6 +886,20 @@ public final class ProfiledReader {
                             r.source = "default";
                         }
                     }
+                    case PREFIX -> {
+                        mag = tr.amount();
+                        String m = tr.marker();
+                        if (m != null && st.p.prefix().credit().matcher(m).matches()) {
+                            r.sign = 1;
+                            r.source = "prefix";
+                        } else if (m != null && st.p.prefix().debit() != null && st.p.prefix().debit().matcher(m).matches()) {
+                            r.sign = -1;
+                            r.source = "prefix";
+                        } else {
+                            r.sign = st.p.prefix().defaultDirection() == Direction.CREDIT ? 1 : -1;
+                            r.source = "default";
+                        }
+                    }
                     case MINUS_IS_CREDIT -> {
                         mag = tr.amount();
                         r.sign = tr.amountNegativeMarked() ? 1 : -1;
@@ -812,6 +919,44 @@ public final class ProfiledReader {
             }
         }
         return out;
+    }
+
+    /**
+     * Rows with no section header above them take the card's last 4 from the header region: group 1 of the declared
+     * regex over the lines before the first table header, else the last 4 digits of the ACCOUNT_NUMBER value.
+     */
+    private static void applyHeaderRegionLast4(State st, List<Raw> raws, StatementMeta meta) {
+        LayoutProfile p = st.p;
+        if (p.cardLast4From() == null && !p.cardLast4FromAccountNumber()) {
+            return;
+        }
+        String last4 = null;
+        if (p.cardLast4From() != null) {
+            for (int i = 0; i < st.lines.size() && last4 == null; i++) {
+                if (st.kind[i] == Kind.HEADER) {
+                    break;
+                }
+                Matcher m = p.cardLast4From().matcher(st.lines.get(i).text());
+                if (m.find() && m.group(1) != null) {
+                    last4 = lastFourDigits(m.group(1));
+                }
+            }
+        }
+        if (last4 == null && p.cardLast4FromAccountNumber() && meta.accountNumber != null) {
+            last4 = lastFourDigits(meta.accountNumber);
+        }
+        if (last4 != null) {
+            for (Raw r : raws) {
+                if (r.cardLast4 == null) {
+                    r.cardLast4 = last4;
+                }
+            }
+        }
+    }
+
+    private static String lastFourDigits(String text) {
+        String digits = text.replaceAll("[^0-9]", "");
+        return digits.length() >= 4 ? digits.substring(digits.length() - 4) : null;
     }
 
     private static void orderRows(List<Raw> rows, LayoutProfile p) {
