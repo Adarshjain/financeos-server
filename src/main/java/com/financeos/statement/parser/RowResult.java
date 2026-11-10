@@ -11,7 +11,7 @@ public class RowResult {
     public String signSource;
     public String cardLast4;
 
-    RowResult(LocalDate date, String description, Double amount, Double balance, boolean chainValid) {
+    public RowResult(LocalDate date, String description, Double amount, Double balance, boolean chainValid) {
         this.date = date;
         this.description = description;
         this.amount = amount;

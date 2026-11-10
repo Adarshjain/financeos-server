@@ -87,7 +87,8 @@ public final class DocumentReader {
 
     private static DocumentFacts.Hints engineHints(byte[] pdf, String password) {
         try {
-            ParsedStatement ps = StatementParseEngine.parse(pdf, password, null);
+            // hints for account detection: v1 only, never routed through layout profiles or their shadow run
+            ParsedStatement ps = StatementParseEngine.parseV1Only(pdf, password, null);
             StatementMeta meta = ps.meta();
             String acct = meta.accountNumber;
             String masked4 = null;

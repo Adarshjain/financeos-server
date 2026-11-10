@@ -7,6 +7,8 @@ import com.financeos.statement.parser.ParseInfo;
 import com.financeos.statement.parser.ParsedStatement;
 import com.financeos.statement.parser.StatementMeta;
 import com.financeos.statement.parser.StatementParseEngine;
+import com.financeos.statement.parser.layout.LayoutRouting;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.condition.EnabledIfSystemProperty;
 
@@ -34,12 +36,18 @@ import java.util.concurrent.TimeoutException;
 class CorpusRunner {
 
     static final List<String> RESULT_COLUMNS = List.of("sha256", "kind", "issuer", "bytes", "wall_ms", "failure_type",
-            "statement_type", "verdict", "mode", "chain_pct", "checksum_ok", "txn_count", "rows_dropped", "null_fields");
+            "statement_type", "verdict", "mode", "chain_pct", "checksum_ok", "txn_count", "rows_dropped", "null_fields", "layout_id");
 
     private static final ObjectMapper PRETTY = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
 
     /** One corpus file to parse: the readable bytes' sha256, its extension and the manifest labels. */
     record Entry(String sha256, String ext, String kind, String issuer) {
+    }
+
+    /** The forced reader is process-wide: never leave it set for the next test. */
+    @AfterEach
+    void resetForcedReader() {
+        LayoutRouting.setForcedReader(null);
     }
 
     @Test
@@ -50,6 +58,8 @@ class CorpusRunner {
         Path out = Path.of(outProp);
         boolean all = "all".equals(System.getProperty("corpus.scope", "in_scope"));
         long timeoutSec = Long.parseLong(System.getProperty("corpus.timeoutSec", "60"));
+        // -Dcorpus.reader=v1 ignores every layout profile; =layout reads with the matching profile as if ACTIVE
+        LayoutRouting.setForcedReader(System.getProperty("corpus.reader"));
 
         List<Entry> entries = readManifest(Files.readAllLines(dir.resolve("manifest.tsv"), StandardCharsets.UTF_8), all);
         Files.createDirectories(out);
@@ -171,6 +181,7 @@ class CorpusRunner {
             row.add(String.valueOf(ps.transactions().size()));
             row.add(String.valueOf(pi.rowsDropped));
             row.add(String.join(",", nullFields(ps)));
+            row.add(clean(ps.layoutId()));
         }
         return String.join("\t", row);
     }

@@ -17,6 +17,11 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.regex.Matcher;
 
+import com.financeos.statement.parser.layout.LayoutProfile;
+import com.financeos.statement.parser.layout.LayoutRouting;
+import com.financeos.statement.parser.layout.ProfiledReader;
+import com.financeos.statement.parser.layout.ReaderMode;
+
 public final class StatementParseEngine {
 
     // an amount still sitting in a description: "5 ,000.00" or "1,842.00"; not a dotted
@@ -34,20 +39,7 @@ public final class StatementParseEngine {
     public static StatementIdentity identify(byte[] bytes, String password) {
         Consumer<String> dbg = s -> {
         };
-        FileType type = FileType.detect(bytes);
-        if (type == FileType.PDF) {
-            int start = FileType.pdfHeaderOffset(bytes);
-            if (start > 0) {
-                bytes = Arrays.copyOfRange(bytes, start, bytes.length);
-            }
-        }
-        WordSource extractor = type == FileType.PDF ? new PdfWordExtractor() : new ExcelGridExtractor();
-        List<Line> lines = extractor.extract(bytes, password);
-        if (CardSectionLayout.present(lines)) {
-            lines = Tokens.wholeRupeeAsAmounts(CardSectionLayout.normalize(lines), true);
-        } else {
-            lines = Tokens.wholeRupeeAsAmounts(lines, false);
-        }
+        List<Line> lines = extractLines(bytes, password, dbg).lines();
         CollectedRows cr = RowCollector.collect(lines, dbg);
         StatementMeta meta = MetadataExtractor.extract(cr.metaZone(), cr.dateFmt());
         if (meta.accountNumber == null) {
@@ -60,12 +52,28 @@ public final class StatementParseEngine {
     /**
      * Version of the parser's output. Bump it whenever a change can alter the output for any real statement (that is,
      * whenever the corpus diff is not empty); it is stored with each statement beside the parse snapshot.
+     * Rule: bump it in the same commit that makes any layout profile ACTIVE by default.
      */
     public static final int PARSER_VERSION = 1;
+
+    /** The words of a file as ordered lines, normalised the way every reader expects them. */
+    public record Extracted(List<Line> lines, boolean cardSection) {
+    }
 
     public static ParsedStatement parse(byte[] bytes, String password, Consumer<String> debug) {
         Consumer<String> dbg = debug != null ? debug : s -> {
         };
+        Extracted ex = extractLines(bytes, password, dbg);
+        return parseExtracted(ex, dbg);
+    }
+
+    /** Reads a file into lines: file type, preamble offset, word extraction, card-section normalisation, whole-rupee rewrite. */
+    public static Extracted extractLines(byte[] bytes, String password) {
+        return extractLines(bytes, password, s -> {
+        });
+    }
+
+    public static Extracted extractLines(byte[] bytes, String password, Consumer<String> dbg) {
         FileType type = FileType.detect(bytes);
         if (type == FileType.PDF) {
             int start = FileType.pdfHeaderOffset(bytes);
@@ -82,17 +90,123 @@ public final class StatementParseEngine {
         } else {
             lines = Tokens.wholeRupeeAsAmounts(lines, false);
         }
+        return new Extracted(lines, cardSection);
+    }
 
-        CollectedRows cr;
+    /** Test seam: lines already built, routed and read exactly like {@link #parse} does after extraction. */
+    public static ParsedStatement parseLines(List<Line> lines, boolean cardSection, Consumer<String> debug) {
+        Consumer<String> dbg = debug != null ? debug : s -> {
+        };
+        return parseExtracted(new Extracted(lines, cardSection), dbg);
+    }
+
+    private static ParsedStatement parseExtracted(Extracted ex, Consumer<String> dbg) {
+        LayoutRouting.Decision decision = LayoutRouting.decide(ex.lines());
+        if (decision.mode() == ReaderMode.ACTIVE) {
+            return parseActive(ex, decision.profile(), dbg);
+        }
+        ParsedStatement v1 = parseV1(ex, dbg);
+        // the shadow run only happens when something listens to it; any failure in it (an Error too, but never an
+        // OutOfMemoryError) is invisible to the caller
+        if (decision.mode() == ReaderMode.SHADOW && LayoutRouting.hasListener()) {
+            try {
+                ParsedStatement shadow = null;
+                try {
+                    ProfiledReader.Result pr = ProfiledReader.read(ex.lines(), decision.profile());
+                    shadow = finish(ex, pr.outcome()).withReader(decision.profile().id(), "layout");
+                } catch (OutOfMemoryError oom) {
+                    throw oom;
+                } catch (Throwable t) {
+                    // reported below as failed
+                }
+                LayoutRouting.reportShadow(decision.profile().id(), v1, shadow);
+            } catch (OutOfMemoryError oom) {
+                throw oom;
+            } catch (Throwable t) {
+                // a failing shadow never touches the v1 result
+            }
+        }
+        return v1;
+    }
+
+    private static int verdictRank(ParsedStatement ps) {
+        String v = ps.parseInfo() == null ? null : ps.parseInfo().verdict;
+        return "AUTO-INGEST".equals(v) ? 2 : "NEEDS REVIEW".equals(v) ? 1 : 0;
+    }
+
+    /**
+     * ACTIVE: the profiled result is returned only when it read rows, left no amount line unread, found an account or
+     * card number and a period end, and earned AUTO-INGEST. Otherwise v1 reads too and the better verdict wins (a tie
+     * goes to v1); the fallback is reported to the listener.
+     */
+    private static ParsedStatement parseActive(Extracted ex, LayoutProfile profile, Consumer<String> dbg) {
+        ParsedStatement layout = null;
+        boolean guardOk = false;
         try {
-            cr = RowCollector.collect(lines, dbg);
+            ProfiledReader.Result pr = ProfiledReader.read(ex.lines(), profile);
+            layout = finish(ex, pr.outcome()).withReader(profile.id(), "layout");
+            guardOk = !layout.transactions().isEmpty() && pr.unreadAmountLines() == 0
+                    && layout.meta().accountNumber != null && layout.meta().periodEnd != null
+                    && verdictRank(layout) == 2;
+        } catch (OutOfMemoryError oom) {
+            throw oom;
+        } catch (RuntimeException | StackOverflowError e) {
+            dbg.accept("[debug] layout reader " + profile.id() + " failed; using v1");
+        }
+        if (guardOk || LayoutRouting.forcedLayout()) {
+            if (layout != null) {
+                return layout;
+            }
+        }
+        ParsedStatement v1;
+        try {
+            v1 = parseV1(ex, dbg);
         } catch (StatementParseException e) {
-            ParsedStatement empty = explicitlyEmpty(lines, e);
+            if (layout != null) {
+                LayoutRouting.reportFallback(profile.id());
+                return layout;
+            }
+            throw e;
+        }
+        LayoutRouting.reportFallback(profile.id());
+        return layout != null && verdictRank(layout) > verdictRank(v1) ? layout : v1;
+    }
+
+    /** v1 only, as before layout profiles existed: no routing, no shadow run. For paths that only need hints. */
+    public static ParsedStatement parseV1Only(byte[] bytes, String password, Consumer<String> debug) {
+        Consumer<String> dbg = debug != null ? debug : s -> {
+        };
+        return parseV1(extractLines(bytes, password, dbg), dbg);
+    }
+
+    private static ParsedStatement parseV1(Extracted ex, Consumer<String> dbg) {
+        ReadOutcome ro;
+        try {
+            ro = readV1(ex.lines(), ex.cardSection(), dbg);
+        } catch (StatementParseException e) {
+            ParsedStatement empty = explicitlyEmpty(ex.lines(), e);
             if (empty == null) {
                 throw e;
             }
-            return empty;
+            return empty.withReader(null, "v1");
         }
+        return finish(ex, ro).withReader(null, "v1");
+    }
+
+    /** The issuer id the document's own text points to (null when not unique); used to pick a layout profile. */
+    public static String issuerOf(List<Line> lines) {
+        try {
+            List<String> texts = new ArrayList<>();
+            for (Line ln : lines) texts.add(ln.text());
+            return DocumentFacts.extract(texts, DocumentReader.NO_NUMBERS, new java.util.TreeSet<>(), null).issuer();
+        } catch (RuntimeException | StackOverflowError e) {
+            return null;
+        }
+    }
+
+    /** The v1 (generic heuristic) reader: lines to meta, signed rows, mode and the harvested summary fields. */
+    private static ReadOutcome readV1(List<Line> lines, boolean cardSection, Consumer<String> dbg) {
+        CollectedRows cr = RowCollector.collect(lines, dbg);
 
         StatementMeta meta = MetadataExtractor.extract(cr.metaZone(), cr.dateFmt());
         if (meta.accountNumber == null) {
@@ -150,17 +264,7 @@ public final class StatementParseEngine {
         // transaction page. Extend the harvest window across trailing summary pages
         // (short label/value lines) but stop at prose-heavy T&C pages, which carry
         // example figures next to the same labels.
-        int harvestMaxPage = maxTxnPage;
-        int lastPage = 0;
-        for (Line ln : lines) {
-            lastPage = Math.max(lastPage, ln.page());
-        }
-        for (int pg = maxTxnPage + 1; pg <= lastPage; pg++) {
-            if (isProsePage(lines, pg)) {
-                break;
-            }
-            harvestMaxPage = pg;
-        }
+        int harvestMaxPage = harvestWindow(lines, maxTxnPage);
         Set<String> statedNone = new LinkedHashSet<>();
         LinkedHashMap<String, Object> summaryFields = SummaryFieldHarvester.harvest(lines, txnLines, harvestMaxPage, statedNone);
 
@@ -197,46 +301,78 @@ public final class StatementParseEngine {
                 applyCardCreditWords(results);
             }
 
-            Double opening = meta.openingBalance;
-            if (opening == null) {
-                opening = (Double) summaryFields.get("previous_balance");
+            List<RowResult> reconciled = reconcileOpeningClosing(results, meta, summaryFields, isCreditCard);
+            if (reconciled != null) {
+                results = reconciled;
+                mode = "opening/closing reconciliation";
             }
-            Double closing = meta.closingBalance;
-            if (closing == null && isCreditCard) {
-                closing = (Double) summaryFields.get("total_amount_due");
-            }
-            if (opening != null && closing != null && !results.isEmpty()) {
-                double tol = 0.51;
-                int direction = isCreditCard ? -1 : 1;
-                List<RowResult> flipped = new ArrayList<>();
-                for (RowResult r : results) {
-                    RowResult c = r.copy();
-                    if ("default".equals(c.signSource) && c.amount != null) {
-                        c.amount = -c.amount;
-                    }
-                    flipped.add(c);
+        }
+
+        return new ReadOutcome(meta, results, mode, rowsDropped, txnLines, maxTxnPage, harvestMaxPage,
+                summaryFields, statedNone, isCreditCard);
+    }
+
+    /**
+     * Rows with no validated balance column: when opening (or previous balance) and closing (or total due) are known and
+     * the rows, as signed or with every defaulted sign flipped, add up to them, the rows get a running balance and a
+     * valid chain; meta gets the opening and closing used. Returns the reconciled rows, or null when nothing reconciles.
+     */
+    public static List<RowResult> reconcileOpeningClosing(List<RowResult> results, StatementMeta meta,
+                                                          Map<String, Object> summaryFields, boolean isCreditCard) {
+        Double opening = meta.openingBalance;
+        if (opening == null) {
+            opening = (Double) summaryFields.get("previous_balance");
+        }
+        Double closing = meta.closingBalance;
+        if (closing == null && isCreditCard) {
+            closing = (Double) summaryFields.get("total_amount_due");
+        }
+        if (opening != null && closing != null && !results.isEmpty()) {
+            double tol = 0.51;
+            int direction = isCreditCard ? -1 : 1;
+            List<RowResult> flipped = new ArrayList<>();
+            for (RowResult r : results) {
+                RowResult c = r.copy();
+                if ("default".equals(c.signSource) && c.amount != null) {
+                    c.amount = -c.amount;
                 }
-                for (List<RowResult> cand : List.of(results, flipped)) {
-                    double net = 0.0;
+                flipped.add(c);
+            }
+            for (List<RowResult> cand : List.of(results, flipped)) {
+                double net = 0.0;
+                for (RowResult r : cand) {
+                    net += r.amount != null ? r.amount : 0.0;
+                }
+                if (Math.abs(opening + direction * net - closing) <= tol) {
+                    double bal = opening;
                     for (RowResult r : cand) {
-                        net += r.amount != null ? r.amount : 0.0;
+                        bal += direction * (r.amount != null ? r.amount : 0.0);
+                        r.balance = round2(bal);
+                        r.chainValid = true;
                     }
-                    if (Math.abs(opening + direction * net - closing) <= tol) {
-                        results = cand;
-                        double bal = opening;
-                        for (RowResult r : results) {
-                            bal += direction * (r.amount != null ? r.amount : 0.0);
-                            r.balance = round2(bal);
-                            r.chainValid = true;
-                        }
-                        mode = "opening/closing reconciliation";
-                        meta.openingBalance = opening;
-                        meta.closingBalance = closing;
-                        break;
-                    }
+                    meta.openingBalance = opening;
+                    meta.closingBalance = closing;
+                    return cand;
                 }
             }
         }
+        return null;
+    }
+
+    /** Everything after reading: guards, totals, checks, verdict, document facts. Shared by every reader. */
+    private static ParsedStatement finish(Extracted ex, ReadOutcome ro) {
+        List<Line> lines = ex.lines();
+        boolean cardSection = ex.cardSection();
+        StatementMeta meta = ro.meta();
+        List<RowResult> results = ro.results();
+        String mode = ro.mode();
+        int rowsDropped = ro.rowsDropped();
+        Set<Line> txnLines = ro.txnLines();
+        int maxTxnPage = ro.maxTxnPage();
+        int harvestMaxPage = ro.harvestMaxPage();
+        LinkedHashMap<String, Object> summaryFields = ro.summaryFields();
+        Set<String> statedNone = ro.statedNone();
+        boolean isCreditCard = ro.isCreditCard();
 
         // A row read as 0 whose own text still holds an amount lost its real amount to
         // another cell: a parse error. Never emit it as a 0 line; drop it, count it
@@ -598,6 +734,30 @@ public final class StatementParseEngine {
 
     // A page is prose (terms & conditions) when a meaningful share of its lines run
     // long; genuine summary pages are short label/value rows.
+    /** Last page whose summary figures are harvested: the last transaction page plus trailing non-prose pages. */
+    public static int harvestWindow(List<Line> lines, int maxTxnPage) {
+        int harvestMaxPage = maxTxnPage;
+        int lastPage = 0;
+        for (Line ln : lines) {
+            lastPage = Math.max(lastPage, ln.page());
+        }
+        for (int pg = maxTxnPage + 1; pg <= lastPage; pg++) {
+            if (isProsePage(lines, pg)) {
+                break;
+            }
+            harvestMaxPage = pg;
+        }
+        return harvestMaxPage;
+    }
+
+    /** True when the page is prose (terms and conditions): no summary figure is read from it. */
+    public static boolean isProse(List<Line> lines, int page) {
+        return isProsePage(lines, page);
+    }
+
+    /** Balance-chain tolerance of the v1 reader; the layout reader uses the same. */
+    public static final double CHAIN_TOLERANCE = Tokens.EPS;
+
     private static boolean isProsePage(List<Line> lines, int page) {
         int nonEmpty = 0;
         int longLines = 0;

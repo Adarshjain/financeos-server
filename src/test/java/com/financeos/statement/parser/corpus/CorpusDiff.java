@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.stream.Stream;
@@ -47,7 +48,10 @@ class CorpusDiff {
         String reportProp = System.getProperty("corpus.diff.report");
         Path report = reportProp == null || reportProp.isBlank() ? head.resolve("diff.md") : Path.of(reportProp);
 
-        Result result = compareDirs(base, head);
+        String family = System.getProperty("corpus.diff.family");
+        Set<String> only = family == null || family.isBlank() ? null : shasWithLayout(head.resolve("results.tsv"), family);
+        requireFamilyFiles(family, only);
+        Result result = compareDirs(base, head, only, parseIgnore(System.getProperty("corpus.diff.ignore")));
         Map<String, String> issuers = new HashMap<>(readIssuers(base.resolve("results.tsv")));
         issuers.putAll(readIssuers(head.resolve("results.tsv")));
         Files.createDirectories(report.toAbsolutePath().getParent());
@@ -73,8 +77,66 @@ class CorpusDiff {
     }
 
     static Result compareDirs(Path base, Path head) throws IOException {
+        return compareDirs(base, head, null, Set.of());
+    }
+
+    /** A family filter that matches no file (or a head run without layout_id) is an error, never "no changes". */
+    static void requireFamilyFiles(String family, Set<String> shas) {
+        if (shas != null && shas.isEmpty()) {
+            throw new IllegalStateException("corpus.diff.family=" + family
+                    + " matches no file: the head run has no layout_id column or no file read with that layout "
+                    + "(run the head with -Dcorpus.reader=layout)");
+        }
+    }
+
+    /** Field names to leave out of the comparison (at any depth), from a comma-separated property value. */
+    static Set<String> parseIgnore(String text) {
+        Set<String> out = new TreeSet<>();
+        if (text != null) for (String t : text.split(",")) if (!t.isBlank()) out.add(t.strip());
+        return out;
+    }
+
+    /** The sha256s whose results.tsv row names this layout_id (empty when the column or file is missing). */
+    static Set<String> shasWithLayout(Path results, String layoutId) throws IOException {
+        Set<String> out = new TreeSet<>();
+        if (!Files.exists(results)) return out;
+        List<String> lines = Files.readAllLines(results, StandardCharsets.UTF_8);
+        if (lines.isEmpty()) return out;
+        List<String> header = List.of(lines.get(0).split("\t", -1));
+        int iSha = header.indexOf("sha256");
+        int iLayout = header.indexOf("layout_id");
+        if (iSha < 0 || iLayout < 0) return out;
+        for (int i = 1; i < lines.size(); i++) {
+            String[] c = lines.get(i).split("\t", -1);
+            if (c.length > Math.max(iSha, iLayout) && c[iLayout].equals(layoutId)) out.add(c[iSha]);
+        }
+        return out;
+    }
+
+    private static JsonNode strip(JsonNode n, Set<String> ignore) {
+        if (ignore.isEmpty()) return n;
+        JsonNode copy = n.deepCopy();
+        stripInPlace(copy, ignore);
+        return copy;
+    }
+
+    private static void stripInPlace(JsonNode n, Set<String> ignore) {
+        if (n.isObject()) {
+            ((com.fasterxml.jackson.databind.node.ObjectNode) n).remove(ignore);
+            n.elements().forEachRemaining(c -> stripInPlace(c, ignore));
+        } else if (n.isArray()) {
+            n.elements().forEachRemaining(c -> stripInPlace(c, ignore));
+        }
+    }
+
+    /** As compareDirs, limited to the given sha256s (null = every file) and ignoring the given field names. */
+    static Result compareDirs(Path base, Path head, Set<String> onlyShas, Set<String> ignore) throws IOException {
         TreeSet<String> baseNames = jsonNames(base);
         TreeSet<String> headNames = jsonNames(head);
+        if (onlyShas != null) {
+            baseNames.removeIf(n -> !onlyShas.contains(sha(n)));
+            headNames.removeIf(n -> !onlyShas.contains(sha(n)));
+        }
         int identical = 0;
         List<FileChange> changed = new ArrayList<>();
         List<String> onlyBase = new ArrayList<>();
@@ -84,8 +146,8 @@ class CorpusDiff {
                 onlyBase.add(n);
                 continue;
             }
-            JsonNode b = MAPPER.readTree(base.resolve(n).toFile());
-            JsonNode h = MAPPER.readTree(head.resolve(n).toFile());
+            JsonNode b = strip(MAPPER.readTree(base.resolve(n).toFile()), ignore);
+            JsonNode h = strip(MAPPER.readTree(head.resolve(n).toFile()), ignore);
             FileChange c = compare(n, b, h);
             if (c == null) identical++;
             else changed.add(c);

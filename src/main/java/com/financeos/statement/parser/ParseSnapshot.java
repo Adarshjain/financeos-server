@@ -31,6 +31,11 @@ public final class ParseSnapshot {
 
     public static ObjectNode of(ParsedStatement ps) {
         ObjectNode root = F.objectNode();
+        // only a layout-read result names its reader: v1 snapshots stay exactly as they were
+        if (ps.reader() != null && !"v1".equals(ps.reader())) {
+            root.set("layoutId", value(ps.layoutId()));
+            root.put("reader", ps.reader());
+        }
         root.set("meta", meta(ps.meta()));
         root.put("statementType", ps.statementType());
         root.set("parseInfo", parseInfo(ps.parseInfo()));
