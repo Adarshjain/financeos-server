@@ -54,7 +54,9 @@ public sealed interface UpdateAccountRequest {
             @NotBlank(message = "Last 4 digits are required") String last4,
             @NotNull(message = "Credit limit is required") BigDecimal creditLimit,
             String statementPassword,
-            LocalDate ingestFromDate
+            LocalDate ingestFromDate,
+            /** Optional last 6 digits of the card (must end with last4); null keeps the stored value. */
+            String last6
     ) implements UpdateAccountRequest {
     }
 

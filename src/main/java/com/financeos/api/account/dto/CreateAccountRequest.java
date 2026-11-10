@@ -119,8 +119,23 @@ public sealed interface CreateAccountRequest {
             /** Earlier (closed) numbers of the primary card; null/empty = none. */
             @Nullable List<@Valid EarlierCardRequest> earlierCards,
             /** The suggestion this card account is added from; it becomes ADDED with the account and card. */
-            @Nullable java.util.UUID fromSuggestionId
+            @Nullable java.util.UUID fromSuggestionId,
+            /** Optional last 6 digits of the card (must end with last4); null keeps the stored value on update. */
+            @Nullable String last6
     ) implements CreateAccountRequest {
+        /** Without a last 6, for callers that predate it. */
+        public CreditCardRequest(String name, AccountType type, Boolean excludeFromNetAsset,
+                                 FinancialPosition financialPosition, String description, String last4,
+                                 BigDecimal creditLimit, LocalDate anniversaryDate, String statementPassword,
+                                 LocalDate ingestFromDate, java.util.UUID replacesAccountId, String issuer,
+                                 String productName, CreditLimitPoolRequest limitPool, String bank,
+                                 List<AddonCardRequest> addonCards, List<EarlierCardRequest> earlierCards,
+                                 java.util.UUID fromSuggestionId) {
+            this(name, type, excludeFromNetAsset, financialPosition, description, last4, creditLimit,
+                    anniversaryDate, statementPassword, ingestFromDate, replacesAccountId, issuer, productName,
+                    limitPool, bank, addonCards, earlierCards, fromSuggestionId, null);
+        }
+
         /** Without a suggestion, for callers that predate it. */
         public CreditCardRequest(String name, AccountType type, Boolean excludeFromNetAsset,
                                  FinancialPosition financialPosition, String description, String last4,

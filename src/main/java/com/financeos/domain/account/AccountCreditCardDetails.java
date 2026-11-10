@@ -60,6 +60,11 @@ public class AccountCreditCardDetails {
     @Column(name = "statement_password")
     private String statementPassword;
 
+    /** The card's last 6 digits, for banks whose statement password uses them (null = not given). */
+    @Convert(converter = EncryptedStringConverter.class)
+    @Column(name = "last6")
+    private String last6;
+
     public AccountCreditCardDetails(Account account, BigDecimal creditLimit, String statementPassword) {
         this.account = account;
         this.accountId = account.getId();

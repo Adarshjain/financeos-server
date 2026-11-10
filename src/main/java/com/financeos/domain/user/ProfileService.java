@@ -40,6 +40,7 @@ public class ProfileService {
             throw new ValidationException("You need to accept the Terms and Privacy policy");
         }
         User user = load(userId);
+        String oldBirthDate = user.getBirthDate();
         boolean[] changed = apply(user, displayName == null || displayName.isBlank() ? null : displayName, birthDate);
         Instant now = AppTime.nowInstant();
         boolean firstHello = finish && user.getHelloDoneAt() == null;
@@ -49,6 +50,7 @@ public class ProfileService {
         user.setTermsAcceptedAt(now);
         userRepository.save(user);
         publish(userId, changed);
+        if (changed[1]) events.publishEvent(new BirthDateChangedEvent(userId, oldBirthDate));
         if (firstHello) {
             events.publishEvent(new HelloCompletedEvent(userId));
         }
@@ -77,9 +79,11 @@ public class ProfileService {
     @Transactional
     public User updateProfile(UUID userId, @Nullable String displayName, @Nullable String birthDate) {
         User user = load(userId);
+        String oldBirthDate = user.getBirthDate();
         boolean[] changed = apply(user, displayName, birthDate);
         userRepository.save(user);
         publish(userId, changed);
+        if (changed[1]) events.publishEvent(new BirthDateChangedEvent(userId, oldBirthDate));
         return user;
     }
 
@@ -91,12 +95,14 @@ public class ProfileService {
             return false;
         }
         String normalized = BirthDates.normalize(birthDate);
-        boolean changed = !normalized.equals(user.getBirthDate());
+        String oldBirthDate = user.getBirthDate();
+        boolean changed = !normalized.equals(oldBirthDate);
         user.setBirthDate(normalized);
         user.setBirthDateSource(BirthDateSource.GOOGLE);
         userRepository.save(user);
         if (changed) {
             events.publishEvent(new ProfileChangedEvent(userId, false, true));
+            events.publishEvent(new BirthDateChangedEvent(userId, oldBirthDate));
         }
         return true;
     }

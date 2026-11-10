@@ -15215,6 +15215,10 @@ components:
           type: string
           nullable: true
           x-nullable: true
+        last6:
+          type: string
+          nullable: true
+          x-nullable: true
         lastStatementDate:
           type: string
           format: date
@@ -15326,6 +15330,10 @@ components:
         last4:
           type: string
           x-required: true
+        last6:
+          type: string
+          nullable: true
+          x-nullable: true
         limitPool:
           $ref: "#/components/schemas/CreditLimitPoolRequest"
         name:

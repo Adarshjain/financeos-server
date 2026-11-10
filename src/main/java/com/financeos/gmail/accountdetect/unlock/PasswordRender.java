@@ -10,7 +10,8 @@ import java.util.regex.Pattern;
 /**
  * Renders a rule ("NAME4U+DDMM") into passwords from a profile. Supported tokens: NAME2..NAME8 with an optional U / L
  * case suffix (an untagged one gives the upper form, then the lower one), DDMM, DDMMYY, DDMMYYYY (from the birth date)
- * and CARD4 (one of the card numbers given). A rule with any other token (CUSTID, CRN, CIF, PAN, MOBILE, ACCNO, ...) or
+ * CARD4 (one of the card numbers given) and CARD6 (one of the 6-digit card endings given, only through the
+ * overload that takes them). A rule with any other token (CUSTID, CRN, CIF, PAN, MOBILE, ACCNO, ...) or
  * with a needed name / birth date missing renders nothing. Passwords are returned to the caller and never kept here.
  */
 public final class PasswordRender {
@@ -35,7 +36,7 @@ public final class PasswordRender {
     public static boolean renderable(String rule) {
         if (rule == null || rule.isBlank()) return false;
         for (String t : rule.split("\\+")) {
-            if (!(NAME.matcher(t).matches() || Set.of("DDMM", "DDMMYY", "DDMMYYYY", "CARD4").contains(t))) return false;
+            if (!(NAME.matcher(t).matches() || Set.of("DDMM", "DDMMYY", "DDMMYYYY", "CARD4", "CARD6").contains(t))) return false;
         }
         return true;
     }
@@ -76,6 +77,12 @@ public final class PasswordRender {
 
     /** All passwords the rule gives for this profile, in the order to try (empty when it cannot be rendered). */
     public static List<Candidate> render(String rule, String displayName, String birthDate, List<String> cardLast4) {
+        return render(rule, displayName, birthDate, cardLast4, null);
+    }
+
+    /** As the 4-arg render, with the 6-digit card endings a CARD6 token reads (a CARD6 rule without any renders nothing). */
+    public static List<Candidate> render(String rule, String displayName, String birthDate, List<String> cardLast4,
+                                         List<String> cardLast6) {
         List<Candidate> out = new ArrayList<>();
         if (!renderable(rule)) return out;
         List<String> bases = nameBases(displayName);
@@ -96,6 +103,9 @@ public final class PasswordRender {
             } else if (t.equals("CARD4")) {
                 if (cardLast4 == null) return out;
                 for (String c : cardLast4) if (c != null && c.matches("\\d{4}")) opts.add(new String[]{c, t});
+            } else if (t.equals("CARD6")) {
+                if (cardLast6 == null) return out;
+                for (String c : cardLast6) if (c != null && c.matches("\\d{6}")) opts.add(new String[]{c, t});
             } else {
                 String d = date(t, birthDate);
                 if (d != null) opts.add(new String[]{d, t});

@@ -474,7 +474,10 @@ public class AccountService {
                     AccountBankDetails details = account.getBankDetails();
                     details.setOpeningBalance(bankReq.openingBalance());
                     details.setLast4(bankReq.last4());
-                    details.setStatementPassword(bankReq.statementPassword());
+                    // The form never shows the stored password, so a blank one means unchanged.
+                    if (bankReq.statementPassword() != null && !bankReq.statementPassword().isBlank()) {
+                        details.setStatementPassword(bankReq.statementPassword());
+                    }
                 } else {
                     AccountBankDetails details = new AccountBankDetails(
                             account,
@@ -639,6 +642,18 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
+    /** A given last 6 must be 6 digits ending with the primary card's last 4; blank means not given. */
+    private static void requireLast6(String last6, String last4) {
+        if (last6 == null || last6.isBlank()) return;
+        String six = last6.trim();
+        if (!six.matches("[0-9]{6}")) {
+            throw new ValidationException("Last 6 digits must be 6 digits");
+        }
+        if (!six.endsWith(last4Of(last4))) {
+            throw new ValidationException("Last 6 digits must end with the card's last 4 digits");
+        }
+    }
+
     private static String last4Of(String last4) {
         return last4 == null ? "" : last4.trim();
     }
@@ -766,6 +781,7 @@ public class AccountService {
         if (request.limitPool() == null && request.creditLimit() == null) {
             throw new ValidationException("Credit limit is required");
         }
+        requireLast6(request.last6(), request.last4());
 
         account.setRewardAnniversaryDate(request.anniversaryDate());
 
@@ -776,19 +792,38 @@ public class AccountService {
             account.setReplacesAccount(replacesAccount);
         }
 
-        if (account.getCreditCardDetails() != null) {
-            AccountCreditCardDetails details = account.getCreditCardDetails();
+        AccountCreditCardDetails existing = account.getCreditCardDetails();
+        String storedPassword = existing != null ? existing.getStatementPassword() : null;
+        String oldLast6 = existing != null ? existing.getLast6() : null;
+        String last6 = request.last6() == null || request.last6().isBlank() ? oldLast6 : request.last6().trim();
+        boolean explicitPassword = request.statementPassword() != null && !request.statementPassword().isBlank();
+        // An explicit password wins; otherwise the stored one stays unless it is blank or was built from the old last 6.
+        String password = explicitPassword ? request.statementPassword() : storedPassword;
+        if (!explicitPassword && last6 != null && account.getUser() != null) {
+            User u = account.getUser();
+            Optional<String> derived = CardStatementPassword.derive(account.getBank(), u.getDisplayName(), u.getBirthDate(), last6);
+            String oldDerived = oldLast6 == null ? null
+                    : CardStatementPassword.derive(account.getBank(), u.getDisplayName(), u.getBirthDate(), oldLast6).orElse(null);
+            if (derived.isPresent() && (storedPassword == null || storedPassword.isBlank() || storedPassword.equals(oldDerived))) {
+                password = derived.get();
+            }
+        }
+
+        if (existing != null) {
+            AccountCreditCardDetails details = existing;
             details.setCreditLimit(request.creditLimit());
-            details.setStatementPassword(request.statementPassword());
+            details.setStatementPassword(password);
+            details.setLast6(last6);
             details.setIssuer(request.issuer());
             details.setProductName(request.productName());
         } else {
             AccountCreditCardDetails details = new AccountCreditCardDetails(
                     account,
                     request.creditLimit(),
-                    request.statementPassword(),
+                    password,
                     request.issuer(),
                     request.productName());
+            details.setLast6(last6);
             details.setUser(account.getUser());
             account.setCreditCardDetails(details);
         }

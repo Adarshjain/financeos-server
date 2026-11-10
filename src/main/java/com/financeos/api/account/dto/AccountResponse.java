@@ -144,6 +144,7 @@ public sealed interface AccountResponse {
                         account.getUpdatedAt(),
                         account.getIngestFromDate(),
                         last4,
+                        details != null ? details.getLast6() : null,
                         CardUtilization.accountLimit(account),
                         details != null ? details.getIssuer() : null,
                         details != null ? details.getProductName() : null,
@@ -251,6 +252,8 @@ public sealed interface AccountResponse {
             Instant updatedAt,
             @Nullable LocalDate ingestFromDate,
             @Nullable String last4,
+            /** The card's last 6 digits when given (not a secret of the statement password itself). */
+            @Nullable String last6,
             @Nullable BigDecimal creditLimit,
             @Nullable String issuer,
             @Nullable String productName,
