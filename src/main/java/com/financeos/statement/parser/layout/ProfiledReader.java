@@ -53,7 +53,7 @@ public final class ProfiledReader {
     private enum Kind { OUTSIDE, STRAY, HEADER, FURNITURE, SECTION, BODY }
 
     /** The header of one page: where it is and the x0 of each named label on it. */
-    private record Table(int page, int headerIdx, Map<String, Double> labelX0) {
+    private record Table(int page, int firstIdx, int headerIdx, Map<String, Double> labelX0) {
     }
 
     private record Spans(String text, List<int[]> ranges) {
@@ -82,25 +82,68 @@ public final class ProfiledReader {
 
     // ---- header detection -------------------------------------------------------------------------------------
 
-    /** The x0 of each header label when the line is the profile's table header, else null. */
+    /** A matched header: the index of its last line and the x0 of each label on the line it sits. */
+    private record HeaderHit(int lastIdx, Map<String, Double> labelX0) {
+    }
+
+    /** The x0 of each header label when the line alone is the profile's table header, else null. */
     static Map<String, Double> tryHeader(Line ln, LayoutProfile p) {
-        Spans sp = spans(ln);
-        for (Pattern reject : p.headerRejects()) {
-            if (reject.matcher(sp.text()).find()) {
-                return null;
+        HeaderHit h = headerAt(List.of(ln), 0, p);
+        return h == null ? null : h.labelX0();
+    }
+
+    /**
+     * The header starting at line i: labels matched in order over a window of up to headerLines consecutive lines of one
+     * page (the smallest window that fits), the first label on the first line. Null when there is none.
+     */
+    private static HeaderHit headerAt(List<Line> lines, int i, LayoutProfile p) {
+        for (int k = 1; k <= p.headerLines() && i + k <= lines.size(); k++) {
+            if (k > 1 && lines.get(i + k - 1).page() != lines.get(i).page()) {
+                break;
             }
+            HeaderHit h = matchWindow(lines, i, k, p);
+            if (h != null) {
+                return h;
+            }
+        }
+        return null;
+    }
+
+    private static HeaderHit matchWindow(List<Line> lines, int first, int k, LayoutProfile p) {
+        List<Spans> sps = new ArrayList<>();
+        for (int j = 0; j < k; j++) {
+            Spans sp = spans(lines.get(first + j));
+            for (Pattern reject : p.headerRejects()) {
+                if (reject.matcher(sp.text()).find()) {
+                    return null;
+                }
+            }
+            sps.add(sp);
         }
         Map<String, Double> x0 = new LinkedHashMap<>();
+        int line = 0;
         int pos = 0;
         for (HeaderLabel h : p.header()) {
-            Matcher m = h.regex().matcher(sp.text());
-            if (!m.find(pos)) {
+            Matcher m = null;
+            while (line < k) {
+                m = h.regex().matcher(sps.get(line).text());
+                if (m.find(pos)) {
+                    break;
+                }
+                m = null;
+                if (x0.isEmpty()) {
+                    return null; // the first label must be on the first line
+                }
+                line++;
+                pos = 0;
+            }
+            if (m == null) {
                 return null;
             }
-            x0.put(h.name(), sp.wordAt(ln.words(), m.start()).x0());
+            x0.put(h.name(), sps.get(line).wordAt(lines.get(first + line).words(), m.start()).x0());
             pos = Math.max(m.end(), pos + 1);
         }
-        return x0;
+        return line == k - 1 ? new HeaderHit(first + k - 1, x0) : null; // the last label sits on the last line
     }
 
     private static Map<Integer, Table> findHeaders(List<Line> lines, LayoutProfile p) {
@@ -110,18 +153,18 @@ public final class ProfiledReader {
             if (tables.containsKey(ln.page())) {
                 continue;
             }
-            Map<String, Double> x0 = tryHeader(ln, p);
-            if (x0 != null) {
-                tables.put(ln.page(), new Table(ln.page(), i, x0));
+            HeaderHit h = headerAt(lines, i, p);
+            if (h != null) {
+                tables.put(ln.page(), new Table(ln.page(), i, h.lastIdx(), h.labelX0()));
             }
         }
         return tables;
     }
 
-    /** True when the profile's header line is found on some page. */
+    /** True when the profile's header is found on some page. */
     static boolean hasHeader(List<Line> lines, LayoutProfile p) {
-        for (Line ln : lines) {
-            if (tryHeader(ln, p) != null) {
+        for (int i = 0; i < lines.size(); i++) {
+            if (headerAt(lines, i, p) != null) {
                 return true;
             }
         }
@@ -301,6 +344,10 @@ public final class ProfiledReader {
                 cur = !tables.containsKey(ln.page()) && started && p.continuesWithoutHeader() ? last : null;
             }
             Table t = tables.get(ln.page());
+            if (t != null && i >= t.firstIdx() && i < t.headerIdx()) {
+                st.kind[i] = Kind.HEADER; // an earlier line of a header that spans several
+                continue;
+            }
             if (t != null && t.headerIdx() == i) {
                 cur = t;
                 last = t;
@@ -359,7 +406,7 @@ public final class ProfiledReader {
             Line ln = st.lines.get(i);
             Table tbl = st.table[i];
             List<Resolved> cols = colsByPage.computeIfAbsent(tbl.page(), k -> resolve(st.p, tbl));
-            if (hasAmountToken(ln) || dateOf(st, ln, cols) != null) {
+            if (hasAmountToken(ln, cols) || dateOf(st, ln, cols) != null) {
                 st.unread++;
             }
         }
@@ -439,12 +486,22 @@ public final class ProfiledReader {
             boolean continuation = isContinuationCandidate(ln, cols);
             if (continuation) {
                 pending.add(new Pend(ln, st.table[i], rows.size() - 1));
-            } else if (hasAmountToken(ln)) {
+            } else if (hasAmountToken(ln, cols)) {
                 st.unread++;
             }
         }
         attachContinuations(st, rows, pending);
         return rows;
+    }
+
+    /** An amount token outside any IGNORE column (IGNORE swallows every token of its range: dates, times, amounts, signs). */
+    private static boolean hasAmountToken(Line ln, List<Resolved> cols) {
+        for (Word w : ln.words()) {
+            if (roleOf(cols, w) != Role.IGNORE && Amounts.isAmount(w.text())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private static boolean hasAmountToken(Line ln) {
@@ -797,6 +854,14 @@ public final class ProfiledReader {
                         st.periodStart = range[0];
                         st.periodEnd = range[1];
                     }
+                    case PERIOD_START -> {
+                        meta.periodStart = (LocalDate) v;
+                        st.periodStart = (LocalDate) v;
+                    }
+                    case PERIOD_END -> {
+                        meta.periodEnd = (LocalDate) v;
+                        st.periodEnd = (LocalDate) v;
+                    }
                     case STATEMENT_DATE -> meta.documentDate = (LocalDate) v;
                     case ACCOUNT_NUMBER -> meta.accountNumber = (String) v;
                     case OPENING_BALANCE -> meta.openingBalance = ((BigDecimal) v).doubleValue();
@@ -837,7 +902,9 @@ public final class ProfiledReader {
                 }
             }
             Object v = null;
-            if (s.position() == Position.RIGHT_ON_LINE) {
+            if (s.position() == Position.CAPTURE) {
+                v = capture(st, s, i);
+            } else if (s.position() == Position.RIGHT_ON_LINE) {
                 List<Word> right = new ArrayList<>();
                 for (Word w : ln.words()) {
                     if (w.x0() >= lx1 - 2) {
@@ -883,6 +950,76 @@ public final class ProfiledReader {
             }
         }
         return null;
+    }
+
+    /** Group 1 of the capture regex over the label line (then the next captureLines lines of the page), parsed by the type. */
+    private static Object capture(State st, Summary s, int labelLine) {
+        Line first = st.lines.get(labelLine);
+        for (int j = labelLine; j < st.lines.size() && j <= labelLine + s.captureLines(); j++) {
+            Line ln = st.lines.get(j);
+            if (ln.page() != first.page()) {
+                break;
+            }
+            Matcher m = s.capture().matcher(spans(ln).text());
+            if (m.find()) {
+                Object v = parseCaptured(st, s, m);
+                if (v != null) {
+                    return v;
+                }
+            }
+        }
+        return null;
+    }
+
+    private static final Pattern CAPTURED_SUFFIX = Pattern.compile("^(.*\\S)\\s+(?i:cr|dr)$");
+
+    private static Object parseCaptured(State st, Summary s, Matcher m) {
+        String raw = m.group(1);
+        if (raw == null || raw.isBlank()) {
+            return null;
+        }
+        raw = raw.strip();
+        switch (s.type()) {
+            case AMOUNT: {
+                String token = null;
+                Amounts.Parsed a = Amounts.parse(raw);
+                if (a == null) {
+                    Matcher sm = CAPTURED_SUFFIX.matcher(raw);
+                    if (sm.matches()) {
+                        a = Amounts.parse(sm.group(1));
+                        token = raw.substring(sm.end(1)).strip().toLowerCase(Locale.ROOT);
+                    }
+                }
+                return a == null ? null : creditValue(s, a, token != null ? token : a.suffix());
+            }
+            case DATE:
+                return st.dates.parse(raw, st.periodStart, st.periodEnd);
+            case DATE_RANGE: {
+                LocalDate d1;
+                LocalDate d2;
+                if (m.groupCount() >= 2 && m.group(2) != null) {
+                    d1 = st.dates.parse(raw, st.periodStart, st.periodEnd);
+                    d2 = st.dates.parse(m.group(2).strip(), st.periodStart, st.periodEnd);
+                } else {
+                    List<Word> words = new ArrayList<>();
+                    for (String t : raw.split("\\s+")) {
+                        words.add(new Word(t, 0, 0, 0, 0));
+                    }
+                    List<LocalDate> ds = datesIn(st, words);
+                    d1 = ds.size() >= 2 ? ds.get(0) : null;
+                    d2 = ds.size() >= 2 ? ds.get(ds.size() - 1) : null;
+                }
+                return d1 != null && d2 != null ? new LocalDate[]{d1, d2} : null;
+            }
+            case MASKED_NUMBER:
+                return s.compact() ? raw.replaceAll("\\s+", "") : raw;
+            case INTEGER: {
+                String t = Amounts.norm(raw);
+                return INTEGER.matcher(t).matches() ? new BigDecimal(t.replace(",", "")) : null;
+            }
+            default:
+                return null;
+        }
     }
 
     private static final Pattern MASKED = Pattern.compile("^[0-9]*[*xX•]+[0-9*xX•]*[0-9]{2,}$");
@@ -949,6 +1086,10 @@ public final class ProfiledReader {
                 }
             }
         }
+        return creditValue(s, a, token);
+    }
+
+    private static BigDecimal creditValue(Summary s, Amounts.Parsed a, String token) {
         boolean credit = a.negativeMarked() || (token != null && token.equalsIgnoreCase("cr"));
         if (credit && s.creditIsZero()) {
             return BigDecimal.ZERO;

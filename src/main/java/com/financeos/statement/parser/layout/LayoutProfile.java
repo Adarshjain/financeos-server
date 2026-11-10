@@ -33,11 +33,11 @@ public final class LayoutProfile {
 
     public enum EndScope { PAGE, FOR_GOOD }
 
-    public enum Position { RIGHT_ON_LINE, BELOW_BY_X, NTH_AMOUNT_BELOW }
+    public enum Position { RIGHT_ON_LINE, BELOW_BY_X, NTH_AMOUNT_BELOW, CAPTURE }
 
     public enum ValueType { AMOUNT, DATE, DATE_RANGE, MASKED_NUMBER, INTEGER }
 
-    public enum MetaTarget { PERIOD, STATEMENT_DATE, ACCOUNT_NUMBER, OPENING_BALANCE, CLOSING_BALANCE }
+    public enum MetaTarget { PERIOD, PERIOD_START, PERIOD_END, STATEMENT_DATE, ACCOUNT_NUMBER, OPENING_BALANCE, CLOSING_BALANCE }
 
     /** A header label: its name (what columns refer to) and the regex that finds it in the header line. */
     public record HeaderLabel(String name, Pattern regex) {
@@ -61,11 +61,12 @@ public final class LayoutProfile {
      * One summary value. The target is a legacy summary key (legacyKey) or a meta field (metaTarget); label is found in
      * the text of a line (first line that matches and yields a value wins); position says where the value sits.
      * creditIsNegative: a Cr-marked or minus value is returned negative (dues); creditIsZero: a Cr-marked value means
-     * nothing owed and is returned as 0.
+     * nothing owed and is returned as 0. Position CAPTURE: group 1 of {@code capture} run over the label line's text
+     * (and the next captureLines lines), parsed by the type; compact removes inner whitespace of a MASKED_NUMBER.
      */
     public record Summary(String legacyKey, MetaTarget metaTarget, Pattern label, Position position, ValueType type,
                           int n, int maxLines, double xTolerance, Set<Integer> pages, boolean creditIsNegative,
-                          boolean creditIsZero) {
+                          boolean creditIsZero, Pattern capture, int captureLines, boolean compact) {
     }
 
     /** What a custom row strategy returns for one row of the table. */
@@ -89,6 +90,7 @@ public final class LayoutProfile {
     private final Product product;
     private final String bank;
     private final List<HeaderLabel> header;
+    private final int headerLines;
     private final List<Pattern> headerRejects;
     private final List<Pattern> requires;
     private final List<Column> columns;
@@ -113,6 +115,7 @@ public final class LayoutProfile {
         this.product = Objects.requireNonNull(b.product, "product");
         this.bank = b.bank;
         this.header = List.copyOf(b.header);
+        this.headerLines = Math.max(1, b.headerLines);
         this.headerRejects = List.copyOf(b.headerRejects);
         this.requires = List.copyOf(b.requires);
         this.columns = List.copyOf(b.columns);
@@ -171,6 +174,7 @@ public final class LayoutProfile {
     public String bank() { return bank; }
     public List<HeaderLabel> header() { return header; }
     public List<Pattern> headerRejects() { return headerRejects; }
+    public int headerLines() { return headerLines; }
     public List<Pattern> requires() { return requires; }
     public List<Column> columns() { return columns; }
     public List<String> dateFormats() { return dateFormats; }
@@ -211,6 +215,7 @@ public final class LayoutProfile {
         private Product product;
         private String bank;
         private final List<HeaderLabel> header = new ArrayList<>();
+        private int headerLines = 1;
         private final List<Pattern> headerRejects = new ArrayList<>();
         private final List<Pattern> requires = new ArrayList<>();
         private final List<Column> columns = new ArrayList<>();
@@ -244,6 +249,12 @@ public final class LayoutProfile {
             header.add(new HeaderLabel(name, Pattern.compile(regex, Pattern.CASE_INSENSITIVE)));
             return this;
         }
+
+        /**
+         * The header may span up to n consecutive lines (default 1): its labels are matched in order across them, each
+         * anchoring its column by its own x0 on the line it sits; the table starts after the last header line.
+         */
+        public Builder headerLines(int n) { this.headerLines = n; return this; }
 
         /** A regex that, found in a would-be header line, rejects it (a wider table of another layout). */
         public Builder headerRejects(String regex) {
@@ -346,6 +357,9 @@ public final class LayoutProfile {
         private final Set<Integer> pages = new LinkedHashSet<>();
         private boolean creditIsNegative;
         private boolean creditIsZero;
+        private Pattern capture;
+        private int captureLines;
+        private boolean compact;
 
         private SummaryBuilder(Builder parent, String legacyKey, MetaTarget metaTarget, String labelRegex) {
             this.parent = parent;
@@ -362,6 +376,26 @@ public final class LayoutProfile {
         /** Equation row: the value is the nth (1-based) amount of the next line that carries amounts. */
         public SummaryBuilder nthAmountBelow(int n) { this.position = Position.NTH_AMOUNT_BELOW; this.n = n; return this; }
 
+        /**
+         * The value is group 1 of this regex run over the label line's text (words joined by single spaces); the group
+         * is parsed by the declared type. No match, or a group the type cannot parse, gives no value. Works with every type
+         * (DATE_RANGE: two groups, or two dates inside group 1).
+         */
+        public SummaryBuilder capture(String regex) {
+            this.position = Position.CAPTURE;
+            this.capture = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
+            if (capture.matcher("").groupCount() < 1) {
+                throw new IllegalArgumentException("capture needs a group 1");
+            }
+            return this;
+        }
+
+        /** The capture regex is also tried on each of the next n lines of the page (default 0). */
+        public SummaryBuilder captureLines(int n) { this.captureLines = n; return this; }
+
+        /** MASKED_NUMBER: remove the whitespace inside the captured value (default: kept as captured). */
+        public SummaryBuilder compact() { this.compact = true; return this; }
+
         public SummaryBuilder type(ValueType type) { this.type = type; return this; }
 
         public SummaryBuilder maxLines(int maxLines) { this.maxLines = maxLines; return this; }
@@ -376,8 +410,11 @@ public final class LayoutProfile {
         public SummaryBuilder creditIsZero() { this.creditIsZero = true; return this; }
 
         public Builder done() {
+            if ((metaTarget == MetaTarget.PERIOD_START || metaTarget == MetaTarget.PERIOD_END) && type != ValueType.DATE) {
+                throw new IllegalStateException(metaTarget + " takes a single DATE");
+            }
             parent.summary.add(new Summary(legacyKey, metaTarget, label, position, type, n, maxLines, xTolerance,
-                    Set.copyOf(pages), creditIsNegative, creditIsZero));
+                    Set.copyOf(pages), creditIsNegative, creditIsZero, capture, captureLines, compact));
             return parent;
         }
     }

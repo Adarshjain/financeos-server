@@ -724,7 +724,10 @@ public final class StatementParseEngine {
             meta.issuerId = f.issuer();
             meta.documentKind = f.kind() == null ? null : f.kind().name();
             meta.isStatement = f.kind() != null;
-            meta.documentDate = f.periodEnd();
+            // a date the reader already set (a layout profile's statement date) wins; v1 never sets one here
+            if (meta.documentDate == null) {
+                meta.documentDate = f.periodEnd();
+            }
             meta.productPhrase = f.rawProduct();
             meta.creditLimit = f.limit();
             meta.closureStated = f.closure();

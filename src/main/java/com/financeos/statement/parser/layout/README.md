@@ -19,6 +19,17 @@ Put a class in `layout/profiles/` that builds a `LayoutProfile` (see `AxisCardDt
 - A CARD profile must account for every key in `CardFieldKeys`: `summary(key, ...)` or `notPrinted(key)`.
 - A page without the header continues the table (`continuesWithoutHeader`, default true).
 
+### More DSL
+
+- Single-date statements: `summary(MetaTarget.PERIOD_END, label).type(DATE)` (and `PERIOD_START`); a profile's
+  `STATEMENT_DATE` survives the shared finish step (v1 never sets one, so v1 is unchanged).
+- Values that are not one clean word: `.capture(regex)` on any summary runs over the label line's text (words joined by
+  single spaces; `.captureLines(n)` also the next n lines) and parses group 1 by the declared type (DATE_RANGE: two groups
+  or two dates; MASKED_NUMBER keeps inner spaces, `.compact()` removes them). No match or unparseable group: no value.
+- `headerLines(n)`: the header may span up to n lines; each label anchors by its own x0; the table starts after the last.
+- `IGNORE` columns swallow any token (dates, times, amounts, signs) and are never counted as unread.
+- A `FOR_GOOD` end marker on a heading keeps every sub-table below it out of the rows.
+
 ## Acceptance rule (before a profile goes ACTIVE)
 
 Run the corpus twice, `-Dcorpus.reader=v1` and `-Dcorpus.reader=layout`, then `CorpusDiff` with

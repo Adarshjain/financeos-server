@@ -34,6 +34,9 @@ final class DateResolver {
 
     /** The date, or null when no pattern fits (or a yearless date has no period to take its year from). */
     LocalDate parse(String text, LocalDate periodStart, LocalDate periodEnd) {
+        if (periodStart == null && periodEnd != null) {
+            periodStart = periodEnd.minusYears(1).plusDays(1); // only the end is printed: the year before it
+        }
         String t = text.strip();
         for (Fmt f : formats) {
             LocalDate d;
