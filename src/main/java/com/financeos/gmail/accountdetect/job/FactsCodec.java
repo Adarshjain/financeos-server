@@ -58,7 +58,13 @@ public final class FactsCodec {
 
         /** Its statement PDF was read by an older reader than the current one (a version absent in storage counts as 0). */
         public boolean readerStale() {
-            return readerVersion < StatementPdfReader.READER_VERSION;
+            if (readerVersion >= StatementPdfReader.READER_VERSION) return false;
+            // the newest version changed only how a Jupiter / Fi mail's statements read: older stamps from version
+            // BRAND_ONLY_SINCE - 1 on are stale for those mails alone
+            if (readerVersion >= StatementPdfReader.BRAND_ONLY_SINCE - 1) {
+                return derived != null && com.financeos.gmail.accountdetect.BankPartners.isMailBrand(derived.bank());
+            }
+            return true;
         }
 
         /** A read failed and the next run reads the mail again. */

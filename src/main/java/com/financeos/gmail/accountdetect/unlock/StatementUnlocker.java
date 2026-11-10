@@ -2,6 +2,7 @@ package com.financeos.gmail.accountdetect.unlock;
 
 import com.financeos.core.observability.Ops;
 import com.financeos.core.observability.Timing;
+import com.financeos.gmail.accountdetect.BankPartners;
 import com.financeos.gmail.accountdetect.StatementPdfReader;
 import com.financeos.gmail.accountdetect.HolderCheck;
 import com.financeos.gmail.accountdetect.MailDerived;
@@ -114,9 +115,15 @@ public class StatementUnlocker {
         if (target.kind() == Kind.DEBIT_CARD) kind = "account";
         if (target.bank() != null) {
             int saved = 0;
-            for (String pwd : profile.savedByBank().getOrDefault(target.bank(), List.of())) {
-                if (saved >= MAX_SAVED_FIRST) break;
-                if (pwd != null && !pwd.isBlank() && candidates.putIfAbsent(pwd, SAVED) == null) saved++;
+            // a Jupiter / Fi mail's PDF belongs to an account at a partner bank: that bank's saved passwords come after the brand's own
+            List<String> savedFrom = new ArrayList<>();
+            savedFrom.add(target.bank());
+            savedFrom.addAll(BankPartners.partnerBanks(target.bank()));
+            for (String from : savedFrom) {
+                for (String pwd : profile.savedByBank().getOrDefault(from, List.of())) {
+                    if (saved >= MAX_SAVED_FIRST) break;
+                    if (pwd != null && !pwd.isBlank() && candidates.putIfAbsent(pwd, SAVED) == null) saved++;
+                }
             }
             rules.addAll(table.patterns(target.bank(), kind));
         }

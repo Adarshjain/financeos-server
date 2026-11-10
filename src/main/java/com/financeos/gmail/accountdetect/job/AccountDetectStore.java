@@ -111,6 +111,12 @@ public class AccountDetectStore {
         return factRepository.findPdfRowsForUser(userId);
     }
 
+    /** The user's mails whose statement PDF is still closed (LOCKED or FAILED), newest first; their facts are not read. */
+    @Transactional(readOnly = true)
+    public List<PdfRow> closedPdfRows(UUID userId) {
+        return factRepository.findClosedPdfRowsForUser(userId);
+    }
+
     /**
      * Records a PDF's re-read: the mail's statements become {@code statements} (null keeps the stored ones: the PDF could not be
      * fetched or opened), the unlock state and rule are set when {@code state} is given, and the facts carry the current reader

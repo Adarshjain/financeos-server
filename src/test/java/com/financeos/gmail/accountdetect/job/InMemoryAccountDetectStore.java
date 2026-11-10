@@ -78,6 +78,17 @@ class InMemoryAccountDetectStore extends AccountDetectStore {
     }
 
     @Override
+    public List<PdfRow> closedPdfRows(UUID userId) {
+        List<PdfRow> out = new ArrayList<>();
+        for (AccountDetectFact f : rows(userId)) {
+            if (!Boolean.TRUE.equals(f.getHasPdf()) || f.getPdfAttachmentId() == null) continue;
+            if (f.getUnlockState() != AccountDetectFact.UnlockState.LOCKED && f.getUnlockState() != AccountDetectFact.UnlockState.FAILED) continue;
+            out.add(new PdfRow(f.getMessageId(), f.getInternalDate(), f.getPdfAttachmentId(), f.getUnlockState()));
+        }
+        return out;
+    }
+
+    @Override
     public List<PdfRow> pdfRows(UUID userId) {
         List<PdfRow> out = new ArrayList<>();
         for (AccountDetectFact f : rows(userId)) {

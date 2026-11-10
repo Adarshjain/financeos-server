@@ -49,8 +49,26 @@ import java.util.TreeSet;
 public final class Detector {
 
     /** Optional restriction for channel-holdout runs: only these roles, and statement content on/off. */
-    public record Options(Set<Role> roles, boolean statementContent) {
+    /**
+     * @param openBanks       banks where the user has an open account: a number seen in a single transaction alert of such a
+     *                        bank is kept as a LOW (possible) number, unless it is one of {@code ownNumbers}
+     * @param ownNumbers      last4 of every account and card the user already has, at any bank
+     */
+    public record Options(Set<Role> roles, boolean statementContent, Set<String> openBanks, Set<String> ownNumbers) {
         public static final Options ALL = new Options(null, true);
+
+        public Options {
+            openBanks = openBanks == null ? Set.of() : openBanks;
+            ownNumbers = ownNumbers == null ? Set.of() : ownNumbers;
+        }
+
+        public Options(Set<Role> roles, boolean statementContent) {
+            this(roles, statementContent, Set.of(), Set.of());
+        }
+
+        public Options withKnown(Set<String> openBanks, Set<String> ownNumbers) {
+            return new Options(roles, statementContent, openBanks, ownNumbers);
+        }
     }
 
     public static final String LINK_LAST4 = "linked by last4";
@@ -97,6 +115,9 @@ public final class Detector {
         /** LOCAL sightings labelled as the user's own card ("your Debit Card XX1234"), and the rest. */
         int localCard;
         int localOther;
+        /** Sightings (any own-looking slot) labelled as the user's own card in a plain alert, and the other labelled ones. */
+        int cardLabel;
+        int otherLabel;
         /** Named by a statement document (its own number or an add-on it lists), not only by mail text. */
         boolean doc;
         /** layout cluster | date of each bank mail whose text names the number. */
@@ -221,27 +242,28 @@ public final class Detector {
         // ---- 3. slot classes by cardinality over the whole mailbox
         stages.next(Ops.DETECTOR_SLOT_CLASSES);
         for (SlotStat st : slots.values()) {
-            int n = st.mails.size();
-            int d = st.mailsByValue.size();
-            // weight by distinct numbers and months, not by mail count: one busy payee must not make a slot look own
-            int singles = 0, recurring = 0;
-            for (Set<Integer> ms : st.mailsByValue.values()) {
-                if (ms.size() == 1) singles++;
-                Set<YearMonth> mo = new HashSet<>();
-                for (int mi : ms) if (mails.get(mi).date() != null) mo.add(YearMonth.from(mails.get(mi).date()));
-                if (mo.size() >= 2) recurring++;
-            }
             int listMails = 0;
             for (int mi : st.mails) {
                 Set<String> vals = new HashSet<>();
                 for (Occ o : byMail.get(mi)) if (o.slotKey().equals(st.key)) vals.add(o.last4());
                 if (vals.size() >= 3) listMails++;
             }
-            if (listMails * 2 > n) st.cls = SlotClass.MIXED; // a list of numbers in one mail (sample, help text), never one own number
-            else if (n < 3) st.cls = SlotClass.UNSCORED;
-            else if (d <= 2 || (d <= 6 && recurring >= 0.8 * d)) st.cls = SlotClass.OWN;
-            else if (d >= 3 && singles * 2 >= d) st.cls = SlotClass.COUNTERPARTY;
-            else st.cls = SlotClass.MIXED;
+            if (listMails * 2 > st.mails.size()) {
+                st.cls = SlotClass.MIXED; // a list of numbers in one mail (sample, help text), never one own number
+                continue;
+            }
+            st.cls = cardinalityClass(st, Set.of(), mails);
+            // the slot decides what every number in it is, exactly as without the single-alert rule. Only a slot that is
+            // MIXED, and only because one number named once as the user's own card in a transaction alert of a bank they
+            // already use sits among the user's other numbers, reads as OWN without that number.
+            if (st.cls == SlotClass.MIXED && !opt.openBanks().isEmpty()) {
+                Set<String> skip = new HashSet<>();
+                for (var sv : st.mailsByValue.entrySet()) if (newCardInAlert(st, sv.getKey(), sv.getValue(), mails, byMail, clusterRole, opt) && onlyHere(sv.getKey(), st, occs, statements)) skip.add(sv.getKey());
+                // only when every other number of the slot is one the user already has and the new number is the rule's kind of
+                // sighting everywhere it appears: no number that was not already theirs can be lifted from dropped to reported
+                if (skip.size() == 1 && skip.size() < st.mailsByValue.size() && cardinalityClass(st, skip, mails) == SlotClass.OWN
+                        && allOwned(st, skip, opt)) st.cls = SlotClass.OWN;
+            }
         }
         // cross-cluster: a value is "seen in" a cluster, on that cluster's channel, only where the sighting would
         // count as evidence (an OWN-candidate slot, or an unscored slot with a kind label)
@@ -332,14 +354,14 @@ public final class Detector {
                 how = LINK_ORIGIN;
                 for (var bm : byMail.entrySet()) {
                     MailDerived m = mails.get(bm.getKey());
-                    if (!s.bank().equals(m.bank()) || !s.originCluster().equals(m.clusterId()) || !java.util.Objects.equals(s.originDate(), m.date())) continue;
+                    if (!BankPartners.covers(s.bank(), m.bank()) || !s.originCluster().equals(m.clusterId()) || !java.util.Objects.equals(s.originDate(), m.date())) continue;
                     for (Occ o : bm.getValue()) if (ownish(slots.get(o.slotKey()).cls, o)) fits.add(o.last4());
                 }
             } else if (s.periodEnd() != null) {
                 for (var bm : byMail.entrySet()) {
                     MailDerived m = mails.get(bm.getKey());
                     Role r = clusterRole.get(m.clusterId());
-                    if (!s.bank().equals(m.bank()) || (r != Role.STATEMENT && r != Role.DUE_REMINDER) || m.date() == null) continue;
+                    if (!BankPartners.covers(s.bank(), m.bank()) || (r != Role.STATEMENT && r != Role.DUE_REMINDER) || m.date() == null) continue;
                     long lag = ChronoUnit.DAYS.between(s.periodEnd(), m.date());
                     if (lag < 0 || lag > 7) continue;
                     for (Occ o : bm.getValue()) if (ownish(slots.get(o.slotKey()).cls, o) && voteKind(o) == s.kind()) fits.add(o.last4());
@@ -348,7 +370,7 @@ public final class Detector {
                 YearMonth pm = YearMonth.from(s.periodEnd());
                 Set<String> active = new TreeSet<>();
                 for (Occ o : occs) {
-                    if (!o.bank().equals(s.bank()) || o.date() == null || !ownish(slots.get(o.slotKey()).cls, o) || voteKind(o) != s.kind()) continue;
+                    if (!BankPartners.covers(s.bank(), o.bank()) || o.date() == null || !ownish(slots.get(o.slotKey()).cls, o) || voteKind(o) != s.kind()) continue;
                     YearMonth om = YearMonth.from(o.date());
                     if (om.equals(pm) || om.equals(pm.plusMonths(1))) active.add(o.last4());
                 }
@@ -395,6 +417,8 @@ public final class Detector {
                 if (o.label() == LabelKind.DEBIT_CARD || (o.label() == LabelKind.CREDIT_CARD || o.label() == LabelKind.CARD) && !om.transfer()) e.localCard++;
                 else if (o.label() != LabelKind.NONE) e.localOther++;   // an unlabelled sighting says nothing either way
             }
+            if (o.label() == LabelKind.DEBIT_CARD || (o.label() == LabelKind.CREDIT_CARD || o.label() == LabelKind.CARD) && !om.transfer()) e.cardLabel++;
+            else if (o.label() != LabelKind.NONE) e.otherLabel++;
             if (om.balance() || o.role() == Role.STATEMENT) e.balanceSeen = true;
             if (om.transfer()) e.transferMails++;
             else e.plainMails++;
@@ -505,8 +529,11 @@ public final class Detector {
                 continue;
             }
             if (e.clusters.size() < 2 && e.months.size() < 2 && !header) {
-                out.drop("number seen once (one layout, one month)");
-                continue;
+                // a new number in one transaction alert of a bank the user already banks with: possible, never confident
+                if (!singleAlertAtKnownBank(key, e, opt)) {
+                    out.drop("number seen once (one layout, one month)");
+                    continue;
+                }
             }
             // a number ever called a wallet or prepaid instrument (a payments-bank wallet id) is not an own account or card
             if (prepaidNumbers.contains(key) && !header) {
@@ -610,6 +637,67 @@ public final class Detector {
         }
         out.entities.sort((a, b) -> a.key().compareTo(b.key()));
         return out;
+    }
+
+    /** The slot's class by the cardinality of its numbers (and months), leaving out the numbers in {@code skip}. */
+    private static SlotClass cardinalityClass(SlotStat st, Set<String> skip, List<MailDerived> mails) {
+        Set<Integer> counted = new HashSet<>();
+        int d = 0, singles = 0, recurring = 0;
+        for (var sv : st.mailsByValue.entrySet()) {
+            if (skip.contains(sv.getKey())) continue;
+            Set<Integer> ms = sv.getValue();
+            counted.addAll(ms);
+            d++;
+            // weight by distinct numbers and months, not by mail count: one busy payee must not make a slot look own
+            if (ms.size() == 1) singles++;
+            Set<YearMonth> mo = new HashSet<>();
+            for (int mi : ms) if (mails.get(mi).date() != null) mo.add(YearMonth.from(mails.get(mi).date()));
+            if (mo.size() >= 2) recurring++;
+        }
+        if (counted.size() < 3) return SlotClass.UNSCORED;
+        if (d <= 2 || (d <= 6 && recurring >= 0.8 * d)) return SlotClass.OWN;
+        if (d >= 3 && singles * 2 >= d) return SlotClass.COUNTERPARTY;
+        return SlotClass.MIXED;
+    }
+
+    /** Every other number of the slot is one the user already has (so lifting the slot to OWN reports no number that was not already theirs). */
+    private static boolean allOwned(SlotStat st, Set<String> skip, Options opt) {
+        for (String v : st.mailsByValue.keySet()) if (!skip.contains(v) && !opt.ownNumbers().contains(v)) return false;
+        return true;
+    }
+
+    /** The number appears nowhere but this slot (one mail, every sighting a card label in a plain mail), and in no statement document. */
+    private static boolean onlyHere(String last4, SlotStat st, List<Occ> occs, List<StatementContent> statements) {
+        for (StatementContent sc : statements) if (last4.equals(sc.last4()) || sc.addOnLast4().contains(last4)) return false;
+        for (Occ o : occs) {
+            if (!o.last4().equals(last4)) continue;
+            if (!o.slotKey().equals(st.key)) return false;
+            if (o.label() != LabelKind.CREDIT_CARD && o.label() != LabelKind.DEBIT_CARD && o.label() != LabelKind.CARD) return false;
+        }
+        return true;
+    }
+
+    private static boolean newCardInAlert(SlotStat st, String last4, Set<Integer> mailIdx, List<MailDerived> mails,
+                                          Map<Integer, List<Occ>> byMail, Map<String, Role> clusterRole, Options opt) {
+        if (mailIdx.size() != 1 || opt.ownNumbers().contains(last4)) return false;
+        int mi = mailIdx.iterator().next();
+        MailDerived m = mails.get(mi);
+        if (clusterRole.get(m.clusterId()) != Role.TXN_ALERT || m.transfer() || !opt.openBanks().contains(m.bank())) return false;
+        for (Occ o : byMail.getOrDefault(mi, List.of())) {
+            if (o.slotKey().equals(st.key) && o.last4().equals(last4)) {
+                return o.label() == LabelKind.CREDIT_CARD || o.label() == LabelKind.DEBIT_CARD || o.label() == LabelKind.CARD;
+            }
+        }
+        return false;
+    }
+
+    /** One transaction alert names the number as the user's own, the bank is one the user has an open account at, and the user has no such number anywhere. */
+    private static boolean singleAlertAtKnownBank(String key, Ev e, Options opt) {
+        if (opt.openBanks().isEmpty() || e.doc || e.counterparty > 0) return false;
+        if (!e.bankChannels.equals(EnumSet.of(Channel.ALERTS)) || e.evidence.size() != 1 || e.cardLabel < 1 || e.otherLabel > 0) return false;
+        int i = key.indexOf(':');
+        String bank = key.substring(0, i), last4 = key.substring(i + 1);
+        return opt.openBanks().contains(bank) && !opt.ownNumbers().contains(last4) && !placeholder(last4);
     }
 
     static long span(TreeSet<LocalDate> dates) {

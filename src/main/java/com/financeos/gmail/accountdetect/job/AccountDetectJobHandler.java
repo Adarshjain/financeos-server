@@ -99,6 +99,9 @@ public class AccountDetectJobHandler implements JobHandler {
     private final UnlockProfileLoader profiles;
     @Autowired(required = false)
     UserRepository users;   // field-injected so the constructors stay as they are; null (tests) means no onboarding gate
+    private volatile boolean warnedNoAccounts;
+    @Autowired(required = false)
+    com.financeos.gmail.accountdetect.suggest.ExistingAccountsLoader existingAccounts;   // null (tests): no known-bank single-alert rule
     StatementUnlocker unlocker = StatementUnlocker.bundled();   // package-visible so a test can swap it
 
     /** Without a profile loader no protected PDF is ever tried (they stay LOCKED). */
@@ -329,7 +332,9 @@ public class AccountDetectJobHandler implements JobHandler {
         AccountDetectState s = state[0];
         // read before detection: a statement saved meanwhile then differs from this on the next run
         long tFp = System.nanoTime();
-        String statementsFp = Timing.call(Ops.ACCOUNTDETECT_STATEMENTS_FP, () -> statementsFingerprint(userId));
+        // the outcome also depends on the user's open banks and numbers: opening or closing an account re-evaluates
+        com.financeos.gmail.accountdetect.Detector.Options detectOptions = optionsFor(userId);
+        String statementsFp = Timing.call(Ops.ACCOUNTDETECT_STATEMENTS_FP, () -> statementsFingerprint(userId)) + "|" + knownFingerprint(detectOptions);
         timings.put("7 statements fp", (System.nanoTime() - tFp) / 1_000_000);
         LastDetection last = lastDetection.get(userId);
         if (!rereadChanged && nothingNew(firstScan, scan, headersMissing, incomplete) && last != null && statementsFp.equals(last.statementsFp())) {
@@ -384,7 +389,7 @@ public class AccountDetectJobHandler implements JobHandler {
             long tDb = System.nanoTime();
             List<StatementContent> dbStatements = Timing.call(Ops.ACCOUNTDETECT_DB_STATEMENTS, () -> DbStatements.load(jdbc, userId).statements());
             timings.put("9 db statements", (System.nanoTime() - tDb) / 1_000_000);
-            Detected d = detect(all, dbStatements, timings);
+            Detected d = detect(all, dbStatements, timings, detectOptions);
             detected = d;
             detection = d.detection();
             mailsStored = all.size();
@@ -478,7 +483,22 @@ public class AccountDetectJobHandler implements JobHandler {
             if (f.facts().readerStale() && f.facts().derived() != null && !f.facts().pending() && !written.contains(f.messageId())) staleById.put(f.messageId(), f);
         }
         if (staleById.isEmpty()) return new Reread(0, 0, 0);
-        List<AccountDetectStore.PdfRow> rows = store.pdfRows(userId).stream().filter(r -> staleById.containsKey(r.messageId())).toList();
+        List<AccountDetectStore.PdfRow> rows = new ArrayList<>(store.pdfRows(userId).stream().filter(r -> staleById.containsKey(r.messageId())).toList());
+        // a Jupiter / Fi PDF that stayed closed is read again too (the partner banks' saved passwords are tried now); other closed PDFs
+        // have their own retry (unlock generation) and are left alone
+        for (AccountDetectStore.PdfRow r : store.closedPdfRows(userId)) {
+            AccountDetectStore.StoredFact sf = staleById.get(r.messageId());
+            if (sf != null && com.financeos.gmail.accountdetect.BankPartners.isMailBrand(sf.facts().derived().bank())) rows.add(r);
+        }
+        rows.sort(Comparator.comparing(AccountDetectStore.PdfRow::internalDate, Comparator.nullsLast(Comparator.reverseOrder())).thenComparing(AccountDetectStore.PdfRow::messageId));
+        // a brand mail with no statement PDF has nothing to read again: stamped once so it is not stale (and not looked at) every run
+        Set<String> withPdf = new java.util.HashSet<>();
+        for (AccountDetectStore.PdfRow r : rows) withPdf.add(r.messageId());
+        for (AccountDetectStore.StoredFact sf : staleById.values()) {
+            if (!withPdf.contains(sf.messageId()) && com.financeos.gmail.accountdetect.BankPartners.isMailBrand(sf.facts().derived().bank())) {
+                store.applyReread(userId, sf.messageId(), null, null, null);
+            }
+        }
         if (rows.isEmpty()) return new Reread(0, 0, 0);
         UnlockProfile profile = profileOf(userId);
         java.util.function.UnaryOperator<String> holderCheck = HolderCheck.forName(profile.displayName());
@@ -668,7 +688,7 @@ public class AccountDetectJobHandler implements JobHandler {
         }
         lastDetection.remove(userId);   // facts changed: whatever happens next, the cached detection is stale
         List<AccountDetectStore.StoredFact> all = store.facts(userId);
-        Detected d = detect(all, DbStatements.load(jdbc, userId).statements());
+        Detected d = detect(all, DbStatements.load(jdbc, userId).statements(), null, optionsFor(userId));
         if (!stillScanned(userId, connectionId)) return new LinkedHashMap<>(mailboxGone());
         Instant now = AppTime.nowInstant();
         sink.accept(userId, d.detection(), new DetectionContext(connectionId, false, false, all.size(), 0, d.statements(), now));
@@ -770,6 +790,33 @@ public class AccountDetectJobHandler implements JobHandler {
 
     /** As above; a non-null {@code timings} gets the detector's stage timings. */
     static Detected detect(List<AccountDetectStore.StoredFact> facts, List<StatementContent> dbStatements, Map<String, Long> timings) {
+        return detect(facts, dbStatements, timings, com.financeos.gmail.accountdetect.Detector.Options.ALL);
+    }
+
+    /** A stable hash of the sorted open banks and numbers in the options. */
+    static String knownFingerprint(com.financeos.gmail.accountdetect.Detector.Options opt) {
+        return Integer.toHexString(java.util.Objects.hash(new java.util.TreeSet<>(opt.openBanks()).toString(), new java.util.TreeSet<>(opt.ownNumbers()).toString()));
+    }
+
+    /** The detector options that know the user's accounts: a single alert at a bank they already use is a possible new number. */
+    com.financeos.gmail.accountdetect.Detector.Options optionsFor(UUID userId) {
+        if (existingAccounts == null) {
+            if (!warnedNoAccounts) {
+                warnedNoAccounts = true;
+                log.warn("Account detect: no accounts loader, a single alert at a known bank is not reported as a possible new number");
+            }
+            return com.financeos.gmail.accountdetect.Detector.Options.ALL;
+        }
+        try {
+            var existing = existingAccounts.load(userId);
+            return com.financeos.gmail.accountdetect.Detector.Options.ALL.withKnown(existing.openBanks(), existing.allNumbers());
+        } catch (Exception e) {
+            log.warn("Account detect known accounts unavailable: {}: {}", e.getClass().getSimpleName(), e.getMessage());
+            return com.financeos.gmail.accountdetect.Detector.Options.ALL;
+        }
+    }
+
+    static Detected detect(List<AccountDetectStore.StoredFact> facts, List<StatementContent> dbStatements, Map<String, Long> timings, com.financeos.gmail.accountdetect.Detector.Options opt) {
         List<MailDerived> derived = new ArrayList<>(facts.size());
         List<StatementContent> statements = new ArrayList<>();
         for (AccountDetectStore.StoredFact f : facts) {
@@ -778,7 +825,7 @@ public class AccountDetectJobHandler implements JobHandler {
             statements.addAll(f.facts().statements());
         }
         statements.addAll(dbStatements);
-        return new Detected(Stability.detectStable(derived, statements, STABILITY_SEED, timings).detection(), statements.size());
+        return new Detected(Stability.detectStable(derived, statements, STABILITY_SEED, timings, opt).detection(), statements.size());
     }
 
     /** Sender tokens exactly like the v3 runner: every bank domain, then the user's own allow-listed sender addresses. */

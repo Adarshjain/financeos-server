@@ -128,7 +128,7 @@ class StatementReaderIssuersTest {
             Result r = read(cardLines(c, DATE_LINES[i % DATE_LINES.length]));
             assertThat(r.status()).as(c.bank() + " " + r.flags()).isEqualTo(Status.OPENED);
             StatementContent s = r.content();
-            assertThat(s.bank()).as(c.bank()).isEqualTo(c.bank());
+            assertThat(s.bank()).as(c.bank()).isEqualTo(BankPartners.resolveBank(c.bank(), null));   // a Fi statement reads as its only partner bank
             assertThat(s.last4()).as(c.bank() + " last4").isEqualTo(c.last4());
             assertThat(s.kind()).as(c.bank() + " kind").isEqualTo(Kind.CREDIT_CARD);
             assertThat(s.period()).as(c.bank() + " period").isEqualTo(YearMonth.of(2026, 9));

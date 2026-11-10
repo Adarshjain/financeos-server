@@ -76,6 +76,12 @@ public record StatementContent(String source, String bank, String last4, Kind ki
                 originCluster, originDate, rawProduct, limitAmount, unlockRule, holder);
     }
 
+    /** The same statement with another kind. */
+    public StatementContent withKind(Kind k) {
+        return new StatementContent(source, bank, last4, k, period, variant, limitBucket, addOnLast4, mentionsClosure, periodEnd,
+                originCluster, originDate, rawProduct, limitAmount, unlockRule, holder);
+    }
+
     /** The same statement with its holder-name check. */
     public StatementContent withHolder(String holder) {
         return new StatementContent(source, bank, last4, kind, period, variant, limitBucket, addOnLast4, mentionsClosure, periodEnd,

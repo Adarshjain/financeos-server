@@ -2,6 +2,7 @@ package com.financeos.gmail.accountdetect.suggest;
 
 import com.financeos.domain.account.AccountIdentifierKind;
 import com.financeos.domain.account.AccountType;
+import com.financeos.gmail.accountdetect.BankPartners;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,8 +48,14 @@ public record ExistingAccounts(List<Acc> accounts) {
         if (last4 == null || bank == null || bank.isBlank() || kind == null) return null;
         boolean card = isCardKind(kind);
         Match viaAccount = null;
-        for (Acc a : accounts) {
-            if (a.bank() == null || !a.bank().equals(bank)) continue;
+        // deterministic whatever the list order: the exact bank first, then accounts of the asked kind, then by id
+        List<Acc> ordered = new ArrayList<>(accounts);
+        ordered.sort(java.util.Comparator
+                .comparing((Acc a) -> bank.equals(a.bank()) ? 0 : 1)
+                .thenComparing(a -> (card ? a.type() == AccountType.credit_card : a.type() == AccountType.bank_account) ? 0 : 1)
+                .thenComparing(a -> String.valueOf(a.id())));
+        for (Acc a : ordered) {
+            if (!BankPartners.covers(a.bank(), bank)) continue;   // a Jupiter / Fi number also matches its partner bank's account
             if (card) {
                 for (CardRef c : a.cards()) if (last4.equals(c.last4())) return new Match(a.id(), c.id());
                 if (viaAccount == null && a.type() == AccountType.credit_card && last4.equals(a.bankLast4())) {
@@ -74,6 +81,27 @@ public record ExistingAccounts(List<Acc> accounts) {
             for (CardRef c : a.cards()) if (c.open() && last4.equals(c.last4())) return true;
         }
         return false;
+    }
+
+    /** Banks where the user has an open account. */
+    public java.util.Set<String> openBanks() {
+        java.util.Set<String> out = new java.util.HashSet<>();
+        for (Acc a : accounts) if (a.open() && a.bank() != null && !a.bank().isBlank()) out.add(a.bank());
+        return out;
+    }
+
+    /** Every number the user has at any bank: account numbers, card numbers (open or closed) and number aliases' last four. */
+    public java.util.Set<String> allNumbers() {
+        java.util.Set<String> out = new java.util.HashSet<>();
+        for (Acc a : accounts) {
+            if (a.bankLast4() != null) out.add(a.bankLast4());
+            for (CardRef c : a.cards()) if (c.last4() != null) out.add(c.last4());
+            for (Alias al : a.aliases()) {
+                String v = al.value() == null ? "" : al.value().replaceAll("\\s+", "");
+                if (v.length() >= 4) out.add(v.substring(v.length() - 4));
+            }
+        }
+        return out;
     }
 
     /** A card (open or closed) with this number at the same known bank. */
