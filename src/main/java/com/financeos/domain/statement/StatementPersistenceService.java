@@ -55,6 +55,20 @@ public class StatementPersistenceService {
         }
     }
 
+    /**
+     * True when a statement of the account already exists for the draft's period or for the file hash. Used after a
+     * unique-key failure of {@link #createIfNew} (two uploads of the same statement racing past its existence
+     * checks): the failed transaction is over by then, so this reads the winner's committed row. Not transactional.
+     */
+    public boolean alreadyExists(UUID accountId, StatementDraft draft, String fileSha256) {
+        if (draft != null && draft.periodStart() != null && draft.periodEnd() != null
+                && statementRepository.existsByAccountIdAndPeriodStartAndPeriodEnd(accountId,
+                        draft.periodStart(), draft.periodEnd())) {
+            return true;
+        }
+        return fileSha256 != null && statementRepository.existsByAccountIdAndFileSha256(accountId, fileSha256);
+    }
+
     @Transactional
     public Optional<Statement> createIfNew(User user, Account account, StatementSource source, String sourceRef,
             String fileSha256, StatementDraft draft) {

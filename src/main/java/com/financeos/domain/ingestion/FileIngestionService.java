@@ -277,8 +277,19 @@ public class FileIngestionService {
 
                 String storedName = filename;
                 StatementExtractionResult toStore = parseResult;
-                Optional<Statement> stmt = Timing.call(Ops.STATEMENT_PERSIST, () -> statementPersistenceService.createIfNew(user, account, StatementSource.file_upload,
-                        storedName, sha256, toStore.draft()));
+                Optional<Statement> stmt;
+                try {
+                    stmt = Timing.call(Ops.STATEMENT_PERSIST, () -> statementPersistenceService.createIfNew(user, account, StatementSource.file_upload,
+                            storedName, sha256, toStore.draft()));
+                } catch (org.springframework.dao.DataIntegrityViolationException race) {
+                    // A parallel upload of the same statement won the unique key (account+period or account+file):
+                    // same outcome as the existence check catching it. Any other violation keeps failing.
+                    if (!statementPersistenceService.alreadyExists(accountId, toStore.draft(), sha256)) {
+                        throw race;
+                    }
+                    log.info("Statement of {} was created by a parallel upload; skipping", filename);
+                    stmt = Optional.empty();
+                }
                 if (stmt.isEmpty()) {
                     attachFileIfLacking(currentSessionUserId, accountId, sha256, bytes, filename);
                     fileDetails.add(new FileIngestionResult.FileSummary(filename, "SKIPPED", 0, "Statement already ingested (same period or file)"));
@@ -329,8 +340,11 @@ public class FileIngestionService {
 
             } catch (Exception e) {
                 log.error("Failed to process file: {}", filename, e);
-                fileDetails.add(FileIngestionResult.FileSummary.failed(filename, e.getMessage(),
-                        FileIngestionResult.ErrorCode.classify(e.getMessage(), false)));
+                String failure = e instanceof org.springframework.dao.DataAccessException
+                        ? "Something went wrong while saving this statement. Please try again."
+                        : e.getMessage();
+                fileDetails.add(FileIngestionResult.FileSummary.failed(filename, failure,
+                        FileIngestionResult.ErrorCode.classify(failure, false)));
             }
         }
 
