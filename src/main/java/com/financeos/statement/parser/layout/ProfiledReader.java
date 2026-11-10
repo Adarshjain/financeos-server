@@ -343,6 +343,7 @@ public final class ProfiledReader {
         Table cur = null;
         Table last = null;
         int lastPage = Integer.MIN_VALUE;
+        int proseCut = -1;
         String last4 = null;
         for (int i = 0; i < st.lines.size(); i++) {
             Line ln = st.lines.get(i);
@@ -350,12 +351,21 @@ public final class ProfiledReader {
             if (ended) {
                 continue;
             }
+            if (i == proseCut) {
+                ended = true; // the prose starts here
+                continue;
+            }
             if (ln.page() != lastPage) {
                 lastPage = ln.page();
+                proseCut = -1;
                 if (started && p.continuesWithoutHeader() && !tables.containsKey(ln.page())
                         && StatementParseEngine.isProse(st.lines, ln.page())) {
-                    ended = true; // a terms page never continues the table
-                    continue;
+                    // a terms page never continues the table, but dated rows printed above its first prose line do
+                    proseCut = firstProseLine(st, i, last);
+                    if (proseCut < 0) {
+                        ended = true;
+                        continue;
+                    }
                 }
                 // a page that repeats the header waits for it; one that does not continues the table
                 cur = null;
@@ -422,6 +432,29 @@ public final class ProfiledReader {
             st.kind[i] = Kind.BODY;
             st.last4[i] = last4;
         }
+    }
+
+    private static final Pattern TERMS_HEADING = Pattern.compile(
+            "(?i)schedule\\s+of\\s+charges|finance\\s+charge\\s+calculation|terms\\s+(?:and|&)\\s+conditions");
+
+    /**
+     * On a header-less prose page starting at line index first: the index of its first prose line (a long line or a terms
+     * heading) when a dated row precedes it, so those rows are still read; -1 when there is none (skip the page).
+     */
+    private static int firstProseLine(State st, int first, Table last) {
+        int page = st.lines.get(first).page();
+        Table t = st.p.continuationColumns().isEmpty() ? last
+                : new Table(page, -1, -1, last.labelX0(), true, firstDateX(st, page));
+        List<Resolved> cols = resolve(st.p, t);
+        boolean dated = false;
+        for (int j = first; j < st.lines.size() && st.lines.get(j).page() == page; j++) {
+            Line l = st.lines.get(j);
+            if (l.words().size() > 15 || TERMS_HEADING.matcher(l.text()).find()) {
+                return dated ? j : -1;
+            }
+            dated |= dateOf(st, l, cols) != null;
+        }
+        return dated ? Integer.MAX_VALUE : -1;
     }
 
     /** Lines inside the table's span that no region consumed, holding an amount or a date in the date zone. */

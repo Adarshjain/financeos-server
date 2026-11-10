@@ -117,6 +117,13 @@ public final class LayoutRegistry {
     }
 
     private static boolean requiresPresent(List<Line> lines, LayoutProfile p) {
+        for (Pattern bad : p.requiresNot()) {
+            for (Line ln : lines) {
+                if (bad.matcher(ln.text()).find()) {
+                    return false;
+                }
+            }
+        }
         for (Pattern req : p.requires()) {
             boolean found = false;
             for (Line ln : lines) {

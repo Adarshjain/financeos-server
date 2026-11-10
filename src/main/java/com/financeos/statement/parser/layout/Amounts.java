@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/** The amount grammar of a printed figure, kept in BigDecimal: decimal point required, optional currency, Cr/Dr, minus. */
+/** The amount grammar of a printed figure, kept in BigDecimal: decimal point required, optional currency, Cr/Dr, minus (also "C-,123.45": a minus and a stray comma after the glyph). */
 final class Amounts {
 
     private Amounts() {
@@ -15,7 +15,7 @@ final class Amounts {
     }
 
     private static final Pattern AMOUNT = Pattern.compile(
-            "^\\(?(?:(-)?(?:[₹$€£C`]|Rs\\.?|INR))?\\s?(-?\\d{1,3}(?:,\\d{2,3})*\\.\\d{1,2}|-?\\d+\\.\\d{1,2})\\)?\\s*(Cr|CR|cr|Dr|DR|dr)?\\.?$");
+            "^\\(?(?:(-)?(?:[₹$€£C`]|Rs\\.?|INR))?\\s?((?:-,?)?)(\\d{1,3}(?:,\\d{2,3})*\\.\\d{1,2}|\\d+\\.\\d{1,2})\\)?\\s*(Cr|CR|cr|Dr|DR|dr)?\\.?$");
 
     static String norm(String t) {
         String s = t.strip();
@@ -45,9 +45,9 @@ final class Amounts {
         if (!m.matches()) {
             return null;
         }
-        BigDecimal v = new BigDecimal(m.group(2).replace(",", ""));
-        boolean neg = t.startsWith("(") || v.signum() < 0 || trailingMinus || m.group(1) != null;
-        return new Parsed(v.abs(), neg, m.group(3));
+        BigDecimal v = new BigDecimal(m.group(3).replace(",", ""));
+        boolean neg = t.startsWith("(") || !m.group(2).isEmpty() || trailingMinus || m.group(1) != null;
+        return new Parsed(v, neg, m.group(4));
     }
 
     private static final java.util.Set<String> CURRENCY = java.util.Set.of("C", "\u20b9", "$", "\u20ac", "\u00a3", "Rs", "Rs.", "INR", "`");

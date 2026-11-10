@@ -160,8 +160,8 @@ class HdfcCardDtda2018Test {
     }
 
     @Test
-    void anAmountLikeTokenInsideTheNarrationStaysInTheNarration() {
-        assertEquals("MERCHANT ONE RATE 9.0 -33 (Ref# 000000000000000002)", read(statement()).results().get(2).description);
+    void anAmountLikeTokenInsideTheNarrationIsLeftOutLikeTheGenericReaderDoes() {
+        assertEquals("MERCHANT ONE RATE -33 (Ref# 000000000000000002)", read(statement()).results().get(2).description);
     }
 
     @Test

@@ -109,6 +109,7 @@ public final class LayoutProfile {
     private final int headerLines;
     private final List<Pattern> headerRejects;
     private final List<Pattern> requires;
+    private final List<Pattern> requiresNot;
     private final List<Column> columns;
     private final List<String> dateFormats;
     private final Sign sign;
@@ -140,6 +141,7 @@ public final class LayoutProfile {
         this.headerLines = Math.max(1, b.headerLines);
         this.headerRejects = List.copyOf(b.headerRejects);
         this.requires = List.copyOf(b.requires);
+        this.requiresNot = List.copyOf(b.requiresNot);
         this.columns = List.copyOf(b.columns);
         this.dateFormats = List.copyOf(b.dateFormats);
         this.sign = Objects.requireNonNull(b.sign, "sign");
@@ -224,6 +226,7 @@ public final class LayoutProfile {
     public List<Pattern> headerRejects() { return headerRejects; }
     public int headerLines() { return headerLines; }
     public List<Pattern> requires() { return requires; }
+    public List<Pattern> requiresNot() { return requiresNot; }
     public List<Column> columns() { return columns; }
     public List<String> dateFormats() { return dateFormats; }
     public Sign sign() { return sign; }
@@ -272,6 +275,7 @@ public final class LayoutProfile {
         private int headerLines = 1;
         private final List<Pattern> headerRejects = new ArrayList<>();
         private final List<Pattern> requires = new ArrayList<>();
+        private final List<Pattern> requiresNot = new ArrayList<>();
         private final List<Column> columns = new ArrayList<>();
         private List<String> dateFormats = List.of("dd/MM/yyyy");
         private Sign sign;
@@ -319,6 +323,12 @@ public final class LayoutProfile {
         /** A regex that, found in a would-be header line, rejects it (a wider table of another layout). */
         public Builder headerRejects(String regex) {
             headerRejects.add(Pattern.compile(regex, Pattern.CASE_INSENSITIVE));
+            return this;
+        }
+
+        /** A regex that must NOT be found in the document's text: the profile does not match when it is. */
+        public Builder requiresNot(String regex) {
+            requiresNot.add(Pattern.compile(regex, Pattern.CASE_INSENSITIVE));
             return this;
         }
 

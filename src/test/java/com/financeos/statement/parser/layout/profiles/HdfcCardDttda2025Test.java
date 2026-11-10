@@ -190,7 +190,7 @@ class HdfcCardDttda2025Test {
 
     @Test
     void aPreviousDuesFigureNoAmountGrammarReadsLeavesTheOtherFiguresInPlace() {
-        List<Line> lines = replace(statement(), 0, 250, ln(0, 250, "C-,250.00", 65, "C1,000.00", 169, "+", 232,
+        List<Line> lines = replace(statement(), 0, 250, ln(0, 250, "C--250.00", 65, "C1,000.00", 169, "+", 232,
                 "C3,000.00", 267, "+", 334, "C50.00", 371, "=", 423, "C3,050.00", 445));
         ReadOutcome o = read(lines);
         assertFalse(o.summaryFields().containsKey("previous_balance"));

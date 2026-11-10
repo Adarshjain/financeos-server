@@ -66,6 +66,12 @@ Put a class in `layout/profiles/` that builds a `LayoutProfile` (see `AxisCardDt
   an amount, a +/- sign marker beside an amount, and lone letters outside a text run are not narration; a +/- is
   kept only inside a text run. A bare Cr/Dr inside the narration range stays as printed (the generic reader drops it). Continuation lines drop amounts, currency glyphs and lone letters outside a text run.
 
+- Header-less continuation page that carries terms text: dated rows above its first prose line (a long line or a terms
+  heading) are still read and the table ends there; a page that opens with prose (no dated row before it) is skipped whole.
+- Amount grammar also takes a minus and a stray comma right after the currency glyph (`C-,123.45`, `-,123.45`), everywhere
+  amounts are read (rows, `nthAmountBelow`, `capture`); it reads as a negative-marked figure.
+- `requiresNot(regex)`: the profile does not match when the document text matches (mirror of `requires`).
+
 ## Acceptance rule (before a profile goes ACTIVE)
 
 Run the corpus twice, `-Dcorpus.reader=v1` and `-Dcorpus.reader=layout`, then `CorpusDiff` with
