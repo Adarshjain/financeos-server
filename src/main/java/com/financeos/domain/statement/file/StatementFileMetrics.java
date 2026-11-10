@@ -50,6 +50,11 @@ public class StatementFileMetrics {
         Counter.builder("financeos.statement.files").tag("outcome", "deduped").register(registry).increment();
     }
 
+    /** The original-file back-fill settled or attempted one statement; outcome is the {@code StatementFileBackfill.Outcome} name. */
+    public void backfill(String outcome) {
+        Counter.builder("financeos.statement.files.backfill").tag("outcome", outcome).register(registry).increment();
+    }
+
     /** @param reason disabled | empty | too_large | unsupported | user_quota | total_cap | error */
     public void skipped(String reason) {
         Counter.builder("financeos.statement.files").tag("outcome", "skipped").tag("reason", reason)

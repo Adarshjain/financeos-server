@@ -161,6 +161,19 @@ public class GmailEngine {
         }
     }
 
+    /** Same as the connection overload, reusing one Gmail service (one token refresh) across several attachments. */
+    public byte[] fetchAttachmentContentOn(Gmail service, String messageId, String attachmentId) {
+        try {
+            return gmailApiClient.getAttachment(service, messageId, attachmentId);
+        } catch (IOException e) {
+            GmailEngineException classified = classify(e);
+            if (classified.getErrorType() == GmailError.NOT_FOUND) {
+                throw new MessageGoneException(messageId);
+            }
+            throw classified;
+        }
+    }
+
     /**
      * Maps a Google client exception onto {@link GmailError}. A refresh-token rejection surfaces as
      * a {@link TokenResponseException} with a 4xx status (invalid_grant is a 400 whose message

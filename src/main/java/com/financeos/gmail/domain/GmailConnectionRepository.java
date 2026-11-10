@@ -1,6 +1,8 @@
 package com.financeos.gmail.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -33,4 +35,9 @@ public interface GmailConnectionRepository extends JpaRepository<GmailConnection
     long countByUserIdAndIsConnectedTrueAndAuthFailedAtIsNotNull(UUID userId);
 
     List<GmailConnection> findByUserId(UUID userId);
+
+    /** This user's mailboxes whose ledger holds the message (the user's own rows only), owner loaded. */
+    @Query("SELECT c FROM GmailConnection c JOIN FETCH c.user WHERE c.id IN (SELECT g.connection.id FROM GmailProcessedMessage g "
+            + "WHERE g.user.id = :userId AND g.gmailMessageId = :messageId)")
+    List<GmailConnection> findOwningMessage(@Param("userId") UUID userId, @Param("messageId") String messageId);
 }

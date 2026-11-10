@@ -57,6 +57,13 @@ public class Statement {
     @Column(name = "file_id", length = 36)
     private UUID fileId;
 
+    /** When the original-file back-fill last settled this statement; null while it has not (or must retry). */
+    @Column(name = "file_backfill_at")
+    private Instant fileBackfillAt;
+
+    @Column(name = "file_backfill_outcome", length = 30)
+    private String fileBackfillOutcome;
+
     @Column(name = "statement_type", length = 20)
     private String statementType;
 

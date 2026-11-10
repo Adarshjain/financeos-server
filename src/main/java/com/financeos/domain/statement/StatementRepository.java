@@ -22,6 +22,39 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
     @Query("SELECT s.id FROM Statement s WHERE s.account.id = :accountId AND s.fileSha256 = :sha AND s.fileId IS NULL")
     List<UUID> findIdsByAccountIdAndFileSha256WithoutFile(@Param("accountId") UUID accountId, @Param("sha") String fileSha256);
 
+    /** One back-fill candidate: ids and the Gmail message/hash only, no entity graph. */
+    interface FileBackfillCandidate {
+        String getId();
+        String getUserId();
+        String getAccountId();
+        String getSourceRef();
+        String getFileSha256();
+    }
+
+    /**
+     * Gmail statements still without a stored file that the back-fill has not tried, or tried with a retryable outcome
+     * (NO_CONNECTION, ERROR, STORE_UNAVAILABLE) before {@code retryBefore}. Final outcomes are never selected. Oldest first, interleaved
+     * across users (each user's oldest, then each user's second oldest, ...) so one user never takes the whole batch.
+     */
+    @Query(value = "SELECT id AS id, user_id AS userId, account_id AS accountId, source_ref AS sourceRef, file_sha256 AS fileSha256 FROM ("
+            + "SELECT id, user_id, account_id, source_ref, file_sha256, created_at, "
+            + "ROW_NUMBER() OVER (PARTITION BY user_id ORDER BY created_at, id) AS rn FROM statements "
+            + "WHERE source = 'gmail' AND file_id IS NULL AND source_ref IS NOT NULL AND file_sha256 IS NOT NULL "
+            + "AND (file_backfill_at IS NULL OR (file_backfill_outcome IN ('NO_CONNECTION', 'ERROR', 'STORE_UNAVAILABLE') AND file_backfill_at < :retryBefore))) "
+            + "ORDER BY rn, created_at, id FETCH FIRST :batch ROWS ONLY", nativeQuery = true)
+    List<FileBackfillCandidate> findFileBackfillCandidates(@Param("batch") int batch, @Param("retryBefore") java.time.Instant retryBefore);
+
+    @Query("SELECT s.fileId FROM Statement s WHERE s.id = :id")
+    Optional<UUID> findFileIdById(@Param("id") UUID id);
+
+    /**
+     * Stamps a back-fill attempt without loading the statement. Only a statement never stamped, or stamped with a
+     * retryable outcome, is updated: a final outcome (or a second node's stamp of one) is never overwritten.
+     */
+    @org.springframework.data.jpa.repository.Modifying
+    @Query("UPDATE Statement s SET s.fileBackfillAt = :at, s.fileBackfillOutcome = :outcome WHERE s.id = :id AND (s.fileBackfillAt IS NULL OR s.fileBackfillOutcome IN ('NO_CONNECTION', 'ERROR', 'STORE_UNAVAILABLE'))")
+    int markFileBackfill(@Param("id") UUID id, @Param("at") java.time.Instant at, @Param("outcome") String outcome);
+
     /** Re-upload gap fill: the account's statements of the same file / the same period end. */
     @Query("SELECT s FROM Statement s LEFT JOIN FETCH s.creditCardDetails WHERE s.account.id = :accountId AND s.fileSha256 = :sha ORDER BY s.createdAt ASC")
     List<Statement> findByAccountIdAndFileSha256(@Param("accountId") UUID accountId, @Param("sha") String fileSha256);

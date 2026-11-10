@@ -32,6 +32,9 @@ public class StatementFileAttacher {
         this.tx = new TransactionTemplate(txManager);
     }
 
+    /** What {@link #attachDetailed} did. NOT_STORED_PERMANENT will never succeed for these bytes; TRANSIENT may later. */
+    public enum AttachResult { ATTACHED, ALREADY_HAD_FILE, STATEMENT_MISSING, NOT_STORED_PERMANENT, NOT_STORED_TRANSIENT }
+
     /** Stores the file and sets the statement's file when it has none. A missing statement is a no-op. */
     public void attach(UUID userId, UUID statementId, byte[] bytes, String originalName) {
         try {
@@ -42,6 +45,23 @@ public class StatementFileAttacher {
             setIfMissing(statementId, fileId.get());
         } catch (Exception e) {
             log.warn("STATEMENT_FILE_ATTACH_FAILED {}", e.toString());
+        }
+    }
+
+    /** Same as {@link #attach} but says what happened. Never throws; no transaction may be open. */
+    public AttachResult attachDetailed(UUID userId, UUID statementId, byte[] bytes, String originalName) {
+        try {
+            StatementFileStore.StoreResult stored = store.storeDetailed(userId, bytes, originalName);
+            if (stored.id() == null) {
+                return switch (stored.outcome()) {
+                    case TOO_LARGE, UNSUPPORTED, EMPTY -> AttachResult.NOT_STORED_PERMANENT;
+                    default -> AttachResult.NOT_STORED_TRANSIENT;
+                };
+            }
+            return setIfMissing(statementId, stored.id());
+        } catch (Exception e) {
+            log.warn("STATEMENT_FILE_ATTACH_FAILED {}", e.toString());
+            return AttachResult.NOT_STORED_TRANSIENT;
         }
     }
 
@@ -67,12 +87,19 @@ public class StatementFileAttacher {
         }
     }
 
-    private void setIfMissing(UUID statementId, UUID fileId) {
-        tx.executeWithoutResult(status -> statementRepository.findById(statementId).ifPresent((Statement s) -> {
-            if (s.getFileId() == null) {
-                s.setFileId(fileId);
-                statementRepository.save(s);
+    private AttachResult setIfMissing(UUID statementId, UUID fileId) {
+        return tx.execute(status -> {
+            Optional<Statement> found = statementRepository.findById(statementId);
+            if (found.isEmpty()) {
+                return AttachResult.STATEMENT_MISSING;
             }
-        }));
+            Statement s = found.get();
+            if (s.getFileId() != null) {
+                return AttachResult.ALREADY_HAD_FILE;
+            }
+            s.setFileId(fileId);
+            statementRepository.save(s);
+            return AttachResult.ATTACHED;
+        });
     }
 }

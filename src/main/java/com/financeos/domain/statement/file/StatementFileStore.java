@@ -74,6 +74,19 @@ public class StatementFileStore {
      * pool is small), so an open caller transaction is suspended and holds its connection meanwhile.
      */
     public Optional<UUID> store(UUID userId, byte[] bytes, String originalName) {
+        return Optional.ofNullable(storeDetailed(userId, bytes, originalName).id());
+    }
+
+    /** Why a store ended as it did; the skip reasons are the {@code reason} tag of the skipped metric. */
+    public enum StoreOutcome {
+        STORED, DEDUPED, DISABLED, EMPTY, TOO_LARGE, UNSUPPORTED, USER_QUOTA, TOTAL_CAP, ERROR
+    }
+
+    /** {@code id} is set exactly when the outcome is STORED or DEDUPED. */
+    public record StoreResult(UUID id, StoreOutcome outcome) {}
+
+    /** Same as {@link #store} (same rules, metrics and never throwing) but says what happened. */
+    public StoreResult storeDetailed(UUID userId, byte[] bytes, String originalName) {
         try {
             if (!props.isEnabled()) {
                 return skipped("disabled");
@@ -109,7 +122,7 @@ public class StatementFileStore {
             } else {
                 metrics.deduped();
             }
-            return Optional.of(out.id());
+            return new StoreResult(out.id(), "stored".equals(out.outcome()) ? StoreOutcome.STORED : StoreOutcome.DEDUPED);
         } catch (Exception e) {
             log.warn("STATEMENT_FILE_STORE_FAILED {}", e.toString());
             return skipped("error");
@@ -206,9 +219,9 @@ public class StatementFileStore {
         return clock.instant().minus(ORPHAN_GRACE);
     }
 
-    private Optional<UUID> skipped(String reason) {
+    private StoreResult skipped(String reason) {
         metrics.skipped(reason);
-        return Optional.empty();
+        return new StoreResult(null, StoreOutcome.valueOf(reason.toUpperCase(Locale.ROOT)));
     }
 
     static String baseName(String name) {
