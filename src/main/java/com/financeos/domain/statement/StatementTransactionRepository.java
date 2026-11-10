@@ -25,6 +25,21 @@ public interface StatementTransactionRepository extends JpaRepository<StatementT
     List<StatementLineProjection> findLinesByStatementId(@Param("statementId") UUID statementId);
     List<StatementTransaction> findByIdTransactionId(UUID transactionId);
 
+    /** What pairs a linked line with a parsed one: its statement, date, amount and direction. */
+    interface StatementLineKey {
+        UUID getStatementId();
+        LocalDate getDate();
+        java.math.BigDecimal getAmount();
+        com.financeos.domain.transaction.TransactionType getType();
+    }
+
+    /** The line keys of several statements in one read (re-upload refresh candidates). */
+    @Query("SELECT st.id.statementId AS statementId, t.date AS date, t.amount AS amount, t.type AS type " +
+           "FROM StatementTransaction st, Transaction t " +
+           "WHERE st.id.statementId IN :statementIds AND t.id = st.id.transactionId")
+    List<StatementLineKey> findLineKeysByStatementIdIn(@Param("statementIds") Collection<UUID> statementIds);
+
+
     @Query("SELECT st.id.transactionId FROM StatementTransaction st WHERE st.id.statementId = :statementId")
     List<UUID> findTransactionIdsByStatementId(@Param("statementId") UUID statementId);
 

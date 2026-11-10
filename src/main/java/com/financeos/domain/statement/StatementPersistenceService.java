@@ -9,6 +9,8 @@ import com.financeos.domain.transaction.TransactionType;
 import com.financeos.domain.user.User;
 import com.financeos.gmail.reconcile.ParsedStatementLine;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +26,8 @@ import java.util.UUID;
 
 @Service
 public class StatementPersistenceService {
+
+    private static final Logger log = LoggerFactory.getLogger(StatementPersistenceService.class);
 
     private final StatementRepository statementRepository;
     private final StatementTransactionRepository statementTransactionRepository;
@@ -189,26 +193,94 @@ public class StatementPersistenceService {
         return target;
     }
 
-    /** No stored links, or at least 80% of them pair exactly (date, |amount|, direction) with a parsed line. */
-    private boolean looksLikeSameDocument(Statement target, List<ParsedStatementLine> lines) {
-        List<StatementLineProjection> stored = statementTransactionRepository.findLinesByStatementId(target.getId());
-        if (stored == null || stored.isEmpty()) {
-            return true;
+    /** Days a missing period start is taken to lie before its end, and how far apart two ends may be to be the same statement. */
+    private static final int ASSUMED_PERIOD_DAYS = 45;
+    private static final int END_TOLERANCE_DAYS = 10;
+
+    /**
+     * The statement (not in {@code skip}) a re-uploaded parse corrects when the file hash finds none: among the account's
+     * live statements whose period overlaps the parsed one (a missing start is the end minus 45 days) or that end within
+     * 10 days of it, the one with the same period when it has no links or 80% of its links pair exactly (date, |amount|,
+     * direction) with a parsed line; else the one whose links pair 80% exactly and make up at least half the parsed lines
+     * (a yearly never absorbs a monthly nor the reverse), the most exact pairs winning. A tie is ambiguous: none.
+     * Neither: the only linkless statement ending on the same day (its start wrong or missing), else none.
+     */
+    private Statement findByPeriod(UUID accountId, StatementDraft draft, List<ParsedStatementLine> lines, Set<UUID> skip) {
+        LocalDate end = draft.periodEnd();
+        if (end == null) {
+            return null;
         }
-        Map<String, Integer> counts = new java.util.HashMap<>();
+        LocalDate start = draft.periodStart() != null ? draft.periodStart() : end.minusDays(ASSUMED_PERIOD_DAYS);
+        LocalDate from = start.isBefore(end.minusDays(END_TOLERANCE_DAYS)) ? start : end.minusDays(END_TOLERANCE_DAYS);
+        List<Statement> candidates = new java.util.ArrayList<>();
+        for (Statement c : statementRepository.findLiveByAccountIdEndingOnOrAfter(accountId, from)) {
+            if (c.getPeriodEnd() == null || (skip != null && skip.contains(c.getId()))) continue;
+            LocalDate cStart = c.getPeriodStart() != null ? c.getPeriodStart() : c.getPeriodEnd().minusDays(ASSUMED_PERIOD_DAYS);
+            boolean overlaps = !cStart.isAfter(end) && !c.getPeriodEnd().isBefore(start);
+            boolean nearEnd = Math.abs(java.time.temporal.ChronoUnit.DAYS.between(c.getPeriodEnd(), end)) <= END_TOLERANCE_DAYS;
+            if (overlaps || nearEnd) candidates.add(c);
+        }
+        if (candidates.isEmpty()) {
+            return null;
+        }
+        Map<UUID, List<StatementTransactionRepository.StatementLineKey>> storedById = new java.util.HashMap<>();
+        for (StatementTransactionRepository.StatementLineKey k : statementTransactionRepository.findLineKeysByStatementIdIn(
+                candidates.stream().map(Statement::getId).toList())) {
+            storedById.computeIfAbsent(k.getStatementId(), x -> new java.util.ArrayList<>()).add(k);
+        }
+        Map<String, Integer> parsedCounts = new java.util.HashMap<>();
         for (ParsedStatementLine l : lines) {
-            counts.merge(lineKey(l.date(), l.amount(), TransactionType.fromLlmDirection(l.direction())), 1, Integer::sum);
+            parsedCounts.merge(lineKey(l.date(), l.amount(), TransactionType.fromLlmDirection(l.direction())), 1, Integer::sum);
         }
-        int exact = 0;
-        for (StatementLineProjection p : stored) {
-            String k = lineKey(p.date(), p.amount(), p.type());
-            Integer c = counts.get(k);
-            if (c != null && c > 0) {
-                counts.put(k, c - 1);
-                exact++;
+        Statement exactWinner = null;
+        int exactWinnerPairs = -1;
+        Statement best = null;
+        int bestPairs = -1;
+        boolean tie = false;
+        List<Statement> emptySameEnd = new java.util.ArrayList<>();
+        for (Statement c : candidates) {
+            List<StatementTransactionRepository.StatementLineKey> stored = storedById.getOrDefault(c.getId(), List.of());
+            Map<String, Integer> counts = new java.util.HashMap<>(parsedCounts);
+            int pairs = 0;
+            for (StatementTransactionRepository.StatementLineKey k : stored) {
+                String key = lineKey(k.getDate(), k.getAmount(), k.getType());
+                Integer n = counts.get(key);
+                if (n != null && n > 0) {
+                    counts.put(key, n - 1);
+                    pairs++;
+                }
+            }
+            boolean mostlyPaired = pairs * 5 >= stored.size() * 4;
+            boolean samePeriod = end.equals(c.getPeriodEnd()) && java.util.Objects.equals(draft.periodStart(), c.getPeriodStart());
+            if (!samePeriod && stored.isEmpty() && end.equals(c.getPeriodEnd())) emptySameEnd.add(c);
+            if (samePeriod && (stored.isEmpty() || mostlyPaired)) {
+                if (pairs > exactWinnerPairs) { // equal: the oldest stays
+                    exactWinner = c;
+                    exactWinnerPairs = pairs;
+                }
+            } else if (!stored.isEmpty() && mostlyPaired && pairs * 2 >= lines.size()) {
+                if (pairs > bestPairs) {
+                    best = c;
+                    bestPairs = pairs;
+                    tie = false;
+                } else if (pairs == bestPairs) {
+                    tie = true;
+                }
             }
         }
-        return exact * 5 >= stored.size() * 4;
+        if (exactWinner != null) {
+            return exactWinner;
+        }
+        if (tie) {
+            log.info("Re-upload refresh skipped: parsed period {}..{} of account {} pairs equally with several statements",
+                    draft.periodStart(), end, accountId);
+            return null;
+        }
+        if (best != null) {
+            return best;
+        }
+        // Last resort: the one linkless statement ending on the same day (its start wrong or missing).
+        return emptySameEnd.size() == 1 ? emptySameEnd.get(0) : null;
     }
 
     /** The parse accounts for itself: AUTO_INGEST, and the card checks pass (card) or checksum holds with every row chain-valid (bank). */
@@ -238,7 +310,8 @@ public class StatementPersistenceService {
 
     /**
      * A re-upload whose new parse fully reconciles ({@link #fullyReconciles}) corrects the existing statement (same file,
-     * else same account and period end; not rejected, not in {@code skipStatementIds}): the header and card details are
+     * else the one {@link #findByPeriod} picks, whose period is then rewritten from the parse or nothing happens when that
+     * period breaks the rules or another statement already ends on it; not rejected, not in {@code skipStatementIds}): the header and card details are
      * overwritten from the parse (a null clears the field), id, source, file hash, account and user stay. The parsed
      * lines are compared with the linked transactions as a multiset of (date, amount, direction); a line with no
      * counterpart that pairs with an edited linked row (same direction; same amount within 5 days, or same date) keeps
@@ -254,20 +327,26 @@ public class StatementPersistenceService {
         if (!fullyReconciles(draft)) {
             return Optional.empty();
         }
-        Statement target = findLiveTarget(accountId, fileSha256, draft);
+        Statement target = fileSha256 == null ? null
+                : firstLive(statementRepository.findByAccountIdAndFileSha256(accountId, fileSha256));
+        boolean sameFile = target != null;
+        if (target == null) {
+            target = findByPeriod(accountId, draft, lines, skipStatementIds);
+        }
         if (target == null || (skipStatementIds != null && skipStatementIds.contains(target.getId()))) {
             return Optional.empty();
         }
-        // Found only by period (not the same bytes): a different document unless the stored links mostly pair exactly.
-        boolean sameFile = fileSha256 != null
-                && firstLive(statementRepository.findByAccountIdAndFileSha256(accountId, fileSha256)) == target;
-        if (!sameFile && !looksLikeSameDocument(target, lines)) {
+        boolean periodDiffers = draft.periodEnd() != null && (!draft.periodEnd().equals(target.getPeriodEnd())
+                || !java.util.Objects.equals(draft.periodStart(), target.getPeriodStart()));
+        boolean periodOk = periodDiffers && periodAcceptable(target, accountId, draft);
+        // Found by period (not the same bytes) means the stored period is wrong: a parse that cannot replace it changes nothing.
+        if (!sameFile && periodDiffers && !periodOk) {
+            log.info("Re-upload refresh skipped: parsed period {}..{} cannot replace statement {}'s {}..{}",
+                    draft.periodStart(), draft.periodEnd(), target.getId(), target.getPeriodStart(), target.getPeriodEnd());
             return Optional.empty();
         }
         List<String> changed = new java.util.ArrayList<>();
-        if (draft.periodEnd() != null && (!draft.periodEnd().equals(target.getPeriodEnd())
-                || !java.util.Objects.equals(draft.periodStart(), target.getPeriodStart()))
-                && periodAcceptable(target, accountId, draft)) {
+        if (periodOk) {
             target.setPeriodStart(draft.periodStart());
             target.setPeriodEnd(draft.periodEnd());
             changed.add("period");

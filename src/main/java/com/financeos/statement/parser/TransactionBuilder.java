@@ -27,6 +27,16 @@ final class TransactionBuilder {
     // longest vertical gap at which an undated line still wraps a row's narration;
     // a footer block ("CASHBACK DETAILS") further down is not part of it
     private static final double MAX_CONTINUATION_GAP = 25;
+    // a date further right than this from its page's date column is inside the narration
+    private static final double DATE_COL_TOL = 15;
+    // how much wider (pt) the gap between two blocks is than any line gap inside one
+    private static final double BLOCK_GAP = 2;
+    // Row gaps that must agree before narration is trusted to sit below rows: at least
+    // MIN_SIDE_VOTES, SIDE_LEAD times those that split right after the row, and SIDE_SHARE of
+    // all clear gaps (a dropped or odd line now and then splits a block elsewhere).
+    private static final int MIN_SIDE_VOTES = 3;
+    private static final double SIDE_LEAD = 4;
+    private static final double SIDE_SHARE = 0.6;
     private static final Pattern SPLIT_HEAD = Pattern.compile("\\d{1,3}");
     private static final Pattern SPLIT_TAIL = Pattern.compile(",\\d{2,3}(?:,\\d{2,3})*\\.\\d{1,2}");
 
@@ -54,23 +64,37 @@ final class TransactionBuilder {
         // absorb those lines so its amounts and balance are parsed as one row.
         List<RawRow> merged = new ArrayList<>();
         Set<Word> narrationAmounts = Collections.newSetFromMap(new IdentityHashMap<>());
+        Map<Integer, Double> dateColX = dateColumns(rawRows);
+        int narrationDated = 0;
         int mi = 0;
         while (mi < rawRows.size()) {
             RawRow r = rawRows.get(mi);
             if (Boolean.TRUE.equals(r.isNewTxn()) && !hasAmount(r.line())) {
                 List<Line> block = new ArrayList<>();
                 block.add(r.line());
+                List<RawRow> markers = new ArrayList<>();
                 int mj = mi + 1;
                 while (mj < rawRows.size() && !Boolean.TRUE.equals(rawRows.get(mj).isNewTxn())) {
                     RawRow rj = rawRows.get(mj);
                     if (Boolean.FALSE.equals(rj.isNewTxn())) {
                         block.add(rj.line());
                     } else {
-                        merged.add(rj); // keep marker rows (page-boundary B/F)
+                        markers.add(rj); // keep marker rows (page-boundary B/F)
                     }
                     mj++;
                 }
-                merged.addAll(splitBlock(r, block, narrationAmounts));
+                merged.addAll(markers);
+                if (isNarrationDate(r, block, dateColX)) {
+                    // A date printed inside the narration ("Value Dt 02/02/2025 Ref ...") with
+                    // no amount anywhere in its block is wrapped text, not a row: keep its lines
+                    // as continuations (it still counts as a dropped dated line).
+                    narrationDated++;
+                    for (Line bl : block) {
+                        merged.add(new RawRow(bl, false, null, r.cardLast4()));
+                    }
+                } else {
+                    merged.addAll(splitBlock(r, block, narrationAmounts));
+                }
                 mi = mj;
             } else {
                 merged.add(r);
@@ -79,7 +103,7 @@ final class TransactionBuilder {
         }
 
         List<TxnDraft> txns = new ArrayList<>();
-        int droppedRows = 0;
+        int droppedRows = narrationDated;
         List<Map.Entry<Integer, Line>> continuations = new ArrayList<>();
         Double openingFromMarker = null;
 
@@ -217,8 +241,10 @@ final class TransactionBuilder {
         }
 
         // Attach continuation lines to the vertically nearest transaction — wrapped
-        // narrations can sit above OR below their dated row. Lines outside the
-        // description column (marketing text, section titles) are dropped.
+        // narrations can sit above OR below their dated row — unless the document prints
+        // them below its rows (narrationBelow): then the row above takes them. Lines
+        // outside the description column (marketing text, section titles) are dropped.
+        boolean below = narrationBelow(txns, continuations, pageSpan);
         List<Attachment> attachments = new ArrayList<>();
         for (Map.Entry<Integer, Line> entry : continuations) {
             int pos = entry.getKey();
@@ -230,23 +256,25 @@ final class TransactionBuilder {
             if (txns.isEmpty() || (span != null && !(span[0] - 25 <= x0 && x0 <= span[1] + 25))) {
                 continue;
             }
-            TxnDraft near = null;
-            int bestTier = Integer.MAX_VALUE;
-            double bestVal = Double.POSITIVE_INFINITY;
-            for (TxnDraft t : txns) {
-                int tier;
-                double val;
-                if (t.page == page) {
-                    tier = 0;
-                    val = Math.abs(t.top - top);
-                } else {
-                    tier = 1;
-                    val = Math.abs(t.pos - pos);
-                }
-                if (tier < bestTier || (tier == bestTier && val < bestVal)) {
-                    bestTier = tier;
-                    bestVal = val;
-                    near = t;
+            TxnDraft near = below ? rowAbove(txns, pos, page) : null;
+            if (near == null) {
+                int bestTier = Integer.MAX_VALUE;
+                double bestVal = Double.POSITIVE_INFINITY;
+                for (TxnDraft t : txns) {
+                    int tier;
+                    double val;
+                    if (t.page == page) {
+                        tier = 0;
+                        val = Math.abs(t.top - top);
+                    } else {
+                        tier = 1;
+                        val = Math.abs(t.pos - pos);
+                    }
+                    if (tier < bestTier || (tier == bestTier && val < bestVal)) {
+                        bestTier = tier;
+                        bestVal = val;
+                        near = t;
+                    }
                 }
             }
             List<String> words = new ArrayList<>();
@@ -348,6 +376,111 @@ final class TransactionBuilder {
                     : new RawRow(new Line(joined), r.isNewTxn(), r.anchor(), r.cardLast4()));
         }
         return out;
+    }
+
+    // Left edge of each page's date column: the leftmost row date on that page.
+    private static Map<Integer, Double> dateColumns(List<RawRow> rows) {
+        Map<Integer, Double> out = new HashMap<>();
+        for (RawRow r : rows) {
+            if (Boolean.TRUE.equals(r.isNewTxn()) && r.anchor() != null) {
+                Line ln = r.line();
+                out.merge(ln.page(), ln.words().get(r.anchor().start()).x0(), Math::min);
+            }
+        }
+        return out;
+    }
+
+    // A dated line whose date sits right of its page's date column and whose block
+    // carries no amount at all.
+    private static boolean isNarrationDate(RawRow r, List<Line> block, Map<Integer, Double> dateColX) {
+        if (r.anchor() == null) {
+            return false;
+        }
+        Line ln = r.line();
+        Double col = dateColX.get(ln.page());
+        if (col == null || ln.words().get(r.anchor().start()).x0() - col <= DATE_COL_TOL) {
+            return false;
+        }
+        for (Line bl : block) {
+            if (hasAmount(bl)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // Whether this document prints each row's wrapped narration below its dated row (HDFC
+    // savings: "... Value Dt 11/02/2025 Ref 504284727859" under the row), read from the gaps
+    // between consecutive rows on a page: the widest vertical gap in the run row, lines...,
+    // next row separates the two blocks. When that split clearly and consistently falls right
+    // before the next row, every block starts at its dated row. Documents that print narration
+    // above the row, or on both sides, keep the nearest-row rule.
+    static boolean narrationBelow(List<TxnDraft> txns, List<Map.Entry<Integer, Line>> continuations,
+                                  Map<Integer, double[]> pageSpan) {
+        int below = 0;
+        int above = 0;
+        int votes = 0;
+        for (int i = 0; i + 1 < txns.size(); i++) {
+            TxnDraft r1 = txns.get(i);
+            TxnDraft r2 = txns.get(i + 1);
+            if (r1.page != r2.page || r2.top <= r1.top) {
+                continue;
+            }
+            List<Double> tops = new ArrayList<>();
+            for (Map.Entry<Integer, Line> e : continuations) {
+                Line ln = e.getValue();
+                if (e.getKey() > r1.pos && e.getKey() < r2.pos && ln.page() == r1.page
+                        && inSpan(pageSpan.get(ln.page()), ln) && ln.top() > r1.top && ln.top() < r2.top) {
+                    tops.add(ln.top());
+                }
+            }
+            if (tops.isEmpty()) {
+                continue;
+            }
+            Collections.sort(tops);
+            tops.add(0, r1.top);
+            tops.add(r2.top);
+            int widest = -1;
+            double best = Double.NEGATIVE_INFINITY;
+            double second = Double.NEGATIVE_INFINITY;
+            for (int g = 0; g + 1 < tops.size(); g++) {
+                double gap = tops.get(g + 1) - tops.get(g);
+                if (gap > best) {
+                    second = best;
+                    best = gap;
+                    widest = g;
+                } else if (gap > second) {
+                    second = gap;
+                }
+            }
+            if (best - second < BLOCK_GAP) {
+                continue;
+            }
+            votes++;
+            if (widest == tops.size() - 2) {
+                below++;
+            } else if (widest == 0) {
+                above++;
+            }
+        }
+        return below >= MIN_SIDE_VOTES && below >= SIDE_LEAD * above && below >= SIDE_SHARE * votes;
+    }
+
+    // In a narration-below document, the nearest row before the line on its page; null when
+    // there is none (the nearest-row rule decides then).
+    private static TxnDraft rowAbove(List<TxnDraft> txns, int pos, int page) {
+        TxnDraft found = null;
+        for (TxnDraft t : txns) {
+            if (t.page == page && t.pos < pos && (found == null || t.pos > found.pos)) {
+                found = t;
+            }
+        }
+        return found;
+    }
+
+    private static boolean inSpan(double[] span, Line ln) {
+        double x0 = ln.words().get(0).x0();
+        return span == null || (span[0] - 25 <= x0 && x0 <= span[1] + 25);
     }
 
     private static boolean hasAmount(Line line) {

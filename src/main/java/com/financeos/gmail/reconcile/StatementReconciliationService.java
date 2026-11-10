@@ -788,7 +788,7 @@ public class StatementReconciliationService {
         StatementDraft derived = new StatementDraft(draft.statementType(), start, draft.periodEnd() != null ? draft.periodEnd() : parsed.periodEnd(),
                 draft.openingBalance(), draft.closingBalance(), draft.bankName(), draft.accountNumberMasked(), draft.transactionCount(),
                 draft.linesSkipped(), draft.totalDebits(), draft.totalCredits(), draft.parseMode(), draft.chainValidationPct(),
-                draft.checksumOk(), draft.verdict(), draft.cardFields());
+                draft.checksumOk(), draft.verdict(), draft.cardFields(), draft.cardChecksOk(), draft.statedNone());
         return parsed.withDraft(derived);
     }
 

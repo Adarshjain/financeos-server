@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -154,7 +155,8 @@ public final class StatementParseEngine {
             }
             harvestMaxPage = pg;
         }
-        LinkedHashMap<String, Object> summaryFields = SummaryFieldHarvester.harvest(lines, txnLines, harvestMaxPage);
+        Set<String> statedNone = new LinkedHashSet<>();
+        LinkedHashMap<String, Object> summaryFields = SummaryFieldHarvester.harvest(lines, txnLines, harvestMaxPage, statedNone);
 
         List<RowResult> results;
         String mode;
@@ -472,6 +474,8 @@ public final class StatementParseEngine {
         parseInfo.crossDebits = crossDebits;
         parseInfo.crossCredits = crossCredits;
         parseInfo.cardChecks = cardChecks;
+        statedNone.removeIf(summaryFields::containsKey); // a value found later wins
+        parseInfo.statedNone = Set.copyOf(statedNone);
         parseInfo.verdict = verdict;
         parseInfo.rowsDropped = rowsDropped;
 

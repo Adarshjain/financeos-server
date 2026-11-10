@@ -326,8 +326,25 @@ class StatementPersistenceRefreshTest {
         Statement s = card(new BigDecimal("900"), null);
         when(repository.findByAccountIdAndFileSha256(accountId, "other")).thenReturn(List.of());
         when(repository.findByAccountIdAndPeriodEnd(accountId, END)).thenReturn(List.of(s));
+        when(repository.findLiveByAccountIdEndingOnOrAfter(org.mockito.ArgumentMatchers.eq(accountId), org.mockito.ArgumentMatchers.any()))
+                .thenReturn(List.of(s));
+        when(links.findLineKeysByStatementIdIn(org.mockito.ArgumentMatchers.any())).thenReturn(keys(s, stored));
         when(links.findLinesByStatementId(s.getId())).thenReturn(stored);
         return s;
+    }
+
+    private static List<StatementTransactionRepository.StatementLineKey> keys(Statement s, List<StatementLineProjection> stored) {
+        return stored.stream().map(p -> key(s.getId(), p.date(), p.amount(), p.type())).toList();
+    }
+
+    private static StatementTransactionRepository.StatementLineKey key(UUID statementId, LocalDate date, BigDecimal amount,
+                                                                       TransactionType type) {
+        return new StatementTransactionRepository.StatementLineKey() {
+            public UUID getStatementId() { return statementId; }
+            public LocalDate getDate() { return date; }
+            public BigDecimal getAmount() { return amount; }
+            public TransactionType getType() { return type; }
+        };
     }
 
     private StatementDraft okDraft() {
@@ -363,5 +380,187 @@ class StatementPersistenceRefreshTest {
     void periodMatchWithNoStoredLinksRefreshes() {
         foundOnlyByPeriod(List.of());
         assertTrue(refresh(accountId, "other", okDraft(), List.of(line(9, "99", "DEBIT"))).isPresent());
+    }
+
+    // --- Lookup when the file hash misses: overlapping / near-end candidates, scored by exact line pairs. ---
+
+    private Statement stored(LocalDate start, LocalDate end) {
+        Statement s = new Statement();
+        s.setId(UUID.randomUUID());
+        s.setUser(new User());
+        s.setStatementType("bank_account");
+        s.setVerdict(StatementVerdict.NEEDS_REVIEW);
+        s.setPeriodStart(start);
+        s.setPeriodEnd(end);
+        s.setCreatedAt(Instant.now());
+        return s;
+    }
+
+    private StatementDraft bankDraft(LocalDate start, LocalDate end, int count) {
+        return new StatementDraft("bank_account", start, end, new BigDecimal("10"), new BigDecimal("20"), "HDFC", "1234", count, 0,
+                null, null, "balance_chain", new BigDecimal("100"), true, StatementVerdict.AUTO_INGEST, null);
+    }
+
+    private static ParsedStatementLine on(LocalDate date, String amount) {
+        return new ParsedStatementLine(date, new BigDecimal(amount), "DEBIT", "x", null, null);
+    }
+
+    private static List<ParsedStatementLine> daily(LocalDate from, int n) {
+        List<ParsedStatementLine> out = new java.util.ArrayList<>();
+        for (int i = 0; i < n; i++) out.add(on(from.plusDays(i), String.valueOf(10 + i)));
+        return out;
+    }
+
+    private static List<StatementTransactionRepository.StatementLineKey> keysOf(Statement s, List<ParsedStatementLine> lines) {
+        return lines.stream().map(l -> key(s.getId(), l.date(), l.amount(), TransactionType.DEBIT)).toList();
+    }
+
+    private void candidates(Statement... ss) {
+        when(repository.findByAccountIdAndFileSha256(accountId, "new")).thenReturn(List.of());
+        when(repository.findLiveByAccountIdEndingOnOrAfter(org.mockito.ArgumentMatchers.eq(accountId), org.mockito.ArgumentMatchers.any()))
+                .thenReturn(List.of(ss));
+    }
+
+    @Test
+    void aMonthlyWithTheExactPeriodAndNoLinksBeatsAYearlyEndingTheSameDay() {
+        LocalDate mStart = LocalDate.of(2026, 3, 1);
+        LocalDate mEnd = LocalDate.of(2026, 3, 31);
+        Statement yearly = stored(LocalDate.of(2025, 4, 1), mEnd);
+        Statement monthly = stored(mStart, mEnd);
+        candidates(yearly, monthly);
+        List<ParsedStatementLine> parsed = daily(LocalDate.of(2026, 3, 2), 20);
+        List<StatementTransactionRepository.StatementLineKey> yearlyLinks = new java.util.ArrayList<>(keysOf(yearly, parsed));
+        yearlyLinks.addAll(keysOf(yearly, daily(LocalDate.of(2025, 5, 1), 250)));
+        when(links.findLineKeysByStatementIdIn(org.mockito.ArgumentMatchers.any())).thenReturn(yearlyLinks);
+
+        StatementPersistenceService.Refreshed r = refresh(accountId, "new", bankDraft(mStart, mEnd, 20), parsed).orElseThrow();
+
+        assertEquals(monthly, r.statement());
+        assertEquals(20, r.missingLines().size(), "the monthly had no links: every line is missing");
+        assertFalse(r.changedFields().contains("period"));
+        verify(links).findLineKeysByStatementIdIn(org.mockito.ArgumentMatchers.argThat(ids -> ids.size() == 2));
+    }
+
+    @Test
+    void aStoredEndOffByTwoDaysWithMostLinesPairedIsRefreshedAndItsPeriodRewritten() {
+        LocalDate pStart = LocalDate.of(2022, 5, 18);
+        LocalDate pEnd = LocalDate.of(2022, 6, 17);
+        Statement s = stored(LocalDate.of(2022, 5, 24), LocalDate.of(2022, 6, 15));
+        candidates(s);
+        List<ParsedStatementLine> parsed = daily(LocalDate.of(2022, 5, 25), 10);
+        when(links.findLineKeysByStatementIdIn(org.mockito.ArgumentMatchers.any())).thenReturn(keysOf(s, parsed.subList(0, 9)));
+        when(repository.findByAccountIdAndPeriodEnd(accountId, pEnd)).thenReturn(List.of());
+
+        StatementPersistenceService.Refreshed r = refresh(accountId, "new", bankDraft(pStart, pEnd, 10), parsed).orElseThrow();
+
+        assertEquals(s, r.statement());
+        assertEquals(pStart, s.getPeriodStart());
+        assertEquals(pEnd, s.getPeriodEnd());
+        assertTrue(r.changedFields().contains("period"));
+        verify(repository).save(s);
+    }
+
+    @Test
+    void aYearlyParseDoesNotAbsorbAMonthlyNorTheReverse() {
+        LocalDate yStart = LocalDate.of(2025, 4, 1);
+        LocalDate yEnd = LocalDate.of(2026, 3, 31);
+        Statement monthly = stored(LocalDate.of(2026, 3, 1), LocalDate.of(2026, 3, 30));
+        candidates(monthly);
+        List<ParsedStatementLine> yearLines = daily(yStart, 300);
+        // The monthly's 20 links all pair, but they are under half of the yearly parse.
+        when(links.findLineKeysByStatementIdIn(org.mockito.ArgumentMatchers.any()))
+                .thenReturn(keysOf(monthly, yearLines.subList(280, 300)));
+
+        assertTrue(refresh(accountId, "new", bankDraft(yStart, yEnd, 300), yearLines).isEmpty());
+
+        // A monthly parse against a yearly stored statement (different end): its 20 lines are under 80% of the yearly's links.
+        Statement yearly = stored(yStart, LocalDate.of(2026, 3, 30));
+        candidates(yearly);
+        when(links.findLineKeysByStatementIdIn(org.mockito.ArgumentMatchers.any())).thenReturn(keysOf(yearly, yearLines));
+        assertTrue(refresh(accountId, "new", bankDraft(LocalDate.of(2026, 3, 1), LocalDate.of(2026, 3, 31), 20),
+                yearLines.subList(280, 300)).isEmpty());
+        verify(repository, never()).save(org.mockito.ArgumentMatchers.any());
+    }
+
+    @Test
+    void twoEquallyPairedCandidatesAreAmbiguousAndNothingIsRefreshed() {
+        LocalDate pStart = LocalDate.of(2026, 6, 1);
+        LocalDate pEnd = LocalDate.of(2026, 6, 30);
+        Statement a = stored(LocalDate.of(2026, 6, 2), LocalDate.of(2026, 6, 28));
+        Statement b = stored(LocalDate.of(2026, 6, 3), LocalDate.of(2026, 7, 2));
+        candidates(a, b);
+        List<ParsedStatementLine> parsed = daily(LocalDate.of(2026, 6, 5), 10);
+        List<StatementTransactionRepository.StatementLineKey> both = new java.util.ArrayList<>(keysOf(a, parsed));
+        both.addAll(keysOf(b, parsed));
+        when(links.findLineKeysByStatementIdIn(org.mockito.ArgumentMatchers.any())).thenReturn(both);
+
+        assertTrue(refresh(accountId, "new", bankDraft(pStart, pEnd, 10), parsed).isEmpty());
+        verify(repository, never()).save(org.mockito.ArgumentMatchers.any());
+    }
+
+    @Test
+    void aNewPeriodThatCollidesWithAnotherStatementsEndWritesNothing() {
+        LocalDate pStart = LocalDate.of(2026, 6, 1);
+        LocalDate pEnd = LocalDate.of(2026, 6, 30);
+        Statement target = stored(LocalDate.of(2026, 6, 3), LocalDate.of(2026, 6, 28));
+        Statement other = stored(LocalDate.of(2026, 5, 15), pEnd);
+        candidates(target, other);
+        List<ParsedStatementLine> parsed = daily(LocalDate.of(2026, 6, 5), 10);
+        List<StatementTransactionRepository.StatementLineKey> stored = new java.util.ArrayList<>(keysOf(target, parsed));
+        stored.add(key(other.getId(), LocalDate.of(2026, 5, 20), new BigDecimal("999"), TransactionType.DEBIT));
+        when(links.findLineKeysByStatementIdIn(org.mockito.ArgumentMatchers.any())).thenReturn(stored);
+        when(repository.findByAccountIdAndPeriodEnd(accountId, pEnd)).thenReturn(List.of(other));
+
+        assertTrue(refresh(accountId, "new", bankDraft(pStart, pEnd, 10), parsed).isEmpty());
+        assertEquals(LocalDate.of(2026, 6, 28), target.getPeriodEnd());
+        verify(repository, never()).save(org.mockito.ArgumentMatchers.any());
+        verify(links, never()).saveAll(org.mockito.ArgumentMatchers.anyList());
+    }
+
+    @Test
+    void theOnlyLinklessStatementEndingTheSameDayIsRefreshedAndItsStartRewritten() {
+        LocalDate pStart = LocalDate.of(2026, 6, 1);
+        LocalDate pEnd = LocalDate.of(2026, 6, 30);
+        Statement s = stored(LocalDate.of(2026, 5, 16), pEnd);
+        candidates(s);
+        when(links.findLineKeysByStatementIdIn(org.mockito.ArgumentMatchers.any())).thenReturn(List.of());
+        List<ParsedStatementLine> parsed = daily(LocalDate.of(2026, 6, 5), 10);
+
+        StatementPersistenceService.Refreshed r = refresh(accountId, "new", bankDraft(pStart, pEnd, 10), parsed).orElseThrow();
+
+        assertEquals(s, r.statement());
+        assertEquals(pStart, s.getPeriodStart());
+        assertEquals(pEnd, s.getPeriodEnd());
+        assertTrue(r.changedFields().contains("period"));
+        assertEquals(10, r.missingLines().size());
+        verify(repository).save(s);
+    }
+
+    @Test
+    void twoLinklessStatementsEndingTheSameDayAreAmbiguousAndNothingIsRefreshed() {
+        LocalDate pStart = LocalDate.of(2026, 6, 1);
+        LocalDate pEnd = LocalDate.of(2026, 6, 30);
+        Statement a = stored(LocalDate.of(2026, 5, 16), pEnd);
+        Statement b = stored(null, pEnd);
+        candidates(a, b);
+        when(links.findLineKeysByStatementIdIn(org.mockito.ArgumentMatchers.any())).thenReturn(List.of());
+
+        assertTrue(refresh(accountId, "new", bankDraft(pStart, pEnd, 10), daily(LocalDate.of(2026, 6, 5), 10)).isEmpty());
+        assertEquals(LocalDate.of(2026, 5, 16), a.getPeriodStart());
+        verify(repository, never()).save(org.mockito.ArgumentMatchers.any());
+    }
+
+    @Test
+    void skippedAndFarAwayStatementsAreNotCandidates() {
+        LocalDate pStart = LocalDate.of(2026, 6, 1);
+        LocalDate pEnd = LocalDate.of(2026, 6, 30);
+        Statement skipped = stored(pStart, pEnd);
+        Statement far = stored(LocalDate.of(2026, 8, 1), LocalDate.of(2026, 8, 31));
+        candidates(skipped, far);
+        when(links.findLineKeysByStatementIdIn(org.mockito.ArgumentMatchers.any())).thenReturn(List.of());
+
+        assertTrue(service.refreshReconciled(accountId, "new", bankDraft(pStart, pEnd, 1), List.of(on(pEnd, "5")),
+                java.util.Set.of(skipped.getId())).isEmpty());
+        verify(links, never()).findLineKeysByStatementIdIn(org.mockito.ArgumentMatchers.any());
     }
 }

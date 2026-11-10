@@ -25,6 +25,11 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
     @Query("SELECT s FROM Statement s LEFT JOIN FETCH s.creditCardDetails WHERE s.account.id = :accountId AND s.periodEnd = :periodEnd ORDER BY s.createdAt ASC")
     List<Statement> findByAccountIdAndPeriodEnd(@Param("accountId") UUID accountId, @Param("periodEnd") LocalDate periodEnd);
 
+    /** Re-upload refresh: the account's live (non-rejected) statements ending on or after the date, card details fetched, oldest first. */
+    @Query("SELECT s FROM Statement s LEFT JOIN FETCH s.creditCardDetails WHERE s.account.id = :accountId AND s.periodEnd >= :from "
+           + "AND (s.verdict IS NULL OR s.verdict <> com.financeos.domain.statement.StatementVerdict.REJECTED) ORDER BY s.createdAt ASC")
+    List<Statement> findLiveByAccountIdEndingOnOrAfter(@Param("accountId") UUID accountId, @Param("from") LocalDate from);
+
     /** The statement only when it belongs to this account — the caller has already proven the account is theirs. */
     Optional<Statement> findByIdAndAccount_Id(UUID id, UUID accountId);
 

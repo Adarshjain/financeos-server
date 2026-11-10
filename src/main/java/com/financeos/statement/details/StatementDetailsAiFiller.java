@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 import net.logstash.logback.argument.StructuredArguments;
 import org.slf4j.Logger;
@@ -57,7 +58,18 @@ public class StatementDetailsAiFiller {
         LocalDate due = (LocalDate) card.get("payment_due_date");
         BigDecimal total = (BigDecimal) card.get("total_amount_due");
         BigDecimal min = (BigDecimal) card.get("minimum_amount_due");
-        List<String> missing = MissingDetails.of(draft.verdict(), draft.periodStart(), draft.periodEnd(), due, total, min);
+        List<String> missing = new ArrayList<>(MissingDetails.of(draft.verdict(), draft.periodStart(), draft.periodEnd(), due, total, min));
+        // A field the statement itself prints as none ("Payment Due Date: Nil") is empty on purpose: never ask for it.
+        Set<String> none = draft.statedNone();
+        if (none.contains("payment_due_date")) {
+            missing.remove(MissingDetails.DUE_DATE);
+        }
+        if (none.contains("total_amount_due")) {
+            missing.remove(MissingDetails.TOTAL_DUE);
+        }
+        if (none.contains("minimum_amount_due")) {
+            missing.remove(MissingDetails.MINIMUM_DUE);
+        }
         if (missing.isEmpty() || statementText == null || statementText.isBlank()) {
             return draft;
         }
@@ -158,7 +170,8 @@ public class StatementDetailsAiFiller {
                 StructuredArguments.keyValue("fields", filled));
         return new StatementDraft(draft.statementType(), start, end, draft.openingBalance(), closing, draft.bankName(),
                 draft.accountNumberMasked(), draft.transactionCount(), draft.linesSkipped(), draft.totalDebits(),
-                draft.totalCredits(), draft.parseMode(), draft.chainValidationPct(), draft.checksumOk(), draft.verdict(), newCard, draft.cardChecksOk());
+                draft.totalCredits(), draft.parseMode(), draft.chainValidationPct(), draft.checksumOk(), draft.verdict(), newCard, draft.cardChecksOk(),
+                draft.statedNone());
     }
 
     private List<String> nameTokens(UUID userId) {

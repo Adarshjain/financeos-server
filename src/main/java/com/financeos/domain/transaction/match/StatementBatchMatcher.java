@@ -7,6 +7,7 @@ import com.financeos.domain.statement.StatementCoverage;
 import com.financeos.domain.statement.StatementLineProjection;
 import com.financeos.domain.statement.StatementTransaction;
 import com.financeos.domain.statement.StatementTransactionRepository;
+import com.financeos.domain.statement.StatementVerdict;
 import com.financeos.domain.transaction.ReviewReason;
 import com.financeos.domain.transaction.ReviewStatusManager;
 import com.financeos.domain.transaction.ReviewType;
@@ -130,6 +131,9 @@ public class StatementBatchMatcher {
             ReviewReason.DATE_CORRECTED, ReviewReason.DUPLICATE_SUSPECT);
 
     private static final int IN_CHUNK = 900;
+
+    /** A run of at least 10 digits: a bank reference long enough to identify one payment. */
+    private static final java.util.regex.Pattern LONG_NUMBER = java.util.regex.Pattern.compile("(?<!\\d)\\d{10,}(?!\\d)");
 
     /** One run's result plus the transaction each attached line joined, and its fields before the attach, by line index. */
     private record Outcome(Result result, Map<Integer, Transaction> attachedByLine, Map<Integer, Prior> priorByLine) {
@@ -297,6 +301,9 @@ public class StatementBatchMatcher {
         if (lo == null || hi == null) {
             return new Outcome(new Result(0, 0, 0, 0, linkedIndexes.size(), List.of()), Map.of(), Map.of());
         }
+        // This statement's period widened by its own line dates (HDFC prints the 1st's interest in the month before).
+        LocalDate ownLo = lo;
+        LocalDate ownHi = hi;
         // Foreign charges post up to the foreign window late, so the ledger reaches that far.
         int reach = Math.max(w, fw);
         if (billPaymentStore != null) {
@@ -330,11 +337,53 @@ public class StatementBatchMatcher {
             otherStatementRows.computeIfAbsent(overlapKey(t.getType(), t.getAmount(), t.getDate(), t.getSourcedDescription()),
                     k -> new ArrayList<>()).add(t);
         }
-        List<Line> afterOverlap = new ArrayList<>();
+        List<Line> exactMissed = new ArrayList<>();
         for (Line l : pending) {
             List<Transaction> same = otherStatementRows.get(overlapKey(l.type(), l.amount(), l.date(), l.description()));
             if (same != null && !same.isEmpty()) {
                 Transaction t = same.remove(0);
+                newLinks.add(new StatementTransaction(statementId, t.getId(), l.lineIndex(), l.balanceAfter(), l.chainValid()));
+                priorByLine.put(l.lineIndex(), Prior.of(t));
+                attachedByLine.put(l.lineIndex(), t);
+                overlapAttached++;
+            } else {
+                exactMissed.add(l);
+            }
+        }
+        // The other non-rejected statements' own (unwidened) periods, for the overlap passes.
+        Map<UUID, StatementCoverage.Period> periods = new HashMap<>();
+        if (statementCoverage != null && !exactMissed.isEmpty()) {
+            for (StatementCoverage.Period p : statementCoverage.statements(accountId)) {
+                if (!statementId.equals(p.statementId())) periods.put(p.statementId(), p);
+            }
+        }
+        // The same text a day apart is the same line only when that text carries a long reference (≥10 digits): two
+        // banks' prints of one payment can differ by a value-date day (Equitas), a bare "UPI-KARTHIK S" cannot vouch.
+        // And only where both statements cover both dates (each printed one of them): this period holds the row's date
+        // and every linked statement's period holds the line's, so consecutive statements' daily mandates stay apart.
+        // Run after every exact match, so a day-apart row never takes a row another line matches exactly.
+        List<Line> afterOverlap = new ArrayList<>();
+        for (Line l : exactMissed) {
+            Transaction t = null;
+            if (periodStart != null && periodEnd != null
+                    && l.description() != null && LONG_NUMBER.matcher(l.description()).find()) {
+                for (LocalDate d : List.of(l.date().minusDays(1), l.date().plusDays(1))) {
+                    if (d.isBefore(periodStart) || d.isAfter(periodEnd)) continue;
+                    List<Transaction> same = otherStatementRows.get(overlapKey(l.type(), l.amount(), d, l.description()));
+                    if (same == null) continue;
+                    for (Transaction c : same) {
+                        if (linkedPeriodsHold(statementsByTxn.get(c.getId()), periods, l.date())) {
+                            t = c;
+                            break;
+                        }
+                    }
+                    if (t != null) {
+                        same.remove(t);
+                        break;
+                    }
+                }
+            }
+            if (t != null) {
                 newLinks.add(new StatementTransaction(statementId, t.getId(), l.lineIndex(), l.balanceAfter(), l.chainValid()));
                 priorByLine.put(l.lineIndex(), Prior.of(t));
                 attachedByLine.put(l.lineIndex(), t);
@@ -348,16 +397,29 @@ public class StatementBatchMatcher {
         // one-to-one) with a row linked only to other non-rejected statements of the account whose period holds the line,
         // the row itself dated inside this statement's period. Same day only: two statements print the same date for one
         // payment, so a same-amount row a day apart is a different payment (₹2 lounge vs ₹2 card check, Tata Neu).
+        // Exception (either import order): exactly one side is dated past its own statement's period edge (Equitas
+        // prints 30/09 interest as 01/10 in the September statement) and the other is the in-period date one day toward
+        // it. Periods are widened by each statement's own line dates (HDFC's 1st-of-month interest in the month before).
+        // A complete print (AUTO_INGEST) is trusted over its references: they rank the pairs but never veto one.
         if (!afterOverlap.isEmpty() && statementCoverage != null && periodStart != null && periodEnd != null) {
             List<Transaction> otherRows = new ArrayList<>();
             otherStatementRows.values().forEach(otherRows::addAll);
+            // One day of slack for a row printed past its own period's edge; same-day pairs still need the line's date.
             otherRows.removeIf(t -> excluded.contains(t.getId()) || t.getDate() == null
-                    || t.getDate().isBefore(periodStart) || t.getDate().isAfter(periodEnd));
+                    || t.getDate().isBefore(ownLo.minusDays(1)) || t.getDate().isAfter(ownHi.plusDays(1)));
             if (!otherRows.isEmpty()) {
-                Map<UUID, StatementCoverage.Period> periods = new HashMap<>();
-                for (StatementCoverage.Period p : statementCoverage.statements(accountId)) {
-                    if (!statementId.equals(p.statementId())) periods.put(p.statementId(), p);
+                // The other statements' periods widened by their lines (their rows' dates: a line's row carries its date).
+                Map<UUID, StatementCoverage.Period> widened = new HashMap<>(periods);
+                for (Transaction t : txns) {
+                    Set<UUID> sts = statementsByTxn.get(t.getId());
+                    if (sts == null || t.getDate() == null) continue;
+                    for (UUID sid : sts) {
+                        StatementCoverage.Period p = widened.get(sid);
+                        if (p == null || p.contains(t.getDate())) continue;
+                        widened.put(sid, new StatementCoverage.Period(sid, min(p.start(), t.getDate()), max(p.end(), t.getDate())));
+                    }
                 }
+                boolean refsVeto = statement.getVerdict() != StatementVerdict.AUTO_INGEST;
                 Map<String, List<Line>> linesByAmount = new LinkedHashMap<>();
                 for (Line l : afterOverlap) {
                     linesByAmount.computeIfAbsent(groupKey(l.type(), l.amount()), k -> new ArrayList<>()).add(l);
@@ -372,15 +434,37 @@ public class StatementBatchMatcher {
                     List<Line> gl = g.getValue();
                     List<Transaction> gc = rowsByAmount.getOrDefault(g.getKey(), List.of());
                     if (gc.isEmpty()) continue;
-                    Map<Integer, Integer> pairs = pair(accountId, gl, gc, 0, fw, (l, t) -> {
+                    Map<Integer, Integer> pairs = pair(accountId, gl, gc, 1, fw, (l, t) -> {
                         Set<UUID> sts = statementsByTxn.get(t.getId());
                         if (sts == null || sts.isEmpty()) return false;
+                        LocalDate ld = l.date();
+                        LocalDate td = t.getDate();
+                        if (ld.equals(td)) {
+                            for (UUID sid : sts) {
+                                StatementCoverage.Period p = widened.get(sid);
+                                if (p == null || !p.contains(ld)) return false;
+                            }
+                            return true;
+                        }
+                        // A day apart: exactly one side printed past its own period's edge, the other side the in-period
+                        // date one day toward it.
+                        boolean lineOutside = ld.isAfter(periodEnd) || ld.isBefore(periodStart);
                         for (UUID sid : sts) {
                             StatementCoverage.Period p = periods.get(sid);
-                            if (p == null || !p.contains(l.date())) return false;
+                            if (p == null) return false;
+                            if (lineOutside) {
+                                // Exactly one day past its own edge, the row on that edge's inner side.
+                                boolean inward = ld.equals(periodEnd.plusDays(1)) && td.equals(periodEnd)
+                                        || ld.equals(periodStart.minusDays(1)) && td.equals(periodStart);
+                                if (!inward || !p.contains(td)) return false;
+                            } else {
+                                boolean rowPast = td.isAfter(p.end()) && ld.equals(td.minusDays(1)) && ld.equals(p.end())
+                                        || td.isBefore(p.start()) && ld.equals(td.plusDays(1)) && ld.equals(p.start());
+                                if (!rowPast) return false;
+                            }
                         }
                         return true;
-                    });
+                    }, Set.of(), refsVeto);
                     for (Map.Entry<Integer, Integer> e : pairs.entrySet()) {
                         Line l = gl.get(e.getKey());
                         Transaction t = gc.get(e.getValue());
@@ -544,13 +628,22 @@ public class StatementBatchMatcher {
 
     private static Map<Integer, Integer> pair(UUID accountId, List<Line> lines, List<Transaction> cands, int w, int foreignW,
                                               java.util.function.BiPredicate<Line, Transaction> allowed, Set<UUID> widened) {
+        return pair(accountId, lines, cands, w, foreignW, allowed, widened, true);
+    }
+
+    /** {@code refsVeto} false: references only rank (the pair test runs on records without them). */
+    private static Map<Integer, Integer> pair(UUID accountId, List<Line> lines, List<Transaction> cands, int w, int foreignW,
+                                              java.util.function.BiPredicate<Line, Transaction> allowed, Set<UUID> widened,
+                                              boolean refsVeto) {
         if (lines.isEmpty() || cands.isEmpty()) return Map.of();
         List<MatchRecord> lr = lines.stream().map(l -> MatchRecord.of(accountId, l)).toList();
         List<MatchRecord> cr = cands.stream().map(MatchRecord::of).toList();
+        List<MatchRecord> lt = refsVeto ? lr : lr.stream().map(StatementBatchMatcher::withoutRefs).toList();
+        List<MatchRecord> ct = refsVeto ? cr : cr.stream().map(StatementBatchMatcher::withoutRefs).toList();
         int n = Math.max(lines.size(), cands.size());
         return Assignment.pairs(lines.size(), cands.size(), (i, j) -> {
             int window = widened.contains(cands.get(j).getId()) ? Math.max(w, PairRules.BILL_PAYMENT_DAYS) : w;
-            if (!PairRules.canPair(lr.get(i), cr.get(j), window, foreignW) || !allowed.test(lines.get(i), cands.get(j))) return null;
+            if (!PairRules.canPair(lt.get(i), ct.get(j), window, foreignW) || !allowed.test(lines.get(i), cands.get(j))) return null;
             // Tie-break (date / creation order alignment) never outweighs one unit of cost: sum of |i-j| < n*n + 1.
             return (long) PairRules.cost(lr.get(i), cr.get(j)) * ((long) n * n + 1) + Math.abs(i - j);
         });
@@ -582,6 +675,21 @@ public class StatementBatchMatcher {
         if ((reasons == null || reasons.isEmpty()) && t.getReviewType() == ReviewType.NEEDS_REVIEW) {
             reviewStatusManager.transitionTo(t, ReviewType.AUTO_REVIEWED);
         }
+    }
+
+    /** True when the row has linked statements and every one of their periods holds {@code date}. */
+    private static boolean linkedPeriodsHold(Set<UUID> statementIds, Map<UUID, StatementCoverage.Period> periods, LocalDate date) {
+        if (statementIds == null || statementIds.isEmpty()) return false;
+        for (UUID sid : statementIds) {
+            StatementCoverage.Period p = periods.get(sid);
+            if (p == null || !p.contains(date)) return false;
+        }
+        return true;
+    }
+
+    private static MatchRecord withoutRefs(MatchRecord r) {
+        return new MatchRecord(r.accountId(), r.type(), r.amount(), r.date(), r.cardLast4(), r.text(), r.currency(),
+                Set.of(), r.originalAmount());
     }
 
     private static String groupKey(TransactionType type, BigDecimal amount) {

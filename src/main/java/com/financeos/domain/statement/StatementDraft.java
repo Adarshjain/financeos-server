@@ -3,6 +3,7 @@ package com.financeos.domain.statement;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Map;
+import java.util.Set;
 
 // Parser-agnostic snapshot of one parsed statement; card field keys follow the
 // parser's summary-field vocabulary (total_amount_due, minimum_amount_due,
@@ -27,8 +28,24 @@ public record StatementDraft(
         StatementVerdict verdict,
         Map<String, Object> cardFields,
         // credit_card only: the parse's own balance checks passed (prev + charges + spends - payments == due, or purchases and payments both match the lines); null when not a card or not computed
-        Boolean cardChecksOk
+        Boolean cardChecksOk,
+        // card field keys the statement itself prints as none ("Payment Due Date: Nil"): left empty on purpose, never filled by AI
+        Set<String> statedNone
 ) {
+    public StatementDraft {
+        statedNone = statedNone == null ? Set.of() : Set.copyOf(statedNone);
+    }
+
+    public StatementDraft(String statementType, LocalDate periodStart, LocalDate periodEnd, BigDecimal openingBalance,
+                          BigDecimal closingBalance, String bankName, String accountNumberMasked, int transactionCount,
+                          int linesSkipped, BigDecimal totalDebits, BigDecimal totalCredits, String parseMode,
+                          BigDecimal chainValidationPct, Boolean checksumOk, StatementVerdict verdict,
+                          Map<String, Object> cardFields, Boolean cardChecksOk) {
+        this(statementType, periodStart, periodEnd, openingBalance, closingBalance, bankName, accountNumberMasked,
+                transactionCount, linesSkipped, totalDebits, totalCredits, parseMode, chainValidationPct, checksumOk,
+                verdict, cardFields, cardChecksOk, Set.of());
+    }
+
     public StatementDraft(String statementType, LocalDate periodStart, LocalDate periodEnd, BigDecimal openingBalance,
                           BigDecimal closingBalance, String bankName, String accountNumberMasked, int transactionCount,
                           int linesSkipped, BigDecimal totalDebits, BigDecimal totalCredits, String parseMode,

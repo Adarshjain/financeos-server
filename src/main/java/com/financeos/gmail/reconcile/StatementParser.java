@@ -16,8 +16,10 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Component
 public class StatementParser {
@@ -86,7 +88,8 @@ public class StatementParser {
                 parseInfo.checksumOk,
                 mapVerdict(parseInfo.verdict),
                 cardFields(parsed.summaryFields()),
-                cardChecksOk(parsed.statementType(), parseInfo)
+                cardChecksOk(parsed.statementType(), parseInfo),
+                statedNone(parseInfo)
         );
         String firstLine = null;
         if (!lines.isEmpty()) {
@@ -118,6 +121,16 @@ public class StatementParser {
             }
         }
         return result;
+    }
+
+    /** Card fields the statement prints as none ("Nil"); kept empty on purpose. */
+    private static Set<String> statedNone(ParseInfo info) {
+        if (info.statedNone == null) {
+            return Set.of();
+        }
+        Set<String> out = new LinkedHashSet<>(info.statedNone);
+        out.retainAll(CARD_FIELD_KEYS);
+        return out;
     }
 
     /** Same rule the engine's verdict uses: the full balance equation holds, or purchases and payments both match the lines. */

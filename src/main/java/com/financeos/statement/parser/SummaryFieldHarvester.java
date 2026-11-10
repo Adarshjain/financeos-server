@@ -76,6 +76,12 @@ final class SummaryFieldHarvester {
             Set.of("total_amount_due", "previous_balance", "minimum_amount_due");
 
     static LinkedHashMap<String, Object> harvest(List<Line> lines, Set<Line> txnLines, int maxTxnPage) {
+        return harvest(lines, txnLines, maxTxnPage, new java.util.HashSet<>());
+    }
+
+    // statedNone receives the fields whose cell says "Nil" (a stated none, not a missed value).
+    static LinkedHashMap<String, Object> harvest(List<Line> lines, Set<Line> txnLines, int maxTxnPage,
+                                                 Set<String> statedNone) {
         LinkedHashMap<String, Object> fields = new LinkedHashMap<>();
         Set<String> explicitNone = new java.util.HashSet<>();
         boolean negativeMinimum = false;
@@ -185,6 +191,11 @@ final class SummaryFieldHarvester {
         Object total = fields.get("total_amount_due");
         if (negativeMinimum && !fields.containsKey("minimum_amount_due") && total instanceof Double t && t <= 0) {
             fields.put("minimum_amount_due", 0.0);
+        }
+        for (String f : explicitNone) {
+            if (!fields.containsKey(f)) {
+                statedNone.add(f);
+            }
         }
         return fields;
     }
