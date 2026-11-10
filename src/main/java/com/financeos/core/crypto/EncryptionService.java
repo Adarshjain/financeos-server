@@ -108,6 +108,63 @@ public class EncryptionService {
     }
 
     /**
+     * Encrypts raw bytes with the same key and parameters as {@link #encrypt(String)}.
+     * Output format: IV || Ciphertext || Tag (raw bytes, no Base64); a fresh random IV per call.
+     */
+    public byte[] encryptBytes(byte[] plain) {
+        return encryptBytes(plain, null);
+    }
+
+    /** As {@link #encryptBytes(byte[])}, binding the ciphertext to {@code aad} (GCM additional authenticated data). */
+    public byte[] encryptBytes(byte[] plain, byte[] aad) {
+        if (plain == null) {
+            throw new EncryptionException("Failed to encrypt data", new IllegalArgumentException("null input"));
+        }
+        try {
+            byte[] iv = new byte[GCM_IV_LENGTH];
+            secureRandom.nextBytes(iv);
+
+            Cipher cipher = Cipher.getInstance(ALGORITHM);
+            cipher.init(Cipher.ENCRYPT_MODE, secretKey, new GCMParameterSpec(GCM_TAG_LENGTH, iv));
+            if (aad != null) {
+                cipher.updateAAD(aad);
+            }
+            byte[] ciphertext = cipher.doFinal(plain);
+
+            ByteBuffer byteBuffer = ByteBuffer.allocate(iv.length + ciphertext.length);
+            byteBuffer.put(iv);
+            byteBuffer.put(ciphertext);
+            return byteBuffer.array();
+        } catch (Exception e) {
+            throw new EncryptionException("Failed to encrypt data", e);
+        }
+    }
+
+    /** Decrypts bytes produced by {@link #encryptBytes(byte[])}; fails on tampered or too-short input. */
+    public byte[] decryptBytes(byte[] cipherBytes) {
+        return decryptBytes(cipherBytes, null);
+    }
+
+    /** As {@link #decryptBytes(byte[])}; fails unless {@code aad} equals what the data was encrypted with. */
+    public byte[] decryptBytes(byte[] cipherBytes, byte[] aad) {
+        if (cipherBytes == null || cipherBytes.length < GCM_IV_LENGTH + GCM_TAG_LENGTH / 8) {
+            throw new EncryptionException("Failed to decrypt data",
+                    new IllegalArgumentException("encrypted data too short"));
+        }
+        try {
+            byte[] iv = java.util.Arrays.copyOfRange(cipherBytes, 0, GCM_IV_LENGTH);
+            Cipher cipher = Cipher.getInstance(ALGORITHM);
+            cipher.init(Cipher.DECRYPT_MODE, secretKey, new GCMParameterSpec(GCM_TAG_LENGTH, iv));
+            if (aad != null) {
+                cipher.updateAAD(aad);
+            }
+            return cipher.doFinal(cipherBytes, GCM_IV_LENGTH, cipherBytes.length - GCM_IV_LENGTH);
+        } catch (Exception e) {
+            throw new EncryptionException("Failed to decrypt data", e);
+        }
+    }
+
+    /**
      * A keyed fingerprint (HMAC-SHA256) of {@code data}: stable for the same input, useless without the key. For
      * identifiers derived from a secret value that must not be reversible by guessing (e.g. a PRAN).
      */

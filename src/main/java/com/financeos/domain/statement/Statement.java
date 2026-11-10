@@ -52,6 +52,11 @@ public class Statement {
     @Column(name = "file_sha256", length = 64)
     private String fileSha256;
 
+    /** The stored original file this statement was read from (statement_files.id); null when none was kept. */
+    @JdbcTypeCode(SqlTypes.VARCHAR)
+    @Column(name = "file_id", length = 36)
+    private UUID fileId;
+
     @Column(name = "statement_type", length = 20)
     private String statementType;
 

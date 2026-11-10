@@ -75,7 +75,7 @@ public record FileIngestionResult(
                 return OTHER;
             }
             String m = message.toLowerCase(java.util.Locale.ROOT);
-            if (m.startsWith("error: failed to read") || m.startsWith("error: no text layer") || m.contains("file is empty")
+            if (m.startsWith("error: failed to read") || m.startsWith("error: no text layer") || m.startsWith("error: too many pages") || m.contains("file is empty")
                     || m.contains("unsupported") || m.startsWith("error: cannot read") || m.startsWith("error: file too small")) {
                 return UNREADABLE;
             }

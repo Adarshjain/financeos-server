@@ -45,12 +45,10 @@ spring:
 
   servlet:
     multipart:
-      # No server-side upload size limit; without this Spring's defaults
-      # (1MB/file, 10MB/request) reject real statement PDFs. The effective cap
-      # (4.5MB, Vercel's request-body limit) is enforced by the client — kept
-      # unlimited here so a future direct-to-API upload path isn't bound by it.
-      max-file-size: -1
-      max-request-size: -1
+      # The client limits a request to 25 MB (financeos-client fileLimits.ts MAX_REQUEST_MB); the server
+      # enforces the same per file (a statement is kept encrypted in the database), plus headroom per request.
+      max-file-size: 25MB
+      max-request-size: 30MB
 
   session:
     store-type: jdbc
@@ -137,6 +135,15 @@ app:
   # The users' calendar zone. Every business date (transactions, statements, dues) is a
   # date in this zone, so "today" is computed here, not in the server's zone (UTC).
   zone: ${APP_ZONE:Asia/Kolkata}
+  # The original statement file (PDF/Excel) is kept encrypted with each statement so it can be re-parsed after a parser fix.
+  statement-files:
+    enabled: true
+    # A file above this is not kept (the statement itself is still imported).
+    max-file-bytes: 25MB
+    # Stored original bytes per user.
+    max-bytes-per-user: 2GB
+    # Stored original bytes in total; the prod database is a 20 GB free tier shared with all other data.
+    max-total-bytes: 8GB
   encryption:
     key: ${ENCRYPTION_KEY:your-32-byte-base64-encoded-key-here==}
   cors:
