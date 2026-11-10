@@ -53,6 +53,8 @@ public final class HsbcCardNohdr2026 {
             // the section heading and the interest-rate note between the rows are no narration
             .skipLine("^purchases\\s*&\\s*installments$")
             .skipLine("^interest\\s+rate\\s+applicable")
+            // the account-summary row is printed again under the rows of a later page: read once, never an unread row
+            .summaryLineInTable("^(?:[\\d,]+\\.\\d{2}-?\\s+){3}[\\d,]+\\.\\d{2}-?$")
             .endMarker("total\\s+purchase\\s+outstanding", EndScope.FOR_GOOD)
             .summary(MetaTarget.PERIOD, PERIOD_LINE).type(ValueType.DATE_RANGE)
                 .capture(DAY_MON_YEAR + "\\s+to\\s+" + DAY_MON_YEAR).done()
