@@ -101,25 +101,37 @@ public final class StatementParseEngine {
     }
 
     private static ParsedStatement parseExtracted(Extracted ex, Consumer<String> dbg) {
-        LayoutRouting.Decision decision = LayoutRouting.decide(ex.lines());
-        if (decision.mode() == ReaderMode.ACTIVE) {
-            return parseActive(ex, decision.profile(), dbg);
+        // anything going wrong in routing or the registry means: v1 only, exactly as before profiles existed
+        LayoutProfile profile = null;
+        ReaderMode routed = ReaderMode.OFF;
+        try {
+            LayoutRouting.Decision decision = LayoutRouting.decide(ex.lines());
+            profile = decision.profile();
+            routed = decision.mode();
+        } catch (OutOfMemoryError oom) {
+            throw oom;
+        } catch (Throwable t) {
+            profile = null;
+            routed = ReaderMode.OFF;
+        }
+        if (routed == ReaderMode.ACTIVE) {
+            return parseActive(ex, profile, dbg);
         }
         ParsedStatement v1 = parseV1(ex, dbg);
         // the shadow run only happens when something listens to it; any failure in it (an Error too, but never an
         // OutOfMemoryError) is invisible to the caller
-        if (decision.mode() == ReaderMode.SHADOW && LayoutRouting.hasListener()) {
+        if (routed == ReaderMode.SHADOW && LayoutRouting.hasListener()) {
             try {
                 ParsedStatement shadow = null;
                 try {
-                    ProfiledReader.Result pr = ProfiledReader.read(ex.lines(), decision.profile());
-                    shadow = finish(ex, pr.outcome()).withReader(decision.profile().id(), "layout");
+                    ProfiledReader.Result pr = ProfiledReader.read(ex.lines(), profile);
+                    shadow = finish(ex, pr.outcome()).withReader(profile.id(), "layout");
                 } catch (OutOfMemoryError oom) {
                     throw oom;
                 } catch (Throwable t) {
                     // reported below as failed
                 }
-                LayoutRouting.reportShadow(decision.profile().id(), v1, shadow);
+                LayoutRouting.reportShadow(profile.id(), v1, shadow);
             } catch (OutOfMemoryError oom) {
                 throw oom;
             } catch (Throwable t) {
@@ -142,34 +154,26 @@ public final class StatementParseEngine {
     private static ParsedStatement parseActive(Extracted ex, LayoutProfile profile, Consumer<String> dbg) {
         ParsedStatement layout = null;
         boolean guardOk = false;
+        boolean cleanRead = false;
         try {
             ProfiledReader.Result pr = ProfiledReader.read(ex.lines(), profile);
             layout = finish(ex, pr.outcome()).withReader(profile.id(), "layout");
-            guardOk = !layout.transactions().isEmpty() && pr.unreadAmountLines() == 0
-                    && layout.meta().accountNumber != null && layout.meta().periodEnd != null
+            cleanRead = !layout.transactions().isEmpty() && pr.unreadAmountLines() == 0;
+            guardOk = cleanRead && layout.meta().accountNumber != null && layout.meta().periodEnd != null
                     && verdictRank(layout) == 2;
         } catch (OutOfMemoryError oom) {
             throw oom;
-        } catch (RuntimeException | StackOverflowError e) {
+        } catch (Throwable e) {
+            layout = null;
             dbg.accept("[debug] layout reader " + profile.id() + " failed; using v1");
         }
-        if (guardOk || LayoutRouting.forcedLayout()) {
-            if (layout != null) {
-                return layout;
-            }
-        }
-        ParsedStatement v1;
-        try {
-            v1 = parseV1(ex, dbg);
-        } catch (StatementParseException e) {
-            if (layout != null) {
-                LayoutRouting.reportFallback(profile.id());
-                return layout;
-            }
-            throw e;
+        if (layout != null && (guardOk || LayoutRouting.forcedLayout())) {
+            return layout;
         }
         LayoutRouting.reportFallback(profile.id());
-        return layout != null && verdictRank(layout) > verdictRank(v1) ? layout : v1;
+        // v1 reads too; whatever it throws propagates exactly as it did before profiles existed
+        ParsedStatement v1 = parseV1(ex, dbg);
+        return layout != null && cleanRead && verdictRank(layout) > verdictRank(v1) ? layout : v1;
     }
 
     /** v1 only, as before layout profiles existed: no routing, no shadow run. For paths that only need hints. */

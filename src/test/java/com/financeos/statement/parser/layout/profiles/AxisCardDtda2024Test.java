@@ -21,6 +21,8 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class AxisCardDtda2024Test {
 
+    private static final LayoutProfile PROFILE = AxisCardDtda2024.build();
+
     private static Line ln(int page, double top, Object... textAndX0) {
         List<Word> words = new ArrayList<>();
         for (int i = 0; i < textAndX0.length; i += 2) {
@@ -76,12 +78,12 @@ class AxisCardDtda2024Test {
     }
 
     private static ReadOutcome read(List<Line> lines) {
-        return ProfiledReader.read(lines, AxisCardDtda2024.PROFILE).outcome();
+        return ProfiledReader.read(lines, PROFILE).outcome();
     }
 
     @Test
     void theProfileMatchesTheAxisLayoutOfThisStatement() {
-        assertEquals(AxisCardDtda2024.PROFILE, LayoutRegistry.defaults().match(statement("", false), "axis"));
+        assertEquals(PROFILE.id(), LayoutRegistry.defaults().match(statement("", false), "axis").id());
     }
 
     @Test
@@ -232,7 +234,7 @@ class AxisCardDtda2024Test {
 
     @Test
     void theProfileDefinitionIsTheAxisCardOfTheCardProduct() {
-        LayoutProfile p = AxisCardDtda2024.PROFILE;
+        LayoutProfile p = PROFILE;
         assertEquals("axis-card-dtda-2024", p.id());
         assertEquals("axis", p.issuerId());
         assertEquals(LayoutProfile.Product.CARD, p.product());

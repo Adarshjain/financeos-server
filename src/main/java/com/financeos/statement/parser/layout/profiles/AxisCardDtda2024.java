@@ -18,7 +18,9 @@ public final class AxisCardDtda2024 {
 
     public static final String ID = "axis-card-dtda-2024";
 
-    public static final LayoutProfile PROFILE = LayoutProfile.builder(ID)
+    /** Built on demand (never in a static initializer that parsing depends on): a bad definition must not break parsing. */
+    public static LayoutProfile build() {
+        return LayoutProfile.builder(ID)
             .issuer("axis")
             .product(Product.CARD)
             .bank("Axis Bank")
@@ -59,6 +61,7 @@ public final class AxisCardDtda2024 {
             .notPrinted("finance_charges")
             .notPrinted("reward_points_earned")
             .build();
+    }
 
     private AxisCardDtda2024() {
     }

@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Supplier;
 
 /**
  * Which reader takes a statement: per-profile modes (default SHADOW), an optional forced reader for the corpus tool and
@@ -31,7 +32,8 @@ public final class LayoutRouting {
     private static volatile ReaderMode defaultMode = ReaderMode.SHADOW;
     private static volatile Forced forced;
     private static volatile ShadowListener listener;
-    private static volatile LayoutRegistry registry = LayoutRegistry.defaults();
+    private static volatile LayoutRegistry registry;
+    private static volatile Supplier<LayoutRegistry> registrySupplier = LayoutRegistry::defaults;
 
     private LayoutRouting() {
     }
@@ -70,11 +72,27 @@ public final class LayoutRouting {
     }
 
     public static void setRegistry(LayoutRegistry r) {
-        registry = r == null ? LayoutRegistry.defaults() : r;
+        registry = r;
     }
 
+    /** Where the default registry comes from (tests replace it); used when no registry was set explicitly. */
+    public static void setRegistrySupplier(Supplier<LayoutRegistry> s) {
+        registrySupplier = s == null ? LayoutRegistry::defaults : s;
+    }
+
+    /** The registry in use; an empty one (v1 only) when the default cannot be created. Never throws but OutOfMemoryError. */
     public static LayoutRegistry registry() {
-        return registry;
+        LayoutRegistry r = registry;
+        if (r != null) {
+            return r;
+        }
+        try {
+            return registrySupplier.get();
+        } catch (OutOfMemoryError oom) {
+            throw oom;
+        } catch (Throwable t) {
+            return new LayoutRegistry(List.of());
+        }
     }
 
     /** Back to the defaults (SHADOW for every profile, no forced reader, no listener, default registry). */
@@ -83,7 +101,8 @@ public final class LayoutRouting {
         defaultMode = ReaderMode.SHADOW;
         forced = null;
         listener = null;
-        registry = LayoutRegistry.defaults();
+        registry = null;
+        registrySupplier = LayoutRegistry::defaults;
     }
 
     public static boolean hasListener() {
@@ -101,13 +120,15 @@ public final class LayoutRouting {
             return none;
         }
         try {
-            LayoutProfile p = registry.matchLazy(lines, () -> StatementParseEngine.issuerOf(lines));
+            LayoutProfile p = registry().matchLazy(lines, () -> StatementParseEngine.issuerOf(lines));
             if (p == null) {
                 return none;
             }
             ReaderMode mode = forced == Forced.LAYOUT ? ReaderMode.ACTIVE : modeOf(p.id());
             return mode == ReaderMode.OFF ? none : new Decision(p, mode);
-        } catch (RuntimeException | StackOverflowError e) {
+        } catch (OutOfMemoryError oom) {
+            throw oom;
+        } catch (Throwable e) {
             return none;
         }
     }
@@ -124,7 +145,9 @@ public final class LayoutRouting {
         }
         try {
             notifyListener(compare(layoutId, v1, shadow));
-        } catch (RuntimeException e) {
+        } catch (OutOfMemoryError oom) {
+            throw oom;
+        } catch (Throwable e) {
             // never affects parsing
         }
     }
@@ -136,7 +159,9 @@ public final class LayoutRouting {
         }
         try {
             l.onComparison(r);
-        } catch (RuntimeException e) {
+        } catch (OutOfMemoryError oom) {
+            throw oom;
+        } catch (Throwable e) {
             // a misbehaving listener never affects parsing
         }
     }

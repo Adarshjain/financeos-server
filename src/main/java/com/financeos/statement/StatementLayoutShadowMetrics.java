@@ -25,7 +25,13 @@ public class StatementLayoutShadowMetrics implements ShadowListener {
 
     public StatementLayoutShadowMetrics(MeterRegistry registry) {
         this.registry = registry;
-        LayoutRouting.setShadowListener(this);
+        try {
+            LayoutRouting.setShadowListener(this);
+        } catch (OutOfMemoryError oom) {
+            throw oom;
+        } catch (Throwable t) {
+            log.error("statement layout shadow listener could not be registered ({})", t.getClass().getSimpleName());
+        }
     }
 
     @Override
@@ -37,7 +43,9 @@ public class StatementLayoutShadowMetrics implements ShadowListener {
                 log.info("statement layout {} {}: {} differing rows, {} differing fields {}", r.layoutId(),
                         r.kind().name().toLowerCase(Locale.ROOT), r.differingRows(), r.differingFields(), r.fieldNames());
             }
-        } catch (RuntimeException e) {
+        } catch (OutOfMemoryError oom) {
+            throw oom;
+        } catch (Throwable e) {
             // recording never throws
         }
     }

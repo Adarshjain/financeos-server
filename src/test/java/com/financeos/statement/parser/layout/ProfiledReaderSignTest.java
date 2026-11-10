@@ -195,12 +195,55 @@ class ProfiledReaderSignTest {
         assertThrows(IllegalStateException.class, () -> ProfiledReader.read(lines, delta()));
     }
 
+    private static LayoutProfile suffixRule() {
+        return single("s").suffix("Cr", "Dr", Direction.DEBIT).build();
+    }
+
     @Test
-    void aCrOrDrTokenOutsideEveryColumnIsUnreadNotADefaultedDirection() {
+    void theMarkerIsTheTokenRightAfterTheAmountWhereverItsXFalls() {
+        List<Line> far = List.of(singleHeader(0, 100, 0),
+                ln(0, 110, "05/01/2026", 50, "SHOP", 120, "100.00", 405, "Cr", 580));
+        List<Line> inside = List.of(singleHeader(0, 100, 0),
+                ln(0, 110, "05/01/2026", 50, "SHOP", 120, "100.00", 405, "Cr", 440));
+        for (List<Line> lines : List.of(far, inside)) {
+            var res = ProfiledReader.read(lines, suffixRule());
+            assertEquals(100.00, res.outcome().results().get(0).amount, 0.001);
+            assertEquals("suffix", res.outcome().results().get(0).signSource);
+            assertEquals(0, res.unreadAmountLines());
+        }
+    }
+
+    @Test
+    void aMarkerLikeWordInsideTheNarrationRangeIsNarrationNotAnUnreadRow() {
         List<Line> lines = List.of(singleHeader(0, 100, 0),
-                ln(0, 110, "05/01/2026", 50, "SHOP", 120, "100.00", 405, "Cr", 560));
-        var res = ProfiledReader.read(lines, single("s").suffix("Cr", "Dr", Direction.DEBIT).build());
-        assertEquals(1, res.unreadAmountLines());
+                ln(0, 110, "05/01/2026", 50, "DR", 120, "SMITH", 150, "100.00", 405, "Cr", 460));
+        var res = ProfiledReader.read(lines, suffixRule());
+        assertEquals(0, res.unreadAmountLines());
+        assertEquals("DR SMITH", res.outcome().results().get(0).description);
+        assertEquals(100.00, res.outcome().results().get(0).amount, 0.001);
+    }
+
+    @Test
+    void aMarkerLikeWordInNarrationWithNoTokenAfterTheAmountKeepsTheDefaultAndIsNotUnread() {
+        List<Line> lines = List.of(singleHeader(0, 100, 0),
+                ln(0, 110, "05/01/2026", 50, "Cr", 120, "SHOP", 150, "100.00", 405));
+        var res = ProfiledReader.read(lines, suffixRule());
+        assertEquals(0, res.unreadAmountLines());
+        assertEquals("default", res.outcome().results().get(0).signSource);
+    }
+
+    @Test
+    void aMarkerLikeWordOutsideNarrationAndNotAdjacentCountsTheRowAsUnread() {
+        List<Line> lines = List.of(singleHeader(0, 100, 0),
+                ln(0, 110, "05/01/2026", 50, "SHOP", 120, "Dr", 395, "100.00", 405, "Cr", 460));
+        assertEquals(1, ProfiledReader.read(lines, suffixRule()).unreadAmountLines());
+    }
+
+    @Test
+    void aCrOrDrTokenInNoColumnAndNotAdjacentIsUnreadNotADefaultedDirection() {
+        List<Line> lines = List.of(singleHeader(0, 100, 0),
+                ln(0, 110, "05/01/2026", 50, "SHOP", 120, "100.00", 405, "x", 500, "Cr", 580));
+        assertEquals(1, ProfiledReader.read(lines, suffixRule()).unreadAmountLines());
     }
 
     @Test

@@ -437,6 +437,105 @@ class LayoutRoutingTest {
         assertEquals("layout", StatementParseEngine.parseLines(statement("30.00"), false, null).reader());
     }
 
+
+    // ---- ACTIVE branch semantics ----
+
+    /** A profile whose custom strategy reads exactly the two rows of {@link #statement}, with a chain-valid balance. */
+    private static LayoutProfile strategyProfile(boolean withEndMarker) {
+        LayoutProfile.Builder b = bank("test-bank").rowStrategy((table, labels, dates) -> List.of(
+                new LayoutProfile.TableRow(table.get(0), dates.parse("05/01/2026"), "A", new java.math.BigDecimal("30.00"),
+                        null, null, false, null, new java.math.BigDecimal("970.00"), null),
+                new LayoutProfile.TableRow(table.get(1), dates.parse("06/01/2026"), "B", null,
+                        new java.math.BigDecimal("100.00"), null, false, null, new java.math.BigDecimal("1,070.00".replace(",", "")), null)));
+        if (withEndMarker) {
+            b.endMarker("zz end", LayoutProfile.EndScope.PAGE);
+        }
+        return b.build();
+    }
+
+    private static List<Line> brokenClosing(boolean stray) {
+        List<Line> lines = new ArrayList<>(statement("30.00"));
+        lines.set(2, ln(0, 60, "Closing", 40, "Balance:", 100, "9,999.00", 160));
+        if (stray) {
+            lines.add(ln(0, 130, "ZZ", 50, "end", 90));
+            lines.add(ln(0, 140, "Stray", 50, "5.00", 330));
+        }
+        return lines;
+    }
+
+    @Test
+    void aGuardFailureThenV1ThrowingAParseExceptionIsRethrownAndTheProfiledResultIsNeverReturned() {
+        active(bank("test-bank").rowStrategy((t, l, d) -> List.of(new LayoutProfile.TableRow(t.get(0),
+                d.parse("05/01/2026"), "A", new java.math.BigDecimal("30.00"), null, null, false, null,
+                new java.math.BigDecimal("970.00"), null))).build());
+        List<Line> v1Cannot = List.of(bankHeader(0, 100, 0), ln(0, 110, "zz", 50, "nothing", 120));
+        assertThrows(StatementParseException.class, () -> StatementParseEngine.parseLines(v1Cannot, false, null));
+        assertTrue(seen.get(0).fallback());
+    }
+
+    @Test
+    void aGuardFailureWithAStrictlyBetterProfiledVerdictReturnsTheProfiledResult() {
+        ParsedStatement v1 = parseV1(brokenClosing(false));
+        assertNotEquals("AUTO-INGEST", v1.parseInfo().verdict);
+        active(strategyProfile(false));
+        ParsedStatement ps = StatementParseEngine.parseLines(brokenClosing(false), false, null);
+        assertEquals("layout", ps.reader());
+        assertEquals("AUTO-INGEST", ps.parseInfo().verdict);
+        assertTrue(seen.get(0).fallback());
+    }
+
+    @Test
+    void aBetterProfiledVerdictWithAnUnreadAmountLineStillReturnsV1() {
+        active(strategyProfile(true));
+        ParsedStatement ps = StatementParseEngine.parseLines(brokenClosing(true), false, null);
+        assertEquals("v1", ps.reader());
+    }
+
+    @Test
+    void aProfiledReadThatThrowsAnErrorFallsBackToV1() {
+        for (Throwable t : List.<Throwable>of(new StackOverflowError(), new AssertionError("x"), new NoClassDefFoundError("x"))) {
+            seen.clear();
+            active(bank("test-bank").rowStrategy((a, b, c) -> {
+                if (t instanceof Error e) {
+                    throw e;
+                }
+                return List.of();
+            }).build());
+            ParsedStatement ps = StatementParseEngine.parseLines(statement("30.00", true), false, null);
+            assertEquals("v1", ps.reader());
+            assertTrue(seen.get(0).fallback());
+        }
+    }
+
+    @Test
+    void aListenerThatThrowsAnErrorNeverBreaksTheActiveFallback() {
+        active(profile(false, true));
+        LayoutRouting.setShadowListener(r -> {
+            throw new AssertionError("listener");
+        });
+        assertEquals("v1", StatementParseEngine.parseLines(statement("30.00", true), false, null).reader());
+    }
+
+    @Test
+    void aListenerThatThrowsAnErrorNeverBreaksAShadowRun() {
+        ParsedStatement alone = parseV1(statement("30.00"));
+        register(profile());
+        LayoutRouting.setShadowListener(r -> {
+            throw new AssertionError("listener");
+        });
+        ParsedStatement ps = StatementParseEngine.parseLines(statement("30.00"), false, null);
+        assertEquals(ParseSnapshot.json(alone), ParseSnapshot.json(ps));
+    }
+
+    @Test
+    void anAssertionErrorInTheShadowReadIsReportedAsFailed() {
+        register(bank("test-bank").rowStrategy((a, b, c) -> {
+            throw new AssertionError("x");
+        }).build());
+        assertEquals("v1", StatementParseEngine.parseLines(statement("30.00"), false, null).reader());
+        assertTrue(seen.get(0).failed());
+    }
+
     // ---- settings ----
 
     @Test

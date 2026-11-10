@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.MonthDay;
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.financeos.statement.parser.layout.LayoutFixtures.*;
@@ -552,5 +553,53 @@ class ProfiledReaderTableTest {
                 bankRow(0, 110, 0, "05/01/2026", "KEPT", "10.00", null, "90.00"),
                 ln(0, 120, "Thank", 50, "you", 90, "for", 120));
         assertEquals(0, ProfiledReader.read(lines, bankProfile()).unreadAmountLines());
+    }
+
+    // ---- continuation stops at prose ----
+
+    private static Line proseLine(int page, double top) {
+        List<Object> spec = new ArrayList<>();
+        spec.add("07/01/2026");
+        spec.add(50.0);
+        for (int i = 0; i < 17; i++) {
+            spec.add("term" + i);
+            spec.add(110.0 + i * 20);
+        }
+        spec.add("9.00");
+        spec.add(DEBIT);
+        return ln(page, top, spec.toArray());
+    }
+
+    @Test
+    void aTermsPageAfterTheTableCreatesNoRowsEvenWithoutAnEndMarker() {
+        List<Line> lines = List.of(
+                bankHeader(0, 100, 0),
+                bankRow(0, 110, 0, "05/01/2026", "REAL", "10.00", null, "90.00"),
+                proseLine(1, 50), proseLine(1, 60), proseLine(1, 70));
+        var res = ProfiledReader.read(lines, bankProfile());
+        assertEquals(1, res.outcome().results().size());
+        assertEquals(0, res.unreadAmountLines());
+    }
+
+    @Test
+    void aTermsPageEndsTheTableForGoodEvenIfADatedPageFollowsIt() {
+        List<Line> lines = List.of(
+                bankHeader(0, 100, 0),
+                bankRow(0, 110, 0, "05/01/2026", "REAL", "10.00", null, "90.00"),
+                proseLine(1, 50), proseLine(1, 60),
+                bankRow(2, 50, 0, "08/01/2026", "AFTER TERMS", "5.00", null, "85.00"));
+        assertEquals(1, rows(lines, bankProfile()).size());
+    }
+
+    @Test
+    void aTrailingSummaryPageWithoutTheHeaderStillGivesItsSummaryValues() {
+        LayoutProfile p = bank("sum").summary("credit_limit", "credit limit").rightOnLine().done().build();
+        List<Line> lines = List.of(
+                bankHeader(0, 100, 0),
+                bankRow(0, 110, 0, "05/01/2026", "REAL", "10.00", null, "90.00"),
+                ln(1, 50, "Credit", 40, "Limit", 80, "7,000.00", 140));
+        var res = ProfiledReader.read(lines, p);
+        assertEquals(7000.00, (Double) res.outcome().summaryFields().get("credit_limit"), 0.001);
+        assertEquals(1, res.outcome().results().size());
     }
 }

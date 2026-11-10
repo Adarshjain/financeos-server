@@ -37,25 +37,34 @@ public class StatementParserSettings {
             @Value("${app.statement.max-pdf-pages:" + ParserLimits.DEFAULT_MAX_PDF_PAGES + "}") int maxPdfPages,
             Environment env) {
         this(maxPdfPages);
-        ReaderMode def = readMode("default", env.getProperty("app.statement.layouts.default"), false);
-        LayoutRouting.setDefaultMode(def);
-        Set<String> known = new HashSet<>();
-        for (LayoutProfile p : LayoutRouting.registry().profiles()) {
-            known.add(p.id());
-            LayoutRouting.setMode(p.id(),
-                    readMode(p.id(), env.getProperty("app.statement.layouts." + p.id()), true));
-        }
-        if (env instanceof ConfigurableEnvironment ce) {
-            for (PropertySource<?> ps : ce.getPropertySources()) {
-                if (ps instanceof EnumerablePropertySource<?> eps) {
-                    for (String name : eps.getPropertyNames()) {
-                        if (name.startsWith(PREFIX) && !name.equals(PREFIX + "default")
-                                && !known.contains(name.substring(PREFIX.length()))) {
-                            log.warn("{} names no known layout profile and is ignored", name);
+        try {
+            ReaderMode def = readMode("default", env.getProperty("app.statement.layouts.default"), false);
+            LayoutRouting.setDefaultMode(def);
+            Set<String> known = new HashSet<>();
+            for (LayoutProfile p : LayoutRouting.registry().profiles()) {
+                known.add(p.id());
+                LayoutRouting.setMode(p.id(),
+                        readMode(p.id(), env.getProperty("app.statement.layouts." + p.id()), true));
+            }
+            if (env instanceof ConfigurableEnvironment ce) {
+                for (PropertySource<?> ps : ce.getPropertySources()) {
+                    if (ps instanceof EnumerablePropertySource<?> eps) {
+                        for (String name : eps.getPropertyNames()) {
+                            if (name.startsWith(PREFIX) && !name.equals(PREFIX + "default")
+                                    && !known.contains(name.substring(PREFIX.length()))) {
+                                log.warn("{} names no known layout profile and is ignored", name);
+                            }
                         }
                     }
                 }
             }
+
+        } catch (OutOfMemoryError oom) {
+            throw oom;
+        } catch (Throwable t) {
+            // layout settings never fail startup: the parser keeps reading with v1 only
+            log.error("statement layout settings could not be applied ({}); layouts stay on their defaults",
+                    t.getClass().getSimpleName());
         }
     }
 

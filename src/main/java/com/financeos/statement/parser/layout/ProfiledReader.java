@@ -140,6 +140,7 @@ public final class ProfiledReader {
         LocalDate periodStart;
         LocalDate periodEnd;
         int unread;
+        boolean[] scannable;
         int summaryMaxPage;
         int dropped;
 
@@ -166,6 +167,18 @@ public final class ProfiledReader {
             }
         }
         // summary values are read from the table pages and the trailing non-prose summary pages only, never terms text
+        st.scannable = new boolean[lines.size()];
+        Map<Integer, List<Resolved>> geometry = new HashMap<>();
+        for (int i = 0; i < lines.size(); i++) {
+            if (st.kind[i] == Kind.OUTSIDE || st.kind[i] == Kind.STRAY) {
+                st.scannable[i] = true;
+            } else if (st.kind[i] == Kind.BODY) {
+                // a table line is searched only when it is not a dated row (a summary printed on a continued page)
+                Table tbl = st.table[i];
+                List<Resolved> cols = geometry.computeIfAbsent(tbl.page(), k -> resolve(p, tbl));
+                st.scannable[i] = dateOf(st, lines.get(i), cols) == null;
+            }
+        }
         st.summaryMaxPage = maxBody < 0 ? -1 : StatementParseEngine.harvestWindow(lines, maxBody);
         harvestSummary(st, meta, summaryFields);
 
@@ -279,6 +292,11 @@ public final class ProfiledReader {
             }
             if (ln.page() != lastPage) {
                 lastPage = ln.page();
+                if (started && p.continuesWithoutHeader() && !tables.containsKey(ln.page())
+                        && StatementParseEngine.isProse(st.lines, ln.page())) {
+                    ended = true; // a terms page never continues the table
+                    continue;
+                }
                 // a page that repeats the header waits for it; one that does not continues the table
                 cur = !tables.containsKey(ln.page()) && started && p.continuesWithoutHeader() ? last : null;
             }
@@ -483,27 +501,42 @@ public final class ProfiledReader {
         List<String> narration = new ArrayList<>();
         Map<Role, List<Word>> amountWords = new EnumMap<>(Role.class);
         boolean strayAmount = false;
-        boolean strayToken = false;
-        String marker = null;
-        for (Word w : ln.words()) {
+        int amountIdx = -1;
+        int amountCells = 0;
+        List<Word> ws = ln.words();
+        for (int i = 0; i < ws.size(); i++) {
+            Word w = ws.get(i);
             Role role = roleOf(cols, w);
             if (role == null) {
                 strayAmount |= Amounts.isAmount(w.text());
-                if (p.sign() == Sign.SUFFIX) {
-                    // a Cr / Dr-like token outside every column must not fall back to the default direction unseen
-                    String tk = Amounts.norm(w.text());
-                    strayToken |= tk.equalsIgnoreCase("cr") || tk.equalsIgnoreCase("dr")
-                            || tk.equalsIgnoreCase(p.suffix().creditToken()) || tk.equalsIgnoreCase(p.suffix().debitToken());
-                }
             } else if (role == Role.NARRATION) {
                 narration.add(w.text());
             } else if (role == Role.DEBIT || role == Role.CREDIT || role == Role.AMOUNT || role == Role.BALANCE) {
                 amountWords.computeIfAbsent(role, k -> new ArrayList<>()).add(w);
-            } else if (role == Role.MARKER && marker == null) {
-                marker = Amounts.norm(w.text());
+                if (role == Role.AMOUNT && Amounts.isAmount(w.text())) {
+                    amountIdx = i;
+                    amountCells++;
+                }
             }
         }
-        if (strayAmount || strayToken) {
+        // SUFFIX: the marker is the credit/debit token right after the amount (or glued to it), wherever its x falls;
+        // any other credit/debit-like word on the row means the sign cannot be trusted: the row is counted unread
+        String adjacent = null;
+        boolean strayMarker = false;
+        if (p.sign() == Sign.SUFFIX) {
+            int adjIdx = -1;
+            if (amountCells == 1 && amountIdx + 1 < ws.size() && markerLike(p, Amounts.norm(ws.get(amountIdx + 1).text()))) {
+                adjIdx = amountIdx + 1;
+                adjacent = Amounts.norm(ws.get(adjIdx).text());
+            }
+            for (int i = 0; i < ws.size(); i++) {
+                if (i != adjIdx && roleOf(cols, ws.get(i)) != Role.NARRATION
+                        && markerLike(p, Amounts.norm(ws.get(i).text()))) {
+                    strayMarker = true;
+                }
+            }
+        }
+        if (strayAmount || strayMarker) {
             st.unread++;
         }
         Amounts.Parsed debit = single(amountWords.get(Role.DEBIT));
@@ -538,7 +571,7 @@ public final class ProfiledReader {
                     return null;
                 }
                 r.magnitude = amount.value();
-                String token = amount.suffix() != null ? amount.suffix() : marker;
+                String token = amount.suffix() != null ? amount.suffix() : adjacent;
                 if (token != null && token.equalsIgnoreCase(p.suffix().creditToken())) {
                     r.sign = 1;
                     r.source = "suffix";
@@ -570,6 +603,11 @@ public final class ProfiledReader {
             default -> throw new IllegalStateException();
         }
         return r;
+    }
+
+    private static boolean markerLike(LayoutProfile p, String token) {
+        return token.equalsIgnoreCase("cr") || token.equalsIgnoreCase("dr")
+                || token.equalsIgnoreCase(p.suffix().creditToken()) || token.equalsIgnoreCase(p.suffix().debitToken());
     }
 
     private static Amounts.Parsed single(List<Word> words) {
@@ -774,7 +812,7 @@ public final class ProfiledReader {
 
     private static Object findValue(State st, Summary s) {
         for (int i = 0; i < st.lines.size(); i++) {
-            if (st.kind[i] != Kind.OUTSIDE && st.kind[i] != Kind.STRAY) {
+            if (!st.scannable[i]) {
                 continue;
             }
             Line ln = st.lines.get(i);
