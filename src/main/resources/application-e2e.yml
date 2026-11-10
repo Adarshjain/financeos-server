@@ -36,3 +36,7 @@ logging:
 # Statement review digests run on the next tick in E2E (no one-hour settling wait).
 notifications:
   review-digest-min-age-minutes: 0
+app:
+  statement:
+    # The jobs cancel spec uploads a deliberately slow 3,842-page PDF to keep an ingest job RUNNING.
+    max-pdf-pages: 10000

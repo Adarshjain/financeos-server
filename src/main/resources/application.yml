@@ -136,6 +136,9 @@ app:
   # date in this zone, so "today" is computed here, not in the server's zone (UTC).
   zone: ${APP_ZONE:Asia/Kolkata}
   # The original statement file (PDF/Excel) is kept encrypted with each statement so it can be re-parsed after a parser fix.
+  statement:
+    # PDFs with more pages than this are refused before extraction.
+    max-pdf-pages: 600
   statement-files:
     enabled: true
     # A file above this is not kept (the statement itself is still imported).

@@ -15,7 +15,7 @@ class PdfWordExtractor implements WordSource {
 
     private static final double LINE_TOLERANCE = 3.8;
     /** A statement is a few dozen pages; more than this is not one, and extracting it would hold a worker for minutes. */
-    static final int MAX_PAGES = 600;
+    static final int MAX_PAGES = ParserLimits.DEFAULT_MAX_PDF_PAGES;
     private static final String PASSWORD_ERROR =
             "ERROR: PDF is password-protected and the password is missing or wrong.";
 
@@ -26,7 +26,7 @@ class PdfWordExtractor implements WordSource {
         List<Line> lines = new ArrayList<>();
         try {
             int pageCount = document.getNumberOfPages();
-            if (pageCount > MAX_PAGES) {
+            if (pageCount > ParserLimits.maxPdfPages()) {
                 throw new StatementParseException("ERROR: too many pages (" + pageCount + ")");
             }
             for (int pno = 0; pno < pageCount; pno++) {
