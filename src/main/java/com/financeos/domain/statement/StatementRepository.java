@@ -18,6 +18,10 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
 
     boolean existsByAccountIdAndFileSha256(UUID accountId, String fileSha256);
 
+    /** Ids of the account's statements read from this file that have no stored original file yet. */
+    @Query("SELECT s.id FROM Statement s WHERE s.account.id = :accountId AND s.fileSha256 = :sha AND s.fileId IS NULL")
+    List<UUID> findIdsByAccountIdAndFileSha256WithoutFile(@Param("accountId") UUID accountId, @Param("sha") String fileSha256);
+
     /** Re-upload gap fill: the account's statements of the same file / the same period end. */
     @Query("SELECT s FROM Statement s LEFT JOIN FETCH s.creditCardDetails WHERE s.account.id = :accountId AND s.fileSha256 = :sha ORDER BY s.createdAt ASC")
     List<Statement> findByAccountIdAndFileSha256(@Param("accountId") UUID accountId, @Param("sha") String fileSha256);

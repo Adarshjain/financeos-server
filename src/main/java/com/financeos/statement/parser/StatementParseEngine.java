@@ -445,7 +445,7 @@ public final class StatementParseEngine {
         String verdict;
         if ((Boolean.TRUE.equals(checksumOk) && chainPct > 95)
                 || (Boolean.TRUE.equals(checksumOk) && mode.startsWith("opening/closing"))
-                || (checksumOk == null && (crossOk || cardOk))) {
+                || (checksumOk == null && (cardOk || (crossOk && meta.accountNumber != null && meta.periodEnd != null)))) {
             verdict = "AUTO-INGEST";
         } else if (chainPct > 50 || Boolean.TRUE.equals(crossDebits)
                 || Boolean.TRUE.equals(crossCredits) || cardOk) {

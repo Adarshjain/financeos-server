@@ -228,6 +228,36 @@ public final class StatementPdfFixtures {
 		return d.save();
 	}
 
+	/**
+	 * Debit/credit columns with no balance column, and a printed "Total Debits" figure equal to the sum of the debit rows.
+	 * With {@code identified} the page also prints an account number and a statement period; without it neither appears.
+	 */
+	public static byte[] bankNoBalancePrintedDebitTotal(boolean identified) throws Exception {
+		Doc d = new Doc();
+		d.line(l(50, "Test Bank Statement"));
+		if (identified) {
+			d.line(l(50, "Account No: 1234567890"));
+			d.line(l(50, "Statement Period: 01/04/2026 to 30/04/2026"));
+		}
+		d.line(l(50, "Total Debits: 3,500.00"));
+		d.line(l(50, "Date"), l(150, "Description"), l(320, "Debit"), l(400, "Credit"));
+		d.line(l(50, "01/04/2026"), l(150, "TEST MERCHANT ONE"), r(370, "1,000.00"));
+		d.line(l(50, "12/04/2026"), l(150, "TEST MERCHANT TWO"), r(370, "2,500.00"));
+		return d.save();
+	}
+
+	/** Card statement with a card number, a statement period and dated rows, but no summary box at all (nothing to check against). */
+	public static byte[] cardWithPeriodAndNumberButNoSummary() throws Exception {
+		Doc d = new Doc();
+		d.line(l(58, "Credit Card Statement"));
+		d.line(l(40, "Card No: 4111 11XX XXXX 1234"));
+		d.line(l(40, "Statement Period: 01/09/2026 to 30/09/2026"));
+		d.line(l(40, "Date"), l(110, "Transaction Description"), l(500, "Amount"));
+		d.line(l(40, "05/09/2026"), l(110, "TEST MERCHANT ONE"), r(540, "1,200.00"));
+		d.line(l(40, "15/09/2026"), l(110, "TEST MERCHANT TWO"), r(540, "3,498.00"));
+		return d.save();
+	}
+
 	/** Card statement with transactions but neither a period label nor a period range. */
 	public static byte[] cardWithoutAnyPeriod() throws Exception {
 		Doc d = new Doc();

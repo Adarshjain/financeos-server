@@ -98,6 +98,14 @@ public class StatementDeletionService {
         this.auditLogger = auditLogger;
     }
 
+    private com.financeos.domain.statement.file.StatementFileStore fileStore;
+
+    /** Optional so hand-built test instances need none. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setFileStore(com.financeos.domain.statement.file.StatementFileStore fileStore) {
+        this.fileStore = fileStore;
+    }
+
     private record Plan(Account account, Statement statement, List<Transaction> toDelete,
                         List<Transaction> kept, List<Transaction> alertsToReopen) {
     }
@@ -138,6 +146,12 @@ public class StatementDeletionService {
 
         statementTransactionRepository.deleteByStatementId(statement.getId());
         statementRepository.delete(statement);
+        if (fileStore != null && statement.getFileId() != null) {
+            // The original file goes with its statement unless another statement still references it; the pending
+            // statement delete is flushed first so the reference check does not still see it.
+            statementRepository.flush();
+            fileStore.deleteIfUnreferencedNow(account.getUser().getId(), statement.getFileId());
+        }
         for (List<UUID> chunk : chunks(deleteIds)) {
             transactionService.batchDelete(chunk);
         }

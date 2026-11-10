@@ -42,4 +42,16 @@ public interface StatementFileRepository extends Repository<StatementFile, UUID>
     @Query("DELETE FROM StatementFile f WHERE f.id = :id AND f.userId = :userId AND f.createdAt < :cutoff "
             + "AND NOT EXISTS (SELECT 1 FROM Statement s WHERE s.fileId = f.id)")
     int deleteByIdIfUnreferenced(@Param("id") UUID id, @Param("userId") UUID userId, @Param("cutoff") Instant cutoff);
+
+    /** Deletes the file at once when no statement references it (no grace): used right after its statement is deleted. */
+    @Modifying
+    @Query("DELETE FROM StatementFile f WHERE f.id = :id AND f.userId = :userId "
+            + "AND NOT EXISTS (SELECT 1 FROM Statement s WHERE s.fileId = f.id)")
+    int deleteByIdNowIfUnreferenced(@Param("id") UUID id, @Param("userId") UUID userId);
+
+    /** Deletes every user's unreferenced files created before {@code cutoff} (the daily sweep). */
+    @Modifying
+    @Query("DELETE FROM StatementFile f WHERE f.createdAt < :cutoff "
+            + "AND NOT EXISTS (SELECT 1 FROM Statement s WHERE s.fileId = f.id)")
+    int deleteAllOrphans(@Param("cutoff") Instant cutoff);
 }

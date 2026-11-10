@@ -6,6 +6,7 @@ import com.financeos.domain.account.Account;
 import com.financeos.domain.account.AccountRepository;
 import com.financeos.domain.statement.Statement;
 import com.financeos.domain.statement.StatementDraft;
+import com.financeos.domain.statement.StatementImportGate;
 import com.financeos.domain.statement.StatementPersistenceService;
 import com.financeos.domain.statement.StatementSource;
 import com.financeos.domain.transaction.ReviewType;
@@ -211,6 +212,15 @@ public class StatementReconciliationService {
             return new ReconSummary(0, 0, 0, List.of(), null, null, chosenAttachment.filename(), null, true);
         }
 
+        // A parse whose own figures contradict its rows creates no statement and no rows.
+        Optional<StatementImportGate.Blocked> blocked = StatementImportGate.check(result);
+        if (blocked.isPresent() && blocked.get().reason() == StatementImportGate.Reason.CONTRADICTED) {
+            String reason = "Statement rows don't add up to its own totals; nothing imported";
+            log.warn("Statement in {} blocked: rows contradict the statement's own totals", message.messageId());
+            recordLedger(connection, message.messageId(), candidateAccount, GmailProcessedStatus.FAILED_PERMANENT, reason);
+            return new ReconSummary(0, 0, 1, List.of(), GmailProcessedStatus.FAILED_PERMANENT, reason, chosenAttachment.filename(), null, false);
+        }
+
         // 4. Confirm/resolve account
         Account resolvedAccount = null;
         String statementAccountNumber = result.accountNumber();
@@ -285,13 +295,15 @@ public class StatementReconciliationService {
 
         // 5. Create statement record if not a duplicate (before watermark filtering / matching)
         Account persistAccount = resolvedAccount;
+        String statementSha = StatementPersistenceService.sha256Hex(chosenBytes);
         Optional<Statement> stmt = Timing.call(Ops.STATEMENT_PERSIST, () -> statementPersistenceService.createIfNew(connection.getUser(), persistAccount,
-                StatementSource.gmail, message.messageId(), StatementPersistenceService.sha256Hex(chosenBytes), result.draft()));
+                StatementSource.gmail, message.messageId(), statementSha, result.draft()));
         if (stmt.isEmpty()) {
             log.info("Statement already ingested for account {} (message {})", resolvedAccount.getId(), message.messageId());
             updateLastStatementDate(resolvedAccount, result);
             recordLedger(connection, message.messageId(), resolvedAccount, GmailProcessedStatus.RECONCILED, null);
-            return new ReconSummary(0, 0, 0);
+            return new ReconSummary(0, 0, 0).withFileHandoff(new StatementFileHandoff(connection.getUser().getId(),
+                    resolvedAccount.getId(), null, statementSha, chosenBytes, chosenAttachment.filename()));
         }
 
         // 6. Watermark gate check: drop lines dated before the account watermark
@@ -304,7 +316,8 @@ public class StatementReconciliationService {
             log.info("All statement lines were before watermark date: {}", watermark);
             updateLastStatementDate(resolvedAccount, result);
             recordLedger(connection, message.messageId(), resolvedAccount, GmailProcessedStatus.RECONCILED, null);
-            return new ReconSummary(0, 0, 0);
+            return new ReconSummary(0, 0, 0).withFileHandoff(new StatementFileHandoff(connection.getUser().getId(),
+                    resolvedAccount.getId(), stmt.get().getId(), statementSha, chosenBytes, chosenAttachment.filename()));
         }
 
         // Match the whole statement at once; lines nothing pairs with become gmail_statement rows (Confirmed).
@@ -355,7 +368,9 @@ public class StatementReconciliationService {
         if (createdCount > 0 && eventPublisher != null) {
             eventPublisher.publishEvent(com.financeos.domain.transaction.autolink.TransactionsIngestedEvent.of(connection.getUser().getId(), createdTxns));
         }
-        return new ReconSummary(createdCount, matchedCount, 0, createdTxns);
+        return new ReconSummary(createdCount, matchedCount, 0, createdTxns).withFileHandoff(new StatementFileHandoff(
+                connection.getUser().getId(), resolvedAccount.getId(), stmt.get().getId(), statementSha, chosenBytes,
+                chosenAttachment.filename()));
     }
 
     /** Statement mails from one sender must have reconciled to one account, this many times, before a stray number counts as drift. */

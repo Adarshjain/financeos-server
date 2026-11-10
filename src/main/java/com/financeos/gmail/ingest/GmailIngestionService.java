@@ -100,6 +100,10 @@ public class GmailIngestionService {
     @org.springframework.beans.factory.annotation.Autowired(required = false)
     private com.financeos.gmail.attention.IgnoredNumberRules ignoredNumberRules;
 
+    /** Keeps a statement mail's original file after its transaction commits; optional so hand-built test instances need none. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private com.financeos.domain.statement.file.StatementFileAttacher statementFileAttacher;
+
     public GmailIngestionService(GmailEngine gmailEngine,
                                  GmailSyncCursorService cursorService,
                                  GmailSenderRepository gmailSenderRepository,
@@ -519,12 +523,14 @@ public class GmailIngestionService {
         // The row as processMessage filled it (sender, subject, date): the rollback drops those columns, the failure keeps them.
         GmailProcessedMessage[] seen = new GmailProcessedMessage[1];
         ProcessedMessage outcome;
+        com.financeos.gmail.reconcile.StatementFileHandoff[] fileHandoff = new com.financeos.gmail.reconcile.StatementFileHandoff[1];
         try {
             outcome = transactionTemplate.execute(status -> {
                 GmailProcessedMessage gpm = processedMessageRepository.findById(row.getId()).orElse(row);
                 seen[0] = gpm;
                 ReconSummary[] recon = new ReconSummary[1];
                 List<Transaction> created = processMessage(service, connection, gpm, enabledSenders, recon, arrivalContexts, caught);
+                fileHandoff[0] = recon[0] == null ? null : recon[0].fileHandoff();
                 return new ProcessedMessage(created, toMessageResult(gpm, created, recon[0]));
             });
         } catch (RuntimeException | StackOverflowError e) {
@@ -535,7 +541,21 @@ public class GmailIngestionService {
         if (caught[0] != null && outcome != null) {
             logItemFailed(connection, outcome.result(), caught[0]);
         }
+        // The transaction has committed: the original file is stored now, on its own connection. A rollback never gets here.
+        keepStatementFile(fileHandoff[0]);
         return outcome;
+    }
+
+    private void keepStatementFile(com.financeos.gmail.reconcile.StatementFileHandoff handoff) {
+        if (handoff == null || statementFileAttacher == null) {
+            return;
+        }
+        if (handoff.statementId() != null) {
+            statementFileAttacher.attach(handoff.userId(), handoff.statementId(), handoff.bytes(), handoff.originalName());
+        } else {
+            statementFileAttacher.attachIfStoredStatementLacksFile(handoff.userId(), handoff.accountId(), handoff.sha256(),
+                    handoff.bytes(), handoff.originalName());
+        }
     }
 
     /**

@@ -69,6 +69,14 @@ public class FileIngestionService {
     public void setPasswordVault(StatementPasswordVault passwordVault) {
         this.passwordVault = passwordVault;
     }
+    private com.financeos.domain.statement.file.StatementFileAttacher fileAttacher;
+
+    /** Keeps the original file of each statement; optional so hand-built test instances need none. Never called inside a transaction. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setFileAttacher(com.financeos.domain.statement.file.StatementFileAttacher fileAttacher) {
+        this.fileAttacher = fileAttacher;
+    }
+
     private com.financeos.statement.details.StatementDetailsAiFiller detailsAiFiller;
 
     /** Optional: absent in plain unit tests, where no AI step runs. */
@@ -224,6 +232,15 @@ public class FileIngestionService {
                     continue;
                 }
 
+                // A parse that contradicts its own totals, or a file that is no statement, creates nothing.
+                Optional<com.financeos.domain.statement.StatementImportGate.Blocked> blocked =
+                        com.financeos.domain.statement.StatementImportGate.check(parseResult);
+                if (blocked.isPresent()) {
+                    fileDetails.add(FileIngestionResult.FileSummary.failed(filename, blocked.get().message(),
+                            FileIngestionResult.ErrorCode.OTHER));
+                    continue;
+                }
+
                 String sha256 = StatementPersistenceService.sha256Hex(bytes);
                 // A re-upload that fully reconciles corrects the stored statement and adds its missing lines in one transaction.
                 // A statement this call already created or refreshed is left to the old path (its lines are not linked yet).
@@ -251,6 +268,10 @@ public class FileIngestionService {
                     int created = outcome.matched() == null ? 0 : outcome.matched().created();
                     int attached = outcome.matched() == null ? 0 : outcome.matched().matched();
                     handledStatementIds.add(outcome.refreshed().statement().getId());
+                    // Only the statement's own file: a refresh matched by period from other bytes must not get this one.
+                    if (sha256.equals(outcome.refreshed().statement().getFileSha256())) {
+                        attachFile(currentSessionUserId, outcome.refreshed().statement().getId(), bytes, filename);
+                    }
                     refreshCreated += created;
                     fileDetails.add(refreshSummary(filename, lines.size(), outcome.refreshed(), created, attached));
                     filesProcessed++;
@@ -260,6 +281,7 @@ public class FileIngestionService {
                 Optional<List<String>> filled = statementPersistenceService.refreshFromReupload(accountId, sha256, parseResult.draft());
                 if (filled.isPresent()) {
                     List<String> fields = filled.get();
+                    attachFileIfLacking(currentSessionUserId, accountId, sha256, bytes, filename);
                     String message = fields.isEmpty()
                             ? "Statement already ingested; nothing new to fill"
                             : "Statement already ingested; filled in " + String.join(", ", fields.stream().map(MissingDetails::words).toList());
@@ -273,12 +295,14 @@ public class FileIngestionService {
                 Optional<Statement> stmt = Timing.call(Ops.STATEMENT_PERSIST, () -> statementPersistenceService.createIfNew(user, account, StatementSource.file_upload,
                         storedName, sha256, toStore.draft()));
                 if (stmt.isEmpty()) {
+                    attachFileIfLacking(currentSessionUserId, accountId, sha256, bytes, filename);
                     fileDetails.add(new FileIngestionResult.FileSummary(filename, "SKIPPED", 0, "Statement already ingested (same period or file)"));
                     filesProcessed++;
                     continue;
                 }
 
                 handledStatementIds.add(stmt.get().getId());
+                attachFile(currentSessionUserId, stmt.get().getId(), bytes, filename);
                 String warningMessage = null;
                 String fragment = accountService.extractLast4(account);
                 if (parseResult.accountNumber() != null && fragment != null) {
@@ -395,6 +419,28 @@ public class FileIngestionService {
         }
         dbHandler.saveTransactions(rows, List.of());
         return made;
+    }
+
+    private void attachFile(UUID userId, UUID statementId, byte[] bytes, String filename) {
+        if (fileAttacher == null) {
+            return;
+        }
+        try {
+            fileAttacher.attach(userId, statementId, bytes, filename);
+        } catch (RuntimeException e) {
+            log.warn("Keeping the original statement file failed: {}", e.toString());
+        }
+    }
+
+    private void attachFileIfLacking(UUID userId, UUID accountId, String sha256, byte[] bytes, String filename) {
+        if (fileAttacher == null) {
+            return;
+        }
+        try {
+            fileAttacher.attachIfStoredStatementLacksFile(userId, accountId, sha256, bytes, filename);
+        } catch (RuntimeException e) {
+            log.warn("Keeping the original statement file failed: {}", e.toString());
+        }
     }
 
     private record RefreshOutcome(StatementPersistenceService.Refreshed refreshed, StatementBatchMatcher.Result matched) {}

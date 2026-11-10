@@ -147,12 +147,15 @@ public class StatementParser {
         return value != null ? BigDecimal.valueOf(value) : null;
     }
 
+    /** The draft's parseMode when the statement had a running balance column (the engine's "balance-chain"). */
+    public static final String MODE_BALANCE_CHAIN = "balance_chain";
+
     private static String mapMode(String mode) {
         if (mode == null) {
             return "heuristic";
         }
         if (mode.equals("balance-chain")) {
-            return "balance_chain";
+            return MODE_BALANCE_CHAIN;
         }
         if (mode.startsWith("opening/closing")) {
             return "opening_closing";

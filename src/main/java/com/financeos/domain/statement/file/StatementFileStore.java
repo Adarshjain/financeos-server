@@ -182,6 +182,18 @@ public class StatementFileStore {
         return repository.deleteByIdIfUnreferenced(fileId, userId, orphanCutoff()) > 0;
     }
 
+    /** Deletes the file at once (no grace) when no statement references it; for right after its statement was deleted. */
+    @Transactional
+    public boolean deleteIfUnreferencedNow(UUID userId, UUID fileId) {
+        return repository.deleteByIdNowIfUnreferenced(fileId, userId) > 0;
+    }
+
+    /** Daily sweep over all users (covers files left by cascaded account deletes); returns how many were deleted. */
+    @Transactional
+    public int deleteAllOrphans() {
+        return repository.deleteAllOrphans(orphanCutoff());
+    }
+
     public long totalBytes() {
         return repository.sumSizeBytes();
     }
