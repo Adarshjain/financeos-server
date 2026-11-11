@@ -116,8 +116,13 @@ public class ImportService {
 
         // Per-import batches (never one query per row): instruments by ISIN, own and catalog aliases by symbol.
         ImportLookups lookups = new ImportLookups(brokerAccountId);
-        lookups.loadIsins(parsedRows.stream().filter(r -> r.error() == null)
-                .map(ParsedRow::parsedIsin).filter(i -> i != null && !i.isBlank()).toList());
+        Map<String, String> fileIsins = new LinkedHashMap<>();
+        for (ParsedRow r : parsedRows) {
+            if (r.error() == null && r.parsedIsin() != null && !r.parsedIsin().isBlank()) {
+                fileIsins.putIfAbsent(r.parsedIsin(), r.exchange());
+            }
+        }
+        lookups.loadIsins(fileIsins);
         lookups.loadAliases(parsedRows.stream().filter(r -> r.error() == null)
                 .map(ParsedRow::parsedSymbol).filter(sym -> sym != null && !sym.isBlank()).toList());
 
@@ -501,8 +506,13 @@ public class ImportService {
         List<ImportCommitRequest.CreateInstrumentDto> newDtos = activeRows.stream()
                 .filter(r -> r.instrumentId() == null && r.newInstrument() != null)
                 .map(ImportCommitRequest.CommitRowDto::newInstrument).toList();
-        lookups.loadIsins(newDtos.stream().map(ImportCommitRequest.CreateInstrumentDto::isin)
-                .filter(i -> i != null && !i.isBlank()).map(String::trim).toList());
+        Map<String, String> newIsins = new LinkedHashMap<>();
+        for (ImportCommitRequest.CreateInstrumentDto d : newDtos) {
+            if (d.isin() != null && !d.isin().isBlank()) {
+                newIsins.putIfAbsent(d.isin().trim(), d.exchange());
+            }
+        }
+        lookups.loadIsins(newIsins);
         lookups.loadAliases(newDtos.stream().map(ImportCommitRequest.CreateInstrumentDto::symbol)
                 .filter(sym -> sym != null && !sym.isBlank()).toList());
         Set<UUID> likelyInstrumentIds = new HashSet<>();
@@ -798,11 +808,10 @@ public class ImportService {
             this.brokerAccountId = brokerAccountId;
         }
 
-        void loadIsins(Collection<String> isins) {
-            for (List<String> chunk : chunks(new LinkedHashSet<>(isins))) {
-                for (Instrument i : instrumentRepository.findByIsinIn(chunk)) {
-                    byIsin.put(i.getIsin(), i);
-                }
+        /** Instruments by ISIN, one listing each (see {@link InstrumentListings}); the value is the row's exchange, or null. */
+        void loadIsins(Map<String, String> exchangeByIsin) {
+            if (!exchangeByIsin.isEmpty()) {
+                byIsin.putAll(InstrumentListings.byIsins(instrumentRepository, UserContext.getCurrentUserId(), exchangeByIsin));
             }
         }
 

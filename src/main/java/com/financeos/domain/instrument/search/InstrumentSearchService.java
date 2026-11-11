@@ -204,9 +204,16 @@ public class InstrumentSearchService {
         Optional<Instrument> existing = Optional.empty();
 
         if (!isEmpty(req.isin())) {
-            existing = instrumentRepository.findByIsin(req.isin().trim());
+            existing = InstrumentListings.byIsin(instrumentRepository, UserContext.getCurrentUserId(),
+                    req.isin().trim(), req.exchange());
             if (existing.isPresent()) {
                 matchedByIsin = true;
+                // The request names the other listing, which has its own row: it is no refresh of this one.
+                Instrument row = existing.get();
+                if (!isEmpty(req.exchange()) && !req.exchange().trim().equalsIgnoreCase(row.getExchange())
+                        && instrumentRepository.findByIsinAndExchange(row.getIsin(), req.exchange().trim()).isPresent()) {
+                    matchedByIsin = false;
+                }
             }
         }
         if (existing.isEmpty()) {
@@ -297,7 +304,7 @@ public class InstrumentSearchService {
                                                       @Nullable String yahooSymbol) {
         Optional<Instrument> found = Optional.empty();
         if (!isEmpty(isin)) {
-            found = orEmpty(instrumentRepository.findByIsin(isin.trim()));
+            found = orEmpty(InstrumentListings.byIsin(instrumentRepository, UserContext.getCurrentUserId(), isin.trim(), null));
         }
         if (found.isEmpty() && !isEmpty(amfiCode)) {
             found = orEmpty(instrumentRepository.findByAmfiCode(amfiCode.trim()));
@@ -318,6 +325,15 @@ public class InstrumentSearchService {
         if (existing.isPresent()) {
             return existing.get();
         }
+        return addRow(req);
+    }
+
+    /**
+     * Adds the request's instrument to the catalog as a new row (classified), with no lookup of an existing
+     * one: for a second listing of an ISIN (the exchange differs), which the identifier lookups would
+     * otherwise answer with the first.
+     */
+    public Instrument addRow(ResolveInstrumentRequest req) {
         Instrument newInst = new Instrument();
         newInst.setType(req.type());
         newInst.setName(req.name().trim());

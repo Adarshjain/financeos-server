@@ -154,6 +154,18 @@ public class InstrumentRepointService {
                     null));
             created = true;
         }
+        return moveTo(userId, source, target, created, tickerDropped, keptSymbol, keptExchange);
+    }
+
+    /**
+     * Moves {@code userId}'s references from {@code source} to {@code target} (shared by the identifier
+     * edit and the exchange switch): the references, the figures safety net, the asset-class override,
+     * the ticker the user keeps seeing when the new row went without one, the repoint record and the
+     * price fetch.
+     */
+    private Result moveTo(UUID userId, Instrument source, Instrument target, boolean created, boolean tickerDropped,
+                          @org.springframework.lang.Nullable String keptSymbol,
+                          @org.springframework.lang.Nullable String keptExchange) {
         Instrument finalTarget = target;
 
         // Pending entity changes first, so the SQL below sees and is not overwritten by them.
@@ -178,6 +190,107 @@ public class InstrumentRepointService {
         return new Result(reloaded != null ? reloaded : finalTarget, created, moved.holdingsMerged() > 0,
                 mergeChangedFigures);
     }
+
+    /** The two exchanges a stock can be switched between. */
+    static final String NSE = "NSE";
+    static final String BSE = "BSE";
+
+    /** The exchange {@code exchange} is switched to from: the other of NSE / BSE, else null. */
+    @org.springframework.lang.Nullable
+    static String otherExchange(@org.springframework.lang.Nullable String exchange) {
+        if (exchange == null) {
+            return null;
+        }
+        return switch (exchange.trim().toUpperCase(java.util.Locale.ROOT)) {
+            case NSE -> BSE;
+            case BSE -> NSE;
+            default -> null;
+        };
+    }
+
+    /**
+     * Whether the request asks {@code source} to move to its other NSE / BSE listing: it has an ISIN, its
+     * catalog exchange is NSE or BSE, and the requested exchange is the other of the two and also differs
+     * from the exchange the user sees now ({@code changes.exchange()}: a display override of that exchange
+     * is no switch, and picking the catalog exchange again just clears the override).
+     */
+    public static boolean isListingSwitch(Instrument source, InstrumentRequest request, DisplayChanges changes) {
+        String requested = blankToNull(request.exchange());
+        return changes.exchange() && blankToNull(source.getIsin()) != null && requested != null
+                && requested.toUpperCase(java.util.Locale.ROOT).equals(otherExchange(source.getExchange()));
+    }
+
+    /**
+     * Moves {@code userId}'s references from {@code source} to the listing of the same ISIN on the other
+     * exchange ({@link #isListingSwitch}): the row with that ISIN and exchange; else an ISIN-less row of the
+     * same type and ticker whose Yahoo symbol is {@code verifiedYahoo} (given the ISIN); else a new row with
+     * {@code verifiedYahoo}. {@code verifiedYahoo} is the listing's Yahoo symbol the caller already
+     * confirmed a price for ({@link InstrumentListingPlanner}, outside any transaction); it is needed
+     * whenever no row with the ISIN and exchange exists. The move, its checks and the repoint record are
+     * those of {@link #repoint}.
+     */
+    public Result switchListing(UUID userId, Instrument source, InstrumentRequest request,
+                                @org.springframework.lang.Nullable String verifiedYahoo) {
+        String exchange = request.exchange().trim().toUpperCase(java.util.Locale.ROOT);
+        String isin = source.getIsin().trim();
+        Instrument target = instrumentRepository.findByIsinAndExchange(isin, exchange).orElse(null);
+        if (target != null && target.getId().equals(source.getId())) {
+            throw new ValidationException(source.getName() + " is already listed on " + exchange + ".");
+        }
+        if (target == null && blank(verifiedYahoo)) {
+            throw new ValidationException("The " + exchange + " listing of " + source.getName()
+                    + " changed while it was checked. Try again.");
+        }
+        if (target == null && !blank(source.getSymbol())) {
+            Instrument sameTicker = instrumentRepository.findBySymbolAndExchange(source.getSymbol().trim(), exchange)
+                    .orElse(null);
+            if (isAdoptable(sameTicker, source, verifiedYahoo)) {
+                target = sameTicker;
+                target.setIsin(isin);
+                target = instrumentRepository.save(target);
+            }
+        }
+        if (target != null) {
+            refuseSelfReferencingActions(userId, source, target);
+            refuseActionsReachingOtherLots(userId, source, target);
+            return moveTo(userId, source, target, false, false, null, null);
+        }
+
+        String symbol = blankToNull(source.getSymbol());
+        boolean tickerTaken = symbol != null && instrumentRepository.existsTickerIgnoreCase(symbol, exchange);
+        String keptSymbol = null;
+        if (tickerTaken) {
+            // Another row owns the ticker: the new row goes without it and the user keeps seeing theirs.
+            InstrumentOverrides seen = InstrumentOverrides.orNone(overrideService.overridesFor(userId));
+            keptSymbol = blankToNull(seen.symbol(source));
+        }
+        target = searchService.addRow(new ResolveInstrumentRequest(source.getType(), source.getName(),
+                tickerTaken ? null : symbol, exchange, isin, null, verifiedYahoo, source.getCurrency(), null));
+        return moveTo(userId, source, target, true, tickerTaken, keptSymbol, exchange);
+    }
+
+    /** An ISIN-less row of the source's type whose Yahoo symbol is the listing's: it is that listing, so it is adopted. */
+    static boolean isAdoptable(@org.springframework.lang.Nullable Instrument row, Instrument source,
+                               @org.springframework.lang.Nullable String yahoo) {
+        return row != null && blank(row.getIsin()) && row.getType() == source.getType() && !blank(yahoo)
+                && !blank(row.getYahooSymbol()) && row.getYahooSymbol().trim().equalsIgnoreCase(yahoo.trim());
+    }
+
+    /**
+     * The Yahoo symbol of {@code source}'s listing on {@code exchange}: its own with the .NS / .BO suffix
+     * swapped, else SYMBOL.BO / SYMBOL.NS from its symbol; null when neither names one.
+     */
+    @org.springframework.lang.Nullable
+    static String listingYahooSymbol(Instrument source, String exchange) {
+        String suffix = BSE.equalsIgnoreCase(exchange) ? ".BO" : ".NS";
+        String yahoo = blankToNull(source.getYahooSymbol());
+        if (yahoo != null && yahoo.matches("(?i).+\\.(NS|BO)")) {
+            return yahoo.substring(0, yahoo.length() - 3) + suffix;
+        }
+        String base = blankToNull(source.getSymbol());
+        return base == null ? null : base + suffix;
+    }
+
     private static boolean blank(String value) {
         return value == null || value.isBlank();
     }
@@ -398,7 +511,7 @@ public class InstrumentRepointService {
 
     /** What a repoint moved, for the log. */
     record Moved(int holdingsMoved, int holdingsMerged, Set<String> mergedBrokers, int prices,
-                 int aliases, int corporateActions) {
+                 int aliases, int corporateActions, int suggestions) {
     }
 
     private Moved moveReferences(UUID userId, Instrument source, Instrument target) {
@@ -454,6 +567,7 @@ public class InstrumentRepointService {
 
         int aliases = jdbc.update("UPDATE instrument_aliases SET instrument_id = ? WHERE user_id = ? AND instrument_id = ?",
                 to, user, from);
+        int suggestions = moveSuggestions(user, from, to);
         // The source's symbol now means the target for this user's imports (the catalog still has the
         // source under that symbol, possibly the target too, so a symbol match alone is ambiguous).
         String oldSymbol = source.getSymbol();
@@ -471,7 +585,19 @@ public class InstrumentRepointService {
                 aliases++;
             }
         }
-        return new Moved(movedHoldings, mergedHoldings, mergedBrokers, prices, aliases, corporateActions);
+        return new Moved(movedHoldings, mergedHoldings, mergedBrokers, prices, aliases, corporateActions, suggestions);
+    }
+
+    /**
+     * The user's detected corporate-action suggestions follow the move; one whose kind and ex-date the
+     * target already has for them is dropped (a suggestion is unique per user, instrument, kind and ex-date).
+     */
+    int moveSuggestions(String user, String from, String to) {
+        jdbc.update("DELETE FROM corporate_action_suggestions s WHERE s.user_id = ? AND s.instrument_id = ? "
+                + "AND EXISTS (SELECT 1 FROM corporate_action_suggestions t WHERE t.user_id = s.user_id "
+                + "AND t.instrument_id = ? AND t.kind = s.kind AND t.ex_date = s.ex_date)", user, from, to);
+        return jdbc.update("UPDATE corporate_action_suggestions SET instrument_id = ? WHERE user_id = ? AND instrument_id = ?",
+                to, user, from);
     }
 
     /**

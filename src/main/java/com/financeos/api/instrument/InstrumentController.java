@@ -3,6 +3,7 @@ package com.financeos.api.instrument;
 import com.financeos.api.instrument.dto.*;
 import com.financeos.domain.instrument.Instrument;
 import com.financeos.domain.instrument.InstrumentCatalogListService;
+import com.financeos.domain.instrument.InstrumentListingPlanner;
 import com.financeos.domain.instrument.InstrumentService;
 import com.financeos.domain.instrument.InstrumentType;
 import com.financeos.domain.instrument.search.InstrumentSearchService;
@@ -24,9 +25,11 @@ public class InstrumentController {
     private final InstrumentSearchService instrumentSearchService;
 
     private final InstrumentCatalogListService catalogListService;
+    private final InstrumentListingPlanner listingPlanner;
 
     public InstrumentController(InstrumentService instrumentService, InstrumentSearchService instrumentSearchService,
-                                InstrumentCatalogListService catalogListService) {
+                                InstrumentCatalogListService catalogListService, InstrumentListingPlanner listingPlanner) {
+        this.listingPlanner = listingPlanner;
         this.catalogListService = catalogListService;
         this.instrumentService = instrumentService;
         this.instrumentSearchService = instrumentSearchService;
@@ -107,7 +110,9 @@ public class InstrumentController {
      */
     @PutMapping("/{id}")
     public InstrumentResponse update(@PathVariable UUID id, @Valid @RequestBody InstrumentRequest request) {
-        return ConcurrentWriteRetry.once(() -> instrumentService.updateInstrument(id, request));
+        // An NSE <-> BSE switch checks the other listing's price first, outside any transaction.
+        return ConcurrentWriteRetry.once(() -> instrumentService.updateInstrument(id, request,
+                listingPlanner.verifiedListingSymbol(id, request)));
     }
 
     /**

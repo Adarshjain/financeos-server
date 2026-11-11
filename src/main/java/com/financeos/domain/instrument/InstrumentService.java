@@ -198,15 +198,35 @@ public class InstrumentService {
      *   this user's holdings, trades, dividends, manual prices, aliases and own corporate actions
      *   move to it — merged into their existing holding of it at the same broker. The answer is that
      *   instrument (a new id).</li>
+     *   <li>An exchange change between NSE and BSE on a stock with an ISIN moves the user the same way to
+     *   the listing of that ISIN on the requested exchange ({@link InstrumentRepointService#switchListing}).</li>
      *   <li>Display fields (name, symbol, exchange, currency, type) become the user's overrides wherever
      *   they differ from the catalog; one equal to the catalog (or a blank symbol / exchange / currency)
      *   clears that override.</li>
      * </ul>
      */
     public InstrumentResponse updateInstrument(UUID id, InstrumentRequest request) {
+        return updateInstrument(id, request, null);
+    }
+
+    /**
+     * {@link #updateInstrument(UUID, InstrumentRequest)} with {@code verifiedListingSymbol}: the Yahoo symbol
+     * {@link InstrumentListingPlanner} confirmed a price for, which a switch onto a listing without a row needs.
+     * The feeds are asked before this transactional method, never inside it.
+     */
+    public InstrumentResponse updateInstrument(UUID id, InstrumentRequest request, @Nullable String verifiedListingSymbol) {
         UUID userId = requireUser("Editing an instrument needs a signed-in user");
         Instrument instrument = find(id);
 
+        DisplayChanges seenChanges = DisplayChanges.between(overrides(userId), instrument, request);
+        if (!identifiersChanged(instrument, request)
+                && InstrumentRepointService.isListingSwitch(instrument, request, seenChanges)
+                && repointService != null) {
+            // NSE <-> BSE of a stock with an ISIN: the other listing is another catalog row, so the user's
+            // references move to it (a display-only exchange would leave them on the wrong feed).
+            return afterMove(userId, request, seenChanges,
+                    repointService.switchListing(userId, instrument, request, verifiedListingSymbol));
+        }
         if (!identifiersChanged(instrument, request)) {
             overrideService.setDisplay(userId, instrument, request.name(), request.symbol(), request.exchange(),
                     request.currency(), request.type());
@@ -223,7 +243,12 @@ public class InstrumentService {
         // Only what the user changed relative to how they saw the source follows them to the target;
         // values they left as they were stay the target's own (no carried overrides, no pinned type).
         DisplayChanges changes = DisplayChanges.between(overrides(userId), instrument, request);
-        InstrumentRepointService.Result result = repointService.repoint(userId, instrument, request, changes);
+        return afterMove(userId, request, changes, repointService.repoint(userId, instrument, request, changes));
+    }
+
+    /** The user's display edits on the instrument they moved to, and its answer (with the merge note). */
+    private InstrumentResponse afterMove(UUID userId, InstrumentRequest request, DisplayChanges changes,
+                                         InstrumentRepointService.Result result) {
         Instrument target = result.target();
         overrideService.setDisplay(userId, target, request.name(), request.symbol(), request.exchange(),
                 request.currency(), request.type(), changes);
@@ -238,7 +263,7 @@ public class InstrumentService {
                                                      @Nullable String yahooSymbol) {
         Optional<Instrument> found = Optional.empty();
         if (blankToNull(isin) != null) {
-            found = instrumentRepository.findByIsin(isin.trim());
+            found = InstrumentListings.byIsin(instrumentRepository, UserContext.getCurrentUserId(), isin.trim(), null);
         }
         if (found.isEmpty() && blankToNull(amfiCode) != null) {
             found = instrumentRepository.findByAmfiCode(amfiCode.trim());

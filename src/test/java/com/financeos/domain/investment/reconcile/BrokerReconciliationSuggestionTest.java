@@ -152,7 +152,7 @@ class BrokerReconciliationSuggestionTest {
         inst.setIsin("INE000X01011");
         inst.setName("Acme Industries");
         inst.setType(InstrumentType.stock);
-        when(instrumentRepository.findByIsin("INE000X01011")).thenReturn(Optional.of(inst));
+        when(instrumentRepository.findByIsinIn(any())).thenReturn(List.of(inst));
         when(transactionRepository.findFilteredTransactions(any(), any(), any(), any(), any(Pageable.class)))
                 .thenReturn(new PageImpl<>(List.of()));
 
@@ -210,7 +210,7 @@ class BrokerReconciliationSuggestionTest {
         existing.setSymbol("ACMEIND");
         existing.setIsin("INE000X01011");
         existing.setType(InstrumentType.stock);
-        when(instrumentRepository.findByIsin("INE000X01011")).thenReturn(Optional.of(existing));
+        when(instrumentRepository.findByIsinIn(any())).thenReturn(List.of(existing));
         CreateInstrumentDto acme = new CreateInstrumentDto(InstrumentType.stock, "Acme Industries", "ACMEIND",
                 "NSE", "INE000X01011", null, null);
 

@@ -352,6 +352,11 @@ public class BrokerReconciliationService {
             execsByScrip.computeIfAbsent(key, k -> new ArrayList<>()).add(e);
         }
 
+        // The catalog rows of every ISIN in the file, loaded once for all rows below.
+        InstrumentListings.Batch listings = InstrumentListings.load(instrumentRepository,
+                com.financeos.core.security.UserContext.getCurrentUserId(),
+                execs.stream().map(e -> e.isin).filter(Objects::nonNull).toList(), true);
+
         List<ReconcilePreviewResponse.ReconciledExecutionDto> classifiedDtos = new ArrayList<>();
         Map<String, List<DeliveryEvent>> deliveryEventsPerScrip = new HashMap<>();
         BigDecimal computedIntradayRealized = BigDecimal.ZERO;
@@ -423,7 +428,7 @@ public class BrokerReconciliationService {
                     BigDecimal delivQty = e.qty.subtract(intraQty);
                     boolean split = intraQty.signum() > 0 && delivQty.signum() > 0;
 
-                    ReconcilePreviewResponse.MatchedInstrumentDto matchedInst = resolveInstrumentLocally(e.isin, e.symbol, e.exchange);
+                    ReconcilePreviewResponse.MatchedInstrumentDto matchedInst = resolveInstrumentLocally(listings, e.isin, e.symbol, e.exchange);
                     CreateInstrumentDto suggestion = matchedInst == null
                             ? suggestedInstrument(suggestionByScrip, e.name, e.symbol, e.isin, e.exchange) : null;
                     boolean isDup = checkDuplicateInDb(brokerAccountId, matchedInst != null ? matchedInst.id() : null, e);
@@ -553,7 +558,7 @@ public class BrokerReconciliationService {
                 LocalDate exitDate = classifierLatestExitDate.getOrDefault(scripKey, LocalDate.of(2100, 1, 1));
                 String sym = symbolOfKey.getOrDefault(scripKey, scripKey);
                 String isin = isinOfKey.get(scripKey);
-                ReconcilePreviewResponse.MatchedInstrumentDto matchedInst = resolveInstrumentLocally(isin, sym, "NSE");
+                ReconcilePreviewResponse.MatchedInstrumentDto matchedInst = resolveInstrumentLocally(listings, isin, sym, "NSE");
                 classifiedDtos.add(new ReconcilePreviewResponse.ReconciledExecutionDto(
                         rowIndexCounter++, exitDate, InvestmentTransactionType.sell, SettlementType.delivery,
                         sym, isin, "NSE", removeQty, classifierAvgExit, exitValue,
@@ -589,7 +594,7 @@ public class BrokerReconciliationService {
                 BigDecimal avgCost = openCostVal.divide(openQty, 4, RoundingMode.HALF_UP);
                 String sym = symbolOfKey.getOrDefault(scripKey, scripKey);
                 String isin = isinOfKey.get(scripKey);
-                ReconcilePreviewResponse.MatchedInstrumentDto matchedInst = resolveInstrumentLocally(isin, sym, "NSE");
+                ReconcilePreviewResponse.MatchedInstrumentDto matchedInst = resolveInstrumentLocally(listings, isin, sym, "NSE");
 
                 derivedHoldings.add(new ReconcilePreviewResponse.DerivedHoldingDto(
                         matchedInst != null ? matchedInst.id() : null,
@@ -790,6 +795,16 @@ public class BrokerReconciliationService {
         List<ImportCommitResponse.SkippedCommitItem> skippedItems = new ArrayList<>();
         Set<UUID> touchedInstrumentIds = new HashSet<>();
         Map<String, Instrument> resolvedInThisCommit = new HashMap<>();
+        // The catalog rows of every ISIN in the request, loaded once; the first listing chosen for a company
+        // stands for the rest of the commit.
+        List<String> requestIsins = new ArrayList<>();
+        for (ReconcileCommitRequest.CommitExecutionDto x : request.executions()) {
+            requestIsins.add(x.newInstrument() != null ? x.newInstrument().isin() : x.isin());
+        }
+        if (request.classifications() != null) {
+            request.classifications().forEach(c -> requestIsins.add(c.isin()));
+        }
+        InstrumentListings.Batch listings = InstrumentListings.load(instrumentRepository, userId, requestIsins, true);
 
         for (ReconcileCommitRequest.CommitExecutionDto execDto : request.executions()) {
             if (execDto.skip()) {
@@ -818,7 +833,7 @@ public class BrokerReconciliationService {
                     if (newIsin != null) {
                         instrument = resolvedInThisCommit.get(newIsin);
                         if (instrument == null) {
-                            instrument = instrumentRepository.findByIsin(newIsin).orElse(null);
+                            instrument = listings.get(newIsin, newExchange).orElse(null);
                         }
                     }
                     if (instrument == null && symbolKey != null) {
@@ -847,12 +862,13 @@ public class BrokerReconciliationService {
                                 ? newInstDto.yahooSymbol()
                                 : deriveYahooSymbol(newInst.getType(), newSymbol, newExchange));
                         instrument = instrumentRepository.save(newInst);
+                        listings.add(instrument);
                     }
                     if (newIsin != null) resolvedInThisCommit.put(newIsin, instrument);
                     if (symbolKey != null) resolvedInThisCommit.put(symbolKey, instrument);
                 } else {
                     // Try auto-matching by ISIN / symbol
-                    ReconcilePreviewResponse.MatchedInstrumentDto m = resolveInstrumentLocally(execDto.isin(), execDto.symbol(), execDto.exchange());
+                    ReconcilePreviewResponse.MatchedInstrumentDto m = resolveInstrumentLocally(listings, execDto.isin(), execDto.symbol(), execDto.exchange());
                     if (m != null) {
                         instrument = instrumentRepository.findById(m.id()).orElse(null);
                     }
@@ -919,7 +935,7 @@ public class BrokerReconciliationService {
         if (request.classifications() != null) {
             for (ReconcileCommitRequest.CommitClassificationDto cDto : request.classifications()) {
                 try {
-                    ReconcilePreviewResponse.MatchedInstrumentDto m = resolveInstrumentLocally(cDto.isin(), cDto.symbol(), null);
+                    ReconcilePreviewResponse.MatchedInstrumentDto m = resolveInstrumentLocally(listings, cDto.isin(), cDto.symbol(), null);
                     if (m != null) {
                         Instrument instrument = instrumentRepository.findById(m.id()).orElse(null);
                         if (instrument != null) {
@@ -1122,10 +1138,11 @@ public class BrokerReconciliationService {
         }
     }
 
-    private ReconcilePreviewResponse.MatchedInstrumentDto resolveInstrumentLocally(String isin, String symbol, String exchange) {
+    private ReconcilePreviewResponse.MatchedInstrumentDto resolveInstrumentLocally(InstrumentListings.Batch listings,
+            String isin, String symbol, String exchange) {
         Instrument matched = null;
         if (isin != null && !isin.isBlank()) {
-            matched = instrumentRepository.findByIsin(isin.trim()).orElse(null);
+            matched = listings.get(isin, exchange).orElse(null);
         }
         java.util.UUID aliasUser = com.financeos.core.security.UserContext.getCurrentUserId();
         if (matched == null && symbol != null && !symbol.isBlank() && aliasRepository != null && aliasUser != null) {

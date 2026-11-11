@@ -31,11 +31,39 @@ public interface InstrumentRepository extends JpaRepository<Instrument, UUID> {
     @Query("update Instrument i set i.priceStatus = null, i.priceStatusAt = null where i.id in :ids")
     int clearPriceStatus(@Param("ids") Collection<UUID> ids);
 
-    /** The instrument with the ISIN (exact; ISINs are unique in the catalog). */
-    Optional<Instrument> findByIsin(String isin);
+    /** Every instrument with the ISIN (exact), oldest first: one per exchange (a company can list on NSE and BSE). */
+    @Query("SELECT i FROM Instrument i WHERE i.isin = :isin ORDER BY i.createdAt ASC, i.id ASC")
+    List<Instrument> findAllByIsin(@Param("isin") String isin);
 
-    /** {@link #findByIsin} for several ISINs at once (exact; callers chunk the list). */
+    /** Every instrument with the ISIN on the exchange (case-insensitive), oldest first. */
+    @Query("SELECT i FROM Instrument i WHERE i.isin = :isin AND UPPER(i.exchange) = UPPER(:exchange) "
+            + "ORDER BY i.createdAt ASC, i.id ASC")
+    List<Instrument> findAllByIsinAndExchange(@Param("isin") String isin, @Param("exchange") String exchange);
+
+    /** The instrument with the ISIN: the NSE listing when there are two, else the oldest row. */
+    default Optional<Instrument> findByIsin(String isin) {
+        List<Instrument> rows = findAllByIsin(isin);
+        if (rows == null || rows.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(InstrumentListings.defaultListing(rows));
+    }
+
+    /** The instrument with the ISIN on {@code exchange} (case-insensitive); the oldest when repeated. */
+    default Optional<Instrument> findByIsinAndExchange(String isin, String exchange) {
+        return oldestOf(findAllByIsinAndExchange(isin, exchange), "ISIN and exchange", isin + " " + exchange);
+    }
+
+    /**
+     * {@link #findByIsin} for several ISINs at once (exact; callers chunk the list). An ISIN listed on two
+     * exchanges comes back as two rows.
+     */
     List<Instrument> findByIsinIn(java.util.Collection<String> isins);
+
+    /** The ids among {@code instrumentIds} that {@code userId} holds (a holding exists, so trades may too). */
+    @Query("SELECT DISTINCT h.instrument.id FROM Holding h WHERE h.user.id = :userId AND h.instrument.id IN :instrumentIds")
+    List<UUID> findHeldInstrumentIds(@Param("userId") UUID userId,
+                                     @Param("instrumentIds") Collection<UUID> instrumentIds);
 
     /** Every instrument with the AMFI code, oldest first (the column is not unique; legacy rows may repeat it). */
     @Query("SELECT i FROM Instrument i WHERE UPPER(i.amfiCode) = UPPER(:amfiCode) ORDER BY i.createdAt ASC, i.id ASC")

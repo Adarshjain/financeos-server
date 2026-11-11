@@ -131,7 +131,7 @@ class BrokerReconciliationServiceTest {
         inst.setIsin("INE155A01022");
         inst.setType(InstrumentType.stock);
 
-        when(instrumentRepository.findByIsin("INE155A01022")).thenReturn(Optional.of(inst));
+        when(instrumentRepository.findByIsinIn(any())).thenReturn(List.of(inst));
 
         InvestmentTransaction existingTxn = new InvestmentTransaction();
         existingTxn.setExternalRef("101");
@@ -176,7 +176,7 @@ class BrokerReconciliationServiceTest {
         inst.setIsin("INE155A01022");
         inst.setType(InstrumentType.stock);
 
-        when(instrumentRepository.findByIsin("INE155A01022")).thenReturn(Optional.of(inst));
+        when(instrumentRepository.findByIsinIn(any())).thenReturn(List.of(inst));
 
         InvestmentTransaction existingTxn = new InvestmentTransaction();
         existingTxn.setExternalRef(null); // Ref missing on existing transaction

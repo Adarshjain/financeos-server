@@ -79,7 +79,7 @@ class BrokerReconciliationRepointMapTest {
         when(accountRepository.findByIdAndUser_Id(eq(brokerAccountId), any())).thenReturn(Optional.of(account));
         source = instrument("INE333A01011");
         target = instrument("INE333A01099");
-        when(instrumentRepository.findByIsin(source.getIsin())).thenReturn(Optional.of(source));
+        when(instrumentRepository.findByIsinIn(any())).thenReturn(List.of(source));
         when(instrumentRepository.findById(source.getId())).thenReturn(Optional.of(source));
         InstrumentRepointMap map = mock(InstrumentRepointMap.class);
         when(map.applyForCurrentUser(any())).thenAnswer(inv -> {
