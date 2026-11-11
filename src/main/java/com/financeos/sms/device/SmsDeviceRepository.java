@@ -25,4 +25,10 @@ public interface SmsDeviceRepository extends JpaRepository<SmsDevice, UUID> {
     @Modifying
     @Query("UPDATE SmsDevice d SET d.lastSummaryAt = :now WHERE d.id = :id")
     int markSummary(@Param("id") UUID id, @Param("now") Instant now);
+
+    @Modifying
+    @Query("UPDATE SmsDevice d SET d.lastSummaryAt = :now, d.skippedPersonal = :personal, d.skippedOtp = :otp, "
+            + "d.skippedPromo = :promo, d.skippedUnknownSender = :unknown WHERE d.id = :id")
+    int markSummary(@Param("id") UUID id, @Param("now") Instant now, @Param("personal") int personal,
+                    @Param("otp") int otp, @Param("promo") int promo, @Param("unknown") int unknown);
 }

@@ -17,6 +17,8 @@ public interface SmsLineRepository extends JpaRepository<SmsLine, UUID> {
 
     List<SmsLine> findByUserId(UUID userId);
 
+    List<SmsLine> findByUserIdAndIdIn(UUID userId, java.util.Collection<UUID> ids);
+
     Optional<SmsLine> findByIdAndUserId(UUID id, UUID userId);
 
     List<SmsLine> findByUserIdAndState(UUID userId, SmsLineState state);

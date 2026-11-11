@@ -176,6 +176,17 @@ public class AlertMatcher {
         return new Outcome(create(alert, d.notOnStatementId()), true, null);
     }
 
+    /**
+     * The transaction {@link #matchOrCreate} would attach this alert to, or empty when it would create one. Reads only:
+     * no lock, nothing is changed.
+     */
+    public Optional<Transaction> findMatch(Alert alert) {
+        if (!usable(alert)) {
+            return Optional.empty();
+        }
+        return Optional.ofNullable(decide(alert, ledger(alert)).target());
+    }
+
     private static boolean usable(Alert a) {
         return a.account() != null && a.account().getId() != null && a.date() != null && a.amount() != null && a.type() != null;
     }

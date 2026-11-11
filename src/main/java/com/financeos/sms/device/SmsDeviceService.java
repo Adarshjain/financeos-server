@@ -122,6 +122,13 @@ public class SmsDeviceService {
         devices.markSummary(deviceId, AppTime.nowInstant());
     }
 
+    /** Records a summary call together with the phone's skipped counts. */
+    @Transactional
+    public void markSummary(UUID deviceId, int personal, int otp, int promo, int unknownSender) {
+        devices.markSummary(deviceId, AppTime.nowInstant(), Math.max(0, personal), Math.max(0, otp), Math.max(0, promo),
+                Math.max(0, unknownSender));
+    }
+
     private SmsDevice owned(UUID userId, UUID id) {
         return devices.findByIdAndUserId(id, userId).orElseThrow(() -> new ResourceNotFoundException("Device", id));
     }

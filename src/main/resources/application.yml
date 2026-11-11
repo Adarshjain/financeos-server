@@ -118,6 +118,9 @@ financeos:
     slow-log-ms: ${TIMING_SLOW_LOG_MS:1000}
     # false: JDBC spans are dropped at export (slow-SQL log, query counts and metrics keep working)
     sql-spans: ${TIMING_SQL_SPANS:true}
+  sms:
+    # false: messages are read and matched but nothing is posted to transactions (shadow outcomes only)
+    posting-enabled: ${SMS_POSTING_ENABLED:false}
 
 # SQL text keeps its placeholders; parameter values are never put on spans or logs
 jdbc:

@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
@@ -43,7 +44,7 @@ public final class SmsDtos {
 
     public record OnLine(UUID id, String sender, String ending, String family, LocalDate syncFrom) {}
 
-    public record DeviceConfigResponse(SenderCatalogue.Data catalogue, List<OnLine> lines, boolean paused) {}
+    public record DeviceConfigResponse(SenderCatalogue.Data catalogue, List<OnLine> lines, boolean paused, String zone) {}
 
     public record DeviceView(UUID id, String name, Instant pairedAt, Instant lastSeenAt, Instant lastSummaryAt, boolean paused,
                              Instant revokedAt) {}
@@ -62,4 +63,34 @@ public final class SmsDtos {
     public record OnRequest(@NotNull UUID accountId, LocalDate syncFrom) {}
 
     public record AccountRequest(@NotNull UUID accountId) {}
+
+    public record IncomingMessage(String sender, String body, Instant receivedAt, Integer simSlot, String fingerprint) {}
+
+    public record MessagesRequest(@NotNull @Size(max = 200) List<@NotNull IncomingMessage> messages) {}
+
+    public record MessageResult(String fingerprint, String status, String reason) {}
+
+    public record MessagesResponse(List<MessageResult> results) {}
+
+    public record NotMineRequest(@NotNull @Size(min = 1, max = 500) List<@NotNull UUID> ids) {}
+
+    public record MessageView(UUID id, String sender, String provider, String body, Instant receivedAt, UUID accountId,
+                              String accountName, String readStatus, String kind, BigDecimal amount, String direction,
+                              LocalDate txnDate, String counterparty, BigDecimal balanceAfter, String refNo, String outcome,
+                              UUID transactionId) {}
+
+    public record MessagePage(List<MessageView> items, int page, int size, long total) {}
+
+    public record ConfirmRequest(BigDecimal amount, String direction, LocalDate txnDate, String counterparty) {}
+
+    public record ReportTotals(long stored, long read, long needsConfirm, long couldNotRead, long ignored, long wouldCreate,
+                               long wouldAttach, long created, long attached, long duplicates) {}
+
+    public record ReportAlert(String kind, String message, LocalDate date) {}
+
+    public record ReportAccount(UUID accountId, String name, Instant firstMessageAt, Instant lastMessageAt, long wouldCreate,
+                                long wouldAttach, long created, long attached, long duplicates, long needsConfirm,
+                                long couldNotRead, List<ReportAlert> alerts) {}
+
+    public record ReportResponse(boolean postingEnabled, ReportTotals totals, List<ReportAccount> accounts) {}
 }

@@ -51,6 +51,18 @@ public class SmsDevice {
     @Column(name = "revoked_at")
     private Instant revokedAt;
 
+    @Column(name = "skipped_personal", nullable = false)
+    private int skippedPersonal;
+
+    @Column(name = "skipped_otp", nullable = false)
+    private int skippedOtp;
+
+    @Column(name = "skipped_promo", nullable = false)
+    private int skippedPromo;
+
+    @Column(name = "skipped_unknown_sender", nullable = false)
+    private int skippedUnknownSender;
+
     public boolean isRevoked() {
         return revokedAt != null;
     }

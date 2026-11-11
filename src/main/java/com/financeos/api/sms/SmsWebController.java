@@ -4,6 +4,7 @@ import com.financeos.api.sms.dto.SmsDtos.AccountRequest;
 import com.financeos.api.sms.dto.SmsDtos.DeviceView;
 import com.financeos.api.sms.dto.SmsDtos.LineView;
 import com.financeos.api.sms.dto.SmsDtos.LinesResponse;
+import com.financeos.api.sms.dto.SmsDtos.NotMineRequest;
 import com.financeos.api.sms.dto.SmsDtos.OnRequest;
 import com.financeos.core.security.UserContext;
 import com.financeos.sms.device.SmsDeviceService;
@@ -85,6 +86,18 @@ public class SmsWebController {
     @PostMapping("/lines/{id}/on")
     public ResponseEntity<LineView> on(@PathVariable UUID id, @Valid @RequestBody OnRequest request) {
         return ResponseEntity.ok(toView(lineService.turnOn(userId(), id, request.accountId(), request.syncFrom())));
+    }
+
+    @PostMapping("/lines/not-mine")
+    public ResponseEntity<Void> notMineAll(@Valid @RequestBody NotMineRequest request) {
+        lineService.notMineAll(userId(), request.ids());
+        return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/lines/undo")
+    public ResponseEntity<Void> undoAll(@Valid @RequestBody NotMineRequest request) {
+        lineService.undoAll(userId(), request.ids());
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/lines/{id}/off")

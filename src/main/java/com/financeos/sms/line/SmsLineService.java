@@ -47,6 +47,34 @@ public class SmsLineService {
         return lines.save(line);
     }
 
+    /** Marks every one of the lines NOT_MINE, in one transaction. A line that is not the user's is "not found" for the whole call. */
+    @Transactional
+    public void notMineAll(UUID userId, java.util.Collection<UUID> lineIds) {
+        for (SmsLine line : requireAll(userId, lineIds)) {
+            line.setState(SmsLineState.NOT_MINE);
+        }
+    }
+
+    /** {@link #undo} for every one of the lines, in one transaction; same all-or-nothing rule as {@link #notMineAll}. */
+    @Transactional
+    public void undoAll(UUID userId, java.util.Collection<UUID> lineIds) {
+        for (SmsLine line : requireAll(userId, lineIds)) {
+            line.setState(SmsLineState.OFF);
+        }
+    }
+
+    private List<SmsLine> requireAll(UUID userId, java.util.Collection<UUID> lineIds) {
+        java.util.Set<UUID> wanted = new java.util.LinkedHashSet<>(lineIds);
+        List<SmsLine> found = lines.findByUserIdAndIdIn(userId, wanted);
+        if (found.size() != wanted.size()) {
+            java.util.Set<UUID> have = new java.util.HashSet<>();
+            found.forEach(l -> have.add(l.getId()));
+            UUID missing = wanted.stream().filter(id -> !have.contains(id)).findFirst().orElseThrow();
+            throw new ResourceNotFoundException("SMS line", missing);
+        }
+        return found;
+    }
+
     /** Back to OFF; the account stays. */
     @Transactional
     public SmsLine undo(UUID userId, UUID lineId) {

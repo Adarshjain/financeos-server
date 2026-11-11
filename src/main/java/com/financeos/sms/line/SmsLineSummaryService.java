@@ -18,9 +18,9 @@ public class SmsLineSummaryService {
     public record LineSummary(String sender, String ending, String family, int msgCount, int txnCount,
                               Instant firstMsgAt, Instant lastMsgAt) {}
 
-    public record Result(int lines, int newLines, int skipped) {}
+    public record Skipped(int personal, int otp, int promo, int unknownSender) {}
 
-    private static final java.util.regex.Pattern SENDER = java.util.regex.Pattern.compile("^[A-Z0-9]{3,20}$");
+    public record Result(int lines, int newLines, int skipped) {}
 
     private final SmsLineRepository lines;
     private final SenderCatalogue catalogue;
@@ -36,7 +36,7 @@ public class SmsLineSummaryService {
     }
 
     @Transactional
-    public Result apply(UUID userId, UUID deviceId, List<LineSummary> incoming) {
+    public Result apply(UUID userId, UUID deviceId, List<LineSummary> incoming, Skipped phoneSkipped) {
         lines.lockUser(userId);
         lines.healOrphans(userId);
         Map<String, SmsLine> existing = new HashMap<>();
@@ -50,7 +50,7 @@ public class SmsLineSummaryService {
             String sender = SenderCatalogue.normaliseSender(s.sender());
             String ending = blankToNull(s.ending());
             String family = blankToNull(s.family());
-            if (!SENDER.matcher(sender).matches() || (ending != null && !ending.matches("\\d{3,4}"))
+            if (!SmsLineKey.isValidSender(sender) || (ending != null && !ending.matches("\\d{3,4}"))
                     || (family != null && family.length() > 40)) {
                 skipped++;
                 continue;
@@ -76,7 +76,11 @@ public class SmsLineSummaryService {
             touched.add(lines.save(line));
         }
         suggestions.suggest(userId, touched);
-        devices.markSummary(deviceId);
+        if (phoneSkipped != null) {
+            devices.markSummary(deviceId, phoneSkipped.personal(), phoneSkipped.otp(), phoneSkipped.promo(), phoneSkipped.unknownSender());
+        } else {
+            devices.markSummary(deviceId);
+        }
         return new Result(touched.size(), created, skipped);
     }
 
