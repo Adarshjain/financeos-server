@@ -1,0 +1,53 @@
+{
+  "senders": [
+    {"header": "HDFCBK", "provider": "HDFC Bank", "bank": "hdfc", "kind": "bank", "numberless": false, "families": []},
+    {"header": "HDFCBN", "provider": "HDFC Bank", "bank": "hdfc", "kind": "bank", "numberless": false, "families": []},
+    {"header": "AXISBK", "provider": "Axis Bank", "bank": "axis", "kind": "bank", "numberless": false, "families": []},
+    {"header": "EQUTAS", "provider": "Equitas", "bank": "equitas", "kind": "bank", "numberless": false, "families": []},
+    {"header": "EQUTAT", "provider": "Equitas", "bank": "equitas", "kind": "bank", "numberless": false, "families": []},
+    {"header": "EQUTAX", "provider": "Equitas", "bank": "equitas", "kind": "bank", "numberless": false, "families": []},
+    {"header": "YESBNK", "provider": "YES Bank", "bank": "yes", "kind": "bank", "numberless": false, "families": []},
+    {"header": "YESBAK", "provider": "YES Bank", "bank": "yes", "kind": "bank", "numberless": false, "families": []},
+    {"header": "ICICIT", "provider": "ICICI Bank", "bank": "icici", "kind": "bank", "numberless": false, "families": []},
+    {"header": "ICICIB", "provider": "ICICI Bank", "bank": "icici", "kind": "bank", "numberless": false, "families": []},
+    {"header": "ICICIO", "provider": "ICICI Bank", "bank": "icici", "kind": "bank", "numberless": false, "families": []},
+    {"header": "HSBCIN", "provider": "HSBC", "bank": "hsbc", "kind": "bank", "numberless": false, "families": []},
+    {"header": "HSBCIM", "provider": "HSBC", "bank": "hsbc", "kind": "bank", "numberless": false, "families": []},
+    {"header": "BOBCRD", "provider": "BOBCARD", "bank": "bank_of_baroda", "kind": "card", "numberless": false, "families": []},
+    {"header": "FEDBNK", "provider": "Federal Bank", "bank": "federal", "kind": "bank", "numberless": false, "families": []},
+    {"header": "FEDFIB", "provider": "Federal Bank", "bank": "federal", "kind": "bank", "numberless": false, "families": []},
+    {"header": "FEDSCP", "provider": "Scapia Federal card", "bank": "federal", "kind": "card", "numberless": false, "families": []},
+    {"header": "SLCBNK", "provider": "slice", "bank": "slice", "kind": "bank", "numberless": false, "families": []},
+    {"header": "SLCEIT", "provider": "slice", "bank": "slice", "kind": "bank", "numberless": false, "families": []},
+    {"header": "JTEDGE", "provider": "Jupiter Edge", "bank": "csb", "kind": "card", "numberless": false, "families": []},
+    {"header": "UNTYCC", "provider": "Unity card", "bank": null, "kind": "card", "numberless": false, "families": []},
+    {"header": "SBIUPI", "provider": "SBI", "bank": null, "kind": "bank", "numberless": false, "families": []},
+    {"header": "SBIBNK", "provider": "SBI", "bank": null, "kind": "bank", "numberless": false, "families": []},
+    {"header": "AIRBNK", "provider": "Airtel Payments Bank", "bank": null, "kind": "bank", "numberless": false, "families": []},
+    {"header": "HPPAYS", "provider": "HP Pay", "bank": null, "kind": "fuel", "numberless": true, "families": []},
+    {"header": "JUSPAY", "provider": "Amazon Pay wallet", "bank": null, "kind": "wallet", "numberless": true, "families": [{"key": "apay", "pattern": "Apay"}]},
+    {"header": "QCAMZN", "provider": "Amazon Pay wallet", "bank": null, "kind": "wallet", "numberless": true, "families": [{"key": "apay", "pattern": "Apay"}]},
+    {"header": "PHONPE", "provider": "PhonePe gift card", "bank": null, "kind": "wallet", "numberless": true, "families": [{"key": "gift_card", "pattern": "PhonePe gift card"}]},
+    {"header": "CREDWL", "provider": "CRED wallet", "bank": null, "kind": "wallet", "numberless": true, "families": []},
+    {"header": "MOBIKW", "provider": "MobiKwik", "bank": null, "kind": "wallet", "numberless": true, "families": []},
+    {"header": "PAYZAP", "provider": "PayZapp", "bank": null, "kind": "wallet", "numberless": true, "families": []},
+    {"header": "IPAYTM", "provider": "Paytm", "bank": null, "kind": "wallet", "numberless": true, "families": []},
+    {"header": "PYTMBK", "provider": "Paytm", "bank": null, "kind": "wallet", "numberless": true, "families": []},
+    {"header": "PAYTMB", "provider": "Paytm", "bank": null, "kind": "wallet", "numberless": true, "families": []},
+    {"header": "PLUXEE", "provider": "Pluxee meal card", "bank": null, "kind": "meal_card", "numberless": false, "families": []},
+    {"header": "SODEXO", "provider": "Pluxee meal card", "bank": null, "kind": "meal_card", "numberless": false, "families": []}
+  ],
+  "drop": {
+    "otpPatterns": [
+      "(?i)\\botp\\b",
+      "(?i)one[\\s-]*time[\\s-]*(password|passcode|pin)",
+      "(?i)verification\\s+code",
+      "(?i)do\\s+not\\s+share"
+    ],
+    "promoHeaderSuffixes": ["P"]
+  },
+  "endingPatterns": [
+    {"key": "masked_group", "pattern": "(?i)(?:x+|\\*+)[\\s-]*(\\d{3,4})(?!\\d)"},
+    {"key": "grouped_mask", "pattern": "\\d{3}-\\d{3}\\*+-(\\d{3})(?!\\d)"}
+  ]
+}
