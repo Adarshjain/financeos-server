@@ -17,7 +17,7 @@ import com.financeos.domain.transaction.TransactionSource;
 import com.financeos.domain.transaction.TransactionType;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
-import com.financeos.sms.device.PairAttemptLimiter;
+import com.financeos.sms.device.SmsLoginLimiter;
 import com.financeos.sms.line.SmsSuggestionService;
 import com.financeos.support.ApiTestClient;
 import com.financeos.support.UserDataCleanup;
@@ -49,7 +49,7 @@ class SmsLinesIntegrationTest {
     @Autowired private AccountIdentifierRepository identifierRepository;
     @Autowired private TransactionRepository transactionRepository;
     @Autowired private SmsSuggestionService suggestionService;
-    @Autowired private PairAttemptLimiter limiter;
+    @Autowired private SmsLoginLimiter limiter;
 
     private ApiTestClient api;
     private User user;
@@ -57,25 +57,21 @@ class SmsLinesIntegrationTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        limiter.clear();
+        limiter.clearAll();
         String email = "sms-lines-" + UUID.randomUUID() + "@example.test";
         api = ApiTestClient.signUp(mockMvc, mapper, email);
         user = userRepository.findByEmail(email).orElseThrow();
-        token = pairDevice(api);
+        token = pairDevice(user.getEmail());
     }
 
     @AfterEach
     void tearDown() {
         UserDataCleanup.deleteUsers(jdbc, List.of(user.getId()));
-        limiter.clear();
+        limiter.clearAll();
     }
 
-    private String pairDevice(ApiTestClient client) throws Exception {
-        String code = client.postJson("/api/v1/sms/pairing-code", null, 200).get("code").asText();
-        String body = mockMvc.perform(post("/api/v1/sms/pair").contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(Map.of("code", code, "deviceName", "Test phone"))))
-                .andExpect(status().isOk()).andReturn().getResponse().getContentAsString();
-        return mapper.readTree(body).get("token").asText();
+    private String pairDevice(String email) throws Exception {
+        return SmsTestLogin.token(mockMvc, mapper, email);
     }
 
     private Map<String, Object> line(String sender, String ending, String family, int msgs) {

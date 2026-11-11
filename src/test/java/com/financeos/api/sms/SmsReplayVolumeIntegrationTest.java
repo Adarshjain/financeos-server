@@ -14,7 +14,7 @@ import com.financeos.domain.transaction.TransactionSource;
 import com.financeos.domain.transaction.TransactionType;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
-import com.financeos.sms.device.PairAttemptLimiter;
+import com.financeos.sms.device.SmsLoginLimiter;
 import com.financeos.sms.device.SmsTokens;
 import com.financeos.sms.ingest.SmsPipelineService;
 import com.financeos.support.ApiTestClient;
@@ -54,7 +54,7 @@ class SmsReplayVolumeIntegrationTest {
     @Autowired private AccountRepository accountRepository;
     @Autowired private TransactionRepository transactionRepository;
     @Autowired private SmsPipelineService pipeline;
-    @Autowired private PairAttemptLimiter limiter;
+    @Autowired private SmsLoginLimiter limiter;
 
     private ApiTestClient api;
     private User user;
@@ -63,14 +63,11 @@ class SmsReplayVolumeIntegrationTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        limiter.clear();
+        limiter.clearAll();
         String email = "sms-volume-" + UUID.randomUUID() + "@example.test";
         api = ApiTestClient.signUp(mockMvc, mapper, email);
         user = userRepository.findByEmail(email).orElseThrow();
-        String code = api.postJson("/api/v1/sms/pairing-code", null, 200).get("code").asText();
-        token = mapper.readTree(mockMvc.perform(post("/api/v1/sms/pair").contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(Map.of("code", code, "deviceName", "Test phone"))))
-                .andReturn().getResponse().getContentAsString()).get("token").asText();
+        token = SmsTestLogin.token(mockMvc, mapper, email);
         List<Map<String, Object>> lines = new ArrayList<>();
         for (String e : ENDINGS) {
             accounts.add(api.create("/api/v1/accounts", Map.of("type", "generic", "name", "Test Wallet " + e,
@@ -99,7 +96,7 @@ class SmsReplayVolumeIntegrationTest {
     @AfterEach
     void tearDown() {
         UserDataCleanup.deleteUsers(jdbc, List.of(user.getId()));
-        limiter.clear();
+        limiter.clearAll();
     }
 
     private Map<String, String> snapshot() {

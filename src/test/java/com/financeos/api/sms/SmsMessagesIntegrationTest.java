@@ -14,7 +14,7 @@ import com.financeos.domain.transaction.TransactionSource;
 import com.financeos.domain.transaction.TransactionType;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
-import com.financeos.sms.device.PairAttemptLimiter;
+import com.financeos.sms.device.SmsLoginLimiter;
 import com.financeos.sms.device.SmsTokens;
 import com.financeos.sms.ingest.SmsPipelineService;
 import com.financeos.support.ApiTestClient;
@@ -53,7 +53,7 @@ class SmsMessagesIntegrationTest {
     @Autowired private AccountRepository accountRepository;
     @Autowired private TransactionRepository transactionRepository;
     @Autowired private SmsPipelineService pipeline;
-    @Autowired private PairAttemptLimiter limiter;
+    @Autowired private SmsLoginLimiter limiter;
     @Autowired private com.financeos.sms.ingest.SmsRecheckThrottle throttle;
     @Autowired private jakarta.persistence.EntityManagerFactory entityManagerFactory;
 
@@ -68,16 +68,16 @@ class SmsMessagesIntegrationTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        limiter.clear();
+        limiter.clearAll();
         throttle.setMinInterval(java.time.Duration.ZERO);
         String email = "sms-msgs-" + UUID.randomUUID() + "@example.test";
         api = ApiTestClient.signUp(mockMvc, mapper, email);
         user = userRepository.findByEmail(email).orElseThrow();
-        token = pair(api);
+        token = pair(user.getEmail());
         String otherEmail = "sms-msgs-other-" + UUID.randomUUID() + "@example.test";
         otherApi = ApiTestClient.signUp(mockMvc, mapper, otherEmail);
         other = userRepository.findByEmail(otherEmail).orElseThrow();
-        otherToken = pair(otherApi);
+        otherToken = pair(other.getEmail());
 
         account = api.create("/api/v1/accounts", Map.of("type", "generic", "name", "Test Account",
                 "financialPosition", "asset", "excludeFromNetAsset", false));
@@ -97,17 +97,13 @@ class SmsMessagesIntegrationTest {
     @AfterEach
     void tearDown() {
         UserDataCleanup.deleteUsers(jdbc, List.of(user.getId(), other.getId()));
-        limiter.clear();
+        limiter.clearAll();
     }
 
     // ---------------------------------------------------------------- helpers
 
-    private String pair(ApiTestClient client) throws Exception {
-        String code = client.postJson("/api/v1/sms/pairing-code", null, 200).get("code").asText();
-        String body = mockMvc.perform(post("/api/v1/sms/pair").contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(Map.of("code", code, "deviceName", "Test phone"))))
-                .andReturn().getResponse().getContentAsString();
-        return mapper.readTree(body).get("token").asText();
+    private String pair(String email) throws Exception {
+        return SmsTestLogin.token(mockMvc, mapper, email);
     }
 
     private Map<String, Object> line(String sender, String ending, String family) {

@@ -21,11 +21,12 @@ public final class SmsDtos {
     private SmsDtos() {
     }
 
-    public record PairingCodeResponse(String code, Instant expiresAt) {}
+    public record LoginRequest(@NotBlank @Size(max = 254) String email, @NotBlank @Size(max = 1000) String password,
+                               @NotBlank @Size(max = 80) String deviceName) {}
 
-    public record PairRequest(@NotBlank @Size(max = 32) String code, @NotBlank @Size(max = 80) String deviceName) {}
+    public record GoogleLoginRequest(@NotBlank @Size(max = 4000) String idToken, @NotBlank @Size(max = 80) String deviceName) {}
 
-    public record PairResponse(String token) {}
+    public record LoginResponse(String token) {}
 
     public record SummaryLine(
             String sender,

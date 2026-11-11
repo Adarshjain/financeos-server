@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 public final class ApiTestClient {
 
-    private static final String PASSWORD = "integrationPass123!";
+    public static final String PASSWORD = "integrationPass123!";
 
     private final MockMvc mockMvc;
     private final ObjectMapper mapper;

@@ -13,7 +13,7 @@ import com.financeos.domain.transaction.TransactionSource;
 import com.financeos.domain.transaction.TransactionType;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
-import com.financeos.sms.device.PairAttemptLimiter;
+import com.financeos.sms.device.SmsLoginLimiter;
 import com.financeos.sms.device.SmsTokens;
 import com.financeos.sms.ingest.SmsPipelineService;
 import com.financeos.support.ApiTestClient;
@@ -50,7 +50,7 @@ class SmsPostingIntegrationTest {
     @Autowired private AccountRepository accountRepository;
     @Autowired private TransactionRepository transactionRepository;
     @Autowired private SmsPipelineService pipeline;
-    @Autowired private PairAttemptLimiter limiter;
+    @Autowired private SmsLoginLimiter limiter;
 
     private ApiTestClient api;
     private User user;
@@ -59,11 +59,11 @@ class SmsPostingIntegrationTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        limiter.clear();
+        limiter.clearAll();
         String email = "sms-post-" + UUID.randomUUID() + "@example.test";
         api = ApiTestClient.signUp(mockMvc, mapper, email);
         user = userRepository.findByEmail(email).orElseThrow();
-        token = pair(api);
+        token = pair(user.getEmail());
         account = api.create("/api/v1/accounts", Map.of("type", "generic", "name", "Test Wallet",
                 "financialPosition", "asset", "excludeFromNetAsset", false));
         summary(token, List.of(line("HSBCIN", "789"), line("HSBCIN", "0789")));
@@ -76,17 +76,13 @@ class SmsPostingIntegrationTest {
     @AfterEach
     void tearDown() {
         UserDataCleanup.deleteUsers(jdbc, List.of(user.getId()));
-        limiter.clear();
+        limiter.clearAll();
     }
 
     // ---------------------------------------------------------------- helpers
 
-    private String pair(ApiTestClient client) throws Exception {
-        String code = client.postJson("/api/v1/sms/pairing-code", null, 200).get("code").asText();
-        String body = mockMvc.perform(post("/api/v1/sms/pair").contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(Map.of("code", code, "deviceName", "Test phone"))))
-                .andReturn().getResponse().getContentAsString();
-        return mapper.readTree(body).get("token").asText();
+    private String pair(String email) throws Exception {
+        return SmsTestLogin.token(mockMvc, mapper, email);
     }
 
     private Map<String, Object> line(String sender, String ending) {

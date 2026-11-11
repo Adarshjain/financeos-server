@@ -156,6 +156,16 @@ public class AuthService {
         return user;
     }
 
+    /**
+     * Checks an email and password with the same authentication manager as {@link #login} and returns the user. Creates
+     * no session and arms no app lock (for callers that issue their own credential, such as the phone's device token).
+     * Throws {@link AuthenticationException} on any failure.
+     */
+    public User verifyCredentials(String email, String password) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+        return userRepository.findByEmail(email).orElseThrow(() -> new BadCredentialsException("Bad credentials"));
+    }
+
     public String generateGoogleAuthUrl() {
         String flowId = UUID.randomUUID().toString().substring(0, 8);
         // Signed and short-lived; the client binds it to the browser that started sign-in (see OAuthStateService).

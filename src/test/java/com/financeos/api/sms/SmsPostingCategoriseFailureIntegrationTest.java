@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.financeos.domain.categorization.CategoryAssigner;
 import com.financeos.domain.user.User;
 import com.financeos.domain.user.UserRepository;
-import com.financeos.sms.device.PairAttemptLimiter;
+import com.financeos.sms.device.SmsLoginLimiter;
 import com.financeos.sms.device.SmsTokens;
 import com.financeos.support.ApiTestClient;
 import com.financeos.support.UserDataCleanup;
@@ -44,7 +44,7 @@ class SmsPostingCategoriseFailureIntegrationTest {
     @Autowired private ObjectMapper mapper;
     @Autowired private JdbcTemplate jdbc;
     @Autowired private UserRepository userRepository;
-    @Autowired private PairAttemptLimiter limiter;
+    @Autowired private SmsLoginLimiter limiter;
     @MockBean private CategoryAssigner categoryAssigner;
 
     private ApiTestClient api;
@@ -53,20 +53,17 @@ class SmsPostingCategoriseFailureIntegrationTest {
 
     @BeforeEach
     void setUp() throws Exception {
-        limiter.clear();
+        limiter.clearAll();
         String email = "sms-catfail-" + UUID.randomUUID() + "@example.test";
         api = ApiTestClient.signUp(mockMvc, mapper, email);
         user = userRepository.findByEmail(email).orElseThrow();
-        String code = api.postJson("/api/v1/sms/pairing-code", null, 200).get("code").asText();
-        token = mapper.readTree(mockMvc.perform(post("/api/v1/sms/pair").contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(Map.of("code", code, "deviceName", "Test phone"))))
-                .andReturn().getResponse().getContentAsString()).get("token").asText();
+        token = SmsTestLogin.token(mockMvc, mapper, email);
     }
 
     @AfterEach
     void tearDown() {
         UserDataCleanup.deleteUsers(jdbc, List.of(user.getId()));
-        limiter.clear();
+        limiter.clearAll();
     }
 
     @Test
