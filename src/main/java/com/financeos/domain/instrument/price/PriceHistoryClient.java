@@ -45,6 +45,15 @@ public class PriceHistoryClient {
         }
     }
 
+    public enum SplitStatus { OK, RATE_LIMITED, FAILED, NOT_FOUND }
+
+    /** Split events of a symbol: day to factor (numerator / denominator, 5.0 for a 1:5 split). */
+    public record SplitResult(SplitStatus status, java.util.TreeMap<LocalDate, BigDecimal> splits) {
+        static SplitResult of(SplitStatus status) {
+            return new SplitResult(status, new java.util.TreeMap<>());
+        }
+    }
+
     private final PriceProperties priceProperties;
     private final YahooPriceProvider yahooPriceProvider;
     private final ObjectMapper objectMapper;
@@ -112,6 +121,73 @@ public class PriceHistoryClient {
         } catch (Exception e) {
             log.info("Yahoo history for {} failed: {}", symbol, e.getMessage());
             return Result.of(Status.FAILED);
+        }
+    }
+
+    /** Split events of a Yahoo symbol with a day in [from, to] (inclusive). One coarse-interval request, no retry. */
+    public SplitResult fetchYahooSplits(String symbol, LocalDate from, LocalDate to) {
+        if (yahooPriceProvider.isRateLimited()) {
+            log.info("Yahoo splits for {} skipped: rate limited", symbol);
+            return SplitResult.of(SplitStatus.RATE_LIMITED);
+        }
+        PriceProperties.ProviderProperties props = priceProperties.getProviders().get("yahoo");
+        if (props != null && !props.isEnabled()) {
+            return SplitResult.of(SplitStatus.FAILED);
+        }
+        ZoneId zone = zone();
+        long p1 = from.atStartOfDay(zone).toEpochSecond();
+        long p2 = to.plusDays(3).atStartOfDay(zone).toEpochSecond();
+        String base = YahooHosts.getCandidateHosts(props).get(0).replaceAll("/+$", "");
+        String url = base + "/v8/finance/chart/" + URLEncoder.encode(symbol, StandardCharsets.UTF_8)
+                + "?interval=3mo&events=split&period1=" + p1 + "&period2=" + p2;
+        String userAgent = props != null && props.getUserAgent() != null && !props.getUserAgent().isBlank()
+                ? props.getUserAgent() : "Mozilla/5.0";
+        long timeoutMs = props != null && props.getTimeoutMs() > 0 ? props.getTimeoutMs() : 30000L;
+        try {
+            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(url))
+                    .header("User-Agent", userAgent)
+                    .header("Accept", "application/json, text/plain, */*")
+                    .timeout(Duration.ofMillis(timeoutMs))
+                    .GET().build();
+            HttpResponse<String> response = ExtHttp.send(Ops.PRICE_YAHOO, httpClient, request, HttpResponse.BodyHandlers.ofString());
+            if (response.statusCode() == 429) {
+                yahooPriceProvider.noteRateLimited(response);
+                return SplitResult.of(SplitStatus.RATE_LIMITED);
+            }
+            if (response.statusCode() == 404) {
+                return SplitResult.of(SplitStatus.NOT_FOUND);
+            }
+            if (response.statusCode() != 200) {
+                log.info("Yahoo splits for {} returned HTTP {}", symbol, response.statusCode());
+                return SplitResult.of(SplitStatus.FAILED);
+            }
+            return new SplitResult(SplitStatus.OK, parseYahooSplits(response.body(), zone));
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            return SplitResult.of(SplitStatus.FAILED);
+        } catch (Exception e) {
+            log.info("Yahoo splits for {} failed: {}", symbol, e.getMessage());
+            return SplitResult.of(SplitStatus.FAILED);
+        }
+    }
+
+    /** The split events of a chart response; empty when none or unreadable. */
+    java.util.TreeMap<LocalDate, BigDecimal> parseYahooSplits(String json, ZoneId fallbackZone) {
+        try {
+            JsonNode result = objectMapper.readTree(json).path("chart").path("result");
+            if (!result.isArray() || result.isEmpty()) {
+                return new java.util.TreeMap<>();
+            }
+            JsonNode first = result.get(0);
+            ZoneId zone = fallbackZone;
+            JsonNode offset = first.path("meta").path("gmtoffset");
+            if (offset.isNumber()) {
+                zone = java.time.ZoneOffset.ofTotalSeconds(offset.asInt());
+            }
+            return parseSplits(first.path("events").path("splits"), zone);
+        } catch (Exception e) {
+            log.info("Could not parse Yahoo splits: {}", e.getMessage());
+            return new java.util.TreeMap<>();
         }
     }
 

@@ -391,6 +391,7 @@ public class InstrumentRepointService {
                             ? " " + (ca.getRatioTo() - ca.getRatioFrom()) + ":" + ca.getRatioFrom() : "");
             case demerger -> "demerger of " + instrument + (target != null ? " into " + target : "");
             case merger -> "merger of " + instrument + (target != null ? " into " + target : "");
+            case delisted -> "delisting of " + instrument;
         };
         return what + " on " + ca.getExDate();
     }

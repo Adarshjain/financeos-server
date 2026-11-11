@@ -4,14 +4,17 @@ import com.financeos.domain.investment.reconcile.BrokerReconciliationService;
 import com.financeos.domain.job.JobExecutionContext;
 import com.financeos.domain.job.JobHandler;
 import com.financeos.domain.job.JobType;
+import com.financeos.domain.instrument.corporateaction.detect.CorporateActionDetectTriggers;
 import org.springframework.stereotype.Component;
 
 @Component
 public class BrokerReconcileCommitJobHandler implements JobHandler {
 
     private final BrokerReconciliationService reconciliationService;
+    private final CorporateActionDetectTriggers detectTriggers;
 
-    public BrokerReconcileCommitJobHandler(BrokerReconciliationService reconciliationService) {
+    public BrokerReconcileCommitJobHandler(BrokerReconciliationService reconciliationService, CorporateActionDetectTriggers detectTriggers) {
+        this.detectTriggers = detectTriggers;
         this.reconciliationService = reconciliationService;
     }
 
@@ -24,6 +27,9 @@ public class BrokerReconcileCommitJobHandler implements JobHandler {
     public Object execute(JobExecutionContext ctx) throws Exception {
         BrokerReconcileCommitPayload payload = ctx.payload(BrokerReconcileCommitPayload.class);
         ctx.checkCancelled();
-        return reconciliationService.commit(payload.request());
+        var result = reconciliationService.commit(payload.request());
+        // New trades may span a split or bonus: check this user's holdings (never fails the import).
+        detectTriggers.enqueueForUser(ctx.getUserId());
+        return result;
     }
 }

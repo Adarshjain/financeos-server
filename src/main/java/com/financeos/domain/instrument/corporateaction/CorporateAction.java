@@ -29,6 +29,9 @@ import java.util.UUID;
 @Filter(name = "userFilter", condition = "user_id = :userId")
 public class CorporateAction {
 
+    public static final String SOURCE_MANUAL = "manual";
+    public static final String SOURCE_AUTO = "auto";
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @JdbcTypeCode(SqlTypes.VARCHAR)
@@ -72,6 +75,11 @@ public class CorporateAction {
 
     @Column
     private String notes;
+
+    /** Who created it: {@value #SOURCE_MANUAL} (the user) or {@value #SOURCE_AUTO} (detected from two sources). */
+    @Column(nullable = false, length = 10)
+    @org.hibernate.annotations.ColumnDefault("'manual'")
+    private String source = SOURCE_MANUAL;
 
     @Column(name = "created_at")
     private Instant createdAt;

@@ -103,4 +103,47 @@ public interface CorporateActionRepository extends JpaRepository<CorporateAction
                                                                     @Param("search") String search,
                                                                     @Param("sort") String sort,
                                                                     org.springframework.data.domain.Pageable pageable);
+
+    /** Whether {@code userId} already has an action of this instrument, type and ex-date. */
+    @Query("SELECT COUNT(ca) > 0 FROM CorporateAction ca WHERE ca.user.id = :userId AND ca.instrument.id = :instrumentId "
+            + "AND ca.type = :type AND ca.exDate = :exDate")
+    boolean existsSameDay(@Param("userId") UUID userId, @Param("instrumentId") UUID instrumentId,
+                          @Param("type") CorporateActionType type, @Param("exDate") LocalDate exDate);
+
+    /** As {@link #existsSameDay}, ignoring action {@code excludeId} (the one being edited). */
+    @Query("SELECT COUNT(ca) > 0 FROM CorporateAction ca WHERE ca.user.id = :userId AND ca.instrument.id = :instrumentId "
+            + "AND ca.type = :type AND ca.exDate = :exDate AND ca.id <> :excludeId")
+    boolean existsOtherSameDay(@Param("userId") UUID userId, @Param("instrumentId") UUID instrumentId,
+                               @Param("type") CorporateActionType type, @Param("exDate") LocalDate exDate,
+                               @Param("excludeId") UUID excludeId);
+
+    /** As {@link #existsSameDay} for a demerger or merger: the same target instrument too. */
+    @Query("SELECT COUNT(ca) > 0 FROM CorporateAction ca WHERE ca.user.id = :userId AND ca.instrument.id = :instrumentId "
+            + "AND ca.type = :type AND ca.exDate = :exDate AND ca.targetInstrument.id = :targetId")
+    boolean existsSameDayWithTarget(@Param("userId") UUID userId, @Param("instrumentId") UUID instrumentId,
+                                    @Param("type") CorporateActionType type, @Param("exDate") LocalDate exDate,
+                                    @Param("targetId") UUID targetId);
+
+    /** As {@link #existsSameDayWithTarget}, ignoring action {@code excludeId} (the one being edited). */
+    @Query("SELECT COUNT(ca) > 0 FROM CorporateAction ca WHERE ca.user.id = :userId AND ca.instrument.id = :instrumentId "
+            + "AND ca.type = :type AND ca.exDate = :exDate AND ca.targetInstrument.id = :targetId AND ca.id <> :excludeId")
+    boolean existsOtherSameDayWithTarget(@Param("userId") UUID userId, @Param("instrumentId") UUID instrumentId,
+                                         @Param("type") CorporateActionType type, @Param("exDate") LocalDate exDate,
+                                         @Param("targetId") UUID targetId, @Param("excludeId") UUID excludeId);
+
+    /** Whether {@code userId} already has an action of this type on the instrument, on any date. */
+    @Query("SELECT COUNT(ca) > 0 FROM CorporateAction ca WHERE ca.user.id = :userId AND ca.instrument.id = :instrumentId "
+            + "AND ca.type = :type")
+    boolean existsOfType(@Param("userId") UUID userId, @Param("instrumentId") UUID instrumentId,
+                         @Param("type") CorporateActionType type);
+
+    /** As {@link #existsOfType}, ignoring action {@code excludeId} (the one being edited). */
+    @Query("SELECT COUNT(ca) > 0 FROM CorporateAction ca WHERE ca.user.id = :userId AND ca.instrument.id = :instrumentId "
+            + "AND ca.type = :type AND ca.id <> :excludeId")
+    boolean existsOtherOfType(@Param("userId") UUID userId, @Param("instrumentId") UUID instrumentId,
+                              @Param("type") CorporateActionType type, @Param("excludeId") UUID excludeId);
+
+    /** The ids of the instruments on which {@code userId} has an action of one of {@code types}. */
+    @Query("SELECT DISTINCT ca.instrument.id FROM CorporateAction ca WHERE ca.user.id = :userId AND ca.type IN :types")
+    List<UUID> findInstrumentIdsWithTypes(@Param("userId") UUID userId, @Param("types") Collection<CorporateActionType> types);
 }

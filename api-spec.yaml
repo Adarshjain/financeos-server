@@ -2493,6 +2493,112 @@ paths:
           description: Error response
       tags:
       - chat-controller
+  /api/v1/corporate-action-suggestions/{id}:
+    get:
+      operationId: getCorporateActionSuggestion
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CorporateActionSuggestionResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - corporate-action-suggestion-controller
+  /api/v1/corporate-action-suggestions/{id}/accept:
+    post:
+      operationId: acceptCorporateActionSuggestion
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateCorporateActionRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CorporateActionSuggestionResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - corporate-action-suggestion-controller
+  /api/v1/corporate-action-suggestions/{id}/dismiss:
+    post:
+      operationId: dismissCorporateActionSuggestion
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CorporateActionSuggestionResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - corporate-action-suggestion-controller
+  /api/v1/corporate-action-suggestions/{id}/undo:
+    post:
+      operationId: undoCorporateActionSuggestion
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CorporateActionSuggestionResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - corporate-action-suggestion-controller
   /api/v1/corporate-actions:
     get:
       operationId: getAllCorporateActions
@@ -2527,6 +2633,7 @@ paths:
           - bonus
           - demerger
           - merger
+          - delisted
       - in: query
         name: search
         required: false
@@ -14273,6 +14380,7 @@ components:
           - bonus
           - demerger
           - merger
+          - delisted
       required:
       - createdAt
       - exDate
@@ -14357,6 +14465,7 @@ components:
           - bonus
           - demerger
           - merger
+          - delisted
       required:
       - createdAt
       - exDate
@@ -14366,6 +14475,71 @@ components:
       - ratioFrom
       - ratioTo
       - type
+    CorporateActionSuggestionResponse:
+      type: object
+      properties:
+        corporateActionId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        exDate:
+          type: string
+          format: date
+        id:
+          type: string
+          format: uuid
+        instrument:
+          $ref: "#/components/schemas/InstrumentRef"
+        kind:
+          type: string
+          enum:
+          - split
+          - bonus
+          - demerger
+          - merger
+          - other
+          - oversold
+        ratioFrom:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        ratioTo:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        reason:
+          type: string
+          enum:
+          - COMBINED_SAME_DAY
+          - NEEDS_DETAILS
+          - UNCLEAR_TEXT
+          - NO_PRICE_SYMBOL
+          - YAHOO_MISSING
+          - YAHOO_MISMATCH
+          - POSSIBLE_DUPLICATE
+          nullable: true
+          x-nullable: true
+        status:
+          type: string
+          enum:
+          - auto_applied
+          - pending
+          - accepted
+          - dismissed
+          - undone
+        subject:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - exDate
+      - id
+      - instrument
+      - kind
+      - status
     CounterpartyLedgerResponse:
       type: object
       properties:
@@ -14613,6 +14787,7 @@ components:
           - bonus
           - demerger
           - merger
+          - delisted
           x-required: true
       required:
       - exDate
@@ -18146,6 +18321,8 @@ components:
           type: number
           nullable: true
           x-nullable: true
+        delisted:
+          type: boolean
         dividends:
           type: number
         firstBuyDate:
@@ -18176,6 +18353,8 @@ components:
         name:
           type: string
         noPrice:
+          type: boolean
+        notTrading:
           type: boolean
         priceAsOf:
           type: string
@@ -18217,12 +18396,14 @@ components:
       - avgCost
       - brokers
       - currentValue
+      - delisted
       - dividends
       - instrumentId
       - invested
       - manualPrice
       - name
       - noPrice
+      - notTrading
       - quantity
       - realisedPnl
       - totalCharges
@@ -18609,6 +18790,11 @@ components:
           format: uuid
           nullable: true
           x-nullable: true
+        instrumentId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
         jobId:
           type: string
           format: uuid
@@ -18630,6 +18816,11 @@ components:
           nullable: true
           x-nullable: true
         statementId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        suggestionId:
           type: string
           format: uuid
           nullable: true
@@ -18858,6 +19049,20 @@ components:
       - editable
       - id
       - source
+    InstrumentRef:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        symbol:
+          type: string
+      required:
+      - id
+      - name
+      - symbol
     InstrumentRequest:
       type: object
       properties:
@@ -19314,6 +19519,7 @@ components:
           - CATEGORY_BACKFILL
           - ACCOUNT_DETECT
           - NPS_GMAIL_IMPORT
+          - CORPORATE_ACTION_DETECT
       required:
       - attempt
       - cancelRequested
@@ -23508,6 +23714,8 @@ components:
           type: number
           nullable: true
           x-nullable: true
+        delisted:
+          type: boolean
         dividends:
           type: number
           nullable: true
@@ -23559,6 +23767,8 @@ components:
           type: number
           nullable: true
           x-nullable: true
+        notTrading:
+          type: boolean
         notes:
           type: string
           nullable: true
@@ -23626,9 +23836,11 @@ components:
       - avgCost
       - brokerAccountId
       - brokerName
+      - delisted
       - holdingId
       - instrument
       - invested
+      - notTrading
       - provider
       - quantity
     PositionsResponse:
@@ -23674,6 +23886,7 @@ components:
           - bonus
           - demerger
           - merger
+          - delisted
           x-required: true
       required:
       - exDate
@@ -25631,6 +25844,8 @@ components:
           type: number
           nullable: true
           x-nullable: true
+        delisted:
+          type: boolean
         instrumentId:
           type: string
           format: uuid
@@ -25654,6 +25869,8 @@ components:
         name:
           type: string
         noPrice:
+          type: boolean
+        notTrading:
           type: boolean
         priceAsOf:
           type: string
@@ -25682,11 +25899,13 @@ components:
       - avgCost
       - brokerCount
       - currentValue
+      - delisted
       - instrumentId
       - invested
       - manualPrice
       - name
       - noPrice
+      - notTrading
       - quantity
       - unrealised
     RowBreakdownResponse:
@@ -26176,6 +26395,8 @@ components:
           x-nullable: true
         cost:
           type: number
+        delisted:
+          type: boolean
         equity:
           type: boolean
         exemptionLeftAfter:
@@ -26214,6 +26435,8 @@ components:
           x-nullable: true
         noPrice:
           type: boolean
+        notTrading:
+          type: boolean
         price:
           type: number
           nullable: true
@@ -26238,6 +26461,7 @@ components:
           x-nullable: true
       required:
       - cost
+      - delisted
       - equity
       - fy
       - gain
@@ -26245,6 +26469,7 @@ components:
       - longTermGain
       - lots
       - noPrice
+      - notTrading
       - proceeds
       - quantity
       - shortTermGain
@@ -28217,6 +28442,7 @@ components:
           - bonus
           - demerger
           - merger
+          - delisted
           x-required: true
       required:
       - exDate

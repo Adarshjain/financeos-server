@@ -16,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.financeos.core.time.AppTime;
 
 import java.time.DayOfWeek;
+import java.time.Duration;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -100,7 +102,8 @@ public class PriceRefreshService {
                 return List.of(inst);
             }
             List<UUID> activeIds = holdingRepository.findDistinctActiveInstrumentIdsHeld();
-            return activeIds.isEmpty() ? List.<Instrument>of() : instrumentRepository.findAllById(activeIds);
+            return activeIds.isEmpty() ? List.<Instrument>of()
+                    : instrumentRepository.findAllById(activeIds).stream().filter(PriceRefreshService::dueForCheck).toList();
         }));
 
         int refreshedCount = 0;
@@ -180,6 +183,7 @@ public class PriceRefreshService {
                     ));
                 }
             }
+            applyPriceStatus(providerTargets, quotes, provider.takeNotFound());
         }
 
         return new PriceRefreshResult(refreshedCount, skippedCount, failedList, LocalDate.now(zoneId), refreshedItems, skippedItems);
@@ -231,6 +235,68 @@ public class PriceRefreshService {
             priceRepository.save(newPrice);
         }
         return new PriceRefreshResult.RefreshedItem(inst.getId(), label(inst), quote.close(), quote.asOf(), provider.source());
+    }
+
+    /** How long a {@code not_trading} instrument is left alone before it is looked up once more. */
+    static final Duration NOT_TRADING_RECHECK = Duration.ofDays(7);
+
+    /** Whether a bulk refresh should look the instrument up: anything but a {@code not_trading} one marked under 7 days ago. */
+    static boolean dueForCheck(Instrument inst) {
+        if (!"not_trading".equals(inst.getPriceStatus()) || inst.getPriceStatusAt() == null) {
+            return true;
+        }
+        return !inst.getPriceStatusAt().isAfter(Instant.now().minus(NOT_TRADING_RECHECK));
+    }
+
+    /**
+     * After a provider's fetch: instruments the feed answered "not found" for on every host (and gave no quote) are
+     * marked {@code not_trading} as of now (a repeat bumps the time); instruments that were marked and got a quote
+     * are cleared. One update statement each, never inside the per-quote loop; a failure only logs.
+     */
+    private void applyPriceStatus(List<Instrument> fetched, Map<UUID, PriceQuote> quotes, Set<UUID> notFound) {
+        List<UUID> mark = new ArrayList<>();
+        List<UUID> clear = new ArrayList<>();
+        for (Instrument inst : fetched) {
+            PriceQuote quote = quotes.get(inst.getId());
+            boolean priced = quote != null && quote.close() != null && quote.asOf() != null;
+            if (priced) {
+                if (inst.getPriceStatus() != null) {
+                    clear.add(inst.getId());
+                }
+            } else if (notFound != null && notFound.contains(inst.getId())) {
+                mark.add(inst.getId());
+            }
+        }
+        if (mark.isEmpty() && clear.isEmpty()) {
+            return;
+        }
+        Instant now = Instant.now();
+        Runnable write = () -> {
+            if (!mark.isEmpty()) {
+                instrumentRepository.markNotTrading(mark, now);
+            }
+            if (!clear.isEmpty()) {
+                instrumentRepository.clearPriceStatus(clear);
+            }
+        };
+        try {
+            if (writeTx == null) {
+                write.run();
+            } else {
+                writeTx.executeWithoutResult(status -> write.run());
+            }
+            for (Instrument inst : fetched) {
+                if (mark.contains(inst.getId())) {
+                    inst.setPriceStatus("not_trading");
+                    inst.setPriceStatusAt(now);
+                } else if (clear.contains(inst.getId())) {
+                    inst.setPriceStatus(null);
+                    inst.setPriceStatusAt(null);
+                }
+            }
+        } catch (Exception e) {
+            log.warn("Could not update the price status of {} instruments: {}", mark.size() + clear.size(), e.getMessage());
+        }
     }
 
     private static Throwable rootCause(Throwable t) {
@@ -315,7 +381,8 @@ public class PriceRefreshService {
         List<Instrument> targets = Timing.call(Ops.PRICES_LOAD_TARGETS, () -> {
             List<UUID> activeIds = holdingRepository.findDistinctActiveInstrumentIdsHeld();
             return activeIds.isEmpty() ? List.<Instrument>of()
-                    : instrumentRepository.findAllById(activeIds).stream().filter(provider::supports).toList();
+                    : instrumentRepository.findAllById(activeIds).stream().filter(provider::supports)
+                            .filter(PriceRefreshService::dueForCheck).toList();
         });
         if (targets.isEmpty()) {
             return 0;
@@ -324,11 +391,16 @@ public class PriceRefreshService {
         LocalDate today = AppTime.today();
         // Fetched with no transaction open (the entry points are NOT_SUPPORTED); only the writes run in one.
         Map<UUID, PriceQuote> quotes = Timing.call(Ops.PRICES_FETCH, () -> liveOnly ? provider.fetchLive(targets) : provider.fetch(targets));
+        Set<UUID> notFound = provider.takeNotFound();
+        int written;
         if (writeTx == null) {
-            return Timing.call(Ops.PRICES_STORE, () -> storeFeed(source, liveOnly, targets, quotes, today, zone));
+            written = Timing.call(Ops.PRICES_STORE, () -> storeFeed(source, liveOnly, targets, quotes, today, zone));
+        } else {
+            Integer w = Timing.call(Ops.PRICES_STORE, () -> writeTx.execute(status -> storeFeed(source, liveOnly, targets, quotes, today, zone)));
+            written = w == null ? 0 : w;
         }
-        Integer written = Timing.call(Ops.PRICES_STORE, () -> writeTx.execute(status -> storeFeed(source, liveOnly, targets, quotes, today, zone)));
-        return written == null ? 0 : written;
+        applyPriceStatus(targets, quotes, notFound);
+        return written;
     }
 
     private int storeFeed(PriceSource source, boolean liveOnly, List<Instrument> targets, Map<UUID, PriceQuote> quotes,

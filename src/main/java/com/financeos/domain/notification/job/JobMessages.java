@@ -30,6 +30,7 @@ public final class JobMessages {
             case CATEGORY_BACKFILL -> "Category backfill";
             case ACCOUNT_DETECT -> "Account detection";
             case NPS_GMAIL_IMPORT -> "NPS statement import";
+            case CORPORATE_ACTION_DETECT -> "Corporate action detection";
         };
     }
 

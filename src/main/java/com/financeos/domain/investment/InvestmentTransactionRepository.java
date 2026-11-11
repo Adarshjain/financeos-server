@@ -95,4 +95,19 @@ public interface InvestmentTransactionRepository extends JpaRepository<Investmen
     @Query("SELECT t.holding.instrument.id, MIN(t.tradeDate) FROM InvestmentTransaction t "
             + "WHERE t.holding.instrument.id IN :instrumentIds GROUP BY t.holding.instrument.id")
     java.util.List<Object[]> findEarliestTradeDates(@Param("instrumentIds") java.util.Collection<UUID> instrumentIds);
+
+    /** Every buy and sell of {@code userId}'s stock holdings, holdings and instruments fetched (one query for the detector). */
+    @Query("SELECT t FROM InvestmentTransaction t JOIN FETCH t.holding h JOIN FETCH h.instrument i "
+            + "WHERE t.user.id = :userId AND i.type = com.financeos.domain.instrument.InstrumentType.stock")
+    java.util.List<InvestmentTransaction> findStockTradesOwned(@Param("userId") UUID userId);
+
+    /**
+     * {@code [id, name]} of every instrument marked {@code not_trading} that {@code userId} still holds (buys minus
+     * sells over all their holdings of it above zero): one grouped query.
+     */
+    @Query("SELECT i.id, i.name FROM InvestmentTransaction t JOIN t.holding h JOIN h.instrument i "
+            + "WHERE t.user.id = :userId AND i.priceStatus = 'not_trading' GROUP BY i.id, i.name "
+            + "HAVING SUM(CASE WHEN t.type = com.financeos.domain.investment.InvestmentTransactionType.buy "
+            + "THEN t.quantity ELSE -t.quantity END) > 0 ORDER BY i.name")
+    java.util.List<Object[]> findHeldNotTradingInstruments(@Param("userId") UUID userId);
 }

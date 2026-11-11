@@ -4,10 +4,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.Instant;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -17,6 +20,16 @@ public interface InstrumentRepository extends JpaRepository<Instrument, UUID> {
 
     /** For the duplicate warnings of the lookups below. */
     Logger DUPLICATES_LOG = LoggerFactory.getLogger(InstrumentRepository.class);
+
+    /** Marks the instruments as no longer quoted ({@code not_trading}) as of {@code at}; one statement for the set. */
+    @Modifying
+    @Query("update Instrument i set i.priceStatus = 'not_trading', i.priceStatusAt = :at where i.id in :ids")
+    int markNotTrading(@Param("ids") Collection<UUID> ids, @Param("at") Instant at);
+
+    /** Clears the price status of the instruments (a price came back for them). */
+    @Modifying
+    @Query("update Instrument i set i.priceStatus = null, i.priceStatusAt = null where i.id in :ids")
+    int clearPriceStatus(@Param("ids") Collection<UUID> ids);
 
     /** The instrument with the ISIN (exact; ISINs are unique in the catalog). */
     Optional<Instrument> findByIsin(String isin);

@@ -61,6 +61,8 @@ public record HoldingsResponse(
             @Nullable OffsetDateTime priceAt,
             boolean manualPrice,
             boolean noPrice,
+            boolean delisted,
+            boolean notTrading,
             BigDecimal currentValue,
             BigDecimal invested,
             BigDecimal unrealised,

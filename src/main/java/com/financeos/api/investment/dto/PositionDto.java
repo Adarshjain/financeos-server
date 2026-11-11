@@ -58,8 +58,27 @@ public record PositionDto(
         /** When {@code lastPrice} was quoted (Yahoo last-trade time, IST offset); null for AMFI/manual prices. */
         @Nullable OffsetDateTime lastPriceAt,
         /** When {@code previousClose} was quoted; null when that row has no time. */
-        @Nullable OffsetDateTime previousCloseAt
+        @Nullable OffsetDateTime previousCloseAt,
+        /** A delisting is recorded: the holding stays at zero value with an unrealised loss. */
+        boolean delisted,
+        /** Prices stopped coming (the feed no longer knows the symbol) and the position is not delisted. */
+        boolean notTrading
 ) {
+    /** Without the trading flags (both false). */
+    public PositionDto(
+            UUID holdingId, UUID brokerAccountId, String brokerName, String provider, InstrumentInfoDto instrument,
+            BigDecimal quantity, BigDecimal avgCost, BigDecimal invested, BigDecimal lastPrice, LocalDate lastPriceAsOf,
+            PriceSource lastPriceSource, BigDecimal currentValue, BigDecimal unrealizedGainLoss,
+            BigDecimal unrealizedGainLossPercent, BigDecimal realizedGainLoss, BigDecimal intradayRealized,
+            BigDecimal dividends, Double xirr, BigDecimal absoluteReturnPercent, BigDecimal totalCharges, String notes,
+            String mergedIntoName, LocalDate mergedIntoDate, BigDecimal buyQty, BigDecimal buyValue, BigDecimal avgBuy,
+            BigDecimal sellQty, BigDecimal sellValue, BigDecimal avgSell, BigDecimal netQty, Boolean unclosed,
+            AssetClass assetClass, TaxClass taxClass, BigDecimal previousClose, LocalDate previousCloseAsOf,
+            BigDecimal dayChange, BigDecimal dayChangePct, OffsetDateTime lastPriceAt, OffsetDateTime previousCloseAt
+    ) {
+        this(holdingId, brokerAccountId, brokerName, provider, instrument, quantity, avgCost, invested, lastPrice, lastPriceAsOf, lastPriceSource, currentValue, unrealizedGainLoss, unrealizedGainLossPercent, realizedGainLoss, intradayRealized, dividends, xirr, absoluteReturnPercent, totalCharges, notes, mergedIntoName, mergedIntoDate, buyQty, buyValue, avgBuy, sellQty, sellValue, avgSell, netQty, unclosed, assetClass, taxClass, previousClose, previousCloseAsOf, dayChange, dayChangePct, lastPriceAt, previousCloseAt, false, false);
+    }
+
     /** Every field but the price times. */
     public PositionDto(
             UUID holdingId, UUID brokerAccountId, String brokerName, String provider, InstrumentInfoDto instrument,
@@ -116,7 +135,7 @@ public record PositionDto(
     public PositionDto withDayChange(com.financeos.domain.investment.DayChange change) {
         return new PositionDto(holdingId, brokerAccountId, brokerName, provider, instrument, quantity, avgCost, invested, lastPrice, lastPriceAsOf, lastPriceSource, currentValue, unrealizedGainLoss, unrealizedGainLossPercent, realizedGainLoss, intradayRealized, dividends, xirr, absoluteReturnPercent, totalCharges, notes, mergedIntoName, mergedIntoDate, buyQty, buyValue, avgBuy, sellQty, sellValue, avgSell, netQty, unclosed, assetClass, taxClass,
                 change.previousClose(), change.previousCloseAsOf(), change.dayChange(), change.dayChangePct(),
-                lastPriceAt, com.financeos.core.time.AppTime.at(change.previousCloseAt()));
+                lastPriceAt, com.financeos.core.time.AppTime.at(change.previousCloseAt()), delisted, notTrading);
     }
 
     public PositionDto(

@@ -487,6 +487,13 @@ chat:
   stream:
     emitter-timeout-seconds: ${CHAT_EMITTER_TIMEOUT_SECONDS:290}
 
-
-
-
+# Automatic detection of stock splits and bonuses: the exchange's corporate-action feed is read nightly; an event is
+# applied only when the price feed shows the same split, everything else is held for the user.
+corporate-actions:
+  enabled: ${CORPORATE_ACTIONS_ENABLED:true}
+  nightly-cron: "0 40 2 * * *"
+  zone: Asia/Kolkata
+  nse:
+    base-url: ${NSE_BASE_URL:https://www.nseindia.com}
+    user-agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
+    timeout-ms: 30000

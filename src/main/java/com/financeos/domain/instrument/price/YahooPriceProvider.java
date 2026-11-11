@@ -101,7 +101,18 @@ public class YahooPriceProvider implements PriceProvider {
         return doFetch(instruments, true);
     }
 
+    /** Instruments the per-symbol lookup of this thread's last fetch got a 404 from on every host. */
+    private final ThreadLocal<Set<UUID>> notFound = ThreadLocal.withInitial(HashSet::new);
+
+    @Override
+    public Set<UUID> takeNotFound() {
+        Set<UUID> ids = notFound.get();
+        notFound.remove();
+        return ids;
+    }
+
     private Map<UUID, PriceQuote> doFetch(List<Instrument> instruments, boolean live) {
+        notFound.remove();
         Map<UUID, PriceQuote> result = new HashMap<>();
         List<Instrument> targetInstruments = instruments.stream()
                 .filter(this::supports)
@@ -219,9 +230,12 @@ public class YahooPriceProvider implements PriceProvider {
         for (Instrument inst : targetInstruments) {
             if (!result.containsKey(inst.getId())) {
                 String symbol = inst.getYahooSymbol().trim();
-                PriceQuote quote = fetchQuoteForSymbol(symbol, baseUrls, userAgent, timeoutMs, zoneId);
+                boolean[] allHostsNotFound = {false};
+                PriceQuote quote = fetchQuoteForSymbol(symbol, baseUrls, userAgent, timeoutMs, zoneId, allHostsNotFound);
                 if (quote != null) {
                     result.put(inst.getId(), quote);
+                } else if (allHostsNotFound[0]) {
+                    notFound.get().add(inst.getId());
                 }
             }
         }
@@ -397,7 +411,13 @@ public class YahooPriceProvider implements PriceProvider {
         return quotes;
     }
 
-    private PriceQuote fetchQuoteForSymbol(String symbol, List<String> baseUrls, String userAgent, long timeoutMs, ZoneId zoneId) {
+    /**
+     * The per-symbol quote; null when none. {@code allHostsNotFound[0]} is set when every host answered
+     * HTTP 404 (any other answer, 429, 5xx or an error on any host leaves it false).
+     */
+    private PriceQuote fetchQuoteForSymbol(String symbol, List<String> baseUrls, String userAgent, long timeoutMs, ZoneId zoneId,
+                                           boolean[] allHostsNotFound) {
+        boolean all404 = !baseUrls.isEmpty();
         for (String baseUrl : baseUrls) {
             String encodedSymbol = URLEncoder.encode(symbol, StandardCharsets.UTF_8);
             String url = baseUrl.replaceAll("/+$", "") + "/v8/finance/chart/" + encodedSymbol + "?interval=1d&range=1d";
@@ -413,17 +433,23 @@ public class YahooPriceProvider implements PriceProvider {
 
                 HttpResponse<String> response = ExtHttp.send(Ops.PRICE_YAHOO, httpClient, httpRequest, HttpResponse.BodyHandlers.ofString());
                 if (response.statusCode() == 200) {
+                    all404 = false;
                     PriceQuote quote = parseChartResponse(response.body(), zoneId);
                     if (quote != null) {
                         return quote;
                     }
                 } else {
+                    if (response.statusCode() != 404) {
+                        all404 = false;
+                    }
                     log.warn("Yahoo Finance query for symbol {} at host {} returned HTTP status {}", symbol, baseUrl, response.statusCode());
                 }
             } catch (Exception e) {
+                all404 = false;
                 log.warn("Failed to fetch Yahoo Finance price for symbol: {} at host {}", symbol, baseUrl, e);
             }
         }
+        allHostsNotFound[0] = all404;
         return null;
     }
 

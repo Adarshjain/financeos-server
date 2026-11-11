@@ -21,6 +21,8 @@ public record SellEstimateResponse(
         BigDecimal quantity,
         @Nullable BigDecimal price,
         boolean noPrice,
+        boolean delisted,
+        boolean notTrading,
         BigDecimal proceeds,
         BigDecimal cost,
         BigDecimal gain,

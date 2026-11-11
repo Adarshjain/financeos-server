@@ -164,6 +164,9 @@ public class PortfolioValueDatasource implements ComputedReportDatasource {
 
         for (LocalDate d : valueDates) {
             for (Holding holding : holdings) {
+                if (delistedOnOrBefore(casByHolding.get(holding.getId()), d)) {
+                    continue; // a delisted stock is worth nothing from its ex-date, as in the holdings view
+                }
                 List<Lot> openLots = investmentService.buildOpenLotsBeforeDate(holding, d, false, null,
                         txnsByHolding.get(holding.getId()), casByHolding.get(holding.getId()),
                         seedsByHolding.get(holding.getId()));
@@ -192,6 +195,21 @@ public class PortfolioValueDatasource implements ComputedReportDatasource {
         }
 
         return rows;
+    }
+
+    /** Whether one of the (already loaded) actions is a delisting with an ex-date on or before {@code date}. */
+    static boolean delistedOnOrBefore(
+            List<com.financeos.domain.instrument.corporateaction.CorporateAction> actions, LocalDate date) {
+        if (actions == null) {
+            return false;
+        }
+        for (var ca : actions) {
+            if (ca.getType() == com.financeos.domain.instrument.corporateaction.CorporateActionType.delisted
+                    && ca.getExDate() != null && !ca.getExDate().isAfter(date)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private BigDecimal findLatestPriceOnOrBefore(List<InstrumentPrice> prices, LocalDate date) {

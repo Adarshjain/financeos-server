@@ -62,6 +62,13 @@ public class Instrument {
     @Column(name = "asset_class_source", length = 10)
     private AssetClassSource assetClassSource;
 
+    /** Null, or {@code not_trading} when the price feeds stopped quoting it. */
+    @Column(name = "price_status", length = 20)
+    private String priceStatus;
+
+    @Column(name = "price_status_at")
+    private Instant priceStatusAt;
+
     @Column(name = "created_at")
     private Instant createdAt;
 

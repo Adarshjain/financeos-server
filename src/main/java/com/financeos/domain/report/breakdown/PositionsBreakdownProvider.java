@@ -301,6 +301,7 @@ public class PositionsBreakdownProvider implements RowBreakdownProvider {
             case merger -> action.getTargetInstrument() != null
                     ? "Merged into " + ov.name(action.getTargetInstrument())
                     : "Merged";
+            case delisted -> "Delisted";
         };
     }
 

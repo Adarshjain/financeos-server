@@ -95,7 +95,7 @@ public class CorporateActionPreviewService {
         }
 
         {
-            corporateActionService.createCorporateAction(instrumentId, request);
+            corporateActionService.createForPreview(instrumentId, request);
 
             List<HoldingEffect> rows = new ArrayList<>();
             for (int i = 0; i < holdings.size(); i++) {

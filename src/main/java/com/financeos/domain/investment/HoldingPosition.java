@@ -40,8 +40,25 @@ public record HoldingPosition(
         BigDecimal avgSell,
         BigDecimal netQty,
         Boolean unclosed,
-        Instant priceAt
+        Instant priceAt,
+        /** A delisting is recorded for the instrument (ex-date reached): held at zero value, lots stay open. */
+        boolean delisted,
+        /** Quantity sold beyond the open lots (history incomplete); null when none. */
+        BigDecimal oversoldQty,
+        /** Date of the first sell that exceeded the open lots; null when none. */
+        LocalDate oversoldDate
 ) {
+    public HoldingPosition(
+            Holding holding, BigDecimal openQty, BigDecimal avgCost, BigDecimal openCost, BigDecimal latestPrice,
+            LocalDate priceAsOf, PriceSource priceSource, BigDecimal currentValue, BigDecimal unrealized,
+            BigDecimal unrealizedPercent, BigDecimal realized, BigDecimal intradayRealized, BigDecimal totalCharges,
+            BigDecimal dividends, Double xirr, BigDecimal absoluteReturnPercent, String mergedIntoName,
+            LocalDate mergedIntoDate, BigDecimal buyQty, BigDecimal buyValue, BigDecimal avgBuy, BigDecimal sellQty,
+            BigDecimal sellValue, BigDecimal avgSell, BigDecimal netQty, Boolean unclosed, Instant priceAt
+    ) {
+        this(holding, openQty, avgCost, openCost, latestPrice, priceAsOf, priceSource, currentValue, unrealized, unrealizedPercent, realized, intradayRealized, totalCharges, dividends, xirr, absoluteReturnPercent, mergedIntoName, mergedIntoDate, buyQty, buyValue, avgBuy, sellQty, sellValue, avgSell, netQty, unclosed, priceAt, false, null, null);
+    }
+
     public HoldingPosition(
             Holding holding,
             BigDecimal openQty,
@@ -182,7 +199,9 @@ public record HoldingPosition(
                 null,
                 null,
                 AppTime.at(priceAt),
-                null
+                null,
+                delisted,
+                !delisted && "not_trading".equals(inst.getPriceStatus())
         );
     }
 }

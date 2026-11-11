@@ -61,7 +61,8 @@ public class HoldingsService {
                              BigDecimal invested, BigDecimal currentValue, BigDecimal unrealised,
                              @Nullable BigDecimal ltp, @Nullable LocalDate priceAsOf, @Nullable OffsetDateTime priceAt, boolean manualPrice,
                              @Nullable BigDecimal dayChange, @Nullable BigDecimal previousValue,
-                             @Nullable String mergedIntoName, @Nullable LocalDate mergedIntoDate) {
+                             @Nullable String mergedIntoName, @Nullable LocalDate mergedIntoDate,
+                             boolean delisted, boolean notTrading) {
 
         static Aggregate of(UUID instrumentId, List<HoldingDetail> details) {
             BigDecimal qty = BigDecimal.ZERO;
@@ -76,6 +77,8 @@ public class HoldingsService {
             BigDecimal previous = null;
             String mergedName = null;
             LocalDate mergedDate = null;
+            boolean delisted = false;
+            boolean notTrading = false;
             for (HoldingDetail d : details) {
                 PositionDto p = d.dto();
                 qty = qty.add(p.quantity());
@@ -97,13 +100,15 @@ public class HoldingsService {
                     day = (day == null ? BigDecimal.ZERO : day).add(p.dayChange());
                     previous = (previous == null ? BigDecimal.ZERO : previous).add(p.previousClose().multiply(p.quantity()));
                 }
+                delisted |= p.delisted();
+                notTrading |= p.notTrading();
                 if (mergedName == null && p.mergedIntoName() != null) {
                     mergedName = p.mergedIntoName();
                     mergedDate = p.mergedIntoDate();
                 }
             }
             return new Aggregate(instrumentId, details, details.get(0).dto(), qty, invested, value, unrealised, ltp, asOf,
-                    at, manual, day, previous, mergedName, mergedDate);
+                    at, manual, day, previous, mergedName, mergedDate, delisted, notTrading && !delisted);
         }
 
         boolean open() {
@@ -316,7 +321,7 @@ public class HoldingsService {
 
     private static HoldingsResponse.Row row(Aggregate a) {
         return new HoldingsResponse.Row(a.instrumentId(), a.symbol(), a.name(), a.assetType(), a.quantity(), a.avgCost(),
-                a.ltp(), a.priceAsOf(), a.priceAt(), a.manualPrice(), a.noPrice(), money(a.currentValue()), money(a.invested()),
+                a.ltp(), a.priceAsOf(), a.priceAt(), a.manualPrice(), a.noPrice(), a.delisted(), a.notTrading(), money(a.currentValue()), money(a.invested()),
                 money(a.unrealised()), a.unrealisedPct(), a.dayChange() == null ? null : money(a.dayChange()),
                 a.dayChangePct(), a.brokerCount(), a.mergedIntoName(), a.mergedIntoDate());
     }
@@ -358,7 +363,7 @@ public class HoldingsService {
         String term = terms.isEmpty() ? null : terms.size() == 1 ? terms.get(0) : "mixed";
         LocalDate firstBuy = transactionRepository.findFirstBuyDate(UserContext.getCurrentUserId(), instrumentId);
         return new HoldingDetailResponse(instrumentId, a.symbol(), a.name(), a.assetType(), a.quantity(), a.avgCost(),
-                a.ltp(), a.priceAsOf(), a.priceAt(), a.manualPrice(), a.noPrice(), money(a.currentValue()), money(a.invested()),
+                a.ltp(), a.priceAsOf(), a.priceAt(), a.manualPrice(), a.noPrice(), a.delisted(), a.notTrading(), money(a.currentValue()), money(a.invested()),
                 money(a.unrealised()), a.unrealisedPct(), a.dayChange() == null ? null : money(a.dayChange()),
                 a.dayChangePct(), a.mergedIntoName(), a.mergedIntoDate(), money(realised), money(charges), money(dividends),
                 investmentService.xirrPercent(cashflows), firstBuy, term, brokers);
@@ -491,7 +496,7 @@ public class HoldingsService {
             exemptionBefore = before.exemptionLeft();
             exemptionAfter = after.exemptionLeft();
         }
-        return new SellEstimateResponse(instrumentId, sell.stripTrailingZeros(), price, noPrice, money(proceeds), money(cost),
+        return new SellEstimateResponse(instrumentId, sell.stripTrailingZeros(), price, noPrice, a.delisted(), a.notTrading(), money(proceeds), money(cost),
                 money(proceeds.subtract(cost)), money(longGain), money(shortGain), equity, fy,
                 equity ? TaxHarvestService.STCG_RATE : null, equity ? TaxHarvestService.LTCG_RATE : null,
                 stcgTax, ltcgTax, tax, exemptionBefore, exemptionAfter, lots, bookedShort, bookedEquityLong, bookedOtherLong, exemptionLimit);

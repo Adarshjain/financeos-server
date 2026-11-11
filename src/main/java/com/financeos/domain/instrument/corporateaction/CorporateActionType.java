@@ -4,5 +4,7 @@ public enum CorporateActionType {
     split,
     bonus,
     demerger,
-    merger
+    merger,
+    /** The company stopped trading; the lot engine ignores it for now (its behaviour is added later). */
+    delisted
 }

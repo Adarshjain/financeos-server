@@ -19,9 +19,10 @@ public final class Ops {
     public static final String PRICE_MFAPI = "ext.price.mfapi";
 
     public static final String GOOGLE_TOKEN_EXCHANGE = "ext.google.token_exchange";
+    public static final String CORP_ACTIONS_NSE = "ext.corpactions.nse";
 
     public static final List<String> FIXED = List.of(PRICE_AMFI, PRICE_NPS, PRICE_YAHOO, PRICE_YAHOO_SEARCH, PRICE_MFAPI,
-            GOOGLE_TOKEN_EXCHANGE);
+            GOOGLE_TOKEN_EXCHANGE, CORP_ACTIONS_NSE);
 
     // ---- stage ops: no histogram buckets (see TimingConfig), only count/sum/max per outcome
     public static final String DETECTOR_CLUSTER_ROLES = "stage.detector.cluster_roles";

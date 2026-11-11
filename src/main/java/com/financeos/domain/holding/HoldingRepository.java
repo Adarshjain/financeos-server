@@ -12,6 +12,10 @@ import java.util.UUID;
 @Repository
 public interface HoldingRepository extends JpaRepository<Holding, UUID> {
 
+    /** The ids of every user holding at least one stock. */
+    @Query("SELECT DISTINCT h.user.id FROM Holding h WHERE h.instrument.type = com.financeos.domain.instrument.InstrumentType.stock")
+    List<UUID> findUserIdsHoldingStocks();
+
     /** Whether the user has at least one row. */
     boolean existsByUser_Id(UUID userId);
 

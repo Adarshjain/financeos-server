@@ -57,6 +57,14 @@ public class CorporateActionService {
         this.userRepository = userRepository;
     }
 
+    private static final String DUPLICATE_MESSAGE = "This action is already recorded for that date";
+    private static final String DELISTED_ONCE_MESSAGE = "A delisting is already recorded for this instrument";
+
+    /** A delisting has no ratio: it is stored as 1/1 whatever the request sends. */
+    private static Integer ratioOf(CorporateActionType type, Integer requested) {
+        return type == CorporateActionType.delisted ? Integer.valueOf(1) : requested;
+    }
+
     private static UUID requireUser() {
         UUID userId = UserContext.getCurrentUserId();
         if (userId == null) {
@@ -76,18 +84,36 @@ public class CorporateActionService {
     }
 
     public CorporateActionResponse createCorporateAction(UUID instrumentId, CreateCorporateActionRequest request) {
+        return create(instrumentId, request, true);
+    }
+
+    /**
+     * As {@link #createCorporateAction} without the same-day duplicate check, for the rolled-back preview (which shows
+     * what a same-day action would do to the figures).
+     */
+    public CorporateActionResponse createForPreview(UUID instrumentId, CreateCorporateActionRequest request) {
+        return create(instrumentId, request, false);
+    }
+
+    private CorporateActionResponse create(UUID instrumentId, CreateCorporateActionRequest request, boolean checkDuplicate) {
         UUID userId = requireUser();
         Instrument instrument = instrumentRepository.findById(instrumentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Instrument", instrumentId));
 
         validateRequest(instrumentId, request.type(), request.ratioFrom(), request.ratioTo(), request.targetInstrumentId(), request.costAllocationPct(), request.fractionalCashInLieu());
+        if (checkDuplicate && sameDay(userId, instrumentId, request.type(), request.exDate(), request.targetInstrumentId(), null)) {
+            throw new ValidationException(DUPLICATE_MESSAGE);
+        }
+        if (request.type() == CorporateActionType.delisted && corporateActionRepository.existsOfType(userId, instrumentId, request.type())) {
+            throw new ValidationException(DELISTED_ONCE_MESSAGE);
+        }
 
         CorporateAction ca = new CorporateAction();
         ca.setUser(userRepository.getReferenceById(userId));
         ca.setInstrument(instrument);
         ca.setType(request.type());
-        ca.setRatioFrom(request.ratioFrom());
-        ca.setRatioTo(request.ratioTo());
+        ca.setRatioFrom(ratioOf(request.type(), request.ratioFrom()));
+        ca.setRatioTo(ratioOf(request.type(), request.ratioTo()));
         ca.setExDate(request.exDate());
         ca.setNotes(request.notes());
 
@@ -109,6 +135,58 @@ public class CorporateActionService {
             materializeChildHoldings(userId, saved.getInstrument().getId(), saved.getTargetInstrument());
         }
 
+        registerCreatedLog(saved);
+
+        return CorporateActionResponse.from(saved, overrideService.overridesForCurrentUser());
+    }
+
+    /**
+     * Records a split or bonus the detector found for {@code userId} (source {@code auto}), outside a request (null when the user already has the same action that day): the
+     * owner is passed in, not read from the signed-in user. The caller has checked the ratio; the post-commit log
+     * is the same as a manual create.
+     */
+    public CorporateAction createDetected(UUID userId, UUID instrumentId, CorporateActionType type,
+                                          int ratioFrom, int ratioTo, java.time.LocalDate exDate, String notes) {
+        if (corporateActionRepository.existsSameDay(userId, instrumentId, type, exDate)) {
+            log.info("Detected corporate action skipped: already recorded for that date");
+            return null;
+        }
+        Instrument instrument = instrumentRepository.findById(instrumentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Instrument", instrumentId));
+        CorporateAction ca = new CorporateAction();
+        ca.setUser(userRepository.getReferenceById(userId));
+        ca.setInstrument(instrument);
+        ca.setType(type);
+        ca.setRatioFrom(ratioFrom);
+        ca.setRatioTo(ratioTo);
+        ca.setExDate(exDate);
+        ca.setNotes(notes);
+        ca.setSource(CorporateAction.SOURCE_AUTO);
+        CorporateAction saved = corporateActionRepository.save(ca);
+        registerCreatedLog(saved);
+        return saved;
+    }
+
+    /**
+     * Whether the user already has this action that day: same instrument, type and date, and for a demerger or merger
+     * the same target too (two demergers of one stock on one date into different companies are legitimate).
+     * {@code excludeId} is the action being edited, or null.
+     */
+    private boolean sameDay(UUID userId, UUID instrumentId, CorporateActionType type, java.time.LocalDate exDate,
+                            UUID targetId, UUID excludeId) {
+        boolean withTarget = (type == CorporateActionType.demerger || type == CorporateActionType.merger) && targetId != null;
+        if (withTarget) {
+            return excludeId == null
+                    ? corporateActionRepository.existsSameDayWithTarget(userId, instrumentId, type, exDate, targetId)
+                    : corporateActionRepository.existsOtherSameDayWithTarget(userId, instrumentId, type, exDate, targetId, excludeId);
+        }
+        return excludeId == null
+                ? corporateActionRepository.existsSameDay(userId, instrumentId, type, exDate)
+                : corporateActionRepository.existsOtherSameDay(userId, instrumentId, type, exDate, excludeId);
+    }
+
+    /** Logs the creation once the surrounding transaction commits (at once when there is none). */
+    private void registerCreatedLog(CorporateAction saved) {
         String parentIsin = saved.getInstrument() != null ? saved.getInstrument().getIsin() : "";
         String childIsin = saved.getTargetInstrument() != null ? saved.getTargetInstrument().getIsin() : "";
         String ratio = saved.getRatioFrom() + ":" + saved.getRatioTo();
@@ -134,8 +212,6 @@ public class CorporateActionService {
         } else {
             emit.run();
         }
-
-        return CorporateActionResponse.from(saved, overrideService.overridesForCurrentUser());
     }
 
     public CorporateActionResponse updateCorporateAction(UUID instrumentId, UUID id, UpdateCorporateActionRequest request) {
@@ -143,10 +219,16 @@ public class CorporateActionService {
         CorporateAction ca = ownAction(userId, instrumentId, id);
 
         validateRequest(instrumentId, request.type(), request.ratioFrom(), request.ratioTo(), request.targetInstrumentId(), request.costAllocationPct(), request.fractionalCashInLieu());
+        if (sameDay(userId, instrumentId, request.type(), request.exDate(), request.targetInstrumentId(), id)) {
+            throw new ValidationException(DUPLICATE_MESSAGE);
+        }
+        if (request.type() == CorporateActionType.delisted && corporateActionRepository.existsOtherOfType(userId, instrumentId, request.type(), id)) {
+            throw new ValidationException(DELISTED_ONCE_MESSAGE);
+        }
 
         ca.setType(request.type());
-        ca.setRatioFrom(request.ratioFrom());
-        ca.setRatioTo(request.ratioTo());
+        ca.setRatioFrom(ratioOf(request.type(), request.ratioFrom()));
+        ca.setRatioTo(ratioOf(request.type(), request.ratioTo()));
         ca.setExDate(request.exDate());
         ca.setNotes(request.notes());
 
@@ -174,6 +256,9 @@ public class CorporateActionService {
     private void validateRequest(UUID parentInstrumentId, CorporateActionType type, Integer ratioFrom, Integer ratioTo, UUID targetInstrumentId, BigDecimal costAllocationPct, BigDecimal fractionalCashInLieu) {
         if (fractionalCashInLieu != null && fractionalCashInLieu.compareTo(BigDecimal.ZERO) < 0) {
             throw new ValidationException("Fractional cash-in-lieu amount must be greater than or equal to 0.");
+        }
+        if (type == CorporateActionType.delisted && (targetInstrumentId != null || costAllocationPct != null)) {
+            throw new ValidationException("A delisting has no target instrument or cost split.");
         }
         if (type == CorporateActionType.bonus && ratioFrom != null && ratioTo != null && ratioTo <= ratioFrom) {
             throw new ValidationException("A bonus needs more units after than before: for a 1:1 bonus enter 1 \u2192 2.");

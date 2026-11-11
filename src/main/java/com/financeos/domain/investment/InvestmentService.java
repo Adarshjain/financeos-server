@@ -1104,6 +1104,8 @@ public class InvestmentService {
 
         LinkedList<Lot> openLots = new LinkedList<>();
         BigDecimal cumulativeRealized = fractionalRealized;
+        BigDecimal oversoldQty = BigDecimal.ZERO;
+        LocalDate oversoldDate = null;
 
         for (TimelineEvent event : timeline) {
             BigDecimal qtyBefore = trace != null ? openQuantity(openLots) : null;
@@ -1121,6 +1123,8 @@ public class InvestmentService {
                         cashflows.add(new XirrCalculator.Cashflow(ca.getExDate(), mergerValue));
                     }
                     openLots.clear();
+                } else if (ca.getType() == CorporateActionType.delisted) {
+                    // Lots stay open; the position is valued at zero where it is computed.
                 } else if (ca.getType() == CorporateActionType.demerger) {
                     if (ca.getCostAllocationPct() != null && ca.getCostAllocationPct().compareTo(BigDecimal.ZERO) > 0) {
                         BigDecimal factor = BigDecimal.ONE.subtract(
@@ -1169,6 +1173,10 @@ public class InvestmentService {
                             // stop, rather than failing the whole portfolio calculation.
                             log.warn("Holding {}: sell of {} exceeds available buy lots ({} unmatched) — incomplete history",
                                     holding.getId(), sellQty, qtyToMatch);
+                            oversoldQty = oversoldQty.add(qtyToMatch);
+                            if (oversoldDate == null) {
+                                oversoldDate = txn.getTradeDate();
+                            }
                             break;
                         }
                         Lot oldestLot = openLots.peek();
@@ -1254,6 +1262,22 @@ public class InvestmentService {
         BigDecimal currentValue = null;
         BigDecimal unrealized = null;
         BigDecimal unrealizedPercent = null;
+
+        // A delisting (ex-date reached) keeps the holding at zero value: the lots stay open, nothing is realised.
+        LocalDate delistedOn = null;
+        for (CorporateAction ca : corpActions) {
+            if (ca.getType() == CorporateActionType.delisted && !ca.getExDate().isAfter(AppTime.today())) {
+                delistedOn = ca.getExDate();
+                break;
+            }
+        }
+        boolean delisted = delistedOn != null;
+        if (delisted) {
+            priceClose = BigDecimal.ZERO;
+            priceAsOf = delistedOn;
+            priceSource = null;
+            priceAt = null;
+        }
 
         if (priceClose != null && openQty.compareTo(BigDecimal.ZERO) > 0) {
             currentValue = openQty.multiply(priceClose).setScale(4, RoundingMode.HALF_UP);
@@ -1342,7 +1366,10 @@ public class InvestmentService {
                 mergedIntoName,
                 mergedIntoDate,
                 null, null, null, null, null, null, null, null,
-                priceAt
+                priceAt,
+                delisted,
+                oversoldQty.signum() > 0 ? oversoldQty : null,
+                oversoldQty.signum() > 0 ? oversoldDate : null
         );
     }
 
@@ -1801,6 +1828,8 @@ public class InvestmentService {
                     // The transferor's shares convert in-kind on merger; without this the ratio
                     // branch below would scale them instead of closing the position.
                     openLots.clear();
+                } else if (ca.getType() == CorporateActionType.delisted) {
+                    // No-op for now: how a delisting affects the lots is added later.
                 } else if (ca.getType() == CorporateActionType.demerger) {
                     if (ca.getCostAllocationPct() != null && ca.getCostAllocationPct().compareTo(BigDecimal.ZERO) > 0) {
                         BigDecimal factor = BigDecimal.ONE.subtract(

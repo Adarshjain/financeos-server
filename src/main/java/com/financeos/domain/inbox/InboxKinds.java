@@ -30,11 +30,16 @@ public final class InboxKinds {
     public static final String NPS_MATCH = "nps_match";
     public static final String NPS_RECORD = "nps_record";
     public static final String NPS_SETUP = "nps_setup";
+    public static final String CORPORATE_ACTION_APPLIED = "corporate_action_applied";
+    public static final String CORPORATE_ACTION_REVIEW = "corporate_action_review";
+    public static final String STOCK_NOT_TRADING = "stock_not_trading";
+    public static final String HOLDING_OVERSOLD = "holding_oversold";
 
     /** Every kind the inbox can produce, in display order. */
     public static final List<String> ALL = List.of(BILL, EMI, LENDING, STATEMENT_EXPECTED, STATEMENT_DETAILS_MISSING,
             GMAIL_RECONNECT, GMAIL_ATTENTION, REVIEW, JOB, REWARD_MILESTONE, REWARD_CAP, EPF_MATCH, UPLOAD_NEEDS_ACCOUNT,
-            NPS_PASSWORD, NPS_NEW_ACCOUNT, NPS_MATCH, NPS_RECORD, NPS_SETUP);
+            NPS_PASSWORD, NPS_NEW_ACCOUNT, NPS_MATCH, NPS_RECORD, NPS_SETUP,
+            CORPORATE_ACTION_APPLIED, CORPORATE_ACTION_REVIEW, STOCK_NOT_TRADING, HOLDING_OVERSOLD);
 
     /** The summary rows have fixed keys; everything else is keyed by its subject. */
     public static final String KEY_GMAIL_ATTENTION = "gmail-attention";
@@ -128,6 +133,22 @@ public final class InboxKinds {
         return "nps_record:" + transactionId;
     }
 
+    public static String corporateActionAppliedKey(UUID suggestionId) {
+        return "ca_applied:" + suggestionId;
+    }
+
+    public static String corporateActionReviewKey(UUID suggestionId) {
+        return "ca_review:" + suggestionId;
+    }
+
+    public static String stockNotTradingKey(UUID instrumentId) {
+        return "stock_not_trading:" + instrumentId;
+    }
+
+    public static String holdingOversoldKey(UUID suggestionId) {
+        return "holding_oversold:" + suggestionId;
+    }
+
     /** One grouped row per suggestion kind (TRANSFER, CC_PAYMENT, REFUND), so the count changes but the key does not. */
     public static final String KEY_LINK_SUGGESTION_PREFIX = "link-suggestion:";
 
@@ -168,6 +189,10 @@ public final class InboxKinds {
             case NPS_MATCH -> "NPS contributions to match";
             case NPS_RECORD -> "Possible NPS payments";
             case NPS_SETUP -> "Set up NPS";
+            case CORPORATE_ACTION_APPLIED -> "Corporate actions applied";
+            case CORPORATE_ACTION_REVIEW -> "Corporate actions to review";
+            case STOCK_NOT_TRADING -> "Stocks no longer trading";
+            case HOLDING_OVERSOLD -> "Sold more than held";
             default -> kind;
         };
     }
@@ -189,6 +214,7 @@ public final class InboxKinds {
             case LINK_SUGGESTION -> "/transactions/review";
             case UPLOAD_NEEDS_ACCOUNT -> "/transactions/import";
             case NPS_PASSWORD, NPS_NEW_ACCOUNT, NPS_MATCH, NPS_RECORD, NPS_SETUP -> "/investments/nps";
+            case CORPORATE_ACTION_APPLIED, CORPORATE_ACTION_REVIEW, STOCK_NOT_TRADING, HOLDING_OVERSOLD -> "/investments/corporate-actions";
             default -> "/inbox";
         };
     }
