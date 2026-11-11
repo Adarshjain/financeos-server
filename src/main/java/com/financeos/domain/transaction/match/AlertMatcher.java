@@ -66,10 +66,24 @@ public class AlertMatcher {
      */
     public record Alert(User user, Account account, Card card, TransactionType type, BigDecimal amount, String currency,
                         LocalDate date, String text, String cardLast4, Set<String> refs, String senderAddress,
-                        Instant sentAt, String gmailMessageId) {
+                        Instant sentAt, String gmailMessageId, TransactionSource source) {
 
         public Alert {
             currency = com.financeos.gmail.extract.ExtractParsing.parseCurrency(currency, null);
+            source = source == null ? TransactionSource.gmail_transaction_alert : source;
+        }
+
+        /** An alert email (source gmail_transaction_alert); {@code gmailMessageId} is the mail's id. */
+        public Alert(User user, Account account, Card card, TransactionType type, BigDecimal amount, String currency,
+                     LocalDate date, String text, String cardLast4, Set<String> refs, String senderAddress,
+                     Instant sentAt, String gmailMessageId) {
+            this(user, account, card, type, amount, currency, date, text, cardLast4, refs, senderAddress, sentAt,
+                    gmailMessageId, TransactionSource.gmail_transaction_alert);
+        }
+
+        /** An alert text message: {@code gmailMessageId} carries its source message id ("sms:" + id). */
+        boolean isSms() {
+            return source == TransactionSource.sms_alert;
         }
 
         /** A charge in a currency other than rupees: its rupee amount is known only from the statement. */
@@ -99,7 +113,9 @@ public class AlertMatcher {
 
     /** What an attach joined. */
     public enum Kind {
-        STATEMENT_LINE, ISSUER_EMAIL, PROVIDER_EMAIL, RESENT_ALERT, MANUAL_ENTRY
+        STATEMENT_LINE, ISSUER_EMAIL, PROVIDER_EMAIL, RESENT_ALERT, MANUAL_ENTRY,
+        /** The other channel's alert for the same payment: a text message joining an email alert's row, or the reverse. */
+        OTHER_CHANNEL_ALERT
     }
 
     /** The alert joined {@code txn}; {@code detail} is the ledger row's text. */
@@ -167,8 +183,14 @@ public class AlertMatcher {
     /** Attaches the alert to the payment it is, or creates its transaction; under the account lock. */
     @Transactional
     public Outcome matchOrCreate(Alert alert) {
+        return matchOrCreate(alert, Set.of());
+    }
+
+    /** {@link #matchOrCreate(Alert)} where the {@code excluded} transactions (already taken by another alert) never match. */
+    @Transactional
+    public Outcome matchOrCreate(Alert alert, Set<UUID> excluded) {
         accountRepository.lockById(alert.account().getId());
-        Decision d = usable(alert) ? decide(alert, ledger(alert)) : new Decision(null, null, null);
+        Decision d = usable(alert) ? decide(alert, without(ledger(alert), excluded)) : new Decision(null, null, null);
         if (d.attaches()) {
             Attached a = attach(alert, d);
             return new Outcome(a.txn(), false, a);
@@ -181,10 +203,24 @@ public class AlertMatcher {
      * no lock, nothing is changed.
      */
     public Optional<Transaction> findMatch(Alert alert) {
+        return findMatch(alert, Set.of());
+    }
+
+    /** {@link #findMatch(Alert)} where the {@code excluded} transactions (already taken by another alert) never match. */
+    public Optional<Transaction> findMatch(Alert alert, Set<UUID> excluded) {
         if (!usable(alert)) {
             return Optional.empty();
         }
-        return Optional.ofNullable(decide(alert, ledger(alert)).target());
+        return Optional.ofNullable(decide(alert, without(ledger(alert), excluded)).target());
+    }
+
+    /** The ledger without the excluded transactions. */
+    private static Ledger without(Ledger ledger, Set<UUID> excluded) {
+        if (excluded == null || excluded.isEmpty()) {
+            return ledger;
+        }
+        List<Transaction> kept = ledger.txns().stream().filter(t -> !excluded.contains(t.getId())).toList();
+        return new Ledger(kept, ledger.statementsByTxn(), ledger.mailsByTxn(), ledger.records());
     }
 
     private static boolean usable(Alert a) {
@@ -250,13 +286,20 @@ public class AlertMatcher {
 
         // 3. The other side of a provider / issuer pair.
         boolean thisIsProvider = isProviderSender(alert.senderAddress());
-        Transaction other = cheapest(r, PROVIDER_WINDOW_DAYS, fw, ledger, t -> {
+        Transaction other = alert.isSms() ? null : cheapest(r, PROVIDER_WINDOW_DAYS, fw, ledger, t -> {
             List<GmailProcessedMessageRepository.AlertMail> mails = ledger.mails(t);
             boolean issuer = mails.stream().anyMatch(m -> !isProviderSender(m.getSenderAddress()));
             boolean provider = mails.stream().anyMatch(m -> isProviderSender(m.getSenderAddress()));
             return thisIsProvider ? issuer && !provider : provider && !issuer;
         });
         if (other != null) return new Decision(other, thisIsProvider ? Kind.ISSUER_EMAIL : Kind.PROVIDER_EMAIL, null);
+
+        // 3b. The other channel's alert: a text message joins the row an alert email already points at; an alert email
+        // joins the row a text message created (and no email points at yet).
+        Transaction channel = cheapest(r, w, fw, ledger, t -> alert.isSms()
+                ? ledger.alerted(t) && t.getSource() != TransactionSource.sms_alert
+                : t.getSource() == TransactionSource.sms_alert && !ledger.alerted(t));
+        if (channel != null) return new Decision(channel, Kind.OTHER_CHANNEL_ALERT, null);
 
         // 4. A payment the user typed in.
         Transaction manual = cheapest(r, w, fw, ledger, t -> t.getSource() == TransactionSource.manual && !ledger.alerted(t)
@@ -377,6 +420,7 @@ public class AlertMatcher {
                 }
             }
             case RESENT_ALERT -> detail = "resent alert";
+            case OTHER_CHANNEL_ALERT -> detail = alert.isSms() ? "email alert" : "text message alert";
             case MANUAL_ENTRY -> {
                 detail = "manual entry";
                 if (alert.text() != null && !alert.text().isBlank()) {
@@ -399,7 +443,7 @@ public class AlertMatcher {
         txn.setDate(alert.date());
         alert.applyAmounts(txn);
         txn.setSourcedDescription(alert.text());
-        txn.setSource(TransactionSource.gmail_transaction_alert);
+        txn.setSource(alert.source());
         txn.setType(alert.type());
         txn.setSourceMessageId(alert.gmailMessageId());
         txn.setTransactionUnderMonitoring(false);

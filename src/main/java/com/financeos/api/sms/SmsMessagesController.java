@@ -3,6 +3,7 @@ package com.financeos.api.sms;
 import com.financeos.api.sms.dto.SmsDtos.ConfirmRequest;
 import com.financeos.api.sms.dto.SmsDtos.MessagePage;
 import com.financeos.api.sms.dto.SmsDtos.MessageView;
+import com.financeos.api.sms.dto.SmsDtos.ReplayResponse;
 import com.financeos.api.sms.dto.SmsDtos.ReportResponse;
 import com.financeos.core.security.UserContext;
 import com.financeos.sms.ingest.SmsMessageService;
@@ -46,6 +47,11 @@ public class SmsMessagesController {
     @GetMapping("/report")
     public ResponseEntity<ReportResponse> report() {
         return ResponseEntity.ok(report.report(userId()));
+    }
+
+    @PostMapping("/replay")
+    public ResponseEntity<ReplayResponse> replay() {
+        return ResponseEntity.ok(messages.replay(userId()));
     }
 
     @GetMapping("/messages")

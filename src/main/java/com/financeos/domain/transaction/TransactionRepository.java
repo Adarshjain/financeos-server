@@ -74,6 +74,14 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
 
     boolean existsByUserIdAndSourceMessageId(UUID userId, String sourceMessageId);
 
+    Optional<Transaction> findByUserIdAndSourceMessageId(UUID userId, String sourceMessageId);
+
+    /** How many other transactions the account has on or before the date (the first-transaction check of an opening balance). */
+    @Query("SELECT COUNT(t) FROM Transaction t WHERE t.user.id = :userId AND t.account.id = :accountId "
+            + "AND t.date <= :date AND t.id <> :excludeId")
+    long countOtherOnOrBefore(@Param("userId") UUID userId, @Param("accountId") UUID accountId,
+                              @Param("date") LocalDate date, @Param("excludeId") UUID excludeId);
+
     @Query("SELECT t FROM Transaction t WHERE t.account.id = :accountId AND t.source = :source AND t.reviewType = :reviewType")
     List<Transaction> findByAccountIdAndSourceAndReviewType(
             @Param("accountId") UUID accountId,

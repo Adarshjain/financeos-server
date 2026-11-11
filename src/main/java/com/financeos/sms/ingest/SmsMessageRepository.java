@@ -50,17 +50,31 @@ public interface SmsMessageRepository extends JpaRepository<SmsMessage, UUID> {
     /** True when another message of the user already claims this transaction (shadow or real). */
     boolean existsByUserIdAndTransactionIdAndIdNot(UUID userId, UUID transactionId, UUID id);
 
+    /** The transactions other messages of the account received in the window already claim (shadow or real). */
+    @Query("SELECT m.transactionId FROM SmsMessage m WHERE m.userId = :userId AND m.accountId = :accountId "
+            + "AND m.id <> :id AND m.transactionId IS NOT NULL AND m.receivedAt BETWEEN :from AND :to")
+    Set<UUID> findClaimedTransactionIds(@Param("userId") UUID userId, @Param("accountId") UUID accountId,
+                                        @Param("id") UUID id, @Param("from") Instant from, @Param("to") Instant to);
+
+    /** Messages of the user by outcome (null = no outcome). */
+    @Query("SELECT m.outcome, COUNT(m) FROM SmsMessage m WHERE m.userId = :userId GROUP BY m.outcome")
+    List<Object[]> outcomeCounts(@Param("userId") UUID userId);
+
+    /** The newest stored message time per line. */
+    @Query("SELECT m.lineId, MAX(m.receivedAt) FROM SmsMessage m WHERE m.userId = :userId AND m.lineId IS NOT NULL GROUP BY m.lineId")
+    List<Object[]> newestPerLine(@Param("userId") UUID userId);
+
     /** Totals by read status and outcome per account (account null = the account is gone). */
     @Query("SELECT m.accountId, m.readStatus, m.outcome, COUNT(m), MIN(m.receivedAt), MAX(m.receivedAt) "
             + "FROM SmsMessage m WHERE m.userId = :userId GROUP BY m.accountId, m.readStatus, m.outcome")
     List<Object[]> reportCounts(@Param("userId") UUID userId);
 
-    /** READ messages that are not duplicates, oldest first within each line, for the balance-chain check. */
+    /** READ messages that are not duplicates, oldest first, for the balance-chain check (chains are cut per line group in code). */
     @Query("SELECT m.accountId, m.receivedAt, m.txnDate, m.amount, m.direction, m.balanceAfter, m.lineId FROM SmsMessage m "
             + "WHERE m.userId = :userId AND m.accountId IS NOT NULL "
             + "AND m.readStatus = com.financeos.sms.read.SmsReadStatus.READ "
             + "AND (m.outcome IS NULL OR m.outcome <> com.financeos.sms.ingest.SmsOutcome.DUPLICATE) "
-            + "ORDER BY m.lineId, m.receivedAt, m.id")
+            + "ORDER BY m.receivedAt, m.id")
     List<Object[]> findReadForBalanceChain(@Param("userId") UUID userId);
 
     /** Latest could-not-read message time per account. */

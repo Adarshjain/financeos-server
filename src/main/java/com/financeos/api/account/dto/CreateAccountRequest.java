@@ -235,8 +235,36 @@ public sealed interface CreateAccountRequest {
             @NotNull(message = "Account type is required") AccountType type,
             Boolean excludeFromNetAsset,
             FinancialPosition financialPosition,
-            String description
+            String description,
+            /**
+             * Starting balance as sent: absent (null here) keeps the stored value on update, an explicit JSON null
+             * clears it, a number sets it. Read it through {@link #hasOpeningBalance()} and {@link #openingBalanceValue()}.
+             */
+            @Nullable com.fasterxml.jackson.databind.JsonNode openingBalance
     ) implements CreateAccountRequest {
+        /** Without an opening balance (left as it is), for callers that predate it. */
+        public GenericAccountRequest(String name, AccountType type, Boolean excludeFromNetAsset,
+                                     FinancialPosition financialPosition, String description) {
+            this(name, type, excludeFromNetAsset, financialPosition, description, null);
+        }
+
+        /** The request says something about the opening balance (a number or an explicit null). */
+        public boolean hasOpeningBalance() {
+            return openingBalance != null;
+        }
+
+        /** The opening balance sent; null when it was cleared (or never sent). */
+        @Nullable
+        public BigDecimal openingBalanceValue() {
+            if (openingBalance == null || openingBalance.isNull() || openingBalance.isMissingNode()) {
+                return null;
+            }
+            if (!openingBalance.isNumber()) {
+                throw new com.financeos.core.exception.ValidationException("Opening balance must be a number");
+            }
+            return openingBalance.decimalValue();
+        }
+
         /** Wallet/Cash accounts are manual-only: no statements, no Gmail sync, no ingest watermark. */
         @Override
         public LocalDate ingestFromDate() {

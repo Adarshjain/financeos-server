@@ -93,4 +93,7 @@ public final class SmsDtos {
                                 long couldNotRead, List<ReportAlert> alerts) {}
 
     public record ReportResponse(boolean postingEnabled, ReportTotals totals, List<ReportAccount> accounts) {}
+
+    /** What a replay did: how many messages it re-decided, and the user's messages by outcome afterwards (every outcome listed). */
+    public record ReplayResponse(int replayed, java.util.Map<String, Long> outcomes) {}
 }

@@ -60,7 +60,7 @@ public class StatementMoveService {
     private static final int LEGACY_DUPLICATE_WINDOW_DAYS = 2;
 
     private static boolean isAlertOrManual(Transaction t) {
-        return t.getSource() == TransactionSource.gmail_transaction_alert || t.getSource() == TransactionSource.manual;
+        return (t.getSource() != null && t.getSource().isAlert()) || t.getSource() == TransactionSource.manual;
     }
 
     private final AccountRepository accountRepository;

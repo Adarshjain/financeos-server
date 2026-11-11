@@ -13,7 +13,6 @@ import com.financeos.domain.transaction.ReviewStatusManager;
 import com.financeos.domain.transaction.ReviewType;
 import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionRepository;
-import com.financeos.domain.transaction.TransactionSource;
 import com.financeos.domain.transaction.TransactionType;
 import com.financeos.gmail.domain.GmailProcessedMessageRepository;
 import com.financeos.gmail.reconcile.ParsedStatementLine;
@@ -260,7 +259,7 @@ public class StatementBatchMatcher {
         }
         Map<Integer, Transaction> out = new HashMap<>();
         for (Transaction t : transactionRepository.findAllById(ids)) {
-            if (notLineOnly.contains(t.getId()) || t.getSource() == TransactionSource.gmail_transaction_alert) continue;
+            if (notLineOnly.contains(t.getId()) || (t.getSource() != null && t.getSource().isAlert())) continue;
             if (t.getAccount() == null || !accountId.equals(t.getAccount().getId())) continue;
             out.putIfAbsent(indexByTxn.get(t.getId()), t);
         }
@@ -578,7 +577,7 @@ public class StatementBatchMatcher {
             LocalDate tagUntil = periodEnd.minusDays(w);
             LocalDate foreignTagUntil = periodEnd.minusDays(fw);
             for (Transaction t : candidates) {
-                if (paired.contains(t.getId()) || t.getSource() != TransactionSource.gmail_transaction_alert) continue;
+                if (paired.contains(t.getId()) || t.getSource() == null || !t.getSource().isAlert()) continue;
                 LocalDate until = MatchRecord.isForeign(t) ? foreignTagUntil : tagUntil;
                 if (t.getDate() == null || t.getDate().isBefore(periodStart) || t.getDate().isAfter(until)) continue;
                 if (t.getReviewReasons() != null && t.getReviewReasons().contains(ReviewReason.NOT_ON_STATEMENT)) continue;

@@ -2,10 +2,16 @@ package com.financeos.sms.ingest;
 
 import com.financeos.core.time.AppTime;
 import com.financeos.domain.account.Account;
+import com.financeos.domain.account.AccountBankDetails;
 import com.financeos.domain.account.AccountRepository;
+import com.financeos.domain.account.AccountType;
 import com.financeos.domain.transaction.Transaction;
+import com.financeos.domain.transaction.TransactionRepository;
+import com.financeos.domain.transaction.TransactionSource;
+import com.financeos.domain.transaction.autolink.TransactionsIngestedEvent;
 import com.financeos.domain.transaction.match.AlertMatcher;
 import com.financeos.domain.transaction.match.ReferenceNumbers;
+import com.financeos.sms.line.SenderCatalogue;
 import com.financeos.sms.line.SmsLineRepository;
 import com.financeos.sms.read.SmsReadStatus;
 import com.financeos.sms.read.SmsReader;
@@ -13,6 +19,7 @@ import com.financeos.sms.read.SmsReading;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,28 +38,39 @@ import java.util.UUID;
 
 /**
  * Reads a stored message and decides what happens to it: second alerts are removed, then it is matched against the
- * ledger without changing anything (shadow). Re-runnable for a message, so a template change can be replayed.
+ * ledger. With posting off nothing is changed (the would-be outcome is recorded); with posting on it attaches to the
+ * payment already on the ledger or creates its transaction (source sms_alert). Re-runnable for a message that has not
+ * been posted, so a template change can be replayed.
  */
 @Service
 public class SmsPipelineService {
 
     private static final Logger log = LoggerFactory.getLogger(SmsPipelineService.class);
     private static final Duration SECOND_ALERT_WINDOW = Duration.ofDays(1);
+    /** Messages received this far apart can claim the same transaction (the widest match window is a week). */
+    private static final Duration CLAIM_WINDOW = Duration.ofDays(14);
 
     private final SmsMessageRepository messages;
     private final SmsLineRepository lines;
     private final AccountRepository accounts;
     private final AlertMatcher matcher;
     private final SmsReader reader;
+    private final TransactionRepository transactions;
+    private final SenderCatalogue catalogue;
+    private final ApplicationEventPublisher events;
     private final boolean postingEnabled;
 
     public SmsPipelineService(SmsMessageRepository messages, SmsLineRepository lines, AccountRepository accounts, AlertMatcher matcher, SmsReader reader,
+                              TransactionRepository transactions, SenderCatalogue catalogue, ApplicationEventPublisher events,
                               @Value("${financeos.sms.posting-enabled:false}") boolean postingEnabled) {
         this.messages = messages;
         this.lines = lines;
         this.accounts = accounts;
         this.matcher = matcher;
         this.reader = reader;
+        this.transactions = transactions;
+        this.catalogue = catalogue;
+        this.events = events;
         this.postingEnabled = postingEnabled;
     }
 
@@ -108,16 +126,28 @@ public class SmsPipelineService {
             m.setDuplicateOf(original.get());
             return;
         }
-        Optional<Transaction> match = matcher.findMatch(alertOf(m, account));
+        if (postingEnabled) {
+            // Posting a message twice never makes two transactions: one that already has its transaction is not posted again.
+            Optional<Transaction> done = transactions.findByUserIdAndSourceMessageId(m.getUserId(), sourceId(m));
+            if (done.isPresent()) {
+                boolean created = done.get().getSource() == TransactionSource.sms_alert;
+                m.setOutcome(created ? SmsOutcome.CREATED : SmsOutcome.ATTACHED);
+                m.setTransactionId(done.get().getId());
+                return;
+            }
+        }
+        Set<UUID> claimed = claimedBy(m);
+        AlertMatcher.Alert alert = alertOf(m, account);
         // A transaction another message already claims cannot be claimed twice: the second equal payment is a new one.
-        if (match.isPresent() && !messages.existsByUserIdAndTransactionIdAndIdNot(m.getUserId(), match.get().getId(), m.getId())) {
+        Optional<Transaction> match = matcher.findMatch(alert, claimed);
+        if (match.isPresent()) {
             m.setOutcome(SmsOutcome.SHADOW_ATTACH);
             m.setTransactionId(match.get().getId());
         } else {
             m.setOutcome(SmsOutcome.SHADOW_CREATE);
         }
         if (postingEnabled) {
-            postForReal(m, account);
+            postForReal(m, account, claimed);
         }
     }
 
@@ -134,7 +164,10 @@ public class SmsPipelineService {
     @Transactional
     public int replay(UUID userId) {
         lockUser(userId);
-        List<SmsMessage> all = messages.findByUserIdOrderByReceivedAtAscIdAsc(userId);
+        // A message that is already posted (CREATED / ATTACHED) keeps its transaction: replay never re-decides it.
+        List<SmsMessage> all = messages.findByUserIdOrderByReceivedAtAscIdAsc(userId).stream()
+                .filter(m -> m.getOutcome() != SmsOutcome.CREATED && m.getOutcome() != SmsOutcome.ATTACHED)
+                .toList();
         for (SmsMessage m : all) {
             m.setOutcome(null);
             m.setDuplicateOf(null);
@@ -153,9 +186,66 @@ public class SmsPipelineService {
         return all.size();
     }
 
-    /** The seam where posting for real goes: create or attach the transaction and record CREATED / ATTACHED. Next phase. */
-    private void postForReal(SmsMessage m, Account account) {
-        // Intentionally empty in this phase: shadow outcomes are recorded either way.
+    /** Transactions other messages of the account near this one already point at. */
+    private Set<UUID> claimedBy(SmsMessage m) {
+        return messages.findClaimedTransactionIds(m.getUserId(), m.getAccountId(), m.getId(),
+                m.getReceivedAt().minus(CLAIM_WINDOW), m.getReceivedAt().plus(CLAIM_WINDOW));
+    }
+
+    private static String sourceId(SmsMessage m) {
+        return "sms:" + m.getId();
+    }
+
+    /**
+     * Posts for real: attaches to the transaction the matcher finds on the ledger (ATTACHED) or creates the line's
+     * transaction with source sms_alert (CREATED), through the matcher the email alerts use. A new row is categorised
+     * on arrival and announced to auto-linking like a mail's. The first row of a generic account without an opening
+     * balance sets it from the message's balance.
+     */
+    private void postForReal(SmsMessage m, Account account, Set<UUID> claimed) {
+        Account managed = accounts.findByIdAndUser_Id(account.getId(), m.getUserId()).orElse(account);
+        AlertMatcher.Outcome o = matcher.matchOrCreate(alertOf(m, managed), claimed);
+        if (!o.created()) {
+            m.setOutcome(SmsOutcome.ATTACHED);
+            m.setTransactionId(o.attached().txn().getId());
+            return;
+        }
+        Transaction txn = o.txn();
+        m.setOutcome(SmsOutcome.CREATED);
+        m.setTransactionId(txn.getId());
+        // After commit and in its own transaction, so categorising can never undo the post.
+        events.publishEvent(new SmsArrivalCategoriser.Created(m.getUserId(), txn.getId(), m.getId(), m.getCounterparty(),
+                m.getSender(), m.getBody(), m.getTemplateKey()));
+        events.publishEvent(TransactionsIngestedEvent.of(m.getUserId(), List.of(txn)));
+        setOpeningBalanceFromFirst(m, managed, txn);
+    }
+
+    /**
+     * A generic account with no opening balance and no other transaction on or before this one's date: the balance after
+     * this message minus its signed amount is what the account held before it, so the balance shown equals the message's.
+     * A value the user set is never replaced.
+     */
+    private void setOpeningBalanceFromFirst(SmsMessage m, Account account, Transaction txn) {
+        if (account.getType() != AccountType.generic || m.getBalanceAfter() == null || txn.getAmount() == null) {
+            return;
+        }
+        AccountBankDetails details = account.getBankDetails();
+        if (details != null && details.getOpeningBalance() != null) {
+            return;
+        }
+        if (transactions.countOtherOnOrBefore(m.getUserId(), account.getId(), txn.getDate(), txn.getId()) > 0) {
+            return;
+        }
+        BigDecimal signed = txn.getType() == TransactionType.CREDIT ? txn.getAmount() : txn.getAmount().negate();
+        BigDecimal opening = m.getBalanceAfter().subtract(signed);
+        if (details == null) {
+            details = new AccountBankDetails(account, opening, null);
+            details.setUser(account.getUser());
+            account.setBankDetails(details);
+        } else {
+            details.setOpeningBalance(opening);
+        }
+        accounts.save(account);
     }
 
     /**
@@ -201,13 +291,16 @@ public class SmsPipelineService {
         return Optional.ofNullable(best);
     }
 
-    private static AlertMatcher.Alert alertOf(SmsMessage m, Account account) {
+    private AlertMatcher.Alert alertOf(SmsMessage m, Account account) {
         Set<String> refs = new java.util.LinkedHashSet<>(ReferenceNumbers.extract(m.getBody()));
         if (m.getRefNo() != null && !m.getRefNo().isBlank()) {
             refs.add(m.getRefNo().toUpperCase(java.util.Locale.ROOT));
         }
         LocalDate date = m.getTxnDate() != null ? m.getTxnDate() : m.getReceivedAt().atZone(AppTime.zone()).toLocalDate();
+        // Never the message text: it is stored encrypted, a transaction description is not.
+        String text = m.getCounterparty() != null && !m.getCounterparty().isBlank() ? m.getCounterparty()
+                : catalogue.find(m.getSender()).map(SenderCatalogue.Sender::provider).orElse(m.getSender());
         return new AlertMatcher.Alert(account.getUser(), account, null, m.getDirection(), m.getAmount(), "INR", date,
-                m.getBody(), null, refs, "sms:" + m.getSender(), m.getReceivedAt(), null);
+                text, null, refs, "sms:" + m.getSender(), m.getReceivedAt(), sourceId(m), TransactionSource.sms_alert);
     }
 }

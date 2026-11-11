@@ -6,7 +6,11 @@ import com.financeos.api.sms.dto.SmsDtos.ReportResponse;
 import com.financeos.api.sms.dto.SmsDtos.ReportTotals;
 import com.financeos.core.time.AppTime;
 import com.financeos.domain.transaction.TransactionType;
+import com.financeos.sms.device.SmsDeviceRepository;
 import com.financeos.sms.line.SmsAccountQueries;
+import com.financeos.sms.line.SmsLine;
+import com.financeos.sms.line.SmsLineRepository;
+import com.financeos.sms.line.SmsLineState;
 import com.financeos.sms.read.SmsReadStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,16 +32,25 @@ import java.util.UUID;
 public class SmsReportService {
 
     static final int MAX_BALANCE_ALERTS = 20;
+    /** An ON line whose newest message is older than this many days is silent. */
+    static final int SILENT_AFTER_DAYS = 14;
+    /** ... while a device of the user reported within this many days. */
+    static final int DEVICE_FRESH_DAYS = 2;
     private static final DateTimeFormatter DMY = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private final SmsMessageRepository messages;
     private final SmsAccountQueries accountQueries;
     private final SmsPipelineService pipeline;
+    private final SmsLineRepository lines;
+    private final SmsDeviceRepository devices;
 
-    public SmsReportService(SmsMessageRepository messages, SmsAccountQueries accountQueries, SmsPipelineService pipeline) {
+    public SmsReportService(SmsMessageRepository messages, SmsAccountQueries accountQueries, SmsPipelineService pipeline,
+                            SmsLineRepository lines, SmsDeviceRepository devices) {
         this.messages = messages;
         this.accountQueries = accountQueries;
         this.pipeline = pipeline;
+        this.lines = lines;
+        this.devices = devices;
     }
 
     /** Mutable counters for one account. */
@@ -105,7 +118,9 @@ public class SmsReportService {
                         ((Instant) r[1]).atZone(AppTime.zone()).toLocalDate()));
             }
         }
-        balanceGaps(userId, alerts);
+        List<SmsLine> userLines = lines.findByUserId(userId);
+        balanceGaps(userId, userLines, alerts);
+        silentLines(userId, userLines, perAccount.keySet(), alerts);
 
         Map<UUID, String> names = new HashMap<>();
         accountQueries.accounts(userId, perAccount.keySet()).forEach(a -> names.put(a.id(), a.name()));
@@ -124,44 +139,79 @@ public class SmsReportService {
     }
 
     /**
-     * Per line (two lines of one account carry separate balances), READ messages in order: the previous balance, plus or minus the amounts since (including messages that
-     * carry no balance), plus or minus this amount, must equal this balance. When it does not, a message may be missing.
+     * READ messages in time order, chained per account and catalogue provider: a provider's lines of one account carry
+     * one balance (HSBC texts one account as a 3-digit ending in one format and a 4-digit ending in another), lines of
+     * different providers carry their own. The previous balance, plus or minus the amounts since (including messages
+     * that carry no balance), plus or minus this amount, must equal this balance. When it does not, a message may be
+     * missing.
      */
-    private void balanceGaps(UUID userId, Map<UUID, List<ReportAlert>> alerts) {
-        UUID current = null;
-        boolean started = false;
-        BigDecimal last = null;
-        BigDecimal pending = BigDecimal.ZERO;
+    private void balanceGaps(UUID userId, List<SmsLine> userLines, Map<UUID, List<ReportAlert>> alerts) {
+        Map<UUID, String> providerOfLine = new HashMap<>();
+        for (SmsLine l : userLines) {
+            providerOfLine.put(l.getId(), l.getProvider() == null ? "" : l.getProvider().toLowerCase(java.util.Locale.ROOT));
+        }
+        // chain key -> {last balance (null before the first), amounts since it}
+        Map<String, BigDecimal[]> chains = new HashMap<>();
         Map<UUID, List<ReportAlert>> gaps = new HashMap<>();
         for (Object[] r : messages.findReadForBalanceChain(userId)) {
             UUID accountId = (UUID) r[0];
             UUID lineId = (UUID) r[6];
-            if (!started || !java.util.Objects.equals(lineId, current)) {
-                started = true;
-                current = lineId;
-                last = null;
-                pending = BigDecimal.ZERO;
-            }
+            String key = accountId + "|" + (lineId == null ? "" : providerOfLine.getOrDefault(lineId, lineId.toString()));
+            BigDecimal[] chain = chains.computeIfAbsent(key, k -> new BigDecimal[] {null, BigDecimal.ZERO});
             BigDecimal amount = (BigDecimal) r[3];
             TransactionType direction = (TransactionType) r[4];
             BigDecimal balance = (BigDecimal) r[5];
             BigDecimal signed = amount == null || direction == null ? BigDecimal.ZERO
                     : direction == TransactionType.CREDIT ? amount : amount.negate();
             if (balance == null) {
-                pending = pending.add(signed);
+                chain[1] = chain[1].add(signed);
                 continue;
             }
-            if (last != null && last.add(pending).add(signed).compareTo(balance) != 0) {
+            if (chain[0] != null && chain[0].add(chain[1]).add(signed).compareTo(balance) != 0) {
                 LocalDate date = r[2] != null ? (LocalDate) r[2] : ((Instant) r[1]).atZone(AppTime.zone()).toLocalDate();
                 gaps.computeIfAbsent(accountId, k -> new ArrayList<>()).add(new ReportAlert("BALANCE_GAP",
                         "A message may be missing around " + DMY.format(date), date));
             }
-            last = balance;
-            pending = BigDecimal.ZERO;
+            chain[0] = balance;
+            chain[1] = BigDecimal.ZERO;
         }
         gaps.forEach((accountId, list) -> {
             List<ReportAlert> recent = list.size() > MAX_BALANCE_ALERTS ? list.subList(list.size() - MAX_BALANCE_ALERTS, list.size()) : list;
             alerts.computeIfAbsent(accountId, k -> new ArrayList<>()).addAll(recent);
         });
+    }
+
+    /**
+     * An ON line whose newest stored message is older than 14 days, while one of the user's devices reported within the
+     * last 2 days: the phone is alive but the line has gone quiet. A device reports on every call it makes (summary,
+     * messages), so its last-seen time is the signal.
+     */
+    private void silentLines(UUID userId, List<SmsLine> userLines, java.util.Set<UUID> reportedAccounts,
+                             Map<UUID, List<ReportAlert>> alerts) {
+        Instant now = AppTime.nowInstant();
+        Instant freshSince = now.minus(java.time.Duration.ofDays(DEVICE_FRESH_DAYS));
+        boolean deviceFresh = devices.findByUserIdOrderByPairedAtDesc(userId).stream()
+                .filter(d -> !d.isRevoked())
+                .anyMatch(d -> (d.getLastSeenAt() != null && !d.getLastSeenAt().isBefore(freshSince))
+                        || (d.getLastSummaryAt() != null && !d.getLastSummaryAt().isBefore(freshSince)));
+        if (!deviceFresh) {
+            return;
+        }
+        Instant silentBefore = now.minus(java.time.Duration.ofDays(SILENT_AFTER_DAYS));
+        Map<UUID, Instant> newest = new HashMap<>();
+        for (Object[] r : messages.newestPerLine(userId)) {
+            newest.put((UUID) r[0], (Instant) r[1]);
+        }
+        for (SmsLine l : userLines) {
+            Instant last = newest.get(l.getId());
+            if (l.getState() != SmsLineState.ON || l.getAccountId() == null || last == null || !last.isBefore(silentBefore)
+                    || !reportedAccounts.contains(l.getAccountId())) {
+                continue;
+            }
+            LocalDate date = last.atZone(AppTime.zone()).toLocalDate();
+            String name = l.getSender() + (l.getEnding() != null ? " ending " + l.getEnding() : l.getFamily() != null ? " " + l.getFamily() : "");
+            alerts.computeIfAbsent(l.getAccountId(), k -> new ArrayList<>()).add(new ReportAlert("SILENT_LINE",
+                    name + " has sent nothing since " + DMY.format(date), date));
+        }
     }
 }

@@ -155,7 +155,12 @@ public class AccountService {
                 account = addBrokerDetails(account, brokerReq);
             }
             case CreateAccountRequest.GenericAccountRequest genericReq -> {
-                // No extra details to update
+                BigDecimal opening = genericReq.openingBalanceValue();
+                if (opening != null) {
+                    AccountBankDetails details = new AccountBankDetails(account, opening, null);
+                    details.setUser(user);
+                    account.setBankDetails(details);
+                }
             }
         }
 
@@ -491,7 +496,17 @@ public class AccountService {
             case CreateAccountRequest.CreditCardRequest ccReq -> account = addCreditCardDetails(account, ccReq);
             case CreateAccountRequest.BrokerRequest brokerReq -> account = addBrokerDetails(account, brokerReq);
             case CreateAccountRequest.GenericAccountRequest genericReq -> {
-                // No extra details to update
+                // Omitted keeps the stored value; an explicit null clears it.
+                if (genericReq.hasOpeningBalance()) {
+                    BigDecimal opening = genericReq.openingBalanceValue();
+                    if (account.getBankDetails() != null) {
+                        account.getBankDetails().setOpeningBalance(opening);
+                    } else if (opening != null) {
+                        AccountBankDetails details = new AccountBankDetails(account, opening, null);
+                        details.setUser(account.getUser());
+                        account.setBankDetails(details);
+                    }
+                }
             }
         }
 

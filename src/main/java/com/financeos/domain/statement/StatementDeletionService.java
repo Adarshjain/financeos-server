@@ -17,7 +17,6 @@ import com.financeos.domain.transaction.Transaction;
 import com.financeos.domain.transaction.TransactionMatcher;
 import com.financeos.domain.transaction.TransactionRepository;
 import com.financeos.domain.transaction.TransactionService;
-import com.financeos.domain.transaction.TransactionSource;
 import com.financeos.domain.transaction.link.TransactionLink;
 import com.financeos.domain.transaction.link.TransactionLinkMember;
 import com.financeos.domain.transaction.link.TransactionLinkRepository;
@@ -212,7 +211,7 @@ public class StatementDeletionService {
                 continue;
             }
             kept.add(t);
-            if (onlyThisStatement && t.getSource() == TransactionSource.gmail_transaction_alert
+            if (onlyThisStatement && t.getSource() != null && t.getSource().isAlert()
                     && !t.getReviewReasons().contains(ReviewReason.UNRECONCILED)) {
                 alertsToReopen.add(t);
             }

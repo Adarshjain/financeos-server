@@ -3,6 +3,7 @@ package com.financeos.sms.ingest;
 import com.financeos.api.sms.dto.SmsDtos.ConfirmRequest;
 import com.financeos.api.sms.dto.SmsDtos.MessagePage;
 import com.financeos.api.sms.dto.SmsDtos.MessageView;
+import com.financeos.api.sms.dto.SmsDtos.ReplayResponse;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.time.AppTime;
 import com.financeos.domain.transaction.TransactionType;
@@ -104,6 +105,24 @@ public class SmsMessageService {
         pipeline.decide(m);
         messages.saveAndFlush(m);
         return views(userId, List.of(m)).get(0);
+    }
+
+    /**
+     * Re-decides the user's stored messages under the user lock (posting them for real when posting is on) and returns
+     * the user's messages by outcome. With posting off nothing outside the SMS tables is written.
+     */
+    public ReplayResponse replay(UUID userId) {
+        int replayed = pipeline.replay(userId);
+        Map<String, Long> outcomes = new java.util.LinkedHashMap<>();
+        for (SmsOutcome o : SmsOutcome.values()) {
+            outcomes.put(o.name(), 0L);
+        }
+        for (Object[] r : messages.outcomeCounts(userId)) {
+            if (r[0] != null) {
+                outcomes.put(((SmsOutcome) r[0]).name(), (Long) r[1]);
+            }
+        }
+        return new ReplayResponse(replayed, outcomes);
     }
 
     /** The owner says it is not a transaction: IGNORED, no outcome. */

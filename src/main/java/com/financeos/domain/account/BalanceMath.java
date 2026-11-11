@@ -37,14 +37,14 @@ public final class BalanceMath {
     }
 
     /**
-     * The balance made of the account's own transactions alone (no statement anchor): a bank
-     * account's opening balance plus the signed sum, anything else just the sum.
+     * The balance made of the account's own transactions alone (no statement anchor): a bank or
+     * generic account's opening balance plus the signed sum, anything else just the sum.
      *
      * @param totalSum signed sum (credits minus debits) of the transactions counted, or {@code null}
      */
     public static BigDecimal pureTransactionBalance(Account account, @Nullable BigDecimal totalSum) {
         BigDecimal sum = totalSum != null ? totalSum : BigDecimal.ZERO;
-        if (account.getType() == AccountType.bank_account
+        if ((account.getType() == AccountType.bank_account || account.getType() == AccountType.generic)
                 && account.getBankDetails() != null
                 && account.getBankDetails().getOpeningBalance() != null) {
             return account.getBankDetails().getOpeningBalance().add(sum);
