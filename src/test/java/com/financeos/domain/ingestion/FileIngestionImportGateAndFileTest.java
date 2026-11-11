@@ -232,7 +232,8 @@ class FileIngestionImportGateAndFileTest {
         FileIngestionResult.FileSummary s = ingest(bytes);
 
         assertThat(s.status()).isNotEqualTo("FAILED");
-        verifyNoInteractions(attacher);
+        verify(attacher, never()).attach(any(), any(), any(), any());
+        verify(attacher, never()).attachIfStoredStatementLacksFile(any(), any(), any(), any(), any());
     }
 
     @Test
@@ -242,7 +243,8 @@ class FileIngestionImportGateAndFileTest {
 
         ingest(bytes);
 
-        verifyNoInteractions(attacher);
+        verify(attacher, never()).attach(any(), any(), any(), any());
+        verify(attacher, never()).attachIfStoredStatementLacksFile(any(), any(), any(), any(), any());
     }
 
     private Statement refreshing(String recordedSha) {

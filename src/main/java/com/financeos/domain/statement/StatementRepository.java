@@ -141,6 +141,18 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
            + "AND (s.verdict IS NULL OR s.verdict <> com.financeos.domain.statement.StatementVerdict.REJECTED) ORDER BY s.createdAt ASC")
     List<Statement> findLiveByAccountIdEndingOnOrAfter(@Param("accountId") UUID accountId, @Param("from") LocalDate from);
 
+    /** The account's live statement with exactly this period that has no stored original file (at most one: unique period key). */
+    @Query("SELECT s FROM Statement s LEFT JOIN FETCH s.creditCardDetails WHERE s.account.id = :accountId AND s.periodStart = :periodStart "
+           + "AND s.periodEnd = :periodEnd AND s.fileId IS NULL "
+           + "AND (s.verdict IS NULL OR s.verdict <> com.financeos.domain.statement.StatementVerdict.REJECTED)")
+    Optional<Statement> findLiveWithoutFileByAccountIdAndPeriod(@Param("accountId") UUID accountId,
+            @Param("periodStart") LocalDate periodStart, @Param("periodEnd") LocalDate periodEnd);
+
+    /** Sets the stored file and its hash only while the statement still has no file; 1 when it did. */
+    @org.springframework.data.jpa.repository.Modifying
+    @Query("UPDATE Statement s SET s.fileId = :fileId, s.fileSha256 = :sha256 WHERE s.id = :id AND s.fileId IS NULL")
+    int setFileAndShaIfMissing(@Param("id") UUID id, @Param("fileId") UUID fileId, @Param("sha256") String sha256);
+
     /** The statement only when it belongs to this account — the caller has already proven the account is theirs. */
     Optional<Statement> findByIdAndAccount_Id(UUID id, UUID accountId);
 
