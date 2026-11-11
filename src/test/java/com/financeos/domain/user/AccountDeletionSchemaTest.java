@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class AccountDeletionSchemaTest {
 
     private static final Pattern CREATE_TABLE_PATTERN = Pattern.compile(
-            "CREATE\\s+TABLE\\s+([a-zA-Z0-9_]+)\\s*\\((.+?)\\);",
+            "CREATE\\s+TABLE\\s+([a-zA-Z0-9_]+)\\s*\\((.+?)\\)'?;",
             Pattern.CASE_INSENSITIVE | Pattern.DOTALL
     );
 
@@ -110,6 +110,9 @@ class AccountDeletionSchemaTest {
                 "gmail_ignored_numbers", // V166: ON DELETE CASCADE from users
                 "autolink_requests", // V168: ON DELETE CASCADE from users
                 "bill_payments", // V169: ON DELETE CASCADE from users (and from its statement and card credit)
+                "statement_skipped_periods", // V155: ON DELETE CASCADE from users
+                "statement_files", // V173: ON DELETE CASCADE from users
+                "corporate_action_suggestions", // V178: ON DELETE CASCADE from users
                 "llm_api_keys", "llm_task_prefs", "fno_trades", "user_notification_settings",
                 "inbox_item_state", "user_instrument_overrides", "instrument_prices", "instrument_aliases",
                 "user_instrument_repoints", "corporate_actions", "credit_limit_pools", "app_notifications",
