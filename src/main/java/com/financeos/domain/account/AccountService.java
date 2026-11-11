@@ -647,7 +647,7 @@ public class AccountService {
         if (last6 == null || last6.isBlank()) return;
         String six = last6.trim();
         if (!six.matches("[0-9]{6}")) {
-            throw new ValidationException("Last 6 digits must be 6 digits");
+            throw new ValidationException("Enter the last 6 digits of the card");
         }
         if (!six.endsWith(last4Of(last4))) {
             throw new ValidationException("Last 6 digits must end with the card's last 4 digits");

@@ -97,7 +97,7 @@ class AccountServiceCardLast6Test {
     void badLast6IsRejected() {
         ValidationException notSix = assertThrows(ValidationException.class,
                 () -> service.createAccount(card("hsbc", "4321", null, "54321")));
-        assertThat(notSix.getMessage()).isEqualTo("Last 6 digits must be 6 digits");
+        assertThat(notSix.getMessage()).isEqualTo("Enter the last 6 digits of the card");
         assertThrows(ValidationException.class, () -> service.createAccount(card("hsbc", "4321", null, "65432a")));
         ValidationException wrongEnd = assertThrows(ValidationException.class,
                 () -> service.createAccount(card("hsbc", "4321", null, "654320")));
