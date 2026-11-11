@@ -69,6 +69,14 @@ public class FileIngestionService {
     public void setPasswordVault(StatementPasswordVault passwordVault) {
         this.passwordVault = passwordVault;
     }
+    /** The wider password search for locked uploads; optional so hand-built test instances need none. */
+    private StatementPasswordFinder passwordFinder;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setPasswordFinder(StatementPasswordFinder passwordFinder) {
+        this.passwordFinder = passwordFinder;
+    }
+
     private com.financeos.domain.statement.file.StatementFileAttacher fileAttacher;
 
     /** Keeps the original file of each statement; optional so hand-built test instances need none. Never called inside a transaction. */
@@ -147,7 +155,7 @@ public class FileIngestionService {
     }
 
     private StatementOpener.Opened open(UUID userId, UUID accountId, byte[] bytes, String explicit, String accountPassword) {
-        return new StatementOpener(statementParser, passwordVault).open(userId, accountId, bytes, explicit, accountPassword, true);
+        return new StatementOpener(statementParser, passwordVault, passwordFinder).openWithSearch(userId, accountId, bytes, explicit, accountPassword);
     }
 
     /** {@code explicitPassword}: a password the user just typed for these files; tried before the account's. */

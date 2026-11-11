@@ -3,9 +3,13 @@ package com.financeos.domain.ingestion;
 import com.financeos.gmail.reconcile.StatementExtractionResult;
 import com.financeos.gmail.reconcile.StatementParser;
 import com.financeos.statement.parser.StatementParseException;
+import com.financeos.statement.parser.FileType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -23,9 +27,51 @@ public class StatementOpener {
     /** Other saved passwords and saving a working one; null for hand-built instances that need none. */
     private final StatementPasswordVault passwordVault;
 
+    /** The wider search (other accounts, bank rules) for the upload path; null leaves {@link #openWithSearch} as {@link #open}. */
+    private final StatementPasswordFinder passwordFinder;
+
     public StatementOpener(StatementParser statementParser, StatementPasswordVault passwordVault) {
+        this(statementParser, passwordVault, null);
+    }
+
+    @Autowired
+    public StatementOpener(StatementParser statementParser, StatementPasswordVault passwordVault,
+                           StatementPasswordFinder passwordFinder) {
         this.statementParser = statementParser;
         this.passwordVault = passwordVault;
+        this.passwordFinder = passwordFinder;
+    }
+
+    /**
+     * The upload path: {@link #open} (saving a working vault password), then, when the file is still locked, the finder's
+     * search (other accounts, bank rules from the user's name and birth date). A password found that way is saved to an
+     * account that has none; an existing account password is never replaced.
+     */
+    public Opened openWithSearch(UUID userId, UUID accountId, byte[] bytes, String explicit, String accountPassword) {
+        Opened opened = open(userId, accountId, bytes, explicit, accountPassword, true);
+        StatementExtractionResult result = opened.result();
+        if (result.success() || passwordFinder == null
+                || !StatementParseException.isPasswordMessage(result.failureReason())) {
+            return opened;
+        }
+        boolean hasAccount = accountPassword != null && !accountPassword.isBlank();
+        Set<String> tried = new HashSet<>();
+        if (explicit != null && !explicit.isBlank()) tried.add(explicit);
+        if (hasAccount) tried.add(accountPassword);
+        if (passwordVault != null) tried.addAll(passwordVault.savedPasswords(userId));
+        StatementPasswordFinder.Found found = passwordFinder.find(userId, accountId, bytes,
+                FileType.pdfHeaderOffset(bytes) >= 0, tried);
+        if (!found.opened()) {
+            return opened;
+        }
+        StatementExtractionResult attempt = statementParser.parse(bytes, found.password());
+        if (!attempt.success()) {
+            return opened;
+        }
+        if (!hasAccount && found.source() != StatementPasswordFinder.Source.OWN_ACCOUNT && passwordVault != null) {
+            passwordVault.saveIfMissing(userId, accountId, found.password());
+        }
+        return new Opened(attempt, true);
     }
 
     /**
