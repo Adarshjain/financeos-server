@@ -63,18 +63,8 @@ public class ImportController {
             @RequestPart(value = "tradebookFiles", required = false) List<MultipartFile> tradebookFiles,
             @RequestPart("taxpnlFiles") List<MultipartFile> taxpnlFiles,
             @RequestPart(value = "holdingsFile", required = false) MultipartFile holdingsFile) throws Exception {
-        List<InputStream> tbStreams = new ArrayList<>();
-        if (tradebookFiles != null) {
-            for (MultipartFile f : tradebookFiles) {
-                tbStreams.add(f.getInputStream());
-            }
-        }
-        List<InputStream> taxStreams = new ArrayList<>();
-        if (taxpnlFiles != null) {
-            for (MultipartFile f : taxpnlFiles) {
-                taxStreams.add(f.getInputStream());
-            }
-        }
+        List<InputStream> tbStreams = uniqueStreams("tradebookFiles", tradebookFiles);
+        List<InputStream> taxStreams = uniqueStreams("taxpnlFiles", taxpnlFiles);
         InputStream holdingsStream = holdingsFile != null ? holdingsFile.getInputStream() : null;
         String holdingsFilename = holdingsFile != null ? holdingsFile.getOriginalFilename() : null;
 
@@ -93,5 +83,21 @@ public class ImportController {
                 "reconcile-commit"
         );
         return org.springframework.http.ResponseEntity.accepted().body(new com.financeos.api.job.dto.EnqueueResponse(job.getId()));
+    }
+
+    /** Streams of the uploaded parts, with repeats of the same content dropped (first kept). */
+    private static List<InputStream> uniqueStreams(String partName, List<MultipartFile> files) throws java.io.IOException {
+        List<InputStream> out = new ArrayList<>();
+        if (files == null) return out;
+        List<String> names = new ArrayList<>();
+        List<byte[]> contents = new ArrayList<>();
+        for (MultipartFile f : files) {
+            names.add(f.getOriginalFilename());
+            contents.add(f.getBytes());
+        }
+        for (byte[] b : com.financeos.domain.investment.reconcile.BrokerReconciliationService.dropRepeatedUploads(partName, names, contents)) {
+            out.add(new java.io.ByteArrayInputStream(b));
+        }
+        return out;
     }
 }

@@ -43,7 +43,8 @@ public record ReconcilePreviewResponse(
             @Nullable String externalRef,
             @Nullable MatchedInstrumentDto matchedInstrument,
             boolean isDuplicate,
-            @Nullable String note
+            @Nullable String note,
+            @Nullable ImportCommitRequest.CreateInstrumentDto suggestedInstrument
     ) {}
 
     public record MatchedInstrumentDto(

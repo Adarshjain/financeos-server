@@ -24007,6 +24007,8 @@ components:
           enum:
           - delivery
           - intraday
+        suggestedInstrument:
+          $ref: "#/components/schemas/CreateInstrumentDto"
         symbol:
           type: string
           nullable: true

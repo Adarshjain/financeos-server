@@ -140,7 +140,8 @@ public class BrokerReconciliationService {
             String exchange,
             String orderId,
             String tradeId,
-            String execTime
+            String execTime,
+            String name
     ) {}
 
     private record IntradayAgg(BigDecimal qty, BigDecimal buyValue, BigDecimal sellValue) {}
@@ -206,7 +207,8 @@ public class BrokerReconciliationService {
                                     r.exchange() != null ? r.exchange() : "NSE",
                                     r.rawData() != null ? r.rawData().get("order_id") : null,
                                     r.rawData() != null ? r.rawData().get("trade_id") : null,
-                                    r.rawData() != null ? r.rawData().get("order_execution_time") : null
+                                    r.rawData() != null ? r.rawData().get("order_execution_time") : null,
+                                    null
                             ));
                         }
                     }
@@ -229,7 +231,8 @@ public class BrokerReconciliationService {
                                 r.exchange(),
                                 r.orderId(),
                                 "",
-                                r.execTime()
+                                r.execTime(),
+                                r.stockName()
                         ));
                     }
                 }
@@ -362,6 +365,8 @@ public class BrokerReconciliationService {
         // Scrip symbol map
         Map<String, String> symbolOfKey = new HashMap<>();
         Map<String, String> isinOfKey = new HashMap<>();
+        // One suggested new instrument per scrip, so every row of a scrip carries an equal suggestion.
+        Map<String, CreateInstrumentDto> suggestionByScrip = new HashMap<>();
 
         for (Map.Entry<String, List<InternalExecution>> entry : execsByScrip.entrySet()) {
             String scripKey = entry.getKey();
@@ -419,6 +424,8 @@ public class BrokerReconciliationService {
                     boolean split = intraQty.signum() > 0 && delivQty.signum() > 0;
 
                     ReconcilePreviewResponse.MatchedInstrumentDto matchedInst = resolveInstrumentLocally(e.isin, e.symbol, e.exchange);
+                    CreateInstrumentDto suggestion = matchedInst == null
+                            ? suggestedInstrument(suggestionByScrip, e.name, e.symbol, e.isin, e.exchange) : null;
                     boolean isDup = checkDuplicateInDb(brokerAccountId, matchedInst != null ? matchedInst.id() : null, e);
                     if (isDup) duplicateCount++;
                     String baseRef = (e.tradeId != null && !e.tradeId.isBlank()) ? e.tradeId : e.orderId;
@@ -433,7 +440,7 @@ public class BrokerReconciliationService {
                                 rowIndexCounter++, e.date, e.type, SettlementType.intraday,
                                 e.symbol, e.isin, e.exchange, intraQty, e.price, intraQty.multiply(e.price),
                                 charges, split ? baseRef + "-I" : baseRef, matchedInst, isDup,
-                                split ? "Intraday portion of a split execution" : null));
+                                split ? "Intraday portion of a split execution" : null, suggestion));
                         intradayCount++;
                     }
 
@@ -454,7 +461,7 @@ public class BrokerReconciliationService {
                                 rowIndexCounter++, e.date, e.type, SettlementType.delivery,
                                 e.symbol, e.isin, e.exchange, delivQty, e.price, delivQty.multiply(e.price),
                                 charges, split ? baseRef + "-D" : baseRef, matchedInst, isDup,
-                                split ? "Delivery portion of a split execution" : null));
+                                split ? "Delivery portion of a split execution" : null, suggestion));
                         deliveryCount++;
                     }
                 }
@@ -551,7 +558,8 @@ public class BrokerReconciliationService {
                         rowIndexCounter++, exitDate, InvestmentTransactionType.sell, SettlementType.delivery,
                         sym, isin, "NSE", removeQty, classifierAvgExit, exitValue,
                         ItemizedChargesDto.empty(), "CA_EXIT_" + (isin != null ? isin : sym) + "_" + exitDate,
-                        matchedInst, false, "Off-market delivery removal (buyback/merger) — synthesized; not in tradebook"));
+                        matchedInst, false, "Off-market delivery removal (buyback/merger) — synthesized; not in tradebook",
+                        matchedInst == null ? suggestedInstrument(suggestionByScrip, null, sym, isin, "NSE") : null));
                 warnings.add(new ReconcilePreviewResponse.ReconcileWarningDto(
                         "OFF_MARKET_EXIT", "WARNING", isin, sym,
                         String.format("%s shares of %s left the demat off-market (buyback/merger); holdings reduced via a synthetic delivery sell.",
@@ -656,7 +664,7 @@ public class BrokerReconciliationService {
         // Instrument resolution check
         Set<String> unresolvedScrips = new HashSet<>();
         for (ReconcilePreviewResponse.ReconciledExecutionDto dto : classifiedDtos) {
-            if (dto.matchedInstrument() == null) {
+            if (dto.matchedInstrument() == null && dto.suggestedInstrument() == null) {
                 String scripStr = dto.symbol() != null ? dto.symbol() : dto.isin();
                 if (scripStr != null) unresolvedScrips.add(scripStr);
             }
@@ -733,12 +741,23 @@ public class BrokerReconciliationService {
         int intradayCountFiltered = (int) classifiedDtos.stream().filter(e -> e.settlementType() == SettlementType.intraday).count();
         int duplicateCountFiltered = (int) classifiedDtos.stream().filter(ReconcilePreviewResponse.ReconciledExecutionDto::isDuplicate).count();
 
+        Set<String> allScripKeys = new HashSet<>();
+        Set<String> matchedScripKeys = new HashSet<>();
+        for (ReconcilePreviewResponse.ReconciledExecutionDto dto : classifiedDtos) {
+            String key = scripKey(dto.isin(), dto.symbol());
+            if (key == null) continue;
+            allScripKeys.add(key);
+            if (dto.matchedInstrument() != null) matchedScripKeys.add(key);
+        }
+        int matchedScripCount = matchedScripKeys.size();
+        int unresolvedScripCount = allScripKeys.size() - matchedScripCount;
+
         ReconcilePreviewResponse.SummaryStatsDto stats = new ReconcilePreviewResponse.SummaryStatsDto(
                 classifiedDtos.size(),
                 deliveryCountFiltered,
                 intradayCountFiltered,
-                classifiedDtos.size() - unresolvedScrips.size(),
-                unresolvedScrips.size(),
+                matchedScripCount,
+                unresolvedScripCount,
                 duplicateCountFiltered,
                 warnings.size()
         );
@@ -770,6 +789,7 @@ public class BrokerReconciliationService {
         List<ImportCommitResponse.FailedCommitItem> failedList = new ArrayList<>();
         List<ImportCommitResponse.SkippedCommitItem> skippedItems = new ArrayList<>();
         Set<UUID> touchedInstrumentIds = new HashSet<>();
+        Map<String, Instrument> resolvedInThisCommit = new HashMap<>();
 
         for (ReconcileCommitRequest.CommitExecutionDto execDto : request.executions()) {
             if (execDto.skip()) {
@@ -790,13 +810,24 @@ public class BrokerReconciliationService {
                             .orElseThrow(() -> new ResourceNotFoundException("Instrument", execDto.instrumentId()));
                 } else if (execDto.newInstrument() != null) {
                     CreateInstrumentDto newInstDto = execDto.newInstrument();
-                    if (newInstDto.isin() != null && !newInstDto.isin().isBlank()) {
-                        instrument = instrumentRepository.findByIsin(newInstDto.isin().trim()).orElse(null);
+                    String newIsin = newInstDto.isin() != null && !newInstDto.isin().isBlank() ? newInstDto.isin().trim() : null;
+                    String newSymbol = newInstDto.symbol() != null && !newInstDto.symbol().isBlank() ? newInstDto.symbol().trim() : null;
+                    String newExchange = newInstDto.exchange() != null && !newInstDto.exchange().isBlank() ? newInstDto.exchange().trim() : "NSE";
+                    String symbolKey = newSymbol != null ? newSymbol.toUpperCase() + "|" + newExchange.trim().toUpperCase() : null;
+                    // Rows of this request that share a new instrument land on the one resolved/created first.
+                    if (newIsin != null) {
+                        instrument = resolvedInThisCommit.get(newIsin);
+                        if (instrument == null) {
+                            instrument = instrumentRepository.findByIsin(newIsin).orElse(null);
+                        }
                     }
-                    if (instrument == null && newInstDto.symbol() != null && !newInstDto.symbol().isBlank()) {
-                        List<Instrument> searchResults = instrumentRepository.searchInstruments(newInstDto.symbol().trim(), null);
+                    if (instrument == null && symbolKey != null) {
+                        instrument = resolvedInThisCommit.get(symbolKey);
+                    }
+                    if (instrument == null && newSymbol != null) {
+                        List<Instrument> searchResults = instrumentRepository.searchInstruments(newSymbol, null);
                         for (Instrument inst : searchResults) {
-                            if (inst.getSymbol() != null && inst.getSymbol().equalsIgnoreCase(newInstDto.symbol().trim())) {
+                            if (inst.getSymbol() != null && inst.getSymbol().equalsIgnoreCase(newSymbol)) {
                                 instrument = inst;
                                 break;
                             }
@@ -805,20 +836,20 @@ public class BrokerReconciliationService {
                     if (instrument == null) {
                         Instrument newInst = new Instrument();
                         newInst.setType(newInstDto.type() != null ? newInstDto.type() : InstrumentType.stock);
-                        newInst.setName(newInstDto.name() != null ? newInstDto.name() : newInstDto.symbol());
-                        newInst.setSymbol(newInstDto.symbol());
-                        newInst.setExchange(newInstDto.exchange() != null ? newInstDto.exchange() : "NSE");
-                        newInst.setIsin(newInstDto.isin() != null ? newInstDto.isin().trim() : null);
+                        newInst.setName(newInstDto.name() != null && !newInstDto.name().isBlank() ? newInstDto.name().trim() : (newSymbol != null ? newSymbol : newIsin));
+                        newInst.setSymbol(newSymbol);
+                        newInst.setExchange(newExchange);
+                        newInst.setIsin(newIsin);
                         newInst.setAmfiCode(newInstDto.amfiCode());
-
-                        // Honor the client's yahooSymbol as-is (do not fabricate a
-                        // SYMBOL.NS guess). The import wizard's "Create new" is used
-                        // when external search can't resolve the scrip — i.e. it's
-                        // delisted/merged — so a null yahooSymbol makes the instrument
-                        // manual-price-only rather than chasing a dead or reused ticker.
-                        newInst.setYahooSymbol(newInstDto.yahooSymbol());
+                        // The client's yahooSymbol wins; when none is sent a stock gets SYMBOL.NS / .BO
+                        // so it is priced instead of being left manual-only.
+                        newInst.setYahooSymbol(newInstDto.yahooSymbol() != null && !newInstDto.yahooSymbol().isBlank()
+                                ? newInstDto.yahooSymbol()
+                                : deriveYahooSymbol(newInst.getType(), newSymbol, newExchange));
                         instrument = instrumentRepository.save(newInst);
                     }
+                    if (newIsin != null) resolvedInThisCommit.put(newIsin, instrument);
+                    if (symbolKey != null) resolvedInThisCommit.put(symbolKey, instrument);
                 } else {
                     // Try auto-matching by ISIN / symbol
                     ReconcilePreviewResponse.MatchedInstrumentDto m = resolveInstrumentLocally(execDto.isin(), execDto.symbol(), execDto.exchange());
@@ -945,6 +976,69 @@ public class BrokerReconciliationService {
         }
 
         return new ImportCommitResponse(committed, skipped, failedList, skippedItems);
+    }
+
+    /** Distinct-scrip key: the ISIN when present, else the symbol; null when the row has neither. */
+    private static String scripKey(String isin, String symbol) {
+        if (isin != null && !isin.isBlank()) return isin.trim();
+        if (symbol != null && !symbol.isBlank()) return symbol.trim();
+        return null;
+    }
+
+    /** Yahoo ticker for a stock from its symbol and exchange (.BO for BSE, else .NS); null otherwise. */
+    static String deriveYahooSymbol(InstrumentType type, String symbol, String exchange) {
+        if (type != InstrumentType.stock || symbol == null || symbol.isBlank()) return null;
+        boolean bse = exchange != null && "BSE".equalsIgnoreCase(exchange.trim());
+        return symbol.trim().toUpperCase() + (bse ? ".BO" : ".NS");
+    }
+
+    /** The instrument the file's own data describes, shared across rows of one scrip; null when the row has no symbol or ISIN. */
+    private static CreateInstrumentDto suggestedInstrument(Map<String, CreateInstrumentDto> cache,
+                                                           String name, String symbol, String isin, String exchange) {
+        String key = scripKey(isin, symbol);
+        if (key == null) return null;
+        CreateInstrumentDto cached = cache.get(key);
+        if (cached != null) return cached;
+        String sym = symbol != null && !symbol.isBlank() ? symbol.trim() : null;
+        String isinT = isin != null && !isin.isBlank() ? isin.trim() : null;
+        boolean fund = isinT != null && isinT.startsWith("INF");
+        InstrumentType type = fund ? InstrumentType.mutual_fund : InstrumentType.stock;
+        String ex = fund ? "MUTUAL_FUND"
+                : (exchange != null && !exchange.isBlank() ? exchange.trim().toUpperCase() : "NSE");
+        String nm = name != null && !name.isBlank() ? name.trim() : (sym != null ? sym : isinT);
+        CreateInstrumentDto dto = new CreateInstrumentDto(type, nm, sym, ex, isinT, null,
+                deriveYahooSymbol(type, sym, ex));
+        cache.put(key, dto);
+        return dto;
+    }
+
+    /**
+     * Drops repeated uploads of the same file content within one part (first occurrence kept, order kept).
+     * Empty files are always kept so their existing handling is unchanged.
+     */
+    public static List<byte[]> dropRepeatedUploads(String partName, List<String> filenames, List<byte[]> contents) {
+        List<byte[]> kept = new ArrayList<>();
+        Set<String> seen = new HashSet<>();
+        for (int i = 0; i < contents.size(); i++) {
+            byte[] bytes = contents.get(i);
+            if (bytes.length == 0) {
+                kept.add(bytes);
+                continue;
+            }
+            String hash;
+            try {
+                hash = HexFormat.of().formatHex(java.security.MessageDigest.getInstance("SHA-256").digest(bytes));
+            } catch (java.security.NoSuchAlgorithmException ex) {
+                throw new IllegalStateException(ex);
+            }
+            if (seen.add(hash)) {
+                kept.add(bytes);
+            } else {
+                String fn = filenames != null && i < filenames.size() ? filenames.get(i) : null;
+                log.info("Dropping repeated upload in part {}: {}", partName, fn);
+            }
+        }
+        return kept;
     }
 
     private List<InternalExecution> dedupeExecutions(List<InternalExecution> rawExecs) {
