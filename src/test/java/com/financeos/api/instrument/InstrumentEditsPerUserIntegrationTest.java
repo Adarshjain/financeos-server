@@ -211,12 +211,12 @@ class InstrumentEditsPerUserIntegrationTest {
                 "instrumentId", s.toString(), "type", "dividend", "amount", "12", "payDate", today.minusDays(3).toString()));
 
         String myName = "Renamed" + tag;
-        JsonNode edited = edit(alice, s, Map.of("name", myName, "symbol", "MYD", "exchange", "BSE", "currency", "USD"), 200);
+        JsonNode edited = edit(alice, s, Map.of("name", myName, "symbol", "MYD", "exchange", "XNSE", "currency", "USD"), 200);
 
         assertEquals(s.toString(), edited.get("id").asText(), "a display edit keeps the instrument");
         assertEquals(myName, edited.get("name").asText());
         assertEquals("MYD", edited.get("symbol").asText());
-        assertEquals("BSE", edited.get("exchange").asText());
+        assertEquals("XNSE", edited.get("exchange").asText());
         assertEquals("USD", edited.get("currency").asText());
         assertTrue(edited.get("overridden").asBoolean());
         assertEquals(List.of("name", "symbol", "exchange", "currency"), texts(edited.get("overriddenFields")));
