@@ -6,6 +6,7 @@ import com.financeos.domain.transaction.TransactionType;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 /** One case per format of the format list, filled with invented values, plus each not-a-transaction class. */
@@ -266,9 +267,11 @@ class SmsReaderTest {
     }
 
     @Test
-    void amountAndMoneyWordWithoutADirectionCouldNotBeRead() {
+    void whenBothKindsOfWordAppearTheFirstOneWins() {
         SmsReading r = read("TESTBK", "Rs 500.00 debited from XX1111 and credited to XX2222");
-        assertThat(r.status()).isEqualTo(SmsReadStatus.COULD_NOT_READ);
+        assertThat(r.status()).isEqualTo(SmsReadStatus.NEEDS_CONFIRM);
+        assertThat(r.direction()).isEqualTo(TransactionType.DEBIT);
+        assertThat(read("TESTBK", "Rs 500.00 credited to XX2222 after it was debited from XX1111").direction()).isEqualTo(TransactionType.CREDIT);
     }
 
     @Test
@@ -299,5 +302,175 @@ class SmsReaderTest {
         assertThat(read("TESTBK", "Rs 12345678901234 debited from A/c XX1234").status()).isEqualTo(SmsReadStatus.COULD_NOT_READ);
         assertThat(read("MOBIKW", "Rs.1234567890123.00 has been debited from your MobiKwik wallet. Remaining balance: Rs.10.00. Not you?").status())
                 .isEqualTo(SmsReadStatus.READ);
+    }
+
+    // ---- generic reader: direction, card "used", payments, credit balance
+
+    private SmsReading generic(String sender, String body, TransactionType dir, String amount) {
+        SmsReading r = read(sender, body);
+        assertThat(r.status()).as(body).isEqualTo(SmsReadStatus.NEEDS_CONFIRM);
+        assertThat(r.templateKey()).isNull();
+        assertThat(r.amount()).isEqualByComparingTo(amount);
+        assertThat(r.direction()).as(body).isEqualTo(dir);
+        return r;
+    }
+
+    @Test
+    void aDebitAndItsCreditLegInOneTextReadAsTheDebit() {
+        SmsReading a = generic("EQUTAS", "Dear Customer, Your a/c no. XXXXXXXX4321 is debited for Rs.150.00 on 08-Nov-2026 10:11:12 and a/c XXXXXXXX8765 credited. (IMPS Ref no 612345678911).- Equitas Bank",
+                TransactionType.DEBIT, "150.00");
+        assertThat(a.ending()).isEqualTo("4321");
+        assertThat(a.refNo()).isEqualTo("612345678911");
+        SmsReading b = generic("EQUTAS", "UPDATE: A/c XX4321 debited for INR 75.50 on 08-11-26 & A/c xxxxxxxx8765 credited (IMPS Ref No.612345678912).Avl bal:INR 900.00.Not you?Call 1800000000",
+                TransactionType.DEBIT, "75.50");
+        assertThat(b.ending()).isEqualTo("4321");
+        assertThat(b.balanceAfter()).isEqualByComparingTo("900.00");
+    }
+
+    @Test
+    void receivedOrDepositedBeforeASenderWordReadsAsACredit() {
+        SmsReading a = generic("EQUTAS", "INR 200.00 deposited to A/c XXXXXXXX4321 towards UPI REF NO 612345678913 P2P-Test Person-Sent from Test App- HEAD OFFICE Value 08-NOV-2026 . Clear Bal is INR 1,200.00, for any query call 1800000000",
+                TransactionType.CREDIT, "200.00");
+        assertThat(a.ending()).isEqualTo("4321");
+        assertThat(a.balanceAfter()).isEqualByComparingTo("1200.00");
+        SmsReading b = generic("FEDBNK", "Test, you've received INR 300.00 in your Account XXXXXXXX4321. Woohoo! It was sent by 8765 on November 8, 2026. -Federal Bank",
+                TransactionType.CREDIT, "300.00");
+        assertThat(b.ending()).isEqualTo("4321");
+        generic("FEDBNK", "You received INR 310.00 in your Account XXXXXXXX4321. Sent by Test Person | Date: November 8, 2026 Mode: UPI tester@examplebank-Federal Bank",
+                TransactionType.CREDIT, "310.00");
+    }
+
+    @Test
+    void theSenderSideConfirmationGuardStillWins() {
+        ignored("HSBCIN", "HSBC: Dear HSBC Customer, your NEFT transaction with reference number TESTN11111111 for INR 500.00 has been credited to the Sample Bank A/c XXXXXXXXXX8765 of Test Name on 08-11-2026 at 10:00 .",
+                SmsKind.SENDER_SIDE_CONFIRMATION);
+        ignored("TESTBK", "Your NEFT for INR 500.00 has been credited to the Sample Bank A/c XXXXXXXXXX8765 of Test Name", SmsKind.SENDER_SIDE_CONFIRMATION);
+    }
+
+    @Test
+    void aCardUsedIsADebitOfTheSpendNeverTheLimitOrTheDue() {
+        SmsReading a = generic("HSBCIN", "HSBC Credit Card xx4321 used at Test Merchant for INR 450.00 on 07/11/26. Avl limit INR 90,000.00; due INR 1,250.00. Call 1800000000 to report fraud.",
+                TransactionType.DEBIT, "450.00");
+        assertThat(a.ending()).isEqualTo("4321");
+        assertThat(a.counterparty()).isEqualTo("Test Merchant");
+        assertThat(a.txnDate()).isEqualTo(LocalDate.of(2026, 11, 7));
+        SmsReading b = generic("HSBCIN", "HSBC creditcard xxxxx4321 used at Test Shop One for INR 99.00 on 06/11/26.Limit Rs 80,000.00 Due Rs 500.00.Report fraud on 1800000000",
+                TransactionType.DEBIT, "99.00");
+        assertThat(b.ending()).isEqualTo("4321");
+        assertThat(b.counterparty()).isEqualTo("Test Shop One");
+        assertThat(b.txnDate()).isEqualTo(LocalDate.of(2026, 11, 6));
+        SmsReading c = generic("HSBCIN", "HSBC Credit Card xx4321 used for INR 12.00 at Test Cafe on 05/11/26 without additional factor authentication. If not you, call 1800000000.",
+                TransactionType.DEBIT, "12.00");
+        assertThat(c.counterparty()).isEqualTo("Test Cafe");
+        assertThat(c.txnDate()).isEqualTo(LocalDate.of(2026, 11, 5));
+    }
+
+    @Test
+    void anImpsPaymentFromTheAccountIsADebit() {
+        SmsReading r = generic("SLCBNK", "IMPS payment of Rs. 640.00 from A/c xx4321 done on 08-Nov-26 to Test Person is successful (Ref ID: 612345678914). Not you? Call 1800000000 - slice",
+                TransactionType.DEBIT, "640.00");
+        assertThat(r.ending()).isEqualTo("4321");
+        assertThat(r.refNo()).isEqualTo("612345678914");
+        assertThat(r.counterparty()).isEqualTo("Test Person");
+        assertThat(r.txnDate()).isEqualTo(LocalDate.of(2026, 11, 8));
+    }
+
+    @Test
+    void aCreditBalanceNoticeIsNotATransaction() {
+        ignored("AXISBK", "You have a credit balance of INR 120.00/- on your Axis Bank Credit Card no. XX4321. Call 1800000000 to place your refund request.",
+                SmsKind.NOT_A_TRANSACTION);
+    }
+
+    // ---- new templates
+
+    @Test
+    void hsbcUtrCreditWithDotTimeAndRtgsOrImps() {
+        expect(read("HSBCIN", "HSBC: A/c 123-456***-789 is credited with INR 7,500.00+ on 06NOV at 11.22.33 with UTR TESTN22222222 as NEFT from SAMP A/c ***9911 of Test Sender . Your Avl Bal is INR 20,100.25 ."),
+                "hsbc_utr_credit", "7500.00", TransactionType.CREDIT, "789", "TESTN22222222", "20100.25", "Test Sender", LocalDate.of(2026, 11, 6));
+        expect(read("HSBCIN", "HSBC: A/c 123-456***-789 is credited with INR 9,000.00+ on 05NOV at 09.01.02 with UTR TESTR33333333 as RTGS from SAMP A/c ***9911 of Test Sender . Your Avl Bal is INR 29,100.25 ."),
+                "hsbc_utr_credit", "9000.00", TransactionType.CREDIT, "789", "TESTR33333333", "29100.25", "Test Sender", LocalDate.of(2026, 11, 5));
+        expect(read("HSBCIN", "HSBC: A/c 123-456***-789 is credited with INR 400.00+ on 04NOV at 10.00.00 with UTR TESTI44444444 as IMPS from SAMP A/c ***9911 of Test Sender . Your Avl Bal is INR 29,500.25 ."),
+                "hsbc_utr_credit", "400.00", TransactionType.CREDIT, "789", "TESTI44444444", "29500.25", "Test Sender", LocalDate.of(2026, 11, 4));
+    }
+
+    @Test
+    void hsbcUtrDebitCoversRtgsAndImpsAndKeepsTheNeftOne() {
+        expect(read("HSBCIN", "HSBC: A/c 123-456***-789 is debited with INR 25,000.00- on 03NOV with UTR TESTR55555555 as RTGS via Online to SAMP A/c ***9911 Test Payee . Avl Bal is INR 4,100.25 . Report fraud 1800000000/1800000001"),
+                "hsbc_neft_debit", "25000.00", TransactionType.DEBIT, "789", "TESTR55555555", "4100.25", "Test Payee", LocalDate.of(2026, 11, 3));
+        expect(read("HSBCIN", "HSBC: A/c 123-456***-789 is debited with INR 600.00- on 02NOV with UTR TESTI66666666 as IMPS via Online to SAMP A/c ***9911 Test Payee . Avl Bal is INR 3,500.25 . Report fraud 1800000000/1800000001"),
+                "hsbc_neft_debit", "600.00", TransactionType.DEBIT, "789", "TESTI66666666", "3500.25", "Test Payee", LocalDate.of(2026, 11, 2));
+    }
+
+    @Test
+    void hsbcInterestCredit() {
+        expect(read("HSBCIN", "HSBC: Dear Customer, your HSBC A/c 123-456***-789 has been credited with INR 31.40+ on 01NOV as CREDIT INTEREST . Your available Bal is 3,531.65 ."),
+                "hsbc_interest_credit", "31.40", TransactionType.CREDIT, "789", null, "3531.65", "Credit interest", LocalDate.of(2026, 11, 1));
+    }
+
+    @Test
+    void newPluxeeAndSodexoSpendShapes() {
+        expect(read("PLUXEE", "Rs. 85.00 spent from Pluxee Meal wallet, card no.xx1122 on 07-11-2026 12:30:15 at Test Kitchen. Avl bal Rs.915.00. Not you call 1800000000"),
+                "pluxee_spent_c", "85.00", TransactionType.DEBIT, "1122", null, "915.00", "Test Kitchen", LocalDate.of(2026, 11, 7));
+        expect(read("PLUXEE", "Rs. 70.00 was spent from Meal Wallet linked to your Pluxee Card xx1122 on 06-11-2026 13:45:7 at Test Hall. Txn no. TX990011. Avl bal is Rs. 845.00. Not you? Call 1800000000. Pluxee"),
+                "pluxee_spent_d", "70.00", TransactionType.DEBIT, "1122", "TX990011", "845.00", "Test Hall", LocalDate.of(2026, 11, 6));
+        expect(read("SODEXO", "Rs.55.00 was spent from your Sodexo Meal A/c xx3344 on 5-11-2026 14:20:9 at Test Counter. Txn no. SX445566. Avl bal is Rs.765.00. Not you? Call 1800000000. Sodexo"),
+                "sodexo_spent_b", "55.00", TransactionType.DEBIT, "3344", "SX445566", "765.00", "Test Counter", LocalDate.of(2026, 11, 5));
+    }
+
+    // ---- certainty of the direction, and which figure is the payment
+
+    @Test
+    void unsettledOrMixedWordingMakesTheDirectionUncertain() {
+        for (String body : List.of(
+                "Rs 500.00 for your purchase at Test Store has been refunded to card XX4321",
+                "Txn of Rs 500.00 debited from A/c XX4321 has been reversed and credited back",
+                "Rs 300.00 sent by Test Person credited to A/c XX4321",
+                "We have received your request. Rs 500 would be debited from A/c XX4321")) {
+            assertThat(SmsReader.directionCertain(body)).as(body).isFalse();
+            assertThat(reader.read("TESTBK", body, RECEIVED).status()).as(body).isEqualTo(SmsReadStatus.NEEDS_CONFIRM);
+            assertThat(reader.read("TESTBK", body, RECEIVED).directionCertain()).as(body).isFalse();
+        }
+    }
+
+    @Test
+    void plainOrStronglyWordedTextsKeepACertainDirection() {
+        assertThat(SmsReader.directionCertain("Rs 500.00 debited from A/c XX4321 and credited to Test Store")).isTrue();
+        assertThat(SmsReader.directionCertain("Rs 500.00 credited to A/c XX4321")).isTrue();
+        assertThat(SmsReader.directionCertain("Rs 99.00 spent at Test Mart")).isTrue();
+        assertThat(reader.read("TESTBK", "Rs 500.00 debited from A/c XX4321 and credited to Test Store", RECEIVED).directionCertain()).isTrue();
+        // templates are never uncertain
+        assertThat(read("CREDWL", "Update from CRED wallet: You have successfully paid Rs.100.00 and your updated wallet balance is Rs.900.00. For any queries or support, call 1800000000.")
+                .directionCertain()).isTrue();
+    }
+
+    @Test
+    void theCardSpendIsTheAmountNotALimitThatComesFirst() {
+        SmsReading r = generic("TESTBK", "Rs 90,000 limit available. Test Bank Credit Card xx4321 used at Test Merchant for INR 450.00 on 07/11/26",
+                TransactionType.DEBIT, "450.00");
+        assertThat(r.counterparty()).isEqualTo("Test Merchant");
+        assertThat(r.txnDate()).isEqualTo(LocalDate.of(2026, 11, 7));
+    }
+
+    @Test
+    void aFigureIntroducedByALimitBalanceOrDueIsNeverThePayment() {
+        generic("TESTBK", "Avl limit INR 9,000.00. Rs 450.00 debited from XX4321", TransactionType.DEBIT, "450.00");
+        generic("TESTBK", "Due Rs 1,200.00 and Rs 75.00 debited from A/c XX4321", TransactionType.DEBIT, "75.00");
+        // only a limit figure: nothing to read
+        assertThat(read("TESTBK", "Minimum due Rs 500.00 debited soon").status()).isEqualTo(SmsReadStatus.IGNORED);
+    }
+
+    @Test
+    void aLimitSummaryIsNotATransactionReading() {
+        SmsReading r = read("TESTBK", "Total card limit Rs 1,00,000, amount used Rs 20,000, available Rs 80,000");
+        // no debit or credit word: the reader's existing rule for a text that is not a payment
+        assertThat(r.status()).isEqualTo(SmsReadStatus.IGNORED);
+        assertThat(r.kind()).isEqualTo(SmsKind.UNKNOWN);
+    }
+
+    @Test
+    void aKeywordInsideAnotherWordDoesNotHideTheAmount() {
+        generic("TESTBK", "Paid at Global Rs 500.00 from A/c XX4321, debited", TransactionType.DEBIT, "500.00");
+        generic("TESTBK", "Rs 500.00 debited from A/c XX4321. Avl bal Rs 2,000.00", TransactionType.DEBIT, "500.00");
+        generic("TESTBK", "Payment of Rs 500.00 received towards your card due", TransactionType.CREDIT, "500.00");
     }
 }

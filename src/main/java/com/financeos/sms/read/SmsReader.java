@@ -53,7 +53,9 @@ public class SmsReader {
     private static final List<NotTxn> BROAD_CLASSES = List.of(
             new NotTxn(SmsKind.STATEMENT_DUE, ci("\\bstatement\\b|\\bamount\\s+due\\b|\\bdue\\s+(date|on|by)\\b|\\boutstanding\\b|\\bminimum\\s+due\\b|\\btotal\\s+due\\b")),
             new NotTxn(SmsKind.OFFER, ci("\\bpre[\\s-]?approved\\b|\\bloan\\s+(offer|up\\s+to)\\b|\\blimit\\s+(has\\s+been\\s+)?(increased|enhanced|revised|changed|reduced)\\b"
-                    + "|\\boffers?\\b|\\bcongratulations\\b|\\bapply\\s+now\\b|\\bcredit\\s+limit\\b")));
+                    + "|\\boffers?\\b|\\bcongratulations\\b|\\bapply\\s+now\\b|\\bcredit\\s+limit\\b")),
+            // A card's credit balance (a refund owed to the holder) is a notice, not a payment.
+            new NotTxn(SmsKind.NOT_A_TRANSACTION, ci("\\bcredit\\s+balance\\s+of\\b")));
 
     /** Per-sender "not a transaction" rows of the format list. */
     private static final Map<String, Pattern> SENDER_NOT_TXN = new LinkedHashMap<>();
@@ -90,13 +92,18 @@ public class SmsReader {
     private static final String DDMON = "(?<dt>\\d{1,2}[A-Za-z]{3})\\b";
     private static final String DMY_NAMED = "(?<dt>\\d{1,2}-[A-Za-z]{3}-\\d{2,4})";
     private static final String DMY_NUM = "(?<dt>\\d{1,2}-\\d{1,2}-\\d{4})";
+    /** Time with dots (HSBC credits) and time whose seconds may be one digit (some meal card texts). */
+    private static final String TIME_DOT = "(?:\\d{1,2}[:.]\\d{2}(?:[:.]\\d{2})?)";
+    private static final String TIME_S = "(?:\\d{1,2}:\\d{2}(?::\\d{1,2})?)";
+    /** Templates whose counterparty is a fixed label, not text of the message. */
+    private static final Map<String, String> FIXED_PARTY = Map.of("hsbc_interest_credit", "Credit interest");
 
     private static final List<Template> TEMPLATES = new ArrayList<>();
 
     private static void t(String key, String senders, TransactionType direction, String regex) {
         // Every literal space tolerates any spacing (or none); placeholders carry their own pattern.
         String r = regex.replace(" ", "\\s*").replace("{cur}", CUR).replace("{amt}", AMT).replace("{bal}", BAL)
-                .replace("{t}", TIME).replace("{ref}", REF).replace("{cp}", CP);
+                .replace("{t}", TIME).replace("{ts}", TIME_S).replace("{td}", TIME_DOT).replace("{ref}", REF).replace("{cp}", CP);
         TEMPLATES.add(new Template(key, Set.of(senders.split(",")), direction, ci(r)));
     }
 
@@ -107,7 +114,7 @@ public class SmsReader {
         t("hsbc_acct_debit", "HSBCIN", d, HSBC_ACCT + "has been debited with {cur}{amt}-? on " + DDMON + ".*?Avl Bal is {cur}?{bal}");
         t("hsbc_upi_debit", "HSBCIN", d, "{cur}{amt} is paid from HSBC account X+(?<end>\\d{4}) to {cp} on " + DMY_NAMED + " with ref {ref}");
         t("hsbc_neft_debit", "HSBCIN", d, HSBC_ACCT + "is debited with {cur}{amt}-? on " + DDMON
-                + " with UTR {ref} as NEFT via Online to .+? A/c \\*\\*\\*\\d{4} {cp}\\s*\\.\\s*Avl Bal is {cur}{bal}");
+                + " with UTR {ref} as (?:NEFT|RTGS|IMPS) via Online to .+? A/c \\*\\*\\*\\d{4} {cp}\\s*\\.\\s*Avl Bal is {cur}{bal}");
         t("hsbc_debit_card", "HSBCIN", d, "HSBC Debit Card X+(?<end>\\d{4}) for {cur}{amt} on " + DDMON
                 + " at {cp}\\s*\\.\\s*Your available bal is {cur}{bal}");
         t("hsbc_upi_credit", "HSBCIN", c, "HSBC Acc X+(?<end>\\d{4}) is credited for {cur}{amt} on " + DMY_NAMED
@@ -116,6 +123,10 @@ public class SmsReader {
                 + " at {t} with UTR {ref} as NEFT from .+? A/c \\*\\*\\*\\d{4} of {cp}\\s*\\.\\s*Your Avl Bal is {cur}{bal}");
         t("hsbc_imps_credit", "HSBCIN", c, HSBC_ACCT + "is credited with {cur}{amt}\\+? on " + DDMON
                 + " at {t} with UTR {ref} as IMPS from .+? A/c of {cp}\\s*\\.\\s*Your Avl Bal is {cur}{bal}");
+        t("hsbc_utr_credit", "HSBCIN", c, HSBC_ACCT + "is credited with {cur}{amt}\\+? on " + DDMON
+                + " at {td} with UTR {ref} as (?:NEFT|RTGS|IMPS) from .+? A/c (?:\\*+\\d{4} )?of {cp}\\s*\\.\\s*Your Avl Bal is {cur}{bal}");
+        t("hsbc_interest_credit", "HSBCIN", c, "your HSBC A/c \\d{3}-\\d{3}\\*+-(?<end>\\d{3}) has been credited with {cur}{amt}\\+? on " + DDMON
+                + " as CREDIT INTEREST\\s*\\.\\s*Your available Bal is {cur}?{bal}");
         // HP Pay
         t("hp_debit", "HPPAYS", d, "Transaction of {cur}{amt} for purchase of {cp} is successful");
         t("hp_voucher_credit", "HPPAYS", c, "Add Voucher request of {cur}{amt} has been processed successfully and your current HP Pay wallet balance is {cur}?{bal}");
@@ -153,6 +164,12 @@ public class SmsReader {
                 + " {t} at {cp}\\s*\\.\\s*Txn no\\.?\\s*{ref}\\s*\\.\\s*Avl bal is {cur}{bal}");
         t("sodexo_credit", "PLUXEE,SODEXO", c, "Your Sodexo Card has been successfully loaded with {cur}{amt} towards Meal A/c on {t}\\s*,\\s*"
                 + "(?<dt>\\d{1,2} [A-Za-z]{3})\\s*\\.?\\s*Current Meal A/c bal is {cur}{bal}");
+        t("pluxee_spent_c", "PLUXEE,SODEXO", d, "{cur}{amt} spent from Pluxee Meal wallet, card no\\.?\\s*x+(?<end>\\d{4}) on " + DMY_NUM
+                + " {ts} at {cp}\\s*\\.\\s*Avl bal {cur}{bal}");
+        t("pluxee_spent_d", "PLUXEE,SODEXO", d, "{cur}{amt} was spent from Meal Wallet linked to your Pluxee Card x+(?<end>\\d{4}) on " + DMY_NUM
+                + " {ts} at {cp}\\s*\\.\\s*Txn no\\.?\\s*{ref}\\s*\\.\\s*Avl bal is {cur}{bal}");
+        t("sodexo_spent_b", "PLUXEE,SODEXO", d, "{cur}{amt} was spent from your Sodexo Meal A/c x+(?<end>\\d{4}) on " + DMY_NUM
+                + " {ts} at {cp}\\s*\\.\\s*Txn no\\.?\\s*{ref}\\s*\\.\\s*Avl bal is {cur}{bal}");
     }
 
     private static final Pattern PAYTM_WALLET_BAL = ci("Paytm\\s*Wallet\\s*-?\\s*" + CUR + "(?<bal>\\d[\\d,]*(?:\\.\\d{1,2})?)");
@@ -161,9 +178,19 @@ public class SmsReader {
     // ------------------------------------------------------------------ generic reader
 
     private static final Pattern G_AMOUNT = ci("(?:inr|rs\\.?|₹)\\s*(\\d[\\d,]*(?:\\.\\d{1,2})?)");
-    private static final Pattern G_MONEY_WORD = ci("\\b(debited|credited|spent|withdrawn|received|paid|deposited|refund(ed)?|deducted|purchase|sent)\\b");
     private static final Pattern G_DEBIT = ci("\\b(debited|spent|withdrawn|paid|purchase|deducted|sent)\\b");
     private static final Pattern G_CREDIT = ci("\\b(credited|received|deposited|refund(ed)?)\\b");
+    /** Debit shapes without a debit word: a card "used", an IMPS / NEFT / UPI "payment of ... from A/c". */
+    private static final Pattern G_CARD_USED = ci("card[^.,;]{0,30}?\\bused\\s+(?:at|for)\\b");
+    private static final Pattern G_PAYMENT_FROM = ci("\\b(?:imps|neft|rtgs|upi)\\s+payment\\s+of\\s+(?:inr|rs\\.?|₹)\\s*(?<amt>\\d[\\d,]*(?:\\.\\d{1,2})?)\\s+from\\s+A/c\\b");
+    private static final String G_SLASH_DATE = "(?<dt>\\d{1,2}/\\d{1,2}/\\d{2,4})";
+    private static final Pattern G_USED_AT = ci("\\bused\\s+at\\s+(?<cp>.+?)\\s+for\\s+" + CUR + "(?<amt>\\d[\\d,]*(?:\\.\\d{1,2})?)\\s+on\\s+" + G_SLASH_DATE);
+    private static final Pattern G_USED_FOR = ci("\\bused\\s+for\\s+" + CUR + "(?<amt>\\d[\\d,]*(?:\\.\\d{1,2})?)\\s+at\\s+(?<cp>.+?)\\s+on\\s+" + G_SLASH_DATE);
+    private static final Pattern G_DONE_TO = ci("\\bdone\\s+on\\s+(?<dt>\\d{1,2}-[A-Za-z]{3}-\\d{2,4})\\s+to\\s+(?<cp>.+?)\\s+is\\s+successful");
+    /** Words that introduce a figure that is not the payment: a limit, a balance, an amount due. */
+    private static final Pattern G_NOT_THE_PAYMENT = ci("\\b(?:limit|available|avl|bal|balance|due|outstanding|minimum)\\b\\W{0,8}(?:is|of)?\\W{0,3}$");
+    /** Negative or unsettled wording: the direction of such a text is never trusted. */
+    private static final Pattern G_UNSETTLED = ci("\\b(?:refund(?:ed)?|revers(?:ed|al)|failed|declined|unsuccessful(?:ly)?|will\\s+be|would\\s+be|to\\s+be\\s+(?:debited|credited)|request)\\b");
     private static final Pattern G_ENDING = ci("(?:x+|\\*+)[\\s-]*(\\d{3,4})(?!\\d)");
     private static final Pattern G_REF = ci("\\b(?:ref(?:erence)?(?:\\s*(?:no|number|id)\\.?)?|utr|txn\\s*(?:no|id)?|rrn)\\s*[:#.-]?\\s*([A-Za-z0-9]{6,})");
     private static final Pattern G_BAL = ci("\\bbal(?:ance)?\\s*(?:is|:)?\\s*(?:inr|rs\\.?|₹)\\s*(\\d[\\d,]*(?:\\.\\d{1,2})?)");
@@ -227,7 +254,8 @@ public class SmsReader {
         }
         LocalDate date = group(m, "dt") == null ? null : SmsDates.parse(group(m, "dt"), received);
         return new SmsReading(SmsKind.TRANSACTION, SmsReadStatus.READ, tpl.key(), money(m.group("amt")), tpl.direction(),
-                group(m, "end"), cap(group(m, "ref"), MAX_REF), balance, cap(group(m, "cp"), MAX_PARTY),
+                group(m, "end"), cap(group(m, "ref"), MAX_REF), balance,
+                FIXED_PARTY.containsKey(tpl.key()) ? FIXED_PARTY.get(tpl.key()) : cap(group(m, "cp"), MAX_PARTY),
                 date != null ? date : received);
     }
 
@@ -243,23 +271,89 @@ public class SmsReader {
 
     private SmsReading generic(String text, LocalDate received) {
         Matcher amount = G_AMOUNT.matcher(text);
-        if (!amount.find()) {
+        String amountText = null;
+        while (amount.find()) {
+            // Never a figure a limit, balance or due amount introduces.
+            String before = text.substring(Math.max(0, amount.start() - 25), amount.start());
+            if (!G_NOT_THE_PAYMENT.matcher(before).find()) {
+                amountText = amount.group(1);
+                break;
+            }
+        }
+        if (amountText == null) {
             return SmsReading.ignored(SmsKind.UNKNOWN);
         }
-        if (!G_MONEY_WORD.matcher(text).find()) {
+        Matcher debitWord = firstDebitWord(text);
+        Matcher creditWord = firstWord(G_CREDIT, text);
+        if (debitWord == null && creditWord == null) {
             return SmsReading.ignored(SmsKind.UNKNOWN);
         }
-        boolean debit = G_DEBIT.matcher(text).find();
-        boolean credit = G_CREDIT.matcher(text).find();
-        if (debit == credit) {
-            return SmsReading.couldNotRead();
-        }
+        // Both kinds of word (a debit and its credit leg in one text): the one that comes first is the direction.
+        boolean debit = creditWord == null || (debitWord != null && debitWord.start() < creditWord.start());
         Matcher ending = G_ENDING.matcher(text);
         Matcher ref = G_REF.matcher(text);
         Matcher bal = G_BAL.matcher(text);
-        return new SmsReading(SmsKind.TRANSACTION, SmsReadStatus.NEEDS_CONFIRM, null, money(amount.group(1)),
+        String party = null;
+        LocalDate date = received;
+        if (debit) {
+            for (Pattern shape : List.of(G_USED_AT, G_USED_FOR, G_DONE_TO, G_PAYMENT_FROM)) {
+                Matcher m = shape.matcher(text);
+                if (m.find()) {
+                    if (shape != G_PAYMENT_FROM) {
+                        party = cap(m.group("cp"), MAX_PARTY);
+                        LocalDate parsed = SmsDates.parse(m.group("dt"), received);
+                        date = parsed != null ? parsed : received;
+                    }
+                    String spent = group(m, "amt");
+                    if (spent != null) {
+                        amountText = spent;
+                    }
+                    if (shape != G_DONE_TO) {
+                        break;
+                    }
+                }
+            }
+        }
+        return new SmsReading(SmsKind.TRANSACTION, SmsReadStatus.NEEDS_CONFIRM, null, money(amountText),
                 debit ? TransactionType.DEBIT : TransactionType.CREDIT, ending.find() ? ending.group(1) : null,
-                ref.find() ? cap(ref.group(1), MAX_REF) : null, bal.find() ? money(bal.group(1)) : null, null, received);
+                ref.find() ? cap(ref.group(1), MAX_REF) : null, bal.find() ? money(bal.group(1)) : null, party, date,
+                directionCertain(text));
+    }
+
+    /**
+     * Whether the direction of a generic reading can be trusted, derived from the text alone. Not when the wording is
+     * unsettled (refund, reversal, failed, will be, request ...), nor when a debit-type and a credit-type word both
+     * appear and the first of them is not a plain "debited" / "credited".
+     */
+    public static boolean directionCertain(String body) {
+        String text = body == null ? "" : body.replaceAll("\\s+", " ").trim();
+        if (G_UNSETTLED.matcher(text).find()) {
+            return false;
+        }
+        Matcher debitWord = firstDebitWord(text);
+        Matcher creditWord = firstWord(G_CREDIT, text);
+        if (debitWord == null || creditWord == null) {
+            return true;
+        }
+        Matcher firstOne = debitWord.start() < creditWord.start() ? debitWord : creditWord;
+        String word = firstOne.group().toLowerCase(java.util.Locale.ROOT);
+        return word.equals("debited") || word.equals("credited");
+    }
+
+    private static Matcher firstDebitWord(String text) {
+        Matcher best = null;
+        for (Pattern p : List.of(G_DEBIT, G_CARD_USED, G_PAYMENT_FROM)) {
+            Matcher m = firstWord(p, text);
+            if (m != null && (best == null || m.start() < best.start())) {
+                best = m;
+            }
+        }
+        return best;
+    }
+
+    private static Matcher firstWord(Pattern p, String text) {
+        Matcher m = p.matcher(text);
+        return m.find() ? m : null;
     }
 
     private static String group(Matcher m, String name) {

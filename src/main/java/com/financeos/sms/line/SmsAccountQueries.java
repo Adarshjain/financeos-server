@@ -77,4 +77,16 @@ public class SmsAccountQueries {
                 .setParameter("u", userId).setParameter("ids", accountIds).setParameter("from", from).getResultList().stream()
                 .map(r -> new SourceCount((UUID) r[0], (TransactionSource) r[1], (Long) r[2])).toList();
     }
+
+    /** Newest date per account of a transaction from any source but a text message, within [from, to]. */
+    public List<LastDate> lastNonSmsDates(UUID userId, Collection<UUID> accountIds, LocalDate from, LocalDate to) {
+        if (accountIds.isEmpty()) {
+            return List.of();
+        }
+        return em.createQuery("SELECT t.account.id, MAX(t.date) FROM Transaction t WHERE t.user.id = :u AND t.account.id IN :ids "
+                        + "AND t.source <> :sms AND t.date >= :from AND t.date <= :to GROUP BY t.account.id", Object[].class)
+                .setParameter("u", userId).setParameter("ids", accountIds).setParameter("sms", TransactionSource.sms_alert)
+                .setParameter("from", from).setParameter("to", to).getResultList().stream()
+                .map(r -> new LastDate((UUID) r[0], (LocalDate) r[1])).toList();
+    }
 }

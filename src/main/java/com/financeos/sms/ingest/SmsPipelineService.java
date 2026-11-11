@@ -20,7 +20,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.PageRequest;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.support.TransactionTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.financeos.domain.transaction.TransactionType;
@@ -49,6 +54,11 @@ public class SmsPipelineService {
     private static final Duration SECOND_ALERT_WINDOW = Duration.ofDays(1);
     /** Messages received this far apart can claim the same transaction (the widest match window is a week). */
     private static final Duration CLAIM_WINDOW = Duration.ofDays(14);
+    /** Undecided generic readings received this many days back are matched again after each batch. */
+    static final int RECHECK_DAYS = 45;
+    static final int RECHECK_CAP = 300;
+    /** Messages re-run per flush during a replay. */
+    static final int REPLAY_CHUNK = 200;
 
     private final SmsMessageRepository messages;
     private final SmsLineRepository lines;
@@ -59,10 +69,16 @@ public class SmsPipelineService {
     private final SenderCatalogue catalogue;
     private final ApplicationEventPublisher events;
     private final boolean postingEnabled;
+    private final TransactionTemplate tx;
+
+    @PersistenceContext
+    private EntityManager em;
 
     public SmsPipelineService(SmsMessageRepository messages, SmsLineRepository lines, AccountRepository accounts, AlertMatcher matcher, SmsReader reader,
                               TransactionRepository transactions, SenderCatalogue catalogue, ApplicationEventPublisher events,
+                              PlatformTransactionManager txManager,
                               @Value("${financeos.sms.posting-enabled:false}") boolean postingEnabled) {
+        this.tx = new TransactionTemplate(txManager);
         this.messages = messages;
         this.lines = lines;
         this.accounts = accounts;
@@ -84,7 +100,7 @@ public class SmsPipelineService {
         try {
             r = reader.read(m.getSender(), m.getBody(), m.getReceivedAt());
         } catch (RuntimeException e) {
-            log.warn("sms.read.failed message={} error={}", m.getId(), e.toString());
+            log.warn("sms.read.failed message={} error={}", m.getId(), e.getClass().getSimpleName());
             r = SmsReading.couldNotRead();
         }
         m.setKind(r.kind());
@@ -111,19 +127,36 @@ public class SmsPipelineService {
         decide(m, account);
     }
 
-    /** Decides the outcome of one message (clearing the old one first). Only READ messages of an account get one. */
+    /**
+     * Decides the outcome of one message (clearing the old one first). READ messages of an account get one. A
+     * NEEDS_CONFIRM message (a generic reading) runs the same checks but never creates: a second notice is a DUPLICATE,
+     * a payment already on the ledger turns it into a READ attach (link only), anything else leaves it undecided.
+     */
     public void decide(SmsMessage m, Account account) {
         m.setOutcome(null);
         m.setDuplicateOf(null);
         m.setTransactionId(null);
-        if (m.getReadStatus() != SmsReadStatus.READ || account == null || m.getAmount() == null
-                || m.getDirection() == null) {
+        boolean generic = m.getReadStatus() == SmsReadStatus.NEEDS_CONFIRM;
+        if ((m.getReadStatus() != SmsReadStatus.READ && !generic) || account == null || m.getAmount() == null
+                || m.getDirection() == null || (generic && m.getTxnDate() == null)) {
+            return;
+        }
+        if (generic && !SmsReader.directionCertain(m.getBody())) {
+            // Mixed or unsettled wording: shown to the owner, never judged a second notice and never matched.
             return;
         }
         Optional<UUID> original = findOriginal(m);
         if (original.isPresent()) {
             m.setOutcome(SmsOutcome.DUPLICATE);
             m.setDuplicateOf(original.get());
+            if (generic) {
+                // A second notice of a payment already read leaves the owner's check list.
+                m.setReadStatus(SmsReadStatus.READ);
+            }
+            return;
+        }
+        if (generic) {
+            attachGeneric(m, account);
             return;
         }
         if (postingEnabled) {
@@ -151,6 +184,67 @@ public class SmsPipelineService {
         }
     }
 
+    /**
+     * A generic reading that is a payment already on the ledger becomes READ with SHADOW_ATTACH (posting off) or
+     * ATTACHED (posting on). Link only: no field of the transaction changes. No match: nothing changes.
+     */
+    private void attachGeneric(SmsMessage m, Account account) {
+        Set<UUID> claimed = claimedBy(m);
+        Optional<Transaction> match = matcher.findMatch(alertOf(m, account), claimed);
+        if (match.isEmpty()) {
+            return;
+        }
+        if (postingEnabled) {
+            Account managed = accounts.findByIdAndUser_Id(account.getId(), m.getUserId()).orElse(account);
+            Optional<AlertMatcher.Attached> attached = matcher.attachLinkOnly(alertOf(m, managed), claimed);
+            if (attached.isEmpty()) {
+                return;
+            }
+            m.setOutcome(SmsOutcome.ATTACHED);
+            m.setTransactionId(attached.get().txn().getId());
+        } else {
+            m.setOutcome(SmsOutcome.SHADOW_ATTACH);
+            m.setTransactionId(match.get().getId());
+        }
+        m.setReadStatus(SmsReadStatus.READ);
+    }
+
+    /**
+     * Re-runs the match for the user's still-undecided generic readings received in the last {@link #RECHECK_DAYS} days
+     * (at most {@link #RECHECK_CAP}, newest first), so a message that arrived before its statement or email alert stops
+     * asking once the transaction exists. Messages in {@code skip} were just decided and are left out before the cap.
+     * Each message is decided in its own transaction that takes the user lock first and then reloads the message, so a
+     * confirm, reject or replay that got in between is seen and respected, and one failure rolls back only itself.
+     * Returns how many became READ.
+     */
+    public int recheckUndecided(UUID userId, Set<UUID> skip) {
+        Instant since = AppTime.nowInstant().minus(Duration.ofDays(RECHECK_DAYS));
+        List<UUID> ids = messages.findUndecidedNeedsConfirmIds(userId, since, PageRequest.of(0, RECHECK_CAP + skip.size())).stream()
+                .filter(id -> !skip.contains(id)).limit(RECHECK_CAP).toList();
+        int promoted = 0;
+        for (UUID id : ids) {
+            try {
+                if (Boolean.TRUE.equals(tx.execute(status -> recheckOne(userId, id)))) {
+                    promoted++;
+                }
+            } catch (RuntimeException e) {
+                log.warn("sms.recheck.failed message={} error={}", id, e.getClass().getSimpleName());
+            }
+        }
+        return promoted;
+    }
+
+    private boolean recheckOne(UUID userId, UUID id) {
+        lockUser(userId);
+        SmsMessage m = messages.findByIdAndUserId(id, userId).orElse(null);
+        if (m == null || m.getReadStatus() != SmsReadStatus.NEEDS_CONFIRM || m.getOutcome() != null || m.getAccountId() == null) {
+            return false;
+        }
+        decide(m);
+        messages.save(m);
+        return m.getReadStatus() == SmsReadStatus.READ;
+    }
+
     /** Read then decide: the full run for a message of {@code account}. */
     public void process(SmsMessage m, Account account) {
         read(m);
@@ -159,31 +253,36 @@ public class SmsPipelineService {
 
     /**
      * Re-reads and re-decides every stored message of the user, in received order. A message the owner confirmed or
-     * rejected keeps what they decided and is only re-decided. Returns how many messages were run.
+     * rejected keeps what they decided and is only re-decided. Returns how many messages were run. One transaction under
+     * the user lock for the whole run; the messages are worked through in chunks that are flushed and then dropped from
+     * the persistence context, so no query has to dirty-check every message of the user.
      */
     @Transactional
     public int replay(UUID userId) {
         lockUser(userId);
         // A message that is already posted (CREATED / ATTACHED) keeps its transaction: replay never re-decides it.
-        List<SmsMessage> all = messages.findByUserIdOrderByReceivedAtAscIdAsc(userId).stream()
-                .filter(m -> m.getOutcome() != SmsOutcome.CREATED && m.getOutcome() != SmsOutcome.ATTACHED)
-                .toList();
-        for (SmsMessage m : all) {
-            m.setOutcome(null);
-            m.setDuplicateOf(null);
-            m.setTransactionId(null);
-        }
-        messages.saveAllAndFlush(all);
-        java.util.Map<UUID, Account> byId = new java.util.HashMap<>();
-        accounts.findByUserId(userId).forEach(a -> byId.put(a.getId(), a));
-        for (SmsMessage m : all) {
-            if (m.getUserDecision() == null) {
-                read(m);
+        messages.resetUnposted(userId);
+        List<UUID> ids = messages.findUnpostedIdsInReceivedOrder(userId);
+        for (int from = 0; from < ids.size(); from += REPLAY_CHUNK) {
+            List<UUID> part = ids.subList(from, Math.min(ids.size(), from + REPLAY_CHUNK));
+            java.util.Map<UUID, SmsMessage> loaded = new java.util.HashMap<>();
+            messages.findAllById(part).forEach(m -> loaded.put(m.getId(), m));
+            java.util.Map<UUID, Account> byId = new java.util.HashMap<>();
+            accounts.findByUserId(userId).forEach(a -> byId.put(a.getId(), a));
+            for (UUID id : part) {
+                SmsMessage m = loaded.get(id);
+                if (m == null) {
+                    continue;
+                }
+                if (m.getUserDecision() == null) {
+                    read(m);
+                }
+                decide(m, m.getAccountId() == null ? null : byId.get(m.getAccountId()));
             }
-            decide(m, m.getAccountId() == null ? null : byId.get(m.getAccountId()));
-            messages.saveAndFlush(m);
+            messages.flush();
+            em.clear();
         }
-        return all.size();
+        return ids.size();
     }
 
     /** Transactions other messages of the account near this one already point at. */

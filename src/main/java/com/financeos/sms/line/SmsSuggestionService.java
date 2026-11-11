@@ -24,6 +24,7 @@ public class SmsSuggestionService {
 
     private static final Pattern GENERIC_TAIL = Pattern.compile("(?i)\\s+(wallet|gift card|meal card|card)$");
     private static final int MAX_TYPO = 2;
+    private static final int MIN_SUGGEST_ENDING = 3;
 
     private final SmsLineRepository lines;
     private final SmsAccountQueries queries;
@@ -75,6 +76,10 @@ public class SmsSuggestionService {
             return Optional.empty();
         }
         SenderCatalogue.Sender sender = entry.get();
+        if (line.getEnding() != null && line.getEnding().length() < MIN_SUGGEST_ENDING) {
+            // Two digits are too few to name an account: the line stays unassigned.
+            return Optional.empty();
+        }
         if (line.getEnding() != null && sender.bank() != null) {
             List<AccountRow> matches = accounts.stream()
                     .filter(a -> sender.bank().equalsIgnoreCase(a.bank()))
@@ -97,7 +102,7 @@ public class SmsSuggestionService {
         return Optional.empty();
     }
 
-    /** The stored value's trailing digits are this ending (3 or 4 digits); a stored value shorter than the ending never matches. */
+    /** The stored value's trailing digits are this ending (3 or 4 digits; a 2-digit ending is never suggested); a stored value shorter than the ending never matches. */
     static boolean endsWith(String stored, String ending) {
         String v = stored.replaceAll("\\s+", "");
         return v.length() >= ending.length() && v.endsWith(ending);

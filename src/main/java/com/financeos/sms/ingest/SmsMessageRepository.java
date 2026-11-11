@@ -56,6 +56,23 @@ public interface SmsMessageRepository extends JpaRepository<SmsMessage, UUID> {
     Set<UUID> findClaimedTransactionIds(@Param("userId") UUID userId, @Param("accountId") UUID accountId,
                                         @Param("id") UUID id, @Param("from") Instant from, @Param("to") Instant to);
 
+    /** Ids of generic readings of an account with no outcome yet, received since the cutoff, newest first. */
+    @Query("SELECT m.id FROM SmsMessage m WHERE m.userId = :userId AND m.accountId IS NOT NULL "
+            + "AND m.readStatus = com.financeos.sms.read.SmsReadStatus.NEEDS_CONFIRM AND m.outcome IS NULL "
+            + "AND m.receivedAt >= :since ORDER BY m.receivedAt DESC, m.id DESC")
+    List<UUID> findUndecidedNeedsConfirmIds(@Param("userId") UUID userId, @Param("since") Instant since,
+                                            org.springframework.data.domain.Pageable page);
+
+    /** Clears outcome, duplicate and transaction link of every message that is not posted (CREATED / ATTACHED). */
+    @org.springframework.data.jpa.repository.Modifying(flushAutomatically = true, clearAutomatically = true)
+    @Query("UPDATE SmsMessage m SET m.outcome = NULL, m.duplicateOf = NULL, m.transactionId = NULL WHERE m.userId = :userId "
+            + "AND (m.outcome IS NULL OR m.outcome NOT IN (com.financeos.sms.ingest.SmsOutcome.CREATED, com.financeos.sms.ingest.SmsOutcome.ATTACHED))")
+    int resetUnposted(@Param("userId") UUID userId);
+
+    /** Ids of the user's messages without an outcome (after a reset: the unposted ones), in received order. */
+    @Query("SELECT m.id FROM SmsMessage m WHERE m.userId = :userId AND m.outcome IS NULL ORDER BY m.receivedAt ASC, m.id ASC")
+    List<UUID> findUnpostedIdsInReceivedOrder(@Param("userId") UUID userId);
+
     /** Messages of the user by outcome (null = no outcome). */
     @Query("SELECT m.outcome, COUNT(m) FROM SmsMessage m WHERE m.userId = :userId GROUP BY m.outcome")
     List<Object[]> outcomeCounts(@Param("userId") UUID userId);

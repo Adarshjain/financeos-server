@@ -47,9 +47,12 @@ public class SmsIntakeService {
     private final SmsPipelineService pipeline;
     private final AccountRepository accounts;
     private final TransactionTemplate tx;
+    private final SmsRecheckThrottle throttle;
 
     public SmsIntakeService(SmsLineRepository lines, SmsLineKey lineKey, SmsMessageRepository messages, SmsPipelineService pipeline,
-                            AccountRepository accounts, PlatformTransactionManager txManager) {
+                            AccountRepository accounts, PlatformTransactionManager txManager,
+                            SmsRecheckThrottle throttle) {
+        this.throttle = throttle;
         this.accounts = accounts;
         this.tx = new TransactionTemplate(txManager);
         this.lines = lines;
@@ -128,6 +131,7 @@ public class SmsIntakeService {
 
         // Decide in received order, so a second alert in the same call sees the first one.
         toStore.sort(Comparator.comparing((Integer i) -> incoming.get(i).receivedAt()));
+        Set<UUID> storedIds = new HashSet<>();
         for (int i : toStore) {
             Incoming in = incoming.get(i);
             SmsLine line = lineOf[i];
@@ -148,6 +152,7 @@ public class SmsIntakeService {
                     messages.save(m);
                     pipeline.process(m, account);
                 });
+                storedIds.add(m.getId());
             } catch (RuntimeException e) {
                 // Stored by a concurrent call meanwhile: a duplicate. Anything else: this message only is refused.
                 if (!messages.findKnownFingerprints(userId, Set.of(fingerprints[i])).isEmpty()) {
@@ -158,7 +163,23 @@ public class SmsIntakeService {
                 }
             }
         }
+        if (!storedIds.isEmpty()) {
+            recheck(userId, storedIds);
+        }
         return List.of(results);
+    }
+
+    /** A message that arrived before its transaction stops asking once it exists. Never fails the batch. */
+    private void recheck(UUID userId, Set<UUID> justStored) {
+        if (!throttle.tryAcquire(userId)) {
+            return;
+        }
+        try {
+            pipeline.recheckUndecided(userId, justStored);
+        } catch (RuntimeException e) {
+            throttle.release(userId);
+            log.warn("sms.intake.recheck.failed error={}", e.getClass().getSimpleName());
+        }
     }
 
     private static String key(String sender, String ending, String family) {

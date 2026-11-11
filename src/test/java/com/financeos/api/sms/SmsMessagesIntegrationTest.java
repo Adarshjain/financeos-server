@@ -54,6 +54,7 @@ class SmsMessagesIntegrationTest {
     @Autowired private TransactionRepository transactionRepository;
     @Autowired private SmsPipelineService pipeline;
     @Autowired private PairAttemptLimiter limiter;
+    @Autowired private com.financeos.sms.ingest.SmsRecheckThrottle throttle;
     @Autowired private jakarta.persistence.EntityManagerFactory entityManagerFactory;
 
     private ApiTestClient api;
@@ -68,6 +69,7 @@ class SmsMessagesIntegrationTest {
     @BeforeEach
     void setUp() throws Exception {
         limiter.clear();
+        throttle.setMinInterval(java.time.Duration.ZERO);
         String email = "sms-msgs-" + UUID.randomUUID() + "@example.test";
         api = ApiTestClient.signUp(mockMvc, mapper, email);
         user = userRepository.findByEmail(email).orElseThrow();
@@ -363,7 +365,7 @@ class SmsMessagesIntegrationTest {
     @Test
     void needsConfirmAndCouldNotReadGetNoOutcome() throws Exception {
         Map<String, Object> n = msg("HSBCIN", "A/c 123-456***-789 Rs 99.00 spent at Test Mart", "2026-11-08T05:00:00Z");
-        Map<String, Object> c = msg("HSBCIN", "A/c 123-456***-789 Rs 99.00 debited and credited again", "2026-11-08T05:01:00Z");
+        Map<String, Object> c = msg("HSBCIN", "A/c 123-456***-789 Rs 12345678901234.00 debited", "2026-11-08T05:01:00Z");
         Map<String, Object> i = msg("HSBCIN", "A/c 123-456***-789 is active, welcome", "2026-11-08T05:02:00Z");
         send(token, List.of(n, c, i));
         assertThat(row((String) n.get("fingerprint"))).containsEntry("read_status", "NEEDS_CONFIRM").containsEntry("outcome", null);
@@ -391,6 +393,241 @@ class SmsMessagesIntegrationTest {
         assertThat(row((String) n.get("fingerprint"))).containsEntry("read_status", "READ").containsEntry("outcome", "SHADOW_CREATE");
     }
 
+    // ---------------------------------------------------------------- generic readings: match before asking
+
+    private static final String GENERIC = "A/c 123-456***-789 Rs 99.00 spent at Test Mart";
+
+    private Transaction manualNote(String amount, LocalDate date, String note) {
+        Account a = accountRepository.findById(account).orElseThrow();
+        Transaction t = new Transaction();
+        t.setUser(user);
+        t.setAccount(a);
+        t.setDate(date);
+        t.setAmount(new BigDecimal(amount));
+        t.setType(TransactionType.DEBIT);
+        t.setSource(TransactionSource.manual);
+        t.setSourcedDescription(note);
+        t.setCategoryKey("food");
+        t.setReviewType(com.financeos.domain.transaction.ReviewType.AUTO_REVIEWED);
+        t.setTransactionUnderMonitoring(false);
+        t.setTransactionExcluded(false);
+        return transactionRepository.save(t);
+    }
+
+    @Test
+    void aGenericReadingOfAPaymentOnTheLedgerBecomesReadAndLinksWithoutChangingIt() throws Exception {
+        Transaction manual = manualNote("99.00", LocalDate.of(2026, 11, 7), "Typed note");
+        long before = transactionCount();
+        Map<String, Object> g = msg("HSBCIN", GENERIC, "2026-11-08T05:00:00Z");
+        send(token, List.of(g));
+        Map<String, Object> r = row((String) g.get("fingerprint"));
+        assertThat(r.get("read_status")).isEqualTo("READ");
+        assertThat(r.get("outcome")).isEqualTo("SHADOW_ATTACH");
+        assertThat(r.get("transaction_id")).isEqualTo(manual.getId().toString());
+        assertThat(transactionCount()).isEqualTo(before);
+        Transaction after = transactionRepository.findById(manual.getId()).orElseThrow();
+        assertThat(after.getSourcedDescription()).isEqualTo("Typed note");
+        assertThat(after.getDate()).isEqualTo(LocalDate.of(2026, 11, 7));
+        assertThat(after.getAmount()).isEqualByComparingTo("99.00");
+        assertThat(after.getOriginalAmount()).isNull();
+        assertThat(after.getSource()).isEqualTo(TransactionSource.manual);
+    }
+
+    @Test
+    void aGenericReadingWithNothingOnTheLedgerStillAsksAndCreatesNothing() throws Exception {
+        long before = transactionCount();
+        Map<String, Object> g = msg("HSBCIN", GENERIC, "2026-11-08T05:00:00Z");
+        send(token, List.of(g));
+        assertThat(row((String) g.get("fingerprint"))).containsEntry("read_status", "NEEDS_CONFIRM").containsEntry("outcome", null)
+                .containsEntry("transaction_id", null);
+        assertThat(transactionCount()).isEqualTo(before);
+    }
+
+    @Test
+    void aGenericReadingThatIsASecondNoticeIsADuplicate() throws Exception {
+        Map<String, Object> first = msg("HSBCIN", hsbc("250.00", "1,000.00"), "2026-11-08T05:00:00Z");
+        Map<String, Object> second = msg("HSBCIN", "A/c 123-456***-789 Rs 250.00 debited at Test Mart", "2026-11-08T05:10:00Z");
+        send(token, List.of(first, second));
+        Map<String, Object> r = row((String) second.get("fingerprint"));
+        assertThat(r.get("outcome")).isEqualTo("DUPLICATE");
+        assertThat(r.get("duplicate_of")).isEqualTo(row((String) first.get("fingerprint")).get("id"));
+        assertThat(r.get("transaction_id")).isNull();
+        // a second notice leaves the owner's check list
+        assertThat(r.get("read_status")).isEqualTo("READ");
+        assertThat(api.getJson("/api/v1/sms/report", 200).get("totals").get("needsConfirm").asInt()).isZero();
+        pipeline.replay(user.getId());
+        assertThat(row((String) second.get("fingerprint"))).containsEntry("outcome", "DUPLICATE").containsEntry("read_status", "READ");
+    }
+
+    @Test
+    void oneTransactionIsClaimedByOnlyOneGenericReading() throws Exception {
+        Transaction manual = manualNote("99.00", LocalDate.of(2026, 11, 8), "Typed note");
+        Map<String, Object> a = msg("HSBCIN", GENERIC, "2026-11-08T05:00:00Z");
+        Map<String, Object> b = msg("HSBCIN", GENERIC + " again", "2026-11-08T05:30:00Z");
+        send(token, List.of(a, b));
+        assertThat(row((String) a.get("fingerprint"))).containsEntry("outcome", "SHADOW_ATTACH")
+                .containsEntry("transaction_id", manual.getId().toString());
+        assertThat(row((String) b.get("fingerprint"))).containsEntry("read_status", "NEEDS_CONFIRM").containsEntry("outcome", null);
+    }
+
+    @Test
+    void aLaterBatchRechecksEarlierGenericReadingsOfTheLastFortyFiveDays() throws Exception {
+        java.time.Instant at = com.financeos.core.time.AppTime.nowInstant().minus(java.time.Duration.ofDays(3));
+        Map<String, Object> g = msg("HSBCIN", GENERIC, at.toString());
+        Map<String, Object> old = msg("HSBCIN", GENERIC + " old", at.minus(java.time.Duration.ofDays(1)).toString());
+        send(token, List.of(g, old));
+        assertThat(row((String) g.get("fingerprint"))).containsEntry("read_status", "NEEDS_CONFIRM");
+        jdbc.update("UPDATE sms_messages SET received_at = ? WHERE fingerprint = ?",
+                java.sql.Timestamp.from(com.financeos.core.time.AppTime.nowInstant().minus(java.time.Duration.ofDays(60))), old.get("fingerprint"));
+
+        // the transaction arrives later (a statement or an email alert would do the same), then any batch comes in
+        Transaction manual = manualNote("99.00", at.atZone(com.financeos.core.time.AppTime.zone()).toLocalDate(), "Typed note");
+        manualNote("99.00", at.minus(java.time.Duration.ofDays(1)).atZone(com.financeos.core.time.AppTime.zone()).toLocalDate(), "Other note");
+        send(token, List.of(msg("HSBCIN", hsbc("10.00", "90.00"), com.financeos.core.time.AppTime.nowInstant().minus(java.time.Duration.ofHours(1)).toString())));
+
+        Map<String, Object> r = row((String) g.get("fingerprint"));
+        assertThat(r.get("read_status")).isEqualTo("READ");
+        assertThat(r.get("outcome")).isEqualTo("SHADOW_ATTACH");
+        assertThat(r.get("transaction_id")).isEqualTo(manual.getId().toString());
+        // older than 45 days: left alone
+        assertThat(row((String) old.get("fingerprint"))).containsEntry("read_status", "NEEDS_CONFIRM").containsEntry("outcome", null);
+    }
+
+    @Test
+    void aBatchWithNothingAcceptedDoesNoRecheck() throws Exception {
+        java.time.Instant at = com.financeos.core.time.AppTime.nowInstant().minus(java.time.Duration.ofDays(3));
+        Map<String, Object> g = msg("HSBCIN", GENERIC, at.toString());
+        send(token, List.of(g));
+        manualNote("99.00", at.atZone(com.financeos.core.time.AppTime.zone()).toLocalDate(), "Typed note");
+        // a duplicate resend is not an accepted message
+        send(token, List.of(g));
+        assertThat(row((String) g.get("fingerprint"))).containsEntry("read_status", "NEEDS_CONFIRM").containsEntry("outcome", null);
+    }
+
+    @Test
+    void replayMatchesUndecidedGenericReadingsAgainstTheLedger() throws Exception {
+        Map<String, Object> g = msg("HSBCIN", GENERIC, "2026-11-08T05:00:00Z");
+        send(token, List.of(g));
+        assertThat(row((String) g.get("fingerprint"))).containsEntry("read_status", "NEEDS_CONFIRM");
+        Transaction manual = manualNote("99.00", LocalDate.of(2026, 11, 8), "Typed note");
+        long before = transactionCount();
+        api.postJson("/api/v1/sms/replay", null, 200);
+        Map<String, Object> r = row((String) g.get("fingerprint"));
+        assertThat(r.get("read_status")).isEqualTo("READ");
+        assertThat(r.get("outcome")).isEqualTo("SHADOW_ATTACH");
+        assertThat(r.get("transaction_id")).isEqualTo(manual.getId().toString());
+        assertThat(transactionCount()).isEqualTo(before);
+        // and the report counts it as read / would attach, not as needing a check
+        JsonNode t = api.getJson("/api/v1/sms/report", 200).get("totals");
+        assertThat(t.get("needsConfirm").asInt()).isZero();
+        assertThat(t.get("wouldAttach").asInt()).isEqualTo(1);
+    }
+
+    @Test
+    void theRecheckCostsOneMessageQueryAndAConstantNumberOfStatementsPerOpenReading() throws Exception {
+        SessionFactory sf = entityManagerFactory.unwrap(SessionFactory.class);
+        sf.getStatistics().setStatisticsEnabled(true);
+        java.time.Instant base = com.financeos.core.time.AppTime.nowInstant().minus(java.time.Duration.ofDays(5));
+        send(token, List.of(msg("HSBCIN", hsbc("5.00", "95.00"), base.minusSeconds(60).toString()))); // warm caches
+        sf.getStatistics().clear();
+        send(token, List.of(msg("HSBCIN", hsbc("6.00", "89.00"), base.toString())));
+        long none = sf.getStatistics().getPrepareStatementCount();
+
+        List<Map<String, Object>> open = new ArrayList<>();
+        for (int i = 0; i < 12; i++) {
+            open.add(msg("HSBCIN", "A/c 123-456***-789 Rs " + (200 + i) + ".00 spent at Test Mart " + i, base.plusSeconds(100 + i).toString()));
+        }
+        send(token, open);
+        sf.getStatistics().clear();
+        send(token, List.of(msg("HSBCIN", hsbc("7.00", "82.00"), base.plusSeconds(1000).toString())));
+        long withOpen = sf.getStatistics().getPrepareStatementCount();
+        long perOpen = (withOpen - none) / open.size();
+        assertThat(perOpen).isLessThanOrEqualTo(12);
+    }
+
+    @Test
+    void mixedOrUnsettledWordingIsNeverMatchedNorJudgedASecondNotice() throws Exception {
+        manualNote("500.00", LocalDate.of(2026, 11, 8), "Typed note 500");
+        manualNote("300.00", LocalDate.of(2026, 11, 8), "Typed note 300");
+        long before = transactionCount();
+        // an earlier template reading of the same amount, so a second-notice check would pair with it
+        send(token, List.of(msg("HSBCIN", hsbc("500.00", "1,000.00"), "2026-11-08T04:00:00Z")));
+        List<Map<String, Object>> uncertain = List.of(
+                msg("HSBCIN", "Rs 500.00 for your purchase at Test Store has been refunded to A/c 123-456***-789", "2026-11-08T05:00:00Z"),
+                msg("HSBCIN", "Txn of Rs 500.00 debited from A/c 123-456***-789 has been reversed and credited back", "2026-11-08T05:01:00Z"),
+                msg("HSBCIN", "Rs 300.00 sent by Test Person credited to A/c 123-456***-789", "2026-11-08T05:02:00Z"),
+                msg("HSBCIN", "We have received your request. Rs 500 would be debited from A/c 123-456***-789", "2026-11-08T05:03:00Z"));
+        send(token, uncertain);
+        api.postJson("/api/v1/sms/replay", null, 200);
+        pipeline.recheckUndecided(user.getId(), java.util.Set.of());
+        for (Map<String, Object> m : uncertain) {
+            assertThat(row((String) m.get("fingerprint"))).as((String) m.get("body"))
+                    .containsEntry("read_status", "NEEDS_CONFIRM").containsEntry("outcome", null).containsEntry("transaction_id", null);
+        }
+        assertThat(transactionCount()).isEqualTo(before);
+        // and the owner's confirmation still stands
+        String id = (String) row((String) uncertain.get(2).get("fingerprint")).get("id");
+        api.postJson("/api/v1/sms/messages/" + id + "/confirm", Map.of(), 200);
+        assertThat(row((String) uncertain.get(2).get("fingerprint"))).containsEntry("read_status", "READ");
+    }
+
+    @Test
+    void aWillBeDebitedNoticeIsAlreadyIgnoredAsFuture() throws Exception {
+        Map<String, Object> m = msg("HSBCIN", "We have received your request. Rs 500 will be debited from A/c 123-456***-789", "2026-11-08T05:03:00Z");
+        send(token, List.of(m));
+        assertThat(row((String) m.get("fingerprint"))).containsEntry("read_status", "IGNORED").containsEntry("outcome", null);
+    }
+
+    @Test
+    void aDebitWithItsCreditLegStillAttaches() throws Exception {
+        Transaction manual = manualNote("500.00", LocalDate.of(2026, 11, 8), "Typed note");
+        Map<String, Object> g = msg("HSBCIN", "Rs 500.00 debited from A/c 123-456***-789 and credited to Test Store", "2026-11-08T05:00:00Z");
+        send(token, List.of(g));
+        assertThat(row((String) g.get("fingerprint"))).containsEntry("read_status", "READ").containsEntry("outcome", "SHADOW_ATTACH")
+                .containsEntry("transaction_id", manual.getId().toString());
+    }
+
+    @Test
+    void aSecondBatchInsideTheRecheckIntervalDoesNotRecheck() throws Exception {
+        throttle.setMinInterval(java.time.Duration.ofMinutes(10));
+        java.time.Instant at = com.financeos.core.time.AppTime.nowInstant().minus(java.time.Duration.ofDays(3));
+        Map<String, Object> g = msg("HSBCIN", GENERIC, at.toString());
+        send(token, List.of(g)); // first batch of the user: the re-check slot is taken here
+        manualNote("99.00", at.atZone(com.financeos.core.time.AppTime.zone()).toLocalDate(), "Typed note");
+        send(token, List.of(msg("HSBCIN", hsbc("10.00", "90.00"), com.financeos.core.time.AppTime.nowInstant().minusSeconds(3600).toString())));
+        assertThat(row((String) g.get("fingerprint"))).containsEntry("read_status", "NEEDS_CONFIRM").containsEntry("outcome", null);
+        throttle.setMinInterval(java.time.Duration.ZERO);
+        send(token, List.of(msg("HSBCIN", hsbc("11.00", "79.00"), com.financeos.core.time.AppTime.nowInstant().minusSeconds(1800).toString())));
+        assertThat(row((String) g.get("fingerprint"))).containsEntry("read_status", "READ").containsEntry("outcome", "SHADOW_ATTACH");
+    }
+
+    @Test
+    void theRecheckLeavesOutTheMessagesJustStoredAndTheSkippedOnes() throws Exception {
+        java.time.Instant at = com.financeos.core.time.AppTime.nowInstant().minus(java.time.Duration.ofDays(3));
+        Map<String, Object> a = msg("HSBCIN", GENERIC, at.toString());
+        Map<String, Object> b = msg("HSBCIN", "A/c 123-456***-789 Rs 98.00 spent at Test Mart", at.plusSeconds(60).toString());
+        send(token, List.of(a, b));
+        java.time.LocalDate day = at.atZone(com.financeos.core.time.AppTime.zone()).toLocalDate();
+        manualNote("99.00", day, "Typed note");
+        manualNote("98.00", day, "Typed note two");
+        java.util.UUID skipId = java.util.UUID.fromString((String) row((String) b.get("fingerprint")).get("id"));
+        int promoted = pipeline.recheckUndecided(user.getId(), java.util.Set.of(skipId));
+        assertThat(promoted).isEqualTo(1);
+        assertThat(row((String) a.get("fingerprint"))).containsEntry("read_status", "READ");
+        assertThat(row((String) b.get("fingerprint"))).containsEntry("read_status", "NEEDS_CONFIRM");
+    }
+
+    @Test
+    void confirmAndRejectStillWorkOnAGenericReadingThatFoundNoTransaction() throws Exception {
+        Map<String, Object> a = msg("HSBCIN", GENERIC, "2026-11-08T05:00:00Z");
+        Map<String, Object> b = msg("HSBCIN", GENERIC + " b", "2026-11-08T06:00:00Z");
+        send(token, List.of(a, b));
+        String idA = (String) row((String) a.get("fingerprint")).get("id");
+        String idB = (String) row((String) b.get("fingerprint")).get("id");
+        assertThat(api.postJson("/api/v1/sms/messages/" + idA + "/confirm", Map.of(), 200).get("outcome").asText()).isEqualTo("SHADOW_CREATE");
+        assertThat(api.postJson("/api/v1/sms/messages/" + idB + "/reject", null, 200).get("readStatus").asText()).isEqualTo("IGNORED");
+    }
+
     // ---------------------------------------------------------------- web: report, list, confirm, reject
 
     @Test
@@ -402,7 +639,7 @@ class SmsMessagesIntegrationTest {
                 msg("HSBCIN", hsbc("250.00", "1,000.00"), "2026-11-08T05:00:00Z"),
                 msg("HSBCIN", HSBC_UPI.formatted("250.00", "612345678905"), "2026-11-08T05:01:00Z"),
                 msg("HSBCIN", "A/c 123-456***-789 Rs 99.00 spent at Test Mart", "2026-11-08T05:02:00Z"),
-                msg("HSBCIN", "A/c 123-456***-789 Rs 99.00 debited and credited again", "2026-11-08T05:03:00Z"),
+                msg("HSBCIN", "A/c 123-456***-789 Rs 12345678901234.00 debited", "2026-11-08T05:03:00Z"),
                 msg("HSBCIN", "A/c 123-456***-789 is active, welcome", "2026-11-08T05:04:00Z")));
 
         JsonNode report = api.getJson("/api/v1/sms/report", 200);
@@ -507,7 +744,7 @@ class SmsMessagesIntegrationTest {
 
     @Test
     void couldNotReadNeedsTheOwnerToSupplyTheMissingParts() throws Exception {
-        send(token, List.of(msg("HSBCIN", "A/c 123-456***-789 Rs 99.00 debited and credited again", "2026-11-08T05:00:00Z")));
+        send(token, List.of(msg("HSBCIN", "A/c 123-456***-789 Rs 12345678901234.00 debited", "2026-11-08T05:00:00Z")));
         String id = (String) jdbc.queryForMap("SELECT id FROM sms_messages WHERE user_id = ?", user.getId().toString()).get("id");
         api.postJson("/api/v1/sms/messages/" + id + "/confirm", Map.of(), 400);
         JsonNode view = api.postJson("/api/v1/sms/messages/" + id + "/confirm", Map.of("amount", 99, "direction", "debit"), 200);

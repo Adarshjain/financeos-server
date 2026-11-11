@@ -177,7 +177,7 @@ public class AlertMatcher {
         accountRepository.lockById(alert.account().getId());
         refreshCandidates(alert, firstLook);
         Decision d = decide(alert, ledger(alert));
-        return d.attaches() ? Optional.of(attach(alert, d)) : Optional.empty();
+        return d.attaches() ? Optional.of(attach(alert, d, false)) : Optional.empty();
     }
 
     /** Attaches the alert to the payment it is, or creates its transaction; under the account lock. */
@@ -192,10 +192,24 @@ public class AlertMatcher {
         accountRepository.lockById(alert.account().getId());
         Decision d = usable(alert) ? decide(alert, without(ledger(alert), excluded)) : new Decision(null, null, null);
         if (d.attaches()) {
-            Attached a = attach(alert, d);
+            Attached a = attach(alert, d, false);
             return new Outcome(a.txn(), false, a);
         }
         return new Outcome(create(alert, d.notOnStatementId()), true, null);
+    }
+
+    /**
+     * Attaches the alert to the payment it is, changing nothing on that transaction (a link only), or returns empty
+     * when none matches. Never creates. Under the account lock; the {@code excluded} transactions never match.
+     */
+    @Transactional
+    public Optional<Attached> attachLinkOnly(Alert alert, Set<UUID> excluded) {
+        if (!usable(alert)) {
+            return Optional.empty();
+        }
+        accountRepository.lockById(alert.account().getId());
+        Decision d = decide(alert, without(ledger(alert), excluded));
+        return d.attaches() ? Optional.of(attach(alert, d, true)) : Optional.empty();
     }
 
     /**
@@ -393,18 +407,18 @@ public class AlertMatcher {
     // ------------------------------------------------------------------ effects
 
     /**
-     * Joins the alert to the transaction. Statement lines win, so a line's transaction is left as it is (a
+     * Joins the alert to the transaction ({@code linkOnly}: no field of it is changed). Statement lines win, so a line's transaction is left as it is (a
      * not-on-statement tag too: a statement decides that); the issuer's text and date win over a provider's; a manual
      * entry keeps its description and category and gains the bank text.
      */
-    private Attached attach(Alert alert, Decision d) {
+    private Attached attach(Alert alert, Decision d, boolean linkOnly) {
         Transaction t = d.target();
         String detail;
         switch (d.kind()) {
             case STATEMENT_LINE -> {
                 detail = "statement line " + (t.getDate() == null ? "" : DMY.format(t.getDate()));
                 // The line row has the rupee amount; a foreign alert adds what it was charged in.
-                if (alert.isForeign() && t.getOriginalCurrency() == null) {
+                if (!linkOnly && alert.isForeign() && t.getOriginalCurrency() == null) {
                     t.setOriginalAmount(alert.amount());
                     t.setOriginalCurrency(alert.currency());
                     t = transactionRepository.save(t);
@@ -413,7 +427,7 @@ public class AlertMatcher {
             case ISSUER_EMAIL -> detail = "issuer email";
             case PROVIDER_EMAIL -> {
                 detail = "provider email";
-                if (statementTransactionRepository.findByIdTransactionId(t.getId()).isEmpty()) {
+                if (!linkOnly && statementTransactionRepository.findByIdTransactionId(t.getId()).isEmpty()) {
                     t.setDate(alert.date());
                     if (alert.text() != null && !alert.text().isBlank()) t.setSourcedDescription(alert.text());
                     t = transactionRepository.save(t);
@@ -423,7 +437,7 @@ public class AlertMatcher {
             case OTHER_CHANNEL_ALERT -> detail = alert.isSms() ? "email alert" : "text message alert";
             case MANUAL_ENTRY -> {
                 detail = "manual entry";
-                if (alert.text() != null && !alert.text().isBlank()) {
+                if (!linkOnly && alert.text() != null && !alert.text().isBlank()) {
                     t.setSourcedDescription(alert.text());
                     t = transactionRepository.save(t);
                 }

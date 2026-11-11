@@ -167,6 +167,20 @@ class SmsLinesIntegrationTest {
     }
 
     @Test
+    void aTwoDigitEndingIsKeptButNeverSuggestedToAnAccount() throws Exception {
+        account("bank_account", "Test Current", "hdfc", false, "559912");
+        JsonNode result = summary(token, List.of(line("HDFCBK", "12", null, 4), line("HDFCBK", "1", null, 4)));
+        // two digits are a line; one digit is not
+        assertThat(result.get("lines").asInt()).isEqualTo(1);
+        assertThat(result.get("skippedLines").asInt()).isEqualTo(1);
+        JsonNode view = allLines();
+        JsonNode l = findLine(view, "HDFCBK");
+        assertThat(l.get("ending").asText()).isEqualTo("12");
+        assertThat(view.get("unassigned")).hasSize(1);
+        assertThat(l.get("suggestedAccountId") == null || l.get("suggestedAccountId").isNull()).isTrue();
+    }
+
+    @Test
     void ambiguousEndingGivesNoSuggestionUnlessOnlyOneIsOpen() throws Exception {
         account("bank_account", "Axis One", "axis", false, "4321");
         account("bank_account", "Axis Two", "axis", false, "4321");

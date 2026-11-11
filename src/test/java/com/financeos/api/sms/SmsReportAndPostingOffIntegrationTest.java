@@ -273,27 +273,70 @@ class SmsReportAndPostingOffIntegrationTest {
                 java.sql.Timestamp.from(Instant.now().minus(Duration.ofDays(days))), user.getId().toString());
     }
 
-    private void setDeviceSeenDaysAgo(int days) {
-        java.sql.Timestamp t = java.sql.Timestamp.from(Instant.now().minus(Duration.ofDays(days)));
-        jdbc.update("UPDATE sms_devices SET last_seen_at = ?, last_summary_at = ? WHERE user_id = ?", t, t, user.getId().toString());
+    private LocalDate agedDate(int days) {
+        return com.financeos.core.time.AppTime.nowInstant().minus(Duration.ofDays(days)).atZone(com.financeos.core.time.AppTime.zone()).toLocalDate();
+    }
+
+    private void oneHsbcMessageAged(int days) throws Exception {
+        hsbcLinesOn();
+        send(List.of(msg(HSBC.formatted("100.00", "05NOV", "900.00"), "2026-11-05T05:00:00Z")));
+        ageMessages(days);
     }
 
     @Test
-    void anOnLineQuietFor14DaysWhileTheDeviceReportsIsSilent() throws Exception {
-        hsbcLinesOn();
-        send(List.of(msg(HSBC.formatted("100.00", "05NOV", "900.00"), "2026-11-05T05:00:00Z")));
-        ageMessages(20);
+    void anOnLineWithNewerTransactionsFromAnotherSourceIsSilent() throws Exception {
+        oneHsbcMessageAged(20);
+        txn("40.00", TransactionSource.manual, com.financeos.core.time.AppTime.today().minusDays(5));
         assertThat(alertKinds()).contains("SILENT_LINE");
         JsonNode alerts = api.getJson("/api/v1/sms/report", 200).get("accounts").get(0).get("alerts");
-        boolean found = false;
+        int found = 0;
         for (JsonNode a : alerts) {
             if (a.get("kind").asText().equals("SILENT_LINE")) {
-                found = true;
-                assertThat(a.get("message").asText()).contains("HSBCIN").contains("789");
-                assertThat(a.get("date").asText()).isEqualTo(java.time.LocalDate.now(com.financeos.core.time.AppTime.zone()).minusDays(20).toString());
+                found++;
+                assertThat(a.get("message").asText()).isEqualTo("HSBC has sent nothing since "
+                        + agedDate(20).format(java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                        + ", but this account has newer transactions");
+                assertThat(a.get("date").asText()).isEqualTo(agedDate(20).toString());
             }
         }
-        assertThat(found).isTrue();
+        assertThat(found).isEqualTo(1);
+    }
+
+    @Test
+    void anOldLineWithNothingNewerOnTheAccountIsNotSilent() throws Exception {
+        oneHsbcMessageAged(20);
+        assertThat(alertKinds()).doesNotContain("SILENT_LINE");
+        // a text-message transaction is the feed itself, not another source
+        txn("40.00", TransactionSource.sms_alert, com.financeos.core.time.AppTime.today().minusDays(5));
+        assertThat(alertKinds()).doesNotContain("SILENT_LINE");
+    }
+
+    @Test
+    void theOtherTransactionMustBeMoreThanThreeDaysAfterTheLastMessage() throws Exception {
+        oneHsbcMessageAged(20);
+        txn("40.00", TransactionSource.manual, agedDate(20).plusDays(3));
+        assertThat(alertKinds()).doesNotContain("SILENT_LINE");
+        txn("41.00", TransactionSource.manual, agedDate(20).plusDays(4));
+        assertThat(alertKinds()).contains("SILENT_LINE");
+    }
+
+    @Test
+    void onlyATransactionWithinTheLastSixtyDaysRaisesIt() throws Exception {
+        oneHsbcMessageAged(100);
+        txn("40.00", TransactionSource.manual, com.financeos.core.time.AppTime.today().minusDays(61));
+        assertThat(alertKinds()).doesNotContain("SILENT_LINE");
+        txn("41.00", TransactionSource.manual, com.financeos.core.time.AppTime.today().minusDays(59));
+        assertThat(alertKinds()).containsOnlyOnce("SILENT_LINE");
+    }
+
+    @Test
+    void twoLinesOfOneProviderOnOneAccountRaiseOneAlert() throws Exception {
+        hsbcLinesOn();
+        String upi = "INR 30.00 is paid from HSBC account XXXXXX0789 to Test Payee on 06-Nov-26 with ref 612345678955. If this is not done by you, call 1800000000 to report.";
+        send(List.of(msg(HSBC.formatted("100.00", "05NOV", "900.00"), "2026-11-05T05:00:00Z"), msg(upi, "2026-11-06T04:00:00Z")));
+        ageMessages(20);
+        txn("40.00", TransactionSource.manual, com.financeos.core.time.AppTime.today().minusDays(2));
+        assertThat(alertKinds()).containsOnlyOnce("SILENT_LINE");
     }
 
     @Test
@@ -305,21 +348,11 @@ class SmsReportAndPostingOffIntegrationTest {
     }
 
     @Test
-    void noSilentLineWhenNoDeviceReportedInTheLastTwoDays() throws Exception {
-        hsbcLinesOn();
-        send(List.of(msg(HSBC.formatted("100.00", "05NOV", "900.00"), "2026-11-05T05:00:00Z")));
-        ageMessages(20);
-        setDeviceSeenDaysAgo(3);
-        assertThat(alertKinds()).doesNotContain("SILENT_LINE");
-        setDeviceSeenDaysAgo(1);
-        assertThat(alertKinds()).contains("SILENT_LINE");
-    }
-
-    @Test
     void aLineThatIsOffIsNeverSilent() throws Exception {
         hsbcLinesOn();
         send(List.of(msg(HSBC.formatted("100.00", "05NOV", "900.00"), "2026-11-05T05:00:00Z")));
         ageMessages(20);
+        txn("40.00", TransactionSource.manual, com.financeos.core.time.AppTime.today().minusDays(5));
         for (JsonNode a : api.getJson("/api/v1/sms/lines", 200).get("accounts")) {
             for (JsonNode l : a.get("lines")) {
                 api.postJson("/api/v1/sms/lines/" + l.get("id").asText() + "/off", null, 200);

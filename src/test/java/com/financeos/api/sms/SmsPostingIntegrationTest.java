@@ -218,6 +218,29 @@ class SmsPostingIntegrationTest {
     }
 
     @Test
+    void aGenericReadingAttachesLinkOnlyAndNeverCreates() throws Exception {
+        Transaction manual = manualTxn("99.00", LocalDate.of(2026, 11, 7));
+        manual.setSourcedDescription("Typed note");
+        transactionRepository.save(manual);
+        Map<String, Object> g = msg("A/c 123-456***-789 Rs 99.00 spent at Test Mart", "2026-11-08T05:00:00Z");
+        Map<String, Object> none = msg("A/c 123-456***-789 Rs 77.00 spent at Test Mart", "2026-11-08T06:00:00Z");
+        send(List.of(g, none));
+
+        Map<String, Object> r = row(g);
+        assertThat(r.get("read_status")).isEqualTo("READ");
+        assertThat(r.get("outcome")).isEqualTo("ATTACHED");
+        assertThat(r.get("transaction_id")).isEqualTo(manual.getId().toString());
+        Transaction after = transactionRepository.findById(manual.getId()).orElseThrow();
+        assertThat(after.getSourcedDescription()).isEqualTo("Typed note");
+        assertThat(after.getDate()).isEqualTo(LocalDate.of(2026, 11, 7));
+        assertThat(after.getSource()).isEqualTo(TransactionSource.manual);
+        // the one without a match still asks and wrote nothing
+        assertThat(row(none).get("read_status")).isEqualTo("NEEDS_CONFIRM");
+        assertThat(row(none).get("outcome")).isNull();
+        assertThat(transactionCount()).isEqualTo(1);
+    }
+
+    @Test
     void oneTransactionIsNotAttachedByTwoMessages() throws Exception {
         manualTxn("250.00", LocalDate.of(2026, 11, 8));
         Map<String, Object> a = msg(HSBC_UPI.formatted("250.00", "612345678911"), "2026-11-08T05:00:00Z");

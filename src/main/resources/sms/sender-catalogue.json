@@ -48,6 +48,11 @@
   },
   "endingPatterns": [
     {"key": "masked_group", "pattern": "(?i)(?:x+|\\*+)[\\s-]*(\\d{3,4})(?!\\d)"},
-    {"key": "grouped_mask", "pattern": "\\d{3}-\\d{3}\\*+-(\\d{3})(?!\\d)"}
+    {"key": "grouped_mask", "pattern": "\\d{3}-\\d{3}\\*+-(\\d{3})(?!\\d)"},
+    {"key": "ending_word", "pattern": "(?i)\\bending(?:\\s+with)?\\s+(\\d{3,4})(?!\\d)(?![.,]\\d)(?!\\s*(?:points?|pts)\\b)"},
+    {"key": "account_word", "pattern": "(?i)\\bA/c(?:\\s+no\\.?)?[\\s:-]*(\\d{3,4})(?!\\d)(?!-\\d)"},
+    {"key": "card_word", "pattern": "(?i)\\bcard(?:\\s+no\\.?)?\\s+(\\d{4})(?!\\d)(?![.,]\\d)(?!\\s*(?:points?|pts)\\b)"},
+    {"key": "name_dash", "pattern": "(?i)\\b(?:Equitas|Bank)-(\\d{4})(?!\\d)"},
+    {"key": "card_mask2", "pattern": "(?i)\\bcard\\s+no\\.?\\s*\\*+(\\d{2})(?!\\d)"}
   ]
 }

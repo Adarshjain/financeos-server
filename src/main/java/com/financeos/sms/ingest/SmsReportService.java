@@ -6,7 +6,6 @@ import com.financeos.api.sms.dto.SmsDtos.ReportResponse;
 import com.financeos.api.sms.dto.SmsDtos.ReportTotals;
 import com.financeos.core.time.AppTime;
 import com.financeos.domain.transaction.TransactionType;
-import com.financeos.sms.device.SmsDeviceRepository;
 import com.financeos.sms.line.SmsAccountQueries;
 import com.financeos.sms.line.SmsLine;
 import com.financeos.sms.line.SmsLineRepository;
@@ -32,25 +31,23 @@ import java.util.UUID;
 public class SmsReportService {
 
     static final int MAX_BALANCE_ALERTS = 20;
-    /** An ON line whose newest message is older than this many days is silent. */
-    static final int SILENT_AFTER_DAYS = 14;
-    /** ... while a device of the user reported within this many days. */
-    static final int DEVICE_FRESH_DAYS = 2;
+    /** A transaction from another source must be dated more than this many days after the provider's last message ... */
+    static final int SILENT_GAP_DAYS = 3;
+    /** ... and within this many days of today. */
+    static final int SILENT_WINDOW_DAYS = 60;
     private static final DateTimeFormatter DMY = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     private final SmsMessageRepository messages;
     private final SmsAccountQueries accountQueries;
     private final SmsPipelineService pipeline;
     private final SmsLineRepository lines;
-    private final SmsDeviceRepository devices;
 
     public SmsReportService(SmsMessageRepository messages, SmsAccountQueries accountQueries, SmsPipelineService pipeline,
-                            SmsLineRepository lines, SmsDeviceRepository devices) {
+                            SmsLineRepository lines) {
         this.messages = messages;
         this.accountQueries = accountQueries;
         this.pipeline = pipeline;
         this.lines = lines;
-        this.devices = devices;
     }
 
     /** Mutable counters for one account. */
@@ -182,36 +179,52 @@ public class SmsReportService {
     }
 
     /**
-     * An ON line whose newest stored message is older than 14 days, while one of the user's devices reported within the
-     * last 2 days: the phone is alive but the line has gone quiet. A device reports on every call it makes (summary,
-     * messages), so its last-seen time is the signal.
+     * Silence is judged per account and catalogue provider (a provider's lines of one account are one feed). Raised
+     * when the account has a transaction from another source (not a text message) dated more than
+     * {@link #SILENT_GAP_DAYS} days after the provider's last message of the account and within the last
+     * {@link #SILENT_WINDOW_DAYS} days: the account moved on and the provider's texts did not. One alert per account
+     * and provider; only lines that are ON count.
      */
     private void silentLines(UUID userId, List<SmsLine> userLines, java.util.Set<UUID> reportedAccounts,
                              Map<UUID, List<ReportAlert>> alerts) {
-        Instant now = AppTime.nowInstant();
-        Instant freshSince = now.minus(java.time.Duration.ofDays(DEVICE_FRESH_DAYS));
-        boolean deviceFresh = devices.findByUserIdOrderByPairedAtDesc(userId).stream()
-                .filter(d -> !d.isRevoked())
-                .anyMatch(d -> (d.getLastSeenAt() != null && !d.getLastSeenAt().isBefore(freshSince))
-                        || (d.getLastSummaryAt() != null && !d.getLastSummaryAt().isBefore(freshSince)));
-        if (!deviceFresh) {
-            return;
-        }
-        Instant silentBefore = now.minus(java.time.Duration.ofDays(SILENT_AFTER_DAYS));
         Map<UUID, Instant> newest = new HashMap<>();
         for (Object[] r : messages.newestPerLine(userId)) {
             newest.put((UUID) r[0], (Instant) r[1]);
         }
+        // account|provider -> {display name, newest message}
+        Map<String, Object[]> feeds = new LinkedHashMap<>();
         for (SmsLine l : userLines) {
             Instant last = newest.get(l.getId());
-            if (l.getState() != SmsLineState.ON || l.getAccountId() == null || last == null || !last.isBefore(silentBefore)
+            if (l.getState() != SmsLineState.ON || l.getAccountId() == null || last == null
                     || !reportedAccounts.contains(l.getAccountId())) {
                 continue;
             }
-            LocalDate date = last.atZone(AppTime.zone()).toLocalDate();
-            String name = l.getSender() + (l.getEnding() != null ? " ending " + l.getEnding() : l.getFamily() != null ? " " + l.getFamily() : "");
-            alerts.computeIfAbsent(l.getAccountId(), k -> new ArrayList<>()).add(new ReportAlert("SILENT_LINE",
-                    name + " has sent nothing since " + DMY.format(date), date));
+            String provider = l.getProvider() != null && !l.getProvider().isBlank() ? l.getProvider() : l.getSender();
+            Object[] feed = feeds.computeIfAbsent(l.getAccountId() + "|" + provider.toLowerCase(java.util.Locale.ROOT),
+                    k -> new Object[] {l.getAccountId(), provider, last});
+            if (last.isAfter((Instant) feed[2])) {
+                feed[2] = last;
+            }
+        }
+        if (feeds.isEmpty()) {
+            return;
+        }
+        LocalDate today = AppTime.today();
+        Map<UUID, LocalDate> otherNewest = new HashMap<>();
+        for (SmsAccountQueries.LastDate d : accountQueries.lastNonSmsDates(userId,
+                feeds.values().stream().map(f -> (UUID) f[0]).collect(java.util.stream.Collectors.toSet()),
+                today.minusDays(SILENT_WINDOW_DAYS), today)) {
+            otherNewest.put(d.accountId(), d.date());
+        }
+        for (Object[] feed : feeds.values()) {
+            UUID accountId = (UUID) feed[0];
+            LocalDate lastSms = ((Instant) feed[2]).atZone(AppTime.zone()).toLocalDate();
+            LocalDate other = otherNewest.get(accountId);
+            if (other == null || !other.isAfter(lastSms.plusDays(SILENT_GAP_DAYS))) {
+                continue;
+            }
+            alerts.computeIfAbsent(accountId, k -> new ArrayList<>()).add(new ReportAlert("SILENT_LINE",
+                    feed[1] + " has sent nothing since " + DMY.format(lastSms) + ", but this account has newer transactions", lastSms));
         }
     }
 }

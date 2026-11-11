@@ -50,7 +50,7 @@ public class SmsLineSummaryService {
             String sender = SenderCatalogue.normaliseSender(s.sender());
             String ending = blankToNull(s.ending());
             String family = blankToNull(s.family());
-            if (!SmsLineKey.isValidSender(sender) || (ending != null && !ending.matches("\\d{3,4}"))
+            if (!SmsLineKey.isValidSender(sender) || (ending != null && !ending.matches("\\d{2,4}"))
                     || (family != null && family.length() > 40)) {
                 skipped++;
                 continue;
