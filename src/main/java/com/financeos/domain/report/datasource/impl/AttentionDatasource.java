@@ -69,7 +69,7 @@ public class AttentionDatasource implements ComputedReportDatasource {
             return List.of();
         }
         Map<String, Group> groups = new LinkedHashMap<>();
-        for (InboxItemResponse item : inboxService.list(userId).items()) {
+        for (InboxItemResponse item : inboxService.listItems(userId)) {
             groups.computeIfAbsent(item.kind(), Group::new).add(item);
         }
         List<Map<String, Object>> rows = new ArrayList<>(groups.size());

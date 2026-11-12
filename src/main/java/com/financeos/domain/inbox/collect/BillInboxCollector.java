@@ -86,7 +86,7 @@ public class BillInboxCollector implements InboxCollector {
     private static InboxItemResponse row(CardBill bill, String severity, String title, String subtitle,
                                          List<InboxActionResponse> actions) {
         return InboxRows.item(InboxKinds.billKey(bill.statementId()), InboxKinds.BILL, severity, SECTION_ACT_NOW, title, subtitle,
-                "/upcoming?bill=" + bill.statementId(), bill.remainingAmount(), bill.paymentDueDate(), actions,
+                InboxKinds.billHref(bill.accountId()), bill.remainingAmount(), bill.paymentDueDate(), actions,
                 InboxRefsResponse.ofStatement(bill.statementId(), bill.accountId()));
     }
 }

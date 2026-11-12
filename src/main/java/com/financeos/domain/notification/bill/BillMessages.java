@@ -124,9 +124,9 @@ public final class BillMessages {
     }
 
     /**
-     * The inbox row when the inbox lists this bill (overdue, figures missing, or due within
+     * The card page when the inbox lists this bill (overdue, figures missing, or due within
      * {@link InboxKinds#DUE_SOON_DAYS}, mirroring the bill inbox collector); otherwise the bill
-     * on the Upcoming page, so the tap never lands on an inbox without the item.
+     * on the Upcoming page, where Upcoming lists it.
      */
     static String href(CardBill bill) {
         boolean inInbox = switch (bill.status() == null ? BillStatus.AWAITING_STATEMENT : bill.status()) {
@@ -134,6 +134,6 @@ public final class BillMessages {
             case OPEN, PARTIAL -> bill.daysUntilDue() != null && bill.daysUntilDue() <= InboxKinds.DUE_SOON_DAYS;
             default -> false;
         };
-        return inInbox ? InboxKinds.inboxHref(InboxKinds.billKey(bill.statementId())) : "/upcoming?bill=" + bill.statementId();
+        return inInbox ? InboxKinds.billHref(bill.accountId()) : "/upcoming?bill=" + bill.statementId();
     }
 }

@@ -70,7 +70,7 @@ class InboxServiceTest {
     }
 
     private static InboxItemResponse item(String key, String section, String severity, LocalDate date, String title) {
-        return InboxRows.item(key, InboxKinds.BILL, severity, section, title, null, "/x", null, date, List.of(), InboxRefsResponse.NONE);
+        return InboxRows.item(key, InboxKinds.BILL, severity, section, title, null, "/x/" + key, null, date, List.of(), InboxRefsResponse.NONE);
     }
 
     private static InboxItemResponse summaryRow(String key, String section, int count) {
@@ -298,6 +298,104 @@ class InboxServiceTest {
                 item("odd-severity", INFO, "loud", null, "A")));
 
         assertEquals(List.of("info", "odd-severity", "odd-section"), keys(service.list(userId)));
+    }
+
+    // ---------------------------------------------------------------- list: grouping by page
+
+    private static InboxItemResponse onPage(String key, String kind, String href, String section, String severity, LocalDate date, String title) {
+        return InboxRows.item(key, kind, severity, section, title, null, href, null, date,
+                List.of(InboxRows.open(href), InboxRows.snooze()), InboxRefsResponse.NONE);
+    }
+
+    @Test
+    void severalItemsForOnePageBecomeOneRowWithCountAndJoinedTitles() {
+        String ca = "/investments/corporate-actions";
+        when(first.collect(userId, TODAY)).thenReturn(List.of(
+                onPage("ca_review:1", InboxKinds.CORPORATE_ACTION_REVIEW, ca, LOOK, WARN, TODAY.plusDays(4), "Split on AAA"),
+                onPage("stock_not_trading:2", InboxKinds.STOCK_NOT_TRADING, ca, LOOK, WARN, null, "BBB no longer trades"),
+                onPage("holding_oversold:3", InboxKinds.HOLDING_OVERSOLD, ca, ACT, CRIT, TODAY.plusDays(1), "Sold more CCC than you held")));
+
+        InboxResponse response = service.list(userId);
+
+        assertEquals(1, response.items().size());
+        InboxItemResponse row = response.items().get(0);
+        assertEquals("page:" + ca, row.key());
+        assertEquals(InboxKinds.CORPORATE_ACTION_REVIEW, row.kind());
+        assertEquals(InboxItemResponse.ROW_ITEM, row.rowType());
+        assertEquals("Corporate actions: 3 to review", row.title());
+        assertEquals("Split on AAA \u00b7 BBB no longer trades \u00b7 Sold more CCC than you held", row.subtitle());
+        assertEquals(3, row.count());
+        assertEquals(ca, row.href());
+        assertEquals(ACT, row.section());
+        assertEquals(CRIT, row.severity());
+        assertEquals(TODAY.plusDays(1), row.date());
+        assertEquals(null, row.amount());
+        assertTrue(row.actions().isEmpty());
+    }
+
+    @Test
+    void aLoneItemStaysItselfWithNoActions() {
+        when(first.collect(userId, TODAY)).thenReturn(List.of(
+                onPage("bill:1", InboxKinds.BILL, "/accounts/abc", ACT, WARN, TODAY, "Card bill")));
+
+        InboxItemResponse row = service.list(userId).items().get(0);
+
+        assertEquals("bill:1", row.key());
+        assertEquals("Card bill", row.title());
+        assertEquals("/accounts/abc", row.href());
+        assertTrue(row.actions().isEmpty());
+    }
+
+    @Test
+    void itemsForDifferentPagesStaySeparateRows() {
+        when(first.collect(userId, TODAY)).thenReturn(List.of(
+                onPage("bill:1", InboxKinds.BILL, "/accounts/a", ACT, WARN, TODAY, "A bill"),
+                onPage("bill:2", InboxKinds.BILL, "/accounts/b", ACT, WARN, TODAY, "B bill"),
+                onPage("nps_record:1", InboxKinds.NPS_RECORD, "/investments/nps", LOOK, WARN, null, "NPS?")));
+
+        InboxResponse response = service.list(userId);
+
+        assertEquals(List.of("bill:1", "bill:2", "nps_record:1"), keys(response));
+        assertTrue(response.items().stream().allMatch(i -> i.actions().isEmpty()));
+    }
+
+    @Test
+    void groupingIgnoresTheQueryStringAndKeepsTheSharedFullHref() {
+        when(first.collect(userId, TODAY)).thenReturn(List.of(
+                onPage("a", InboxKinds.GMAIL_ATTENTION, "/data-sources/connections?focus=attention", LOOK, WARN, null, "One"),
+                onPage("b", InboxKinds.GMAIL_ATTENTION, "/data-sources/connections?focus=attention", LOOK, WARN, null, "Two")));
+        when(second.collect(userId, TODAY)).thenReturn(List.of(
+                onPage("c", InboxKinds.GMAIL_RECONNECT, "/data-sources/connections", ACT, CRIT, null, "Reconnect")));
+
+        InboxResponse response = service.list(userId);
+
+        assertEquals(1, response.items().size());
+        assertEquals("/data-sources/connections", response.items().get(0).href());
+        assertEquals(3, response.items().get(0).count());
+    }
+
+    @Test
+    void badgeCountsGroupedRowsNotItems() {
+        String ca = "/investments/corporate-actions";
+        when(first.collect(userId, TODAY)).thenReturn(List.of(
+                onPage("x1", InboxKinds.CORPORATE_ACTION_REVIEW, ca, LOOK, WARN, null, "X1"),
+                onPage("x2", InboxKinds.CORPORATE_ACTION_REVIEW, ca, LOOK, WARN, null, "X2"),
+                onPage("x3", InboxKinds.CORPORATE_ACTION_REVIEW, ca, LOOK, WARN, null, "X3"),
+                onPage("bill:1", InboxKinds.BILL, "/accounts/a", ACT, WARN, TODAY, "Bill")));
+
+        assertEquals(new InboxSummaryResponse(1, 1, 0, 2), service.list(userId).summary());
+    }
+
+    @Test
+    void summaryRowsAreGroupedLikeAnyOther() {
+        when(first.collect(userId, TODAY)).thenReturn(List.of(
+                summaryRow(InboxKinds.KEY_REVIEW, LOOK, 12),
+                onPage("link", InboxKinds.LINK_SUGGESTION, "/transactions/review", LOOK, WARN, null, "Possible links")));
+
+        InboxItemResponse row = service.list(userId).items().get(0);
+
+        assertEquals("Transactions: 2 to review", row.title());
+        assertTrue(row.actions().isEmpty());
     }
 
     // ---------------------------------------------------------------- summary

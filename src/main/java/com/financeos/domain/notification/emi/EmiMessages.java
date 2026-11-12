@@ -51,14 +51,8 @@ public final class EmiMessages {
         return new PushMessage(title, body, href(loan, installment, daysUntilDue), "emi-" + loan.getId());
     }
 
-    /**
-     * The inbox row when the inbox lists this installment (overdue or due within
-     * {@link InboxKinds#DUE_SOON_DAYS}, mirroring the EMI inbox collector); otherwise the
-     * installment on the loan page.
-     */
+    /** The installment on the loan page, the same destination the EMI inbox row opens. */
     static String href(Loan loan, InstallmentDto installment, long daysUntilDue) {
-        return daysUntilDue <= InboxKinds.DUE_SOON_DAYS
-                ? InboxKinds.inboxHref(InboxKinds.emiKey(loan.getId(), installment.seq()))
-                : "/loans/" + loan.getId() + "?installment=" + installment.seq();
+        return InboxKinds.emiHref(loan.getId(), installment.seq());
     }
 }

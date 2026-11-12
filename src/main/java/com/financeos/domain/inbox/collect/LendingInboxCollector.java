@@ -53,7 +53,7 @@ public class LendingInboxCollector implements InboxCollector {
                     ? InboxRows.dueText(days) + " · expected back " + InboxRows.date(subject.getExpectedReturnDate())
                     : InboxRows.dueText(days) + " · " + (lent ? "lent on " : "borrowed on ") + InboxRows.date(subject.getEntryDate());
             // Owed to you: land on the ledger's share sheet (the push copy says "Tap to share the ledger").
-            String href = "/lending/" + obligation.counterpartyId() + (lent ? "?export=1" : "");
+            String href = InboxKinds.lendingHref(obligation.counterpartyId(), lent);
             rows.add(InboxRows.item(InboxKinds.lendingKey(obligation.counterpartyId()), InboxKinds.LENDING,
                     days < 0 ? SEVERITY_CRITICAL : SEVERITY_WARNING, SECTION_ACT_NOW, title, subtitle, href,
                     obligation.outstanding(), subject.getExpectedReturnDate(),

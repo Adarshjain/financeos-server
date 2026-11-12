@@ -45,10 +45,12 @@ class InboxKindsTest {
     }
 
     @Test
-    void inboxHrefFocusesTheInboxOnTheKeyVerbatim() {
-        String key = InboxKinds.emiKey(ID, 3);
-        assertEquals("/inbox?item=emi:" + ID + ":3", InboxKinds.inboxHref(key));
-        assertEquals("/inbox?item=review", InboxKinds.inboxHref(InboxKinds.KEY_REVIEW));
+    void destinationHrefsAreSharedByRowsAndPushes() {
+        assertEquals("/accounts/" + ID, InboxKinds.billHref(ID));
+        assertEquals("/loans/" + ID + "?installment=3", InboxKinds.emiHref(ID, 3));
+        assertEquals("/lending/" + ID + "?export=1", InboxKinds.lendingHref(ID, true));
+        assertEquals("/lending/" + ID, InboxKinds.lendingHref(ID, false));
+        assertEquals("/accounts/" + ID + "/statements", InboxKinds.statementExpectedHref(ID));
     }
 
     @Test

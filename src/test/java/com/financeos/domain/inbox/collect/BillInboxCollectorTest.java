@@ -133,7 +133,7 @@ class BillInboxCollectorTest {
         assertEquals(InboxItemResponse.ROW_ITEM, row.rowType());
         assertEquals("HDFC Regalia ••1234 bill", row.title(), "the amount is its own field, never in the title");
         assertEquals("Due in 4 days · 24 Oct · Min ₹750", row.subtitle());
-        assertEquals("/upcoming?bill=" + b.statementId(), row.href());
+        assertEquals("/accounts/" + b.accountId(), row.href());
         assertEquals(new BigDecimal("15000"), row.amount());
         assertEquals(TODAY.plusDays(4), row.date());
         assertEquals(InboxRefsResponse.ofStatement(b.statementId(), accountId), row.refs());

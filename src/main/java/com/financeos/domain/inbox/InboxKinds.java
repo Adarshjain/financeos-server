@@ -156,10 +156,26 @@ public final class InboxKinds {
         return KEY_LINK_SUGGESTION_PREFIX + suggestionKind;
     }
 
-    /** The push deep link for a row: the inbox, focused on that key. */
-    public static String inboxHref(String key) {
-        return "/inbox?item=" + key;
+    // ---------------------------------------------------------------- destination hrefs (shared by collectors and pushes)
+
+    public static String billHref(UUID accountId) {
+        return "/accounts/" + accountId;
     }
+
+    public static String emiHref(UUID loanId, int installmentSeq) {
+        return "/loans/" + loanId + "?installment=" + installmentSeq;
+    }
+
+    public static String lendingHref(UUID counterpartyId, boolean lent) {
+        return "/lending/" + counterpartyId + (lent ? "?export=1" : "");
+    }
+
+    public static String statementExpectedHref(UUID accountId) {
+        return "/accounts/" + accountId + "/statements";
+    }
+
+    public static final String HREF_GMAIL_RECONNECT = "/data-sources/connections";
+    public static final String HREF_GMAIL_ATTENTION = "/data-sources/connections?focus=attention";
 
     /** Summary rows are counts behind one link: they can be dismissed but not snoozed. */
     public static boolean isSummaryKey(String key) {
@@ -216,6 +232,42 @@ public final class InboxKinds {
             case NPS_PASSWORD, NPS_NEW_ACCOUNT, NPS_MATCH, NPS_RECORD, NPS_SETUP -> "/investments/nps";
             case CORPORATE_ACTION_APPLIED, CORPORATE_ACTION_REVIEW, STOCK_NOT_TRADING, HOLDING_OVERSOLD -> "/investments/corporate-actions";
             default -> "/inbox";
+        };
+    }
+
+    /** The path of an href: everything before the query string. */
+    public static String pathOf(String href) {
+        if (href == null) {
+            return "";
+        }
+        int q = href.indexOf('?');
+        return q < 0 ? href : href.substring(0, q);
+    }
+
+    /** What a page is called in a grouped inbox row ("<label>: N to review"). */
+    public static String pageLabel(String path) {
+        return switch (path) {
+            case "/investments/corporate-actions" -> "Corporate actions";
+            case "/investments/nps" -> "NPS";
+            case "/investments/epf" -> "EPF";
+            case "/transactions/review" -> "Transactions";
+            case "/transactions/import" -> "Statement uploads";
+            case "/data-sources/connections" -> "Gmail";
+            case "/data-sources/sync" -> "Sync";
+            case "/upcoming" -> "Upcoming";
+            case "/rewards" -> "Rewards";
+            default -> {
+                if (path.startsWith("/accounts/") && path.endsWith("/statements")) {
+                    yield "Card statements";
+                } else if (path.startsWith("/accounts/")) {
+                    yield "Card";
+                } else if (path.startsWith("/loans/")) {
+                    yield "Loan";
+                } else if (path.startsWith("/lending/")) {
+                    yield "Lending";
+                }
+                yield "Needs attention";
+            }
         };
     }
 }

@@ -81,7 +81,7 @@ class StatementExpectedInboxCollectorTest {
 
         assertEquals(1, rows.size());
         InboxItemResponse row = rows.get(0);
-        String href = "/transactions/import?account=" + card.getId();
+        String href = "/accounts/" + card.getId() + "/statements";
         assertEquals("statement-expected:" + card.getId() + ":2026-09-15", row.key());
         assertEquals("statement_expected", row.kind());
         assertEquals(InboxItemResponse.ROW_ITEM, row.rowType());

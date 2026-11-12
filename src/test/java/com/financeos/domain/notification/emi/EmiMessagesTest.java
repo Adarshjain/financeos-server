@@ -25,7 +25,7 @@ class EmiMessagesTest {
         loan.setName("Home loan");
         installment = new InstallmentDto(4, LocalDate.of(2026, 10, 23), new BigDecimal("100000"), new BigDecimal("25000"),
                 new BigDecimal("1000"), new BigDecimal("24000"), new BigDecimal("76000"), "upcoming", null);
-        inbox = "/inbox?item=emi:" + loan.getId() + ":4";
+        inbox = "/loans/" + loan.getId() + "?installment=4";
         loanPage = "/loans/" + loan.getId() + "?installment=4";
     }
 

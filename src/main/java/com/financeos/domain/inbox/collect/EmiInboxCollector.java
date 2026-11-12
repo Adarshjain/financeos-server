@@ -72,7 +72,7 @@ public class EmiInboxCollector implements InboxCollector {
                 subtitle.append(" from ").append(loan.getPaymentAccount().getName());
             }
         }
-        String href = "/loans/" + loan.getId() + "?installment=" + installment.seq();
+        String href = InboxKinds.emiHref(loan.getId(), installment.seq());
         return InboxRows.item(InboxKinds.emiKey(loan.getId(), installment.seq()), InboxKinds.EMI, severity, SECTION_ACT_NOW,
                 title, subtitle.toString(), href, installment.emi(), installment.dueDate(),
                 List.of(InboxRows.open(href), InboxRows.snooze()), InboxRefsResponse.ofLoan(loan.getId()));

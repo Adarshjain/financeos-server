@@ -39,6 +39,6 @@ public final class LendingMessages {
                     ? "You lent it on " + MessageFormat.date(subject.getEntryDate()) + ". Tap to share the ledger."
                     : "You borrowed it on " + MessageFormat.date(subject.getEntryDate()) + ". Time to settle up.";
         }
-        return new PushMessage(title, body, InboxKinds.inboxHref(InboxKinds.lendingKey(counterpartyId)), "lending-" + counterpartyId);
+        return new PushMessage(title, body, InboxKinds.lendingHref(counterpartyId, lent), "lending-" + counterpartyId);
     }
 }

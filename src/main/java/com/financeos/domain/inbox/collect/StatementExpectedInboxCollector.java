@@ -70,7 +70,7 @@ public class StatementExpectedInboxCollector implements ContextAwareInboxCollect
             if (overdueEnd == null) {
                 continue;
             }
-            String href = IMPORT_HREF + "?account=" + card.getId();
+            String href = InboxKinds.statementExpectedHref(card.getId());
             String title = InboxRows.cardLabel(card.getName(), card.primaryLast4()) + " statement missing";
             String subtitle = "Expected by " + InboxRows.date(overdueEnd.plusDays(StatementExpectedNotificationService.GRACE_DAYS))
                     + " · period ended " + InboxRows.date(overdueEnd);

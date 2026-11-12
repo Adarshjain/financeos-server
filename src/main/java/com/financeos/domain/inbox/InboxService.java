@@ -1,6 +1,7 @@
 package com.financeos.domain.inbox;
 
 import com.financeos.api.inbox.dto.InboxItemResponse;
+import com.financeos.api.inbox.dto.InboxRefsResponse;
 import com.financeos.api.inbox.dto.InboxResponse;
 import com.financeos.api.inbox.dto.InboxSummaryResponse;
 import com.financeos.core.exception.ValidationException;
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -55,6 +57,14 @@ public class InboxService {
 
     @Transactional(readOnly = true)
     public InboxResponse list(UUID userId) {
+        List<InboxItemResponse> rows = groupByPage(listItems(userId));
+        rows.sort(ORDER);
+        return new InboxResponse(rows, summarise(rows), Instant.now());
+    }
+
+    /** Every visible item before page grouping (state filters applied, actions as the collectors built them). */
+    @Transactional(readOnly = true)
+    public List<InboxItemResponse> listItems(UUID userId) {
         LocalDate today = AppTime.today();
         Map<String, InboxItemState> states = new HashMap<>();
         for (InboxItemState state : stateRepository.findByUserId(userId)) {
@@ -71,8 +81,53 @@ public class InboxService {
                 items.add(item);
             }
         }
-        items.sort(ORDER);
-        return new InboxResponse(items, summarise(items), Instant.now());
+        return items;
+    }
+
+    /**
+     * One row per destination page, with no actions: the decision is made on the page itself. A lone
+     * item stays as it is (same key, so old snoozes and dismissals still apply); several become one
+     * "page:" row carrying the count and every title.
+     */
+    static List<InboxItemResponse> groupByPage(List<InboxItemResponse> items) {
+        Map<String, List<InboxItemResponse>> byPath = new LinkedHashMap<>();
+        for (InboxItemResponse item : items) {
+            byPath.computeIfAbsent(InboxKinds.pathOf(item.href()), k -> new ArrayList<>()).add(item);
+        }
+        List<InboxItemResponse> rows = new ArrayList<>(byPath.size());
+        for (Map.Entry<String, List<InboxItemResponse>> entry : byPath.entrySet()) {
+            List<InboxItemResponse> group = entry.getValue();
+            InboxItemResponse first = group.get(0);
+            if (group.size() == 1) {
+                rows.add(new InboxItemResponse(first.key(), first.kind(), first.rowType(), first.severity(), first.section(),
+                        first.title(), first.subtitle(), first.href(), first.amount(), first.date(), first.count(),
+                        List.of(), first.snoozedUntil(), first.refs()));
+                continue;
+            }
+            String severity = first.severity();
+            String section = first.section();
+            LocalDate earliest = null;
+            boolean sameHref = true;
+            List<String> titles = new ArrayList<>();
+            for (InboxItemResponse item : group) {
+                if (SEVERITY_ORDER.getOrDefault(item.severity(), Integer.MAX_VALUE) < SEVERITY_ORDER.getOrDefault(severity, Integer.MAX_VALUE)) {
+                    severity = item.severity();
+                }
+                if (SECTION_ORDER.getOrDefault(item.section(), Integer.MAX_VALUE) < SECTION_ORDER.getOrDefault(section, Integer.MAX_VALUE)) {
+                    section = item.section();
+                }
+                if (item.date() != null && (earliest == null || item.date().isBefore(earliest))) {
+                    earliest = item.date();
+                }
+                sameHref &= java.util.Objects.equals(first.href(), item.href());
+                titles.add(item.title());
+            }
+            int count = group.size();
+            rows.add(new InboxItemResponse("page:" + entry.getKey(), first.kind(), InboxItemResponse.ROW_ITEM, severity, section,
+                    InboxKinds.pageLabel(entry.getKey()) + ": " + count + " to review", String.join(" · ", titles),
+                    sameHref ? first.href() : entry.getKey(), null, earliest, count, List.of(), null, InboxRefsResponse.NONE));
+        }
+        return rows;
     }
 
     private static List<InboxItemResponse> collectFrom(InboxCollector collector, UUID userId, LocalDate today, InboxContext context) {

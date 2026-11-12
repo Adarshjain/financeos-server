@@ -14,11 +14,12 @@ import org.junit.jupiter.api.Test;
 
 class BillMessagesTest {
 
+    private static final UUID ACCOUNT = UUID.fromString("22222222-2222-2222-2222-222222222222");
     private static final UUID STATEMENT = UUID.fromString("11111111-1111-1111-1111-111111111111");
 
     private static CardBill bill(BillStatus status, BigDecimal total, BigDecimal paid, Long days, CardBill.Digest digest) {
         BigDecimal remaining = total == null ? null : total.subtract(paid == null ? BigDecimal.ZERO : paid).max(BigDecimal.ZERO);
-        return new CardBill(UUID.randomUUID(), "HDFC Regalia", "4321", STATEMENT,
+        return new CardBill(ACCOUNT, "HDFC Regalia", "4321", STATEMENT,
                 LocalDate.of(2026, 9, 11), LocalDate.of(2026, 10, 10), LocalDate.of(2026, 10, 28),
                 total, new BigDecimal("2500"), paid, remaining,
                 paid != null && paid.signum() > 0 ? PaidSource.CREDITS : PaidSource.NONE, status, days, null,
@@ -114,7 +115,7 @@ class BillMessagesTest {
 
     // ---------------------------------------------------------------- deep links: inbox row vs Upcoming
 
-    private static final String INBOX = "/inbox?item=bill:" + STATEMENT;
+    private static final String INBOX = "/accounts/" + ACCOUNT;
     private static final String UPCOMING = "/upcoming?bill=" + STATEMENT;
 
     private static CardBill withStatus(BillStatus status, Long days) {

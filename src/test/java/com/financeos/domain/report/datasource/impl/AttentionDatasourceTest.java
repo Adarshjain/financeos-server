@@ -59,7 +59,7 @@ class AttentionDatasourceTest {
     }
 
     private void inbox(InboxItemResponse... items) {
-        when(inboxService.list(userId)).thenReturn(new InboxResponse(List.of(items), InboxSummaryResponse.EMPTY, Instant.now()));
+        when(inboxService.listItems(userId)).thenReturn(List.of(items));
     }
 
     private static InboxItemResponse item(String kind, String key, String section, String severity, String href) {

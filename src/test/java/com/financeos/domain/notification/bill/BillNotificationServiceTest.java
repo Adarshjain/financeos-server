@@ -477,6 +477,6 @@ class BillNotificationServiceTest {
         verify(cardBillService, never()).build(eq(empty), any(), any());
         ArgumentCaptor<PushMessage> message = ArgumentCaptor.forClass(PushMessage.class);
         verify(settingsService).deliver(eq(settings), message.capture());
-        assertEquals("/inbox?item=bill:" + statement.getId(), message.getValue().url(), "due in 3 days: the inbox lists it");
+        assertEquals("/accounts/" + card.getId(), message.getValue().url(), "due in 3 days: the card page");
     }
 }

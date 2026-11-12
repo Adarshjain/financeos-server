@@ -21,7 +21,7 @@ public final class StatementExpectedMessages {
         boolean gmail = card.getIngestFromDate() != null;
         String body = "Expected around " + MessageFormat.date(expectedPeriodEnd) + ". "
                 + (gmail ? "Check the mailbox connection, or upload it." : "Upload it to keep bills and rewards current.");
-        return new PushMessage(title, body, InboxKinds.inboxHref(InboxKinds.statementExpectedKey(card.getId(), expectedPeriodEnd)),
+        return new PushMessage(title, body, InboxKinds.statementExpectedHref(card.getId()),
                 "statement-expected-" + card.getId());
     }
 }

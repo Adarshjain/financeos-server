@@ -20,7 +20,7 @@ public final class GmailMessages {
     public static PushMessage reconnect(GmailConnection connection) {
         return new PushMessage("Gmail disconnected",
                 "Reconnect " + connection.getEmail() + " to keep importing alerts and statements.",
-                InboxKinds.inboxHref(InboxKinds.gmailReconnectKey(connection.getId())), "gmail-reconnect-" + connection.getId());
+                InboxKinds.HREF_GMAIL_RECONNECT, "gmail-reconnect-" + connection.getId());
     }
 
     /** One digest for every item the user has not been told about yet. */
@@ -61,7 +61,7 @@ public final class GmailMessages {
         }
         n = unresolved + notOptedIn + failed;
         String title = n == 1 ? "1 email needs attention" : n + " emails need attention";
-        return new PushMessage(title, String.join(" · ", parts), InboxKinds.inboxHref(InboxKinds.KEY_GMAIL_ATTENTION), "gmail-attention");
+        return new PushMessage(title, String.join(" · ", parts), InboxKinds.HREF_GMAIL_ATTENTION, "gmail-attention");
     }
 
     static boolean isNoKeys(GmailProcessedMessage item) {
