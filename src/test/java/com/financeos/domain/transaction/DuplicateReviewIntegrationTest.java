@@ -187,4 +187,14 @@ class DuplicateReviewIntegrationTest {
         }
         api.getJson("/api/v1/transactions/review/duplicates?ids=" + q, 400);
     }
+
+    @Test
+    void pageSizeIsCappedAt200() throws Exception {
+        txn(account, DAY, "10.00", "Capped", TransactionSource.manual, true);
+
+        JsonNode page = api.getJson("/api/v1/transactions/review/duplicates?size=5000", 200);
+
+        assertEquals(200, page.get("size").asInt());
+        assertEquals(1, page.get("totalElements").asInt());
+    }
 }

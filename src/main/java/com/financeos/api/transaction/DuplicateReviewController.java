@@ -5,6 +5,7 @@ import com.financeos.core.exception.ValidationException;
 import com.financeos.domain.transaction.DuplicateReviewService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -23,6 +24,8 @@ import java.util.UUID;
 public class DuplicateReviewController {
 
     private static final int MAX_IDS = 500;
+    /** Keeps the twin lookup's IN lists under Oracle's 1000-element limit. */
+    private static final int MAX_PAGE_SIZE = 200;
 
     private final DuplicateReviewService duplicateReviewService;
 
@@ -37,6 +40,7 @@ public class DuplicateReviewController {
         if (ids != null && ids.size() > MAX_IDS) {
             throw new ValidationException("ids can hold at most " + MAX_IDS + " transactions");
         }
-        return ResponseEntity.ok(duplicateReviewService.duplicates(ids == null || ids.isEmpty() ? null : ids, pageable));
+        return ResponseEntity.ok(duplicateReviewService.duplicates(ids == null || ids.isEmpty() ? null : ids,
+                PageRequest.of(pageable.getPageNumber(), Math.min(Math.max(pageable.getPageSize(), 1), MAX_PAGE_SIZE), pageable.getSort())));
     }
 }
