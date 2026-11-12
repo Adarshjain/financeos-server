@@ -447,6 +447,21 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     long countByUserIdAndReviewTypeAndReason(@Param("userId") UUID userId, @Param("reviewType") ReviewType reviewType,
                                              @Param("reason") ReviewReason reason);
 
+    /** Review queue: the user's transactions flagged with one review reason, newest first (paged). */
+    @Query(value = "SELECT t FROM Transaction t JOIN FETCH t.account JOIN t.reviewReasons r WHERE t.user.id = :userId "
+            + "AND t.reviewType = com.financeos.domain.transaction.ReviewType.NEEDS_REVIEW AND r = :reason",
+            countQuery = "SELECT COUNT(t) FROM Transaction t JOIN t.reviewReasons r WHERE t.user.id = :userId "
+                    + "AND t.reviewType = com.financeos.domain.transaction.ReviewType.NEEDS_REVIEW AND r = :reason")
+    Page<Transaction> findNeedsReviewWithReason(@Param("userId") UUID userId, @Param("reason") ReviewReason reason,
+                                                Pageable pageable);
+
+    /** Candidate look-alikes for a page of flagged rows: the user's rows in those accounts on those dates with those amounts. */
+    @Query("SELECT t FROM Transaction t JOIN FETCH t.account WHERE t.user.id = :userId AND t.account.id IN :accountIds "
+            + "AND t.date IN :dates AND t.amount IN :amounts")
+    List<Transaction> findDuplicateCandidates(@Param("userId") UUID userId, @Param("accountIds") Collection<UUID> accountIds,
+                                              @Param("dates") Collection<LocalDate> dates,
+                                              @Param("amounts") Collection<java.math.BigDecimal> amounts);
+
     interface TypeTotalProjection {
         TransactionType getType();
 

@@ -291,7 +291,11 @@ public class LoanService {
         List<LoanChargeResponse> chargeResponses = charges.stream().map(LoanChargeResponse::from).toList();
 
         boolean askClosed = LoanClosedPrompt.ask(loan.getStatus(), schedule.installments(), loan.getClosedPromptDismissedAt(), AppTime.today());
-        return new LoanDetailResponse(LoanResponse.from(loan, schedule), eventResponses, chargeResponses, askClosed);
+        LoanResponse loanResponse = LoanResponse.from(loan, schedule);
+        LoanCloseEvidence closeEvidence = askClosed
+                ? LoanClosedPrompt.evidence(schedule.installments(), loanResponse.outstandingPrincipal(), AppTime.today())
+                : null;
+        return new LoanDetailResponse(loanResponse, eventResponses, chargeResponses, askClosed, closeEvidence);
     }
 
     @Transactional(readOnly = true)

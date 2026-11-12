@@ -11995,6 +11995,53 @@ paths:
           description: Error response
       tags:
       - transaction-controller
+  /api/v1/transactions/review/duplicates:
+    get:
+      operationId: duplicates
+      parameters:
+      - description: Zero-based page index (0..N)
+        in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          default: 0
+          minimum: 0
+      - description: The size of the page to be returned
+        in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          default: 50
+          minimum: 1
+      - description: "Sorting criteria in the format: property,(asc|desc). Default\
+          \ sort order is ascending. Multiple sort criteria are supported."
+        in: query
+        name: sort
+        required: false
+        schema:
+          type: array
+          default:
+          - "date,DESC"
+          - "id,DESC"
+          items:
+            type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PageDuplicateReviewItem"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - duplicate-review-controller
   /api/v1/transactions/search:
     post:
       operationId: searchTransactions
@@ -17001,6 +17048,49 @@ components:
       - filename
       - matchedTransactionId
       - transactionId
+    DuplicateReviewItem:
+      type: object
+      properties:
+        transaction:
+          $ref: "#/components/schemas/DuplicateReviewTransaction"
+        twin:
+          $ref: "#/components/schemas/DuplicateReviewTransaction"
+      required:
+      - transaction
+    DuplicateReviewTransaction:
+      type: object
+      properties:
+        accountName:
+          type: string
+          nullable: true
+          x-nullable: true
+        amount:
+          type: number
+          nullable: true
+          x-nullable: true
+        date:
+          type: string
+          format: date
+        description:
+          type: string
+          nullable: true
+          x-nullable: true
+        id:
+          type: string
+          format: uuid
+        source:
+          type: string
+          enum:
+          - gmail_transaction_alert
+          - gmail_statement
+          - manual
+          - file_upload
+          - sms_alert
+          nullable: true
+          x-nullable: true
+      required:
+      - date
+      - id
     EarlierCardRequest:
       type: object
       properties:
@@ -21202,6 +21292,42 @@ components:
       - createdAt
       - id
       - loanId
+    LoanCloseEvidence:
+      type: object
+      properties:
+        daysOverdue:
+          type: integer
+          format: int32
+        lastPaymentAmount:
+          type: number
+          nullable: true
+          x-nullable: true
+        lastPaymentDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        oldestUnpaidDueDate:
+          type: string
+          format: date
+        oldestUnpaidSeq:
+          type: integer
+          format: int32
+        outstandingPrincipal:
+          type: number
+        settledInstallments:
+          type: integer
+          format: int32
+        totalInstallments:
+          type: integer
+          format: int32
+      required:
+      - daysOverdue
+      - oldestUnpaidDueDate
+      - oldestUnpaidSeq
+      - outstandingPrincipal
+      - settledInstallments
+      - totalInstallments
     LoanDetailResponse:
       type: object
       properties:
@@ -21211,6 +21337,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/LoanChargeResponse"
+        closeEvidence:
+          $ref: "#/components/schemas/LoanCloseEvidence"
         events:
           type: array
           items:
@@ -23847,6 +23975,52 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/DividendResponse"
+        empty:
+          type: boolean
+        first:
+          type: boolean
+        last:
+          type: boolean
+        number:
+          type: integer
+          format: int32
+        numberOfElements:
+          type: integer
+          format: int32
+        pageable:
+          $ref: "#/components/schemas/PageableObject"
+        size:
+          type: integer
+          format: int32
+        sort:
+          type: array
+          items:
+            $ref: "#/components/schemas/SortObject"
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int32
+      required:
+      - content
+      - empty
+      - first
+      - last
+      - number
+      - numberOfElements
+      - pageable
+      - size
+      - sort
+      - totalElements
+      - totalPages
+    PageDuplicateReviewItem:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            $ref: "#/components/schemas/DuplicateReviewItem"
         empty:
           type: boolean
         first:

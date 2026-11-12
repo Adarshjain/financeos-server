@@ -7,5 +7,7 @@ public record LoanDetailResponse(
         List<LoanEventResponse> events,
         List<LoanChargeResponse> charges,
         /** Ask "Is this loan closed?": active, oldest unpaid installment 45+ days overdue, not dismissed in the last 45 days. */
-        boolean askClosed
+        boolean askClosed,
+        /** The facts behind the prompt; set only when askClosed. */
+        @org.springframework.lang.Nullable LoanCloseEvidence closeEvidence
 ) {}
