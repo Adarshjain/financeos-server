@@ -119,6 +119,9 @@ public class JobService {
         }
         job.setStatus(JobStatus.SUCCEEDED);
         job.setResult(resultJson);
+        job.setErrorCode(null);
+        job.setErrorMessage(null);
+        job.setErrorDetail(null);
         job.setFinishedAt(Instant.now());
         jobRepository.save(job);
         // Files kept for a held upload or a password retry outlive the job's success (until the job is purged).

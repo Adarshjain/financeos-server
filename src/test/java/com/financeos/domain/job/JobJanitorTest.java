@@ -31,6 +31,7 @@ class JobJanitorTest {
                 eq(JobStatus.FAILED),
                 eq("INTERRUPTED"),
                 eq("Interrupted by server restart"),
+                any(Instant.class),
                 any(Instant.class)
         );
     }
@@ -58,6 +59,17 @@ class JobJanitorTest {
 
         jobJanitor.markInterruptedOnStartup();
 
-        verify(jobRepository, times(1)).markInterrupted(any(), any(), any(), any(), any(Instant.class));
+        verify(jobRepository, times(1)).markInterrupted(any(), any(), any(), any(), any(Instant.class), any(Instant.class));
+    }
+
+    @Test
+    void markInterruptedOnStartup_passesProcessStartAsCutoff() {
+        Instant start = Instant.parse("2026-11-12T06:46:00Z");
+        org.springframework.test.util.ReflectionTestUtils.setField(jobJanitor, "processStart", start);
+
+        jobJanitor.markInterruptedOnStartup();
+
+        verify(jobRepository).markInterrupted(eq(JobStatus.RUNNING), eq(JobStatus.FAILED), eq("INTERRUPTED"),
+                eq("Interrupted by server restart"), any(Instant.class), eq(start));
     }
 }

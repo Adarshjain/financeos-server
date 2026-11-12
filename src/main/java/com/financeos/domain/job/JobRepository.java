@@ -118,8 +118,8 @@ public interface JobRepository extends JpaRepository<Job, UUID> {
     int claim(@Param("id") UUID id, @Param("fromStatus") JobStatus fromStatus, @Param("toStatus") JobStatus toStatus, @Param("startedAt") Instant startedAt);
 
     @Modifying
-    @Query("update Job j set j.status = :toStatus, j.errorCode = :errorCode, j.errorMessage = :errorMessage, j.finishedAt = :finishedAt where j.status = :fromStatus")
-    int markInterrupted(@Param("fromStatus") JobStatus fromStatus, @Param("toStatus") JobStatus toStatus, @Param("errorCode") String errorCode, @Param("errorMessage") String errorMessage, @Param("finishedAt") Instant finishedAt);
+    @Query("update Job j set j.status = :toStatus, j.errorCode = :errorCode, j.errorMessage = :errorMessage, j.finishedAt = :finishedAt where j.status = :fromStatus and (j.startedAt is null or j.startedAt < :startedBefore)")
+    int markInterrupted(@Param("fromStatus") JobStatus fromStatus, @Param("toStatus") JobStatus toStatus, @Param("errorCode") String errorCode, @Param("errorMessage") String errorMessage, @Param("finishedAt") Instant finishedAt, @Param("startedBefore") Instant startedBefore);
 
     @Modifying
     @Query("delete from JobArtifact a where a.retained = false and a.jobId in (select j.id from Job j where j.status = 'FAILED' and j.finishedAt < :cutoff)")

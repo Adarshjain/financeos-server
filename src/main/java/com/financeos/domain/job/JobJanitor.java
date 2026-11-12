@@ -41,6 +41,9 @@ public class JobJanitor {
     @Value("${app.role:all}")
     private String role = "all";
 
+    /** Jobs claimed before this instant belong to a previous process; the sweep must not touch later ones. */
+    Instant processStart = Instant.ofEpochMilli(java.lang.management.ManagementFactory.getRuntimeMXBean().getStartTime());
+
     @EventListener(ApplicationReadyEvent.class)
     @org.springframework.core.annotation.Order(org.springframework.core.Ordered.HIGHEST_PRECEDENCE)
     @Transactional
@@ -53,7 +56,8 @@ public class JobJanitor {
                 JobStatus.FAILED,
                 "INTERRUPTED",
                 "Interrupted by server restart",
-                Instant.now()
+                Instant.now(),
+                processStart
         );
         if (count > 0) {
             log.info("Startup sweep marked {} stale RUNNING job(s) as FAILED/INTERRUPTED", count);
