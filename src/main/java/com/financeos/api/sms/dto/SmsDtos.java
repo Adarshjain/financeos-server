@@ -24,7 +24,7 @@ public final class SmsDtos {
 
     private static final String INSTALL_ID_PATTERN = "^[A-Za-z0-9_-]{8,64}$";
 
-    public record LoginRequest(@NotBlank @Size(max = 254) String email, @NotBlank @Size(max = 1000) String password,
+    public record SmsLoginRequest(@NotBlank @Size(max = 254) String email, @NotBlank @Size(max = 1000) String password,
                                @NotBlank @Size(max = 80) String deviceName,
                                @Pattern(regexp = INSTALL_ID_PATTERN) String installId) {}
 
@@ -46,7 +46,7 @@ public final class SmsDtos {
 
     public record SummaryRequest(@NotNull @Size(max = 1000) List<@Valid SummaryLine> lines, @Valid Skipped skipped) {}
 
-    public record SummaryResponse(int lines, int newLines, int skippedLines) {}
+    public record SmsSummaryResponse(int lines, int newLines, int skippedLines) {}
 
     public record OnLine(UUID id, String sender, String ending, String family, LocalDate syncFrom) {}
 
@@ -80,12 +80,12 @@ public final class SmsDtos {
 
     public record NotMineRequest(@NotNull @Size(min = 1, max = 500) List<@NotNull UUID> ids) {}
 
-    public record MessageView(UUID id, String sender, String provider, String body, Instant receivedAt, UUID accountId,
+    public record SmsMessageView(UUID id, String sender, String provider, String body, Instant receivedAt, UUID accountId,
                               String accountName, String readStatus, String kind, BigDecimal amount, String direction,
                               LocalDate txnDate, String counterparty, BigDecimal balanceAfter, String refNo, String outcome,
                               UUID transactionId) {}
 
-    public record MessagePage(List<MessageView> items, int page, int size, long total) {}
+    public record MessagePage(List<SmsMessageView> items, int page, int size, long total) {}
 
     public record ConfirmRequest(BigDecimal amount, String direction, LocalDate txnDate, String counterparty) {}
 
@@ -98,7 +98,7 @@ public final class SmsDtos {
                                 long wouldAttach, long created, long attached, long duplicates, long needsConfirm,
                                 long couldNotRead, List<ReportAlert> alerts) {}
 
-    public record ReportResponse(boolean postingEnabled, ReportTotals totals, List<ReportAccount> accounts) {}
+    public record SmsReportResponse(boolean postingEnabled, ReportTotals totals, List<ReportAccount> accounts) {}
 
     /** What a replay did: how many messages it re-decided, and the user's messages by outcome afterwards (every outcome listed). */
     public record ReplayResponse(int replayed, java.util.Map<String, Long> outcomes) {}

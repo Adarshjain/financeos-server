@@ -2,7 +2,7 @@ package com.financeos.sms.ingest;
 
 import com.financeos.api.sms.dto.SmsDtos.ConfirmRequest;
 import com.financeos.api.sms.dto.SmsDtos.MessagePage;
-import com.financeos.api.sms.dto.SmsDtos.MessageView;
+import com.financeos.api.sms.dto.SmsDtos.SmsMessageView;
 import com.financeos.api.sms.dto.SmsDtos.ReplayResponse;
 import com.financeos.core.exception.ResourceNotFoundException;
 import com.financeos.core.time.AppTime;
@@ -72,7 +72,7 @@ public class SmsMessageService {
 
     /** Applies the owner's overrides, then runs the pipeline for it as a certain read. */
     @Transactional
-    public MessageView confirm(UUID userId, UUID id, ConfirmRequest request) {
+    public SmsMessageView confirm(UUID userId, UUID id, ConfirmRequest request) {
         pipeline.lockUser(userId);
         SmsMessage m = require(userId, id);
         if (m.getReadStatus() != SmsReadStatus.NEEDS_CONFIRM && m.getReadStatus() != SmsReadStatus.COULD_NOT_READ) {
@@ -127,7 +127,7 @@ public class SmsMessageService {
 
     /** The owner says it is not a transaction: IGNORED, no outcome. */
     @Transactional
-    public MessageView reject(UUID userId, UUID id) {
+    public SmsMessageView reject(UUID userId, UUID id) {
         pipeline.lockUser(userId);
         SmsMessage m = require(userId, id);
         if (m.getReadStatus() != SmsReadStatus.NEEDS_CONFIRM && m.getReadStatus() != SmsReadStatus.COULD_NOT_READ) {
@@ -155,14 +155,14 @@ public class SmsMessageService {
     }
 
     /** One account lookup for the whole page. */
-    private List<MessageView> views(UUID userId, List<SmsMessage> rows) {
+    private List<SmsMessageView> views(UUID userId, List<SmsMessage> rows) {
         Set<UUID> accountIds = new HashSet<>();
         rows.forEach(m -> {
             if (m.getAccountId() != null) accountIds.add(m.getAccountId());
         });
         Map<UUID, String> names = accountQueries.accounts(userId, accountIds).stream()
                 .collect(Collectors.toMap(SmsAccountQueries.AccountRow::id, SmsAccountQueries.AccountRow::name));
-        return rows.stream().map(m -> new MessageView(m.getId(), m.getSender(),
+        return rows.stream().map(m -> new SmsMessageView(m.getId(), m.getSender(),
                 catalogue.find(m.getSender()).map(SenderCatalogue.Sender::provider).orElse(m.getSender()), m.getBody(),
                 m.getReceivedAt(), m.getAccountId(), m.getAccountId() == null ? null : names.get(m.getAccountId()),
                 m.getReadStatus().name(), m.getKind().name(), m.getAmount(),

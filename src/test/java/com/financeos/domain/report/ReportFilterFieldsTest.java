@@ -106,7 +106,7 @@ class ReportFilterFieldsTest {
     @Test
     void transactionsStaticEnumsListTheStoredEnumValues() {
         assertEquals(names(TransactionSource.values()), transactions.field("source").values());
-        assertEquals(List.of("gmail_transaction_alert", "gmail_statement", "manual", "file_upload"),
+        assertEquals(List.of("gmail_transaction_alert", "gmail_statement", "manual", "file_upload", "sms_alert"),
                 transactions.field("source").values());
         assertEquals(names(TransactionChannel.values()), transactions.field("channel").values());
         assertTrue(transactions.field("channel").values().contains("ATM"));

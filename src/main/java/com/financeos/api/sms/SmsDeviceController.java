@@ -6,7 +6,7 @@ import com.financeos.api.sms.dto.SmsDtos.MessagesRequest;
 import com.financeos.api.sms.dto.SmsDtos.MessagesResponse;
 import com.financeos.api.sms.dto.SmsDtos.OnLine;
 import com.financeos.api.sms.dto.SmsDtos.SummaryRequest;
-import com.financeos.api.sms.dto.SmsDtos.SummaryResponse;
+import com.financeos.api.sms.dto.SmsDtos.SmsSummaryResponse;
 import com.financeos.core.security.UserContext;
 import com.financeos.sms.device.SmsDeviceService;
 import com.financeos.sms.ingest.SmsIntakeService;
@@ -65,7 +65,7 @@ public class SmsDeviceController {
     }
 
     @PostMapping("/summary")
-    public ResponseEntity<SummaryResponse> summary(Authentication auth, @Valid @RequestBody SummaryRequest request) {
+    public ResponseEntity<SmsSummaryResponse> summary(Authentication auth, @Valid @RequestBody SummaryRequest request) {
         List<SmsLineSummaryService.LineSummary> incoming = request.lines().stream()
                 .map(l -> new SmsLineSummaryService.LineSummary(l.sender(), l.ending(), l.family(), l.msgCount(),
                         l.txnCount(), l.firstMsgAt(), l.lastMsgAt()))
@@ -73,7 +73,7 @@ public class SmsDeviceController {
         SmsLineSummaryService.Result result = summaries.apply(UserContext.getCurrentUserId(), (UUID) auth.getDetails(), incoming,
                 request.skipped() == null ? null : new SmsLineSummaryService.Skipped(request.skipped().personal(),
                         request.skipped().otp(), request.skipped().promo(), request.skipped().unknownSender()));
-        return ResponseEntity.ok(new SummaryResponse(result.lines(), result.newLines(), result.skipped()));
+        return ResponseEntity.ok(new SmsSummaryResponse(result.lines(), result.newLines(), result.skipped()));
     }
 
     /** The phone revokes its own token (same as the web revoke); the next call with it is a 401. */

@@ -1,7 +1,7 @@
 package com.financeos.api.sms;
 
 import com.financeos.api.sms.dto.SmsDtos.GoogleLoginRequest;
-import com.financeos.api.sms.dto.SmsDtos.LoginRequest;
+import com.financeos.api.sms.dto.SmsDtos.SmsLoginRequest;
 import com.financeos.api.sms.dto.SmsDtos.LoginResponse;
 import com.financeos.sms.device.SmsDeviceLoginService;
 import jakarta.validation.Valid;
@@ -23,7 +23,7 @@ public class SmsLoginController {
     }
 
     @PostMapping
-    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody SmsLoginRequest request) {
         return ResponseEntity.ok(new LoginResponse(logins.loginWithPassword(request.email(), request.password(), request.deviceName(),
                 request.installId())));
     }

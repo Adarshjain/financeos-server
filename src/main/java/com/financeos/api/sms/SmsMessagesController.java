@@ -2,9 +2,9 @@ package com.financeos.api.sms;
 
 import com.financeos.api.sms.dto.SmsDtos.ConfirmRequest;
 import com.financeos.api.sms.dto.SmsDtos.MessagePage;
-import com.financeos.api.sms.dto.SmsDtos.MessageView;
+import com.financeos.api.sms.dto.SmsDtos.SmsMessageView;
 import com.financeos.api.sms.dto.SmsDtos.ReplayResponse;
-import com.financeos.api.sms.dto.SmsDtos.ReportResponse;
+import com.financeos.api.sms.dto.SmsDtos.SmsReportResponse;
 import com.financeos.core.security.UserContext;
 import com.financeos.sms.ingest.SmsMessageService;
 import com.financeos.sms.ingest.SmsReportService;
@@ -45,7 +45,7 @@ public class SmsMessagesController {
     }
 
     @GetMapping("/report")
-    public ResponseEntity<ReportResponse> report() {
+    public ResponseEntity<SmsReportResponse> report() {
         return ResponseEntity.ok(report.report(userId()));
     }
 
@@ -71,12 +71,12 @@ public class SmsMessagesController {
     }
 
     @PostMapping("/messages/{id}/confirm")
-    public ResponseEntity<MessageView> confirm(@PathVariable UUID id, @RequestBody(required = false) ConfirmRequest request) {
+    public ResponseEntity<SmsMessageView> confirm(@PathVariable UUID id, @RequestBody(required = false) ConfirmRequest request) {
         return ResponseEntity.ok(messages.confirm(userId(), id, request));
     }
 
     @PostMapping("/messages/{id}/reject")
-    public ResponseEntity<MessageView> reject(@PathVariable UUID id) {
+    public ResponseEntity<SmsMessageView> reject(@PathVariable UUID id) {
         return ResponseEntity.ok(messages.reject(userId(), id));
     }
 }

@@ -2,7 +2,7 @@ package com.financeos.sms.ingest;
 
 import com.financeos.api.sms.dto.SmsDtos.ReportAccount;
 import com.financeos.api.sms.dto.SmsDtos.ReportAlert;
-import com.financeos.api.sms.dto.SmsDtos.ReportResponse;
+import com.financeos.api.sms.dto.SmsDtos.SmsReportResponse;
 import com.financeos.api.sms.dto.SmsDtos.ReportTotals;
 import com.financeos.core.time.AppTime;
 import com.financeos.domain.transaction.TransactionType;
@@ -57,7 +57,7 @@ public class SmsReportService {
     }
 
     @Transactional(readOnly = true)
-    public ReportResponse report(UUID userId) {
+    public SmsReportResponse report(UUID userId) {
         long stored = 0, read = 0, needsConfirm = 0, couldNotRead = 0, ignored = 0;
         long wouldCreate = 0, wouldAttach = 0, created = 0, attached = 0, duplicates = 0;
         Map<UUID, Counts> perAccount = new LinkedHashMap<>();
@@ -131,7 +131,7 @@ public class SmsReportService {
                 })
                 .sorted(Comparator.comparing(ReportAccount::name, String.CASE_INSENSITIVE_ORDER))
                 .toList();
-        return new ReportResponse(pipeline.isPostingEnabled(), new ReportTotals(stored, read, needsConfirm, couldNotRead, ignored,
+        return new SmsReportResponse(pipeline.isPostingEnabled(), new ReportTotals(stored, read, needsConfirm, couldNotRead, ignored,
                 wouldCreate, wouldAttach, created, attached, duplicates), accounts);
     }
 

@@ -10,7 +10,7 @@ servers:
 paths:
   /api/v1/account-suggestions:
     get:
-      operationId: list_4
+      operationId: list_5
       responses:
         "200":
           content:
@@ -82,7 +82,7 @@ paths:
       - account-suggestion-controller
   /api/v1/account-suggestions/{id}/not-mine:
     post:
-      operationId: notMine
+      operationId: notMine_1
       parameters:
       - in: path
         name: id
@@ -124,7 +124,7 @@ paths:
       - account-suggestion-controller
   /api/v1/account-suggestions/{id}/undo:
     post:
-      operationId: undo_1
+      operationId: undo_2
       parameters:
       - in: path
         name: id
@@ -723,7 +723,7 @@ paths:
       - statement-skip-controller
   /api/v1/accounts/{accountId}/statement-skips/{skipId}:
     delete:
-      operationId: undo_2
+      operationId: undo_3
       parameters:
       - in: path
         name: accountId
@@ -1723,7 +1723,7 @@ paths:
       - admin-failures-controller
   /api/v1/admin/failures/summary:
     get:
-      operationId: summary_3
+      operationId: summary_4
       responses:
         "200":
           content:
@@ -1970,7 +1970,7 @@ paths:
       - auth-controller
   /api/v1/auth/login:
     post:
-      operationId: login
+      operationId: login_1
       requestBody:
         content:
           application/json:
@@ -2343,7 +2343,7 @@ paths:
       - category-list-controller
   /api/v1/chat/conversations:
     get:
-      operationId: list_3
+      operationId: list_4
       responses:
         "200":
           content:
@@ -4185,7 +4185,7 @@ paths:
       - gmail-attention-controller
   /api/v1/gmail/attention/summary:
     get:
-      operationId: summary_2
+      operationId: summary_3
       parameters:
       - in: query
         name: includeRetryable
@@ -4721,7 +4721,7 @@ paths:
       - statement-intake-controller
   /api/v1/imports:
     get:
-      operationId: list_2
+      operationId: list_3
       parameters:
       - in: query
         name: page
@@ -4759,7 +4759,7 @@ paths:
       - import-history-controller
   /api/v1/inbox:
     get:
-      operationId: list_1
+      operationId: list_2
       responses:
         "200":
           content:
@@ -4777,7 +4777,7 @@ paths:
       - inbox-controller
   /api/v1/inbox/summary:
     get:
-      operationId: summary_1
+      operationId: summary_2
       responses:
         "200":
           content:
@@ -7292,7 +7292,7 @@ paths:
       - lending-controller
   /api/v1/link-suggestions:
     get:
-      operationId: list
+      operationId: list_1
       responses:
         "200":
           content:
@@ -10837,6 +10837,561 @@ paths:
           description: Error response
       tags:
       - shell-controller
+  /api/v1/sms/device/config:
+    get:
+      operationId: config
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/DeviceConfigResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-device-controller
+  /api/v1/sms/device/messages:
+    post:
+      operationId: messages
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MessagesRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/MessagesResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-device-controller
+  /api/v1/sms/device/revoke:
+    post:
+      operationId: revoke_1
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-device-controller
+  /api/v1/sms/device/summary:
+    post:
+      operationId: summary
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SummaryRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SmsSummaryResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-device-controller
+  /api/v1/sms/devices:
+    get:
+      operationId: devices
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/DeviceView"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-web-controller
+  /api/v1/sms/devices/{id}/pause:
+    post:
+      operationId: pause
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-web-controller
+  /api/v1/sms/devices/{id}/resume:
+    post:
+      operationId: resume
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-web-controller
+  /api/v1/sms/devices/{id}/revoke:
+    post:
+      operationId: revoke
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-web-controller
+  /api/v1/sms/lines:
+    get:
+      operationId: lines
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LinesResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-web-controller
+  /api/v1/sms/lines/not-mine:
+    post:
+      operationId: notMineAll
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NotMineRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-web-controller
+  /api/v1/sms/lines/seen:
+    post:
+      operationId: seen
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-web-controller
+  /api/v1/sms/lines/undo:
+    post:
+      operationId: undoAll
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NotMineRequest"
+        required: true
+      responses:
+        "200":
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-web-controller
+  /api/v1/sms/lines/{id}/account:
+    post:
+      operationId: account
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AccountRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LineView"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-web-controller
+  /api/v1/sms/lines/{id}/not-mine:
+    post:
+      operationId: notMine
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LineView"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-web-controller
+  /api/v1/sms/lines/{id}/off:
+    post:
+      operationId: "off"
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LineView"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-web-controller
+  /api/v1/sms/lines/{id}/on:
+    post:
+      operationId: "on"
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OnRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LineView"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-web-controller
+  /api/v1/sms/lines/{id}/undo:
+    post:
+      operationId: undo_1
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LineView"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-web-controller
+  /api/v1/sms/login:
+    post:
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SmsLoginRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-login-controller
+  /api/v1/sms/login/google:
+    post:
+      operationId: loginWithGoogle
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GoogleLoginRequest"
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/LoginResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-login-controller
+  /api/v1/sms/messages:
+    get:
+      operationId: list
+      parameters:
+      - in: query
+        name: status
+        required: false
+        schema:
+          type: string
+      - in: query
+        name: accountId
+        required: false
+        schema:
+          type: string
+          format: uuid
+      - in: query
+        name: page
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 0
+      - in: query
+        name: size
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 25
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/MessagePage"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-messages-controller
+  /api/v1/sms/messages/{id}/confirm:
+    post:
+      operationId: confirm
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConfirmRequest"
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SmsMessageView"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-messages-controller
+  /api/v1/sms/messages/{id}/reject:
+    post:
+      operationId: reject
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SmsMessageView"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-messages-controller
+  /api/v1/sms/replay:
+    post:
+      operationId: replay
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ReplayResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-messages-controller
+  /api/v1/sms/report:
+    get:
+      operationId: report
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/SmsReportResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - sms-messages-controller
   /api/v1/statements/{statementId}:
     get:
       operationId: getStatementById
@@ -11582,7 +12137,7 @@ paths:
       - uncategorized-controller
   /api/v1/transactions/uncategorized/summary:
     get:
-      operationId: summary
+      operationId: summary_1
       responses:
         "200":
           content:
@@ -11862,6 +12417,37 @@ components:
       - id
       - kind
       - value
+    AccountLines:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        last60Days:
+          $ref: "#/components/schemas/Last60Days"
+        lastTransactionDate:
+          type: string
+          format: date
+        lines:
+          type: array
+          items:
+            $ref: "#/components/schemas/LineView"
+        name:
+          type: string
+        type:
+          type: string
+          enum:
+          - bank_account
+          - credit_card
+          - broker
+          - generic
+      required:
+      - accountId
+      - last60Days
+      - lastTransactionDate
+      - lines
+      - name
+      - type
     AccountPaymentsFromResponse:
       type: object
       properties:
@@ -11876,6 +12462,15 @@ components:
       required:
       - cardBills
       - emis
+    AccountRequest:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+          x-required: true
+      required:
+      - accountId
     AccountResponse:
       discriminator:
         mapping:
@@ -14240,6 +14835,18 @@ components:
       required:
       - linked
       - skipped
+    ConfirmRequest:
+      type: object
+      properties:
+        amount:
+          type: number
+        counterparty:
+          type: string
+        direction:
+          type: string
+        txnDate:
+          type: string
+          format: date
     ConversationDetail:
       type: object
       properties:
@@ -15641,6 +16248,23 @@ components:
       required:
       - id
       - layout
+    Data:
+      type: object
+      properties:
+        drop:
+          $ref: "#/components/schemas/Drop"
+        endingPatterns:
+          type: array
+          items:
+            $ref: "#/components/schemas/EndingPattern"
+        senders:
+          type: array
+          items:
+            $ref: "#/components/schemas/Sender"
+      required:
+      - drop
+      - endingPatterns
+      - senders
     DataSourcesCountsResponse:
       type: object
       properties:
@@ -15730,6 +16354,54 @@ components:
       - name
       - quantity
       - symbol
+    DeviceConfigResponse:
+      type: object
+      properties:
+        catalogue:
+          $ref: "#/components/schemas/Data"
+        lines:
+          type: array
+          items:
+            $ref: "#/components/schemas/OnLine"
+        paused:
+          type: boolean
+        zone:
+          type: string
+      required:
+      - catalogue
+      - lines
+      - paused
+      - zone
+    DeviceView:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        lastSeenAt:
+          type: string
+          format: date-time
+        lastSummaryAt:
+          type: string
+          format: date-time
+        name:
+          type: string
+        pairedAt:
+          type: string
+          format: date-time
+        paused:
+          type: boolean
+        revokedAt:
+          type: string
+          format: date-time
+      required:
+      - id
+      - lastSeenAt
+      - lastSummaryAt
+      - name
+      - pairedAt
+      - paused
+      - revokedAt
     DiagnosticsLookupResponse:
       type: object
       properties:
@@ -16107,6 +16779,20 @@ components:
       type: object
       properties:
         draftResult: {}
+    Drop:
+      type: object
+      properties:
+        otpPatterns:
+          type: array
+          items:
+            type: string
+        promoHeaderSuffixes:
+          type: array
+          items:
+            type: string
+      required:
+      - otpPatterns
+      - promoHeaderSuffixes
     DuplicateDetail:
       type: object
       properties:
@@ -16196,6 +16882,16 @@ components:
       - amount
       - loanId
       - name
+    EndingPattern:
+      type: object
+      properties:
+        key:
+          type: string
+        pattern:
+          type: string
+      required:
+      - key
+      - pattern
     EnqueueResponse:
       type: object
       properties:
@@ -17128,6 +17824,16 @@ components:
       - failedGmailPermanent
       - failedGmailRetryable
       - failedJobs
+    Family:
+      type: object
+      properties:
+        key:
+          type: string
+        pattern:
+          type: string
+      required:
+      - key
+      - pattern
     FieldDef:
       type: object
       properties:
@@ -17573,6 +18279,9 @@ components:
         name:
           type: string
           x-required: true
+        openingBalance:
+          nullable: true
+          x-nullable: true
         type:
           type: string
           enum:
@@ -17626,6 +18335,10 @@ components:
           x-nullable: true
         name:
           type: string
+        openingBalance:
+          type: number
+          nullable: true
+          x-nullable: true
         reconciliationGap:
           type: number
           nullable: true
@@ -17974,6 +18687,25 @@ components:
           type: string
       required:
       - authorizationUrl
+    GoogleLoginRequest:
+      type: object
+      properties:
+        deviceName:
+          type: string
+          maxLength: 80
+          minLength: 0
+          x-required: true
+        idToken:
+          type: string
+          maxLength: 4000
+          minLength: 0
+          x-required: true
+        installId:
+          type: string
+          pattern: "^[A-Za-z0-9_-]{8,64}$"
+      required:
+      - deviceName
+      - idToken
     Group:
       type: object
       properties:
@@ -18875,6 +19607,21 @@ components:
       - badge
       - info
       - needsLook
+    IncomingMessage:
+      type: object
+      properties:
+        body:
+          type: string
+        fingerprint:
+          type: string
+        receivedAt:
+          type: string
+          format: date-time
+        sender:
+          type: string
+        simSlot:
+          type: integer
+          format: int32
     InstallmentDto:
       type: object
       properties:
@@ -19620,6 +20367,22 @@ components:
       - summaryLines
       - table
       - winnerOnly
+    Last60Days:
+      type: object
+      properties:
+        emailAlert:
+          type: integer
+          format: int64
+        manual:
+          type: integer
+          format: int64
+        statement:
+          type: integer
+          format: int64
+      required:
+      - emailAlert
+      - manual
+      - statement
     LastAlert:
       type: object
       properties:
@@ -19864,6 +20627,86 @@ components:
       - accountId
       - date
       - id
+    LineView:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        ending:
+          type: string
+        family:
+          type: string
+        firstMsgAt:
+          type: string
+          format: date-time
+        id:
+          type: string
+          format: uuid
+        isNew:
+          type: boolean
+        kind:
+          type: string
+        lastMsgAt:
+          type: string
+          format: date-time
+        msgCount:
+          type: integer
+          format: int32
+        provider:
+          type: string
+        sender:
+          type: string
+        state:
+          type: string
+          enum:
+          - "OFF"
+          - "ON"
+          - NOT_MINE
+        suggestedAccountId:
+          type: string
+          format: uuid
+        syncFrom:
+          type: string
+          format: date
+        txnCount:
+          type: integer
+          format: int32
+      required:
+      - accountId
+      - ending
+      - family
+      - firstMsgAt
+      - id
+      - isNew
+      - kind
+      - lastMsgAt
+      - msgCount
+      - provider
+      - sender
+      - state
+      - suggestedAccountId
+      - syncFrom
+      - txnCount
+    LinesResponse:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: "#/components/schemas/AccountLines"
+        notMine:
+          type: array
+          items:
+            $ref: "#/components/schemas/LineView"
+        unassigned:
+          type: array
+          items:
+            $ref: "#/components/schemas/LineView"
+      required:
+      - accounts
+      - notMine
+      - unassigned
     LinkDividendTransactionRequest:
       type: object
       properties:
@@ -20432,6 +21275,13 @@ components:
       required:
       - email
       - password
+    LoginResponse:
+      type: object
+      properties:
+        token:
+          type: string
+      required:
+      - token
     Lot:
       type: object
       properties:
@@ -20601,6 +21451,40 @@ components:
       required:
       - keptId
       - remainingReasons
+    MessagePage:
+      type: object
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/SmsMessageView"
+        page:
+          type: integer
+          format: int32
+        size:
+          type: integer
+          format: int32
+        total:
+          type: integer
+          format: int64
+      required:
+      - items
+      - page
+      - size
+      - total
+    MessageResult:
+      type: object
+      properties:
+        fingerprint:
+          type: string
+        reason:
+          type: string
+        status:
+          type: string
+      required:
+      - fingerprint
+      - reason
+      - status
     MessageView:
       type: object
       properties:
@@ -20623,6 +21507,27 @@ components:
       - id
       - role
       - text
+    MessagesRequest:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            $ref: "#/components/schemas/IncomingMessage"
+          maxItems: 200
+          minItems: 0
+          x-required: true
+      required:
+      - messages
+    MessagesResponse:
+      type: object
+      properties:
+        results:
+          type: array
+          items:
+            $ref: "#/components/schemas/MessageResult"
+      required:
+      - results
     MilestoneStatus:
       type: object
       properties:
@@ -20857,6 +21762,19 @@ components:
       - progress
       - threshold
       - windowEnd
+    NotMineRequest:
+      type: object
+      properties:
+        ids:
+          type: array
+          items:
+            type: string
+            format: uuid
+          maxItems: 500
+          minItems: 1
+          x-required: true
+      required:
+      - ids
     NotOnStatement:
       type: object
       properties:
@@ -22250,6 +23168,39 @@ components:
             $ref: "#/components/schemas/ObligationItemDto"
       required:
       - items
+    OnLine:
+      type: object
+      properties:
+        ending:
+          type: string
+        family:
+          type: string
+        id:
+          type: string
+          format: uuid
+        sender:
+          type: string
+        syncFrom:
+          type: string
+          format: date
+      required:
+      - ending
+      - family
+      - id
+      - sender
+      - syncFrom
+    OnRequest:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+          x-required: true
+        syncFrom:
+          type: string
+          format: date
+      required:
+      - accountId
     OperatorCatalog:
       type: object
       properties:
@@ -24414,6 +25365,86 @@ components:
           x-required: true
       required:
       - newLast4
+    ReplayResponse:
+      type: object
+      properties:
+        outcomes:
+          type: object
+          additionalProperties:
+            type: integer
+            format: int64
+        replayed:
+          type: integer
+          format: int32
+      required:
+      - outcomes
+      - replayed
+    ReportAccount:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        alerts:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReportAlert"
+        attached:
+          type: integer
+          format: int64
+        couldNotRead:
+          type: integer
+          format: int64
+        created:
+          type: integer
+          format: int64
+        duplicates:
+          type: integer
+          format: int64
+        firstMessageAt:
+          type: string
+          format: date-time
+        lastMessageAt:
+          type: string
+          format: date-time
+        name:
+          type: string
+        needsConfirm:
+          type: integer
+          format: int64
+        wouldAttach:
+          type: integer
+          format: int64
+        wouldCreate:
+          type: integer
+          format: int64
+      required:
+      - accountId
+      - alerts
+      - attached
+      - couldNotRead
+      - created
+      - duplicates
+      - firstMessageAt
+      - lastMessageAt
+      - name
+      - needsConfirm
+      - wouldAttach
+      - wouldCreate
+    ReportAlert:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+        kind:
+          type: string
+        message:
+          type: string
+      required:
+      - date
+      - kind
+      - message
     ReportCatalogView:
       type: object
       properties:
@@ -24554,6 +25585,50 @@ components:
       - name
       - type
       - updatedAt
+    ReportTotals:
+      type: object
+      properties:
+        attached:
+          type: integer
+          format: int64
+        couldNotRead:
+          type: integer
+          format: int64
+        created:
+          type: integer
+          format: int64
+        duplicates:
+          type: integer
+          format: int64
+        ignored:
+          type: integer
+          format: int64
+        needsConfirm:
+          type: integer
+          format: int64
+        read:
+          type: integer
+          format: int64
+        stored:
+          type: integer
+          format: int64
+        wouldAttach:
+          type: integer
+          format: int64
+        wouldCreate:
+          type: integer
+          format: int64
+      required:
+      - attached
+      - couldNotRead
+      - created
+      - duplicates
+      - ignored
+      - needsConfirm
+      - read
+      - stored
+      - wouldAttach
+      - wouldCreate
     RequestSummary:
       type: object
       properties:
@@ -26473,6 +27548,30 @@ components:
       - proceeds
       - quantity
       - shortTermGain
+    Sender:
+      type: object
+      properties:
+        bank:
+          type: string
+        families:
+          type: array
+          items:
+            $ref: "#/components/schemas/Family"
+        header:
+          type: string
+        kind:
+          type: string
+        numberless:
+          type: boolean
+        provider:
+          type: string
+      required:
+      - bank
+      - families
+      - header
+      - kind
+      - numberless
+      - provider
     SetCategoryRequest:
       type: object
       properties:
@@ -26714,6 +27813,25 @@ components:
       - fields
       - label
       - name
+    Skipped:
+      type: object
+      properties:
+        otp:
+          type: integer
+          format: int32
+          minimum: 0
+        personal:
+          type: integer
+          format: int32
+          minimum: 0
+        promo:
+          type: integer
+          format: int32
+          minimum: 0
+        unknownSender:
+          type: integer
+          format: int32
+          minimum: 0
     SkippedDividendMatch:
       type: object
       properties:
@@ -26725,6 +27843,122 @@ components:
       required:
       - dividendId
       - reason
+    SmsLoginRequest:
+      type: object
+      properties:
+        deviceName:
+          type: string
+          maxLength: 80
+          minLength: 0
+          x-required: true
+        email:
+          type: string
+          maxLength: 254
+          minLength: 0
+          x-required: true
+        installId:
+          type: string
+          pattern: "^[A-Za-z0-9_-]{8,64}$"
+        password:
+          type: string
+          maxLength: 1000
+          minLength: 0
+          x-required: true
+      required:
+      - deviceName
+      - email
+      - password
+    SmsMessageView:
+      type: object
+      properties:
+        accountId:
+          type: string
+          format: uuid
+        accountName:
+          type: string
+        amount:
+          type: number
+        balanceAfter:
+          type: number
+        body:
+          type: string
+        counterparty:
+          type: string
+        direction:
+          type: string
+        id:
+          type: string
+          format: uuid
+        kind:
+          type: string
+        outcome:
+          type: string
+        provider:
+          type: string
+        readStatus:
+          type: string
+        receivedAt:
+          type: string
+          format: date-time
+        refNo:
+          type: string
+        sender:
+          type: string
+        transactionId:
+          type: string
+          format: uuid
+        txnDate:
+          type: string
+          format: date
+      required:
+      - accountId
+      - accountName
+      - amount
+      - balanceAfter
+      - body
+      - counterparty
+      - direction
+      - id
+      - kind
+      - outcome
+      - provider
+      - readStatus
+      - receivedAt
+      - refNo
+      - sender
+      - transactionId
+      - txnDate
+    SmsReportResponse:
+      type: object
+      properties:
+        accounts:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReportAccount"
+        postingEnabled:
+          type: boolean
+        totals:
+          $ref: "#/components/schemas/ReportTotals"
+      required:
+      - accounts
+      - postingEnabled
+      - totals
+    SmsSummaryResponse:
+      type: object
+      properties:
+        lines:
+          type: integer
+          format: int32
+        newLines:
+          type: integer
+          format: int32
+        skippedLines:
+          type: integer
+          format: int32
+      required:
+      - lines
+      - newLines
+      - skippedLines
     SortObject:
       type: object
       properties:
@@ -27318,6 +28552,41 @@ components:
       - matched
       - total
       - unmatched
+    SummaryLine:
+      type: object
+      properties:
+        ending:
+          type: string
+        family:
+          type: string
+        firstMsgAt:
+          type: string
+          format: date-time
+        lastMsgAt:
+          type: string
+          format: date-time
+        msgCount:
+          type: integer
+          format: int32
+        sender:
+          type: string
+        txnCount:
+          type: integer
+          format: int32
+    SummaryRequest:
+      type: object
+      properties:
+        lines:
+          type: array
+          items:
+            $ref: "#/components/schemas/SummaryLine"
+          maxItems: 1000
+          minItems: 0
+          x-required: true
+        skipped:
+          $ref: "#/components/schemas/Skipped"
+      required:
+      - lines
     SummaryResponse:
       type: object
       properties:
@@ -27848,6 +29117,7 @@ components:
           - gmail_statement
           - manual
           - file_upload
+          - sms_alert
         sourcedDescription:
           type: string
           nullable: true
@@ -28055,6 +29325,7 @@ components:
           - gmail_statement
           - manual
           - file_upload
+          - sms_alert
         sourcedDescription:
           type: string
           nullable: true
