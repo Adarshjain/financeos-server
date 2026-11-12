@@ -48,7 +48,7 @@ public final class InboxKinds {
 
     /**
      * Bills and EMIs show in the inbox once they fall due within this many days (or are overdue);
-     * pushes link to the inbox row only inside that window, so the tap always lands on a listed item.
+     * pushes for them go out only inside that window, and open the card or loan page directly.
      */
     public static final int DUE_SOON_DAYS = 7;
 

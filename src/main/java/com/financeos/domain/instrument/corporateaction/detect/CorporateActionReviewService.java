@@ -53,7 +53,7 @@ public class CorporateActionReviewService {
         if (userId == null) {
             throw new ValidationException("The corporate actions page needs a signed-in user");
         }
-        List<CorporateActionSuggestion> pending = suggestions.findOwnedByStatus(userId, SuggestionStatus.pending);
+        List<CorporateActionSuggestion> pending = suggestions.findPendingUnresolved(userId);
         List<CorporateActionSuggestion> applied = suggestions.findOwnedByStatus(userId, SuggestionStatus.auto_applied);
 
         Set<AsOfQuery> queries = new HashSet<>();

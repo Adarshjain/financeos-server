@@ -188,6 +188,22 @@ class CorporateActionReviewIntegrationTest {
     }
 
     @Test
+    void pendingSuggestionIsHiddenOnceAnActionIsRecordedForTheSameExDate() throws Exception {
+        UUID s = stock("Done Co", "DNC", "INE" + tag + "07");
+        trade(alice, broker(alice, "A"), s, "buy", "10", "100", today.minusDays(100));
+        LocalDate ex = today.minusDays(30);
+        suggestion(aliceId, s, "split", ex, 1, 2, "pending", "YAHOO_MISMATCH", null);
+        only(alice.getJson(PATH, 200).get("needsReview"), s.toString());
+
+        alice.create("/api/v1/instruments/" + s + "/corporate-actions", Map.of("type", "split", "ratioFrom", 1, "ratioTo", 2,
+                "exDate", ex.toString()));
+
+        for (JsonNode n : alice.getJson(PATH, 200).get("needsReview")) {
+            assertTrue(!n.get("instrument").get("id").asText().equals(s.toString()), "hand-recorded action resolves the suggestion");
+        }
+    }
+
+    @Test
     void notTradingStockIsListedUntilAnsweredByAMerger() throws Exception {
         UUID s = stock("Gone Co", "GNC", "INE" + tag + "05");
         UUID acquirer = stock("Buyer Co", "BYC", "INE" + tag + "06");

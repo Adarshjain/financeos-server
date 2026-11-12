@@ -122,7 +122,10 @@ public class InboxService {
                 sameHref &= java.util.Objects.equals(first.href(), item.href());
                 titles.add(item.title());
             }
-            int count = group.size();
+            int count = 0;
+            for (InboxItemResponse item : group) {
+                count += item.count() != null ? item.count() : 1;
+            }
             rows.add(new InboxItemResponse("page:" + entry.getKey(), first.kind(), InboxItemResponse.ROW_ITEM, severity, section,
                     InboxKinds.pageLabel(entry.getKey()) + ": " + count + " to review", String.join(" · ", titles),
                     sameHref ? first.href() : entry.getKey(), null, earliest, count, List.of(), null, InboxRefsResponse.NONE));

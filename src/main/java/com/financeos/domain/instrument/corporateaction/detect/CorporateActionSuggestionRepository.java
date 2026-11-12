@@ -35,4 +35,15 @@ public interface CorporateActionSuggestionRepository extends JpaRepository<Corpo
     @Query("SELECT s FROM CorporateActionSuggestion s JOIN FETCH s.instrument "
             + "WHERE s.user.id = :userId AND s.status = :status ORDER BY s.exDate DESC, s.createdAt DESC")
     List<CorporateActionSuggestion> findOwnedByStatus(@Param("userId") UUID userId, @Param("status") SuggestionStatus status);
+
+    /**
+     * {@code userId}'s pending suggestions of every kind that still need a decision: those with no corporate
+     * action already recorded for the same instrument and ex-date (the same rule as {@link #findPendingOfKinds}),
+     * instruments fetched, newest ex-date first.
+     */
+    @Query("SELECT s FROM CorporateActionSuggestion s JOIN FETCH s.instrument "
+            + "WHERE s.user.id = :userId AND s.status = com.financeos.domain.instrument.corporateaction.detect.SuggestionStatus.pending "
+            + "AND NOT EXISTS (SELECT 1 FROM CorporateAction ca WHERE ca.instrument.id = s.instrument.id "
+            + "AND ca.exDate = s.exDate AND ca.user.id = :userId) ORDER BY s.exDate DESC, s.createdAt DESC")
+    List<CorporateActionSuggestion> findPendingUnresolved(@Param("userId") UUID userId);
 }

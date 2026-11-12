@@ -387,6 +387,15 @@ class InboxServiceTest {
     }
 
     @Test
+    void aGroupCountsASummaryRowsOwnCountPlusOnePerOtherRow() {
+        when(first.collect(userId, TODAY)).thenReturn(List.of(
+                summaryRow(InboxKinds.KEY_REVIEW, LOOK, 40),
+                onPage("link", InboxKinds.LINK_SUGGESTION, "/transactions/review", LOOK, WARN, null, "Possible links")));
+
+        assertEquals(41, service.list(userId).items().get(0).count());
+    }
+
+    @Test
     void summaryRowsAreGroupedLikeAnyOther() {
         when(first.collect(userId, TODAY)).thenReturn(List.of(
                 summaryRow(InboxKinds.KEY_REVIEW, LOOK, 12),
@@ -394,7 +403,7 @@ class InboxServiceTest {
 
         InboxItemResponse row = service.list(userId).items().get(0);
 
-        assertEquals("Transactions: 2 to review", row.title());
+        assertEquals("Transactions: 13 to review", row.title());
         assertTrue(row.actions().isEmpty());
     }
 
