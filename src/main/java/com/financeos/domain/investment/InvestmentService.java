@@ -1677,6 +1677,49 @@ public class InvestmentService {
         return total.compareTo(BigDecimal.ZERO) > 0 ? total : BigDecimal.ZERO;
     }
 
+    /** One lookup for {@link #openPositionsBefore}: the instrument and the day (the position is read before it starts). */
+    public record AsOfQuery(UUID instrumentId, LocalDate before) {
+    }
+
+    /** Open quantity and the clean cost of that quantity (Σ quantity × cost per unit) over a set of lots. */
+    public record OpenAsOf(BigDecimal qty, BigDecimal cost) {
+    }
+
+    /**
+     * For the current user: per query, the open quantity and cost of the instrument across all their holdings of it
+     * just before the date (events strictly before it), from the same lot engine the holdings pages use. The inputs
+     * are batch-loaded once for every holding involved; an instrument the user holds nowhere reads as zero.
+     */
+    @Transactional(readOnly = true)
+    public Map<AsOfQuery, OpenAsOf> openPositionsBefore(Collection<AsOfQuery> queries) {
+        Map<AsOfQuery, OpenAsOf> out = new HashMap<>();
+        if (queries.isEmpty()) {
+            return out;
+        }
+        Set<UUID> instrumentIds = new HashSet<>();
+        for (AsOfQuery q : queries) {
+            instrumentIds.add(q.instrumentId());
+        }
+        List<Holding> holdings = holdingRepository.findAllWithDetails().stream()
+                .filter(h -> instrumentIds.contains(h.getInstrument().getId())).toList();
+        EngineInputs inputs = engineInputsOfCurrentUser(holdings);
+        for (AsOfQuery q : queries) {
+            BigDecimal qty = BigDecimal.ZERO;
+            BigDecimal cost = BigDecimal.ZERO;
+            for (Holding h : holdings) {
+                if (!h.getInstrument().getId().equals(q.instrumentId())) {
+                    continue;
+                }
+                List<Lot> lots = buildOpenLotsBeforeDate(h, q.before(), true, null, txnsOf(h, inputs), actionsOf(h, inputs),
+                        null, classificationsOf(h, inputs));
+                qty = qty.add(openQuantity(lots));
+                cost = cost.add(openCost(lots));
+            }
+            out.put(q, new OpenAsOf(qty.max(BigDecimal.ZERO), cost));
+        }
+        return out;
+    }
+
     private List<Lot> buildParentOpenLotsBeforeCa(Holding parentHolding, CorporateAction demergerCa, @Nullable EngineInputs inputs) {
         if (inputs == null) {
             return buildOpenLotsBeforeDate(parentHolding, demergerCa.getExDate(), false, demergerCa.getId());

@@ -11,6 +11,7 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -72,6 +73,10 @@ public class CorporateActionSuggestion {
     @JoinColumn(name = "corporate_action_id")
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private CorporateAction corporateAction;
+
+    /** The price feed's split factor for the ex-date; null when it had none or was not consulted. */
+    @Column(name = "feed_factor", precision = 19, scale = 8)
+    private BigDecimal feedFactor;
 
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;

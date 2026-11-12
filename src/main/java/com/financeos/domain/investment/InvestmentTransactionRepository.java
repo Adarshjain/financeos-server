@@ -102,11 +102,14 @@ public interface InvestmentTransactionRepository extends JpaRepository<Investmen
     java.util.List<InvestmentTransaction> findStockTradesOwned(@Param("userId") UUID userId);
 
     /**
-     * {@code [id, name]} of every instrument marked {@code not_trading} that {@code userId} still holds (buys minus
-     * sells over all their holdings of it above zero): one grouped query.
+     * {@code [id, name, openQty, symbol, exchange, priceStatusAt]} of every instrument marked {@code not_trading} that
+     * {@code userId} still holds (buys minus sells over all their holdings of it above zero): one grouped query.
      */
-    @Query("SELECT i.id, i.name FROM InvestmentTransaction t JOIN t.holding h JOIN h.instrument i "
-            + "WHERE t.user.id = :userId AND i.priceStatus = 'not_trading' GROUP BY i.id, i.name "
+    @Query("SELECT i.id, i.name, SUM(CASE WHEN t.type = com.financeos.domain.investment.InvestmentTransactionType.buy "
+            + "THEN t.quantity ELSE -t.quantity END), i.symbol, i.exchange, i.priceStatusAt "
+            + "FROM InvestmentTransaction t JOIN t.holding h JOIN h.instrument i "
+            + "WHERE t.user.id = :userId AND i.priceStatus = 'not_trading' "
+            + "GROUP BY i.id, i.name, i.symbol, i.exchange, i.priceStatusAt "
             + "HAVING SUM(CASE WHEN t.type = com.financeos.domain.investment.InvestmentTransactionType.buy "
             + "THEN t.quantity ELSE -t.quantity END) > 0 ORDER BY i.name")
     java.util.List<Object[]> findHeldNotTradingInstruments(@Param("userId") UUID userId);

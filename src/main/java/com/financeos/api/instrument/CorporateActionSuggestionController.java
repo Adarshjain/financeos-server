@@ -1,7 +1,9 @@
 package com.financeos.api.instrument;
 
+import com.financeos.api.instrument.dto.CorporateActionReviewResponse;
 import com.financeos.api.instrument.dto.CorporateActionSuggestionResponse;
 import com.financeos.api.instrument.dto.CreateCorporateActionRequest;
+import com.financeos.domain.instrument.corporateaction.detect.CorporateActionReviewService;
 import com.financeos.domain.instrument.corporateaction.detect.CorporateActionSuggestionService;
 import jakarta.validation.Valid;
 import java.util.UUID;
@@ -13,9 +15,18 @@ import org.springframework.web.bind.annotation.*;
 public class CorporateActionSuggestionController {
 
     private final CorporateActionSuggestionService service;
+    private final CorporateActionReviewService reviewService;
 
-    public CorporateActionSuggestionController(CorporateActionSuggestionService service) {
+    public CorporateActionSuggestionController(CorporateActionSuggestionService service,
+                                               CorporateActionReviewService reviewService) {
         this.service = service;
+        this.reviewService = reviewService;
+    }
+
+    /** Pending and automatic suggestions with their evidence, plus held stocks that no longer trade. */
+    @GetMapping
+    public CorporateActionReviewResponse getCorporateActionReview() {
+        return reviewService.review();
     }
 
     @GetMapping("/{id}")

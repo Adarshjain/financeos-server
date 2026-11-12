@@ -2493,6 +2493,24 @@ paths:
           description: Error response
       tags:
       - chat-controller
+  /api/v1/corporate-action-suggestions:
+    get:
+      operationId: getCorporateActionReview
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/CorporateActionReviewResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - corporate-action-suggestion-controller
   /api/v1/corporate-action-suggestions/{id}:
     get:
       operationId: getCorporateActionSuggestion
@@ -14997,6 +15015,136 @@ components:
       - ratioFrom
       - ratioTo
       - type
+    CorporateActionReviewItemResponse:
+      type: object
+      properties:
+        avgCostAfter:
+          type: number
+          nullable: true
+          x-nullable: true
+        avgCostBefore:
+          type: number
+          nullable: true
+          x-nullable: true
+        corporateActionId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        createdAt:
+          type: string
+          format: date-time
+        exDate:
+          type: string
+          format: date
+        exchangeFactor:
+          type: number
+          nullable: true
+          x-nullable: true
+        feedFactor:
+          type: number
+          nullable: true
+          x-nullable: true
+        id:
+          type: string
+          format: uuid
+        instrument:
+          $ref: "#/components/schemas/ReviewInstrument"
+        kind:
+          type: string
+          enum:
+          - split
+          - bonus
+          - demerger
+          - merger
+          - other
+          - oversold
+        ratioFrom:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        ratioTo:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        reason:
+          type: string
+          enum:
+          - COMBINED_SAME_DAY
+          - NEEDS_DETAILS
+          - UNCLEAR_TEXT
+          - NO_PRICE_SYMBOL
+          - YAHOO_MISSING
+          - YAHOO_MISMATCH
+          - POSSIBLE_DUPLICATE
+          nullable: true
+          x-nullable: true
+        resolvedAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
+        sellDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        sharesAfter:
+          type: number
+          nullable: true
+          x-nullable: true
+        sharesBefore:
+          type: number
+          nullable: true
+          x-nullable: true
+        soldQty:
+          type: number
+          nullable: true
+          x-nullable: true
+        source:
+          type: string
+          nullable: true
+          x-nullable: true
+        status:
+          type: string
+          enum:
+          - auto_applied
+          - pending
+          - accepted
+          - dismissed
+          - undone
+        subject:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - createdAt
+      - exDate
+      - id
+      - instrument
+      - kind
+      - status
+    CorporateActionReviewResponse:
+      type: object
+      properties:
+        appliedAutomatically:
+          type: array
+          items:
+            $ref: "#/components/schemas/CorporateActionReviewItemResponse"
+        needsReview:
+          type: array
+          items:
+            $ref: "#/components/schemas/CorporateActionReviewItemResponse"
+        notTrading:
+          type: array
+          items:
+            $ref: "#/components/schemas/NotTradingStock"
+      required:
+      - appliedAutomatically
+      - needsReview
+      - notTrading
     CorporateActionRowResponse:
       type: object
       properties:
@@ -21793,6 +21941,30 @@ components:
           format: uuid
       required:
       - statementId
+    NotTradingStock:
+      type: object
+      properties:
+        instrument:
+          $ref: "#/components/schemas/ReviewInstrument"
+        lastPrice:
+          type: number
+          nullable: true
+          x-nullable: true
+        lastPriceDate:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        markedAt:
+          type: string
+          format: date-time
+          nullable: true
+          x-nullable: true
+        sharesHeld:
+          type: number
+      required:
+      - instrument
+      - sharesHeld
     NotificationEvaluateResponse:
       type: object
       properties:
@@ -25760,6 +25932,25 @@ components:
       - affected
       - jobsEnqueued
       - skipped
+    ReviewInstrument:
+      type: object
+      properties:
+        exchange:
+          type: string
+          nullable: true
+          x-nullable: true
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        symbol:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - id
+      - name
     RewardAccountConfigRequest:
       type: object
       properties:

@@ -184,7 +184,7 @@ public class CorporateActionDetectionService {
                         SuggestionReason reason = group.size() > 1 ? SuggestionReason.COMBINED_SAME_DAY
                                 : kind == SuggestionKind.demerger || kind == SuggestionKind.merger
                                         ? SuggestionReason.NEEDS_DETAILS : SuggestionReason.UNCLEAR_TEXT;
-                        toSave.add(pending(userId, instrument, e, kind, reason));
+                        toSave.add(pending(userId, instrument, e, kind, reason, null));
                         pending++;
                     }
                     continue;
@@ -199,6 +199,7 @@ public class CorporateActionDetectionService {
                     continue;
                 }
                 SuggestionReason hold = null;
+                BigDecimal feedFactor = null;
                 if (nearbyHandEntered(ratioActions.get(instrument.getId()), e)) {
                     hold = SuggestionReason.POSSIBLE_DUPLICATE;
                 } else if (instrument.getYahooSymbol() == null || instrument.getYahooSymbol().isBlank()) {
@@ -210,7 +211,10 @@ public class CorporateActionDetectionService {
                     switch (yahoo.status()) {
                         case RATE_LIMITED, FAILED -> yahooUnavailable = true;
                         case NOT_FOUND -> hold = SuggestionReason.NO_PRICE_SYMBOL;
-                        case OK -> hold = compare(yahoo.splits().get(exDate), e);
+                        case OK -> {
+                            feedFactor = yahoo.splits().get(exDate);
+                            hold = compare(feedFactor, e);
+                        }
                     }
                     if (yahooUnavailable) {
                         continue;
@@ -222,9 +226,9 @@ public class CorporateActionDetectionService {
                 }
                 suggestionKeys.add(suggestionKey(instrument.getId(), kind, exDate));
                 if (hold != null) {
-                    toSave.add(pending(userId, instrument, e, kind, hold));
+                    toSave.add(pending(userId, instrument, e, kind, hold, feedFactor));
                     pending++;
-                } else if (apply(userId, instrument, e, kind)) {
+                } else if (apply(userId, instrument, e, kind, feedFactor)) {
                     applied++;
                 } else {
                     skipped++;
@@ -258,9 +262,10 @@ public class CorporateActionDetectionService {
     }
 
     /** True once applied; false when a concurrent run recorded the same suggestion first (this attempt rolls back). */
-    private boolean apply(UUID userId, Instrument instrument, MarketCorporateEvent e, SuggestionKind kind) {
+    private boolean apply(UUID userId, Instrument instrument, MarketCorporateEvent e, SuggestionKind kind,
+                          BigDecimal feedFactor) {
         try {
-            applyInTx(userId, instrument, e, kind);
+            applyInTx(userId, instrument, e, kind, feedFactor);
             return true;
         } catch (DataIntegrityViolationException dup) {
             log.info("Corporate action for user {} already recorded by a concurrent run", userId);
@@ -282,7 +287,8 @@ public class CorporateActionDetectionService {
         return false;
     }
 
-    private void applyInTx(UUID userId, Instrument instrument, MarketCorporateEvent e, SuggestionKind kind) {
+    private void applyInTx(UUID userId, Instrument instrument, MarketCorporateEvent e, SuggestionKind kind,
+                           BigDecimal feedFactor) {
         tx.executeWithoutResult(status -> {
             CorporateAction created = actionService.createDetected(userId, instrument.getId(),
                     kind == SuggestionKind.bonus ? CorporateActionType.bonus : CorporateActionType.split,
@@ -292,13 +298,16 @@ public class CorporateActionDetectionService {
             }
             CorporateActionSuggestion s = base(userId, instrument, e, kind, SuggestionStatus.auto_applied, null);
             s.setCorporateAction(created);
+            s.setFeedFactor(feedFactor);
             suggestions.save(s);
         });
     }
 
     private CorporateActionSuggestion pending(UUID userId, Instrument instrument, MarketCorporateEvent e,
-                                              SuggestionKind kind, SuggestionReason reason) {
-        return base(userId, instrument, e, kind, SuggestionStatus.pending, reason);
+                                              SuggestionKind kind, SuggestionReason reason, BigDecimal feedFactor) {
+        CorporateActionSuggestion s = base(userId, instrument, e, kind, SuggestionStatus.pending, reason);
+        s.setFeedFactor(feedFactor);
+        return s;
     }
 
     private CorporateActionSuggestion base(UUID userId, Instrument instrument, MarketCorporateEvent e, SuggestionKind kind,

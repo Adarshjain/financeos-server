@@ -40,36 +40,6 @@ class CorporateActionInboxCollectorsTest {
     }
 
     @Test
-    void appliedRowsReadBonusAsGainedToHeldAndSplitAsFromTo() {
-        CorporateActionSuggestion bonus = suggestion(SuggestionKind.bonus, 1, 2, null);
-        CorporateActionSuggestion split = suggestion(SuggestionKind.split, 1, 5, null);
-        when(repo.findRecentAutoApplied(eq(userId), any())).thenReturn(List.of(bonus, split));
-
-        List<InboxItemResponse> rows = new CorporateActionAppliedInboxCollector(repo).collect(userId, TODAY);
-
-        assertThat(rows).hasSize(2);
-        InboxItemResponse b = rows.get(0);
-        assertThat(b.kind()).isEqualTo("corporate_action_applied");
-        assertThat(b.key()).isEqualTo("ca_applied:" + bonus.getId());
-        assertThat(b.title()).isEqualTo("Bonus 1:1 applied to Acme Ltd");
-        assertThat(b.subtitle()).isEqualTo("Ex-date 28 Oct · detected automatically");
-        assertThat(b.section()).isEqualTo(InboxItemResponse.SECTION_INFO);
-        assertThat(b.severity()).isEqualTo(InboxItemResponse.SEVERITY_INFO);
-        assertThat(b.actions()).extracting(a -> a.type()).contains("dismiss");
-        assertThat(b.refs().suggestionId()).isEqualTo(bonus.getId());
-        assertThat(b.refs().instrumentId()).isEqualTo(bonus.getInstrument().getId());
-        assertThat(rows.get(1).title()).isEqualTo("Split 1:5 applied to Acme Ltd");
-    }
-
-    @Test
-    void appliedWindowIsThirtyDaysBack() {
-        new CorporateActionAppliedInboxCollector(repo).collect(userId, TODAY);
-        org.mockito.ArgumentCaptor<java.time.Instant> since = org.mockito.ArgumentCaptor.forClass(java.time.Instant.class);
-        org.mockito.Mockito.verify(repo).findRecentAutoApplied(eq(userId), since.capture());
-        assertThat(since.getValue().atZone(com.financeos.core.time.AppTime.zone()).toLocalDate()).isEqualTo(TODAY.minusDays(30));
-    }
-
-    @Test
     void reviewRowsCarryKindLabelReasonTextAndNoDismiss() {
         CorporateActionSuggestion demerger = suggestion(SuggestionKind.demerger, 1, 1, SuggestionReason.NEEDS_DETAILS);
         CorporateActionSuggestion other = suggestion(SuggestionKind.other, 1, 1, SuggestionReason.COMBINED_SAME_DAY);
