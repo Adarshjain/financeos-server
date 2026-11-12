@@ -261,9 +261,13 @@ public class FileIngestionService {
                     if (parsedDraft != null && parseRecords != null) {
                         parseRecords.saveQuietly(outcome.refreshed().statement().getId(), parsedDraft.parserVersion(), parsedDraft.parseSnapshot());
                     }
-                    // Only the statement's own file: a refresh matched by period from other bytes must not get this one.
+                    // The statement's own file is attached as is. After a refresh the statement carries this file's reading,
+                    // so other bytes become its file when it has none and its period is exactly this file's.
                     if (sha256.equals(outcome.refreshed().statement().getFileSha256())) {
                         attachFile(currentSessionUserId, outcome.refreshed().statement().getId(), bytes, filename);
+                    } else {
+                        attachCopy(currentSessionUserId, accountId, sha256, parsedDraft, bytes, filename,
+                                outcome.refreshed().statement().getId());
                     }
                     refreshCreated += created;
                     fileDetails.add(refreshSummary(filename, lines.size(), outcome.refreshed(), created, attached));
@@ -271,10 +275,13 @@ public class FileIngestionService {
                     continue;
                 }
 
+                // Proven before any refresh below changes the stored figures.
+                UUID provenCopyId = provenCopyTarget(accountId, parseResult.draft());
                 Optional<List<String>> filled = statementPersistenceService.refreshFromReupload(accountId, sha256, parseResult.draft());
                 if (filled.isPresent()) {
                     List<String> fields = filled.get();
                     attachFileIfLacking(currentSessionUserId, accountId, sha256, bytes, filename);
+                    attachCopy(currentSessionUserId, accountId, sha256, parseResult.draft(), bytes, filename, provenCopyId);
                     String message = fields.isEmpty()
                             ? "Statement already ingested; nothing new to fill"
                             : "Statement already ingested; filled in " + String.join(", ", fields.stream().map(MissingDetails::words).toList());
@@ -300,6 +307,7 @@ public class FileIngestionService {
                 }
                 if (stmt.isEmpty()) {
                     attachFileIfLacking(currentSessionUserId, accountId, sha256, bytes, filename);
+                    attachCopy(currentSessionUserId, accountId, sha256, toStore.draft(), bytes, filename, provenCopyId);
                     fileDetails.add(new FileIngestionResult.FileSummary(filename, "SKIPPED", 0, "Statement already ingested (same period or file)"));
                     filesProcessed++;
                     continue;
@@ -424,6 +432,30 @@ public class FileIngestionService {
         }
         try {
             fileAttacher.attachIfStoredStatementLacksFile(userId, accountId, sha256, bytes, filename);
+        } catch (RuntimeException e) {
+            log.warn("Keeping the original statement file failed: {}", e.toString());
+        }
+    }
+
+    private UUID provenCopyTarget(UUID accountId, StatementDraft draft) {
+        if (fileAttacher == null) {
+            return null;
+        }
+        try {
+            return fileAttacher.provenCopyTarget(accountId, draft).orElse(null);
+        } catch (RuntimeException e) {
+            log.warn("Keeping the original statement file failed: {}", e.toString());
+            return null;
+        }
+    }
+
+    private void attachCopy(UUID userId, UUID accountId, String sha256, StatementDraft draft, byte[] bytes, String filename,
+                            UUID sameStatementId) {
+        if (fileAttacher == null) {
+            return;
+        }
+        try {
+            fileAttacher.attachCopyOfSameStatement(userId, accountId, sha256, draft, bytes, filename, sameStatementId);
         } catch (RuntimeException e) {
             log.warn("Keeping the original statement file failed: {}", e.toString());
         }
