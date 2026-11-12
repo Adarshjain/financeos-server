@@ -455,6 +455,14 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     Page<Transaction> findNeedsReviewWithReason(@Param("userId") UUID userId, @Param("reason") ReviewReason reason,
                                                 Pageable pageable);
 
+    /** Same as {@link #findNeedsReviewWithReason} limited to the given transaction ids. */
+    @Query(value = "SELECT t FROM Transaction t JOIN FETCH t.account JOIN t.reviewReasons r WHERE t.user.id = :userId "
+            + "AND t.reviewType = com.financeos.domain.transaction.ReviewType.NEEDS_REVIEW AND r = :reason AND t.id IN :ids",
+            countQuery = "SELECT COUNT(t) FROM Transaction t JOIN t.reviewReasons r WHERE t.user.id = :userId "
+                    + "AND t.reviewType = com.financeos.domain.transaction.ReviewType.NEEDS_REVIEW AND r = :reason AND t.id IN :ids")
+    Page<Transaction> findNeedsReviewWithReasonAmongIds(@Param("userId") UUID userId, @Param("reason") ReviewReason reason,
+                                                        @Param("ids") Collection<UUID> ids, Pageable pageable);
+
     /** Candidate look-alikes for a page of flagged rows: the user's rows in those accounts on those dates with those amounts. */
     @Query("SELECT t FROM Transaction t JOIN FETCH t.account WHERE t.user.id = :userId AND t.account.id IN :accountIds "
             + "AND t.date IN :dates AND t.amount IN :amounts")

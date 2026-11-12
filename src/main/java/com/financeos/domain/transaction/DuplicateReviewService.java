@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
@@ -28,9 +29,11 @@ public class DuplicateReviewService {
     }
 
     @Transactional(readOnly = true)
-    public Page<DuplicateReviewItem> duplicates(Pageable pageable) {
+    public Page<DuplicateReviewItem> duplicates(Collection<UUID> ids, Pageable pageable) {
         UUID userId = UserContext.getCurrentUserId();
-        Page<Transaction> page = transactionRepository.findNeedsReviewWithReason(userId, ReviewReason.DUPLICATE_SUSPECT, pageable);
+        Page<Transaction> page = ids == null
+                ? transactionRepository.findNeedsReviewWithReason(userId, ReviewReason.DUPLICATE_SUSPECT, pageable)
+                : transactionRepository.findNeedsReviewWithReasonAmongIds(userId, ReviewReason.DUPLICATE_SUSPECT, ids, pageable);
         List<Transaction> flagged = page.getContent();
         if (flagged.isEmpty()) {
             return page.map(t -> null);

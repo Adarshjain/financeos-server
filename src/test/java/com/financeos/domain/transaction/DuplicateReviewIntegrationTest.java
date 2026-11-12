@@ -152,4 +152,39 @@ class DuplicateReviewIntegrationTest {
         assertEquals(1, theirs.get("totalElements").asInt());
         assertTrue(!theirs.get("content").get(0).get("transaction").get("id").asText().equals(mine.toString()));
     }
+
+    @Test
+    void idsFilterReturnsOnlyThoseRowsAndIgnoresAnotherUsersId() throws Exception {
+        String otherEmail = "dup-review-ids-" + UUID.randomUUID() + "@example.test";
+        ApiTestClient other = ApiTestClient.signUp(mockMvc, mapper, otherEmail);
+        users.add(userRepository.findByEmail(otherEmail).orElseThrow().getId());
+        Account otherAccount = account(other, "Other Bank");
+        UUID a = txn(account, DAY, "11.00", "Alpha", TransactionSource.manual, true);
+        UUID b = txn(account, DAY.plusDays(1), "12.00", "Beta", TransactionSource.manual, true);
+        txn(account, DAY.plusDays(2), "13.00", "Gamma", TransactionSource.manual, true);
+        UUID unflagged = txn(account, DAY.plusDays(3), "14.00", "Delta", TransactionSource.manual, false);
+        UUID theirs = txn(otherAccount, DAY, "15.00", "Theirs", TransactionSource.manual, true);
+
+        JsonNode page = api.getJson("/api/v1/transactions/review/duplicates?size=10&ids=" + a + "," + b + ","
+                + unflagged + "," + theirs, 200);
+
+        assertEquals(2, page.get("totalElements").asInt());
+        Set<String> got = new java.util.HashSet<>();
+        for (JsonNode item : page.get("content")) {
+            got.add(item.get("transaction").get("id").asText());
+        }
+        assertEquals(Set.of(a.toString(), b.toString()), got);
+        JsonNode paged = api.getJson("/api/v1/transactions/review/duplicates?size=1&page=1&ids=" + a + "," + b, 200);
+        assertEquals(2, paged.get("totalElements").asInt());
+        assertEquals(1, paged.get("content").size());
+    }
+
+    @Test
+    void tooManyIdsIsABadRequest() throws Exception {
+        StringBuilder q = new StringBuilder();
+        for (int i = 0; i < 501; i++) {
+            q.append(i == 0 ? "" : ",").append(UUID.randomUUID());
+        }
+        api.getJson("/api/v1/transactions/review/duplicates?ids=" + q, 400);
+    }
 }
