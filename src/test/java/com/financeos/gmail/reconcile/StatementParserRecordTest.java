@@ -35,8 +35,8 @@ class StatementParserRecordTest {
     }
 
     @Test
-    void parserVersionStartsAtOne() {
-        assertThat(StatementParseEngine.PARSER_VERSION).isEqualTo(1);
+    void parserVersionIsTwoSinceTheFirstLayoutsWentActive() {
+        assertThat(StatementParseEngine.PARSER_VERSION).isEqualTo(2);
     }
 
     @Test

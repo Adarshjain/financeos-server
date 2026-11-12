@@ -54,7 +54,7 @@ public final class StatementParseEngine {
      * whenever the corpus diff is not empty); it is stored with each statement beside the parse snapshot.
      * Rule: bump it in the same commit that makes any layout profile ACTIVE by default.
      */
-    public static final int PARSER_VERSION = 1;
+    public static final int PARSER_VERSION = 2;
 
     /** The words of a file as ordered lines, normalised the way every reader expects them. */
     public record Extracted(List<Line> lines, boolean cardSection) {

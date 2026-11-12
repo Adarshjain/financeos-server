@@ -142,6 +142,19 @@ app:
   statement:
     # PDFs with more pages than this are refused before extraction.
     max-pdf-pages: 600
+    # Layouts whose reader replaces the general parser (falls back to it when the layout's result is not fully
+    # verified). Each one passed the corpus comparison; unlisted layouts stay SHADOW (compared and logged only).
+    layouts:
+      axis-card-dtda-2022: ACTIVE
+      axis-card-dtda-2024: ACTIVE
+      axis-card-dtdace-2021: ACTIVE
+      axis-card-dtdace-2024a: ACTIVE
+      axis-card-dtdace-2024b: ACTIVE
+      hdfc-card-dtda-2018: ACTIVE
+      hdfc-card-dttda-2025: ACTIVE
+      hdfc-card-dttdra-2026: ACTIVE
+      icici-card-sdtdaa-2021: ACTIVE
+      icici-card-sdtdra-2023: ACTIVE
   statement-files:
     enabled: true
     # A file above this is not kept (the statement itself is still imported).
