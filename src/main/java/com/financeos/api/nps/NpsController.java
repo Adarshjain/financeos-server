@@ -6,6 +6,7 @@ import com.financeos.api.nps.dto.NpsEntryRequest;
 import com.financeos.api.nps.dto.NpsEntryResponse;
 import com.financeos.api.nps.dto.NpsLinkRequest;
 import com.financeos.api.nps.dto.NpsRecordRequest;
+import com.financeos.api.nps.dto.NpsReviewResponse;
 import com.financeos.api.nps.dto.NpsSchemeDetailResponse;
 import com.financeos.api.nps.dto.NpsSchemeResponse;
 import com.financeos.api.nps.dto.NpsSummaryResponse;
@@ -16,6 +17,7 @@ import com.financeos.domain.nps.NpsService;
 import com.financeos.domain.nps.NpsTier;
 import com.financeos.domain.nps.NpsVariant;
 import com.financeos.domain.nps.link.NpsLinkService;
+import com.financeos.domain.nps.link.NpsReviewService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,15 +36,23 @@ public class NpsController {
 
     private final NpsService npsService;
     private final NpsLinkService linkService;
+    private final NpsReviewService reviewService;
 
-    public NpsController(NpsService npsService, NpsLinkService linkService) {
+    public NpsController(NpsService npsService, NpsLinkService linkService, NpsReviewService reviewService) {
         this.npsService = npsService;
         this.linkService = linkService;
+        this.reviewService = reviewService;
     }
 
     @GetMapping("/summary")
     public NpsSummaryResponse getNpsSummary() {
         return npsService.getSummary();
+    }
+
+    /** What needs the user's decision: ambiguous payment matches, payments to record, the "Set up NPS?" suggestion. */
+    @GetMapping("/review")
+    public NpsReviewResponse getNpsReview() {
+        return reviewService.review();
     }
 
     @GetMapping("/entries")

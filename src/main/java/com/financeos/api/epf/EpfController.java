@@ -6,8 +6,10 @@ import com.financeos.api.epf.dto.EpfEmployerResponse;
 import com.financeos.api.epf.dto.EpfEntryRequest;
 import com.financeos.api.epf.dto.EpfEntryResponse;
 import com.financeos.api.epf.dto.EpfLinkRequest;
+import com.financeos.api.epf.dto.EpfReviewResponse;
 import com.financeos.api.epf.dto.EpfSummaryResponse;
 import com.financeos.api.epf.dto.EpfWithdrawalOption;
+import com.financeos.domain.epf.EpfReviewService;
 import com.financeos.domain.epf.EpfService;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
@@ -24,9 +26,11 @@ import java.util.UUID;
 public class EpfController {
 
     private final EpfService epfService;
+    private final EpfReviewService reviewService;
 
-    public EpfController(EpfService epfService) {
+    public EpfController(EpfService epfService, EpfReviewService reviewService) {
         this.epfService = epfService;
+        this.reviewService = reviewService;
     }
 
     @GetMapping("/summary")
@@ -35,6 +39,12 @@ public class EpfController {
             @RequestParam(required = false) Integer fy,
             @RequestParam(defaultValue = "false") boolean allYears) {
         return epfService.getSummary(employerId, fy, allYears);
+    }
+
+    /** Withdrawals with a suggested bank credit that wait for the user to link or rule out. */
+    @GetMapping("/review")
+    public EpfReviewResponse getEpfReview() {
+        return reviewService.review();
     }
 
     @GetMapping("/employers")

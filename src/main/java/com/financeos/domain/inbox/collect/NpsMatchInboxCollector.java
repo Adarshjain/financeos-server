@@ -7,12 +7,9 @@ import com.financeos.api.inbox.dto.InboxActionResponse;
 import com.financeos.api.inbox.dto.InboxItemResponse;
 import com.financeos.api.inbox.dto.InboxRefsResponse;
 import com.financeos.domain.inbox.InboxKinds;
-import com.financeos.domain.nps.NpsAccountRepository;
-import com.financeos.domain.nps.link.NpsLinkMatcher;
 import com.financeos.domain.nps.link.NpsLinkMatcher.Pair;
 import com.financeos.domain.nps.link.NpsLinkMatcher.Payment;
-import com.financeos.domain.nps.link.NpsLinkStore;
-import com.financeos.domain.nps.link.NpsPaymentPatterns;
+import com.financeos.domain.nps.link.NpsReviewService;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -33,27 +30,20 @@ public class NpsMatchInboxCollector implements InboxCollector {
     private static final java.time.format.DateTimeFormatter SETUP_DATE =
             java.time.format.DateTimeFormatter.ofPattern("dd MMM yyyy", java.util.Locale.ENGLISH);
 
-    private final NpsAccountRepository accountRepository;
-    private final NpsLinkStore store;
+    private final NpsReviewService reviewService;
 
-    public NpsMatchInboxCollector(NpsAccountRepository accountRepository, NpsLinkStore store) {
-        this.accountRepository = accountRepository;
-        this.store = store;
+    public NpsMatchInboxCollector(NpsReviewService reviewService) {
+        this.reviewService = reviewService;
     }
 
     @Override
     public List<InboxItemResponse> collect(UUID userId, LocalDate today) {
-        if (accountRepository.findAllByUser_Id(userId).isEmpty()) {
-            return setupRows(userId, today);
+        NpsReviewService.Detection detection = reviewService.detect(userId, today);
+        if (detection.accounts().isEmpty()) {
+            return setupRows(detection.setup());
         }
-        List<Payment> payments = store.loadPayments(userId);
-        if (payments.isEmpty()) {
-            return List.of();
-        }
-        NpsLinkMatcher.Plan plan = NpsLinkMatcher.plan(store.loadEntries(userId), payments, store.loadDismissals(userId));
         List<InboxItemResponse> rows = new ArrayList<>();
-        for (Pair pair : plan.ambiguous().stream()
-                .sorted(Comparator.comparing((Pair p) -> p.payment().date()).reversed()).toList()) {
+        for (Pair pair : detection.ambiguous()) {
             Payment p = pair.payment();
             rows.add(InboxRows.item(InboxKinds.npsMatchKey(pair.entry().id(), p.id()), InboxKinds.NPS_MATCH,
                     SEVERITY_WARNING, SECTION_NEEDS_LOOK,
@@ -64,9 +54,7 @@ public class NpsMatchInboxCollector implements InboxCollector {
                             InboxRows.dismiss()),
                     InboxRefsResponse.ofNpsMatch(pair.entry().id(), p.id())));
         }
-        LocalDate cutoff = today.minusDays(NpsPaymentPatterns.WINDOW_DAYS);
-        for (Payment p : plan.unmatched().stream().filter(x -> x.date().isBefore(cutoff))
-                .sorted(Comparator.comparing(Payment::date).reversed()).toList()) {
+        for (Payment p : detection.unrecorded()) {
             rows.add(InboxRows.item(InboxKinds.npsRecordKey(p.id()), InboxKinds.NPS_RECORD, SEVERITY_WARNING,
                     SECTION_NEEDS_LOOK, "Record as NPS contribution?", subtitle(p), HREF, p.amount(), p.date(),
                     List.of(InboxActionResponse.mutate("nps_record", "Record", null),
@@ -79,11 +67,10 @@ public class NpsMatchInboxCollector implements InboxCollector {
 
     /**
      * {@code nps_setup}: a user with no NPS account at all (any status) who paid NPS in the last
-     * {@value NpsLinkStore#SETUP_YEARS} years (a debit that is not marked "not NPS") gets one "Looks like you invest in
+     * {@value com.financeos.domain.nps.link.NpsLinkStore#SETUP_YEARS} years (a debit that is not marked "not NPS") gets one "Looks like you invest in
      * NPS" row. It stops once an account exists or the payments are marked not NPS.
      */
-    private List<InboxItemResponse> setupRows(UUID userId, LocalDate today) {
-        List<Payment> payments = store.loadSetupPayments(userId, today);
+    private List<InboxItemResponse> setupRows(List<Payment> payments) {
         if (payments.isEmpty()) {
             return List.of();
         }

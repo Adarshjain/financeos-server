@@ -3898,6 +3898,24 @@ paths:
           description: Error response
       tags:
       - epf-import-controller
+  /api/v1/epf/review:
+    get:
+      operationId: getEpfReview
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/EpfReviewResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - epf-controller
   /api/v1/epf/summary:
     get:
       operationId: getEpfSummary
@@ -9203,6 +9221,24 @@ paths:
           description: Error response
       tags:
       - nps-import-controller
+  /api/v1/nps/review:
+    get:
+      operationId: getNpsReview
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/NpsReviewResponse"
+          description: OK
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+          description: Error response
+      tags:
+      - nps-controller
   /api/v1/nps/schemes:
     get:
       operationId: searchNpsSchemes
@@ -17699,6 +17735,94 @@ components:
           x-nullable: true
       required:
       - amount
+    EpfReviewCredit:
+      type: object
+      properties:
+        accountName:
+          type: string
+        amount:
+          type: number
+        date:
+          type: string
+          format: date
+        description:
+          type: string
+          nullable: true
+          x-nullable: true
+        transactionId:
+          type: string
+          format: uuid
+      required:
+      - accountName
+      - amount
+      - date
+      - transactionId
+    EpfReviewEntry:
+      type: object
+      properties:
+        creditedOn:
+          type: string
+          format: date
+        description:
+          type: string
+          nullable: true
+          x-nullable: true
+        employerName:
+          type: string
+        gross:
+          type: number
+        id:
+          type: string
+          format: uuid
+        kind:
+          type: string
+          enum:
+          - PARTIAL
+          - FINAL_SETTLEMENT
+          - PENSION
+          nullable: true
+          x-nullable: true
+        received:
+          type: number
+        tdsAmount:
+          type: number
+          nullable: true
+          x-nullable: true
+      required:
+      - creditedOn
+      - employerName
+      - gross
+      - id
+      - received
+    EpfReviewMatch:
+      type: object
+      properties:
+        credit:
+          $ref: "#/components/schemas/EpfReviewCredit"
+        daysApart:
+          type: integer
+          format: int64
+        difference:
+          type: number
+        entry:
+          $ref: "#/components/schemas/EpfReviewEntry"
+        why:
+          type: string
+      required:
+      - credit
+      - daysApart
+      - difference
+      - entry
+      - why
+    EpfReviewResponse:
+      type: object
+      properties:
+        matches:
+          type: array
+          items:
+            $ref: "#/components/schemas/EpfReviewMatch"
+      required:
+      - matches
     EpfSummaryResponse:
       type: object
       properties:
@@ -22652,6 +22776,174 @@ components:
           - II
           nullable: true
           x-nullable: true
+    NpsReviewAccount:
+      type: object
+      properties:
+        holderName:
+          type: string
+          nullable: true
+          x-nullable: true
+        id:
+          type: string
+          format: uuid
+        pranLast4:
+          type: string
+        relation:
+          type: string
+          enum:
+          - SELF
+          - CHILD
+        tiers:
+          type: array
+          items:
+            type: string
+            enum:
+            - I
+            - II
+      required:
+      - id
+      - pranLast4
+      - relation
+      - tiers
+    NpsReviewContribution:
+      type: object
+      properties:
+        account:
+          $ref: "#/components/schemas/NpsReviewAccount"
+        amount:
+          type: number
+        date:
+          type: string
+          format: date
+        id:
+          type: string
+          format: uuid
+        source:
+          type: string
+          enum:
+          - MANUAL
+          - STATEMENT
+          - EMAIL
+          - BANK
+        statementPeriodEnd:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        statementPeriodStart:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        tier:
+          type: string
+          enum:
+          - I
+          - II
+      required:
+      - account
+      - amount
+      - date
+      - id
+      - source
+      - tier
+    NpsReviewMatch:
+      type: object
+      properties:
+        candidates:
+          type: array
+          items:
+            $ref: "#/components/schemas/NpsReviewPayment"
+        contribution:
+          $ref: "#/components/schemas/NpsReviewContribution"
+        why:
+          type: string
+      required:
+      - candidates
+      - contribution
+      - why
+    NpsReviewPayment:
+      type: object
+      properties:
+        accountName:
+          type: string
+        amount:
+          type: number
+        date:
+          type: string
+          format: date
+        description:
+          type: string
+          nullable: true
+          x-nullable: true
+        transactionId:
+          type: string
+          format: uuid
+      required:
+      - accountName
+      - amount
+      - date
+      - transactionId
+    NpsReviewResponse:
+      type: object
+      properties:
+        matches:
+          type: array
+          items:
+            $ref: "#/components/schemas/NpsReviewMatch"
+        setup:
+          $ref: "#/components/schemas/NpsReviewSetup"
+        unrecorded:
+          type: array
+          items:
+            $ref: "#/components/schemas/NpsReviewUnrecorded"
+      required:
+      - matches
+      - unrecorded
+    NpsReviewSetup:
+      type: object
+      properties:
+        firstDate:
+          type: string
+          format: date
+        lastDate:
+          type: string
+          format: date
+        paymentCount:
+          type: integer
+          format: int32
+        sample:
+          type: array
+          items:
+            $ref: "#/components/schemas/NpsReviewPayment"
+        totalAmount:
+          type: number
+      required:
+      - firstDate
+      - lastDate
+      - paymentCount
+      - sample
+      - totalAmount
+    NpsReviewUnrecorded:
+      type: object
+      properties:
+        daysSince:
+          type: integer
+          format: int64
+        matchedOn:
+          type: string
+          nullable: true
+          x-nullable: true
+        payment:
+          $ref: "#/components/schemas/NpsReviewPayment"
+        recordTo:
+          type: array
+          items:
+            $ref: "#/components/schemas/NpsReviewAccount"
+      required:
+      - daysSince
+      - payment
+      - recordTo
     NpsSchemeDetailResponse:
       type: object
       properties:

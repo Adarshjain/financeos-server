@@ -44,6 +44,16 @@ public final class NpsPaymentPatterns {
         return hit;
     }
 
+    /** The NPS word the text carries (upper-cased, e.g. PROTEAN), or null when it has none. */
+    @Nullable
+    public static String matchedWord(@Nullable String text) {
+        if (text == null) {
+            return null;
+        }
+        java.util.regex.Matcher m = NPS.matcher(text);
+        return m.find() ? m.group().toUpperCase(java.util.Locale.ROOT) : null;
+    }
+
     /** Payment at or above the contribution, by no more than max(Rs 30, 0.3% of it), dated up to 7 days before its posted date. */
     public static boolean fits(BigDecimal payment, LocalDate paymentDate, BigDecimal entryAmount, LocalDate postedDate) {
         if (payment == null || paymentDate == null || entryAmount == null || postedDate == null
