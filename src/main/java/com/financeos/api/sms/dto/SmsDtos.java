@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
@@ -21,10 +22,14 @@ public final class SmsDtos {
     private SmsDtos() {
     }
 
-    public record LoginRequest(@NotBlank @Size(max = 254) String email, @NotBlank @Size(max = 1000) String password,
-                               @NotBlank @Size(max = 80) String deviceName) {}
+    private static final String INSTALL_ID_PATTERN = "^[A-Za-z0-9_-]{8,64}$";
 
-    public record GoogleLoginRequest(@NotBlank @Size(max = 4000) String idToken, @NotBlank @Size(max = 80) String deviceName) {}
+    public record LoginRequest(@NotBlank @Size(max = 254) String email, @NotBlank @Size(max = 1000) String password,
+                               @NotBlank @Size(max = 80) String deviceName,
+                               @Pattern(regexp = INSTALL_ID_PATTERN) String installId) {}
+
+    public record GoogleLoginRequest(@NotBlank @Size(max = 4000) String idToken, @NotBlank @Size(max = 80) String deviceName,
+                                     @Pattern(regexp = INSTALL_ID_PATTERN) String installId) {}
 
     public record LoginResponse(String token) {}
 

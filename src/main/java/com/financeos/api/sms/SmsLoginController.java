@@ -24,11 +24,12 @@ public class SmsLoginController {
 
     @PostMapping
     public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginRequest request) {
-        return ResponseEntity.ok(new LoginResponse(logins.loginWithPassword(request.email(), request.password(), request.deviceName())));
+        return ResponseEntity.ok(new LoginResponse(logins.loginWithPassword(request.email(), request.password(), request.deviceName(),
+                request.installId())));
     }
 
     @PostMapping("/google")
     public ResponseEntity<LoginResponse> loginWithGoogle(@Valid @RequestBody GoogleLoginRequest request) {
-        return ResponseEntity.ok(new LoginResponse(logins.loginWithGoogle(request.idToken(), request.deviceName())));
+        return ResponseEntity.ok(new LoginResponse(logins.loginWithGoogle(request.idToken(), request.deviceName(), request.installId())));
     }
 }

@@ -47,7 +47,7 @@ public class SmsDeviceLoginService {
     }
 
     /** 401 for a wrong password and an unknown email alike; 429 when the email is locked out. */
-    public String loginWithPassword(String email, String password, String deviceName) {
+    public String loginWithPassword(String email, String password, String deviceName, String installId) {
         String key = SmsLoginLimiter.passwordKey(email);
         reserve(key);
         User user;
@@ -58,13 +58,13 @@ public class SmsDeviceLoginService {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, BAD_CREDENTIALS);
         }
         limiter.clear(key);
-        String token = devices.createDevice(user.getId(), deviceName);
+        String token = devices.createDevice(user.getId(), deviceName, installId);
         outcome("password", "signed-in", user, null);
         return token;
     }
 
     /** 503 not configured (or Google's keys unreachable), 401 invalid token or unverified email, 404 no such user, 429 locked out. */
-    public String loginWithGoogle(String idToken, String deviceName) {
+    public String loginWithGoogle(String idToken, String deviceName, String installId) {
         if (googleClientId == null || googleClientId.isBlank()) {
             outcome("google", "refused", null, "not-configured");
             throw new ApiStatusException(HttpStatus.SERVICE_UNAVAILABLE, "SERVICE_UNAVAILABLE", "Google sign-in is not available");
@@ -93,7 +93,7 @@ public class SmsDeviceLoginService {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No FinanceOS account for this Google account");
         }
         limiter.clear(key);
-        String token = devices.createDevice(user.get().getId(), deviceName);
+        String token = devices.createDevice(user.get().getId(), deviceName, installId);
         outcome("google", "signed-in", user.get(), null);
         return token;
     }

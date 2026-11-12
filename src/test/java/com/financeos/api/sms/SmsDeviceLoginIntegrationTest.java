@@ -103,6 +103,126 @@ class SmsDeviceLoginIntegrationTest {
         return jdbc.queryForObject("SELECT COUNT(*) FROM sms_devices WHERE user_id = ?", Integer.class, user.getId().toString());
     }
 
+    private MockHttpServletResponse loginWithInstall(String mail, String installId) throws Exception {
+        return mockMvc.perform(post("/api/v1/sms/login").contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(Map.of("email", mail, "password", ApiTestClient.PASSWORD,
+                        "deviceName", "Test phone", "installId", installId)))).andReturn().getResponse();
+    }
+
+    private String installToken(String installId) throws Exception {
+        MockHttpServletResponse response = loginWithInstall(email, installId);
+        assertThat(response.getStatus()).isEqualTo(200);
+        return mapper.readTree(response.getContentAsString()).get("token").asText();
+    }
+
+    private int deviceStatus(String token) throws Exception {
+        return mockMvc.perform(get("/api/v1/sms/device/config").header("Authorization", "Bearer " + token))
+                .andReturn().getResponse().getStatus();
+    }
+
+    @Test
+    void sameInstallIdByPasswordTwiceReusesTheRowAndRefusesTheOldToken() throws Exception {
+        String first = installToken("install-aaaa-1111");
+        String second = installToken("install-aaaa-1111");
+        assertThat(devices()).isEqualTo(1);
+        assertThat(deviceStatus(first)).isEqualTo(401);
+        assertThat(deviceStatus(second)).isEqualTo(200);
+        assertThat(api.getJson("/api/v1/sms/devices", 200)).hasSize(1);
+    }
+
+    @Test
+    void sameInstallIdByPasswordAndByGoogleIsOneRow() throws Exception {
+        installToken("install-bbbb-2222");
+        stubGoogle(true, "sub-" + UUID.randomUUID(), email, true);
+        MockHttpServletResponse response = mockMvc.perform(post("/api/v1/sms/login/google").contentType(MediaType.APPLICATION_JSON)
+                .content(mapper.writeValueAsString(Map.of("idToken", "stub-token", "deviceName", "Test phone",
+                        "installId", "install-bbbb-2222")))).andReturn().getResponse();
+        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(devices()).isEqualTo(1);
+    }
+
+    @Test
+    void differentInstallIdsAreTwoDevicesAndBothTokensWork() throws Exception {
+        String a = installToken("install-cccc-3333");
+        String b = installToken("install-dddd-4444");
+        assertThat(devices()).isEqualTo(2);
+        assertThat(deviceStatus(a)).isEqualTo(200);
+        assertThat(deviceStatus(b)).isEqualTo(200);
+    }
+
+    @Test
+    void noInstallIdTwiceIsTwoRows() throws Exception {
+        token();
+        token();
+        assertThat(devices()).isEqualTo(2);
+    }
+
+    @Test
+    void aRevokedDeviceSigningInAgainWithItsInstallIdIsConnectedAgainOnTheSameRow() throws Exception {
+        String first = installToken("install-eeee-5555");
+        UUID deviceId = UUID.fromString(api.getJson("/api/v1/sms/devices", 200).get(0).get("id").asText());
+        api.postJson("/api/v1/sms/devices/" + deviceId + "/revoke", null, 204);
+        assertThat(deviceStatus(first)).isEqualTo(401);
+        String second = installToken("install-eeee-5555");
+        assertThat(devices()).isEqualTo(1);
+        JsonNode row = api.getJson("/api/v1/sms/devices", 200).get(0);
+        assertThat(row.get("id").asText()).isEqualTo(deviceId.toString());
+        assertThat(row.get("revokedAt").isNull()).isTrue();
+        assertThat(deviceStatus(second)).isEqualTo(200);
+    }
+
+    @Test
+    void olderRowsWithTheSameInstallIdAreRevokedWhenThePhoneSignsInAgain() throws Exception {
+        String first = installToken("install-kkkk-9090");
+        String second = token();
+        // two connected rows for one install can only come from two sign-ins at the same moment
+        jdbc.update("UPDATE sms_devices SET install_id = ? WHERE user_id = ? AND install_id IS NULL", "install-kkkk-9090",
+                user.getId().toString());
+        String third = installToken("install-kkkk-9090");
+        assertThat(devices()).isEqualTo(2);
+        assertThat(jdbc.queryForObject("SELECT COUNT(*) FROM sms_devices WHERE user_id = ? AND revoked_at IS NULL", Integer.class,
+                user.getId().toString())).isEqualTo(1);
+        assertThat(deviceStatus(first)).isEqualTo(401);
+        assertThat(deviceStatus(second)).isEqualTo(401);
+        assertThat(deviceStatus(third)).isEqualTo(200);
+    }
+
+    @Test
+    void theSameInstallIdUnderAnotherUserIsAnotherPhone() throws Exception {
+        String first = installToken("install-ffff-6666");
+        String otherEmail = "sms-login-other-" + UUID.randomUUID() + "@example.test";
+        ApiTestClient.signUp(mockMvc, mapper, otherEmail);
+        UUID otherId = userRepository.findByEmail(otherEmail).orElseThrow().getId();
+        try {
+            assertThat(loginWithInstall(otherEmail, "install-ffff-6666").getStatus()).isEqualTo(200);
+            assertThat(devices()).isEqualTo(1);
+            assertThat(jdbc.queryForObject("SELECT COUNT(*) FROM sms_devices WHERE user_id = ?", Integer.class, otherId.toString()))
+                    .isEqualTo(1);
+            assertThat(deviceStatus(first)).isEqualTo(200);
+        } finally {
+            UserDataCleanup.deleteUsers(jdbc, List.of(otherId));
+        }
+    }
+
+    @Test
+    void anInvalidInstallIdIs400AndCreatesNoRow() throws Exception {
+        assertThat(loginWithInstall(email, "short").getStatus()).isEqualTo(400);
+        assertThat(loginWithInstall(email, "bad char id !!").getStatus()).isEqualTo(400);
+        assertThat(loginWithInstall(email, "x".repeat(65)).getStatus()).isEqualTo(400);
+        assertThat(devices()).isZero();
+    }
+
+    @Test
+    void pausedStaysAcrossASignInWithTheSameInstallId() throws Exception {
+        installToken("install-gggg-7777");
+        UUID deviceId = UUID.fromString(api.getJson("/api/v1/sms/devices", 200).get(0).get("id").asText());
+        api.postJson("/api/v1/sms/devices/" + deviceId + "/pause", null, 204);
+        String second = installToken("install-gggg-7777");
+        assertThat(devices()).isEqualTo(1);
+        mockMvc.perform(get("/api/v1/sms/device/config").header("Authorization", "Bearer " + second))
+                .andExpect(jsonPath("$.paused").value(true));
+    }
+
     @Test
     void passwordLoginGivesAHashedTokenThatWorksOnDeviceEndpointsAndTouchesLastSeen() throws Exception {
         String token = token();
@@ -278,7 +398,7 @@ class SmsDeviceLoginIntegrationTest {
     @Test
     void googleLoginWithoutAClientIdIs503() {
         SmsDeviceLoginService unconfigured = new SmsDeviceLoginService(authService, userRepository, deviceService, limiter, google, "");
-        assertThatThrownBy(() -> unconfigured.loginWithGoogle("stub-token", "Test phone"))
+        assertThatThrownBy(() -> unconfigured.loginWithGoogle("stub-token", "Test phone", null))
                 .isInstanceOfSatisfying(ApiStatusException.class, e -> assertThat(e.getStatus().value()).isEqualTo(503));
     }
 

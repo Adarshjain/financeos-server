@@ -33,6 +33,9 @@ public class SmsDevice {
     @Column(name = "name", length = 80, nullable = false)
     private String name;
 
+    @Column(name = "install_id", length = 64)
+    private String installId;
+
     @Column(name = "token_hash", length = 64, nullable = false)
     private String tokenHash;
 

@@ -6,6 +6,7 @@ import com.financeos.domain.user.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,16 +26,35 @@ public class SmsDeviceService {
         this.users = users;
     }
 
-    /** Creates a device for the user; returns its token, shown once. Only the hash is stored. */
+    /**
+     * Creates a device for the user; returns its token, shown once. Only the hash is stored. With an install id, the
+     * user's existing device with that id is reused (new token, connected again) and its older duplicates are revoked.
+     */
     @Transactional
-    public String createDevice(UUID userId, String deviceName) {
+    public String createDevice(UUID userId, String deviceName, String installId) {
         String token = SmsTokens.newToken();
-        SmsDevice device = new SmsDevice();
-        device.setId(UUID.randomUUID());
-        device.setUserId(userId);
+        Instant now = AppTime.nowInstant();
+        String install = installId == null || installId.isBlank() ? null : installId.trim();
+        List<SmsDevice> existing = install == null ? List.of()
+                : devices.findByUserIdAndInstallIdOrderByPairedAtDesc(userId, install);
+        SmsDevice device;
+        if (existing.isEmpty()) {
+            device = new SmsDevice();
+            device.setId(UUID.randomUUID());
+            device.setUserId(userId);
+            device.setInstallId(install);
+        } else {
+            device = existing.get(0);
+            device.setRevokedAt(null);
+            for (SmsDevice other : existing.subList(1, existing.size())) {
+                if (other.getRevokedAt() == null) {
+                    other.setRevokedAt(now);
+                }
+            }
+        }
         device.setName(deviceName.trim());
         device.setTokenHash(SmsTokens.sha256(token));
-        device.setPairedAt(AppTime.nowInstant());
+        device.setPairedAt(now);
         devices.save(device);
         return token;
     }

@@ -16,6 +16,8 @@ public interface SmsDeviceRepository extends JpaRepository<SmsDevice, UUID> {
 
     List<SmsDevice> findByUserIdOrderByPairedAtDesc(UUID userId);
 
+    List<SmsDevice> findByUserIdAndInstallIdOrderByPairedAtDesc(UUID userId, String installId);
+
     Optional<SmsDevice> findByIdAndUserId(UUID id, UUID userId);
 
     @Modifying
