@@ -149,15 +149,15 @@ class TransactionCountAndShellCountsIntegrationTest {
         message(healthy, user, GmailProcessedStatus.CREATED); // not an attention status
 
         assertEquals(3, client.getJson("/api/v1/shell/counts", 200).get("dataSources").get("connections").asInt());
-        // the Inbox shows the same: 1 reconnect row + a summary row of 2 emails (Needs attention total)
+        // the Inbox shows the same: the reconnect row and the 2-email summary point at one page, so they are one row of 3
         JsonNode items = client.getJson("/api/v1/inbox", 200).get("items");
-        int emails = 0;
-        int reconnect = 0;
+        int connections = 0;
         for (JsonNode item : items) {
-            if ("gmail-attention".equals(item.get("key").asText())) emails = item.get("count").asInt();
-            if ("gmail_reconnect".equals(item.get("kind").asText())) reconnect++;
+            if (item.get("href").asText().startsWith("/data-sources/connections")) {
+                connections += item.hasNonNull("count") ? item.get("count").asInt() : 1;
+            }
         }
-        assertEquals(3, emails + reconnect);
+        assertEquals(3, connections);
     }
 
     @Test
