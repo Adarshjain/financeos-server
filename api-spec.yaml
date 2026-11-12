@@ -15003,6 +15003,32 @@ components:
       - questionCount
       - title
       - updatedAt
+    CorporateActionChildCandidate:
+      type: object
+      properties:
+        instrumentId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        isin:
+          type: string
+          nullable: true
+          x-nullable: true
+        listedOn:
+          type: string
+          format: date
+        name:
+          type: string
+        symbol:
+          type: string
+        yahooSymbol:
+          type: string
+      required:
+      - listedOn
+      - name
+      - symbol
+      - yahooSymbol
     CorporateActionPage:
       type: object
       properties:
@@ -15150,6 +15176,10 @@ components:
           - merger
           - other
           - oversold
+        possibleChildren:
+          type: array
+          items:
+            $ref: "#/components/schemas/CorporateActionChildCandidate"
         ratioFrom:
           type: integer
           format: int32
@@ -15216,6 +15246,7 @@ components:
       - id
       - instrument
       - kind
+      - possibleChildren
       - status
     CorporateActionReviewResponse:
       type: object
@@ -15346,6 +15377,10 @@ components:
           - merger
           - other
           - oversold
+        possibleChildren:
+          type: array
+          items:
+            $ref: "#/components/schemas/CorporateActionChildCandidate"
         ratioFrom:
           type: integer
           format: int32
@@ -15385,6 +15420,7 @@ components:
       - id
       - instrument
       - kind
+      - possibleChildren
       - status
     CounterpartyLedgerResponse:
       type: object

@@ -1,5 +1,6 @@
 package com.financeos.domain.instrument.corporateaction.detect;
 
+import com.financeos.api.instrument.dto.CorporateActionChildCandidate;
 import com.financeos.api.instrument.dto.CorporateActionReviewItemResponse;
 import com.financeos.api.instrument.dto.CorporateActionReviewItemResponse.ReviewInstrument;
 import com.financeos.api.instrument.dto.CorporateActionReviewResponse;
@@ -38,13 +39,16 @@ public class CorporateActionReviewService {
     private final InvestmentService investmentService;
     private final StockNotTradingRule notTradingRule;
     private final InstrumentPriceRepository prices;
+    private final DemergerCandidates demergerCandidates;
 
     public CorporateActionReviewService(CorporateActionSuggestionRepository suggestions, InvestmentService investmentService,
-                                        StockNotTradingRule notTradingRule, InstrumentPriceRepository prices) {
+                                        StockNotTradingRule notTradingRule, InstrumentPriceRepository prices,
+                                        DemergerCandidates demergerCandidates) {
         this.suggestions = suggestions;
         this.investmentService = investmentService;
         this.notTradingRule = notTradingRule;
         this.prices = prices;
+        this.demergerCandidates = demergerCandidates;
     }
 
     @Transactional(readOnly = true)
@@ -64,10 +68,11 @@ public class CorporateActionReviewService {
         }
         Map<AsOfQuery, OpenAsOf> positions = investmentService.openPositionsBefore(queries);
         Map<UUID, BigDecimal> oversoldQty = anyOversold ? oversoldQtyByInstrument() : Map.of();
+        Map<UUID, List<CorporateActionChildCandidate>> children = demergerCandidates.forSuggestions(concat(pending, applied));
 
         return new CorporateActionReviewResponse(
-                pending.stream().map(s -> item(s, positions, oversoldQty)).toList(),
-                applied.stream().map(s -> item(s, positions, oversoldQty)).toList(),
+                pending.stream().map(s -> item(s, positions, oversoldQty, children)).toList(),
+                applied.stream().map(s -> item(s, positions, oversoldQty, children)).toList(),
                 notTrading(userId));
     }
 
@@ -90,7 +95,8 @@ public class CorporateActionReviewService {
     }
 
     private CorporateActionReviewItemResponse item(CorporateActionSuggestion s, Map<AsOfQuery, OpenAsOf> positions,
-                                                   Map<UUID, BigDecimal> oversoldQty) {
+                                                   Map<UUID, BigDecimal> oversoldQty,
+                                                   Map<UUID, List<CorporateActionChildCandidate>> children) {
         OpenAsOf open = positions.get(new AsOfQuery(s.getInstrument().getId(), s.getExDate()));
         BigDecimal sharesBefore = open == null ? null : open.qty();
         BigDecimal avgBefore = open == null || open.qty().signum() <= 0 ? null
@@ -108,7 +114,8 @@ public class CorporateActionReviewService {
                 s.getCorporateAction() == null ? null : s.getCorporateAction().getId(),
                 s.getCreatedAt(), s.getResolvedAt(), oversold ? null : SOURCE_NSE, s.getFeedFactor(), factor,
                 sharesBefore, sharesAfter, avgBefore, avgAfter,
-                oversold ? oversoldQty.get(s.getInstrument().getId()) : null, oversold ? s.getExDate() : null);
+                oversold ? oversoldQty.get(s.getInstrument().getId()) : null, oversold ? s.getExDate() : null,
+                children.getOrDefault(s.getId(), List.of()));
     }
 
     /** The multiplier the notice implies: {@code ratioTo / ratioFrom} for a split or bonus (the rule the lot engine applies). */

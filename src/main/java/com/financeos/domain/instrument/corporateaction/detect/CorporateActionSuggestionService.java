@@ -26,13 +26,16 @@ public class CorporateActionSuggestionService {
     private final CorporateActionSuggestionRepository suggestions;
     private final CorporateActionRepository actions;
     private final CorporateActionService actionService;
+    private final DemergerCandidates demergerCandidates;
 
     public CorporateActionSuggestionService(CorporateActionSuggestionRepository suggestions,
                                             CorporateActionRepository actions,
-                                            CorporateActionService actionService) {
+                                            CorporateActionService actionService,
+                                            DemergerCandidates demergerCandidates) {
         this.suggestions = suggestions;
         this.actions = actions;
         this.actionService = actionService;
+        this.demergerCandidates = demergerCandidates;
     }
 
     private static UUID requireUser() {
@@ -50,7 +53,8 @@ public class CorporateActionSuggestionService {
 
     @Transactional(readOnly = true)
     public CorporateActionSuggestionResponse get(UUID id) {
-        return CorporateActionSuggestionResponse.from(own(requireUser(), id));
+        CorporateActionSuggestion s = own(requireUser(), id);
+        return CorporateActionSuggestionResponse.from(s, demergerCandidates.forSuggestion(s));
     }
 
     /** Removes the action the detector applied (through the normal delete) and marks the suggestion undone. */

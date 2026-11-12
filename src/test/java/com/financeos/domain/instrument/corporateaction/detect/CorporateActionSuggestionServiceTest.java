@@ -30,8 +30,9 @@ class CorporateActionSuggestionServiceTest {
     private final CorporateActionSuggestionRepository suggestions = mock(CorporateActionSuggestionRepository.class);
     private final CorporateActionRepository actions = mock(CorporateActionRepository.class);
     private final CorporateActionService actionService = mock(CorporateActionService.class);
+    private final DemergerCandidates demergerCandidates = mock(DemergerCandidates.class);
     private final CorporateActionSuggestionService service =
-            new CorporateActionSuggestionService(suggestions, actions, actionService);
+            new CorporateActionSuggestionService(suggestions, actions, actionService, demergerCandidates);
 
     private final UUID userId = UUID.randomUUID();
     private Instrument acme;

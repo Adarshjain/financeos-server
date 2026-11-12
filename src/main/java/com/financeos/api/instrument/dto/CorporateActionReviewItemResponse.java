@@ -6,6 +6,7 @@ import com.financeos.domain.instrument.corporateaction.detect.SuggestionStatus;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.lang.Nullable;
 
@@ -22,6 +23,7 @@ import org.springframework.lang.Nullable;
  * @param avgCostAfter   {@code avgCostBefore / exchangeFactor} (total cost is unchanged); null when not computable
  * @param soldQty        oversold only: the quantity sold beyond the lots held
  * @param sellDate       oversold only: the first oversold sell date
+ * @param possibleChildren demerger only (pending): companies the exchange listed after the ex-date with a similar name; never empty-null
  */
 public record CorporateActionReviewItemResponse(
         UUID id,
@@ -44,7 +46,8 @@ public record CorporateActionReviewItemResponse(
         @Nullable BigDecimal avgCostBefore,
         @Nullable BigDecimal avgCostAfter,
         @Nullable BigDecimal soldQty,
-        @Nullable LocalDate sellDate
+        @Nullable LocalDate sellDate,
+        List<CorporateActionChildCandidate> possibleChildren
 ) {
     public record ReviewInstrument(UUID id, String name, @Nullable String symbol, @Nullable String exchange) {
     }

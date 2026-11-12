@@ -5,6 +5,7 @@ import com.financeos.domain.instrument.corporateaction.detect.SuggestionKind;
 import com.financeos.domain.instrument.corporateaction.detect.SuggestionReason;
 import com.financeos.domain.instrument.corporateaction.detect.SuggestionStatus;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.lang.Nullable;
 
@@ -19,15 +20,23 @@ public record CorporateActionSuggestionResponse(
         @Nullable Integer ratioTo,
         @Nullable String subject,
         InstrumentRef instrument,
-        @Nullable UUID corporateActionId
+        @Nullable UUID corporateActionId,
+        List<CorporateActionChildCandidate> possibleChildren
 ) {
     public record InstrumentRef(UUID id, String name, String symbol) {
     }
 
     public static CorporateActionSuggestionResponse from(CorporateActionSuggestion s) {
+        return from(s, List.of());
+    }
+
+    /** {@code possibleChildren}: the demerger's possible child companies (empty for anything else). */
+    public static CorporateActionSuggestionResponse from(CorporateActionSuggestion s,
+                                                         List<CorporateActionChildCandidate> possibleChildren) {
         return new CorporateActionSuggestionResponse(s.getId(), s.getKind(), s.getStatus(), s.getReason(), s.getExDate(),
                 s.getRatioFrom(), s.getRatioTo(), s.getSubject(),
                 new InstrumentRef(s.getInstrument().getId(), s.getInstrument().getName(), s.getInstrument().getSymbol()),
-                s.getCorporateAction() == null ? null : s.getCorporateAction().getId());
+                s.getCorporateAction() == null ? null : s.getCorporateAction().getId(),
+                possibleChildren == null ? List.of() : possibleChildren);
     }
 }
