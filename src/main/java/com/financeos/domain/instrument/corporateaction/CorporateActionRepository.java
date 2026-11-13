@@ -27,24 +27,24 @@ public interface CorporateActionRepository extends JpaRepository<CorporateAction
 
     /** {@code userId}'s corporate actions on one instrument, oldest first. */
     @Query("SELECT ca FROM CorporateAction ca WHERE ca.user.id = :userId AND ca.instrument.id = :instrumentId "
-            + "ORDER BY ca.exDate ASC")
+            + "ORDER BY ca.exDate ASC, ca.createdAt ASC, ca.id ASC")
     List<CorporateAction> findByUser_IdAndInstrument_IdOrderByExDateAsc(@Param("userId") UUID userId,
                                                                       @Param("instrumentId") UUID instrumentId);
 
     /** {@code userId}'s demergers/mergers into one instrument, oldest first. */
     @Query("SELECT ca FROM CorporateAction ca WHERE ca.user.id = :userId AND ca.targetInstrument.id = :targetId "
-            + "ORDER BY ca.exDate ASC")
+            + "ORDER BY ca.exDate ASC, ca.createdAt ASC, ca.id ASC")
     List<CorporateAction> findByUser_IdAndTargetInstrument_IdOrderByExDateAsc(@Param("userId") UUID userId,
                                                                             @Param("targetId") UUID targetInstrumentId);
 
     /** {@code userId}'s corporate actions on several instruments, oldest first, instruments fetched. */
     @Query("SELECT ca FROM CorporateAction ca JOIN FETCH ca.instrument LEFT JOIN FETCH ca.targetInstrument "
-            + "WHERE ca.user.id = :userId AND ca.instrument.id IN :ids ORDER BY ca.exDate ASC")
+            + "WHERE ca.user.id = :userId AND ca.instrument.id IN :ids ORDER BY ca.exDate ASC, ca.createdAt ASC, ca.id ASC")
     List<CorporateAction> findOwnedByInstrumentIds(@Param("userId") UUID userId, @Param("ids") Collection<UUID> ids);
 
     /** {@code userId}'s demergers/mergers that seed shares into several instruments, oldest first, instruments fetched. */
     @Query("SELECT ca FROM CorporateAction ca JOIN FETCH ca.instrument LEFT JOIN FETCH ca.targetInstrument "
-            + "WHERE ca.user.id = :userId AND ca.targetInstrument.id IN :ids ORDER BY ca.exDate ASC")
+            + "WHERE ca.user.id = :userId AND ca.targetInstrument.id IN :ids ORDER BY ca.exDate ASC, ca.createdAt ASC, ca.id ASC")
     List<CorporateAction> findOwnedByTargetInstrumentIds(@Param("userId") UUID userId, @Param("ids") Collection<UUID> ids);
 
     /**
@@ -52,7 +52,7 @@ public interface CorporateActionRepository extends JpaRepository<CorporateAction
      * {@code from}, owners and instruments fetched (callers key them by owner and instrument).
      */
     @Query("SELECT ca FROM CorporateAction ca JOIN FETCH ca.user JOIN FETCH ca.instrument "
-            + "WHERE ca.user.id IN :userIds AND ca.instrument.id IN :ids AND ca.exDate >= :from ORDER BY ca.exDate ASC")
+            + "WHERE ca.user.id IN :userIds AND ca.instrument.id IN :ids AND ca.exDate >= :from ORDER BY ca.exDate ASC, ca.createdAt ASC, ca.id ASC")
     List<CorporateAction> findOwnedByInstrumentIdsExDateFrom(@Param("userIds") Collection<UUID> userIds,
                                                              @Param("ids") Collection<UUID> ids,
                                                              @Param("from") LocalDate from);
@@ -64,7 +64,7 @@ public interface CorporateActionRepository extends JpaRepository<CorporateAction
      */
     @Query("SELECT ca FROM CorporateAction ca JOIN FETCH ca.instrument LEFT JOIN FETCH ca.targetInstrument "
             + "WHERE ca.user.id = :userId AND (ca.instrument.id IN :ids OR ca.targetInstrument.id IN :ids) "
-            + "ORDER BY ca.exDate ASC")
+            + "ORDER BY ca.exDate ASC, ca.createdAt ASC, ca.id ASC")
     List<CorporateAction> findOwnedInvolving(@Param("userId") UUID userId, @Param("ids") Collection<UUID> ids);
 
     /** All of {@code userId}'s corporate actions, newest first, instruments fetched. */

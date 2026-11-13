@@ -5,11 +5,15 @@ import com.financeos.domain.holding.HoldingRepository;
 import com.financeos.domain.instrument.corporateaction.detect.CorporateActionDetectionService;
 import com.financeos.domain.instrument.corporateaction.detect.CorporateActionsProperties;
 import com.financeos.domain.instrument.corporateaction.detect.MarketEventStore;
+import com.financeos.domain.instrument.corporateaction.detect.SchemeAutoApply;
+import com.financeos.domain.instrument.corporateaction.detect.SchemeEvidenceEnrichment;
+import com.financeos.domain.job.JobCancelledException;
 import com.financeos.domain.job.JobExecutionContext;
 import com.financeos.domain.job.JobHandler;
 import com.financeos.domain.job.JobType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -33,9 +37,28 @@ public class CorporateActionDetectJobHandler implements JobHandler {
     private final MarketEventStore eventStore;
     private final HoldingRepository holdings;
     private final CorporateActionsProperties properties;
+    /** Null when constructed without it: the notice reading is then skipped. */
+    private final SchemeEvidenceEnrichment schemeEvidence;
+    /** Null when constructed without it: nothing is applied from the notices. */
+    private final SchemeAutoApply autoApply;
 
     public CorporateActionDetectJobHandler(CorporateActionDetectionService detection, MarketEventStore eventStore,
                                            HoldingRepository holdings, CorporateActionsProperties properties) {
+        this(detection, eventStore, holdings, properties, null, null);
+    }
+
+    public CorporateActionDetectJobHandler(CorporateActionDetectionService detection, MarketEventStore eventStore,
+                                           HoldingRepository holdings, CorporateActionsProperties properties,
+                                           SchemeEvidenceEnrichment schemeEvidence) {
+        this(detection, eventStore, holdings, properties, schemeEvidence, null);
+    }
+
+    @Autowired
+    public CorporateActionDetectJobHandler(CorporateActionDetectionService detection, MarketEventStore eventStore,
+                                           HoldingRepository holdings, CorporateActionsProperties properties,
+                                           SchemeEvidenceEnrichment schemeEvidence, SchemeAutoApply autoApply) {
+        this.autoApply = autoApply;
+        this.schemeEvidence = schemeEvidence;
         this.detection = detection;
         this.eventStore = eventStore;
         this.holdings = holdings;
@@ -56,6 +79,8 @@ public class CorporateActionDetectJobHandler implements JobHandler {
         UUID userId = payload != null && payload.userId() != null ? payload.userId() : ctx.getUserId();
         if (userId != null) {
             var summary = detection.detectForUser(userId);
+            readOwnSchemeNotices(userId, ctx);
+            applySchemes(userId);
             return new Result(1, 0, summary.applied(), summary.pending());
         }
         try {
@@ -90,6 +115,51 @@ public class CorporateActionDetectJobHandler implements JobHandler {
                 UserContext.setCurrentUserId(previous);
             }
         }
+        readSchemeNotices(ctx);
+        for (UUID id : userIds) {
+            ctx.checkCancelled();
+            applySchemes(id);
+        }
         return new Result(userIds.size(), failed, applied, pending);
+    }
+
+    /** After the users (their new pending demergers are then read the same night); a failure never fails the run. */
+    private void readSchemeNotices(JobExecutionContext ctx) {
+        if (schemeEvidence == null) {
+            return;
+        }
+        try {
+            schemeEvidence.run(ctx::checkCancelled);
+        } catch (JobCancelledException e) {
+            throw e;
+        } catch (Exception e) {
+            log.warn("Scheme notice reading threw: {}", e.toString());
+        }
+    }
+
+    /** Applies this user's verified demergers and mergers (never fails the run). */
+    private void applySchemes(UUID userId) {
+        if (autoApply == null) {
+            return;
+        }
+        try {
+            autoApply.runForUser(userId);
+        } catch (Exception e) {
+            log.warn("Scheme auto-apply threw for user {}: {}", userId, e.toString());
+        }
+    }
+
+    /** This user's own pending events (at most 10, only those due), so the details are there right after an import. */
+    private void readOwnSchemeNotices(UUID userId, JobExecutionContext ctx) {
+        if (schemeEvidence == null) {
+            return;
+        }
+        try {
+            schemeEvidence.runForUser(userId, ctx::checkCancelled);
+        } catch (JobCancelledException e) {
+            throw e;
+        } catch (Exception e) {
+            log.warn("Scheme notice reading threw for user {}: {}", userId, e.toString());
+        }
     }
 }

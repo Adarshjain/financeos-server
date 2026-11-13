@@ -11,6 +11,7 @@ import com.financeos.domain.instrument.corporateaction.CorporateActionService;
 import java.time.Instant;
 import java.util.Set;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,11 +28,23 @@ public class CorporateActionSuggestionService {
     private final CorporateActionRepository actions;
     private final CorporateActionService actionService;
     private final DemergerCandidates demergerCandidates;
+    /** Null when constructed without it: no notice details are then attached. */
+    private final SchemeDetailsLookup schemeDetails;
 
     public CorporateActionSuggestionService(CorporateActionSuggestionRepository suggestions,
                                             CorporateActionRepository actions,
                                             CorporateActionService actionService,
                                             DemergerCandidates demergerCandidates) {
+        this(suggestions, actions, actionService, demergerCandidates, null);
+    }
+
+    @Autowired
+    public CorporateActionSuggestionService(CorporateActionSuggestionRepository suggestions,
+                                            CorporateActionRepository actions,
+                                            CorporateActionService actionService,
+                                            DemergerCandidates demergerCandidates,
+                                            SchemeDetailsLookup schemeDetails) {
+        this.schemeDetails = schemeDetails;
         this.suggestions = suggestions;
         this.actions = actions;
         this.actionService = actionService;
@@ -54,7 +67,8 @@ public class CorporateActionSuggestionService {
     @Transactional(readOnly = true)
     public CorporateActionSuggestionResponse get(UUID id) {
         CorporateActionSuggestion s = own(requireUser(), id);
-        return CorporateActionSuggestionResponse.from(s, demergerCandidates.forSuggestion(s));
+        return CorporateActionSuggestionResponse.from(s, demergerCandidates.forSuggestion(s),
+                schemeDetails == null ? null : schemeDetails.forSuggestions(java.util.List.of(s)).get(s.getId()));
     }
 
     /** Removes the action the detector applied (through the normal delete) and marks the suggestion undone. */

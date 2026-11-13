@@ -17,8 +17,14 @@ public record ReconcileCommitRequest(
         @NotNull UUID brokerAccountId,
         @NotNull List<CommitExecutionDto> executions,
         List<CommitClassificationDto> classifications,
-        List<CommitFnoTradeDto> fnoTrades
+        List<CommitFnoTradeDto> fnoTrades,
+        @Nullable ReconcileHoldingsSnapshot holdingsSnapshot
 ) {
+    public ReconcileCommitRequest(Broker broker, UUID brokerAccountId, List<CommitExecutionDto> executions,
+                                  List<CommitClassificationDto> classifications, List<CommitFnoTradeDto> fnoTrades) {
+        this(broker, brokerAccountId, executions, classifications, fnoTrades, null);
+    }
+
     public record CommitExecutionDto(
             int rowIndex,
             @Nullable LocalDate tradeDate,

@@ -24,6 +24,8 @@ import org.springframework.lang.Nullable;
  * @param soldQty        oversold only: the quantity sold beyond the lots held
  * @param sellDate       oversold only: the first oversold sell date
  * @param possibleChildren demerger only (pending): companies the exchange listed after the ex-date with a similar name; never empty-null
+ * @param appliedBecause for an automatic demerger or merger: the notice and holdings evidence it rested on
+ * @param details        demerger or merger: what the company's notices say (children, ratio, cost split); null when none were read yet
  */
 public record CorporateActionReviewItemResponse(
         UUID id,
@@ -47,7 +49,9 @@ public record CorporateActionReviewItemResponse(
         @Nullable BigDecimal avgCostAfter,
         @Nullable BigDecimal soldQty,
         @Nullable LocalDate sellDate,
-        List<CorporateActionChildCandidate> possibleChildren
+        List<CorporateActionChildCandidate> possibleChildren,
+        @Nullable CorporateActionSchemeDetails details,
+        @Nullable String appliedBecause
 ) {
     public record ReviewInstrument(UUID id, String name, @Nullable String symbol, @Nullable String exchange) {
     }

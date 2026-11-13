@@ -18,7 +18,8 @@ public record ReconcilePreviewResponse(
         List<ReconcileWarningDto> warnings,
         SummaryStatsDto summaryStats,
         List<TradeSettlementClassificationDto> classifications,
-        List<FnoTradePreviewDto> fnoTrades
+        List<FnoTradePreviewDto> fnoTrades,
+        @Nullable ReconcileHoldingsSnapshot holdingsSnapshot
 ) {
     public record TradeSettlementClassificationDto(
             @Nullable String isin,

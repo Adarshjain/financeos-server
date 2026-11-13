@@ -57,6 +57,24 @@ public class CorporateActionService {
         this.userRepository = userRepository;
     }
 
+    /** To tell an emptied-out child holding from one with trades; null in unit tests (then none is removed). */
+    private com.financeos.domain.investment.InvestmentTransactionRepository transactionRepository;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setTransactionRepository(com.financeos.domain.investment.InvestmentTransactionRepository transactionRepository) {
+        this.transactionRepository = transactionRepository;
+    }
+
+    /** To tell a child holding with dividends from an empty one; null in unit tests (then none is removed). */
+    private com.financeos.domain.investment.dividend.DividendRepository dividendRepository;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setDividendRepository(com.financeos.domain.investment.dividend.DividendRepository dividendRepository) {
+        this.dividendRepository = dividendRepository;
+    }
+
+    private static final String NOTE_CHILD_HOLDING = "Created via corporate action";
+
     private static final String DUPLICATE_MESSAGE = "This action is already recorded for that date";
     private static final String DELISTED_ONCE_MESSAGE = "A delisting is already recorded for this instrument";
 
@@ -163,6 +181,42 @@ public class CorporateActionService {
         ca.setNotes(notes);
         ca.setSource(CorporateAction.SOURCE_AUTO);
         CorporateAction saved = corporateActionRepository.save(ca);
+        registerCreatedLog(saved);
+        return saved;
+    }
+
+    /**
+     * Records a demerger or merger the detector verified for {@code userId} (source {@code auto}), outside a request:
+     * {@code targetId} is the child or acquirer, {@code costPct} the child's share of the cost (a merger is 100). Null when the
+     * user already has this action that day for that target. The child holdings are created as for a manual one.
+     */
+    public CorporateAction createDetectedWithTarget(UUID userId, UUID instrumentId, CorporateActionType type, int ratioFrom, int ratioTo,
+                                                    java.time.LocalDate exDate, String notes, UUID targetId, BigDecimal costPct) {
+        if (type != CorporateActionType.demerger && type != CorporateActionType.merger) {
+            throw new ValidationException("Only a demerger or merger has a target");
+        }
+        if (sameDay(userId, instrumentId, type, exDate, targetId, null)) {
+            log.info("Detected corporate action skipped: already recorded for that date");
+            return null;
+        }
+        validateRequest(instrumentId, type, ratioFrom, ratioTo, targetId, type == CorporateActionType.demerger ? costPct : null, null);
+        Instrument instrument = instrumentRepository.findById(instrumentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Instrument", instrumentId));
+        Instrument target = instrumentRepository.findById(targetId)
+                .orElseThrow(() -> new ResourceNotFoundException("Instrument", targetId));
+        CorporateAction ca = new CorporateAction();
+        ca.setUser(userRepository.getReferenceById(userId));
+        ca.setInstrument(instrument);
+        ca.setType(type);
+        ca.setRatioFrom(ratioFrom);
+        ca.setRatioTo(ratioTo);
+        ca.setExDate(exDate);
+        ca.setNotes(notes);
+        ca.setTargetInstrument(target);
+        ca.setCostAllocationPct(type == CorporateActionType.demerger ? costPct : new BigDecimal("100"));
+        ca.setSource(CorporateAction.SOURCE_AUTO);
+        CorporateAction saved = corporateActionRepository.save(ca);
+        materializeChildHoldings(userId, instrumentId, target);
         registerCreatedLog(saved);
         return saved;
     }
@@ -300,7 +354,7 @@ public class CorporateActionService {
                     targetInstrument.getId()
             );
             if (existingChild.isEmpty()) {
-                Holding childHolding = new Holding(parentHolding.getBrokerAccount(), targetInstrument, "Created via corporate action");
+                Holding childHolding = new Holding(parentHolding.getBrokerAccount(), targetInstrument, NOTE_CHILD_HOLDING);
                 childHolding.setUser(user);
                 holdingRepository.save(childHolding);
             }
@@ -308,7 +362,34 @@ public class CorporateActionService {
     }
 
     public void deleteCorporateAction(UUID instrumentId, UUID id) {
-        corporateActionRepository.delete(ownAction(requireUser(), instrumentId, id));
+        UUID userId = requireUser();
+        CorporateAction ca = ownAction(userId, instrumentId, id);
+        Instrument target = (ca.getType() == CorporateActionType.demerger || ca.getType() == CorporateActionType.merger)
+                ? ca.getTargetInstrument() : null;
+        corporateActionRepository.delete(ca);
+        if (target != null) {
+            removeEmptyChildHoldings(userId, target);
+        }
+    }
+
+    /**
+     * After a demerger or merger is deleted: removes the user's holding of its target only when the action created it and it has
+     * no trades, no dividends and no other action of the user still targets the instrument. Anything else is kept.
+     */
+    private void removeEmptyChildHoldings(UUID userId, Instrument target) {
+        if (transactionRepository == null || dividendRepository == null) {
+            return;
+        }
+        corporateActionRepository.flush();
+        if (!corporateActionRepository.findByUser_IdAndTargetInstrument_IdOrderByExDateAsc(userId, target.getId()).isEmpty()) {
+            return;
+        }
+        for (Holding h : holdingRepository.findByUser_IdAndInstrument_Id(userId, target.getId())) {
+            if (NOTE_CHILD_HOLDING.equals(h.getNotes()) && transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(h.getId()).isEmpty()
+                    && dividendRepository.findByHoldingIdOrderByPayDateDescCreatedAtDesc(h.getId()).isEmpty()) {
+                holdingRepository.delete(h);
+            }
+        }
     }
 
     /** The caller's own corporate actions on the instrument, oldest first; 404 for an unknown instrument. */

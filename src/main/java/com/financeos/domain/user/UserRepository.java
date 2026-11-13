@@ -14,6 +14,11 @@ import java.util.UUID;
 @Repository
 public interface UserRepository extends JpaRepository<User, UUID> {
 
+    /** The user's row locked for update: serialises work done for one user across the nightly run and an import job's run. */
+    @org.springframework.data.jpa.repository.Lock(jakarta.persistence.LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT u FROM User u WHERE u.id = :id")
+    Optional<User> lockById(@Param("id") UUID id);
+
     Optional<User> findByEmail(String email);
 
     boolean existsByEmail(String email);

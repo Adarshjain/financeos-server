@@ -21,7 +21,8 @@ public record CorporateActionSuggestionResponse(
         @Nullable String subject,
         InstrumentRef instrument,
         @Nullable UUID corporateActionId,
-        List<CorporateActionChildCandidate> possibleChildren
+        List<CorporateActionChildCandidate> possibleChildren,
+        @Nullable CorporateActionSchemeDetails details
 ) {
     public record InstrumentRef(UUID id, String name, String symbol) {
     }
@@ -33,10 +34,17 @@ public record CorporateActionSuggestionResponse(
     /** {@code possibleChildren}: the demerger's possible child companies (empty for anything else). */
     public static CorporateActionSuggestionResponse from(CorporateActionSuggestion s,
                                                          List<CorporateActionChildCandidate> possibleChildren) {
+        return from(s, possibleChildren, null);
+    }
+
+    /** {@code details}: what the company's notices say about a demerger or merger; null when none were read. */
+    public static CorporateActionSuggestionResponse from(CorporateActionSuggestion s,
+                                                         List<CorporateActionChildCandidate> possibleChildren,
+                                                         @Nullable CorporateActionSchemeDetails details) {
         return new CorporateActionSuggestionResponse(s.getId(), s.getKind(), s.getStatus(), s.getReason(), s.getExDate(),
                 s.getRatioFrom(), s.getRatioTo(), s.getSubject(),
                 new InstrumentRef(s.getInstrument().getId(), s.getInstrument().getName(), s.getInstrument().getSymbol()),
                 s.getCorporateAction() == null ? null : s.getCorporateAction().getId(),
-                possibleChildren == null ? List.of() : possibleChildren);
+                possibleChildren == null ? List.of() : possibleChildren, details);
     }
 }

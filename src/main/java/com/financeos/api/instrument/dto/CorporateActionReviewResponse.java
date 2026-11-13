@@ -25,13 +25,15 @@ public record CorporateActionReviewResponse(
      * @param lastPrice     latest stored price; null when none
      * @param lastPriceDate date of that price
      * @param markedAt      when the instrument was marked as not trading
+     * @param details       what the company's notices say about a merger (the acquirer and ratio); null when none were read yet
      */
     public record NotTradingStock(
             ReviewInstrument instrument,
             BigDecimal sharesHeld,
             @Nullable BigDecimal lastPrice,
             @Nullable LocalDate lastPriceDate,
-            @Nullable Instant markedAt
+            @Nullable Instant markedAt,
+            @Nullable CorporateActionSchemeDetails details
     ) {
     }
 }

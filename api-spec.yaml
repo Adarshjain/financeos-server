@@ -15135,6 +15135,10 @@ components:
     CorporateActionReviewItemResponse:
       type: object
       properties:
+        appliedBecause:
+          type: string
+          nullable: true
+          x-nullable: true
         avgCostAfter:
           type: number
           nullable: true
@@ -15151,6 +15155,8 @@ components:
         createdAt:
           type: string
           format: date-time
+        details:
+          $ref: "#/components/schemas/CorporateActionSchemeDetails"
         exDate:
           type: string
           format: date
@@ -15352,6 +15358,126 @@ components:
       - ratioFrom
       - ratioTo
       - type
+    CorporateActionSchemeChild:
+      type: object
+      properties:
+        childCostPct:
+          type: number
+          nullable: true
+          x-nullable: true
+        instrumentId:
+          type: string
+          format: uuid
+          nullable: true
+          x-nullable: true
+        isin:
+          type: string
+          nullable: true
+          x-nullable: true
+        listedOn:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        name:
+          type: string
+        ratioFrom:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        ratioSource:
+          $ref: "#/components/schemas/CorporateActionSchemeSource"
+        ratioTo:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
+        symbol:
+          type: string
+        yahooSymbol:
+          type: string
+      required:
+      - name
+      - symbol
+      - yahooSymbol
+    CorporateActionSchemeDetails:
+      type: object
+      properties:
+        checkedAt:
+          type: string
+          format: date-time
+        children:
+          type: array
+          items:
+            $ref: "#/components/schemas/CorporateActionSchemeChild"
+        costKind:
+          type: string
+          nullable: true
+          x-nullable: true
+        costSource:
+          $ref: "#/components/schemas/CorporateActionSchemeSource"
+        holdingsCheck:
+          type: array
+          items:
+            $ref: "#/components/schemas/CorporateActionSchemeHoldingsCheck"
+        missing:
+          type: array
+          items:
+            type: string
+        parentCostPct:
+          type: number
+          nullable: true
+          x-nullable: true
+      required:
+      - checkedAt
+      - children
+      - costSource
+      - holdingsCheck
+      - missing
+    CorporateActionSchemeHoldingsCheck:
+      type: object
+      properties:
+        accountName:
+          type: string
+        agrees:
+          type: boolean
+        asOf:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        brokerAccountId:
+          type: string
+          format: uuid
+        expectedQty:
+          type: number
+        foundQty:
+          type: number
+        source:
+          type: string
+      required:
+      - accountName
+      - agrees
+      - brokerAccountId
+      - expectedQty
+      - foundQty
+      - source
+    CorporateActionSchemeSource:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          nullable: true
+          x-nullable: true
+        quote:
+          type: string
+        url:
+          type: string
+      required:
+      - quote
+      - url
     CorporateActionSuggestionResponse:
       type: object
       properties:
@@ -15360,6 +15486,8 @@ components:
           format: uuid
           nullable: true
           x-nullable: true
+        details:
+          $ref: "#/components/schemas/CorporateActionSchemeDetails"
         exDate:
           type: string
           format: date
@@ -22240,6 +22368,8 @@ components:
     NotTradingStock:
       type: object
       properties:
+        details:
+          $ref: "#/components/schemas/CorporateActionSchemeDetails"
         instrument:
           $ref: "#/components/schemas/ReviewInstrument"
         lastPrice:
@@ -22259,6 +22389,7 @@ components:
         sharesHeld:
           type: number
       required:
+      - details
       - instrument
       - sharesHeld
     NotificationEvaluateResponse:
@@ -25758,10 +25889,40 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/CommitFnoTradeDto"
+        holdingsSnapshot:
+          $ref: "#/components/schemas/ReconcileHoldingsSnapshot"
       required:
       - broker
       - brokerAccountId
       - executions
+    ReconcileHoldingsSnapshot:
+      type: object
+      properties:
+        asOfDate:
+          type: string
+          format: date
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReconcileHoldingsSnapshotRow"
+      required:
+      - asOfDate
+      - items
+    ReconcileHoldingsSnapshotRow:
+      type: object
+      properties:
+        isin:
+          type: string
+          nullable: true
+          x-nullable: true
+        quantity:
+          type: number
+        symbol:
+          type: string
+          nullable: true
+          x-nullable: true
+      required:
+      - quantity
     ReconcilePreviewResponse:
       type: object
       properties:
@@ -25781,6 +25942,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/FnoTradePreviewDto"
+        holdingsSnapshot:
+          $ref: "#/components/schemas/ReconcileHoldingsSnapshot"
         realizedSummary:
           $ref: "#/components/schemas/RealizedSummaryDto"
         summaryStats:

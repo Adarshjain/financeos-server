@@ -113,6 +113,7 @@ class AccountDeletionSchemaTest {
                 "statement_skipped_periods", // V155: ON DELETE CASCADE from users
                 "statement_files", // V173: ON DELETE CASCADE from users
                 "corporate_action_suggestions", // V178: ON DELETE CASCADE from users
+                "broker_holding_snapshots", "corporate_scheme_checks", // V187: ON DELETE CASCADE from users
                 "sms_devices", "sms_lines", "sms_messages", // V180/V181: ON DELETE CASCADE from users
                 "llm_api_keys", "llm_task_prefs", "fno_trades", "user_notification_settings",
                 "inbox_item_state", "user_instrument_overrides", "instrument_prices", "instrument_aliases",

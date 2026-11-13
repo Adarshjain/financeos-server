@@ -84,6 +84,10 @@ public class CorporateActionSuggestion {
     @Column(name = "resolved_at")
     private Instant resolvedAt;
 
+    /** For an automatic application: the notice and holdings evidence it rested on, in a line. */
+    @Column(name = "applied_because", length = 600)
+    private String appliedBecause;
+
     @PrePersist
     protected void onCreate() {
         if (createdAt == null) {

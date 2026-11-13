@@ -113,4 +113,17 @@ public interface InvestmentTransactionRepository extends JpaRepository<Investmen
             + "HAVING SUM(CASE WHEN t.type = com.financeos.domain.investment.InvestmentTransactionType.buy "
             + "THEN t.quantity ELSE -t.quantity END) > 0 ORDER BY i.name")
     java.util.List<Object[]> findHeldNotTradingInstruments(@Param("userId") UUID userId);
+
+    /**
+     * Instruments marked {@code not_trading} that anyone has traded (every user; for the worker's market-wide notice
+     * reading, which needs the stock and never the user).
+     */
+    @Query("SELECT DISTINCT i FROM Instrument i WHERE i.priceStatus = 'not_trading' AND EXISTS "
+            + "(SELECT 1 FROM InvestmentTransaction t JOIN t.holding h WHERE h.instrument.id = i.id)")
+    java.util.List<com.financeos.domain.instrument.Instrument> findNotTradingInstrumentsTradedByAnyone();
+
+    /** Instruments marked {@code not_trading} that {@code userId} has traded (for their own notice reading). */
+    @Query("SELECT DISTINCT i FROM Instrument i WHERE i.priceStatus = 'not_trading' AND EXISTS "
+            + "(SELECT 1 FROM InvestmentTransaction t JOIN t.holding h WHERE h.instrument.id = i.id AND t.user.id = :userId)")
+    java.util.List<com.financeos.domain.instrument.Instrument> findNotTradingInstrumentsTradedBy(@Param("userId") UUID userId);
 }

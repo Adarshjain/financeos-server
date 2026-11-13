@@ -511,6 +511,7 @@ corporate-actions:
   zone: Asia/Kolkata
   nse:
     base-url: ${NSE_BASE_URL:https://www.nseindia.com}
-    listings-url: ${NSE_LISTINGS_URL:https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv}
+    archives-url: ${NSE_ARCHIVES_URL:https://nsearchives.nseindia.com}
+    listings-url: ${NSE_LISTINGS_URL:}
     user-agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
     timeout-ms: 30000

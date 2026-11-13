@@ -81,6 +81,15 @@ public class BrokerReconciliationService {
         this.repointMap = repointMap;
     }
 
+    /** Keeps the holdings file's quantities; null in unit tests (then nothing is kept). */
+    @org.springframework.lang.Nullable
+    private HoldingsSnapshotStore snapshotStore;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setSnapshotStore(HoldingsSnapshotStore snapshotStore) {
+        this.snapshotStore = snapshotStore;
+    }
+
     /** {@code instrument} as the signed-in user's imports see it (their repoint applied after any match). */
     private Instrument repointed(Instrument instrument) {
         return repointMap == null || instrument == null ? instrument : repointMap.applyForCurrentUser(instrument);
@@ -703,9 +712,13 @@ public class BrokerReconciliationService {
         }
 
         // Holdings Snapshot Validation Anchor
+        ReconcileHoldingsSnapshot snapshotToKeep = null;
         if (holdingsSnapshotStream != null && holdingsSnapshotParser != null) {
             List<HoldingsSnapshotParser.SnapshotItem> snapshotItems = holdingsSnapshotParser.parse(holdingsSnapshotStream, holdingsFilename);
             if (!snapshotItems.isEmpty()) {
+                // The file states no date: the upload day stands for it. The commit keeps these rows.
+                snapshotToKeep = new ReconcileHoldingsSnapshot(com.financeos.core.time.AppTime.today(), snapshotItems.stream()
+                        .map(i -> new ReconcileHoldingsSnapshot.ReconcileHoldingsSnapshotRow(i.isin(), i.symbol(), i.quantity())).toList());
                 Map<String, HoldingsSnapshotParser.SnapshotItem> snapshotMap = new HashMap<>();
                 for (HoldingsSnapshotParser.SnapshotItem item : snapshotItems) {
                     if (item.isin() != null && !item.isin().isBlank()) snapshotMap.put(item.isin().trim(), item);
@@ -774,7 +787,8 @@ public class BrokerReconciliationService {
                 warnings,
                 stats,
                 classificationDtos,
-                fnoTradeDtos
+                fnoTradeDtos,
+                snapshotToKeep
         );
     }
 
@@ -989,6 +1003,16 @@ public class BrokerReconciliationService {
 
         if (!touchedInstrumentIds.isEmpty()) {
             eventPublisher.publishEvent(new PriceRefreshEvent(touchedInstrumentIds));
+        }
+
+        // The holdings file of this import: its rows replace the account's previous snapshot (the latest is kept).
+        if (snapshotStore != null && request.holdingsSnapshot() != null && request.holdingsSnapshot().items() != null
+                && !request.holdingsSnapshot().items().isEmpty()) {
+            try {
+                snapshotStore.replace(userId, brokerAccount.getId(), request.holdingsSnapshot());
+            } catch (Exception e) {
+                log.warn("Could not keep the holdings snapshot of account {}: {}", brokerAccount.getId(), e.toString());
+            }
         }
 
         return new ImportCommitResponse(committed, skipped, failedList, skippedItems);

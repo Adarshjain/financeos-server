@@ -5,6 +5,7 @@ import com.financeos.api.instrument.dto.CorporateActionReviewItemResponse;
 import com.financeos.api.instrument.dto.CorporateActionReviewItemResponse.ReviewInstrument;
 import com.financeos.api.instrument.dto.CorporateActionReviewResponse;
 import com.financeos.api.instrument.dto.CorporateActionReviewResponse.NotTradingStock;
+import com.financeos.api.instrument.dto.CorporateActionSchemeDetails;
 import com.financeos.core.exception.ValidationException;
 import com.financeos.core.security.UserContext;
 import com.financeos.domain.instrument.InstrumentPrice;
@@ -23,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -40,10 +42,20 @@ public class CorporateActionReviewService {
     private final StockNotTradingRule notTradingRule;
     private final InstrumentPriceRepository prices;
     private final DemergerCandidates demergerCandidates;
+    /** Null when constructed without it: no notice details are then attached. */
+    private final SchemeDetailsLookup schemeDetails;
 
     public CorporateActionReviewService(CorporateActionSuggestionRepository suggestions, InvestmentService investmentService,
                                         StockNotTradingRule notTradingRule, InstrumentPriceRepository prices,
                                         DemergerCandidates demergerCandidates) {
+        this(suggestions, investmentService, notTradingRule, prices, demergerCandidates, null);
+    }
+
+    @Autowired
+    public CorporateActionReviewService(CorporateActionSuggestionRepository suggestions, InvestmentService investmentService,
+                                        StockNotTradingRule notTradingRule, InstrumentPriceRepository prices,
+                                        DemergerCandidates demergerCandidates, SchemeDetailsLookup schemeDetails) {
+        this.schemeDetails = schemeDetails;
         this.suggestions = suggestions;
         this.investmentService = investmentService;
         this.notTradingRule = notTradingRule;
@@ -69,10 +81,12 @@ public class CorporateActionReviewService {
         Map<AsOfQuery, OpenAsOf> positions = investmentService.openPositionsBefore(queries);
         Map<UUID, BigDecimal> oversoldQty = anyOversold ? oversoldQtyByInstrument() : Map.of();
         Map<UUID, List<CorporateActionChildCandidate>> children = demergerCandidates.forSuggestions(concat(pending, applied));
+        Map<UUID, CorporateActionSchemeDetails> details = schemeDetails == null ? Map.of()
+                : schemeDetails.forSuggestions(concat(pending, applied));
 
         return new CorporateActionReviewResponse(
-                pending.stream().map(s -> item(s, positions, oversoldQty, children)).toList(),
-                applied.stream().map(s -> item(s, positions, oversoldQty, children)).toList(),
+                pending.stream().map(s -> item(s, positions, oversoldQty, children, details)).toList(),
+                applied.stream().map(s -> item(s, positions, oversoldQty, children, details)).toList(),
                 notTrading(userId));
     }
 
@@ -96,7 +110,8 @@ public class CorporateActionReviewService {
 
     private CorporateActionReviewItemResponse item(CorporateActionSuggestion s, Map<AsOfQuery, OpenAsOf> positions,
                                                    Map<UUID, BigDecimal> oversoldQty,
-                                                   Map<UUID, List<CorporateActionChildCandidate>> children) {
+                                                   Map<UUID, List<CorporateActionChildCandidate>> children,
+                                                   Map<UUID, CorporateActionSchemeDetails> details) {
         OpenAsOf open = positions.get(new AsOfQuery(s.getInstrument().getId(), s.getExDate()));
         BigDecimal sharesBefore = open == null ? null : open.qty();
         BigDecimal avgBefore = open == null || open.qty().signum() <= 0 ? null
@@ -115,7 +130,7 @@ public class CorporateActionReviewService {
                 s.getCreatedAt(), s.getResolvedAt(), oversold ? null : SOURCE_NSE, s.getFeedFactor(), factor,
                 sharesBefore, sharesAfter, avgBefore, avgAfter,
                 oversold ? oversoldQty.get(s.getInstrument().getId()) : null, oversold ? s.getExDate() : null,
-                children.getOrDefault(s.getId(), List.of()));
+                children.getOrDefault(s.getId(), List.of()), details.get(s.getId()), s.getAppliedBecause());
     }
 
     /** The multiplier the notice implies: {@code ratioTo / ratioFrom} for a split or bonus (the rule the lot engine applies). */
@@ -138,12 +153,22 @@ public class CorporateActionReviewService {
         }
         List<UUID> ids = rows.stream().map(r -> (UUID) r[0]).toList();
         Map<UUID, InstrumentPrice> latest = PricePrecedence.byInstrument(prices.findLatestByInstrumentIds(ids, userId));
+        Map<UUID, CorporateActionSchemeDetails> details = Map.of();
+        if (schemeDetails != null) {
+            Map<UUID, String> symbols = new HashMap<>();
+            for (Object[] r : rows) {
+                if (r[3] != null) {
+                    symbols.put((UUID) r[0], (String) r[3]);
+                }
+            }
+            details = schemeDetails.forStoppedStocks(symbols);
+        }
         List<NotTradingStock> out = new ArrayList<>();
         for (Object[] r : rows) {
             UUID id = (UUID) r[0];
             InstrumentPrice p = latest.get(id);
             out.add(new NotTradingStock(new ReviewInstrument(id, (String) r[1], (String) r[3], (String) r[4]),
-                    (BigDecimal) r[2], p == null ? null : p.getClose(), p == null ? null : p.getAsOf(), (Instant) r[5]));
+                    (BigDecimal) r[2], p == null ? null : p.getClose(), p == null ? null : p.getAsOf(), (Instant) r[5], details.get(id)));
         }
         return out;
     }
