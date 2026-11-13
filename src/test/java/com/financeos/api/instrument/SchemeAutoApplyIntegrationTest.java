@@ -44,7 +44,7 @@ import org.springframework.test.web.servlet.MockMvc;
  * that held the parent; undo takes the action and the child holding it created away again. Runs the V186 evidence entities
  * and repositories and the V187 snapshot, check and applied-because columns against the integration database.
  */
-@SpringBootTest
+@SpringBootTest(properties = "jobs.worker.enabled=false")
 @AutoConfigureMockMvc
 class SchemeAutoApplyIntegrationTest {
 
