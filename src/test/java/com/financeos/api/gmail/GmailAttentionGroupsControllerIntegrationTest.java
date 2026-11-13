@@ -17,6 +17,7 @@ import com.financeos.gmail.domain.GmailProcessedMessageRepository;
 import com.financeos.gmail.domain.GmailProcessedStatus;
 import com.financeos.support.ApiTestClient;
 import com.financeos.support.UserDataCleanup;
+import com.financeos.core.time.AppTime;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.List;
@@ -176,7 +177,7 @@ class GmailAttentionGroupsControllerIntegrationTest {
         api.postJson("/api/v1/accounts/" + savings + "/cardholders/" + holder + "/cards",
                 Map.of("last4", "1111", "issuedOn", "2021-05-01", "closedOn", "2025-04-30"), 400); // shares digits with the open card
         api.postJson("/api/v1/accounts/" + savings + "/cardholders/" + holder + "/cards",
-                Map.of("last4", "2222", "issuedOn", "2021-05-01", "closedOn", LocalDate.now().plusDays(1).toString()), 400);
+                Map.of("last4", "2222", "issuedOn", "2021-05-01", "closedOn", AppTime.today().plusDays(1).toString()), 400);
 
         JsonNode seen = api.getJson("/api/v1/accounts/" + savings + "/cards/seen-dates?last4=3003", 200);
         assertEquals("2021-05-10", seen.get("firstSeen").asText());
