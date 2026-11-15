@@ -13,7 +13,8 @@ import com.financeos.statement.parser.layout.LayoutProfile.ValueType;
  * Amount column and a running balance; a row prints its date ("25 Jun", no year) on a line of its own, the narration and
  * the amount/balance on the lines below, and a little more narration right under the amount line. The date is printed once
  * for the rows of a day (block rows, closing at the amount line). Amounts are right-aligned under the header, so the
- * columns start left of the header labels. The opening and closing balance are in a banner above the table.
+ * columns start left of the header labels. The opening and closing balance are in a banner above the table, in whole rupees only: they set the direction of the
+ * first row, the exact balances come from the rows' running balance.
  */
 public final class FederalBankDtdab2021 {
 
@@ -38,6 +39,7 @@ public final class FederalBankDtdab2021 {
             .dateFormats("d MMM", "d MMMM yyyy")
             .blockRows()
             .blockEndsAtAmountLine(8)
+            .wholeUnitStatedBalances()
             .cardLast4FromAccountNumber()
             // the page footer (support hours, contact line) is printed in the table's columns
             .skipLine("\\bin\\s+spent\\s+saved\\b")

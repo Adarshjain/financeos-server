@@ -124,6 +124,7 @@ public final class LayoutProfile {
     private final RowStrategy rowStrategy;
     private final double blockTrailingGap;
     private final boolean narrationDropsDates;
+    private final boolean wholeUnitStatedBalances;
     private final double continuationBelow;
     private final double continuationAbove;
     private final List<EndMarker> endMarkers;
@@ -158,6 +159,7 @@ public final class LayoutProfile {
         this.rowShape = b.rowStrategy != null ? RowShape.CUSTOM : b.blockRows ? RowShape.BLOCK : RowShape.SINGLE_LINE;
         this.blockTrailingGap = b.blockTrailingGap;
         this.narrationDropsDates = b.narrationDropsDates;
+        this.wholeUnitStatedBalances = b.wholeUnitStatedBalances;
         this.rowStrategy = b.rowStrategy;
         this.continuationBelow = b.continuationBelow;
         this.continuationAbove = b.continuationAbove;
@@ -248,6 +250,7 @@ public final class LayoutProfile {
     /** Negative: blocks run to the next dated line; otherwise the y gap up to which lines after the amount line still belong to the block. */
     public double blockTrailingGap() { return blockTrailingGap; }
     public boolean narrationDropsDates() { return narrationDropsDates; }
+    public boolean wholeUnitStatedBalances() { return wholeUnitStatedBalances; }
     public double continuationBelow() { return continuationBelow; }
     public double continuationAbove() { return continuationAbove; }
     public List<EndMarker> endMarkers() { return endMarkers; }
@@ -300,6 +303,7 @@ public final class LayoutProfile {
         private boolean blockRows;
         private double blockTrailingGap = -1;
         private boolean narrationDropsDates;
+        private boolean wholeUnitStatedBalances;
         private double continuationBelow;
         private double continuationAbove;
         private final List<EndMarker> endMarkers = new ArrayList<>();
@@ -477,6 +481,17 @@ public final class LayoutProfile {
          */
         public Builder narrationDropsDates() {
             this.narrationDropsDates = true;
+            return this;
+        }
+
+        /**
+         * The opening and closing balance summaries are printed in whole units (cut or rounded, a banner above the table),
+         * so they are never the account's exact balances. They only decide the direction of the first row of a
+         * {@link Sign#BALANCE_DELTA} statement (the one candidate within one unit); the exact opening is then derived from
+         * that row's printed balance and the closing is the last row's balance.
+         */
+        public Builder wholeUnitStatedBalances() {
+            this.wholeUnitStatedBalances = true;
             return this;
         }
 

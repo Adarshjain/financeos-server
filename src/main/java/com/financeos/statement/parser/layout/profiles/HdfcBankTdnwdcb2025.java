@@ -44,7 +44,8 @@ public final class HdfcBankTdnwdcb2025 {
             // the narration continues on the lines below the row, up to the next dated row
             .continuation(45, 0)
             .cardLast4FromAccountNumber()
-            .endMarker("statement\\s+summary", EndScope.FOR_GOOD)
+            // the account summary block after the table is headed "STATEMENT SUMMARY :" or by a line of just "SUMMARY"
+            .endMarker("statement\\s+summary|^\\s*summary\\s*$", EndScope.FOR_GOOD)
             .summary(MetaTarget.PERIOD, "statement\\s+from").rightOnLine().type(ValueType.DATE_RANGE).done()
             .summary(MetaTarget.STATEMENT_DATE, "statement\\s+as\\s+on").rightOnLine().type(ValueType.DATE).done()
             .summary(MetaTarget.ACCOUNT_NUMBER, "account\\s+number").rightOnLine().type(ValueType.TEXT).done()

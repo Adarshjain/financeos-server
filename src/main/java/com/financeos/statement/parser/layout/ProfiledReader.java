@@ -260,6 +260,16 @@ public final class ProfiledReader {
 
         boolean isCreditCard = p.product() == LayoutProfile.Product.CARD;
         BigDecimal opening = meta.openingBalance == null ? null : BigDecimal.valueOf(meta.openingBalance);
+        BigDecimal approxOpening = null;
+        Double approxClosing = null;
+        if (p.wholeUnitStatedBalances()) {
+            approxOpening = opening;
+            approxClosing = meta.closingBalance;
+            opening = null;
+            meta.openingBalance = null;
+            meta.closingBalance = null;
+            summaryFields.remove("previous_balance");
+        }
         List<RowResult> results = new ArrayList<>();
         int validRows = 0;
         BigDecimal prev = opening;
@@ -269,7 +279,19 @@ public final class ProfiledReader {
             int sign = r.sign;
             String source = r.source;
             if (p.sign() == Sign.BALANCE_DELTA) {
-                if (prev != null && r.balance != null) {
+                if (prev == null && first && approxOpening != null && r.balance != null) {
+                    // the stated opening is whole units: the direction is the one that lands within one unit of it
+                    boolean credit = r.balance.subtract(r.magnitude).subtract(approxOpening).abs().compareTo(BigDecimal.ONE) < 0;
+                    boolean debit = r.balance.add(r.magnitude).subtract(approxOpening).abs().compareTo(BigDecimal.ONE) < 0;
+                    if (credit == debit) {
+                        st.unread++;
+                        prev = r.balance;
+                        first = false;
+                        continue;
+                    }
+                    sign = credit ? 1 : -1;
+                    source = "balance";
+                } else if (prev != null && r.balance != null) {
                     sign = r.balance.compareTo(prev) >= 0 ? 1 : -1;
                     source = "balance";
                 } else {
@@ -310,6 +332,10 @@ public final class ProfiledReader {
             mode = "balance-chain";
             if (meta.openingBalance == null && openingUsed != null) {
                 meta.openingBalance = openingUsed.doubleValue();
+            }
+            Double lastBalance = results.get(results.size() - 1).balance;
+            if (approxClosing != null && lastBalance != null && Math.abs(approxClosing - lastBalance) < 1.0) {
+                meta.closingBalance = lastBalance; // the stated whole-unit closing, in exact units
             }
         } else {
             for (RowResult r : results) {
