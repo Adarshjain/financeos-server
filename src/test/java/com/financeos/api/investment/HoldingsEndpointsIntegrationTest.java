@@ -363,7 +363,54 @@ class HoldingsEndpointsIntegrationTest {
         assertMoney("407100", p1.get("header").get("currentValue"));
         assertEquals(2, p1.get("groups").size());
         assertEquals(List.of(), names(holdings("?size=2&page=5")));
-        assertEquals(50, holdings("").get("size").asInt());
+        assertEquals(6, holdings("").get("size").asInt());
+    }
+
+    private void manyBulkHoldings(int count) throws Exception {
+        for (int n = 0; n < count; n++) {
+            Instrument i = instrument(InstrumentType.stock, "Bulk " + String.format("%03d", n));
+            price(i, TODAY, "10");
+            trade(brokerA, i, "buy", "1", "9", "2026-01-05");
+        }
+    }
+
+    @Test
+    void omittingSizeReturnsEveryRowInOnePage() throws Exception {
+        manyBulkHoldings(55);
+        JsonNode all = holdings("");
+        assertEquals(61, all.get("holdings").size());
+        assertEquals(61, all.get("totalElements").asInt());
+        assertEquals(0, all.get("page").asInt());
+        assertEquals(61, all.get("size").asInt());
+        assertEquals(1, all.get("totalPages").asInt());
+        assertEquals(0, holdings("?page=3").get("page").asInt());
+        assertEquals(61, holdings("?page=3").get("holdings").size());
+    }
+
+    @Test
+    void omittingSizeWithASearchReturnsAllMatchingRows() throws Exception {
+        manyBulkHoldings(55);
+        JsonNode found = holdings("?search=bulk");
+        assertEquals(55, found.get("holdings").size());
+        assertEquals(55, found.get("totalElements").asInt());
+        assertEquals(1, found.get("totalPages").asInt());
+        JsonNode none = holdings("?search=nothing-like-this");
+        assertEquals(0, none.get("holdings").size());
+        assertEquals(0, none.get("totalElements").asInt());
+        assertEquals(0, none.get("totalPages").asInt());
+    }
+
+    @Test
+    void aGivenSizeStillPagesAndClamps() throws Exception {
+        manyBulkHoldings(55);
+        JsonNode first = holdings("?size=50");
+        assertEquals(50, first.get("holdings").size());
+        assertEquals(61, first.get("totalElements").asInt());
+        assertEquals(2, first.get("totalPages").asInt());
+        assertEquals(11, holdings("?size=50&page=1").get("holdings").size());
+        JsonNode clamped = holdings("?size=500");
+        assertEquals(200, clamped.get("size").asInt());
+        assertEquals(61, clamped.get("holdings").size());
     }
 
     @Test

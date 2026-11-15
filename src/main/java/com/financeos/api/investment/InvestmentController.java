@@ -8,6 +8,7 @@ import com.financeos.domain.instrument.price.PriceRefreshService;
 import com.financeos.domain.investment.HoldingsService;
 import com.financeos.domain.investment.InvestmentService;
 import com.financeos.domain.investment.InvestmentTransactionType;
+import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -78,7 +79,8 @@ public class InvestmentController {
             @RequestParam(required = false) String search,
             @RequestParam(required = false) String sort,
             @RequestParam(required = false) String dir,
-            @RequestParam(required = false) Integer page,
+            @Parameter(description = "Zero-based page; ignored when size is omitted") @RequestParam(required = false) Integer page,
+            @Parameter(description = "Page size (default 50, max 200 when given). Omit to return all matching rows in one page.")
             @RequestParam(required = false) Integer size) {
         return holdingsService.list(brokerAccountId, assetType, search, sort, dir, page, size);
     }

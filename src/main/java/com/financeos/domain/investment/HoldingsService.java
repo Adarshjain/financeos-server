@@ -197,8 +197,9 @@ public class HoldingsService {
             throw new ValidationException("dir must be asc or desc");
         }
         String needle = search == null || search.isBlank() ? null : search.trim().toLowerCase(Locale.ROOT);
+        boolean everything = size == null;
         int pageSize = size == null || size < 1 ? DEFAULT_PAGE_SIZE : Math.min(size, MAX_PAGE_SIZE);
-        int pageNo = page == null ? 0 : Math.max(0, page);
+        int pageNo = everything || page == null ? 0 : Math.max(0, page);
 
         List<HoldingDetail> details = investmentService.getHoldingDetails(null).stream()
                 .filter(d -> brokerAccountId == null || brokerAccountId.equals(d.dto().brokerAccountId()))
@@ -251,6 +252,9 @@ public class HoldingsService {
 
         List<Aggregate> rows = matching.stream().filter(Aggregate::shown).sorted(comparator(sortKey, dirKey)).toList();
         long total = rows.size();
+        if (everything) {
+            pageSize = Math.max(1, rows.size());
+        }
         int from = (int) Math.min((long) pageNo * pageSize, total);
         int to = (int) Math.min((long) from + pageSize, total);
         int totalPages = total == 0 ? 0 : (int) Math.ceil((double) total / pageSize);
