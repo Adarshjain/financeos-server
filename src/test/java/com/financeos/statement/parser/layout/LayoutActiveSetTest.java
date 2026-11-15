@@ -22,7 +22,12 @@ class LayoutActiveSetTest {
             "axis-card-dtda-2022", "axis-card-dtda-2024", "axis-card-dtdace-2021",
             "axis-card-dtdace-2024a", "axis-card-dtdace-2024b", "hdfc-card-dtda-2018",
             "hdfc-card-dttda-2025", "hdfc-card-dttdra-2026", "icici-card-sdtdaa-2021",
-            "icici-card-sdtdra-2023");
+            "icici-card-sdtdra-2023",
+            // second set, after the profile fixes
+            "bank_of_baroda-card-drnpaar-2026", "federal-bank-dtdab-2021", "hdfc-bank-tdnwdcb-2025",
+            "hdfc-card-dtda-2024", "hdfc-card-dtdap-2022", "hdfc-card-dttdra-2025",
+            "hsbc-bank-dtddwb-2026", "hsbc-card-dtd-2026", "hsbc-card-nohdr-2026",
+            "yes-card-dtda-2025");
 
     private static final String PREFIX = "app.statement.layouts.";
 

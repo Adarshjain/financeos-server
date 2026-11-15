@@ -150,11 +150,21 @@ app:
       axis-card-dtdace-2021: ACTIVE
       axis-card-dtdace-2024a: ACTIVE
       axis-card-dtdace-2024b: ACTIVE
+      bank_of_baroda-card-drnpaar-2026: ACTIVE
+      federal-bank-dtdab-2021: ACTIVE
+      hdfc-bank-tdnwdcb-2025: ACTIVE
       hdfc-card-dtda-2018: ACTIVE
+      hdfc-card-dtda-2024: ACTIVE
+      hdfc-card-dtdap-2022: ACTIVE
       hdfc-card-dttda-2025: ACTIVE
+      hdfc-card-dttdra-2025: ACTIVE
       hdfc-card-dttdra-2026: ACTIVE
+      hsbc-bank-dtddwb-2026: ACTIVE
+      hsbc-card-dtd-2026: ACTIVE
+      hsbc-card-nohdr-2026: ACTIVE
       icici-card-sdtdaa-2021: ACTIVE
       icici-card-sdtdra-2023: ACTIVE
+      yes-card-dtda-2025: ACTIVE
   statement-files:
     enabled: true
     # A file above this is not kept (the statement itself is still imported).
