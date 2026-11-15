@@ -49,6 +49,9 @@ public final class HdfcCardDtdap2022 {
                 .capture("statement\\s+date\\s*:?\\s*(\\d{2}/\\d{2}/\\d{4})").done()
             .summary(MetaTarget.ACCOUNT_NUMBER, "card\\s+no").type(ValueType.MASKED_NUMBER)
                 .capture("card\\s+no\\s*:?\\s*((?:[0-9xX*]{3,4}\\s*){3,4})").done()
+            // the holder name shares its line with the "Statement for ..." heading to its right
+            .summary(MetaTarget.HOLDER_NAME, "\\bname\\s*:").type(ValueType.TEXT)
+                .capture("\\bname\\s*:\\s*(.+?)\\s+statement\\s+for\\b").done()
             .summary("payment_due_date", "payment\\s+due\\s+date").type(ValueType.DATE).done()
             .summary("total_amount_due", "total\\s+dues").creditIsNegative().done()
             .summary("minimum_amount_due", "minimum\\s+amount\\s+due").creditIsZero().done()
@@ -63,7 +66,7 @@ public final class HdfcCardDtdap2022 {
             .summary("finance_charges", "finance").nthAmountBelow(4).maxLines(4).done()
             .summary("overlimit_amount", "overlimit").nthAmountBelow(1).done()
             // reward-points summary under the table: label rows over a row of whole-number figures
-            .summary("reward_points_earned", "reward\\s+points\\s+earned").type(ValueType.INTEGER).done()
+            .summary("reward_points_earned", "reward\\s+points\\s+earned(?!\\s+on\\b)").type(ValueType.INTEGER).done()
             .summary("reward_points_balance", "closing\\s+balance").type(ValueType.INTEGER).done()
             // payments and credits are one printed figure (kept as credits_received); no separate fees figure
             .notPrinted("payments_received")

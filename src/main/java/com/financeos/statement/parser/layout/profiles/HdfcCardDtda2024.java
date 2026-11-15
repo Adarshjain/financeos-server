@@ -51,6 +51,9 @@ public final class HdfcCardDtda2024 {
                 .capture("statement\\s+date\\s*:?\\s*(\\d{2}/\\d{2}/\\d{4})").done()
             .summary(MetaTarget.ACCOUNT_NUMBER, "card\\s+no").type(ValueType.MASKED_NUMBER)
                 .capture("card\\s+no\\s*:?\\s*((?:[0-9xX*]{3,4}\\s*){3,4})").done()
+            // the holder name shares its line with the "Statement for ..." heading to its right
+            .summary(MetaTarget.HOLDER_NAME, "\\bname\\s*:").type(ValueType.TEXT)
+                .capture("\\bname\\s*:\\s*(.+?)\\s+statement\\s+for\\b").done()
             .summary("payment_due_date", "payment\\s+due\\s+date").type(ValueType.DATE).done()
             .summary("total_amount_due", "total\\s+dues").creditIsNegative().done()
             .summary("minimum_amount_due", "minimum\\s+amount\\s+due").creditIsZero().done()
