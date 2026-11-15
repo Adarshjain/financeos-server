@@ -48,6 +48,8 @@ public final class BobCardDrnpaar2026 {
             .skipLine("\\(primary\\s+card")
             // the dated "spend based reward" line is reward points only, with no amount
             .skipLine("^\\d{2}/\\d{2}/\\d{4}\\s+spend\\s+based\\s+reward")
+            // the wrapped second line of the table header (a header of this generation spans three lines)
+            .skipLine("^points\\s+currency$")
             .summary(MetaTarget.PERIOD, "statement\\s+period").type(ValueType.DATE_RANGE)
                 .capture("statement\\s+period\\s*:?\\s*(\\d{1,2}\\s+\\w{3},?\\s+\\d{4})\\s+to\\s+(\\d{1,2}\\s+\\w{3},?\\s+\\d{4})").done()
             .summary(MetaTarget.STATEMENT_DATE, "statement\\s+date").type(ValueType.DATE)

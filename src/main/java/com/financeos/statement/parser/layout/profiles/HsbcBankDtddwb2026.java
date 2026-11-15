@@ -45,7 +45,8 @@ public final class HsbcBankDtddwb2026 {
             // the PDF prints oldest first, the spreadsheet export newest first
             .order(LayoutProfile.Order.AUTO)
             .skipLine("balance\\s+brought\\s+forward")
-            .skipLine("^opening\\s+balance")
+            // read by the previous_balance summary below, so a summary line rather than furniture
+            .summaryLineInTable("^opening\\s+balance")
             .endMarker("balance\\s+carried\\s+forward", EndScope.PAGE)
             .endMarker("closing\\s+balance", EndScope.FOR_GOOD)
             .cardLast4FromAccountNumber()
@@ -58,6 +59,8 @@ public final class HsbcBankDtddwb2026 {
             .summary(MetaTarget.STATEMENT_DATE, "statement\\s+date").rightOnLine().type(ValueType.DATE).done()
             .summary(MetaTarget.OPENING_BALANCE, "balance\\s+brought\\s+forward").rightOnLine().done()
             .summary(MetaTarget.CLOSING_BALANCE, "balance\\s+carried\\s+forward").rightOnLine().done()
+            // the first statement of an account prints an "OPENING BALANCE" row (a zero), which the generic reader also keeps as previous balance
+            .summary("previous_balance", "^opening\\s+balance").rightOnLine().done()
             .build();
     }
 
