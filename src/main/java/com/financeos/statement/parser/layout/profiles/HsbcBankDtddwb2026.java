@@ -42,6 +42,8 @@ public final class HsbcBankDtddwb2026 {
             .blockRows()
             .blockEndsAtAmountLine(0)
             .narrationDropsDates()
+            // a row's own date leads its narration; the printed date is shared by a block of rows
+            .narrationLeadDateIsRowDate()
             // the PDF prints oldest first, the spreadsheet export newest first
             .order(LayoutProfile.Order.AUTO)
             .skipLine("balance\\s+brought\\s+forward")

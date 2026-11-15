@@ -737,9 +737,33 @@ public final class ProfiledReader {
                 text.add(String.join(" ", t));
             }
         }
+        if (st.p.narrationLeadDateIsRowDate()) {
+            LocalDate own = leadNarrationDate(st, b);
+            if (own != null) {
+                r.date = own;
+            }
+        }
         r.description = String.join(" ", text);
         r.line = b.lines.get(0).line();
         rows.add(r);
+    }
+
+    /** The date the block's first narration word spells, when plausible against the printed block date; else null. */
+    private static LocalDate leadNarrationDate(State st, Block b) {
+        BlockLine first = b.lines.get(0);
+        for (Word w : first.line().words()) {
+            if (roleOf(first.cols(), w) != Role.NARRATION) {
+                continue;
+            }
+            LocalDate d = st.dates.parse(Amounts.norm(w.text()), st.periodStart, st.periodEnd);
+            if (d == null || d.isAfter(b.date) || d.isBefore(b.date.minusDays(7))
+                    || (st.periodStart != null && d.isBefore(st.periodStart))
+                    || (st.periodEnd != null && d.isAfter(st.periodEnd))) {
+                return null;
+            }
+            return d;
+        }
+        return null;
     }
 
     /** An amount token outside any IGNORE column (IGNORE swallows every token of its range: dates, times, amounts, signs). */

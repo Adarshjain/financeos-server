@@ -81,6 +81,7 @@ Put a class in `layout/profiles/` that builds a `LayoutProfile` (see `AxisCardDt
   new block that takes the date of the block before (a date printed once for the rows of a day). `narrationDropsDates()`: a
   narration word that is a date in the profile's formats (a value date) is not narration.
 
+- `narrationLeadDateIsRowDate()` (with `blockRows()`, opt-in): a block whose first narration word is a date, on or up to 7 days before the block's printed date and inside the period, is the row's date; the word stays out of the narration with `narrationDropsDates()`.
 - `wholeUnitStatedBalances()` (BALANCE_DELTA): the opening / closing summaries are printed in whole units (a banner), so they only pick the direction of the first row (the one candidate within one unit); the exact opening is that row's balance minus its amount, the closing the last row's balance (kept only when within one unit of the stated one). No candidate or two: the row is unread.
 - Amount grammar also takes a figure printed with no digit before the point (`.00`), everywhere amounts are read.
 - A line read by a summary rule is never counted as an unread row. `summaryLineInTable(regex)`: a line inside the table area that matches (an account-summary row printed under the rows of a page, whose first copy the summary rule already read) is no row, continuation or unread line; the summary rules still read it where it prints outside the table.

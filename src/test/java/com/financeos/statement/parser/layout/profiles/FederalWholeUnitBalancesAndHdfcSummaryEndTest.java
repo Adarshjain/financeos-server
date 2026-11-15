@@ -46,22 +46,22 @@ class FederalWholeUnitBalancesAndHdfcSummaryEndTest {
 
     @Test
     void aWholeRupeeBannerGivesTheExactOpeningFromTheRowsBalance() {
-        ReadOutcome o = ProfiledReader.read(federal("\u20b91,846.00", "\u20b91,860.00", "14.00", "1,860.80"),
+        ReadOutcome o = ProfiledReader.read(federal("\u20b92,317.00", "\u20b92,340.00", "23.00", "2,340.35"),
                 FederalBankDtdab2021.build()).outcome();
         assertEquals(1, o.results().size());
-        assertEquals(14.00, o.results().get(0).amount, 0.001);
-        assertEquals(1860.80, o.results().get(0).balance, 0.001);
+        assertEquals(23.00, o.results().get(0).amount, 0.001);
+        assertEquals(2340.35, o.results().get(0).balance, 0.001);
         assertTrue(o.results().get(0).chainValid);
-        assertEquals(1846.80, o.meta().openingBalance, 0.001);
+        assertEquals(2317.35, o.meta().openingBalance, 0.001);
         assertEquals("balance-chain", o.mode());
     }
 
     @Test
     void aSingleDebitEmptyingTheAccountIsReadAsADebit() {
-        ReadOutcome o = ProfiledReader.read(federal("\u20b91,860.00", "\u20b90.00", "1,860.80", "0.00"),
+        ReadOutcome o = ProfiledReader.read(federal("\u20b92,340.00", "\u20b90.00", "2,340.35", "0.00"),
                 FederalBankDtdab2021.build()).outcome();
-        assertEquals(-1860.80, o.results().get(0).amount, 0.001);
-        assertEquals(1860.80, o.meta().openingBalance, 0.001);
+        assertEquals(-2340.35, o.results().get(0).amount, 0.001);
+        assertEquals(2340.35, o.meta().openingBalance, 0.001);
     }
 
     private static List<Line> hdfc(String summaryHeading) {

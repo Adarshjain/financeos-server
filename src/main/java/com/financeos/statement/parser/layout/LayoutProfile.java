@@ -124,6 +124,7 @@ public final class LayoutProfile {
     private final RowStrategy rowStrategy;
     private final double blockTrailingGap;
     private final boolean narrationDropsDates;
+    private final boolean narrationLeadDateIsRowDate;
     private final boolean wholeUnitStatedBalances;
     private final double continuationBelow;
     private final double continuationAbove;
@@ -159,6 +160,7 @@ public final class LayoutProfile {
         this.rowShape = b.rowStrategy != null ? RowShape.CUSTOM : b.blockRows ? RowShape.BLOCK : RowShape.SINGLE_LINE;
         this.blockTrailingGap = b.blockTrailingGap;
         this.narrationDropsDates = b.narrationDropsDates;
+        this.narrationLeadDateIsRowDate = b.narrationLeadDateIsRowDate;
         this.wholeUnitStatedBalances = b.wholeUnitStatedBalances;
         this.rowStrategy = b.rowStrategy;
         this.continuationBelow = b.continuationBelow;
@@ -250,6 +252,7 @@ public final class LayoutProfile {
     /** Negative: blocks run to the next dated line; otherwise the y gap up to which lines after the amount line still belong to the block. */
     public double blockTrailingGap() { return blockTrailingGap; }
     public boolean narrationDropsDates() { return narrationDropsDates; }
+    public boolean narrationLeadDateIsRowDate() { return narrationLeadDateIsRowDate; }
     public boolean wholeUnitStatedBalances() { return wholeUnitStatedBalances; }
     public double continuationBelow() { return continuationBelow; }
     public double continuationAbove() { return continuationAbove; }
@@ -303,6 +306,7 @@ public final class LayoutProfile {
         private boolean blockRows;
         private double blockTrailingGap = -1;
         private boolean narrationDropsDates;
+        private boolean narrationLeadDateIsRowDate;
         private boolean wholeUnitStatedBalances;
         private double continuationBelow;
         private double continuationAbove;
@@ -481,6 +485,16 @@ public final class LayoutProfile {
          */
         public Builder narrationDropsDates() {
             this.narrationDropsDates = true;
+            return this;
+        }
+
+        /**
+         * With {@link #blockRows()}: a block whose first narration word is a date in the profile's formats, on or up to 7
+         * days before the block's printed date and inside the statement period, is the row's own date (the printed date
+         * is shared by a block of rows). Any other block keeps the printed date.
+         */
+        public Builder narrationLeadDateIsRowDate() {
+            this.narrationLeadDateIsRowDate = true;
             return this;
         }
 
