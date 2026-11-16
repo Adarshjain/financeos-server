@@ -16,6 +16,7 @@ public final class Events {
     // System & Lifecycle Events
     public static final String APP_STARTED = "app.started";
     public static final String APP_CONFIG_SUSPECT = "app.config.suspect";
+    public static final String NSE_UNREACHABLE = "nse.unreachable";
     public static final String CLIENT_WARM_PING_FAILED = "client.warm_ping.failed";
     public static final String CLIENT_WARM_PING_RECOVERED = "client.warm_ping.recovered";
 

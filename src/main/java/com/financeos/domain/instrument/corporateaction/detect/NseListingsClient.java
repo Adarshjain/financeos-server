@@ -63,9 +63,13 @@ public class NseListingsClient {
     private Instant nextAttemptAt = Instant.MIN;
     private boolean inFlight;
 
-    @Autowired
     public NseListingsClient(CorporateActionsProperties properties) {
-        this(Clock.systemUTC(), http(properties), Executors.newSingleThreadExecutor(r -> {
+        this(properties, new NseRequestMonitor());
+    }
+
+    @Autowired
+    public NseListingsClient(CorporateActionsProperties properties, NseRequestMonitor monitor) {
+        this(Clock.systemUTC(), http(properties, monitor), Executors.newSingleThreadExecutor(r -> {
             Thread t = new Thread(r, "nse-listings-refresh");
             t.setDaemon(true);
             return t;
@@ -131,27 +135,45 @@ public class NseListingsClient {
         }
     }
 
-    private static Fetcher http(CorporateActionsProperties properties) {
+    private static Fetcher http(CorporateActionsProperties properties, NseRequestMonitor monitor) {
         return () -> {
             CorporateActionsProperties.Nse nse = properties.getNse();
             HttpClient client = HttpClient.newBuilder()
                     .connectTimeout(Duration.ofSeconds(5))
-                    .followRedirects(HttpClient.Redirect.NORMAL)
+                    .followRedirects(HttpClient.Redirect.NEVER)
                     .build();
-            HttpRequest request = HttpRequest.newBuilder().uri(URI.create(nse.getListingsUrl()))
-                    .header("User-Agent", nse.getUserAgent())
-                    .header("Accept", "text/csv,*/*")
-                    .timeout(TOTAL_TIMEOUT).GET().build();
-            CompletableFuture<HttpResponse<String>> call = client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
-            try {
-                HttpResponse<String> response = call.get(TOTAL_TIMEOUT.toSeconds(), TimeUnit.SECONDS);
-                if (response.statusCode() != 200) {
-                    throw new IOException("HTTP " + response.statusCode());
+            URI uri = URI.create(nse.getListingsUrl());
+            for (int hop = 0; ; hop++) {
+                HttpRequest request = HttpRequest.newBuilder().uri(uri)
+                        .header("User-Agent", nse.getUserAgent())
+                        .header("Accept", "text/csv,*/*")
+                        .timeout(TOTAL_TIMEOUT).GET().build();
+                CompletableFuture<HttpResponse<String>> call = client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+                try {
+                    HttpResponse<String> response = call.get(TOTAL_TIMEOUT.toSeconds(), TimeUnit.SECONDS);
+                    int status = response.statusCode();
+                    if (status >= 300 && status < 400) {
+                        URI next = NseHttp.redirectTarget(nse, uri, response.headers().firstValue("Location").orElse(null), hop);
+                        if (next != null) {
+                            uri = next;
+                            continue;
+                        }
+                    }
+                    monitor.response("listings", status, uri.getHost());
+                    if (status != 200) {
+                        throw new IOException("HTTP " + status);
+                    }
+                    return response.body();
+                } catch (TimeoutException e) {
+                    call.cancel(true);
+                    monitor.error("listings", uri.getHost());
+                    throw e;
+                } catch (Exception e) {
+                    if (!(e instanceof IOException)) {
+                        monitor.error("listings", uri.getHost());
+                    }
+                    throw e;
                 }
-                return response.body();
-            } catch (TimeoutException e) {
-                call.cancel(true);
-                throw e;
             }
         };
     }

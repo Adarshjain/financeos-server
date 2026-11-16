@@ -2,8 +2,6 @@ package com.financeos.domain.instrument.corporateaction.detect;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.financeos.core.observability.ExtHttp;
-import com.financeos.core.observability.Ops;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -48,10 +46,17 @@ public class NseCorporateActionsClient {
 
     private final CorporateActionsProperties properties;
     private final ObjectMapper objectMapper;
+    private final NseRequestMonitor monitor;
 
     public NseCorporateActionsClient(CorporateActionsProperties properties, ObjectMapper objectMapper) {
+        this(properties, objectMapper, new NseRequestMonitor());
+    }
+
+    @org.springframework.beans.factory.annotation.Autowired
+    public NseCorporateActionsClient(CorporateActionsProperties properties, ObjectMapper objectMapper, NseRequestMonitor monitor) {
         this.properties = properties;
         this.objectMapper = objectMapper;
+        this.monitor = monitor;
     }
 
     /** Every equity corporate action with an ex-date in [from, to]. One warning on failure, no retry. */
@@ -62,7 +67,7 @@ public class NseCorporateActionsClient {
         try {
             HttpClient client = HttpClient.newBuilder()
                     .connectTimeout(Duration.ofSeconds(10))
-                    .followRedirects(HttpClient.Redirect.NORMAL)
+                    .followRedirects(HttpClient.Redirect.NEVER)
                     .cookieHandler(new CookieManager(null, CookiePolicy.ACCEPT_ALL))
                     .build();
             String page = base + "/companies-listing/corporate-filings-actions";
@@ -70,7 +75,7 @@ public class NseCorporateActionsClient {
                     .header("User-Agent", nse.getUserAgent())
                     .header("Accept-Language", "en-US,en;q=0.9")
                     .timeout(timeout).GET().build();
-            ExtHttp.send(Ops.CORP_ACTIONS_NSE, client, warmUp, HttpResponse.BodyHandlers.discarding());
+            record(NseHttp.send(nse, client, warmUp, HttpResponse.BodyHandlers.discarding()));
 
             String url = base + "/api/corporates-corporateActions?index=equities&from_date=" + QUERY_DATE.format(from)
                     + "&to_date=" + QUERY_DATE.format(to);
@@ -79,7 +84,8 @@ public class NseCorporateActionsClient {
                     .header("Accept", "application/json")
                     .header("Referer", page)
                     .timeout(timeout).GET().build();
-            HttpResponse<String> response = ExtHttp.send(Ops.CORP_ACTIONS_NSE, client, request, HttpResponse.BodyHandlers.ofString());
+            HttpResponse<String> response = NseHttp.send(nse, client, request, HttpResponse.BodyHandlers.ofString());
+            record(response);
             if (response.statusCode() != 200) {
                 log.warn("NSE corporate actions {}..{} returned HTTP {}", from, to, response.statusCode());
                 return Result.failed();
@@ -92,12 +98,18 @@ public class NseCorporateActionsClient {
             return interpret(from, to, rows);
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
+            monitor.error("corporate_actions", URI.create(base).getHost());
             log.warn("NSE corporate actions {}..{} interrupted", from, to);
             return Result.failed();
         } catch (Exception e) {
+            monitor.error("corporate_actions", URI.create(base).getHost());
             log.warn("NSE corporate actions {}..{} failed: {}", from, to, e.toString());
             return Result.failed();
         }
+    }
+
+    private void record(HttpResponse<?> response) {
+        monitor.response("corporate_actions", response.statusCode(), response.uri().getHost());
     }
 
     /** A whole-market window of 3+ days always holds rows (dividends), so an empty list there means the feed was blocked. */

@@ -84,6 +84,7 @@ public class NseAnnouncementsClient {
     private final Transport transport;
     private final LongSupplier nowMs;
     private final Pacer pacer;
+    private final NseRequestMonitor monitor;
     private final Object lock = new Object();
     private long lastRequestAt = Long.MIN_VALUE / 2;
     private long warmedAt = Long.MIN_VALUE / 2;
@@ -93,13 +94,24 @@ public class NseAnnouncementsClient {
         void sleep(long ms) throws InterruptedException;
     }
 
-    @Autowired
     public NseAnnouncementsClient(CorporateActionsProperties properties, ObjectMapper objectMapper) {
-        this(properties, objectMapper, new HttpTransport(properties.getNse().getBodyDeadlineMs()), System::currentTimeMillis, Thread::sleep);
+        this(properties, objectMapper, new NseRequestMonitor());
+    }
+
+    @Autowired
+    public NseAnnouncementsClient(CorporateActionsProperties properties, ObjectMapper objectMapper, NseRequestMonitor monitor) {
+        this(properties, objectMapper, new HttpTransport(properties.getNse().getBodyDeadlineMs(), properties.getNse()),
+                System::currentTimeMillis, Thread::sleep, monitor);
     }
 
     NseAnnouncementsClient(CorporateActionsProperties properties, ObjectMapper objectMapper, Transport transport,
                            LongSupplier nowMs, Pacer pacer) {
+        this(properties, objectMapper, transport, nowMs, pacer, new NseRequestMonitor());
+    }
+
+    NseAnnouncementsClient(CorporateActionsProperties properties, ObjectMapper objectMapper, Transport transport,
+                           LongSupplier nowMs, Pacer pacer, NseRequestMonitor monitor) {
+        this.monitor = monitor;
         this.properties = properties;
         this.objectMapper = objectMapper;
         this.transport = transport;
@@ -223,7 +235,15 @@ public class NseAnnouncementsClient {
             }
             lastRequestAt = nowMs.getAsLong();
         }
-        return transport.get(url, headers, maxBytes);
+        String host = URI.create(url).getHost();
+        try {
+            Response r = transport.get(url, headers, maxBytes);
+            monitor.response("announcements", r.status(), host);
+            return r;
+        } catch (Exception e) {
+            monitor.error("announcements", host);
+            throw e;
+        }
     }
 
     private static boolean inTransaction(String what) {
@@ -281,11 +301,10 @@ public class NseAnnouncementsClient {
 
     /**
      * The real transport: one cookie jar per client, timeouts, the body read up to the cap and within a total deadline. A redirect is
-     * followed only to the same host (at most 3 hops): a link can never move a request to another host.
+     * followed (at most 3 hops) only to the same host or an allowed exchange host over https, see {@link NseHttp}.
      */
     static final class HttpTransport implements Transport {
         static final long TOTAL_DEADLINE_MS = 60_000;
-        private static final int MAX_HOPS = 3;
         private static final java.util.concurrent.ScheduledExecutorService WATCHDOG =
                 java.util.concurrent.Executors.newSingleThreadScheduledExecutor(r -> {
                     Thread t = new Thread(r, "nse-body-deadline");
@@ -294,6 +313,7 @@ public class NseAnnouncementsClient {
                 });
 
         private final long deadlineMs;
+        private final CorporateActionsProperties.Nse nse;
         private final HttpClient client = HttpClient.newBuilder()
                 .connectTimeout(Duration.ofSeconds(10))
                 .followRedirects(HttpClient.Redirect.NEVER)
@@ -305,14 +325,18 @@ public class NseAnnouncementsClient {
         }
 
         HttpTransport(long deadlineMs) {
+            this(deadlineMs, new CorporateActionsProperties.Nse());
+        }
+
+        HttpTransport(long deadlineMs, CorporateActionsProperties.Nse nse) {
             this.deadlineMs = deadlineMs;
+            this.nse = nse;
         }
 
         @Override
         public Response get(String url, Map<String, String> headers, int maxBytes) throws Exception {
             long deadlineAt = System.nanoTime() + deadlineMs * 1_000_000L;
             URI uri = URI.create(url);
-            String host = uri.getHost();
             for (int hop = 0; ; hop++) {
                 HttpRequest.Builder b = HttpRequest.newBuilder().uri(uri).timeout(Duration.ofSeconds(40)).GET();
                 headers.forEach(b::header);
@@ -323,8 +347,8 @@ public class NseAnnouncementsClient {
                     try (InputStream ignored = response.body()) {
                         // closed unread
                     }
-                    URI next = location == null ? null : uri.resolve(location);
-                    if (next == null || hop >= MAX_HOPS || next.getHost() == null || !next.getHost().equalsIgnoreCase(host)) {
+                    URI next = NseHttp.redirectTarget(nse, uri, location, hop);
+                    if (next == null) {
                         return new Response(status, new byte[0], false);
                     }
                     uri = next;

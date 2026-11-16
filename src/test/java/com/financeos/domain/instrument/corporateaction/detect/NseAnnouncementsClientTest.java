@@ -261,7 +261,8 @@ class NseAnnouncementsClientTest {
     void theDefaultsAreTheRealExchangeHosts() {
         CorporateActionsProperties props = new CorporateActionsProperties();
 
-        assertThat(props.getNse().getListingsUrl()).isEqualTo("https://nsearchives.nseindia.com/content/equities/EQUITY_L.csv");
+        assertThat(props.getNse().getBaseUrl()).isEqualTo("https://www.nseindia.in");
+        assertThat(props.getNse().getListingsUrl()).isEqualTo("https://nsearchives.nseindia.in/content/equities/EQUITY_L.csv");
         assertThat(props.getNse().archiveLink("https://nsearchives.nseindia.com/corporate/a.pdf")).isEqualTo("https://nsearchives.nseindia.com/corporate/a.pdf");
     }
 

@@ -5,6 +5,7 @@ import com.financeos.domain.holding.HoldingRepository;
 import com.financeos.domain.instrument.corporateaction.detect.CorporateActionDetectionService;
 import com.financeos.domain.instrument.corporateaction.detect.CorporateActionsProperties;
 import com.financeos.domain.instrument.corporateaction.detect.MarketEventStore;
+import com.financeos.domain.instrument.corporateaction.detect.NseRequestMonitor;
 import com.financeos.domain.instrument.corporateaction.detect.SchemeAutoApply;
 import com.financeos.domain.instrument.corporateaction.detect.SchemeEvidenceEnrichment;
 import com.financeos.domain.job.JobCancelledException;
@@ -41,6 +42,8 @@ public class CorporateActionDetectJobHandler implements JobHandler {
     private final SchemeEvidenceEnrichment schemeEvidence;
     /** Null when constructed without it: nothing is applied from the notices. */
     private final SchemeAutoApply autoApply;
+    /** Null when constructed without it: no all-requests-failed check. */
+    private final NseRequestMonitor nseMonitor;
 
     public CorporateActionDetectJobHandler(CorporateActionDetectionService detection, MarketEventStore eventStore,
                                            HoldingRepository holdings, CorporateActionsProperties properties) {
@@ -53,10 +56,18 @@ public class CorporateActionDetectJobHandler implements JobHandler {
         this(detection, eventStore, holdings, properties, schemeEvidence, null);
     }
 
-    @Autowired
     public CorporateActionDetectJobHandler(CorporateActionDetectionService detection, MarketEventStore eventStore,
                                            HoldingRepository holdings, CorporateActionsProperties properties,
                                            SchemeEvidenceEnrichment schemeEvidence, SchemeAutoApply autoApply) {
+        this(detection, eventStore, holdings, properties, schemeEvidence, autoApply, null);
+    }
+
+    @Autowired
+    public CorporateActionDetectJobHandler(CorporateActionDetectionService detection, MarketEventStore eventStore,
+                                           HoldingRepository holdings, CorporateActionsProperties properties,
+                                           SchemeEvidenceEnrichment schemeEvidence, SchemeAutoApply autoApply,
+                                           NseRequestMonitor nseMonitor) {
+        this.nseMonitor = nseMonitor;
         this.autoApply = autoApply;
         this.schemeEvidence = schemeEvidence;
         this.detection = detection;
@@ -82,6 +93,9 @@ public class CorporateActionDetectJobHandler implements JobHandler {
             readOwnSchemeNotices(userId, ctx);
             applySchemes(userId);
             return new Result(1, 0, summary.applied(), summary.pending());
+        }
+        if (nseMonitor != null) {
+            nseMonitor.startRun();
         }
         try {
             if (!eventStore.refreshRecent()) {
@@ -116,6 +130,9 @@ public class CorporateActionDetectJobHandler implements JobHandler {
             }
         }
         readSchemeNotices(ctx);
+        if (nseMonitor != null) {
+            nseMonitor.finishRun();
+        }
         for (UUID id : userIds) {
             ctx.checkCancelled();
             applySchemes(id);

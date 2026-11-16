@@ -463,6 +463,38 @@
           "noDataState": "OK"
         },
         {
+          "uid": "financeos-alert-nse-unreachable",
+          "title": "NSE unreachable",
+          "condition": "A",
+          "for": "0m",
+          "labels": {
+            "severity": "warning"
+          },
+          "annotations": {
+            "summary": "The nightly corporate-action run could not get a single successful answer from the exchange (every request failed). Splits, bonuses and scheme notices are not being read.",
+            "description": "Open the nse.unreachable ERROR line: it names the client and the last HTTP status (a 301/403 means the exchange moved or blocked us). Counter financeos_nse_requests_total{client,result} shows the split by client."
+          },
+          "notification_settings": {
+            "receiver": "slack-financeos"
+          },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_LOKI}",
+              "model": {
+                "expr": "sum(count_over_time({service=\"financeos-server\"} | json | event=\"nse.unreachable\" [1h])) > 0",
+                "queryType": "instant"
+              },
+              "relativeTimeRange": {
+                "from": 3900,
+                "to": 0
+              }
+            }
+          ],
+          "execErrState": "Alerting",
+          "noDataState": "OK"
+        },
+        {
           "uid": "financeos-alert-client-action-failures",
           "title": "Client action failures",
           "condition": "A",
