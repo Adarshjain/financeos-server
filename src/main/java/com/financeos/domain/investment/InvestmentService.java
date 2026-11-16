@@ -1099,7 +1099,10 @@ public class InvestmentService {
             }
             int order1 = getEventOrder(e1);
             int order2 = getEventOrder(e2);
-            return Integer.compare(order1, order2);
+            if (order1 != order2) {
+                return Integer.compare(order1, order2);
+            }
+            return compareSameDayActions(e1, e2);
         });
 
         LinkedList<Lot> openLots = new LinkedList<>();
@@ -1595,6 +1598,14 @@ public class InvestmentService {
         return deriveSeeds(holding, null).seedLots();
     }
 
+    /** Same-date corporate actions replay in {@link CorporateActionType#sameDayRank()} order; anything else ties. */
+    private static int compareSameDayActions(TimelineEvent e1, TimelineEvent e2) {
+        if (e1 instanceof CorpActionEvent a && e2 instanceof CorpActionEvent b) {
+            return Integer.compare(a.action().getType().sameDayRank(), b.action().getType().sameDayRank());
+        }
+        return 0;
+    }
+
     private int getEventOrder(TimelineEvent e) {
         if (e instanceof DemergerSeedEvent) return 0;
         if (e instanceof CorpActionEvent) return 1;
@@ -1720,34 +1731,40 @@ public class InvestmentService {
         return out;
     }
 
+    /** True when {@code ca} is applied before {@code action}: earlier ex-date, or same day and a lower rank. */
+    private static boolean precedes(CorporateAction ca, CorporateAction action) {
+        int byDate = ca.getExDate().compareTo(action.getExDate());
+        return byDate < 0 || (byDate == 0 && ca.getType().sameDayRank() < action.getType().sameDayRank());
+    }
+
     private List<Lot> buildParentOpenLotsBeforeCa(Holding parentHolding, CorporateAction demergerCa, @Nullable EngineInputs inputs) {
         if (inputs == null) {
-            return buildOpenLotsBeforeDate(parentHolding, demergerCa.getExDate(), false, demergerCa.getId());
+            return buildOpenLotsBeforeDate(parentHolding, demergerCa.getExDate(), false, demergerCa);
         }
-        return buildOpenLotsBeforeDate(parentHolding, demergerCa.getExDate(), false, demergerCa.getId(),
+        return buildOpenLotsBeforeDate(parentHolding, demergerCa.getExDate(), false, demergerCa,
                 txnsOf(parentHolding, inputs), actionsOf(parentHolding, inputs), null,
                 classificationsOf(parentHolding, inputs));
     }
 
-    public List<Lot> buildOpenLotsBeforeDate(Holding parentHolding, LocalDate cutoffDate, boolean strictBefore, UUID caToIgnore) {
-        return buildOpenLotsBeforeDate(parentHolding, cutoffDate, strictBefore, caToIgnore, null, null, null);
+    public List<Lot> buildOpenLotsBeforeDate(Holding parentHolding, LocalDate cutoffDate, boolean strictBefore, @Nullable CorporateAction beforeAction) {
+        return buildOpenLotsBeforeDate(parentHolding, cutoffDate, strictBefore, beforeAction, null, null, null);
     }
 
     /**
-     * As {@link #buildOpenLotsBeforeDate(Holding, LocalDate, boolean, UUID)}, but with optional
+     * As {@link #buildOpenLotsBeforeDate(Holding, LocalDate, boolean, CorporateAction)}, but with optional
      * prefetched transactions/corporate-actions (avoids per-call repository queries when a caller
      * evaluates many cutoff dates) and optional CA-seeded lots (demerger child / merger target
      * shares from {@link #seedLotsFor}) so sells and later CAs apply to them too. The demerger
      * carve path passes null seeds, preserving its original behavior exactly.
      */
-    public List<Lot> buildOpenLotsBeforeDate(Holding parentHolding, LocalDate cutoffDate, boolean strictBefore, UUID caToIgnore,
+    public List<Lot> buildOpenLotsBeforeDate(Holding parentHolding, LocalDate cutoffDate, boolean strictBefore, @Nullable CorporateAction beforeAction,
             List<InvestmentTransaction> prefetchedTxns, List<CorporateAction> prefetchedCorpActions, List<SeedLot> seedLots) {
-        return buildOpenLotsBeforeDate(parentHolding, cutoffDate, strictBefore, caToIgnore, prefetchedTxns,
+        return buildOpenLotsBeforeDate(parentHolding, cutoffDate, strictBefore, beforeAction, prefetchedTxns,
                 prefetchedCorpActions, seedLots, null);
     }
 
     /** As above, with optional prefetched intraday classifications too (null reads them per holding). */
-    public List<Lot> buildOpenLotsBeforeDate(Holding parentHolding, LocalDate cutoffDate, boolean strictBefore, UUID caToIgnore,
+    public List<Lot> buildOpenLotsBeforeDate(Holding parentHolding, LocalDate cutoffDate, boolean strictBefore, @Nullable CorporateAction beforeAction,
             List<InvestmentTransaction> prefetchedTxns, List<CorporateAction> prefetchedCorpActions, List<SeedLot> seedLots,
             @Nullable List<TradeSettlementClassification> prefetchedClassifications) {
         List<InvestmentTransaction> txns = prefetchedTxns != null ? prefetchedTxns
@@ -1834,9 +1851,8 @@ public class InvestmentService {
             }
         }
         for (CorporateAction ca : corpActions) {
-            boolean notIgnored = (caToIgnore == null) || !ca.getId().equals(caToIgnore);
             boolean include = strictBefore ? ca.getExDate().compareTo(cutoffDate) < 0 : ca.getExDate().compareTo(cutoffDate) <= 0;
-            if (notIgnored && include) {
+            if (include && (beforeAction == null || precedes(ca, beforeAction))) {
                 timeline.add(new CorpActionEvent(ca));
             }
         }
@@ -1854,7 +1870,8 @@ public class InvestmentService {
             if (dateCompare != 0) {
                 return dateCompare;
             }
-            return Integer.compare(getEventOrder(e1), getEventOrder(e2));
+            int byOrder = Integer.compare(getEventOrder(e1), getEventOrder(e2));
+            return byOrder != 0 ? byOrder : compareSameDayActions(e1, e2);
         });
 
         LinkedList<Lot> openLots = new LinkedList<>();
