@@ -35,6 +35,9 @@ final class NseHttp {
         if (next.getHost() == null) {
             return null;
         }
+        if ("https".equalsIgnoreCase(current.getScheme()) && !"https".equalsIgnoreCase(next.getScheme())) {
+            return null; // never downgrade
+        }
         boolean sameHost = next.getHost().equalsIgnoreCase(current.getHost());
         return sameHost || nse.isAllowedRedirect(next) ? next : null;
     }

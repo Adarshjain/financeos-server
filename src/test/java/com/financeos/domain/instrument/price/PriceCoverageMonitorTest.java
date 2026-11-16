@@ -174,4 +174,35 @@ class PriceCoverageMonitorTest {
 
         assertThat(monitor.check()).containsExactly("FUNDOLD");
     }
+
+    private void exDate(Instrument target, LocalDate ex) {
+        when(actions.findEarliestExDatesByTarget(any())).thenReturn(List.<Object[]>of(new Object[]{target.getId().toString(), ex}));
+    }
+
+    @Test
+    void aNeverPricedTargetIsGivenSixtyDaysToListButOnlyThen() {
+        Instrument priced = stock("ACME", null);
+        Instrument fresh = stock("NEWCO", null);
+        held(List.of(priced, fresh));
+        latest(priced, LocalDate.of(2026, 11, 13));
+        exDate(fresh, com.financeos.core.time.AppTime.today().minusDays(30));
+
+        assertThat(monitor.check()).as("ex-date 30 days ago: not listed yet, not counted").isEmpty();
+
+        exDate(fresh, com.financeos.core.time.AppTime.today().minusDays(61));
+
+        assertThat(monitor.check()).as("ex-date 61 days ago: counted").containsExactly("NEWCO");
+    }
+
+    @Test
+    void aTargetThatHadPricesAndWentStaleCountsAtOnce() {
+        Instrument current = stock("CUR", null);
+        Instrument target = stock("TMPV", null);
+        held(List.of(current, target));
+        latest(current, LocalDate.of(2026, 11, 13));
+        latest(target, LocalDate.of(2026, 11, 10));
+        exDate(target, com.financeos.core.time.AppTime.today().minusDays(5));
+
+        assertThat(monitor.check()).containsExactly("TMPV");
+    }
 }

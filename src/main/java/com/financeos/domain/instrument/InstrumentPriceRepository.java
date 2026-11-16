@@ -184,7 +184,7 @@ public interface InstrumentPriceRepository extends JpaRepository<InstrumentPrice
 
     /**
      * Prunes, for instruments with no trade at all, up to {@code limit} feed rows (ownerless, non-MANUAL), keeping
-     * only the newest feed row. Callers loop until it returns less than {@code limit}.
+     * only the newest feed row. A demerger/merger target holds shares with no trade, so its history is kept. Callers loop until it returns less than {@code limit}.
      */
     @org.springframework.data.jpa.repository.Modifying
     @org.springframework.transaction.annotation.Transactional
@@ -193,6 +193,8 @@ public interface InstrumentPriceRepository extends JpaRepository<InstrumentPrice
             + "AND NOT EXISTS (SELECT 1 FROM instruments ni WHERE ni.id = p.instrument_id AND ni.type = 'nps_scheme') "
             + "AND NOT EXISTS (SELECT 1 FROM investment_transactions t JOIN holdings h ON h.id = t.holding_id "
             + "WHERE h.instrument_id = p.instrument_id) "
+            + "AND NOT EXISTS (SELECT 1 FROM corporate_actions ca WHERE ca.target_instrument_id = p.instrument_id "
+            + "AND ca.type IN ('merger', 'demerger')) "
             + "AND EXISTS (SELECT 1 FROM instrument_prices n WHERE n.instrument_id = p.instrument_id "
             + "AND n.user_id IS NULL AND n.source <> 'MANUAL' AND n.as_of > p.as_of)",
            nativeQuery = true)

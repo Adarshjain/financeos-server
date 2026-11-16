@@ -97,41 +97,45 @@ public class CorporateActionDetectJobHandler implements JobHandler {
         if (nseMonitor != null) {
             nseMonitor.startRun();
         }
-        try {
-            if (!eventStore.refreshRecent()) {
-                log.warn("Corporate event refresh failed; checking users against the events already stored");
-            }
-        } catch (Exception e) {
-            log.warn("Corporate event refresh threw: {}; checking users against the events already stored", e.toString());
-        }
-        List<UUID> userIds = holdings.findUserIdsHoldingStocks();
+        List<UUID> userIds;
         int failed = 0;
         int applied = 0;
         int pending = 0;
-        UUID previous = UserContext.getCurrentUserId();
         try {
-            for (UUID id : userIds) {
-                ctx.checkCancelled();
-                try {
-                    UserContext.setCurrentUserId(id);
-                    var summary = detection.detectForUser(id);
-                    applied += summary.applied();
-                    pending += summary.pending();
-                } catch (Exception e) {
-                    failed++;
-                    log.warn("Corporate action detection failed for user {}: {}", id, e.toString());
+            try {
+                if (!eventStore.refreshRecent()) {
+                    log.warn("Corporate event refresh failed; checking users against the events already stored");
+                }
+            } catch (Exception e) {
+                log.warn("Corporate event refresh threw: {}; checking users against the events already stored", e.toString());
+            }
+            userIds = holdings.findUserIdsHoldingStocks();
+            UUID previous = UserContext.getCurrentUserId();
+            try {
+                for (UUID id : userIds) {
+                    ctx.checkCancelled();
+                    try {
+                        UserContext.setCurrentUserId(id);
+                        var summary = detection.detectForUser(id);
+                        applied += summary.applied();
+                        pending += summary.pending();
+                    } catch (Exception e) {
+                        failed++;
+                        log.warn("Corporate action detection failed for user {}: {}", id, e.toString());
+                    }
+                }
+            } finally {
+                if (previous == null) {
+                    UserContext.clear();
+                } else {
+                    UserContext.setCurrentUserId(previous);
                 }
             }
+            readSchemeNotices(ctx);
         } finally {
-            if (previous == null) {
-                UserContext.clear();
-            } else {
-                UserContext.setCurrentUserId(previous);
+            if (nseMonitor != null) {
+                nseMonitor.finishRun();
             }
-        }
-        readSchemeNotices(ctx);
-        if (nseMonitor != null) {
-            nseMonitor.finishRun();
         }
         for (UUID id : userIds) {
             ctx.checkCancelled();

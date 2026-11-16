@@ -66,6 +66,32 @@ class NseHostsTest {
     }
 
     @Test
+    void aSameHostRedirectNeverDowngradesFromHttps() {
+        URI from = URI.create("https://www.nseindia.in/api/x");
+
+        assertThat(NseHttp.redirectTarget(nse, from, "http://www.nseindia.in/api/x", 0)).isNull();
+        assertThat(NseHttp.redirectTarget(nse, from, "https://www.nseindia.in:8443/api/x", 0)).isNotNull();
+        assertThat(NseHttp.redirectTarget(nse, URI.create("http://localhost:8089/a"), "http://localhost:8089/b", 0))
+                .isEqualTo(URI.create("http://localhost:8089/b"));
+    }
+
+    @Test
+    void onlyRequestsOnTheRunsOwnThreadCountAndAnEmptyRunLogsNothing() throws Exception {
+        NseRequestMonitor monitor = new NseRequestMonitor(new SimpleMeterRegistry());
+
+        monitor.startRun();
+        Thread other = new Thread(() -> monitor.error("listings", "www.nseindia.in"));
+        other.start();
+        other.join();
+        assertThat(monitor.finishRun()).as("another thread's failure is not the run's").isFalse();
+
+        monitor.startRun();
+        monitor.error("listings", "www.nseindia.in");
+        assertThat(monitor.finishRun()).as("its own failure counts").isTrue();
+        assertThat(monitor.finishRun()).as("the token is cleared").isFalse();
+    }
+
+    @Test
     void aRedirectLoopStopsAfterThreeHops() throws Exception {
         AtomicInteger hits = new AtomicInteger();
         com.sun.net.httpserver.HttpServer s = com.sun.net.httpserver.HttpServer.create(new java.net.InetSocketAddress("127.0.0.1", 0), 0);

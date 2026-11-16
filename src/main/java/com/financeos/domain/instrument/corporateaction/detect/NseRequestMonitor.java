@@ -14,20 +14,24 @@ import org.springframework.stereotype.Component;
  * Self-detection for the exchange calls: {@code financeos.nse.requests{client,result}} counts every request by client
  * (announcements, corporate_actions, listings, name_changes) and result ({@code ok}, {@code http_<code>}, {@code error}).
  * {@link #startRun()} / {@link #finishRun()} bracket the nightly run: when it made requests and none succeeded, one ERROR
- * line ({@code event=nse.unreachable}) names the client and the last status.
+ * line ({@code event=nse.unreachable}) names the client and the last status. Only requests on the starting thread count.
  */
 @Component
 public class NseRequestMonitor {
 
     private static final Logger log = LoggerFactory.getLogger(NseRequestMonitor.class);
 
+    /** The counts of one run; only requests made on the thread that started it are added. */
+    private static final class Run {
+        int attempts;
+        int ok;
+        String lastClient;
+        String lastFailure;
+        String lastHost;
+    }
+
     private final MeterRegistry registry;
-    private final Object lock = new Object();
-    private int attempts;
-    private int ok;
-    private String lastClient;
-    private String lastFailure;
-    private String lastHost;
+    private final ThreadLocal<Run> run = new ThreadLocal<>();
 
     @Autowired
     public NseRequestMonitor(MeterRegistry registry) {
@@ -55,47 +59,35 @@ public class NseRequestMonitor {
 
     private void count(String client, String result, String failure, String host) {
         Counter.builder("financeos.nse.requests").tag("client", client).tag("result", result).register(registry).increment();
-        synchronized (lock) {
-            attempts++;
-            if (failure == null) {
-                ok++;
-            } else {
-                lastClient = client;
-                lastFailure = failure;
-                lastHost = host;
-            }
+        Run r = run.get();
+        if (r == null) {
+            return; // not the nightly run's thread (a per-user job, a child lookup): never part of its verdict
+        }
+        r.attempts++;
+        if (failure == null) {
+            r.ok++;
+        } else {
+            r.lastClient = client;
+            r.lastFailure = failure;
+            r.lastHost = host;
         }
     }
 
-    /** Starts counting a run afresh. */
+    /** Starts counting a run afresh, bound to the calling thread. */
     public void startRun() {
-        synchronized (lock) {
-            attempts = 0;
-            ok = 0;
-            lastClient = null;
-            lastFailure = null;
-            lastHost = null;
-        }
+        run.set(new Run());
     }
 
-    /** Ends the run: one ERROR line when requests were made and none succeeded. Returns true when it logged. */
+    /** Ends the run on the calling thread: one ERROR line when it made requests and none succeeded. Returns true when it logged. */
     public boolean finishRun() {
-        int n;
-        String client;
-        String failure;
-        String host;
-        synchronized (lock) {
-            if (attempts < 1 || ok > 0) {
-                return false;
-            }
-            n = attempts;
-            client = lastClient;
-            failure = lastFailure;
-            host = lastHost;
+        Run r = run.get();
+        run.remove();
+        if (r == null || r.attempts < 1 || r.ok > 0) {
+            return false;
         }
-        log.error("NSE unreachable: all {} requests failed, last {} from {} (client {})", n, failure, host, client,
+        log.error("NSE unreachable: all {} requests failed, last {} from {} (client {})", r.attempts, r.lastFailure, r.lastHost, r.lastClient,
                 StructuredArguments.keyValue("event", Events.NSE_UNREACHABLE),
-                StructuredArguments.keyValue("client", client));
+                StructuredArguments.keyValue("client", r.lastClient));
         return true;
     }
 }

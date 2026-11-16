@@ -291,4 +291,12 @@ class PriceHistoryServiceTest {
         assertTrue(sql.contains("NOT EXISTS (SELECT 1 FROM investment_transactions"));
         assertTrue(sql.contains("n.instrument_id = p.instrument_id") && sql.contains("n.as_of > p.as_of"));
     }
+
+    @Test
+    void cleanupForUntradedInstrumentsSparesMergerAndDemergerTargets() throws Exception {
+        Method m = InstrumentPriceRepository.class.getMethod("deleteFeedPricesOfUntradedInstruments", int.class);
+        String sql = m.getAnnotation(Query.class).value();
+        assertTrue(sql.contains("NOT EXISTS (SELECT 1 FROM corporate_actions ca WHERE ca.target_instrument_id = p.instrument_id "
+                + "AND ca.type IN ('merger', 'demerger'))"));
+    }
 }

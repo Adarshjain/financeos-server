@@ -1,6 +1,7 @@
 package com.financeos.domain.instrument.price;
 
 import com.financeos.core.observability.Events;
+import com.financeos.core.time.AppTime;
 import com.financeos.domain.holding.HoldingRepository;
 import com.financeos.domain.instrument.Instrument;
 import com.financeos.domain.instrument.InstrumentPriceRepository;
@@ -36,6 +37,7 @@ public class PriceCoverageMonitor {
     private static final Logger log = LoggerFactory.getLogger(PriceCoverageMonitor.class);
     static final int STALE_DAYS = 1;
     static final int LOG_LIMIT = 10;
+    static final int LISTING_GRACE_DAYS = 60;
     private static final int CHUNK = 500;
 
     private final HoldingRepository holdingRepository;
@@ -58,7 +60,8 @@ public class PriceCoverageMonitor {
     public List<String> check() {
         try {
             Set<UUID> held = new LinkedHashSet<>(holdingRepository.findDistinctActiveInstrumentIdsHeld());
-            held.addAll(corporateActionRepository.findDistinctMergerTargetInstrumentIds());
+            List<UUID> targetIds = corporateActionRepository.findDistinctMergerTargetInstrumentIds();
+            held.addAll(targetIds);
             List<Instrument> candidates = held.isEmpty() ? List.of() : instrumentRepository.findAllById(held).stream()
                     .filter(PriceCoverageMonitor::hasPriceSymbol)
                     .filter(i -> !"not_trading".equals(i.getPriceStatus()) && !"delisted".equals(i.getPriceStatus()))
@@ -79,6 +82,14 @@ public class PriceCoverageMonitor {
                     marketDate.merge(kind(inst), d, (x, y) -> x.isAfter(y) ? x : y);
                 }
             }
+            Map<UUID, LocalDate> targetSince = new HashMap<>();
+            List<UUID> unpricedTargets = candidates.stream().map(Instrument::getId)
+                    .filter(id -> targetIds.contains(id) && !latest.containsKey(id)).toList();
+            if (!unpricedTargets.isEmpty()) {
+                for (Object[] row : corporateActionRepository.findEarliestExDatesByTarget(unpricedTargets)) {
+                    targetSince.put(UUID.fromString(String.valueOf(row[0])), toLocalDate(row[1]));
+                }
+            }
             List<String> symbols = new ArrayList<>();
             for (Instrument inst : candidates) {
                 LocalDate market = marketDate.get(kind(inst));
@@ -86,6 +97,9 @@ public class PriceCoverageMonitor {
                     continue; // nothing of this kind has a price: a feed outage, not a coverage gap
                 }
                 LocalDate d = latest.get(inst.getId());
+                if (d == null && !listingOverdue(inst, targetIds, targetSince)) {
+                    continue; // a merger/demerger target not listed yet: given time before it counts
+                }
                 if (d == null || d.isBefore(market.minusDays(STALE_DAYS))) {
                     symbols.add(inst.getSymbol() != null ? inst.getSymbol() : inst.getId().toString());
                 }
@@ -102,6 +116,15 @@ public class PriceCoverageMonitor {
             log.warn("price.held_unpriced check failed: {}", e.getMessage());
             return List.of();
         }
+    }
+
+    /** False for a never-priced demerger/merger target whose earliest ex-date is not yet {@value #LISTING_GRACE_DAYS} days old. */
+    private static boolean listingOverdue(Instrument inst, List<UUID> targetIds, Map<UUID, LocalDate> targetSince) {
+        if (!targetIds.contains(inst.getId())) {
+            return true;
+        }
+        LocalDate since = targetSince.get(inst.getId());
+        return since == null || since.isBefore(AppTime.today().minusDays(LISTING_GRACE_DAYS));
     }
 
     private static String kind(Instrument i) {
