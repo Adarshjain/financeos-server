@@ -245,35 +245,33 @@ class StatementReparseSelectionIntegrationTest {
     }
 
     @Test
-    void aLockedParseFailureIsRetriedOnlyAfter24Hours() {
-        parkedFailure(neverExamined, "LOCKED", NOW.minus(java.time.Duration.ofHours(2)), 1);
-        assertFalse(mine(find(1000, CURRENT)).contains(neverExamined));
-
-        parkedFailure(neverExamined, "LOCKED", NOW.minus(java.time.Duration.ofHours(25)), 1);
-        assertTrue(mine(find(1000, CURRENT)).contains(neverExamined));
+    void aLockedParseFailureIsNeverRetriedOnTheSchedule() {
+        for (String summary : List.of("LOCKED", "LOCKED:cap")) {
+            for (Integer attempts : new Integer[] {null, 1, 2, 3}) {
+                parkedFailure(neverExamined, summary, NOW.minus(java.time.Duration.ofHours(100)), attempts);
+                assertFalse(mine(find(1000, CURRENT)).contains(neverExamined), summary + " " + attempts);
+            }
+        }
     }
 
     @Test
-    void aCappedLockedParseFailureIsRetriedToo() {
-        parkedFailure(neverExamined, "LOCKED:cap", NOW.minus(java.time.Duration.ofHours(25)), 1);
-
-        assertTrue(mine(find(1000, CURRENT)).contains(neverExamined));
-    }
-
-    @Test
-    void aLockedParseFailureIsRetriedAtMostThreeTimesPerVersion() {
-        parkedFailure(neverExamined, "LOCKED", NOW.minus(java.time.Duration.ofHours(25)), 2);
-        assertTrue(mine(find(1000, CURRENT)).contains(neverExamined));
-
+    void aPasswordChangeMakesTheUsersLockedFailuresSelectableAgain() {
         parkedFailure(neverExamined, "LOCKED", NOW.minus(java.time.Duration.ofHours(25)), 3);
         assertFalse(mine(find(1000, CURRENT)).contains(neverExamined));
+
+        UUID userId = UUID.fromString(jdbc.queryForObject("SELECT user_id FROM statements WHERE id = ?", String.class, neverExamined.toString()));
+        assertEquals(1, tx(() -> statementRepository.clearLockedReparse(userId)));
+
+        assertTrue(mine(find(1000, CURRENT)).contains(neverExamined));
     }
 
     @Test
-    void aLockedParseFailureWithNoAttemptCountIsRetried() {
-        parkedFailure(neverExamined, "LOCKED", NOW.minus(java.time.Duration.ofHours(25)), null);
+    void aPasswordChangeLeavesOtherFailuresAlone() {
+        parkedFailure(neverExamined, "UNREADABLE", NOW.minus(java.time.Duration.ofHours(25)), 1);
+        UUID userId = UUID.fromString(jdbc.queryForObject("SELECT user_id FROM statements WHERE id = ?", String.class, neverExamined.toString()));
 
-        assertTrue(mine(find(1000, CURRENT)).contains(neverExamined));
+        assertEquals(0, tx(() -> statementRepository.clearLockedReparse(userId)));
+        assertEquals("PARSE_FAILED", outcome(neverExamined));
     }
 
     @Test
@@ -304,8 +302,8 @@ class StatementReparseSelectionIntegrationTest {
     }
 
     @Test
-    void theRetriedLockedFailureIsSettledByTheNextStamp() {
-        parkedFailure(neverExamined, "LOCKED", NOW.minus(java.time.Duration.ofHours(25)), 1);
+    void theRetriedErrorIsSettledByTheNextStamp() {
+        examinedAt(neverExamined, "ERROR", NOW.minus(java.time.Duration.ofHours(25)), 1);
 
         assertEquals(1, tx(() -> statementRepository.markReparseStarted(neverExamined, CURRENT, NOW)));
         assertEquals(2, versionOf("reparse_attempts", neverExamined));

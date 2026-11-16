@@ -622,7 +622,8 @@ public class StatementReconciliationService {
                 return new ReconSummary(0, 0, 0, List.of(), null, null, filename, last4, false);
             }
             String reason = "Encrypted statement could not be decrypted. Save the statement password on " + account.getName() + ".";
-            log.error("Encrypted statement for account {} could not be decrypted with any stored password. File: {}", account.getId(), filename);
+            log.warn("Encrypted statement for account {} could not be decrypted with any stored password. File: {}", account.getId(), filename,
+                    StructuredArguments.keyValue("accountId", account.getId()));
             recordLedger(connection, message.messageId(), account, GmailProcessedStatus.FAILED_PERMANENT, last4, reason);
             return new ReconSummary(0, 0, 1, List.of(), GmailProcessedStatus.FAILED_PERMANENT, reason, filename, last4, false);
         }
@@ -631,7 +632,8 @@ public class StatementReconciliationService {
             // The mail's own words named exactly one account (already judged in window): the password is missing there.
             Account account = guess.account();
             String reason = "Encrypted statement could not be decrypted. Save the statement password on " + account.getName() + ".";
-            log.error("Encrypted statement for account {} could not be decrypted with any stored password. File: {}", account.getId(), filename);
+            log.warn("Encrypted statement for account {} could not be decrypted with any stored password. File: {}", account.getId(), filename,
+                    StructuredArguments.keyValue("accountId", account.getId()));
             recordLedger(connection, message.messageId(), account, GmailProcessedStatus.FAILED_PERMANENT, guess.last4(), reason);
             return new ReconSummary(0, 0, 1, List.of(), GmailProcessedStatus.FAILED_PERMANENT, reason, filename, guess.last4(), false);
         }
@@ -645,7 +647,7 @@ public class StatementReconciliationService {
                     "No single account matches statement number " + last4, filename, last4, false);
         }
 
-        log.error("Encrypted statement could not be decrypted with any stored password. File: {}", filename);
+        log.warn("Encrypted statement could not be decrypted with any stored password. File: {}", filename);
         recordLedger(connection, message.messageId(), null, GmailProcessedStatus.FAILED_PERMANENT,
                 "Encrypted statement could not be decrypted with any stored password.");
         return new ReconSummary(0, 0, 1, List.of(), GmailProcessedStatus.FAILED_PERMANENT, "Encrypted statement could not be decrypted with any stored password", filename, null, false);

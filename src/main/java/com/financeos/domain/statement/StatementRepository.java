@@ -64,8 +64,7 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
     /**
      * What the re-read job picks, interleaved across users, oldest first: statements with a stored file and
      * (1) a stored parse older than {@code current} not yet examined at that version; or (2) examined at that version
-     * with ERROR, PARSE_FAILED because the file is locked (summary LOCKED or LOCKED:cap: a password may have been
-     * saved since), or an IN_PROGRESS stamp that was never settled, at or before {@code retryBefore}, fewer than
+     * with ERROR or an IN_PROGRESS stamp that was never settled, at or before {@code retryBefore}, fewer than
      * {@code maxAttempts} times; or (3) when {@code applyOn} is 1, whose recorded outcome at that version is WOULD_CHANGE
      * (switching apply on applies recorded differences without a parser bump); or (4) a gmail statement stamped
      * WOULD_CHANGE at that version with addRows above 0 and no {@code dropped=} in its summary: recorded before the job
@@ -80,8 +79,6 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
             + "(NVL(parser_version, 0) < :current AND NVL(reparse_version, 0) < :current) "
             + "OR (NVL(parser_version, 0) < :current AND reparse_version = :current AND reparse_outcome IN ('ERROR', 'IN_PROGRESS') "
             + "AND reparse_at <= :retryBefore AND NVL(reparse_attempts, 0) < :maxAttempts) "
-            + "OR (NVL(parser_version, 0) < :current AND reparse_version = :current AND reparse_outcome = 'PARSE_FAILED' "
-            + "AND reparse_summary LIKE 'LOCKED%' AND reparse_at <= :retryBefore AND NVL(reparse_attempts, 0) < :maxAttempts) "
             + "OR (:applyOn = 1 AND reparse_version = :current AND reparse_outcome = 'WOULD_CHANGE') "
             + "OR (reparse_version = :current AND reparse_outcome = 'WOULD_CHANGE' AND source = 'gmail' "
             + "AND reparse_summary LIKE '%addRows=%' AND reparse_summary NOT LIKE '%addRows=0%' "
@@ -90,6 +87,16 @@ public interface StatementRepository extends JpaRepository<Statement, UUID> {
     List<ReparseCandidate> findReparseCandidates(@Param("batch") int batch, @Param("current") int current,
                                                  @Param("retryBefore") java.time.Instant retryBefore,
                                                  @Param("maxAttempts") int maxAttempts, @Param("applyOn") int applyOn);
+
+    /**
+     * Makes the user's locked statements (PARSE_FAILED, summary LOCKED or LOCKED:cap) selectable again by clearing their
+     * re-read stamp: called when a statement password is saved or changed, since the schedule no longer retries them.
+     */
+    @org.springframework.data.jpa.repository.Modifying
+    @Query("UPDATE Statement s SET s.reparseVersion = NULL, s.reparseAttempts = NULL, s.reparseAt = NULL, "
+            + "s.reparseOutcome = NULL, s.reparseSummary = NULL "
+            + "WHERE s.user.id = :userId AND s.reparseOutcome = 'PARSE_FAILED' AND s.reparseSummary IN ('LOCKED', 'LOCKED:cap')")
+    int clearLockedReparse(@Param("userId") UUID userId);
 
     /**
      * Parks a statement before the job examines it (so one that kills the JVM is not picked first again): version,

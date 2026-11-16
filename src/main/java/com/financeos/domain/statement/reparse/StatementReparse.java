@@ -58,7 +58,7 @@ public class StatementReparse {
 
     private static final Logger log = LoggerFactory.getLogger(StatementReparse.class);
     static final int SUMMARY_MAX = 500;
-    /** An ERROR, a locked PARSE_FAILED (summary LOCKED*) or an IN_PROGRESS never settled is retried after this long, up to MAX_ATTEMPTS per parser version. */
+    /** An ERROR or an IN_PROGRESS never settled is retried after this long, up to MAX_ATTEMPTS per parser version. */
     static final Duration RETRY_AFTER = Duration.ofHours(24);
     static final int MAX_ATTEMPTS = 3;
 
@@ -208,11 +208,17 @@ public class StatementReparse {
             log.warn("Statement re-read: unusable candidate id");
             return Result.of(Outcome.ERROR);
         }
+        java.util.Map<String, String> previousMdc = org.slf4j.MDC.getCopyOfContextMap();
         try {
             UUID userId = UUID.fromString(c.getUserId());
             // The job runs outside a request: the tenant filter and anything reading the current user need this
             // (same as the Gmail drain continuation); restored in finally.
             UserContext.setCurrentUserId(userId);
+            org.slf4j.MDC.put("userId", userId.toString());
+            org.slf4j.MDC.put("statementId", statementId.toString());
+            if (c.getAccountId() != null) {
+                org.slf4j.MDC.put("accountId", c.getAccountId());
+            }
             // Park the statement first: one that kills or exhausts the JVM is then not picked first again next run.
             if (tx.execute(status -> statementRepository.markReparseStarted(statementId, currentVersion, clock.instant())) != 1) {
                 result = Result.of(Outcome.SKIPPED_CHANGED);
@@ -224,6 +230,11 @@ public class StatementReparse {
             log.warn("Statement re-read failed statement={}: {}", c.getId(), e.getClass().getSimpleName());
             result = Result.of(Outcome.ERROR);
         } finally {
+            if (previousMdc == null) {
+                org.slf4j.MDC.clear();
+            } else {
+                org.slf4j.MDC.setContextMap(previousMdc);
+            }
             if (previousUser != null) {
                 UserContext.setCurrentUserId(previousUser);
             } else {

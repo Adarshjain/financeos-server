@@ -45,6 +45,19 @@ public final class ParseLogger {
                 t);
     }
 
+    /**
+     * A whole-file failure that is a user-data state (a statement password missing or wrong), not a server fault: same
+     * event and fields as {@link #failed} but WARN, no stack trace and no row index. The user is already shown an
+     * attention item for it.
+     */
+    public static void failedExpected(Logger log, String parser, String stage, String reason) {
+        log.warn("Parse failed: parser={}, stage={}, reason={}", parser, stage, reason,
+                StructuredArguments.keyValue("event", Events.PARSE_FAILED),
+                StructuredArguments.keyValue("parser", parser),
+                StructuredArguments.keyValue("stage", stage),
+                StructuredArguments.keyValue("reason", reason));
+    }
+
     private static String formatHeaderFingerprint(String headerRaw) {
         if (headerRaw == null || headerRaw.isBlank()) {
             return "none";

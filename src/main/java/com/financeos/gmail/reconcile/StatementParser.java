@@ -40,7 +40,12 @@ public class StatementParser {
         try {
             parsed = StatementParseEngine.parse(bytes, password, null);
         } catch (StatementParseException e) {
-            com.financeos.core.observability.ParseLogger.failed(log, "StatementParser", "extract-text", 1, "Statement parse failure: " + e.getMessage(), e);
+            String reason = "Statement parse failure: " + e.getMessage();
+            if (e.isPasswordProblem()) {
+                com.financeos.core.observability.ParseLogger.failedExpected(log, "StatementParser", "extract-text", reason);
+            } else {
+                com.financeos.core.observability.ParseLogger.failed(log, "StatementParser", "extract-text", 1, reason, e);
+            }
             return StatementExtractionResult.failure(e.getMessage(), e.kind());
         } catch (Exception e) {
             com.financeos.core.observability.ParseLogger.failed(log, "StatementParser", "extract-text", 1, "Statement parse failure: " + e.getMessage(), e);
