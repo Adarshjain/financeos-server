@@ -87,7 +87,14 @@ class MergerTargetPriceSelectionTest {
 
     @Test
     void theIntradayRefreshFetchesATargetWithNoTrades() {
-        refresh.refreshIntraday();
+        // Inside the NSE session (a Wednesday, 11:00 IST): the intraday refresh does nothing outside it.
+        com.financeos.core.time.AppTime.useClock(java.time.Clock.fixed(
+                java.time.Instant.parse("2026-01-07T05:30:00Z"), java.time.ZoneId.of("Asia/Kolkata")));
+        try {
+            refresh.refreshIntraday();
+        } finally {
+            com.financeos.core.time.AppTime.reset();
+        }
 
         ArgumentCaptor<List<Instrument>> fetched = ArgumentCaptor.forClass(List.class);
         org.mockito.Mockito.verify(yahoo).fetchLive(fetched.capture());
