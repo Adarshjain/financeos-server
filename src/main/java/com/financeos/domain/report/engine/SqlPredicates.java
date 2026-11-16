@@ -4,7 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.financeos.domain.report.datasource.FieldType;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -99,20 +102,20 @@ public class SqlPredicates {
     private String numberPredicate(String expr, String op, JsonNode v, Map<String, Object> params, String p) {
         switch (op) {
             case "equals" -> {
-                params.put(p, v.decimalValue());
+                params.put(p, parseNumber(v, "number"));
                 return expr + " = :" + p;
             }
             case "greater_than" -> {
-                params.put(p, v.decimalValue());
+                params.put(p, parseNumber(v, "number"));
                 return expr + " > :" + p;
             }
             case "less_than" -> {
-                params.put(p, v.decimalValue());
+                params.put(p, parseNumber(v, "number"));
                 return expr + " < :" + p;
             }
             case "between" -> {
-                params.put(p + "a", v.get("from").decimalValue());
-                params.put(p + "b", v.get("to").decimalValue());
+                params.put(p + "a", parseNumber(v == null ? null : v.get("from"), "from"));
+                params.put(p + "b", parseNumber(v == null ? null : v.get("to"), "to"));
                 return expr + " BETWEEN :" + p + "a AND :" + p + "b";
             }
             default -> throw new IllegalArgumentException("Unsupported number operator: " + op);
@@ -171,25 +174,30 @@ public class SqlPredicates {
     private String datePredicate(String expr, String op, JsonNode v, Map<String, Object> params, String p) {
         switch (op) {
             case "is" -> {
-                params.put(p, LocalDate.parse(v.asText()));
+                params.put(p, parseDate(v, "date"));
                 return expr + " = :" + p;
             }
             case "after" -> {
-                params.put(p, LocalDate.parse(v.asText()));
+                params.put(p, parseDate(v, "date"));
                 return expr + " > :" + p;
             }
             case "before" -> {
-                params.put(p, LocalDate.parse(v.asText()));
+                params.put(p, parseDate(v, "date"));
                 return expr + " < :" + p;
             }
             case "between" -> {
-                params.put(p + "a", LocalDate.parse(v.get("from").asText()));
-                params.put(p + "b", LocalDate.parse(v.get("to").asText()));
+                params.put(p + "a", parseDate(v == null ? null : v.get("from"), "from"));
+                params.put(p + "b", parseDate(v == null ? null : v.get("to"), "to"));
                 return expr + " BETWEEN :" + p + "a AND :" + p + "b";
             }
             default -> {
                 // Relative operator (this_month, last_x_days, all_time, ...).
-                DateRange range = dateRangeResolver.resolveRelative(op, v);
+                DateRange range;
+                try {
+                    range = dateRangeResolver.resolveRelative(op, v);
+                } catch (DateTimeException e) {
+                    throw new IllegalArgumentException("Date filter '" + op + "' is out of range", e);
+                }
                 if (!range.bounded()) {
                     return null; // all_time imposes no constraint
                 }
@@ -198,6 +206,34 @@ public class SqlPredicates {
                 return expr + " BETWEEN :" + p + "a AND :" + p + "b";
             }
         }
+    }
+
+    /** Parses an ISO yyyy-MM-dd filter value; anything else is a 400 (IllegalArgumentException), never a 500. */
+    public static LocalDate parseDate(JsonNode node, String what) {
+        if (node == null || node.isNull() || !node.isValueNode()) {
+            throw new IllegalArgumentException("Date filter value '" + what + "' is missing or not a date");
+        }
+        String text = node.asText();
+        try {
+            return LocalDate.parse(text);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date '" + text + "' for '" + what + "': expected yyyy-MM-dd", e);
+        }
+    }
+
+    /** Parses a numeric filter value (a JSON number or numeric text); anything else is a 400, never a silent 0 or a 500. */
+    public static BigDecimal parseNumber(JsonNode node, String what) {
+        if (node != null && node.isNumber()) {
+            return node.decimalValue();
+        }
+        if (node != null && node.isTextual()) {
+            try {
+                return new BigDecimal(node.asText().trim());
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("Invalid number '" + node.asText() + "' for '" + what + "'", e);
+            }
+        }
+        throw new IllegalArgumentException("Number filter value '" + what + "' is missing or not a number");
     }
 
     public static String likeClause(String expr, String p) {

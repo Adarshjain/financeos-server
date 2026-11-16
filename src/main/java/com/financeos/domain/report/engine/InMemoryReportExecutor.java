@@ -679,13 +679,13 @@ public class InMemoryReportExecutor {
         if (date == null) return false;
 
         return switch (op) {
-            case "is" -> node != null && date.equals(LocalDate.parse(node.asText()));
-            case "after" -> node != null && date.isAfter(LocalDate.parse(node.asText()));
-            case "before" -> node != null && date.isBefore(LocalDate.parse(node.asText()));
+            case "is" -> node != null && date.equals(SqlPredicates.parseDate(node, "date"));
+            case "after" -> node != null && date.isAfter(SqlPredicates.parseDate(node, "date"));
+            case "before" -> node != null && date.isBefore(SqlPredicates.parseDate(node, "date"));
             case "between" -> {
                 if (node != null && node.has("from") && node.has("to")) {
-                    LocalDate from = LocalDate.parse(node.get("from").asText());
-                    LocalDate to = LocalDate.parse(node.get("to").asText());
+                    LocalDate from = SqlPredicates.parseDate(node.get("from"), "from");
+                    LocalDate to = SqlPredicates.parseDate(node.get("to"), "to");
                     yield !date.isBefore(from) && !date.isAfter(to);
                 }
                 yield false;

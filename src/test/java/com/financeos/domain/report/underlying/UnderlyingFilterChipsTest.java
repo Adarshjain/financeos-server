@@ -106,6 +106,13 @@ class UnderlyingFilterChipsTest {
     }
 
     @Test
+    void malformedStoredDateShowsAsTypedInsteadOfFailing() {
+        assertEquals("On 261-11-01", text(f("date", "is", JSON.textNode("261-11-01"))));
+        assertEquals("After junk", text(f("date", "after", JSON.textNode("junk"))));
+        assertEquals("Between 01/09/2026 and bad", text(f("date", "between", range("2026-09-01", "bad"))));
+    }
+
+    @Test
     void dateRangeAndSingleDatesCarryIsoValues() {
         ObjectNode range = JSON.objectNode().put("from", "2026-09-01").put("to", "2026-09-30");
         List<UnderlyingFilterChip> out = chips.describe(ds, List.of(

@@ -256,7 +256,12 @@ public class UnderlyingFilterChips {
     }
 
     private static String day(JsonNode value) {
-        return LocalDate.parse(value.asText()).format(DAY);
+        // Display only: a malformed stored value shows as typed instead of failing the whole response.
+        try {
+            return LocalDate.parse(value.asText()).format(DAY);
+        } catch (java.time.format.DateTimeParseException e) {
+            return value.asText();
+        }
     }
 
     private static String count(JsonNode value, String unit) {

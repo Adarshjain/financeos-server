@@ -67,6 +67,31 @@ class InMemoryReportExecutorTest {
     }
 
     @Test
+    void malformedDateFilterValuesAreRejectedAsIllegalArgument() {
+        datasource.setRows(List.of(Map.of("amount", new BigDecimal("100"), "date", LocalDate.of(2026, 1, 15))));
+        JsonNodeFactory json = JsonNodeFactory.instance;
+        List<FilterClause> bad = List.of(
+                new FilterClause("date", "is", TextNode.valueOf("261-11-01")),
+                new FilterClause("date", "after", TextNode.valueOf("not-a-date")),
+                new FilterClause("date", "before", TextNode.valueOf("2026-02-30")),
+                new FilterClause("date", "between", json.objectNode().put("from", "261-11-01").put("to", "2026-11-30")),
+                new FilterClause("date", "between", json.objectNode().put("from", "2026-11-01").put("to", "bad")));
+        for (FilterClause clause : bad) {
+            KpiDefinition def = new KpiDefinition("amount", Aggregation.SUM, List.of(clause), null);
+            assertThrows(IllegalArgumentException.class, () -> executor.execute(def, datasource, Map.of()),
+                    clause.operator());
+        }
+    }
+
+    @Test
+    void validDateFilterValuesStillMatch() {
+        datasource.setRows(List.of(Map.of("amount", new BigDecimal("100"), "date", LocalDate.of(2026, 1, 15))));
+        KpiDefinition def = new KpiDefinition("amount", Aggregation.SUM,
+                List.of(new FilterClause("date", "is", TextNode.valueOf("2026-01-15"))), null);
+        assertEquals(new BigDecimal("100"), executor.execute(def, datasource, Map.of()).value());
+    }
+
+    @Test
     void filteringOperators() {
         datasource.setRows(List.of(
                 Map.of("name", "Apple", "amount", new BigDecimal("100"), "active", true, "date", LocalDate.of(2026, 1, 15)),

@@ -160,10 +160,10 @@ public class DateRangeResolver {
         }
         return switch (op) {
             case "between" -> DateRange.of(
-                    LocalDate.parse(dateFilter.value().get("from").asText()),
-                    LocalDate.parse(dateFilter.value().get("to").asText()));
+                    SqlPredicates.parseDate(dateFilter.value() == null ? null : dateFilter.value().get("from"), "from"),
+                    SqlPredicates.parseDate(dateFilter.value() == null ? null : dateFilter.value().get("to"), "to"));
             case "is" -> {
-                LocalDate day = LocalDate.parse(dateFilter.value().asText());
+                LocalDate day = SqlPredicates.parseDate(dateFilter.value(), "date");
                 yield DateRange.of(day, day);
             }
             case "after", "before" -> DateRange.unbounded();
