@@ -153,8 +153,8 @@ class BrokerReconciliationSuggestionTest {
         inst.setName("Acme Industries");
         inst.setType(InstrumentType.stock);
         when(instrumentRepository.findByIsinIn(any())).thenReturn(List.of(inst));
-        when(transactionRepository.findFilteredTransactions(any(), any(), any(), any(), any(Pageable.class)))
-                .thenReturn(new PageImpl<>(List.of()));
+        when(transactionRepository.findByBrokerAccountAndInstrumentIds(any(), any()))
+                .thenReturn(List.of());
 
         String[][] rows = {threeScrips()[0], threeScrips()[1]};
         ReconcilePreviewResponse res = service.preview(Broker.groww, brokerAccountId,
@@ -177,8 +177,8 @@ class BrokerReconciliationSuggestionTest {
 
     @Test
     void commitSharesOneCreatedInstrumentAndDerivesYahooSymbol() {
-        lenient().when(transactionRepository.findFilteredTransactions(any(), any(), any(), any(), any(Pageable.class)))
-                .thenReturn(new PageImpl<>(List.of()));
+        lenient().when(transactionRepository.findByBrokerAccountAndInstrumentIds(any(), any()))
+                .thenReturn(List.of());
         when(instrumentRepository.save(any(Instrument.class))).thenAnswer(inv -> {
             Instrument i = inv.getArgument(0);
             i.setId(UUID.randomUUID());
@@ -203,8 +203,8 @@ class BrokerReconciliationSuggestionTest {
 
     @Test
     void commitReusesCatalogInstrumentWithSameIsin() {
-        lenient().when(transactionRepository.findFilteredTransactions(any(), any(), any(), any(), any(Pageable.class)))
-                .thenReturn(new PageImpl<>(List.of()));
+        lenient().when(transactionRepository.findByBrokerAccountAndInstrumentIds(any(), any()))
+                .thenReturn(List.of());
         Instrument existing = new Instrument();
         existing.setId(UUID.randomUUID());
         existing.setSymbol("ACMEIND");

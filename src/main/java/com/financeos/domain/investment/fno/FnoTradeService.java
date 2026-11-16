@@ -128,13 +128,21 @@ public class FnoTradeService {
 
         List<FnoTrade> savedTrades = new ArrayList<>();
 
+        // The refs the account already has, read once (in chunks); refs saved below join the set.
+        java.util.Set<String> knownRefs = new java.util.HashSet<>();
+        List<String> wanted = commitTrades.stream()
+                .filter(d -> !d.skip() && d.externalRef() != null && !d.externalRef().isBlank())
+                .map(CommitFnoTradeDto::externalRef).distinct().toList();
+        for (List<String> chunk : com.financeos.domain.instrument.InstrumentLocalSearch.chunks(wanted)) {
+            knownRefs.addAll(fnoTradeRepository.findExistingExternalRefs(brokerAccountId, chunk));
+        }
+
         for (CommitFnoTradeDto dto : commitTrades) {
             if (dto.skip()) {
                 continue;
             }
 
-            if (dto.externalRef() != null && !dto.externalRef().isBlank() &&
-                    fnoTradeRepository.existsByBrokerAccountIdAndExternalRef(brokerAccountId, dto.externalRef())) {
+            if (dto.externalRef() != null && !dto.externalRef().isBlank() && knownRefs.contains(dto.externalRef())) {
                 continue;
             }
 
@@ -162,6 +170,9 @@ public class FnoTradeService {
             trade.setExternalRef(dto.externalRef());
 
             savedTrades.add(fnoTradeRepository.save(trade));
+            if (dto.externalRef() != null && !dto.externalRef().isBlank()) {
+                knownRefs.add(dto.externalRef());
+            }
         }
 
         return savedTrades;

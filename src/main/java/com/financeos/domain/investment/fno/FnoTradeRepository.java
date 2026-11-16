@@ -76,6 +76,11 @@ public interface FnoTradeRepository extends JpaRepository<FnoTrade, UUID> {
     List<FnoTrade> findInWindow(@Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate,
                                 @Param("brokerAccountId") UUID brokerAccountId);
 
+    /** Which of the external refs the broker account already has (callers chunk the list). */
+    @Query("SELECT f.externalRef FROM FnoTrade f WHERE f.brokerAccount.id = :brokerAccountId AND f.externalRef IN :externalRefs")
+    List<String> findExistingExternalRefs(@Param("brokerAccountId") UUID brokerAccountId,
+                                          @Param("externalRefs") java.util.Collection<String> externalRefs);
+
     boolean existsByBrokerAccountIdAndExternalRef(UUID brokerAccountId, String externalRef);
 
     boolean existsByBrokerAccountIdAndTradingSymbolAndEntryDateAndExitDateAndQuantityAndBuyValueAndSellValue(

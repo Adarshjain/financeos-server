@@ -125,6 +125,12 @@ public final class InstrumentListings {
             return Optional.of(kept);
         }
 
+        /** Every loaded row of {@code isin} (trimmed), whichever listing {@link #get} would pick; no choice is recorded. */
+        public List<Instrument> candidates(@Nullable String isin) {
+            List<Instrument> list = isin == null ? null : rows.get(isin.trim());
+            return list == null ? List.of() : List.copyOf(list);
+        }
+
         /** A row saved after the load (a new instrument), so later lookups of its ISIN find it. */
         public void add(Instrument instrument) {
             if (instrument.getIsin() != null) {

@@ -104,6 +104,10 @@ public interface InstrumentRepository extends JpaRepository<Instrument, UUID> {
             + "ORDER BY i.createdAt ASC, i.id ASC")
     List<Instrument> findByNseSymbolIn(@Param("symbols") Collection<String> symbols);
 
+    /** Every instrument whose symbol is any of the (upper-case) symbols, oldest first; callers chunk the list. */
+    @Query("SELECT i FROM Instrument i WHERE UPPER(i.symbol) IN :symbols ORDER BY i.createdAt ASC, i.id ASC")
+    List<Instrument> findBySymbolUpperIn(@Param("symbols") Collection<String> symbols);
+
     /** Whether any instrument has the ticker (symbol + exchange, case-insensitive). */
     @Query("SELECT COUNT(i) > 0 FROM Instrument i WHERE UPPER(i.symbol) = UPPER(:symbol) "
             + "AND UPPER(i.exchange) = UPPER(:exchange)")

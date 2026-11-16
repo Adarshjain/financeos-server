@@ -13,6 +13,8 @@ import com.financeos.domain.instrument.InstrumentAliasRepository;
 import com.financeos.domain.instrument.InstrumentRepointMap;
 import com.financeos.domain.instrument.InstrumentRepository;
 import com.financeos.domain.instrument.InstrumentType;
+import com.financeos.domain.instrument.UserInstrumentRepoint;
+import com.financeos.domain.instrument.UserInstrumentRepointRepository;
 import com.financeos.domain.instrument.search.InstrumentSearchService;
 import com.financeos.domain.investment.InvestmentTransactionRepository;
 import com.financeos.domain.investment.InvestmentTransactionType;
@@ -64,8 +66,8 @@ class BrokerReconciliationRepointMapTest {
         holdingRepository = mock(HoldingRepository.class);
         AccountRepository accountRepository = mock(AccountRepository.class);
         InvestmentTransactionRepository transactionRepository = mock(InvestmentTransactionRepository.class);
-        when(transactionRepository.findFilteredTransactions(any(), any(), any(), any(), any()))
-                .thenReturn(org.springframework.data.domain.Page.empty());
+        when(transactionRepository.findByBrokerAccountAndInstrumentIds(any(), any()))
+                .thenReturn(List.of());
         service = new BrokerReconciliationService(new ZerodhaTradebookParser(), new ZerodhaTaxPnlParser(),
                 new GrowwOrderHistoryParser(), new GrowwCapitalGainsParser(), new ChargeCalculator(), instrumentRepository,
                 mock(InstrumentAliasRepository.class), holdingRepository, transactionRepository, accountRepository,
@@ -81,16 +83,10 @@ class BrokerReconciliationRepointMapTest {
         target = instrument("INE333A01099");
         when(instrumentRepository.findByIsinIn(any())).thenReturn(List.of(source));
         when(instrumentRepository.findById(source.getId())).thenReturn(Optional.of(source));
-        InstrumentRepointMap map = mock(InstrumentRepointMap.class);
-        when(map.applyForCurrentUser(any())).thenAnswer(inv -> {
-            Instrument i = inv.getArgument(0);
-            return i != null && i.getId().equals(source.getId()) ? target : i;
-        });
-        when(map.resolve(eq(user), any())).thenAnswer(inv -> {
-            UUID id = inv.getArgument(1);
-            return source.getId().equals(id) ? target.getId() : id;
-        });
-        service.setRepointMap(map);
+        UserInstrumentRepointRepository repoints = mock(UserInstrumentRepointRepository.class);
+        when(repoints.findByUserId(user)).thenReturn(List.of(new UserInstrumentRepoint(user, source.getId(), target.getId())));
+        when(instrumentRepository.findAllById(any())).thenReturn(List.of(target));
+        service.setRepointMap(new InstrumentRepointMap(repoints, instrumentRepository));
         UserContext.setCurrentUserId(user);
     }
 

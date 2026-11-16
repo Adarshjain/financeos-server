@@ -57,8 +57,8 @@ class BrokerReconciliationInstrumentOverridesTest {
         searchService = mock(InstrumentSearchService.class);
         AccountRepository accountRepository = mock(AccountRepository.class);
         InvestmentTransactionRepository transactionRepository = mock(InvestmentTransactionRepository.class);
-        when(transactionRepository.findFilteredTransactions(any(), any(), any(), any(), any()))
-                .thenReturn(org.springframework.data.domain.Page.empty());
+        when(transactionRepository.findByBrokerAccountAndInstrumentIds(any(), any()))
+                .thenReturn(List.of());
         service = new BrokerReconciliationService(new ZerodhaTradebookParser(), new ZerodhaTaxPnlParser(),
                 new GrowwOrderHistoryParser(), new GrowwCapitalGainsParser(), new ChargeCalculator(), instrumentRepository,
                 aliasRepository, mock(HoldingRepository.class), transactionRepository, accountRepository,
@@ -71,7 +71,7 @@ class BrokerReconciliationInstrumentOverridesTest {
         when(accountRepository.findByIdAndUser_Id(eq(brokerAccountId), any())).thenReturn(Optional.of(account));
         catalogMatch = instrument("OLDS", "Old Co");
         repointed = instrument("NEWS", "New Co");
-        when(instrumentRepository.searchInstruments(any(), any())).thenReturn(List.of(catalogMatch));
+        when(instrumentRepository.findBySymbolUpperIn(any())).thenReturn(List.of(catalogMatch));
         UserContext.setCurrentUserId(user);
     }
 
@@ -102,7 +102,7 @@ class BrokerReconciliationInstrumentOverridesTest {
     void theUsersOwnAliasBeatsTheCatalogSymbol() {
         InstrumentAlias own = new InstrumentAlias(repointed, "OLDS", "Old Co", "USER_EDIT");
         own.setUserId(user);
-        when(aliasRepository.findFirstByOldSymbolIgnoreCaseAndUserId("OLDS", user)).thenReturn(Optional.of(own));
+        when(aliasRepository.findOwnedBySymbolsUpper(eq(user), any())).thenReturn(List.of(own));
 
         assertEquals(repointed.getId(), match().id());
     }

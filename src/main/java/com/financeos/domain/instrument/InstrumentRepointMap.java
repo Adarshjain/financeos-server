@@ -7,7 +7,11 @@ import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -67,6 +71,74 @@ public class InstrumentRepointMap {
             return instrument;
         }
         return instrumentRepository.findById(target).orElse(instrument);
+    }
+
+    /**
+     * {@code userId}'s whole repoint map read once (one query), answering {@link #resolve} / {@link #apply}
+     * for any number of instruments from memory; what an import holds for the length of its request.
+     */
+    @Transactional(readOnly = true)
+    public Snapshot snapshotFor(@Nullable UUID userId) {
+        Map<UUID, UUID> next = new HashMap<>();
+        if (userId != null) {
+            for (UserInstrumentRepoint r : repository.findByUserId(userId)) {
+                next.put(r.getFromInstrumentId(), r.getToInstrumentId());
+            }
+        }
+        return new Snapshot(userId, next);
+    }
+
+    /** The user's repoint map in memory; answers like {@link #resolve} / {@link #apply} without a query per call. */
+    public final class Snapshot {
+        private final UUID userId;
+        private final Map<UUID, UUID> next;
+        private Map<UUID, Instrument> targets;
+
+        private Snapshot(UUID userId, Map<UUID, UUID> next) {
+            this.userId = userId;
+            this.next = next;
+        }
+
+        public UUID resolve(@Nullable UUID instrumentId) {
+            if (userId == null || instrumentId == null) {
+                return instrumentId;
+            }
+            UUID current = instrumentId;
+            Set<UUID> seen = new HashSet<>();
+            for (int hop = 0; hop < MAX_HOPS && seen.add(current); hop++) {
+                UUID to = next.get(current);
+                if (to == null) {
+                    return current;
+                }
+                current = to;
+            }
+            log.warn("Instrument repoint chain of user {} from {} does not end; using {}", userId, instrumentId, current);
+            return current;
+        }
+
+        @Nullable
+        public Instrument apply(@Nullable Instrument instrument) {
+            if (userId == null || instrument == null || instrument.getId() == null || next.isEmpty()) {
+                return instrument;
+            }
+            UUID target = resolve(instrument.getId());
+            if (target.equals(instrument.getId())) {
+                return instrument;
+            }
+            if (targets == null) {
+                targets = new HashMap<>();
+                for (List<UUID> chunk : InstrumentLocalSearch.chunks(new LinkedHashSet<>(next.values()))) {
+                    for (Instrument i : instrumentRepository.findAllById(chunk)) {
+                        targets.put(i.getId(), i);
+                    }
+                }
+            }
+            Instrument found = targets.get(target);
+            if (found == null) {
+                found = instrumentRepository.findById(target).orElse(null);
+            }
+            return found != null ? found : instrument;
+        }
     }
 
     /** {@link #apply} for the signed-in user. */

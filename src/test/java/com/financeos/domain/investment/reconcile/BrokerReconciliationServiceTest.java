@@ -140,8 +140,11 @@ class BrokerReconciliationServiceTest {
         existingTxn.setQuantity(new BigDecimal("10"));
         existingTxn.setPrice(new BigDecimal("300.0"));
 
-        when(transactionRepository.findFilteredTransactions(eq(brokerAccountId), eq(inst.getId()), eq(null), eq(null), any(Pageable.class)))
-                .thenReturn(new PageImpl<>(List.of(existingTxn)));
+        com.financeos.domain.holding.Holding holding = new com.financeos.domain.holding.Holding();
+        holding.setInstrument(inst);
+        existingTxn.setHolding(holding);
+        when(transactionRepository.findByBrokerAccountAndInstrumentIds(eq(brokerAccountId), any()))
+                .thenReturn(List.of(existingTxn));
 
         // CSV has two trades on same day, same qty, same price, but DIFFERENT trade_ids: 101 and 102
         String csvContent = "symbol,isin,trade_date,exchange,segment,series,trade_type,auction,quantity,price,trade_id,order_id,order_execution_time\n" +
@@ -185,8 +188,11 @@ class BrokerReconciliationServiceTest {
         existingTxn.setQuantity(new BigDecimal("10"));
         existingTxn.setPrice(new BigDecimal("300.0"));
 
-        when(transactionRepository.findFilteredTransactions(eq(brokerAccountId), eq(inst.getId()), eq(null), eq(null), any(Pageable.class)))
-                .thenReturn(new PageImpl<>(List.of(existingTxn)));
+        com.financeos.domain.holding.Holding holding = new com.financeos.domain.holding.Holding();
+        holding.setInstrument(inst);
+        existingTxn.setHolding(holding);
+        when(transactionRepository.findByBrokerAccountAndInstrumentIds(eq(brokerAccountId), any()))
+                .thenReturn(List.of(existingTxn));
 
         // CSV row without trade_id / order_id
         String csvContent = "symbol,isin,trade_date,exchange,segment,series,trade_type,auction,quantity,price,trade_id,order_id,order_execution_time\n" +

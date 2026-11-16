@@ -124,8 +124,8 @@ class BrokerReconciliationListingTest {
     private List<UUID> previewIds(Instrument nse, Instrument bse, List<UUID> held) throws Exception {
         when(instrumentRepository.findByIsinIn(any())).thenReturn(List.of(nse, bse));
         when(instrumentRepository.findHeldInstrumentIds(eq(user), any())).thenReturn(held);
-        when(transactionRepository.findFilteredTransactions(any(), any(), any(), any(), any(Pageable.class)))
-                .thenReturn(new PageImpl<>(List.of()));
+        when(transactionRepository.findByBrokerAccountAndInstrumentIds(any(), any()))
+                .thenReturn(List.of());
         String[][] rows = {
                 {"Acme Industries", "ACMEIND", "INE000X01011", "BUY", "10", "1000", "NSE", "T-1", "02-02-2024 10:00 AM", "Executed"},
                 {"Acme Industries", "ACMEIND", "INE000X01011", "BUY", "5", "600", "BSE", "T-2", "03-02-2024 10:00 AM", "Executed"},

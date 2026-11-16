@@ -90,14 +90,154 @@ public class BrokerReconciliationService {
         this.snapshotStore = snapshotStore;
     }
 
-    /** {@code instrument} as the signed-in user's imports see it (their repoint applied after any match). */
-    private Instrument repointed(Instrument instrument) {
-        return repointMap == null || instrument == null ? instrument : repointMap.applyForCurrentUser(instrument);
-    }
+    /**
+     * What one preview or commit reads from the database, loaded in batches and then served from maps (also
+     * the misses): the user's aliases and the catalog rows of the symbols, the repoint map, the broker
+     * account's transactions of the instruments involved and its F&O external refs, and the user's
+     * instrument overrides. Rows saved during a commit are registered so later rows see them, as the
+     * per-row queries did.
+     */
+    private final class ReconcileLookups {
+        private final UUID userId = UserContext.getCurrentUserId();
+        private final UUID brokerAccountId;
+        private final Map<String, Instrument> ownAliases = new HashMap<>();
+        private final Map<String, Instrument> catalogAliases = new HashMap<>();
+        private final Set<String> aliasesLoaded = new HashSet<>();
+        private final Map<String, List<Instrument>> bySymbol = new HashMap<>();
+        private final Set<String> symbolsLoaded = new HashSet<>();
+        private final Map<UUID, List<InvestmentTransaction>> transactions = new HashMap<>();
+        private final Set<String> fnoRefsChecked = new HashSet<>();
+        private final Set<String> fnoRefsExisting = new HashSet<>();
+        private final Map<String, Optional<ReconcilePreviewResponse.MatchedInstrumentDto>> resolved = new HashMap<>();
+        private InstrumentRepointMap.Snapshot repoints;
+        private InstrumentOverrides overrides;
 
-    private UUID repointedId(UUID instrumentId) {
-        return repointMap == null || instrumentId == null ? instrumentId
-                : repointMap.resolve(UserContext.getCurrentUserId(), instrumentId);
+        ReconcileLookups(UUID brokerAccountId) {
+            this.brokerAccountId = brokerAccountId;
+        }
+
+        private String symbolKey(String symbol) {
+            return symbol.trim().toUpperCase(Locale.ROOT);
+        }
+
+        /** Loads the aliases and the catalog rows of the symbols not loaded yet, in chunked queries. */
+        void loadSymbols(Collection<String> symbols) {
+            Set<String> missing = new LinkedHashSet<>();
+            for (String symbol : symbols) {
+                if (symbol != null && !symbol.isBlank() && !symbolsLoaded.contains(symbolKey(symbol))) {
+                    missing.add(symbolKey(symbol));
+                }
+            }
+            for (List<String> chunk : InstrumentLocalSearch.chunks(missing)) {
+                if (aliasRepository != null) {
+                    if (userId != null) {
+                        for (InstrumentAlias a : aliasRepository.findOwnedBySymbolsUpper(userId, chunk)) {
+                            ownAliases.putIfAbsent(symbolKey(a.getOldSymbol()), a.getInstrument());
+                        }
+                    }
+                    for (InstrumentAlias a : aliasRepository.findCatalogBySymbolsUpper(chunk)) {
+                        catalogAliases.putIfAbsent(symbolKey(a.getOldSymbol()), a.getInstrument());
+                    }
+                }
+                for (Instrument i : instrumentRepository.findBySymbolUpperIn(chunk)) {
+                    bySymbol.computeIfAbsent(symbolKey(i.getSymbol()), k -> new ArrayList<>()).add(i);
+                }
+            }
+            symbolsLoaded.addAll(missing);
+        }
+
+        Instrument ownAlias(String symbol) {
+            loadSymbols(List.of(symbol));
+            return ownAliases.get(symbolKey(symbol));
+        }
+
+        Instrument catalogAlias(String symbol) {
+            loadSymbols(List.of(symbol));
+            return catalogAliases.get(symbolKey(symbol));
+        }
+
+        /** The catalog rows whose symbol is {@code symbol} (any case), oldest first. */
+        List<Instrument> symbolRows(String symbol) {
+            loadSymbols(List.of(symbol));
+            return bySymbol.getOrDefault(symbolKey(symbol), List.of());
+        }
+
+        /** A row saved during a commit, so a later row naming its symbol finds it. */
+        void instrumentCreated(Instrument instrument) {
+            if (instrument.getSymbol() != null && !instrument.getSymbol().isBlank()) {
+                bySymbol.computeIfAbsent(symbolKey(instrument.getSymbol()), k -> new ArrayList<>()).add(instrument);
+            }
+        }
+
+        private InstrumentRepointMap.Snapshot repoints() {
+            if (repoints == null) {
+                repoints = repointMap.snapshotFor(userId);
+            }
+            return repoints;
+        }
+
+        Instrument repointed(Instrument instrument) {
+            return repointMap == null || instrument == null ? instrument : repoints().apply(instrument);
+        }
+
+        UUID repointedId(UUID instrumentId) {
+            return repointMap == null || instrumentId == null ? instrumentId : repoints().resolve(instrumentId);
+        }
+
+        InstrumentOverrides overrides() {
+            if (overrides == null) {
+                overrides = instrumentSearchService != null
+                        ? InstrumentOverrides.orNone(instrumentSearchService.currentUserOverrides()) : InstrumentOverrides.NONE;
+            }
+            return overrides;
+        }
+
+        /** Loads the broker account's transactions of the instruments not loaded yet, in chunked queries. */
+        void loadTransactions(Collection<UUID> instrumentIds) {
+            Set<UUID> missing = new LinkedHashSet<>();
+            for (UUID id : instrumentIds) {
+                if (id != null && !transactions.containsKey(id)) {
+                    missing.add(id);
+                }
+            }
+            for (UUID id : missing) {
+                transactions.put(id, new ArrayList<>());
+            }
+            for (List<UUID> chunk : InstrumentLocalSearch.chunks(missing)) {
+                for (InvestmentTransaction t : transactionRepository.findByBrokerAccountAndInstrumentIds(brokerAccountId, chunk)) {
+                    transactions.get(t.getHolding().getInstrument().getId()).add(t);
+                }
+            }
+        }
+
+        List<InvestmentTransaction> transactions(UUID instrumentId) {
+            loadTransactions(List.of(instrumentId));
+            return transactions.get(instrumentId);
+        }
+
+        /** A transaction saved during a commit: later rows of the same instrument are checked against it too. */
+        void transactionSaved(UUID instrumentId, InvestmentTransaction txn) {
+            transactions(instrumentId).add(txn);
+        }
+
+        /** Loads which of the external refs the broker account already has, in chunked queries. */
+        void loadFnoRefs(Collection<String> refs) {
+            Set<String> missing = new LinkedHashSet<>();
+            for (String ref : refs) {
+                if (ref != null && !ref.isBlank() && !fnoRefsChecked.contains(ref)) {
+                    missing.add(ref);
+                }
+            }
+            for (List<String> chunk : InstrumentLocalSearch.chunks(missing)) {
+                fnoRefsExisting.addAll(fnoTradeRepository.findExistingExternalRefs(brokerAccountId, chunk));
+            }
+            fnoRefsChecked.addAll(missing);
+        }
+
+        boolean fnoExists(String ref) {
+            loadFnoRefs(List.of(ref));
+            return fnoRefsExisting.contains(ref);
+        }
     }
 
     public BrokerReconciliationService(
@@ -366,6 +506,28 @@ public class BrokerReconciliationService {
                 com.financeos.core.security.UserContext.getCurrentUserId(),
                 execs.stream().map(e -> e.isin).filter(Objects::nonNull).toList(), true);
 
+        // Everything the rows below look up, loaded once: symbol aliases / catalog rows, the repoint map and
+        // the broker account's transactions of every instrument the file resolves to.
+        ReconcileLookups lookups = new ReconcileLookups(brokerAccountId);
+        lookups.loadSymbols(execs.stream().map(e -> e.symbol).filter(Objects::nonNull).toList());
+        {
+            // Resolved in the order the rows are classified below (the first answer for a company with two listings stands).
+            Set<UUID> matchedIds = new LinkedHashSet<>();
+            for (List<InternalExecution> scripExecs : execsByScrip.values()) {
+                Map<LocalDate, List<InternalExecution>> days = new HashMap<>();
+                for (InternalExecution e : scripExecs) {
+                    days.computeIfAbsent(e.date, k -> new ArrayList<>()).add(e);
+                }
+                for (List<InternalExecution> dayExecs : days.values()) {
+                    for (InternalExecution e : dayExecs) {
+                        ReconcilePreviewResponse.MatchedInstrumentDto m = resolveInstrumentMemo(lookups, listings, e.isin, e.symbol, e.exchange);
+                        if (m != null) matchedIds.add(m.id());
+                    }
+                }
+            }
+            lookups.loadTransactions(matchedIds);
+        }
+
         List<ReconcilePreviewResponse.ReconciledExecutionDto> classifiedDtos = new ArrayList<>();
         Map<String, List<DeliveryEvent>> deliveryEventsPerScrip = new HashMap<>();
         BigDecimal computedIntradayRealized = BigDecimal.ZERO;
@@ -437,10 +599,10 @@ public class BrokerReconciliationService {
                     BigDecimal delivQty = e.qty.subtract(intraQty);
                     boolean split = intraQty.signum() > 0 && delivQty.signum() > 0;
 
-                    ReconcilePreviewResponse.MatchedInstrumentDto matchedInst = resolveInstrumentLocally(listings, e.isin, e.symbol, e.exchange);
+                    ReconcilePreviewResponse.MatchedInstrumentDto matchedInst = resolveInstrumentMemo(lookups, listings, e.isin, e.symbol, e.exchange);
                     CreateInstrumentDto suggestion = matchedInst == null
                             ? suggestedInstrument(suggestionByScrip, e.name, e.symbol, e.isin, e.exchange) : null;
-                    boolean isDup = checkDuplicateInDb(brokerAccountId, matchedInst != null ? matchedInst.id() : null, e);
+                    boolean isDup = checkDuplicateInDb(lookups, matchedInst != null ? matchedInst.id() : null, e);
                     if (isDup) duplicateCount++;
                     String baseRef = (e.tradeId != null && !e.tradeId.isBlank()) ? e.tradeId : e.orderId;
 
@@ -567,7 +729,7 @@ public class BrokerReconciliationService {
                 LocalDate exitDate = classifierLatestExitDate.getOrDefault(scripKey, LocalDate.of(2100, 1, 1));
                 String sym = symbolOfKey.getOrDefault(scripKey, scripKey);
                 String isin = isinOfKey.get(scripKey);
-                ReconcilePreviewResponse.MatchedInstrumentDto matchedInst = resolveInstrumentLocally(listings, isin, sym, "NSE");
+                ReconcilePreviewResponse.MatchedInstrumentDto matchedInst = resolveInstrumentMemo(lookups, listings, isin, sym, "NSE");
                 classifiedDtos.add(new ReconcilePreviewResponse.ReconciledExecutionDto(
                         rowIndexCounter++, exitDate, InvestmentTransactionType.sell, SettlementType.delivery,
                         sym, isin, "NSE", removeQty, classifierAvgExit, exitValue,
@@ -603,7 +765,7 @@ public class BrokerReconciliationService {
                 BigDecimal avgCost = openCostVal.divide(openQty, 4, RoundingMode.HALF_UP);
                 String sym = symbolOfKey.getOrDefault(scripKey, scripKey);
                 String isin = isinOfKey.get(scripKey);
-                ReconcilePreviewResponse.MatchedInstrumentDto matchedInst = resolveInstrumentLocally(listings, isin, sym, "NSE");
+                ReconcilePreviewResponse.MatchedInstrumentDto matchedInst = resolveInstrumentMemo(lookups, listings, isin, sym, "NSE");
 
                 derivedHoldings.add(new ReconcilePreviewResponse.DerivedHoldingDto(
                         matchedInst != null ? matchedInst.id() : null,
@@ -619,6 +781,13 @@ public class BrokerReconciliationService {
 
         List<FnoTradePreviewDto> fnoTradeDtos = new ArrayList<>();
         if (includeFno) {
+            List<String> fnoRefs = new ArrayList<>();
+            for (ZerodhaTaxPnlParser.TaxPnlExit x : fnoExits) {
+                LocalDate entryDate = x.entryDate() != null ? x.entryDate() : x.exitDate();
+                LocalDate exitDate = x.exitDate() != null ? x.exitDate() : x.entryDate();
+                fnoRefs.add("FNO_" + x.symbol() + "_" + entryDate + "_" + exitDate + "_" + x.quantity().toPlainString());
+            }
+            lookups.loadFnoRefs(fnoRefs);
             for (ZerodhaTaxPnlParser.TaxPnlExit x : fnoExits) {
                 String tradingSymbol = x.symbol();
                 FnoSymbolParser.FnoParsedContract parsed = FnoSymbolParser.parse(tradingSymbol);
@@ -644,7 +813,7 @@ public class BrokerReconciliationService {
 
                 BigDecimal realizedPnl = sellVal.subtract(buyVal).subtract(totalCharges);
                 String externalRef = "FNO_" + tradingSymbol + "_" + entryDate + "_" + exitDate + "_" + x.quantity().toPlainString();
-                boolean isDuplicate = fnoTradeRepository.existsByBrokerAccountIdAndExternalRef(brokerAccountId, externalRef);
+                boolean isDuplicate = lookups.fnoExists(externalRef);
 
                 fnoTradeDtos.add(new FnoTradePreviewDto(
                         tradingSymbol,
@@ -820,11 +989,53 @@ public class BrokerReconciliationService {
         }
         InstrumentListings.Batch listings = InstrumentListings.load(instrumentRepository, userId, requestIsins, true);
 
+        // Everything the rows below look up, loaded once for the whole request.
+        ReconcileLookups lookups = new ReconcileLookups(brokerAccount.getId());
+        List<String> requestSymbols = new ArrayList<>();
+        Set<UUID> requestInstrumentIds = new LinkedHashSet<>();
+        for (ReconcileCommitRequest.CommitExecutionDto x : request.executions()) {
+            requestSymbols.add(x.symbol());
+            if (x.newInstrument() != null) requestSymbols.add(x.newInstrument().symbol());
+            if (x.instrumentId() != null) requestInstrumentIds.add(lookups.repointedId(x.instrumentId()));
+        }
+        if (request.classifications() != null) {
+            request.classifications().forEach(c -> requestSymbols.add(c.symbol()));
+        }
+        lookups.loadSymbols(requestSymbols);
+        // Rows without an instrument id resolve by ISIN / symbol in the loop: load the transactions of every
+        // instrument they can resolve to (no listing choice is recorded here), repoints applied.
+        for (ReconcileCommitRequest.CommitExecutionDto x : request.executions()) {
+            if (x.instrumentId() != null) continue;
+            List<Instrument> candidates = new ArrayList<>();
+            String isin = x.newInstrument() != null ? x.newInstrument().isin() : x.isin();
+            candidates.addAll(listings.candidates(isin));
+            for (String symbol : java.util.Arrays.asList(x.symbol(), x.newInstrument() != null ? x.newInstrument().symbol() : null)) {
+                if (symbol == null || symbol.isBlank()) continue;
+                if (lookups.ownAlias(symbol) != null) candidates.add(lookups.ownAlias(symbol));
+                if (lookups.catalogAlias(symbol) != null) candidates.add(lookups.catalogAlias(symbol));
+                candidates.addAll(lookups.symbolRows(symbol));
+            }
+            for (Instrument c : candidates) {
+                requestInstrumentIds.add(c.getId());
+                requestInstrumentIds.add(lookups.repointedId(c.getId()));
+            }
+        }
+        lookups.loadTransactions(requestInstrumentIds);
+        List<String> requestFnoRefs = new ArrayList<>();
+        if (request.fnoTrades() != null) {
+            for (CommitFnoTradeDto dto : request.fnoTrades()) {
+                if (!dto.skip()) requestFnoRefs.add(dto.externalRef());
+            }
+        }
+        lookups.loadFnoRefs(requestFnoRefs);
+        // The broker account's holding per instrument, asked once (a created holding is registered too).
+        Map<UUID, Holding> holdingByInstrument = new HashMap<>();
+
         for (ReconcileCommitRequest.CommitExecutionDto execDto : request.executions()) {
             if (execDto.skip()) {
                 skipped++;
                 boolean dup = execDto.instrumentId() != null
-                        && checkDuplicateInDb(brokerAccount.getId(), repointedId(execDto.instrumentId()), execDto);
+                        && checkDuplicateInDb(lookups, lookups.repointedId(execDto.instrumentId()), execDto);
                 skippedItems.add(new ImportCommitResponse.SkippedCommitItem(
                         execDto.rowIndex(), execDto.symbol(),
                         dup ? "Duplicate — already in your portfolio" : "Excluded during review"));
@@ -854,7 +1065,7 @@ public class BrokerReconciliationService {
                         instrument = resolvedInThisCommit.get(symbolKey);
                     }
                     if (instrument == null && newSymbol != null) {
-                        List<Instrument> searchResults = instrumentRepository.searchInstruments(newSymbol, null);
+                        List<Instrument> searchResults = lookups.symbolRows(newSymbol);
                         for (Instrument inst : searchResults) {
                             if (inst.getSymbol() != null && inst.getSymbol().equalsIgnoreCase(newSymbol)) {
                                 instrument = inst;
@@ -877,34 +1088,36 @@ public class BrokerReconciliationService {
                                 : deriveYahooSymbol(newInst.getType(), newSymbol, newExchange));
                         instrument = instrumentRepository.save(newInst);
                         listings.add(instrument);
+                        lookups.instrumentCreated(instrument);
                     }
                     if (newIsin != null) resolvedInThisCommit.put(newIsin, instrument);
                     if (symbolKey != null) resolvedInThisCommit.put(symbolKey, instrument);
                 } else {
                     // Try auto-matching by ISIN / symbol
-                    ReconcilePreviewResponse.MatchedInstrumentDto m = resolveInstrumentLocally(listings, execDto.isin(), execDto.symbol(), execDto.exchange());
+                    ReconcilePreviewResponse.MatchedInstrumentDto m = resolveInstrumentLocally(lookups, listings, execDto.isin(), execDto.symbol(), execDto.exchange());
                     if (m != null) {
                         instrument = instrumentRepository.findById(m.id()).orElse(null);
                     }
                 }
 
                 // An instrument the user moved off stands for the one they moved to.
-                instrument = repointed(instrument);
+                instrument = lookups.repointed(instrument);
                 if (instrument == null) {
                     throw new ValidationException("No instrument mapped — set a match in the review step before importing");
                 }
 
                 // Resolve or create Holding
                 final Instrument finalInstrument = instrument;
-                Holding holding = holdingRepository.findByBrokerAccountIdAndInstrumentId(brokerAccount.getId(), finalInstrument.getId())
-                        .orElseGet(() -> {
-                            Holding h = new Holding(brokerAccount, finalInstrument, null);
-                            h.setUser(user);
-                            return holdingRepository.save(h);
-                        });
+                Holding holding = holdingByInstrument.computeIfAbsent(finalInstrument.getId(), id ->
+                        holdingRepository.findByBrokerAccountIdAndInstrumentId(brokerAccount.getId(), id)
+                                .orElseGet(() -> {
+                                    Holding h = new Holding(brokerAccount, finalInstrument, null);
+                                    h.setUser(user);
+                                    return holdingRepository.save(h);
+                                }));
 
                 // Duplicate check
-                boolean isDup = checkDuplicateInDb(brokerAccount.getId(), finalInstrument.getId(), execDto);
+                boolean isDup = checkDuplicateInDb(lookups, finalInstrument.getId(), execDto);
                 if (isDup) {
                     skipped++;
                     skippedItems.add(new ImportCommitResponse.SkippedCommitItem(
@@ -936,6 +1149,7 @@ public class BrokerReconciliationService {
                 }
 
                 transactionRepository.save(txn);
+                lookups.transactionSaved(finalInstrument.getId(), txn);
                 committed++;
                 touchedInstrumentIds.add(finalInstrument.getId());
 
@@ -949,16 +1163,17 @@ public class BrokerReconciliationService {
         if (request.classifications() != null) {
             for (ReconcileCommitRequest.CommitClassificationDto cDto : request.classifications()) {
                 try {
-                    ReconcilePreviewResponse.MatchedInstrumentDto m = resolveInstrumentLocally(listings, cDto.isin(), cDto.symbol(), null);
+                    ReconcilePreviewResponse.MatchedInstrumentDto m = resolveInstrumentLocally(lookups, listings, cDto.isin(), cDto.symbol(), null);
                     if (m != null) {
                         Instrument instrument = instrumentRepository.findById(m.id()).orElse(null);
                         if (instrument != null) {
-                            Holding holding = holdingRepository.findByBrokerAccountIdAndInstrumentId(brokerAccount.getId(), instrument.getId())
-                                    .orElseGet(() -> {
-                                        Holding h = new Holding(brokerAccount, instrument, null);
-                                        h.setUser(user);
-                                        return holdingRepository.save(h);
-                                    });
+                            Holding holding = holdingByInstrument.computeIfAbsent(instrument.getId(), id ->
+                                    holdingRepository.findByBrokerAccountIdAndInstrumentId(brokerAccount.getId(), id)
+                                            .orElseGet(() -> {
+                                                Holding h = new Holding(brokerAccount, instrument, null);
+                                                h.setUser(user);
+                                                return holdingRepository.save(h);
+                                            }));
 
                             Optional<TradeSettlementClassification> existingClass = classificationRepository
                                     .findByBrokerAccountIdAndInstrumentIdAndTradeDate(brokerAccount.getId(), instrument.getId(), cDto.tradeDate());
@@ -991,7 +1206,7 @@ public class BrokerReconciliationService {
                     skippedItems.add(new ImportCommitResponse.SkippedCommitItem(
                             -1, dto.tradingSymbol(), "Excluded during review"));
                 } else if (dto.externalRef() != null && !dto.externalRef().isBlank() &&
-                        fnoTradeRepository.existsByBrokerAccountIdAndExternalRef(brokerAccount.getId(), dto.externalRef())) {
+                        lookups.fnoExists(dto.externalRef())) {
                     skipped++;
                     skippedItems.add(new ImportCommitResponse.SkippedCommitItem(
                             -1, dto.tradingSymbol(), "Duplicate — already imported"));
@@ -1162,7 +1377,14 @@ public class BrokerReconciliationService {
         }
     }
 
-    private ReconcilePreviewResponse.MatchedInstrumentDto resolveInstrumentLocally(InstrumentListings.Batch listings,
+    /** {@link #resolveInstrumentLocally} answered once per (ISIN, symbol, exchange) of a preview (misses too). */
+    private ReconcilePreviewResponse.MatchedInstrumentDto resolveInstrumentMemo(ReconcileLookups lookups, InstrumentListings.Batch listings,
+            String isin, String symbol, String exchange) {
+        return lookups.resolved.computeIfAbsent(isin + "|" + symbol + "|" + exchange,
+                k -> Optional.ofNullable(resolveInstrumentLocally(lookups, listings, isin, symbol, exchange))).orElse(null);
+    }
+
+    private ReconcilePreviewResponse.MatchedInstrumentDto resolveInstrumentLocally(ReconcileLookups lookups, InstrumentListings.Batch listings,
             String isin, String symbol, String exchange) {
         Instrument matched = null;
         if (isin != null && !isin.isBlank()) {
@@ -1171,13 +1393,10 @@ public class BrokerReconciliationService {
         java.util.UUID aliasUser = com.financeos.core.security.UserContext.getCurrentUserId();
         if (matched == null && symbol != null && !symbol.isBlank() && aliasRepository != null && aliasUser != null) {
             // The user's own alias (their repointed instrument) beats a catalog symbol match.
-            matched = aliasRepository.findFirstByOldSymbolIgnoreCaseAndUserId(symbol.trim(), aliasUser)
-                    .map(InstrumentAlias::getInstrument)
-                    .orElse(null);
+            matched = lookups.ownAlias(symbol);
         }
         if (matched == null && symbol != null && !symbol.isBlank()) {
-            List<Instrument> list = instrumentRepository.searchInstruments(symbol.trim(), null);
-            for (Instrument inst : list) {
+            for (Instrument inst : lookups.symbolRows(symbol)) {
                 if (inst.getSymbol() != null && inst.getSymbol().equalsIgnoreCase(symbol.trim())) {
                     if (exchange == null || inst.getExchange() == null || inst.getExchange().equalsIgnoreCase(exchange.trim())) {
                         matched = inst;
@@ -1186,18 +1405,15 @@ public class BrokerReconciliationService {
                 }
             }
             if (matched == null && aliasRepository != null) {
-                matched = aliasRepository.findFirstByOldSymbolIgnoreCaseAndUserIdIsNull(symbol.trim())
-                        .map(InstrumentAlias::getInstrument)
-                        .orElse(null);
+                matched = lookups.catalogAlias(symbol);
             }
         }
         // However it matched, an instrument the user moved off stands for the one they moved to (so the
         // duplicate checks look at the holding they have now).
-        matched = repointed(matched);
+        matched = lookups.repointed(matched);
         if (matched != null) {
             // Shown as this user sees the instrument (their own names).
-            InstrumentOverrides overrides = instrumentSearchService != null
-                    ? InstrumentOverrides.orNone(instrumentSearchService.currentUserOverrides()) : InstrumentOverrides.NONE;
+            InstrumentOverrides overrides = lookups.overrides();
             return new ReconcilePreviewResponse.MatchedInstrumentDto(
                     matched.getId(),
                     overrides.type(matched),
@@ -1228,14 +1444,11 @@ public class BrokerReconciliationService {
                 && price != null && price.compareTo(t.getPrice()) == 0;
     }
 
-    private boolean checkDuplicateInDb(UUID brokerAccountId, UUID instrumentId, InternalExecution e) {
+    private boolean checkDuplicateInDb(ReconcileLookups lookups, UUID instrumentId, InternalExecution e) {
         if (instrumentId == null) return false;
-        Page<InvestmentTransaction> existing = transactionRepository.findFilteredTransactions(
-                brokerAccountId, instrumentId, null, null, Pageable.unpaged());
-
         String incomingRef = (e.tradeId != null && !e.tradeId.isBlank()) ? e.tradeId : e.orderId;
 
-        for (InvestmentTransaction t : existing.getContent()) {
+        for (InvestmentTransaction t : lookups.transactions(instrumentId)) {
             if (isSameTrade(incomingRef, e.date, e.type, e.qty, e.price, t)) {
                 return true;
             }
@@ -1243,27 +1456,11 @@ public class BrokerReconciliationService {
         return false;
     }
 
-    private boolean checkDuplicateInDb(UUID brokerAccountId, UUID instrumentId, LocalDate date, InvestmentTransactionType type, BigDecimal qty, BigDecimal price, String externalRef) {
+    private boolean checkDuplicateInDb(ReconcileLookups lookups, UUID instrumentId, ReconcileCommitRequest.CommitExecutionDto e) {
         if (instrumentId == null) return false;
-        Page<InvestmentTransaction> existing = transactionRepository.findFilteredTransactions(
-                brokerAccountId, instrumentId, null, null, Pageable.unpaged());
-
-        for (InvestmentTransaction t : existing.getContent()) {
-            if (isSameTrade(externalRef, date, type, qty, price, t)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean checkDuplicateInDb(UUID brokerAccountId, UUID instrumentId, ReconcileCommitRequest.CommitExecutionDto e) {
-        if (instrumentId == null) return false;
-        Page<InvestmentTransaction> existing = transactionRepository.findFilteredTransactions(
-                brokerAccountId, instrumentId, null, null, Pageable.unpaged());
-
         String incomingRef = e.externalRef();
 
-        for (InvestmentTransaction t : existing.getContent()) {
+        for (InvestmentTransaction t : lookups.transactions(instrumentId)) {
             if (isSameTrade(incomingRef, e.tradeDate(), e.type(), e.quantity(), e.price(), t)) {
                 return true;
             }

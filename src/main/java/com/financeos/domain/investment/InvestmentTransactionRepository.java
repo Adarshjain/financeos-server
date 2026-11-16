@@ -22,6 +22,15 @@ public interface InvestmentTransactionRepository extends JpaRepository<Investmen
     List<InvestmentTransaction> findByUser_IdOrderByTradeDateAscCreatedAtAsc(UUID userId);
 
     /**
+     * Every transaction of the broker account on any of the instruments (callers chunk the ids), holding and
+     * instrument fetched: the duplicate check of an import reads these once instead of once per row.
+     */
+    @Query("SELECT t FROM InvestmentTransaction t JOIN FETCH t.holding h JOIN FETCH h.instrument i " +
+           "WHERE h.brokerAccount.id = :brokerAccountId AND i.id IN :instrumentIds")
+    List<InvestmentTransaction> findByBrokerAccountAndInstrumentIds(@Param("brokerAccountId") UUID brokerAccountId,
+                                                                    @Param("instrumentIds") java.util.Collection<UUID> instrumentIds);
+
+    /**
      * The trade's owner renamed the instrument (or its symbol) to something containing the search.
      * Searches are plain substrings (LOCATE, not LIKE: a typed % or _ is not a wildcard).
      */
