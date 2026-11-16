@@ -82,6 +82,26 @@ public class PriceRefreshService {
         this.classificationService = classificationService;
     }
 
+    /** Null in plain construction (older tests): merger/demerger targets are then not added to the bulk selection. */
+    private com.financeos.domain.instrument.corporateaction.CorporateActionRepository corporateActionRepository;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setCorporateActionRepository(com.financeos.domain.instrument.corporateaction.CorporateActionRepository corporateActionRepository) {
+        this.corporateActionRepository = corporateActionRepository;
+    }
+
+    /**
+     * The instruments a bulk refresh prices: those with an open position through trades, plus every demerger/merger
+     * target (it holds shares but no trades, so the trade-based query never sees it). Two flat queries, merged.
+     */
+    List<UUID> heldInstrumentIds() {
+        Set<UUID> ids = new java.util.LinkedHashSet<>(holdingRepository.findDistinctActiveInstrumentIdsHeld());
+        if (corporateActionRepository != null) {
+            ids.addAll(corporateActionRepository.findDistinctMergerTargetInstrumentIds());
+        }
+        return new ArrayList<>(ids);
+    }
+
     /**
      * Refreshes instrument prices.
      * Note: When no instrumentId is given, only actively held instruments (net open quantity &gt; 0)
@@ -101,7 +121,7 @@ public class PriceRefreshService {
                         .orElseThrow(() -> new ResourceNotFoundException("Instrument", id));
                 return List.of(inst);
             }
-            List<UUID> activeIds = holdingRepository.findDistinctActiveInstrumentIdsHeld();
+            List<UUID> activeIds = heldInstrumentIds();
             return activeIds.isEmpty() ? List.<Instrument>of()
                     : instrumentRepository.findAllById(activeIds).stream().filter(PriceRefreshService::dueForCheck).toList();
         }));
@@ -379,7 +399,7 @@ public class PriceRefreshService {
             return 0;
         }
         List<Instrument> targets = Timing.call(Ops.PRICES_LOAD_TARGETS, () -> {
-            List<UUID> activeIds = holdingRepository.findDistinctActiveInstrumentIdsHeld();
+            List<UUID> activeIds = heldInstrumentIds();
             return activeIds.isEmpty() ? List.<Instrument>of()
                     : instrumentRepository.findAllById(activeIds).stream().filter(provider::supports)
                             .filter(PriceRefreshService::dueForCheck).toList();

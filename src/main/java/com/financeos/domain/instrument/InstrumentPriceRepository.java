@@ -197,4 +197,8 @@ public interface InstrumentPriceRepository extends JpaRepository<InstrumentPrice
             + "AND n.user_id IS NULL AND n.source <> 'MANUAL' AND n.as_of > p.as_of)",
            nativeQuery = true)
     int deleteFeedPricesOfUntradedInstruments(@Param("limit") int limit);
+
+    /** Per instrument of {@code ids} with any price row (feed or manual), its latest date: rows of {@code [instrument_id, max(as_of)]}. */
+    @Query("SELECT p.instrument.id, MAX(p.asOf) FROM InstrumentPrice p WHERE p.instrument.id IN :ids GROUP BY p.instrument.id")
+    List<Object[]> findLatestPriceDates(@Param("ids") Collection<UUID> ids);
 }

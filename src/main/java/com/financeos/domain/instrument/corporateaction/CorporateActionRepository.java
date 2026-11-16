@@ -146,4 +146,19 @@ public interface CorporateActionRepository extends JpaRepository<CorporateAction
     /** The ids of the instruments on which {@code userId} has an action of one of {@code types}. */
     @Query("SELECT DISTINCT ca.instrument.id FROM CorporateAction ca WHERE ca.user.id = :userId AND ca.type IN :types")
     List<UUID> findInstrumentIdsWithTypes(@Param("userId") UUID userId, @Param("types") Collection<CorporateActionType> types);
+
+    /**
+     * Every instrument any user's demerger or merger seeds shares into (the userFilter narrows it to the caller's on an
+     * HTTP request). These hold no trades, so the price refresh would otherwise never pick them up.
+     */
+    @Query("SELECT DISTINCT ca.targetInstrument.id FROM CorporateAction ca WHERE ca.targetInstrument IS NOT NULL "
+            + "AND ca.type IN (com.financeos.domain.instrument.corporateaction.CorporateActionType.demerger, "
+            + "com.financeos.domain.instrument.corporateaction.CorporateActionType.merger)")
+    List<UUID> findDistinctMergerTargetInstrumentIds();
+
+    /** Per target instrument, the earliest ex-date of a demerger/merger into it (any user): rows of {@code [instrument_id, min(ex_date)]}. */
+    @Query("SELECT ca.targetInstrument.id, MIN(ca.exDate) FROM CorporateAction ca WHERE ca.targetInstrument.id IN :ids "
+            + "AND ca.type IN (com.financeos.domain.instrument.corporateaction.CorporateActionType.demerger, "
+            + "com.financeos.domain.instrument.corporateaction.CorporateActionType.merger) GROUP BY ca.targetInstrument.id")
+    List<Object[]> findEarliestExDatesByTarget(@Param("ids") Collection<UUID> ids);
 }

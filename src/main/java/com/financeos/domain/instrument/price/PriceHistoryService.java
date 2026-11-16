@@ -83,6 +83,14 @@ public class PriceHistoryService {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    /** Null in plain construction (older tests): a merger/demerger target then has no ex-date window start. */
+    private com.financeos.domain.instrument.corporateaction.CorporateActionRepository corporateActionRepository;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setCorporateActionRepository(com.financeos.domain.instrument.corporateaction.CorporateActionRepository corporateActionRepository) {
+        this.corporateActionRepository = corporateActionRepository;
+    }
+
     /** For tests: the debounce clock. */
     void setClock(Clock clock) {
         this.clock = clock;
@@ -112,6 +120,7 @@ public class PriceHistoryService {
             List<Instrument> instruments = instrumentRepository.findAllById(instrumentIds);
             Map<UUID, LocalDate> earliestTrade = toDateMap(transactionRepository.findEarliestTradeDates(instrumentIds));
             addNpsEarliestEntries(instruments, earliestTrade);
+            addMergerTargetExDates(instrumentIds, earliestTrade);
             LocalDate today = AppTime.today();
             for (Instrument instrument : instruments) {
                 try {
@@ -124,6 +133,19 @@ public class PriceHistoryService {
             log.warn("Price history backfill failed: {}", e.getMessage());
         }
         return written;
+    }
+
+    /**
+     * A demerger/merger target holds shares from the action's ex-date with no trade of its own: that date is its
+     * "first trade", or the trade date when that is earlier.
+     */
+    private void addMergerTargetExDates(Collection<UUID> instrumentIds, Map<UUID, LocalDate> earliest) {
+        if (corporateActionRepository == null) {
+            return;
+        }
+        for (Object[] row : corporateActionRepository.findEarliestExDatesByTarget(instrumentIds)) {
+            earliest.merge(UUID.fromString(String.valueOf(row[0])), toLocalDate(row[1]), (a, c) -> a.isBefore(c) ? a : c);
+        }
     }
 
     /** For NPS scheme instruments, the "first trade" is the earliest ledger entry holding the scheme (any user). */

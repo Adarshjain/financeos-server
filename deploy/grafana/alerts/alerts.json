@@ -627,6 +627,39 @@
           "noDataState": "OK"
         },
         {
+          "uid": "financeos-alert-held-instrument-unpriced",
+          "title": "Held instrument unpriced",
+          "condition": "A",
+          "for": "5m",
+          "labels": {
+            "severity": "warning"
+          },
+          "annotations": {
+            "summary": "A held instrument (open position or merger/demerger target) has a price symbol but was never priced or is more than a day behind the latest price of its kind.",
+            "description": "The daily price refresh logs the symbols (event price.held_unpriced, Grafana Loki). Check the symbol on Yahoo or AMFI and the instrument's price_status."
+          },
+          "notification_settings": {
+            "receiver": "slack-financeos"
+          },
+          "data": [
+            {
+              "refId": "A",
+              "datasourceUid": "${DS_PROM}",
+              "model": {
+                "expr": "max(financeos_price_held_unpriced{service=\"financeos-server\"}) > 0",
+                "instant": true,
+                "range": false
+              },
+              "relativeTimeRange": {
+                "from": 600,
+                "to": 0
+              }
+            }
+          ],
+          "execErrState": "Alerting",
+          "noDataState": "OK"
+        },
+        {
           "uid": "financeos-alert-version-mismatch",
           "title": "Version mismatch",
           "condition": "A",

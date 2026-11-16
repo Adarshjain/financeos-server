@@ -74,6 +74,7 @@ public final class Events {
     public static final String STATEMENT_REFRESHED = "statement.refreshed";
     public static final String STATEMENT_NUMBER_DRIFT = "statement.number_drift";
     public static final String BILL_PAYMENT_UNMERGED = "bill_payment.unmerged";
+    public static final String PRICE_HELD_UNPRICED = "price.held_unpriced";
     public static final String INGEST_FILE_RECEIVED = "ingest.file.received";
     public static final String PARSE_STARTED = "parse.started";
     public static final String PARSE_COMPLETED = "parse.completed";

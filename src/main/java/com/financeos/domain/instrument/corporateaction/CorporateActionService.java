@@ -73,6 +73,14 @@ public class CorporateActionService {
         this.dividendRepository = dividendRepository;
     }
 
+    /** Null in unit tests (then no price refresh is requested for a target). */
+    private org.springframework.context.ApplicationEventPublisher eventPublisher;
+
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    public void setEventPublisher(org.springframework.context.ApplicationEventPublisher eventPublisher) {
+        this.eventPublisher = eventPublisher;
+    }
+
     private static final String NOTE_CHILD_HOLDING = "Created via corporate action";
 
     private static final String DUPLICATE_MESSAGE = "This action is already recorded for that date";
@@ -151,9 +159,11 @@ public class CorporateActionService {
 
         if ((saved.getType() == CorporateActionType.demerger || saved.getType() == CorporateActionType.merger) && saved.getTargetInstrument() != null) {
             materializeChildHoldings(userId, saved.getInstrument().getId(), saved.getTargetInstrument());
+            requestTargetPrice(saved.getTargetInstrument());
         }
 
         registerCreatedLog(saved);
+        requestRecheck(userId);
 
         return CorporateActionResponse.from(saved, overrideService.overridesForCurrentUser());
     }
@@ -217,7 +227,9 @@ public class CorporateActionService {
         ca.setSource(CorporateAction.SOURCE_AUTO);
         CorporateAction saved = corporateActionRepository.save(ca);
         materializeChildHoldings(userId, instrumentId, target);
+        requestTargetPrice(target);
         registerCreatedLog(saved);
+        requestRecheck(userId);
         return saved;
     }
 
@@ -237,6 +249,45 @@ public class CorporateActionService {
         return excludeId == null
                 ? corporateActionRepository.existsSameDay(userId, instrumentId, type, exDate)
                 : corporateActionRepository.existsOtherSameDay(userId, instrumentId, type, exDate, excludeId);
+    }
+
+    /**
+     * Asks for the target's price (and history backfill): the target has no trade, so no trade path would. Published
+     * inside the transaction like the trade paths: the listeners run after commit, so a rolled-back preview triggers none.
+     */
+    private void requestTargetPrice(Instrument target) {
+        if (eventPublisher == null || target == null) {
+            return;
+        }
+        eventPublisher.publishEvent(new com.financeos.domain.instrument.price.PriceRefreshEvent(java.util.Set.of(target.getId())));
+    }
+
+    /**
+     * Asks for the user's suggestions to be rechecked once this transaction commits ({@code CorporateActionRecheck}), at
+     * most once per user per transaction however many actions change. A rolled-back change triggers nothing.
+     */
+    private void requestRecheck(UUID userId) {
+        if (eventPublisher == null || userId == null) {
+            return;
+        }
+        com.financeos.domain.instrument.corporateaction.detect.CorporateActionRecheckEvent event =
+                new com.financeos.domain.instrument.corporateaction.detect.CorporateActionRecheckEvent(userId);
+        if (!TransactionSynchronizationManager.isSynchronizationActive()) {
+            eventPublisher.publishEvent(event);
+            return;
+        }
+        String key = "caRecheck:" + userId;
+        if (TransactionSynchronizationManager.hasResource(key)) {
+            return;
+        }
+        TransactionSynchronizationManager.bindResource(key, Boolean.TRUE);
+        TransactionSynchronizationManager.registerSynchronization(new TransactionSynchronization() {
+            @Override
+            public void afterCompletion(int status) {
+                TransactionSynchronizationManager.unbindResourceIfPossible(key);
+            }
+        });
+        eventPublisher.publishEvent(event);
     }
 
     /** Logs the creation once the surrounding transaction commits (at once when there is none). */
@@ -302,7 +353,9 @@ public class CorporateActionService {
 
         if ((saved.getType() == CorporateActionType.demerger || saved.getType() == CorporateActionType.merger) && saved.getTargetInstrument() != null) {
             materializeChildHoldings(userId, saved.getInstrument().getId(), saved.getTargetInstrument());
+            requestTargetPrice(saved.getTargetInstrument());
         }
+        requestRecheck(userId);
 
         return CorporateActionResponse.from(saved, overrideService.overridesForCurrentUser());
     }
@@ -370,6 +423,7 @@ public class CorporateActionService {
         if (target != null) {
             removeEmptyChildHoldings(userId, target);
         }
+        requestRecheck(userId);
     }
 
     /**
