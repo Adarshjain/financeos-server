@@ -35,7 +35,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -67,7 +67,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -99,7 +99,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -131,7 +131,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -164,7 +164,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -197,7 +197,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -230,7 +230,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -263,7 +263,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -296,7 +296,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -329,7 +329,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -362,7 +362,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -395,7 +395,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -427,7 +427,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -459,7 +459,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -491,7 +491,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -514,7 +514,7 @@
               "refId": "A",
               "datasourceUid": "${DS_LOKI}",
               "model": {
-                "expr": "sum(count_over_time({service=\"financeos-client\", env=\"prod\"} | json | event=\"client.action.failed\" [10m])) > 5",
+                "expr": "sum(count_over_time({service=\"financeos-client\", env=\"prod\"} | json | event=\"client.action.failed\" | message !~ \"Request failed with status 50[234]\" [10m])) > 5",
                 "queryType": "instant"
               },
               "relativeTimeRange": {
@@ -523,7 +523,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -546,7 +546,7 @@
               "refId": "A",
               "datasourceUid": "${DS_PROM}",
               "model": {
-                "expr": "absent_over_time(jvm_memory_used_bytes{service=\"financeos-server\", role=\"api\"}[5m])",
+                "expr": "(count(max_over_time(jvm_memory_used_bytes{service=\"financeos-server\", role=\"api\"}[5m])) or vector(0)) < 1",
                 "instant": true,
                 "range": false
               },
@@ -556,8 +556,8 @@
               }
             }
           ],
-          "execErrState": "Alerting",
-          "noDataState": "Alerting"
+          "execErrState": "KeepLast",
+          "noDataState": "OK"
         },
         {
           "uid": "financeos-alert-worker-down",
@@ -579,7 +579,7 @@
               "refId": "A",
               "datasourceUid": "${DS_PROM}",
               "model": {
-                "expr": "absent_over_time(jvm_memory_used_bytes{service=\"financeos-server\", role=\"worker\"}[5m])",
+                "expr": "(count(max_over_time(jvm_memory_used_bytes{service=\"financeos-server\", role=\"worker\"}[5m])) or vector(0)) < 1",
                 "instant": true,
                 "range": false
               },
@@ -589,8 +589,8 @@
               }
             }
           ],
-          "execErrState": "Alerting",
-          "noDataState": "Alerting"
+          "execErrState": "KeepLast",
+          "noDataState": "OK"
         },
         {
           "uid": "financeos-alert-gc-pause-long",
@@ -622,7 +622,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -655,7 +655,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -688,7 +688,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -721,7 +721,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -733,7 +733,7 @@
             "severity": "warning"
           },
           "annotations": {
-            "summary": "The op \"{{ $labels.op }}\" is more than 1.5x slower (p95) than at this time yesterday, with at least 20 calls in the last hour.",
+            "summary": "The op \"{{ $labels.op }}\" is more than 1.5x slower (p95) than at this time yesterday, with at least 20 calls in the last hour. For ext.* ops the current p95 must also be over 2 seconds.",
             "description": "Open Grafana, Where the Time Goes dashboard, and compare the op's p95 and stage averages. A deploy in the last day is the usual cause."
           },
           "notification_settings": {
@@ -744,7 +744,7 @@
               "refId": "A",
               "datasourceUid": "${DS_PROM}",
               "model": {
-                "expr": "(histogram_quantile(0.95, sum by (op, le) (rate(financeos_op_seconds_bucket{service=\"financeos-server\",op=~\"job\\\\..*|ext\\\\..*\"}[1h]))) > 1.5 * histogram_quantile(0.95, sum by (op, le) (rate(financeos_op_seconds_bucket{service=\"financeos-server\",op=~\"job\\\\..*|ext\\\\..*\"}[1h] offset 1d)))) and on (op) (sum by (op) (increase(financeos_op_seconds_count{service=\"financeos-server\",op=~\"job\\\\..*|ext\\\\..*\"}[1h])) >= 20)",
+                "expr": "(histogram_quantile(0.95, sum by (op, le) (rate(financeos_op_seconds_bucket{service=\"financeos-server\",op=~\"job\\\\..*|ext\\\\..*\"}[1h]))) > 1.5 * histogram_quantile(0.95, sum by (op, le) (rate(financeos_op_seconds_bucket{service=\"financeos-server\",op=~\"job\\\\..*|ext\\\\..*\"}[1h] offset 1d)))) and on (op) (sum by (op) (increase(financeos_op_seconds_count{service=\"financeos-server\",op=~\"job\\\\..*|ext\\\\..*\"}[1h])) >= 20) and on (op) ((histogram_quantile(0.95, sum by (op, le) (rate(financeos_op_seconds_bucket{service=\"financeos-server\",op=~\"ext\\\\..*\"}[1h]))) > 2) or histogram_quantile(0.95, sum by (op, le) (rate(financeos_op_seconds_bucket{service=\"financeos-server\",op=~\"job\\\\..*\"}[1h]))))",
                 "instant": true,
                 "range": false
               },
@@ -754,20 +754,20 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
           "uid": "financeos-alert-slow-op",
-          "title": "Slow op (p95 over 1s)",
+          "title": "Slow op",
           "condition": "A",
           "for": "15m",
           "labels": {
             "severity": "warning"
           },
           "annotations": {
-            "summary": "The op \"{{ $labels.op }}\" has a p95 over 1 second.",
-            "description": "Open Grafana, Where the Time Goes dashboard, p95 by op. job.* ops are excluded because background jobs are slow by design; the regression rule covers them."
+            "summary": "The op \"{{ $labels.op }}\" has a p95 over its threshold: 2 seconds for ext.gmail.* ops, 1 second for other ext.* ops.",
+            "description": "Open Grafana, Where the Time Goes dashboard, p95 by op. Thresholds: 2 s for ext.gmail.*, 1 s for other ext.* ops. job.* ops are excluded because background jobs are slow by design; the regression rule covers them."
           },
           "notification_settings": {
             "receiver": "slack-financeos"
@@ -777,7 +777,7 @@
               "refId": "A",
               "datasourceUid": "${DS_PROM}",
               "model": {
-                "expr": "histogram_quantile(0.95, sum by (op, le) (rate(financeos_op_seconds_bucket{service=\"financeos-server\",op=~\"ext\\\\..*\"}[15m]))) > 1 and on (op) (sum by (op) (increase(financeos_op_seconds_count{service=\"financeos-server\",op=~\"ext\\\\..*\"}[15m])) >= 5)",
+                "expr": "((histogram_quantile(0.95, sum by (op, le) (rate(financeos_op_seconds_bucket{service=\"financeos-server\",op=~\"ext\\\\.gmail.*\"}[15m]))) > 2) or (histogram_quantile(0.95, sum by (op, le) (rate(financeos_op_seconds_bucket{service=\"financeos-server\",op=~\"ext\\\\..*\",op!~\"ext\\\\.gmail.*\"}[15m]))) > 1)) and on (op) (sum by (op) (increase(financeos_op_seconds_count{service=\"financeos-server\",op=~\"ext\\\\..*\"}[15m])) >= 5)",
                 "instant": true,
                 "range": false
               },
@@ -787,7 +787,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -820,7 +820,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -853,7 +853,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -886,7 +886,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         },
         {
@@ -919,7 +919,7 @@
               }
             }
           ],
-          "execErrState": "Alerting",
+          "execErrState": "KeepLast",
           "noDataState": "OK"
         }
       ]

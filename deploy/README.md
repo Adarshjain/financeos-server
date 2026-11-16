@@ -523,7 +523,7 @@ To make log lines with trace IDs clickable directly through to Tempo traces in G
 | 12 | **OAuth failures** | `oauth callback failed > 3 in 10m` | 0m | `warning` | >3 OAuth callback errors. Check OAuth redirect URI and consent screen settings. |
 | 13 | **Config suspect at boot** | `app.config.suspect > 0 in 1h` | 0m | `warning` | Booted with suspicious config. Check startup logs for invalid cookie origins / URIs. |
 | 14 | **Client -> API latency high** | `quantile_over_time(0.95, client.api.call [10m]) > 3000ms` | 10m | `warning` | Client-to-API Vercel-to-OCI hop p95 latency > 3s over 10m. Check network and API response. |
-| 15 | **Client action failures** | `count_over_time(client.action.failed [10m]) > 5` | 0m | `warning` | Client action failure count > 5 in 10m. Check Client Health dashboard errorId table. |
+| 15 | **Client action failures** | `count_over_time(client.action.failed [10m]) > 5`, excluding 502/503/504 (API restarting) | 0m | `warning` | Client action failure count > 5 in 10m. Check Client Health dashboard errorId table. |
 
 ### 7. Synthetic Uptime Check (Vercel Platform Blind Spot)
 
