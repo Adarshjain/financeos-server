@@ -115,9 +115,9 @@ public class HoldingsService {
             return quantity.signum() > 0;
         }
 
-        /** Shown when something is held, or when it was fully merged into another instrument. */
+        /** Shown only while something is still held; fully sold-out or merged-out holdings are hidden. */
         boolean shown() {
-            return open() || mergedIntoName != null;
+            return open();
         }
 
         BigDecimal avgCost() {

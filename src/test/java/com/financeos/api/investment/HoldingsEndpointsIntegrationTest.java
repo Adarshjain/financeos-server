@@ -222,7 +222,7 @@ class HoldingsEndpointsIntegrationTest {
     @Test
     void oneRowPerInstrumentAcrossBrokersWithSoldOutHidden() throws Exception {
         JsonNode r = holdings("");
-        assertEquals(List.of("Alpha Co", "Big Corp", "Delta Old", "Epsilon Ltd", "Zeta Corp", "Beta Bond Fund"), names(r));
+        assertEquals(List.of("Alpha Co", "Big Corp", "Epsilon Ltd", "Zeta Corp", "Beta Bond Fund"), names(r));
 
         JsonNode a = row(r, "Alpha Co");
         assertEquals(alpha.getId().toString(), a.get("instrumentId").asText());
@@ -267,12 +267,9 @@ class HoldingsEndpointsIntegrationTest {
     }
 
     @Test
-    void aFullyMergedOutHoldingShowsItsMergedIntoRowAndOtherSoldOutOnesStayHidden() throws Exception {
+    void aFullyMergedOutHoldingIsHiddenLikeOtherSoldOutOnes() throws Exception {
         JsonNode r = holdings("");
-        JsonNode d = row(r, "Delta Old");
-        assertMoney("0", d.get("quantity"));
-        assertEquals("Omega Corp", d.get("mergedIntoName").asText());
-        assertEquals("2026-06-01", d.get("mergedIntoDate").asText());
+        assertFalse(names(r).contains("Delta Old"), "merged out, nothing held");
         assertFalse(names(r).contains("Gamma Ltd"), "sold out, not merged");
         assertFalse(names(r).contains("Iota Ltd"), "intraday only, nothing held");
     }
@@ -322,7 +319,7 @@ class HoldingsEndpointsIntegrationTest {
         assertEquals(List.of("Beta Bond Fund"), names(mf));
         assertMoney("1200", mf.get("header").get("currentValue"));
         assertEquals(1, mf.get("groups").size());
-        assertEquals(5, holdings("?assetType=stock").get("totalElements").asInt());
+        assertEquals(4, holdings("?assetType=stock").get("totalElements").asInt());
         assertEquals(0, holdings("?assetType=etf").get("totalElements").asInt());
         api.getJson("/api/v1/investments/holdings?assetType=bond", 400);
     }
@@ -336,13 +333,13 @@ class HoldingsEndpointsIntegrationTest {
 
     @Test
     void sortByReturnPercentIsBestFirstWithNoReturnLast() throws Exception {
-        assertEquals(List.of("Big Corp", "Alpha Co", "Zeta Corp", "Epsilon Ltd", "Delta Old", "Beta Bond Fund"),
+        assertEquals(List.of("Big Corp", "Alpha Co", "Zeta Corp", "Epsilon Ltd", "Beta Bond Fund"),
                 names(holdings("?sort=return_pct")));
     }
 
     @Test
     void sortByReturnAmountIsBestFirst() throws Exception {
-        assertEquals(List.of("Big Corp", "Alpha Co", "Zeta Corp", "Delta Old", "Epsilon Ltd", "Beta Bond Fund"),
+        assertEquals(List.of("Big Corp", "Alpha Co", "Zeta Corp", "Epsilon Ltd", "Beta Bond Fund"),
                 names(holdings("?sort=return_abs")));
     }
 
@@ -355,15 +352,15 @@ class HoldingsEndpointsIntegrationTest {
     @Test
     void paginationTotalsDescribeTheFilteredSetNotThePage() throws Exception {
         JsonNode p1 = holdings("?size=2&page=1");
-        assertEquals(List.of("Delta Old", "Epsilon Ltd"), names(p1));
-        assertEquals(6, p1.get("totalElements").asInt());
+        assertEquals(List.of("Epsilon Ltd", "Zeta Corp"), names(p1));
+        assertEquals(5, p1.get("totalElements").asInt());
         assertEquals(3, p1.get("totalPages").asInt());
         assertEquals(1, p1.get("page").asInt());
         assertEquals(2, p1.get("size").asInt());
         assertMoney("407100", p1.get("header").get("currentValue"));
         assertEquals(2, p1.get("groups").size());
         assertEquals(List.of(), names(holdings("?size=2&page=5")));
-        assertEquals(6, holdings("").get("size").asInt());
+        assertEquals(5, holdings("").get("size").asInt());
     }
 
     private void manyBulkHoldings(int count) throws Exception {
@@ -378,13 +375,13 @@ class HoldingsEndpointsIntegrationTest {
     void omittingSizeReturnsEveryRowInOnePage() throws Exception {
         manyBulkHoldings(55);
         JsonNode all = holdings("");
-        assertEquals(61, all.get("holdings").size());
-        assertEquals(61, all.get("totalElements").asInt());
+        assertEquals(60, all.get("holdings").size());
+        assertEquals(60, all.get("totalElements").asInt());
         assertEquals(0, all.get("page").asInt());
-        assertEquals(61, all.get("size").asInt());
+        assertEquals(60, all.get("size").asInt());
         assertEquals(1, all.get("totalPages").asInt());
         assertEquals(0, holdings("?page=3").get("page").asInt());
-        assertEquals(61, holdings("?page=3").get("holdings").size());
+        assertEquals(60, holdings("?page=3").get("holdings").size());
     }
 
     @Test
@@ -405,12 +402,12 @@ class HoldingsEndpointsIntegrationTest {
         manyBulkHoldings(55);
         JsonNode first = holdings("?size=50");
         assertEquals(50, first.get("holdings").size());
-        assertEquals(61, first.get("totalElements").asInt());
+        assertEquals(60, first.get("totalElements").asInt());
         assertEquals(2, first.get("totalPages").asInt());
-        assertEquals(11, holdings("?size=50&page=1").get("holdings").size());
+        assertEquals(10, holdings("?size=50&page=1").get("holdings").size());
         JsonNode clamped = holdings("?size=500");
         assertEquals(200, clamped.get("size").asInt());
-        assertEquals(61, clamped.get("holdings").size());
+        assertEquals(60, clamped.get("holdings").size());
     }
 
     @Test
