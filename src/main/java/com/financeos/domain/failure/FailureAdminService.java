@@ -75,6 +75,10 @@ public class FailureAdminService {
     private final JobService jobService;
     private final TransactionTemplate tx;
 
+    /** Bulk and id-keyed writes skip the entity change listener, so this stamps the user itself. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private com.financeos.core.stamp.UserChangeStamps stamps;
+
     public FailureAdminService(JobRepository jobRepository, JobArtifactRepository artifactRepository,
                                GmailProcessedMessageRepository gmailRepository, UserRepository userRepository,
                                JobService jobService, PlatformTransactionManager transactionManager) {
@@ -264,7 +268,13 @@ public class FailureAdminService {
 
     private void dismissAll(List<JobKeyRow> jobs, String reason, String adminEmail) {
         List<UUID> ids = jobs.stream().map(JobKeyRow::id).toList();
-        unscoped(() -> tx.execute(s -> jobRepository.dismissAll(ids, AppTime.nowInstant(), adminEmail, reason)));
+        unscoped(() -> tx.execute(s -> {
+            int dismissed = jobRepository.dismissAll(ids, AppTime.nowInstant(), adminEmail, reason);
+            if (stamps != null) {
+                jobs.stream().map(JobKeyRow::userId).distinct().forEach(stamps::markChanged);
+            }
+            return dismissed;
+        }));
     }
 
     /** Marks a failed job as handled without retrying it. */

@@ -41,6 +41,10 @@ public class HeldUploadService {
     private final StatementIdentifier identifier;
     private final NotificationFeedService feedService;
 
+    /** Bulk and id-keyed writes skip the entity change listener, so this stamps the user itself. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private com.financeos.core.stamp.UserChangeStamps stamps;
+
     public HeldUploadService(HeldUploadRepository heldRepository,
                              JobArtifactRepository artifactRepository,
                              AccountRepository accountRepository,
@@ -116,6 +120,7 @@ public class HeldUploadService {
         if (heldRepository.claim(held.getId(), Instant.now()) == 0) {
             throw new ApiStatusException(HttpStatus.CONFLICT, "ALREADY_ASSIGNED", "This file was already handled.");
         }
+        stampUser(userId);
         FileIngestionResult result;
         boolean resolved = false;
         try {
@@ -138,6 +143,7 @@ public class HeldUploadService {
         } finally {
             if (!resolved) {
                 heldRepository.release(held.getId());
+                stampUser(userId);
             }
         }
     }
@@ -156,6 +162,12 @@ public class HeldUploadService {
         heldRepository.save(held);
         if (artifact != null) {
             artifactRepository.delete(artifact);
+        }
+    }
+
+    private void stampUser(UUID userId) {
+        if (stamps != null) {
+            stamps.markChanged(userId);
         }
     }
 }

@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import com.financeos.core.stamp.UserChangeStamps;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -29,6 +31,9 @@ public class BillPaymentStore {
     private static final String COLUMNS = "id, user_id, statement_id, card_txn_id, bank_txn_id, bank_txn_created, origin, link_id, created_at";
 
     private final JdbcTemplate jdbc;
+    /** Plain-SQL writes skip the entity change listener, so they stamp the user themselves. */
+    @Autowired(required = false)
+    private UserChangeStamps stamps;
 
     public BillPaymentStore(JdbcTemplate jdbc) {
         this.jdbc = jdbc;
@@ -39,6 +44,9 @@ public class BillPaymentStore {
                 r.id().toString(), r.userId().toString(), r.statementId().toString(), r.cardTxnId().toString(),
                 r.bankTxnId() == null ? null : r.bankTxnId().toString(), r.bankTxnCreated() ? 1 : 0, r.origin().name(),
                 r.linkId() == null ? null : r.linkId().toString(), r.createdAt() != null ? r.createdAt() : OffsetDateTime.now(AppTime.zone()));
+        if (stamps != null) {
+            stamps.markChanged(r.userId());
+        }
     }
 
     public List<Row> byStatement(UUID userId, UUID statementId) {
@@ -103,7 +111,11 @@ public class BillPaymentStore {
     }
 
     public int delete(UUID userId, UUID id) {
-        return jdbc.update("DELETE FROM bill_payments WHERE user_id = ? AND id = ?", userId.toString(), id.toString());
+        int deleted = jdbc.update("DELETE FROM bill_payments WHERE user_id = ? AND id = ?", userId.toString(), id.toString());
+        if (deleted > 0 && stamps != null) {
+            stamps.markChanged(userId);
+        }
+        return deleted;
     }
 
     /** Which of {@code ids} already pay a bill from the bank side. */

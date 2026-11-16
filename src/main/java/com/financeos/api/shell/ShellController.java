@@ -70,7 +70,7 @@ public class ShellController {
                 part("needsReview", () -> transactionService.countTransactions(NEEDS_REVIEW)),
                 part("notifications", () -> feedService.unreadCount(userId)),
                 part("appLock", () -> appLockController.statusOf(request.getSession(true))),
-                part("dataSources", () -> dataSources(userId))));
+                part("dataSources", () -> inboxMemo.get(userId, "dataSources", () -> dataSources(userId)))));
     }
 
     /** Needs attention (the Inbox row's and the card header's total) plus mailboxes to reconnect, and failed jobs. */

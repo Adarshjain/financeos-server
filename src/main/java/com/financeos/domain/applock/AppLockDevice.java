@@ -62,6 +62,7 @@ public class AppLockDevice {
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
+    @com.financeos.core.stamp.NoChangeStamp
     @Column(name = "last_used_at")
     private Instant lastUsedAt;
 }

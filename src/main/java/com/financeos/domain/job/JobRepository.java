@@ -117,6 +117,17 @@ public interface JobRepository extends JpaRepository<Job, UUID> {
     @Query("update Job j set j.status = :toStatus, j.startedAt = :startedAt, j.attempt = j.attempt + 1 where j.id = :id and j.status = :fromStatus")
     int claim(@Param("id") UUID id, @Param("fromStatus") JobStatus fromStatus, @Param("toStatus") JobStatus toStatus, @Param("startedAt") Instant startedAt);
 
+    /** Owners of these jobs (to stamp them after an id-keyed bulk update). */
+    @Query("select distinct j.userId from Job j where j.id in :ids")
+    List<UUID> userIdsOf(@Param("ids") Collection<UUID> ids);
+
+    @Query("select j.userId from Job j where j.id = :id")
+    Optional<UUID> userIdOf(@Param("id") UUID id);
+
+    /** Owners of the jobs {@link #markInterrupted} is about to move. */
+    @Query("select distinct j.userId from Job j where j.status = :fromStatus and (j.startedAt is null or j.startedAt < :startedBefore)")
+    List<UUID> userIdsInterrupted(@Param("fromStatus") JobStatus fromStatus, @Param("startedBefore") Instant startedBefore);
+
     @Modifying
     @Query("update Job j set j.status = :toStatus, j.errorCode = :errorCode, j.errorMessage = :errorMessage, j.finishedAt = :finishedAt where j.status = :fromStatus and (j.startedAt is null or j.startedAt < :startedBefore)")
     int markInterrupted(@Param("fromStatus") JobStatus fromStatus, @Param("toStatus") JobStatus toStatus, @Param("errorCode") String errorCode, @Param("errorMessage") String errorMessage, @Param("finishedAt") Instant finishedAt, @Param("startedBefore") Instant startedBefore);

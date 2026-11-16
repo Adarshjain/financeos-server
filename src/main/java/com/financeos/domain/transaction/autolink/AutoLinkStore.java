@@ -13,6 +13,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import com.financeos.core.stamp.UserChangeStamps;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -47,6 +49,9 @@ public class AutoLinkStore {
             + "OR EXISTS (SELECT 1 FROM nps_entry x WHERE x.transaction_id = t.id))";
 
     private final JdbcTemplate jdbc;
+    /** Plain-SQL writes skip the entity change listener, so they stamp the user themselves. */
+    @Autowired(required = false)
+    private UserChangeStamps stamps;
 
     public AutoLinkStore(JdbcTemplate jdbc) {
         this.jdbc = jdbc;
@@ -130,7 +135,11 @@ public class AutoLinkStore {
     }
 
     public int deleteSuggestion(UUID userId, UUID id) {
-        return jdbc.update("DELETE FROM link_suggestions WHERE user_id = ? AND id = ?", userId.toString(), id.toString());
+        int deleted = jdbc.update("DELETE FROM link_suggestions WHERE user_id = ? AND id = ?", userId.toString(), id.toString());
+        if (deleted > 0 && stamps != null) {
+            stamps.markChanged(userId);
+        }
+        return deleted;
     }
 
     /** Which of {@code ids} are the user's transactions that sit in no link and are owned by no loan, lending, dividend or EPF row (same filter as {@code AutoLinkCandidateLoader}); chunked, one query per chunk. */
@@ -257,6 +266,9 @@ public class AutoLinkStore {
         if (!inserts.isEmpty()) {
             jdbc.batchUpdate("INSERT INTO link_suggestions (id, user_id, kind, transaction_id, candidate_ids, created_at) "
                     + "VALUES (?, ?, ?, ?, ?, ?)", inserts);
+        }
+        if (stamps != null && !(deletes.isEmpty() && updates.isEmpty() && inserts.isEmpty())) {
+            stamps.markChanged(userId);
         }
     }
 

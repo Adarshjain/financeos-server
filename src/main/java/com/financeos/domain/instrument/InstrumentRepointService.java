@@ -64,6 +64,10 @@ public class InstrumentRepointService {
     private final InstrumentRepointMap repointMap;
     private final InvestmentService investmentService;
 
+    /** Bulk and id-keyed writes skip the entity change listener, so this stamps the user itself. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private com.financeos.core.stamp.UserChangeStamps stamps;
+
     public InstrumentRepointService(InstrumentSearchService searchService,
                                     InstrumentRepository instrumentRepository,
                                     AssetClassOverrideService overrideService,
@@ -106,6 +110,7 @@ public class InstrumentRepointService {
      * would change anyway (the move is then rolled back).
      */
     public Result repoint(UUID userId, Instrument source, InstrumentRequest request, DisplayChanges changes) {
+        stampUser(userId);
         String isin = changed(source.getIsin(), request.isin());
         String amfi = changed(source.getAmfiCode(), request.amfiCode());
         String yahoo = changed(source.getYahooSymbol(), request.yahooSymbol());
@@ -231,6 +236,7 @@ public class InstrumentRepointService {
      */
     public Result switchListing(UUID userId, Instrument source, InstrumentRequest request,
                                 @org.springframework.lang.Nullable String verifiedYahoo) {
+        stampUser(userId);
         String exchange = request.exchange().trim().toUpperCase(java.util.Locale.ROOT);
         String isin = source.getIsin().trim();
         Instrument target = instrumentRepository.findByIsinAndExchange(isin, exchange).orElse(null);
@@ -654,5 +660,12 @@ public class InstrumentRepointService {
 
     private static String truncate(String value, int max) {
         return value == null || value.length() <= max ? value : value.substring(0, max);
+    }
+
+    /** Raw JDBC moves below skip the change listener; stamped up front, applied after this transaction commits. */
+    private void stampUser(UUID userId) {
+        if (stamps != null) {
+            stamps.markChanged(userId);
+        }
     }
 }

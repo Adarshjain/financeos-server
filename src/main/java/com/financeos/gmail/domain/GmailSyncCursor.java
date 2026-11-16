@@ -42,6 +42,7 @@ public class GmailSyncCursor {
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private GmailSender sender;
 
+    @com.financeos.core.stamp.NoChangeStamp
     @Column(name = "last_listed_at", nullable = false)
     private Instant lastListedAt;
 
@@ -51,6 +52,7 @@ public class GmailSyncCursor {
     @Column(name = "created_at", nullable = false, updatable = false)
     private Instant createdAt;
 
+    @com.financeos.core.stamp.NoChangeStamp
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 

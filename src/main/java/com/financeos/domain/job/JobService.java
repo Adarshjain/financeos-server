@@ -106,9 +106,17 @@ public class JobService {
         return savedJob;
     }
 
+    /** Bulk and id-keyed writes skip the entity change listener, so this stamps the user itself. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private com.financeos.core.stamp.UserChangeStamps stamps;
+
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public boolean claim(UUID jobId) {
-        return jobRepository.claim(jobId, Instant.now()) == 1;
+        boolean claimed = jobRepository.claim(jobId, Instant.now()) == 1;
+        if (claimed && stamps != null) {
+            jobRepository.userIdOf(jobId).ifPresent(stamps::markChanged);
+        }
+        return claimed;
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW)

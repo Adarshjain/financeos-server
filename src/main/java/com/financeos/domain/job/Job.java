@@ -74,12 +74,15 @@ public class Job {
     @Column(name = "dismiss_reason", length = 500)
     private String dismissReason;
 
+    @com.financeos.core.stamp.NoChangeStamp
     @Column(name = "progress_current")
     private Integer progressCurrent;
 
+    @com.financeos.core.stamp.NoChangeStamp
     @Column(name = "progress_total")
     private Integer progressTotal;
 
+    @com.financeos.core.stamp.NoChangeStamp
     @Column(name = "progress_note", length = 255)
     private String progressNote;
 
@@ -108,6 +111,7 @@ public class Job {
 
     private Instant notifiedAt;
 
+    @com.financeos.core.stamp.NoChangeStamp
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 

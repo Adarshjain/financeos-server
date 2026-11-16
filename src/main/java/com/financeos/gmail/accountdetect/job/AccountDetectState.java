@@ -49,6 +49,7 @@ public class AccountDetectState {
     @Column(name = "first_scan_done_at")
     private Instant firstScanDoneAt;
 
+    @com.financeos.core.stamp.NoChangeStamp
     @Column(name = "last_run_at")
     private Instant lastRunAt;
 
@@ -79,6 +80,7 @@ public class AccountDetectState {
     @Column(name = "holder_gen", nullable = false, insertable = false, updatable = false, columnDefinition = "NUMBER(10) DEFAULT 0 NOT NULL")
     private int holderGen;
 
+    @com.financeos.core.stamp.NoChangeStamp
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
 

@@ -37,6 +37,10 @@ public class JobJanitor {
     @Value("${jobs.janitor.startup-sweep.enabled:true}")
     private boolean startupSweepEnabled = true;
 
+    /** Bulk and id-keyed writes skip the entity change listener, so this stamps the user itself. */
+    @org.springframework.beans.factory.annotation.Autowired(required = false)
+    private com.financeos.core.stamp.UserChangeStamps stamps;
+
     /** The api role must not sweep: the worker node's RUNNING jobs are alive. */
     @Value("${app.role:all}")
     private String role = "all";
@@ -51,6 +55,8 @@ public class JobJanitor {
         if (!startupSweepEnabled || "api".equalsIgnoreCase(role.trim())) {
             return;
         }
+        java.util.List<java.util.UUID> owners = stamps == null ? java.util.List.of()
+                : jobRepository.userIdsInterrupted(JobStatus.RUNNING, processStart);
         int count = jobRepository.markInterrupted(
                 JobStatus.RUNNING,
                 JobStatus.FAILED,
@@ -59,6 +65,9 @@ public class JobJanitor {
                 Instant.now(),
                 processStart
         );
+        if (stamps != null) {
+            owners.forEach(stamps::markChanged);
+        }
         if (count > 0) {
             log.info("Startup sweep marked {} stale RUNNING job(s) as FAILED/INTERRUPTED", count);
         }
