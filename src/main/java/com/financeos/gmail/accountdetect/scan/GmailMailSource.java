@@ -6,6 +6,8 @@ import com.financeos.gmail.internal.GmailEngineException;
 import com.financeos.gmail.internal.GmailError;
 import com.financeos.gmail.internal.GmailMessage;
 import com.financeos.gmail.internal.MessageGoneException;
+import com.financeos.gmail.client.GmailCallNames;
+import com.financeos.gmail.client.GmailRetry;
 import com.google.api.client.googleapis.batch.BatchRequest;
 import com.google.api.client.googleapis.batch.json.JsonBatchCallback;
 import com.google.api.client.googleapis.json.GoogleJsonError;
@@ -117,8 +119,9 @@ public class GmailMailSource implements MailSource, AccountDetectScan.Describabl
         try {
             do {
                 calls.incrementAndGet();
-                ListMessagesResponse r = svc.users().messages().list("me").setQ(query).setMaxResults(500L).setPageToken(page)
-                        .setFields("nextPageToken,messages/id").execute();
+                var listRequest = svc.users().messages().list("me").setQ(query).setMaxResults(500L).setPageToken(page)
+                        .setFields("nextPageToken,messages/id");
+                ListMessagesResponse r = GmailRetry.DEFAULT.call(GmailCallNames.MESSAGES_LIST, svc, listRequest::execute);
                 if (r == null) break;
                 if (r.getMessages() != null) for (Message m : r.getMessages()) ids.add(m.getId());
                 page = r.getNextPageToken();

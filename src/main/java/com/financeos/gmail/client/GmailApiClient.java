@@ -39,6 +39,7 @@ public class GmailApiClient {
     private final String redirectUri;
     private final GmailClientProperties endpoints;
     private final List<String> scopes;
+    private GmailRetry retry = GmailRetry.DEFAULT;
 
     @Autowired
     public GmailApiClient(
@@ -51,6 +52,12 @@ public class GmailApiClient {
         this.clientSecret = clientSecret;
         this.redirectUri = redirectUri;
         this.endpoints = endpoints;
+    }
+
+    /** Test hook: a retry with an injected sleeper. */
+    GmailApiClient withRetry(GmailRetry retry) {
+        this.retry = retry;
+        return this;
     }
 
     /**
@@ -110,25 +117,24 @@ public class GmailApiClient {
             request.setMaxResults(maxResults);
         }
 
-        return request.execute();
+        return retry.call(GmailCallNames.MESSAGES_LIST, service, request::execute);
     }
 
     /**
      * Get message by ID.
      */
     public Message getMessage(Gmail service, String messageId) throws IOException {
-        return service.users().messages().get("me", messageId)
-                .setFormat("full")
-                .execute();
+        Gmail.Users.Messages.Get request = service.users().messages().get("me", messageId).setFormat("full");
+        return retry.call(GmailCallNames.MESSAGES_GET, service, request::execute);
     }
 
     /**
      * Get attachment by ID.
      */
     public byte[] getAttachment(Gmail service, String messageId, String attachmentId) throws IOException {
-        MessagePartBody body = service.users().messages().attachments()
-                .get("me", messageId, attachmentId)
-                .execute();
+        Gmail.Users.Messages.Attachments.Get request = service.users().messages().attachments()
+                .get("me", messageId, attachmentId);
+        MessagePartBody body = retry.call(GmailCallNames.ATTACHMENTS_GET, service, request::execute);
         return body.decodeData();
     }
 
@@ -147,14 +153,15 @@ public class GmailApiClient {
             request.setMaxResults(maxResults);
         }
 
-        return request.execute();
+        return retry.call(GmailCallNames.HISTORY_LIST, service, request::execute);
     }
 
     /**
      * Get user profile (for email address).
      */
     public Profile getProfile(Gmail service) throws IOException {
-        return service.users().getProfile("me").execute();
+        Gmail.Users.GetProfile request = service.users().getProfile("me");
+        return retry.call(GmailCallNames.GET_PROFILE, service, request::execute);
     }
 
     private GoogleAuthorizationCodeFlow createFlow() {
