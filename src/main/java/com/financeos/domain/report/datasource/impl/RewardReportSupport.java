@@ -68,9 +68,16 @@ public class RewardReportSupport {
         if (ids == null || ids.isEmpty()) {
             return List.of();
         }
+        Map<UUID, Account> byId = new HashMap<>();
+        for (Account account : accountRepository.findAllById(ids)) {
+            byId.put(account.getId(), account);
+        }
         List<Account> out = new ArrayList<>();
         for (UUID id : ids) {
-            accountRepository.findById(id).ifPresent(out::add);
+            Account account = byId.get(id);
+            if (account != null) {
+                out.add(account);
+            }
         }
         return out;
     }
@@ -83,6 +90,26 @@ public class RewardReportSupport {
     DateBounds bounds(UUID accountId) {
         TransactionRepository.EffectiveDateSpan span = transactionRepository.effectiveDateSpan(accountId, AppTime.today());
         return span == null ? null : new DateBounds(span.from(), span.to());
+    }
+
+    /** {@link #bounds(UUID)} for several cards in one query; cards with no transactions are absent. */
+    Map<UUID, DateBounds> bounds(java.util.Collection<UUID> accountIds) {
+        Map<UUID, DateBounds> out = new HashMap<>();
+        if (accountIds.isEmpty()) {
+            return out;
+        }
+        LocalDate today = AppTime.today();
+        for (Object[] row : transactionRepository.findEffectiveDateRangesByAccountIds(accountIds)) {
+            UUID id = (UUID) row[0];
+            LocalDate min = (LocalDate) row[1];
+            LocalDate max = (LocalDate) row[2];
+            if (id == null || min == null) {
+                continue;
+            }
+            LocalDate to = max != null && max.isAfter(today) ? max : today;
+            out.put(id, new DateBounds(min.isAfter(to) ? to : min, to));
+        }
+        return out;
     }
 
     /** Rupee value of an amount in a reward unit; unvalued points are worth zero. */
@@ -103,11 +130,21 @@ public class RewardReportSupport {
         return BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
     }
 
+    private static List<UUID> ids(List<Account> accounts) {
+        return accounts.stream().map(Account::getId).toList();
+    }
+
     /** Unique label per rule across all the given cards (see {@link #disambiguate}). */
     Map<UUID, String> ruleLabels(List<Account> accounts) {
         List<LabelSource> sources = new ArrayList<>();
+        Map<UUID, List<RewardRule>> rulesByAccount = new HashMap<>();
+        if (!accounts.isEmpty()) {
+            for (RewardRule rule : rewardRuleRepository.findByAccountIdInOrderByPriorityDesc(ids(accounts))) {
+                rulesByAccount.computeIfAbsent(rule.getAccount().getId(), k -> new ArrayList<>()).add(rule);
+            }
+        }
         for (Account account : accounts) {
-            for (RewardRule rule : rewardRuleRepository.findByAccountIdOrderByPriorityDesc(account.getId())) {
+            for (RewardRule rule : rulesByAccount.getOrDefault(account.getId(), List.of())) {
                 sources.add(new LabelSource(rule.getId(), rule.getName(), account.getName(),
                         rule.getActiveFrom(), rule.getActiveTo()));
             }
@@ -118,8 +155,14 @@ public class RewardReportSupport {
     /** Unique label per milestone across all the given cards (see {@link #disambiguate}). */
     Map<UUID, String> milestoneLabels(List<Account> accounts) {
         List<LabelSource> sources = new ArrayList<>();
+        Map<UUID, List<RewardMilestone>> milestonesByAccount = new HashMap<>();
+        if (!accounts.isEmpty()) {
+            for (RewardMilestone m : rewardMilestoneRepository.findByAccountIdInOrderByCreatedAtAsc(ids(accounts))) {
+                milestonesByAccount.computeIfAbsent(m.getAccount().getId(), k -> new ArrayList<>()).add(m);
+            }
+        }
         for (Account account : accounts) {
-            for (RewardMilestone m : rewardMilestoneRepository.findByAccountIdOrderByCreatedAtAsc(account.getId())) {
+            for (RewardMilestone m : milestonesByAccount.getOrDefault(account.getId(), List.of())) {
                 sources.add(new LabelSource(m.getId(), m.getName(), account.getName(),
                         m.getActiveFrom(), m.getActiveTo()));
             }

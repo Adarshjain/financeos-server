@@ -82,8 +82,8 @@ class RewardEarningsDatasourceTest {
     private void stub(Account account, Map<UUID, String> labels, List<ReportLine> lines) {
         when(support.ruleAccounts(userId)).thenReturn(List.of(account));
         when(support.ruleLabels(List.of(account))).thenReturn(labels);
-        when(support.bounds(account.getId())).thenReturn(
-                new RewardReportSupport.DateBounds(LocalDate.of(2025, 1, 1), LocalDate.of(2025, 3, 31)));
+        when(support.bounds(List.of(account.getId()))).thenReturn(Map.of(account.getId(),
+                new RewardReportSupport.DateBounds(LocalDate.of(2025, 1, 1), LocalDate.of(2025, 3, 31))));
         when(rewardCalculationService.reportLines(eq(account.getId()), any(), any())).thenReturn(lines);
     }
 
@@ -129,9 +129,9 @@ class RewardEarningsDatasourceTest {
         when(support.ruleLabels(List.of(infinia, generic, unused)))
                 .thenReturn(Map.of(ruleA1, "SmartBuy 5X", ruleA2, "Grocery 1%", ruleB1, "Base Points"));
         var bounds = new RewardReportSupport.DateBounds(LocalDate.of(2025, 1, 1), LocalDate.of(2025, 3, 31));
-        when(support.bounds(infinia.getId())).thenReturn(bounds);
-        when(support.bounds(generic.getId())).thenReturn(bounds);
-        when(support.bounds(unused.getId())).thenReturn(null); // no transactions -> skipped
+        // no transactions on `unused` -> absent from the map -> skipped
+        when(support.bounds(List.of(infinia.getId(), generic.getId(), unused.getId())))
+                .thenReturn(Map.of(infinia.getId(), bounds, generic.getId(), bounds));
 
         when(rewardCalculationService.reportLines(infinia.getId(), bounds.from(), bounds.to())).thenReturn(List.of(
                 reportLine(line(tA1, ruleA1, "SmartBuy 5X", "400", "POINTS", RewardLineReason.MATCHED, null), true, true, "9000", null, null, List.of()),

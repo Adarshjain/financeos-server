@@ -94,10 +94,13 @@ public class RewardMilestonesDatasource implements ComputedReportDatasource {
         Map<UUID, String> labels = support.milestoneLabels(accounts);
         LocalDate today = AppTime.today();
 
+        Map<UUID, RewardReportSupport.DateBounds> boundsByCard = support.bounds(
+                accounts.stream().map(Account::getId).toList());
+
         List<Map<String, Object>> rows = new ArrayList<>();
         for (Account account : accounts) {
             // A card with milestones but no spend still has its current windows (at 0 progress).
-            RewardReportSupport.DateBounds bounds = support.bounds(account.getId());
+            RewardReportSupport.DateBounds bounds = boundsByCard.get(account.getId());
             LocalDate from = bounds != null ? bounds.from() : today;
             LocalDate to = bounds != null ? bounds.to() : today;
             List<MilestoneStatus> statuses = rewardCalculationService.milestoneStatuses(account.getId(), from, to);

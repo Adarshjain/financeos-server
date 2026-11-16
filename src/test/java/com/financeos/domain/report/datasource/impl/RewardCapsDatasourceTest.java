@@ -65,7 +65,7 @@ class RewardCapsDatasourceTest {
         when(support.ruleAccounts(userId)).thenReturn(List.of(account));
         when(support.ruleLabels(List.of(account))).thenReturn(labels);
         var bounds = new RewardReportSupport.DateBounds(LocalDate.of(2026, 1, 1), LocalDate.of(2026, 3, 31));
-        when(support.bounds(account.getId())).thenReturn(bounds);
+        when(support.bounds(List.of(account.getId()))).thenReturn(Map.of(account.getId(), bounds));
         when(service.capUsage(account.getId(), bounds.from(), bounds.to())).thenReturn(usages);
     }
 
@@ -229,7 +229,7 @@ class RewardCapsDatasourceTest {
         Account card = account("Fresh", null);
         when(support.ruleAccounts(userId)).thenReturn(List.of(card));
         when(support.ruleLabels(List.of(card))).thenReturn(Map.of());
-        when(support.bounds(card.getId())).thenReturn(null);
+        when(support.bounds(List.of(card.getId()))).thenReturn(Map.of());
         assertTrue(datasource.rows().isEmpty());
         verifyNoInteractions(service);
     }

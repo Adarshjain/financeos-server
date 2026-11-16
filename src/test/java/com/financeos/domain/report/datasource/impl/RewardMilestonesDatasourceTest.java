@@ -71,8 +71,8 @@ class RewardMilestonesDatasourceTest {
     private void stub(Account account, Map<UUID, String> labels, List<MilestoneStatus> statuses) {
         when(support.milestoneAccounts(userId)).thenReturn(List.of(account));
         when(support.milestoneLabels(List.of(account))).thenReturn(labels);
-        when(support.bounds(account.getId())).thenReturn(
-                new RewardReportSupport.DateBounds(LocalDate.of(2026, 1, 1), LocalDate.of(2026, 3, 31)));
+        when(support.bounds(List.of(account.getId()))).thenReturn(Map.of(account.getId(),
+                new RewardReportSupport.DateBounds(LocalDate.of(2026, 1, 1), LocalDate.of(2026, 3, 31))));
         when(service.milestoneStatuses(account.getId(), LocalDate.of(2026, 1, 1), LocalDate.of(2026, 3, 31)))
                 .thenReturn(statuses);
     }
@@ -219,7 +219,7 @@ class RewardMilestonesDatasourceTest {
         LocalDate today = AppTime.today();
         when(support.milestoneAccounts(userId)).thenReturn(List.of(card));
         when(support.milestoneLabels(List.of(card))).thenReturn(Map.of());
-        when(support.bounds(card.getId())).thenReturn(null);
+        when(support.bounds(List.of(card.getId()))).thenReturn(Map.of());
         UUID id = UUID.randomUUID();
         when(service.milestoneStatuses(card.getId(), today, today)).thenReturn(List.of(
                 status(id, "Spend", "100", "0", false, MilestonePayoutType.INFO_TRACKER, RewardType.CASH, null)));

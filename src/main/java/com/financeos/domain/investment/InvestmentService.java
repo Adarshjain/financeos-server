@@ -833,6 +833,53 @@ public class InvestmentService {
         return calculateHoldingPosition(holding, null);
     }
 
+    /** Intraday classifications of the given holdings, grouped by holding (one query per {@value #IN_LIST_CHUNK} ids). */
+    public Map<UUID, List<TradeSettlementClassification>> classificationsByHolding(Collection<UUID> holdingIds) {
+        Map<UUID, List<TradeSettlementClassification>> out = new HashMap<>();
+        List<UUID> ids = List.copyOf(holdingIds);
+        for (int from = 0; from < ids.size(); from += IN_LIST_CHUNK) {
+            for (TradeSettlementClassification c : classificationRepository.findByHoldingIdIn(
+                    ids.subList(from, Math.min(ids.size(), from + IN_LIST_CHUNK)))) {
+                if (c.getHolding() != null) {
+                    out.computeIfAbsent(c.getHolding().getId(), k -> new ArrayList<>()).add(c);
+                }
+            }
+        }
+        return out;
+    }
+
+    /** A holding's position with the cash-in-lieu result of the actions that seed it. */
+    public record PositionWithSeedFractional(HoldingPosition position, BigDecimal seedFractionalRealized) {}
+
+    /**
+     * Positions of the signed-in user's {@code holdings} (same order) from one batch load of the engine
+     * inputs instead of per-holding reads. Parent holdings of any demerger/merger seeding a holding
+     * must be in the same list to be seen.
+     */
+    public List<PositionWithSeedFractional> calculateHoldingPositionsWithSeedFractional(List<Holding> holdings) {
+        return calculateHoldingPositionsWithSeedFractional(holdings, List.of());
+    }
+
+    /**
+     * As above, with {@code extraParents}: holdings only read as the seeding parents of a demerger/merger
+     * into a holding of {@code holdings}; no position is returned for them.
+     */
+    public List<PositionWithSeedFractional> calculateHoldingPositionsWithSeedFractional(List<Holding> holdings,
+                                                                                         List<Holding> extraParents) {
+        List<Holding> all = holdings;
+        if (!extraParents.isEmpty()) {
+            all = new ArrayList<>(holdings);
+            all.addAll(extraParents);
+        }
+        EngineInputs inputs = engineInputsOfCurrentUser(all);
+        List<PositionWithSeedFractional> out = new ArrayList<>(holdings.size());
+        for (Holding h : holdings) {
+            out.add(new PositionWithSeedFractional(calculateHoldingPosition(h, null, null, inputs, null),
+                    deriveSeeds(h, inputs).fractionalRealized()));
+        }
+        return out;
+    }
+
     public HoldingPosition calculateHoldingPosition(Holding holding, java.util.function.Consumer<com.financeos.domain.investment.dto.RealizedLot> lotCollector) {
         return calculateHoldingPosition(holding, lotCollector, null, null,
                 lotCollector != null ? classificationOf(holding) : null);
@@ -1596,6 +1643,16 @@ public class InvestmentService {
 
     public List<SeedLot> seedLotsFor(Holding holding) {
         return deriveSeeds(holding, null).seedLots();
+    }
+
+    /** {@link #seedLotsFor(Holding)} for the signed-in user's {@code holdings} from one batch load (parents must be in the list). */
+    public Map<UUID, List<SeedLot>> seedLotsByHolding(List<Holding> holdings) {
+        EngineInputs inputs = engineInputsOfCurrentUser(holdings);
+        Map<UUID, List<SeedLot>> out = new HashMap<>();
+        for (Holding h : holdings) {
+            out.put(h.getId(), deriveSeeds(h, inputs).seedLots());
+        }
+        return out;
     }
 
     /** Same-date corporate actions replay in {@link CorporateActionType#sameDayRank()} order; anything else ties. */

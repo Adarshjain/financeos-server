@@ -82,12 +82,12 @@ class PortfolioValueDatasourceTest {
         txn.setPrice(new BigDecimal("2000"));
 
         when(holdingRepository.findAllWithDetailsOfUser(org.mockito.ArgumentMatchers.any())).thenReturn(List.of(holding));
-        when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId()))
-                .thenReturn(List.of(txn));
+        txn.setHolding(holding);
+        when(transactionRepository.findByHoldingIdInOrderByTradeDateAscCreatedAtAsc(any())).thenReturn(List.of(txn));
 
         // Stub open lots at month end Jan 31: 10 qty @ 2000 cost
-        when(investmentService.seedLotsFor(holding)).thenReturn(List.of());
-        when(investmentService.buildOpenLotsBeforeDate(eq(holding), any(LocalDate.class), eq(false), any(), any(), any(), any()))
+        when(investmentService.seedLotsByHolding(any())).thenReturn(Map.of());
+        when(investmentService.buildOpenLotsBeforeDate(eq(holding), any(LocalDate.class), eq(false), any(), any(), any(), any(), any()))
                 .thenAnswer(inv -> {
                     LocalDate date = inv.getArgument(1);
                     if (date.isBefore(LocalDate.of(2026, 1, 15))) {
@@ -127,11 +127,11 @@ class PortfolioValueDatasourceTest {
         txn.setPrice(new BigDecimal("2000"));
 
         when(holdingRepository.findAllWithDetailsOfUser(org.mockito.ArgumentMatchers.any())).thenReturn(List.of(holding));
-        when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId()))
-                .thenReturn(List.of(txn));
+        txn.setHolding(holding);
+        when(transactionRepository.findByHoldingIdInOrderByTradeDateAscCreatedAtAsc(any())).thenReturn(List.of(txn));
 
-        when(investmentService.seedLotsFor(holding)).thenReturn(List.of());
-        when(investmentService.buildOpenLotsBeforeDate(eq(holding), any(LocalDate.class), eq(false), any(), any(), any(), any()))
+        when(investmentService.seedLotsByHolding(any())).thenReturn(Map.of());
+        when(investmentService.buildOpenLotsBeforeDate(eq(holding), any(LocalDate.class), eq(false), any(), any(), any(), any(), any()))
                 .thenAnswer(inv -> {
                     LocalDate date = inv.getArgument(1);
                     if (date.isBefore(LocalDate.of(2026, 1, 15))) {

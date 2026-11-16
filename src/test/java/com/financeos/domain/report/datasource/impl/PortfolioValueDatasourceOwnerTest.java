@@ -98,9 +98,10 @@ class PortfolioValueDatasourceOwnerTest {
         txn.setQuantity(BigDecimal.TEN);
         txn.setPrice(new BigDecimal("2000"));
         when(holdingRepository.findAllWithDetailsOfUser(org.mockito.ArgumentMatchers.any())).thenReturn(List.of(holding));
-        when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(holding.getId())).thenReturn(List.of(txn));
-        when(investmentService.seedLotsFor(holding)).thenReturn(List.of());
-        when(investmentService.buildOpenLotsBeforeDate(eq(holding), any(LocalDate.class), eq(false), any(), any(), any(), any()))
+        txn.setHolding(holding);
+        when(transactionRepository.findByHoldingIdInOrderByTradeDateAscCreatedAtAsc(any())).thenReturn(List.of(txn));
+        when(investmentService.seedLotsByHolding(any())).thenReturn(Map.of());
+        when(investmentService.buildOpenLotsBeforeDate(eq(holding), any(LocalDate.class), eq(false), any(), any(), any(), any(), any()))
                 .thenReturn(List.of(new Lot(BigDecimal.TEN, new BigDecimal("2000"))));
         InstrumentPrice ownersPrice = InstrumentPrice.manual(reliance, owner, LocalDate.of(2026, 1, 20), new BigDecimal("2500"));
         when(priceRepository.findVisibleByInstrumentIds(anyList(), eq(owner))).thenReturn(List.of(ownersPrice));
@@ -123,8 +124,8 @@ class PortfolioValueDatasourceOwnerTest {
             holdings.add(holding(instrument("I" + i)));
         }
         when(holdingRepository.findAllWithDetailsOfUser(org.mockito.ArgumentMatchers.any())).thenReturn(holdings);
-        when(transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(any())).thenReturn(List.of());
-        when(investmentService.seedLotsFor(any())).thenReturn(List.of());
+        when(transactionRepository.findByHoldingIdInOrderByTradeDateAscCreatedAtAsc(any())).thenReturn(List.of());
+        when(investmentService.seedLotsByHolding(any())).thenReturn(Map.of());
 
         datasource.rows();
 

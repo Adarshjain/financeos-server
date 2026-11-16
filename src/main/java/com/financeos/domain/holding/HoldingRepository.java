@@ -35,6 +35,11 @@ public interface HoldingRepository extends JpaRepository<Holding, UUID> {
     @Query("SELECT h FROM Holding h WHERE h.user.id = :userId AND h.instrument.id = :instrumentId")
     List<Holding> findByUser_IdAndInstrument_Id(@Param("userId") UUID userId, @Param("instrumentId") UUID instrumentId);
 
+    /** {@code userId}'s holdings of several instruments in one query (callers keep the id list small). */
+    @Query("SELECT h FROM Holding h WHERE h.user.id = :userId AND h.instrument.id IN :instrumentIds")
+    List<Holding> findByUser_IdAndInstrument_IdIn(@Param("userId") UUID userId,
+                                                  @Param("instrumentIds") java.util.Collection<UUID> instrumentIds);
+
     /** Every holding {@code userId} owns, broker and instrument fetched (no request filter needed); null matches none. */
     @Query("SELECT DISTINCT h FROM Holding h LEFT JOIN FETCH h.brokerAccount b LEFT JOIN FETCH b.brokerDetails "
             + "LEFT JOIN FETCH h.instrument WHERE h.user.id = :userId")

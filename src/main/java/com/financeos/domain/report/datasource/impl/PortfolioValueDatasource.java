@@ -125,14 +125,29 @@ public class PortfolioValueDatasource implements ComputedReportDatasource {
         Map<java.util.UUID, List<com.financeos.domain.investment.InvestmentTransaction>> txnsByHolding = new LinkedHashMap<>();
         Map<java.util.UUID, List<com.financeos.domain.instrument.corporateaction.CorporateAction>> casByHolding = new LinkedHashMap<>();
         Map<java.util.UUID, List<InvestmentService.SeedLot>> seedsByHolding = new LinkedHashMap<>();
+        List<java.util.UUID> holdingIds = holdings.stream().map(Holding::getId).toList();
+        for (List<java.util.UUID> chunk : com.financeos.domain.instrument.InstrumentLocalSearch.chunks(holdingIds)) {
+            for (var t : transactionRepository.findByHoldingIdInOrderByTradeDateAscCreatedAtAsc(chunk)) {
+                txnsByHolding.computeIfAbsent(t.getHolding().getId(), k -> new ArrayList<>()).add(t);
+            }
+        }
+        // The holding owner's own corporate actions (they are per user), never another user's.
+        Map<java.util.UUID, List<com.financeos.domain.instrument.corporateaction.CorporateAction>> casByInstrument = new LinkedHashMap<>();
+        if (viewer != null) {
+            for (List<java.util.UUID> chunk : com.financeos.domain.instrument.InstrumentLocalSearch.chunks(instrumentIds)) {
+                for (var ca : corporateActionRepository.findOwnedByInstrumentIds(viewer, chunk)) {
+                    casByInstrument.computeIfAbsent(ca.getInstrument().getId(), k -> new ArrayList<>()).add(ca);
+                }
+            }
+        }
+        Map<java.util.UUID, List<com.financeos.domain.investment.TradeSettlementClassification>> classificationsByHolding =
+                investmentService.classificationsByHolding(holdingIds);
+        Map<java.util.UUID, List<InvestmentService.SeedLot>> seedsOf = investmentService.seedLotsByHolding(holdings);
         LocalDate earliestDate = null;
         for (Holding h : holdings) {
-            var txns = transactionRepository.findByHoldingIdOrderByTradeDateAscCreatedAtAsc(h.getId());
-            txnsByHolding.put(h.getId(), txns);
-            // The holding owner's own corporate actions (they are per user), never another user's.
-            casByHolding.put(h.getId(), corporateActionRepository.findByUser_IdAndInstrument_IdOrderByExDateAsc(
-                    h.getUser() != null ? h.getUser().getId() : null, h.getInstrument().getId()));
-            List<InvestmentService.SeedLot> seeds = investmentService.seedLotsFor(h);
+            List<com.financeos.domain.investment.InvestmentTransaction> txns = txnsByHolding.computeIfAbsent(h.getId(), k -> new ArrayList<>());
+            casByHolding.put(h.getId(), casByInstrument.getOrDefault(h.getInstrument().getId(), List.of()));
+            List<InvestmentService.SeedLot> seeds = seedsOf.getOrDefault(h.getId(), List.of());
             seedsByHolding.put(h.getId(), seeds);
             if (!txns.isEmpty()) {
                 LocalDate d = txns.get(0).getTradeDate();
@@ -169,7 +184,8 @@ public class PortfolioValueDatasource implements ComputedReportDatasource {
                 }
                 List<Lot> openLots = investmentService.buildOpenLotsBeforeDate(holding, d, false, null,
                         txnsByHolding.get(holding.getId()), casByHolding.get(holding.getId()),
-                        seedsByHolding.get(holding.getId()));
+                        seedsByHolding.get(holding.getId()),
+                        classificationsByHolding.getOrDefault(holding.getId(), List.of()));
                 BigDecimal totalQty = BigDecimal.ZERO;
                 BigDecimal totalCost = BigDecimal.ZERO;
                 for (Lot lot : openLots) {

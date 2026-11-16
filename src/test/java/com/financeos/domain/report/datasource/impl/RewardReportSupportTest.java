@@ -226,8 +226,7 @@ class RewardReportSupportTest {
         Account a = account("A");
         UUID missing = UUID.randomUUID();
         when(ruleRepository.findDistinctAccountIdsByUserId(userId)).thenReturn(List.of(a.getId(), missing));
-        when(accountRepository.findById(a.getId())).thenReturn(Optional.of(a));
-        when(accountRepository.findById(missing)).thenReturn(Optional.empty());
+        when(accountRepository.findAllById(List.of(a.getId(), missing))).thenReturn(List.of(a));
         assertEquals(List.of(a), support.ruleAccounts(userId));
     }
 
@@ -251,7 +250,7 @@ class RewardReportSupportTest {
         UUID userId = UUID.randomUUID();
         Account a = account("A");
         when(milestoneRepository.findDistinctAccountIdsByUserId(userId)).thenReturn(List.of(a.getId()));
-        when(accountRepository.findById(a.getId())).thenReturn(Optional.of(a));
+        when(accountRepository.findAllById(List.of(a.getId()))).thenReturn(List.of(a));
         assertEquals(List.of(a), support.milestoneAccounts(userId));
         verifyNoInteractions(ruleRepository);
     }
@@ -268,8 +267,9 @@ class RewardReportSupportTest {
         RewardRule r2 = new RewardRule();
         r2.setId(UUID.randomUUID());
         r2.setName("Base");
-        when(ruleRepository.findByAccountIdOrderByPriorityDesc(a.getId())).thenReturn(List.of(r1));
-        when(ruleRepository.findByAccountIdOrderByPriorityDesc(b.getId())).thenReturn(List.of(r2));
+        r1.setAccount(a);
+        r2.setAccount(b);
+        when(ruleRepository.findByAccountIdInOrderByPriorityDesc(List.of(a.getId(), b.getId()))).thenReturn(List.of(r1, r2));
 
         Map<UUID, String> labels = support.ruleLabels(List.of(a, b));
         assertEquals("Base · Card A", labels.get(r1.getId()));
@@ -287,7 +287,9 @@ class RewardReportSupportTest {
         m2.setId(UUID.randomUUID());
         m2.setName("Spend 1L");
         m2.setActiveFrom(LocalDate.of(2026, 1, 1));
-        when(milestoneRepository.findByAccountIdOrderByCreatedAtAsc(a.getId())).thenReturn(List.of(m1, m2));
+        m1.setAccount(a);
+        m2.setAccount(a);
+        when(milestoneRepository.findByAccountIdInOrderByCreatedAtAsc(List.of(a.getId()))).thenReturn(List.of(m1, m2));
 
         Map<UUID, String> labels = support.milestoneLabels(List.of(a));
         assertEquals("Spend 1L (start → 2025-12-31)", labels.get(m1.getId()));

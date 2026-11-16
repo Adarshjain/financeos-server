@@ -119,10 +119,13 @@ public class RewardEarningsDatasource implements ComputedReportDatasource {
         Map<UUID, String> ruleLabels = support.ruleLabels(accounts);
         DateHint narrow = hint != null && DATE_FIELD.equals(hint.field()) ? hint : null;
 
+        Map<UUID, RewardReportSupport.DateBounds> boundsByCard = support.bounds(
+                accounts.stream().map(Account::getId).toList());
+
         List<Map<String, Object>> rows = new ArrayList<>();
         int i = 0;
         for (Account account : accounts) {
-            RewardReportSupport.DateBounds bounds = support.bounds(account.getId());
+            RewardReportSupport.DateBounds bounds = boundsByCard.get(account.getId());
             if (bounds == null) {
                 continue;
             }

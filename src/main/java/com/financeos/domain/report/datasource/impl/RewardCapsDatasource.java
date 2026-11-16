@@ -88,9 +88,12 @@ public class RewardCapsDatasource implements ComputedReportDatasource {
         }
         Map<UUID, String> ruleLabels = support.ruleLabels(accounts);
 
+        Map<UUID, RewardReportSupport.DateBounds> boundsByCard = support.bounds(
+                accounts.stream().map(Account::getId).toList());
+
         List<Map<String, Object>> rows = new ArrayList<>();
         for (Account account : accounts) {
-            RewardReportSupport.DateBounds bounds = support.bounds(account.getId());
+            RewardReportSupport.DateBounds bounds = boundsByCard.get(account.getId());
             if (bounds == null) {
                 continue;
             }

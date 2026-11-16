@@ -56,8 +56,8 @@ class RewardEarningsDatasourceDescriptionTest {
         card.setName("Card");
         when(support.ruleAccounts(userId)).thenReturn(List.of(card));
         when(support.ruleLabels(List.of(card))).thenReturn(Map.of());
-        when(support.bounds(card.getId())).thenReturn(
-                new RewardReportSupport.DateBounds(LocalDate.of(2025, 1, 1), LocalDate.of(2025, 3, 31)));
+        when(support.bounds(List.of(card.getId()))).thenReturn(Map.of(card.getId(),
+                new RewardReportSupport.DateBounds(LocalDate.of(2025, 1, 1), LocalDate.of(2025, 3, 31))));
         when(rewards.reportLines(eq(card.getId()), any(), any())).thenReturn(List.of(
                 reportLine("Flight Booking", "AIR INDIA"),
                 reportLine(null, "UPI/SWIGGY/1234"),

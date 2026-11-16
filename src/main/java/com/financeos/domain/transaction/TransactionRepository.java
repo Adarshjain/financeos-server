@@ -381,6 +381,11 @@ public interface TransactionRepository extends JpaRepository<Transaction, UUID>,
     @Query("SELECT MIN(COALESCE(t.settlementDate, t.date)) FROM Transaction t WHERE t.account.id = :accountId")
     LocalDate findMinEffectiveDateByAccountId(@Param("accountId") UUID accountId);
 
+    /** Reward reports: (accountId, earliest, latest effective date) per account in one query; accounts without transactions are absent. */
+    @Query("SELECT t.account.id, MIN(COALESCE(t.settlementDate, t.date)), MAX(COALESCE(t.settlementDate, t.date)) "
+            + "FROM Transaction t WHERE t.account.id IN :accountIds GROUP BY t.account.id")
+    List<Object[]> findEffectiveDateRangesByAccountIds(@Param("accountIds") java.util.Collection<UUID> accountIds);
+
     /** Reward reports: latest effective date, so future-dated settlements are still reported. */
     @Query("SELECT MAX(COALESCE(t.settlementDate, t.date)) FROM Transaction t WHERE t.account.id = :accountId")
     LocalDate findMaxEffectiveDateByAccountId(@Param("accountId") UUID accountId);

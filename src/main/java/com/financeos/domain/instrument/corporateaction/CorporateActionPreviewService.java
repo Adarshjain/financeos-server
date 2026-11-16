@@ -17,7 +17,11 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.UUID;
 
 /**
@@ -84,34 +88,29 @@ public class CorporateActionPreviewService {
     private CorporateActionPreviewResponse previewRows(UUID userId, UUID instrumentId, CreateCorporateActionRequest request,
                                                        UUID childId, boolean hasChild) {
         List<Holding> holdings = holdingRepository.findByUser_IdAndInstrument_Id(userId, instrumentId);
-        List<HoldingPosition> before = new ArrayList<>();
-        List<HoldingPosition> childBefore = new ArrayList<>();
-        List<BigDecimal> fractionalBefore = new ArrayList<>();
-        for (Holding h : holdings) {
-            before.add(investmentService.calculateHoldingPosition(h));
-            HoldingPosition cp = hasChild ? childPosition(h, childId) : null;
-            childBefore.add(cp);
-            fractionalBefore.add(cp == null ? null : investmentService.seedFractionalRealized(cp.holding()));
-        }
+        Snapshot beforeSnap = snapshot(userId, holdings, childId, hasChild);
 
         {
             corporateActionService.createForPreview(instrumentId, request);
 
+            Snapshot afterSnap = snapshot(userId, holdings, childId, hasChild);
             List<HoldingEffect> rows = new ArrayList<>();
             for (int i = 0; i < holdings.size(); i++) {
                 Holding h = holdings.get(i);
-                HoldingPosition b = before.get(i);
-                HoldingPosition a = investmentService.calculateHoldingPosition(h);
+                HoldingPosition b = beforeSnap.parents().get(i).position();
+                HoldingPosition a = afterSnap.parents().get(i).position();
                 BigDecimal childQty = null;
                 BigDecimal childCost = null;
                 BigDecimal fractional = null;
                 if (hasChild) {
-                    HoldingPosition cb = childBefore.get(i);
-                    HoldingPosition ca = childPosition(h, childId);
+                    InvestmentService.PositionWithSeedFractional cbRow = beforeSnap.children().get(i);
+                    InvestmentService.PositionWithSeedFractional caRow = afterSnap.children().get(i);
+                    HoldingPosition cb = cbRow == null ? null : cbRow.position();
+                    HoldingPosition ca = caRow == null ? null : caRow.position();
                     childQty = diff(ca == null ? null : ca.openQty(), cb == null ? null : cb.openQty());
                     childCost = diff(ca == null ? null : ca.openCost(), cb == null ? null : cb.openCost());
-                    fractional = diff(ca == null ? null : investmentService.seedFractionalRealized(ca.holding()),
-                            fractionalBefore.get(i));
+                    fractional = diff(caRow == null ? null : caRow.seedFractionalRealized(),
+                            cbRow == null ? null : cbRow.seedFractionalRealized());
                 }
                 rows.add(new HoldingEffect(h.getBrokerAccount().getId(), h.getBrokerAccount().getName(),
                         b.openQty(), a.openQty(), b.avgCost(), a.avgCost(), b.openCost(), a.openCost(),
@@ -121,11 +120,57 @@ public class CorporateActionPreviewService {
         }
     }
 
-    /** The caller's position in the target at {@code parent}'s broker, null when they have none there. */
-    private HoldingPosition childPosition(Holding parent, UUID childId) {
-        return holdingRepository.findByBrokerAccountIdAndInstrumentId(parent.getBrokerAccount().getId(), childId)
-                .map(investmentService::calculateHoldingPosition)
-                .orElse(null);
+    private static UUID instrumentIdOf(List<Holding> parents) {
+        return parents.isEmpty() ? null : parents.get(0).getInstrument().getId();
+    }
+
+    /**
+     * The caller's holdings of every other instrument whose demerger/merger seeds the parents or the target
+     * (a child can be the target of several instruments' actions), in two queries however many there are.
+     */
+    private List<Holding> otherParents(UUID userId, List<Holding> parents, List<Holding> childHoldings, UUID childId,
+                                       boolean hasChild, UUID parentInstrumentId) {
+        if (parentInstrumentId == null) {
+            return List.of();
+        }
+        List<UUID> targets = new ArrayList<>();
+        targets.add(parentInstrumentId);
+        if (hasChild) {
+            targets.add(childId);
+        }
+        Set<UUID> others = new LinkedHashSet<>();
+        for (CorporateAction ca : corporateActionRepository.findOwnedByTargetInstrumentIds(userId, targets)) {
+            UUID source = ca.getInstrument().getId();
+            if (!source.equals(parentInstrumentId) && !source.equals(childId)) {
+                others.add(source);
+            }
+        }
+        return others.isEmpty() ? List.of() : holdingRepository.findByUser_IdAndInstrument_IdIn(userId, others);
+    }
+
+    /** Positions of the parents and, per parent (same order), of the caller's holding in the target at its broker (null: none). */
+    private record Snapshot(List<InvestmentService.PositionWithSeedFractional> parents,
+                            List<InvestmentService.PositionWithSeedFractional> children) {}
+
+    /**
+     * One batch load of the engine inputs for the parents and the target's holdings together (so a
+     * child's seeding parent is visible to the engine), instead of per-holding reads.
+     */
+    private Snapshot snapshot(UUID userId, List<Holding> parents, UUID childId, boolean hasChild) {
+        List<Holding> childHoldings = hasChild ? holdingRepository.findByUser_IdAndInstrument_Id(userId, childId) : List.of();
+        List<Holding> all = new ArrayList<>(parents);
+        all.addAll(childHoldings);
+        List<InvestmentService.PositionWithSeedFractional> rows = investmentService.calculateHoldingPositionsWithSeedFractional(
+                all, otherParents(userId, parents, childHoldings, childId, hasChild, instrumentIdOf(parents)));
+        Map<UUID, InvestmentService.PositionWithSeedFractional> childByBroker = new HashMap<>();
+        for (int i = 0; i < childHoldings.size(); i++) {
+            childByBroker.put(childHoldings.get(i).getBrokerAccount().getId(), rows.get(parents.size() + i));
+        }
+        List<InvestmentService.PositionWithSeedFractional> children = new ArrayList<>(parents.size());
+        for (Holding p : parents) {
+            children.add(childByBroker.get(p.getBrokerAccount().getId()));
+        }
+        return new Snapshot(rows.subList(0, parents.size()), children);
     }
 
     private static BigDecimal diff(BigDecimal after, BigDecimal before) {
