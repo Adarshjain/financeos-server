@@ -10,7 +10,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.UUID;
 
-/** A {@link LendingResponse} plus the person's balance right after this entry (netPosition sign convention). */
+/** A {@link LendingResponse} plus the person's balance right after this entry (netPosition sign convention) and its cycle number. */
 public record LedgerEntryResponse(
         UUID id,
         UUID counterpartyId,
@@ -26,11 +26,12 @@ public record LedgerEntryResponse(
         Instant createdAt,
         @Nullable String returnNotifiedKind,
         @Nullable LocalDate returnNotifiedOn,
-        BigDecimal runningBalance
+        BigDecimal runningBalance,
+        int cycle
 ) {
-    public static LedgerEntryResponse from(LendingResponse l, BigDecimal runningBalance) {
+    public static LedgerEntryResponse from(LendingResponse l, BigDecimal runningBalance, int cycle) {
         return new LedgerEntryResponse(l.id(), l.counterpartyId(), l.counterpartyName(), l.direction(), l.kind(),
                 l.amount(), l.entryDate(), l.expectedReturnDate(), l.transactionId(), l.transaction(), l.notes(),
-                l.createdAt(), l.returnNotifiedKind(), l.returnNotifiedOn(), runningBalance);
+                l.createdAt(), l.returnNotifiedKind(), l.returnNotifiedOn(), runningBalance, cycle);
     }
 }

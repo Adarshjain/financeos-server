@@ -3,6 +3,7 @@ package com.financeos.domain.notification.lending;
 import com.financeos.core.time.AppTime;
 import com.financeos.domain.lending.Lending;
 import com.financeos.domain.lending.LendingDirection;
+import com.financeos.domain.lending.LendingCycles;
 import com.financeos.domain.lending.LendingKind;
 import com.financeos.domain.lending.LendingRepository;
 import com.financeos.domain.notification.NotificationKind;
@@ -96,7 +97,8 @@ public class LendingReturnNotificationService implements NotificationProducer {
     /**
      * Counterparties with a non-zero net balance whose earliest expected return date (principal
      * entries in the outstanding direction) is {@code today} or earlier. The inbox passes a later
-     * date to look ahead; the subject is still the earliest such entry.
+     * date to look ahead; the subject is still the earliest such entry,
+     * taken from the open cycle only (return dates of settled cycles are ignored).
      */
     public static List<Obligation> dueObligations(List<Lending> entries, LocalDate today) {
         Map<UUID, List<Lending>> byCounterparty = new LinkedHashMap<>();
@@ -115,7 +117,7 @@ public class LendingReturnNotificationService implements NotificationProducer {
                 continue;
             }
             LendingDirection direction = net.signum() > 0 ? LendingDirection.lent : LendingDirection.borrowed;
-            Lending subject = group.stream()
+            Lending subject = LendingCycles.openCycleEntries(group).stream()
                     .filter(e -> e.getDirection() == direction && e.getKind() == LendingKind.principal
                             && e.getExpectedReturnDate() != null && !e.getExpectedReturnDate().isAfter(today))
                     .min(Comparator.comparing(Lending::getExpectedReturnDate).thenComparing(Lending::getEntryDate))

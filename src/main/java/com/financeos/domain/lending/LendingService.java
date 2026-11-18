@@ -300,42 +300,93 @@ public class LendingService {
                 .orElse(null);
     }
 
-    /** Ledger order, oldest first: entry date, then creation time, then id (stable). */
-    private static final Comparator<Lending> CHRONOLOGICAL = Comparator
-            .comparing(Lending::getEntryDate, Comparator.nullsFirst(Comparator.<LocalDate>naturalOrder()))
-            .thenComparing(Lending::getCreatedAt, Comparator.nullsFirst(Comparator.<java.time.Instant>naturalOrder()))
-            .thenComparing(Lending::getId, Comparator.nullsFirst(Comparator.<UUID>naturalOrder()));
-
-    /**
-     * The person's entries newest first, each with the balance right after it (running over every
-     * entry oldest first, then paged), plus totals over all entries. 404 when missing or not the caller's.
-     */
+    /** Every entry, no cycle filter. */
     @Transactional(readOnly = true)
     public CounterpartyLedgerResponse getLedger(UUID counterpartyId, Pageable pageable) {
+        return getLedger(counterpartyId, null, pageable);
+    }
+
+    /**
+     * The person's entries newest first, each with the balance right after it and its cycle (running over
+     * every entry oldest first, then filtered to the selected cycle and paged), plus totals over the
+     * selected cycle (all entries when none) and every derived cycle newest first. {@code cycle}: null or
+     * {@code all} = every entry; {@code latest} = newest cycle; a positive number = that cycle, falling
+     * back to latest when it does not exist; anything else is a 400. 404 when missing or not the caller's.
+     */
+    @Transactional(readOnly = true)
+    public CounterpartyLedgerResponse getLedger(UUID counterpartyId, String cycle, Pageable pageable) {
         getOwnedCounterpartyOr404(counterpartyId);
-        List<Lending> chronological = new ArrayList<>(lendingRepository.findByCounterpartyIdWithRefs(counterpartyId));
-        chronological.sort(CHRONOLOGICAL);
+        List<LendingCycles.Placed> placed = LendingCycles.assign(lendingRepository.findByCounterpartyIdWithRefs(counterpartyId));
+        int cycleCount = placed.isEmpty() ? 0 : placed.get(placed.size() - 1).cycle();
+
+        Integer selected = null;
+        if (cycle != null && !"all".equals(cycle)) {
+            int wanted;
+            if ("latest".equals(cycle)) {
+                wanted = cycleCount;
+            } else {
+                try {
+                    wanted = Integer.parseInt(cycle);
+                } catch (NumberFormatException e) {
+                    throw new ValidationException("cycle must be all, latest or a positive number");
+                }
+                if (wanted < 1) {
+                    throw new ValidationException("cycle must be all, latest or a positive number");
+                }
+                if (wanted > cycleCount) {
+                    wanted = cycleCount;
+                }
+            }
+            selected = wanted == 0 ? null : wanted;
+        }
+
+        List<LendingCycleResponse> cycles = new ArrayList<>();
         BigDecimal lent = BigDecimal.ZERO;
         BigDecimal received = BigDecimal.ZERO;
-        BigDecimal running = BigDecimal.ZERO;
-        List<LedgerEntryResponse> newestFirst = new ArrayList<>(chronological.size());
-        for (Lending l : chronological) {
-            if (l.getDirection() == LendingDirection.lent) {
-                lent = lent.add(l.getAmount());
-                running = running.add(l.getAmount());
-            } else {
-                received = received.add(l.getAmount());
-                running = running.subtract(l.getAmount());
+        List<LedgerEntryResponse> newestFirst = new ArrayList<>(placed.size());
+        int number = 0;
+        int count = 0;
+        BigDecimal cLent = BigDecimal.ZERO;
+        BigDecimal cReceived = BigDecimal.ZERO;
+        LocalDate start = null;
+        for (int i = 0; i < placed.size(); i++) {
+            LendingCycles.Placed p = placed.get(i);
+            Lending l = p.entry();
+            if (p.cycle() != number) {
+                number = p.cycle();
+                count = 0;
+                cLent = BigDecimal.ZERO;
+                cReceived = BigDecimal.ZERO;
+                start = l.getEntryDate();
             }
-            newestFirst.add(LedgerEntryResponse.from(LendingResponse.from(l), running));
+            count++;
+            if (l.getDirection() == LendingDirection.lent) {
+                cLent = cLent.add(l.getAmount());
+            } else {
+                cReceived = cReceived.add(l.getAmount());
+            }
+            if (selected == null || selected == p.cycle()) {
+                if (l.getDirection() == LendingDirection.lent) {
+                    lent = lent.add(l.getAmount());
+                } else {
+                    received = received.add(l.getAmount());
+                }
+                newestFirst.add(LedgerEntryResponse.from(LendingResponse.from(l), p.runningBalance(), p.cycle()));
+            }
+            boolean last = i == placed.size() - 1 || placed.get(i + 1).cycle() != number;
+            if (last) {
+                cycles.add(new LendingCycleResponse(number, start, l.getEntryDate(), p.runningBalance().signum() == 0,
+                        count, cLent, cReceived, cLent.subtract(cReceived)));
+            }
         }
+        Collections.reverse(cycles);
         Collections.reverse(newestFirst);
         List<LedgerEntryResponse> slice = pageable.isUnpaged()
                 ? newestFirst
                 : newestFirst.subList((int) Math.min(pageable.getOffset(), newestFirst.size()),
                         (int) Math.min(pageable.getOffset() + pageable.getPageSize(), newestFirst.size()));
         return new CounterpartyLedgerResponse(new PageImpl<>(slice, pageable, newestFirst.size()),
-                new CounterpartyLedgerResponse.Totals(lent, received, lent.subtract(received)));
+                new CounterpartyLedgerResponse.Totals(lent, received, lent.subtract(received)), cycles, selected);
     }
 
     /** Match suggestions for every person that has at least one candidate, name order. */
@@ -1011,7 +1062,7 @@ public class LendingService {
                 else totalBorrowed = totalBorrowed.add(l.getAmount());
             }
         }
-        Lending last = entries.stream().max(CHRONOLOGICAL).orElse(null);
+        Lending last = entries.stream().max(LendingCycles.CHRONOLOGICAL).orElse(null);
         return CounterpartyResponse.from(cp, totalLent, totalBorrowed, repaidToYou, repaidByYou, entries.size(),
                 last == null ? null : last.getEntryDate(), last == null ? null : last.getDirection(), last == null ? null : last.getKind(),
                 last == null ? null : last.getAmount(), expectedReturnDateOf(entries),
@@ -1093,7 +1144,7 @@ public class LendingService {
             LendingDirection targetDir = net.compareTo(BigDecimal.ZERO) > 0 ? LendingDirection.lent : LendingDirection.borrowed;
             LocalDate earliestReturnDate = null;
 
-            for (Lending e : entries) {
+            for (Lending e : LendingCycles.openCycleEntries(entries)) {
                 if (e.getDirection() == targetDir && e.getExpectedReturnDate() != null) {
                     LocalDate date = e.getExpectedReturnDate();
                     boolean isOverdue = date.isBefore(today);

@@ -2951,7 +2951,10 @@ paths:
   /api/v1/counterparties/{id}/ledger:
     get:
       description: "The person's entries newest first with a running balance, plus\
-        \ totals."
+        \ totals and the derived cycles (newest first). cycle=all (default) returns\
+        \ every entry; latest the newest cycle; a positive number that cycle (falls\
+        \ back to latest when it does not exist); anything else is 400. Totals follow\
+        \ the selected cycle."
       operationId: getCounterpartyLedger
       parameters:
       - in: path
@@ -2960,6 +2963,11 @@ paths:
         schema:
           type: string
           format: uuid
+      - in: query
+        name: cycle
+        required: false
+        schema:
+          type: string
       - description: Zero-based page index (0..N)
         in: query
         name: page
@@ -15556,11 +15564,21 @@ components:
     CounterpartyLedgerResponse:
       type: object
       properties:
+        cycles:
+          type: array
+          items:
+            $ref: "#/components/schemas/LendingCycleResponse"
         entries:
           $ref: "#/components/schemas/PageLedgerEntryResponse"
+        selectedCycle:
+          type: integer
+          format: int32
+          nullable: true
+          x-nullable: true
         totals:
           $ref: "#/components/schemas/Totals"
       required:
+      - cycles
       - entries
       - totals
     CounterpartyMatchSuggestionsResponse:
@@ -20969,6 +20987,9 @@ components:
         createdAt:
           type: string
           format: date-time
+        cycle:
+          type: integer
+          format: int32
         direction:
           type: string
           enum:
@@ -21017,11 +21038,44 @@ components:
       - counterpartyId
       - counterpartyName
       - createdAt
+      - cycle
       - direction
       - entryDate
       - id
       - kind
       - runningBalance
+    LendingCycleResponse:
+      type: object
+      properties:
+        closing:
+          type: number
+        endDate:
+          type: string
+          format: date
+        entryCount:
+          type: integer
+          format: int32
+        lent:
+          type: number
+        number:
+          type: integer
+          format: int32
+        received:
+          type: number
+        settled:
+          type: boolean
+        startDate:
+          type: string
+          format: date
+      required:
+      - closing
+      - endDate
+      - entryCount
+      - lent
+      - number
+      - received
+      - settled
+      - startDate
     LendingMatchSuggestion:
       type: object
       properties:

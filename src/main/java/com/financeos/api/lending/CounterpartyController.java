@@ -89,9 +89,12 @@ public class CounterpartyController {
     }
 
     @GetMapping("/{id}/ledger")
-    @Operation(operationId = "getCounterpartyLedger", description = "The person's entries newest first with a running balance, plus totals.")
-    public CounterpartyLedgerResponse getLedger(@PathVariable UUID id, @ParameterObject @PageableDefault(size = 50) Pageable pageable) {
-        return lendingService.getLedger(id, pageable);
+    @Operation(operationId = "getCounterpartyLedger", description = "The person's entries newest first with a running balance, plus totals and the derived cycles "
+            + "(newest first). cycle=all (default) returns every entry; latest the newest cycle; a positive number that cycle "
+            + "(falls back to latest when it does not exist); anything else is 400. Totals follow the selected cycle.")
+    public CounterpartyLedgerResponse getLedger(@PathVariable UUID id, @RequestParam(required = false) String cycle,
+            @ParameterObject @PageableDefault(size = 50) Pageable pageable) {
+        return lendingService.getLedger(id, cycle, pageable);
     }
 
     @GetMapping("/suggest")
