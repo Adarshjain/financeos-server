@@ -124,8 +124,8 @@ public class HomeDashboardSeeder {
     }
 
     /**
-     * A bar chart of this month's debits by category over the transactions datasource, leaving out
-     * excluded transactions and transfer legs. A report the user already owns under the same name
+     * A bar chart of this month's debits by category over the transactions datasource, counting only
+     * what counts as spend (no excluded rows, transfer legs or default-excluded categories). A report the user already owns under the same name
      * and datasource (an earlier seed) is reused, so Restore never piles up duplicates. A new
      * definition is validated before anything is persisted; when it cannot be built the report is
      * skipped (with a warning) and the four built-ins still seed.
@@ -163,8 +163,7 @@ public class HomeDashboardSeeder {
             debitsOnly.put("operator", "is");
             debitsOnly.put("value", "DEBIT");
         }
-        addIsFalseFilter(transactions, filters, "isExcluded");
-        addIsFalseFilter(transactions, filters, "isTransferLeg");
+        addIsTrueFilter(transactions, filters, "countsInTotals");
 
         try {
             ReportDefinition parsed = ReportDefinitions.parse(ReportType.CHART, definition, mapper);
@@ -182,8 +181,8 @@ public class HomeDashboardSeeder {
         return report.getId();
     }
 
-    /** {@code <field> is false}, only when the datasource exposes it as a filterable boolean. */
-    private static void addIsFalseFilter(ReportDatasource datasource, ArrayNode filters, String fieldName) {
+    /** {@code <field> is true}, only when the datasource exposes it as a filterable boolean. */
+    private static void addIsTrueFilter(ReportDatasource datasource, ArrayNode filters, String fieldName) {
         FieldDef field = datasource.field(fieldName);
         if (field == null || field.type() != FieldType.BOOLEAN || !field.canFilter()) {
             return;
@@ -191,6 +190,6 @@ public class HomeDashboardSeeder {
         ObjectNode clause = filters.addObject();
         clause.put("field", fieldName);
         clause.put("operator", "is");
-        clause.put("value", false);
+        clause.put("value", true);
     }
 }

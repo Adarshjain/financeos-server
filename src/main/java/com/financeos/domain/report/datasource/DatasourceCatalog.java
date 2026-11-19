@@ -294,13 +294,13 @@ public class DatasourceCatalog {
             FieldDef.cycleDate("date", "Date", CHART_TABLE),
             new FieldDef("type", "Type", FieldType.ENUM, FieldRole.DIMENSION, null,
                     List.of("DEBIT", "CREDIT"), null, CHART_TABLE),
-            // The old per-user categories, now tags: filters hold tag names.
-            new FieldDef("tag", "Tag", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
             // The fixed category list: filters hold keys (food, food.delivery), the dropdown shows labels.
             new FieldDef("category", "Category", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE,
                     null, "categoryKey"),
             new FieldDef("subcategory", "Sub-category", FieldType.ENUM, FieldRole.DIMENSION, null, null, true,
                     CHART_TABLE, null, "subcategoryKey"),
+            // Tags are secondary free labels (many per transaction); filters hold tag names.
+            new FieldDef("tag", "Tag", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE),
             new FieldDef("account", "Account", FieldType.ENUM, FieldRole.DIMENSION, null, null, true, CHART_TABLE,
                     null, "accountId"),
             new FieldDef("accountType", "Account Type", FieldType.ENUM, FieldRole.DIMENSION, null,
@@ -309,6 +309,7 @@ public class DatasourceCatalog {
                     names(TransactionSource.values()), null, CHART_TABLE),
             new FieldDef("description", "Description", FieldType.STRING, FieldRole.DIMENSION, null, null, null, TABLE_ONLY),
             new FieldDef("isUnderMonitoring", "Under monitoring", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
+            new FieldDef("countsInTotals", "Counts as spend or income", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("isExcluded", "Is Excluded", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("isExcludedFromOutflow", "Is excluded from outflow", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),
             new FieldDef("isTransferLeg", "Is transfer leg", FieldType.BOOLEAN, FieldRole.FILTER, null, null, null, NONE),

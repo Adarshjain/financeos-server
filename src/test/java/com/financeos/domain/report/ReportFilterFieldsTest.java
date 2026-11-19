@@ -233,7 +233,7 @@ class ReportFilterFieldsTest {
 
         Map<String, List<String>> values = service.values("transactions").values();
 
-        assertEquals(List.of("tag", "category", "subcategory", "account", "card", "cardholder"), List.copyOf(values.keySet()));
+        assertEquals(List.of("category", "subcategory", "tag", "account", "card", "cardholder"), List.copyOf(values.keySet()));
         assertEquals(List.of("Priya", "Unattributed"), values.get("cardholder"));
         verify(em).createNativeQuery(org.mockito.ArgumentMatchers.contains("NVL(ch.person_name, 'Unattributed')"));
     }

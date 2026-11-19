@@ -35,6 +35,20 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
     public static final String IS_TRANSFER_LEG =
             "(CASE WHEN EXISTS (SELECT 1 FROM transaction_link_members m JOIN transaction_links l ON l.id = m.link_id WHERE m.transaction_id = t.id AND l.type IN ('TRANSFER','CC_PAYMENT','REVERSAL')) THEN 1 ELSE 0 END)";
 
+    /**
+     * 1 when the transaction counts as real spend or income, else 0. It does not count when it is
+     * excluded, is a transfer leg, or sits in a category that is excluded by default (Self transfer,
+     * Card bill, Top-up) while the user has not set the exclusion themselves. A row the user
+     * explicitly un-excluded counts (unless it is a transfer leg). Uncategorised rows count.
+     * The chat view {@code v_chat_transactions.counts_in_totals} uses the same text.
+     */
+    public static final String COUNTS_IN_TOTALS =
+            "(CASE WHEN CAST(t.is_excluded AS NUMBER(1)) = 1"
+            + " OR " + IS_TRANSFER_LEG + " = 1"
+            + " OR (t.category_key IN (SELECT dc.category_key FROM txn_categories dc WHERE CAST(dc.excluded_by_default AS NUMBER(1)) = 1)"
+            + " AND NVL(CAST(t.exclude_set_by_user AS NUMBER(1)), 0) <> 1)"
+            + " THEN 0 ELSE 1 END)";
+
     public static final String IS_REFUND_LEG =
             "(CASE WHEN EXISTS (SELECT 1 FROM transaction_link_members m JOIN transaction_links l ON l.id = m.link_id WHERE m.transaction_id = t.id AND l.type = 'REFUND') THEN 1 ELSE 0 END)";
 
@@ -100,15 +114,23 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
     /**
      * Sub-category label. The label is qualified with its category when two categories share a
      * sub-category name (the inline view in {@link #baseFrom}), so a group is never two sub-categories.
-     * A categorised transaction with no sub-category is "(none)" like any other empty dimension.
+     * A categorised transaction with no sub-category is "Category · Others".
      */
-    public static final String SUBCATEGORY_DIM = "CASE WHEN t.subcategory_key IS NOT NULL THEN COALESCE(xs.label, t.subcategory_key)"
-            + " WHEN t.category_key IS NULL THEN 'Uncategorized' ELSE '(none)' END";
+    public static final String SEPARATOR = " \u00B7 ";
+    public static final String OTHERS_SUFFIX = SEPARATOR + "Others";
 
-    /** Every sub-category key with its grouping label (qualified by category where two share a name). */
+    public static final String SUBCATEGORY_DIM = "CASE WHEN t.subcategory_key IS NOT NULL THEN COALESCE(xs.label, t.subcategory_key)"
+            + " WHEN t.category_key IS NULL THEN 'Uncategorized'"
+            + " ELSE COALESCE(xsc.name, t.category_key) || '" + OTHERS_SUFFIX + "' END";
+
+    /**
+     * Every sub-category key with its grouping label "Category · Sub" and its plain table label
+     * (qualified by category where two share a name).
+     */
     private static final String SUBCATEGORY_LABELS =
-            "SELECT s.subcategory_key AS sk, CASE WHEN COUNT(*) OVER (PARTITION BY s.name) > 1"
-            + " THEN s.name || ' (' || sc.name || ')' ELSE s.name END AS label"
+            "SELECT s.subcategory_key AS sk, sc.name || '" + SEPARATOR + "' || s.name AS label,"
+            + " CASE WHEN COUNT(*) OVER (PARTITION BY s.name) > 1"
+            + " THEN s.name || ' (' || sc.name || ')' ELSE s.name END AS plain"
             + " FROM txn_subcategories s JOIN txn_categories sc ON sc.category_key = s.category_key";
 
     private static final Map<String, Mapping> MAPPINGS = Map.ofEntries(
@@ -130,9 +152,10 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
             Map.entry(CATEGORY_KEY, new Mapping("t.category_key", null)),
             Map.entry(SUBCATEGORY_KEY, new Mapping("t.subcategory_key", null)),
             Map.entry(CATEGORY_LABEL, new Mapping("xc.name", JOIN_CATEGORY)),
-            Map.entry(SUBCATEGORY_LABEL, new Mapping("CASE WHEN t.subcategory_key IS NOT NULL THEN COALESCE(xs.label, t.subcategory_key) END",
+            Map.entry(SUBCATEGORY_LABEL, new Mapping("CASE WHEN t.subcategory_key IS NOT NULL THEN COALESCE(xs.plain, t.subcategory_key) END",
                     JOIN_SUBCATEGORY)),
             Map.entry("isUnderMonitoring", new Mapping("t.is_under_monitoring", null)),
+            Map.entry("countsInTotals", new Mapping(COUNTS_IN_TOTALS, null)),
             Map.entry("isExcluded", new Mapping("t.is_excluded", null)),
             Map.entry("isExcludedFromOutflow", new Mapping(com.financeos.domain.insights.EmergencyFundService.EXCLUDED_FROM_OUTFLOW_SQL, null)),
             Map.entry("isTransferLeg", new Mapping(IS_TRANSFER_LEG, null)),
@@ -221,8 +244,9 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
     /**
      * Category / sub-category filters take a key (the dropdown value) or the label exactly as the grouping
      * prints it, because a drill from a chart bar filters on the bucket's label: "Food", a qualified sub
-     * label such as "Kids (Shopping)", "Uncategorized" (no category) and, on sub-categories, "(none)"
-     * (a category without a sub-category). Labels resolve to keys through the seeded global tables
+     * label such as "Shopping · Kids", "Uncategorized" (no category) and, on sub-categories,
+     * "Shopping · Others" (that category without a sub-category) or the legacy "(none)" (any category
+     * without a sub-category). Labels resolve to keys through the seeded global tables
      * (no user data), and the query is still scoped to the user by the caller's user predicate. As with any
      * enum, a negated operator keeps the rows that have no value.
      */
@@ -245,8 +269,12 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
         if (values.contains("Uncategorized")) {
             any.add("t.category_key IS NULL");
         }
-        if (!category && values.contains("(none)")) {
-            any.add("(t.category_key IS NOT NULL AND t.subcategory_key IS NULL)");
+        if (!category) {
+            if (values.contains("(none)")) {
+                any.add("(t.category_key IS NOT NULL AND t.subcategory_key IS NULL)");
+            }
+            any.add("(t.subcategory_key IS NULL AND t.category_key IN (SELECT xo.category_key FROM txn_categories xo"
+                    + " WHERE xo.name || '" + OTHERS_SUFFIX + "' IN (:" + p + ")))");
         }
         // CASE turns "unknown" (a NULL key) into a plain no, so the negation keeps those rows.
         String match = "(CASE WHEN " + String.join(" OR ", any) + " THEN 1 ELSE 0 END) = 1";
@@ -377,7 +405,8 @@ public class TransactionQueryBuilder extends AbstractReportQueryBuilder {
             sb.append(" LEFT JOIN txn_categories xc ON xc.category_key = t.category_key");
         }
         if (joins.contains(JOIN_SUBCATEGORY)) {
-            sb.append(" LEFT JOIN (").append(SUBCATEGORY_LABELS).append(") xs ON xs.sk = t.subcategory_key");
+            sb.append(" LEFT JOIN (").append(SUBCATEGORY_LABELS).append(") xs ON xs.sk = t.subcategory_key")
+              .append(" LEFT JOIN txn_categories xsc ON xsc.category_key = t.category_key");
         }
         if (joins.contains(JOIN_TAGS)) {
             sb.append(" LEFT JOIN transaction_tags tc ON tc.transaction_id = t.id")

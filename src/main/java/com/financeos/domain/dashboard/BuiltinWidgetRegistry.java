@@ -519,8 +519,8 @@ public class BuiltinWidgetRegistry {
     // ------------------------------------------------------------------ spending
 
     /**
-     * Daily spend over the last {@code months} months ending today: debits only, excluded
-     * transactions and transfer legs left out.
+     * Daily spend over the last {@code months} months ending today: debits only, counting
+     * only what counts as spend (same rule as "Spend this month").
      */
     private Entry spendHeatmap() {
         ObjectNode def = mapper.createObjectNode();
@@ -530,8 +530,7 @@ public class BuiltinWidgetRegistry {
         def.putObject("measure").put("field", "spend").put("aggregation", "sum");
         ArrayNode filters = def.putArray("filters");
         filter(filters, "type", "is", mapper.getNodeFactory().textNode("DEBIT"));
-        filter(filters, "isExcluded", "is", mapper.getNodeFactory().booleanNode(false));
-        filter(filters, "isTransferLeg", "is", mapper.getNodeFactory().booleanNode(false));
+        filter(filters, "countsInTotals", "is", mapper.getNodeFactory().booleanNode(true));
         ObjectNode window = mapper.createObjectNode().put("amount", HEATMAP_DEFAULT_MONTHS);
         filter(filters, "date", "last_x_months", window);
         ParamSpec months = ParamSpec.intParam("months", false,

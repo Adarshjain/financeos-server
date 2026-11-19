@@ -36,6 +36,7 @@ Individual financial transactions (bank debits/credits, credit card swipes, manu
 - `is_under_monitoring`: Boolean flag (1/0) if transaction flagged for user review.
 - `review_type`: Review state enum: `'NEEDS_REVIEW'`, `'AUTO_REVIEWED'`, `'MANUALLY_REVIEWED'`, `'NA'`.
 - `is_excluded`: Boolean flag (1/0) if user explicitly excluded this row from budget/summary analyses.
+- `counts_in_totals`: Boolean flag (1/0), 1 when the row counts as real spend or income. 0 when the row is excluded, is a transfer leg (transfer, card payment or reversal link), or is in a category excluded by default (`self_transfer`, `card_bill`, `top_up`) and the user did not set the exclusion themselves. Uncategorised rows count. Use this, not `is_excluded` or category keys, for totals.
 - `instant_discount`: Checkout discount amount not charged to card.
 - `convenience_fee`: Labeled surcharge/fee included inside `amount`.
 - `category_key` / `category_name`: The transaction's ONE category from the fixed list (e.g. `food` / 'Food'); NULL = uncategorized. See `v_chat_categories`.
@@ -146,8 +147,8 @@ Reference instruments and their price history points. Names, symbols, exchange, 
 
 ## Canonical Definitions & Business Rules
 
-1. **Spend**: Transactions where `direction = 'DEBIT'` AND `is_excluded = 0` AND `(category_key IS NULL OR category_key NOT IN ('self_transfer', 'card_bill', 'top_up'))`.
-2. **Income**: Transactions where `direction = 'CREDIT'` AND `is_excluded = 0` AND `(category_key IS NULL OR category_key NOT IN ('self_transfer', 'card_bill', 'top_up'))`.
+1. **Spend**: Transactions where `direction = 'DEBIT' AND counts_in_totals = 1`.
+2. **Income**: Transactions where `direction = 'CREDIT' AND counts_in_totals = 1`.
 3. **Indian Financial Year (FY)**: Runs from April 1 of year Y to March 31 of year Y+1 (e.g. FY 2025-26 = 2025-04-01 to 2026-03-31).
 4. **Net worth recipe** (there is no single tool for this — assemble it): bank balances = `bank_opening_balance` + (CREDITs − DEBITs) per bank account from `v_chat_transactions`; broker value = `get_portfolio_value` total + `broker_cash_balance` per broker account; respect `exclude_from_net_asset = 0`; combine the pieces with `calc`. State your assumptions in the answer.
 

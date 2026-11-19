@@ -94,11 +94,12 @@ class ReportCategoryDimensionIntegrationTest {
     }
 
     @Test
-    void subcategoryDimensionGroupsBySubWithLabelsQualifiedWhereTwoCategoriesShareAName() throws Exception {
+    void subcategoryDimensionGroupsByCategoryAndSubLabel() throws Exception {
         Map<String, String> bySub = chartValues(chart("subcategory", List.of()));
 
-        assertEquals(Map.of("Delivery", "100", "Dining", "50", "(none)", "35",
-                "Kids (Shopping)", "7", "Kids (Family)", "3", "Uncategorized", "20"), bySub);
+        assertEquals(Map.of("Food \u00B7 Delivery", "100", "Food \u00B7 Dining", "50", "Food \u00B7 Others", "25",
+                "Groceries \u00B7 Others", "10", "Shopping \u00B7 Kids", "7", "Family \u00B7 Kids", "3",
+                "Uncategorized", "20"), bySub);
     }
 
     @Test
@@ -149,12 +150,12 @@ class ReportCategoryDimensionIntegrationTest {
     }
 
     @Test
-    void aQualifiedSubCategoryLabelAndAPlainOneDrillToTheRightRows() throws Exception {
-        assertDecimal("7", api.postJson("/api/v1/reports/data", kpi(filter("subcategory", "is", "Kids (Shopping)")), 200).get("value"));
-        assertDecimal("3", api.postJson("/api/v1/reports/data", kpi(filter("subcategory", "is", "Kids (Family)")), 200).get("value"));
-        assertDecimal("100", api.postJson("/api/v1/reports/data", kpi(filter("subcategory", "is", "Delivery")), 200).get("value"));
+    void aCategoryAndSubLabelDrillsToTheRightRows() throws Exception {
+        assertDecimal("7", api.postJson("/api/v1/reports/data", kpi(filter("subcategory", "is", "Shopping \u00B7 Kids")), 200).get("value"));
+        assertDecimal("3", api.postJson("/api/v1/reports/data", kpi(filter("subcategory", "is", "Family \u00B7 Kids")), 200).get("value"));
+        assertDecimal("100", api.postJson("/api/v1/reports/data", kpi(filter("subcategory", "is", "Food \u00B7 Delivery")), 200).get("value"));
         assertDecimal("107", api.postJson("/api/v1/reports/data",
-                kpi(filter("subcategory", "in", List.of("Delivery", "shopping.kids"))), 200).get("value"));
+                kpi(filter("subcategory", "in", List.of("Food \u00B7 Delivery", "shopping.kids"))), 200).get("value"));
         // Another user's food row never leaks into a label drill.
         assertDecimal("175", api.postJson("/api/v1/reports/data", kpi(filter("category", "is", "Food")), 200).get("value"));
     }

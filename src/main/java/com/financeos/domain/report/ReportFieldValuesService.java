@@ -3,11 +3,13 @@ package com.financeos.domain.report;
 import com.financeos.api.report.dto.ReportFieldValuesResponse;
 import com.financeos.api.report.dto.ReportFieldValuesResponse.Option;
 import com.financeos.core.security.UserContext;
+import com.financeos.domain.category.CategoryCatalog;
 import com.financeos.domain.report.datasource.ComputedReportDatasource;
 import com.financeos.domain.report.datasource.DatasourceCatalog.FieldDef;
 import com.financeos.domain.report.datasource.DatasourceRegistry;
 import com.financeos.domain.report.datasource.ReportDatasource;
 import com.financeos.domain.report.engine.ReportQueryBuilder;
+import com.financeos.domain.report.engine.TransactionQueryBuilder;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -124,9 +126,60 @@ public class ReportFieldValuesService {
                     values.add(new Option(String.valueOf(row), String.valueOf(row)));
                 }
             }
-            values.sort(BY_LABEL);
+            if ("categoryKey".equals(f.idField())) {
+                values = categoryOptions(values);
+            } else if ("subcategoryKey".equals(f.idField())) {
+                values = subcategoryOptions(values);
+            } else {
+                values.sort(BY_LABEL);
+            }
             out.put(f.name(), values);
         }
         return out;
+    }
+
+    /** Categories in the category list's own order; "Uncategorized" is always offered, last. */
+    private static List<Option> categoryOptions(List<Option> found) {
+        CategoryCatalog catalog = CategoryCatalog.shared();
+        Map<String, Integer> order = new HashMap<>();
+        List<CategoryCatalog.Cat> all = catalog.all();
+        for (int i = 0; i < all.size(); i++) {
+            order.put(all.get(i).key(), i);
+        }
+        List<Option> values = new ArrayList<>(found);
+        values.removeIf(o -> "Uncategorized".equals(o.value()));
+        values.sort(Comparator.comparingInt((Option o) -> order.getOrDefault(o.value(), Integer.MAX_VALUE))
+                .thenComparing(BY_LABEL));
+        values.add(new Option("Uncategorized", "Uncategorized"));
+        return values;
+    }
+
+    /** Sub-categories named "Category · Sub", ordered by category order, then the sub-category's sort order. */
+    private static List<Option> subcategoryOptions(List<Option> found) {
+        CategoryCatalog catalog = CategoryCatalog.shared();
+        Map<String, Integer> categoryOrder = new HashMap<>();
+        List<CategoryCatalog.Cat> all = catalog.all();
+        for (int i = 0; i < all.size(); i++) {
+            categoryOrder.put(all.get(i).key(), i);
+        }
+        List<Option> named = new ArrayList<>();
+        Map<String, int[]> rank = new HashMap<>();
+        for (Option o : found) {
+            var sub = catalog.subcategory(o.value());
+            if (sub.isPresent()) {
+                String category = catalog.category(sub.get().categoryKey()).map(CategoryCatalog.Cat::name)
+                        .orElse(sub.get().categoryKey());
+                named.add(new Option(o.value(), category + TransactionQueryBuilder.SEPARATOR + sub.get().name()));
+                rank.put(o.value(), new int[] {
+                        categoryOrder.getOrDefault(sub.get().categoryKey(), Integer.MAX_VALUE), sub.get().sortOrder()});
+            } else {
+                named.add(o);
+            }
+        }
+        int[] last = {Integer.MAX_VALUE, Integer.MAX_VALUE};
+        named.sort(Comparator.comparingInt((Option o) -> rank.getOrDefault(o.value(), last)[0])
+                .thenComparingInt(o -> rank.getOrDefault(o.value(), last)[1])
+                .thenComparing(BY_LABEL));
+        return named;
     }
 }

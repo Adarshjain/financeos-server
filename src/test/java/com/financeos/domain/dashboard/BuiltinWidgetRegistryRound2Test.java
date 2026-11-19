@@ -351,7 +351,7 @@ class BuiltinWidgetRegistryRound2Test {
     }
 
     @Test
-    void heatmapCountsDebitsNotExcludedNotTransfersOverTheLastMonths() {
+    void heatmapCountsDebitsThatCountInTotalsOverTheLastMonths() {
         Entry e = registry.require("spend_heatmap");
         JsonNode def = registry.resolveDefinition(e, null);
         assertEquals("date", def.get("dimension").get("field").asText());
@@ -359,8 +359,8 @@ class BuiltinWidgetRegistryRound2Test {
         assertEquals("spend", def.get("measure").get("field").asText());
         assertEquals("sum", def.get("measure").get("aggregation").asText());
         assertEquals("DEBIT", filter(def, "type", "is").get("value").asText());
-        assertFalse(filter(def, "isExcluded", "is").get("value").asBoolean());
-        assertFalse(filter(def, "isTransferLeg", "is").get("value").asBoolean());
+        assertTrue(filter(def, "countsInTotals", "is").get("value").asBoolean());
+        assertEquals(3, def.get("filters").size(), "type, countsInTotals and the date window only");
         assertEquals(6, filter(def, "date", "last_x_months").get("value").get("amount").asInt());
         assertEquals(12, filter(registry.resolveDefinition(e, params().put("months", 12)), "date", "last_x_months")
                 .get("value").get("amount").asInt());

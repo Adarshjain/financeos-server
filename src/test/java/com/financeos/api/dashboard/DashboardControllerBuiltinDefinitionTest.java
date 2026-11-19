@@ -131,8 +131,9 @@ class DashboardControllerBuiltinDefinitionTest {
         assertEquals("last_x_months", window.get("operator").asText());
         assertEquals(3, window.get("value").get("amount").asInt());
         assertEquals("DEBIT", only(r.definition(), "type").get("value").asText());
-        assertFalse(only(r.definition(), "isExcluded").get("value").asBoolean());
-        assertFalse(only(r.definition(), "isTransferLeg").get("value").asBoolean());
+        assertTrue(only(r.definition(), "countsInTotals").get("value").asBoolean());
+        assertTrue(filters(r.definition(), "isExcluded").isEmpty());
+        assertTrue(filters(r.definition(), "isTransferLeg").isEmpty());
         assertEquals("day", r.definition().get("dimension").get("granularity").asText());
         assertNull(r.windowAsOf());
     }

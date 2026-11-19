@@ -207,17 +207,14 @@ class HomeDashboardSeederTest {
         assertEquals("sum", def.get("measure").get("aggregation").asText());
 
         JsonNode filters = def.get("filters");
-        assertEquals(List.of("date", "type", "isExcluded", "isTransferLeg"), filterFields(def));
+        assertEquals(List.of("date", "type", "countsInTotals"), filterFields(def));
         assertEquals("this_month", filters.get(0).get("operator").asText());
         assertTrue(filters.get(0).get("value") == null || filters.get(0).get("value").isNull());
         assertEquals("is", filters.get(1).get("operator").asText());
         assertEquals("DEBIT", filters.get(1).get("value").asText());
         assertEquals("is", filters.get(2).get("operator").asText());
         assertTrue(filters.get(2).get("value").isBoolean());
-        assertEquals(false, filters.get(2).get("value").asBoolean());
-        assertEquals("is", filters.get(3).get("operator").asText());
-        assertTrue(filters.get(3).get("value").isBoolean());
-        assertEquals(false, filters.get(3).get("value").asBoolean());
+        assertEquals(true, filters.get(2).get("value").asBoolean());
 
         ReportDefinition parsed = ReportDefinitions.parse(ReportType.CHART, def, mapper);
         assertDoesNotThrow(() -> realValidator.validate("transactions", parsed));
@@ -311,13 +308,25 @@ class HomeDashboardSeederTest {
 
     @Test
     void filtersAreSkippedWhenTheirFieldsAreIneligible() {
-        // type without DEBIT, isExcluded not a boolean, isTransferLeg not filterable
+        // type without DEBIT, countsInTotals not a boolean (then not filterable)
         ReportDatasource odd = mock(ReportDatasource.class);
         when(odd.field("type")).thenReturn(new FieldDef("type", "Type", FieldType.ENUM, FieldRole.DIMENSION,
                 null, List.of("CREDIT"), null, List.of()));
-        when(odd.field("isExcluded")).thenReturn(new FieldDef("isExcluded", "Ex", FieldType.STRING, FieldRole.FILTER,
+        when(odd.field("countsInTotals")).thenReturn(new FieldDef("countsInTotals", "Counts", FieldType.STRING, FieldRole.FILTER,
                 null, null, null, List.of()));
-        when(odd.field("isTransferLeg")).thenReturn(new FieldDef("isTransferLeg", "Leg", FieldType.BOOLEAN,
+        DatasourceRegistry registry = mock(DatasourceRegistry.class);
+        when(registry.isKnown("transactions")).thenReturn(true);
+        when(registry.byName("transactions")).thenReturn(odd);
+
+        seeder(registry, mock(ReportDefinitionValidator.class)).restore(userId);
+
+        assertEquals(List.of("date"), filterFields(capturedReport().definition()));
+    }
+
+    @Test
+    void aBooleanFieldThatIsNotFilterableIsSkipped() {
+        ReportDatasource odd = mock(ReportDatasource.class);
+        when(odd.field("countsInTotals")).thenReturn(new FieldDef("countsInTotals", "Counts", FieldType.BOOLEAN,
                 FieldRole.FILTER, null, null, null, List.of()).notFilterable());
         DatasourceRegistry registry = mock(DatasourceRegistry.class);
         when(registry.isKnown("transactions")).thenReturn(true);
@@ -333,7 +342,7 @@ class HomeDashboardSeederTest {
         ReportDatasource dynamicType = mock(ReportDatasource.class);
         when(dynamicType.field("type")).thenReturn(new FieldDef("type", "Type", FieldType.ENUM, FieldRole.DIMENSION,
                 null, null, true, List.of()));
-        when(dynamicType.field("isExcluded")).thenReturn(new FieldDef("isExcluded", "Ex", FieldType.BOOLEAN,
+        when(dynamicType.field("countsInTotals")).thenReturn(new FieldDef("countsInTotals", "Counts", FieldType.BOOLEAN,
                 FieldRole.FILTER, null, null, null, List.of()));
         DatasourceRegistry registry = mock(DatasourceRegistry.class);
         when(registry.isKnown("transactions")).thenReturn(true);
@@ -341,7 +350,7 @@ class HomeDashboardSeederTest {
 
         seeder(registry, mock(ReportDefinitionValidator.class)).restore(userId);
 
-        assertEquals(List.of("date", "isExcluded"), filterFields(capturedReport().definition()));
+        assertEquals(List.of("date", "countsInTotals"), filterFields(capturedReport().definition()));
     }
 
     // ------------------------------------------------------------------ restore
